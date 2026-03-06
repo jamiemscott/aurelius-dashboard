@@ -145,6 +145,201 @@ function buildActivityFeed() {
     </div>`).join('');
 }
 
+/* ─── DOCUMENTS PAGE ─────────────────────────────────── */
+
+const DOC_CATS = {
+  statement:      { label: 'Statement',      color: '#3B82F6', bg: 'rgba(59,130,246,0.12)'  },
+  tax:            { label: 'Tax',            color: '#22C55E', bg: 'rgba(34,197,94,0.12)'   },
+  report:         { label: 'Report',         color: '#F5A623', bg: 'rgba(245,166,35,0.12)'  },
+  correspondence: { label: 'Correspondence', color: '#8B5CF6', bg: 'rgba(139,92,246,0.12)'  },
+  form:           { label: 'Form',           color: '#6B7280', bg: 'rgba(107,114,128,0.12)' },
+};
+
+const DOC_ICONS = {
+  statement:      `<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`,
+  tax:            `<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/><line x1="9" y1="15" x2="13" y2="15"/></svg>`,
+  report:         `<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>`,
+  correspondence: `<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`,
+  form:           `<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>`,
+};
+
+let docState = {
+  unread: new Set(),
+  activeCategory: 'all',
+  searchQuery: '',
+};
+
+function buildDocumentsPage() {
+  docState.unread = new Set(documents.filter(d => d.unread).map(d => d.id));
+  renderDocStats();
+  buildDocTabs();
+  renderDocList();
+}
+
+function buildDocTabs() {
+  const container = document.getElementById('doc-tabs');
+  if (!container) return;
+  const catKeys   = ['all', 'statement', 'tax', 'report', 'correspondence', 'form'];
+  const catLabels = { all: 'All', statement: 'Statements', tax: 'Tax', report: 'Reports', correspondence: 'Correspondence', form: 'Forms' };
+  container.innerHTML = catKeys.map(cat => {
+    const count = cat === 'all' ? documents.length : documents.filter(d => d.category === cat).length;
+    const unreadCount = cat === 'all'
+      ? docState.unread.size
+      : documents.filter(d => d.category === cat && docState.unread.has(d.id)).length;
+    const active = cat === docState.activeCategory;
+    return `
+      <button class="doc-tab ${active ? 'active' : ''}" onclick="setDocCategory('${cat}')">
+        ${catLabels[cat]}
+        <span class="doc-tab-count">${count}</span>
+        ${unreadCount > 0 ? `<span class="doc-tab-unread">${unreadCount}</span>` : ''}
+      </button>`;
+  }).join('');
+}
+
+function renderDocStats() {
+  const el = document.getElementById('doc-stats-strip');
+  if (!el) return;
+  const unread = docState.unread.size;
+  const bycat  = k => documents.filter(d => d.category === k).length;
+  const stats  = [
+    { label: 'Unread',     value: unread,             gold: true,  cat: 'all'       },
+    { label: 'Total',      value: documents.length,   gold: false, cat: 'all'       },
+    { label: 'Statements', value: bycat('statement'), gold: false, cat: 'statement' },
+    { label: 'Tax Docs',   value: bycat('tax'),       gold: false, cat: 'tax'       },
+    { label: 'Reports',    value: bycat('report'),    gold: false, cat: 'report'    },
+  ];
+  el.innerHTML = stats.map(s => `
+    <div class="doc-stat ${s.gold && unread > 0 ? 'featured' : ''}" onclick="setDocCategory('${s.cat}')">
+      <div class="doc-stat-value ${s.gold && unread > 0 ? 'gold' : ''}">${s.value}</div>
+      <div class="doc-stat-label">${s.label}</div>
+    </div>`).join('');
+}
+
+function renderDocList() {
+  const el = document.getElementById('doc-list');
+  if (!el) return;
+
+  let filtered = documents;
+  if (docState.activeCategory !== 'all') filtered = filtered.filter(d => d.category === docState.activeCategory);
+  if (docState.searchQuery) {
+    const q = docState.searchQuery.toLowerCase();
+    filtered = filtered.filter(d =>
+      d.name.toLowerCase().includes(q) ||
+      d.category.includes(q) ||
+      d.account.toLowerCase().includes(q)
+    );
+  }
+
+  const unreadDocs = filtered.filter(d => docState.unread.has(d.id));
+  const readDocs   = filtered.filter(d => !docState.unread.has(d.id));
+
+  // Group read docs by "Mon YYYY"
+  const groups = {};
+  for (const doc of readDocs) {
+    const p = doc.date.split(' ');
+    const key = `${p[1]} ${p[2]}`;
+    if (!groups[key]) groups[key] = [];
+    groups[key].push(doc);
+  }
+
+  let html = '';
+
+  if (unreadDocs.length > 0) {
+    html += `
+      <div class="doc-group">
+        <div class="doc-group-hd">
+          <span class="doc-group-label new-label">New</span>
+          <span class="doc-group-badge">${unreadDocs.length}</span>
+          <button class="doc-mark-all" onclick="markAllDocsRead()">Mark all as read</button>
+        </div>
+        <div class="card">${unreadDocs.map(d => renderDocEntry(d, true)).join('')}</div>
+      </div>`;
+  }
+
+  for (const [monthYear, docs] of Object.entries(groups)) {
+    html += `
+      <div class="doc-group">
+        <div class="doc-group-hd">
+          <span class="doc-group-label">${monthYear}</span>
+          <span class="doc-group-count">${docs.length} document${docs.length !== 1 ? 's' : ''}</span>
+        </div>
+        <div class="card">${docs.map(d => renderDocEntry(d, false)).join('')}</div>
+      </div>`;
+  }
+
+  if (filtered.length === 0) {
+    html = `
+      <div class="doc-empty">
+        <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="margin-bottom:12px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        <div>No documents found</div>
+      </div>`;
+  }
+
+  el.innerHTML = html;
+}
+
+function renderDocEntry(doc, isUnread) {
+  const cat = DOC_CATS[doc.category];
+  const dlIcon = `<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`;
+  return `
+    <div class="doc-entry ${isUnread ? 'unread' : ''}" onclick="markDocRead(${doc.id})">
+      <div class="doc-entry-dot ${isUnread ? 'on' : ''}"></div>
+      <div class="doc-entry-icon" style="color:${cat.color};background:${cat.bg}">${DOC_ICONS[doc.category]}</div>
+      <div class="doc-entry-body">
+        <div class="doc-entry-name">${doc.name}${isUnread ? ' <span class="doc-new-tag">NEW</span>' : ''}</div>
+        <div class="doc-entry-meta">
+          <span class="doc-cat-chip" style="color:${cat.color}">${cat.label}</span>
+          <span class="doc-meta-dot">·</span>
+          <span class="doc-account-chip">${doc.account}</span>
+        </div>
+      </div>
+      <div class="doc-entry-date">${doc.date}</div>
+      <div class="doc-entry-size">${doc.size}</div>
+      <button class="doc-entry-dl" onclick="event.stopPropagation()" title="Download">${dlIcon}</button>
+    </div>`;
+}
+
+function setDocCategory(cat) {
+  docState.activeCategory = cat;
+  renderDocStats();
+  buildDocTabs();
+  renderDocList();
+}
+
+function filterDocs() {
+  docState.searchQuery = document.getElementById('doc-search').value;
+  renderDocList();
+}
+
+function markDocRead(id) {
+  if (docState.unread.has(id)) {
+    docState.unread.delete(id);
+    updateDocBadge();
+    renderDocStats();
+    buildDocTabs();
+    renderDocList();
+  }
+}
+
+function markAllDocsRead() {
+  let filtered = documents;
+  if (docState.activeCategory !== 'all') filtered = filtered.filter(d => d.category === docState.activeCategory);
+  filtered.forEach(d => docState.unread.delete(d.id));
+  updateDocBadge();
+  renderDocStats();
+  buildDocTabs();
+  renderDocList();
+}
+
+function updateDocBadge() {
+  const count = docState.unread.size;
+  const badge = document.getElementById('docs-nav-badge');
+  if (badge) {
+    badge.textContent = count;
+    badge.style.display = count > 0 ? '' : 'none';
+  }
+}
+
 function buildInvestmentsTable() {
   const tbody = document.getElementById('investments-body');
   if (!tbody) return;

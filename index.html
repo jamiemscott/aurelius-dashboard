@@ -83,10 +83,10 @@
 
     <div class="sidebar-section-label">Account</div>
 
-    <button class="nav-item">
+    <button class="nav-item" onclick="showPage('documents',null);setActiveNav(this)">
       <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
       <span>Documents</span>
-      <span class="nav-badge">3</span>
+      <span class="nav-badge" id="docs-nav-badge">3</span>
     </button>
 
     <button class="nav-item">
@@ -566,6 +566,48 @@
           <svg class="doc-download" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         </div>
       </div>
+    </div>
+
+    <!-- ═══════════════════════════════════ -->
+    <!-- PAGE: DOCUMENTS                     -->
+    <!-- ═══════════════════════════════════ -->
+    <div id="page-documents" class="page-section">
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb">
+            <span>Sumant Kumar</span>
+            <span class="breadcrumb-sep">/</span>
+            <span class="breadcrumb-current">Documents</span>
+          </div>
+          <div class="page-title">Documents</div>
+          <div class="page-date">14 documents across your accounts</div>
+        </div>
+        <div class="header-actions">
+          <button class="btn-secondary">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download All
+          </button>
+          <button class="btn-primary">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Request Document
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats strip (JS-rendered) -->
+      <div id="doc-stats-strip" class="doc-stats-strip"></div>
+
+      <!-- Filter bar -->
+      <div class="doc-filter-bar">
+        <div class="doc-tabs" id="doc-tabs"></div>
+        <div class="doc-search-wrap">
+          <svg class="doc-search-icon" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input class="doc-search-input" id="doc-search" type="search" placeholder="Search documents…" oninput="filterDocs()">
+        </div>
+      </div>
+
+      <!-- Document list (JS-rendered) -->
+      <div id="doc-list"></div>
     </div>
 
     <!-- ═══════════════════════════════════ -->
