@@ -40,6 +40,23 @@ const investments = [
   { name: 'Veritas Global Focus GBP C Acc',    qty:  '5,640.77', price: '22.67', cost: '136,490', mv: '127,890', assets: '15.18', yield: '1.60', gl: '-8,600',  glp: '-6.3',  up: false },
 ];
 
+const documents = [
+  { id: 1,  name: 'Portfolio Statement — March 2026',        category: 'statement',      date: '6 Mar 2026',  ts: 20260306, size: '420 KB', account: 'Advised SIPP',  unread: true  },
+  { id: 2,  name: 'CGT Summary Report 2025–26',              category: 'tax',            date: '6 Mar 2026',  ts: 20260306, size: '248 KB', account: 'All Accounts',  unread: true  },
+  { id: 3,  name: 'Annual Review Letter 2026',               category: 'correspondence', date: '4 Mar 2026',  ts: 20260304, size: '312 KB', account: 'All Accounts',  unread: true  },
+  { id: 4,  name: 'Dividend Voucher — Artisan Partners Q4',  category: 'tax',            date: '28 Feb 2026', ts: 20260228, size: '84 KB',  account: 'Advised SIPP',  unread: false },
+  { id: 5,  name: 'Portfolio Statement — February 2026',     category: 'statement',      date: '6 Feb 2026',  ts: 20260206, size: '398 KB', account: 'Advised SIPP',  unread: false },
+  { id: 6,  name: 'Regulatory Notice — MIFID II Update',     category: 'correspondence', date: '1 Feb 2026',  ts: 20260201, size: '96 KB',  account: 'All Accounts',  unread: false },
+  { id: 7,  name: 'Portfolio Statement — January 2026',      category: 'statement',      date: '6 Jan 2026',  ts: 20260106, size: '385 KB', account: 'Advised SIPP',  unread: false },
+  { id: 8,  name: 'Valuation Report Q4 2025',                category: 'report',         date: '31 Dec 2025', ts: 20251231, size: '312 KB', account: 'All Accounts',  unread: false },
+  { id: 9,  name: 'Quarterly Investment Report — Q3 2025',   category: 'report',         date: '15 Oct 2025', ts: 20251015, size: '784 KB', account: 'All Accounts',  unread: false },
+  { id: 10, name: 'SIPP Annual Allowance Statement 2024–25', category: 'tax',            date: '6 Apr 2025',  ts: 20250406, size: '189 KB', account: 'Advised SIPP',  unread: false },
+  { id: 11, name: 'Annual CGT Statement 2024–25',            category: 'tax',            date: '6 Apr 2025',  ts: 20250406, size: '195 KB', account: 'All Accounts',  unread: false },
+  { id: 12, name: 'Suitability Report — Annual Review 2025', category: 'report',         date: '15 Mar 2025', ts: 20250315, size: '1.2 MB', account: 'All Accounts',  unread: false },
+  { id: 13, name: 'ISA Subscription Confirmation 2025–26',   category: 'form',           date: '10 Apr 2025', ts: 20250410, size: '142 KB', account: 'ISA',           unread: false },
+  { id: 14, name: 'Investment Management Agreement',          category: 'form',           date: '12 Jan 2024', ts: 20240112, size: '328 KB', account: 'All Accounts',  unread: false },
+];
+
 const activity = [
   { icon: '↗', type: 'buy',  title: 'Bought Royal London Gbl Eqty', sub: 'SIPP · 842.4 units @ £14.82',       amount: '+£12,480',  pos: false, time: '2 Mar 2026'  },
   { icon: '÷', type: 'div',  title: 'Dividend Received',             sub: 'Artisan Partners · Q4 distribution', amount: '+£1,840',   pos: true,  time: '28 Feb 2026' },

@@ -6,6 +6,7 @@ const pageMap = {
   allocation:  'page-allocation',
   investments: 'page-investments',
   cgt:         'page-cgt',
+  documents:   'page-documents',
 };
 
 function showPage(key, triggerEl) {

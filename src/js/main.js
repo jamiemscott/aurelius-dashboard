@@ -12,4 +12,5 @@ document.addEventListener('DOMContentLoaded', () => {
   buildTopHoldings();
   buildActivityFeed();
   buildInvestmentsTable();
+  buildDocumentsPage();
 });
