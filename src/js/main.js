@@ -15,4 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
   buildDocumentsPage();
   buildDetailsPage();
   buildContactPage();
+  renderAdviserForm();
+
+  // Reset drawer form to idle each time it is re-opened
+  const advDrawer = document.getElementById('adviser-drawer');
+  if (advDrawer) {
+    advDrawer.addEventListener('toggle', e => {
+      if (e.newState === 'open') renderAdviserForm();
+    });
+  }
 });

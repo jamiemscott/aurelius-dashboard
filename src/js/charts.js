@@ -1432,3 +1432,125 @@ function contactSVGMap() {
   <text x="174" y="172" font-size="4.5" fill="var(--text-3)" font-family="sans-serif" text-anchor="middle">One Cavendish Square</text>
 </svg>`;
 }
+
+/* ─── ADVISER MESSAGE DRAWER ─────────────────────────────────── */
+
+let adviserMsgState = {
+  status: 'idle',   // 'idle' | 'sending' | 'sent'
+  ref:    '',
+  urgency: 'routine',
+};
+
+function renderAdviserForm() {
+  const el = document.getElementById('adv-form-body');
+  if (!el) return;
+
+  /* ── Sent confirmation ── */
+  if (adviserMsgState.status === 'sent') {
+    el.innerHTML = `
+      <div class="adv-drawer-sent">
+        <div class="adv-drawer-sent-icon">
+          <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <div class="adv-drawer-sent-title">Message Sent</div>
+        <div class="adv-drawer-sent-note">
+          Your reference: <strong>${adviserMsgState.ref}</strong><br>
+          James Whitmore will respond within 1 business day.
+        </div>
+        <button class="btn-secondary" style="margin-top:8px" onclick="resetAdviserMsg()">
+          Send Another Message
+        </button>
+      </div>`;
+    return;
+  }
+
+  /* ── Idle form ── */
+  const urgencyOpts = [
+    { val: 'routine', label: 'Routine' },
+    { val: '24h',     label: 'Within 24 Hours' },
+    { val: 'urgent',  label: 'Urgent' },
+  ];
+
+  el.style.position = 'relative';
+  el.innerHTML = `
+    <div>
+      <label class="adv-drawer-label">Enquiry Type</label>
+      <select class="det-select" style="width:100%">
+        <option>Investment Query</option>
+        <option>Account Administration</option>
+        <option>Tax &amp; Planning</option>
+        <option>New Products &amp; Services</option>
+        <option>Complaint</option>
+        <option>General Enquiry</option>
+      </select>
+    </div>
+    <div>
+      <label class="adv-drawer-label">Subject</label>
+      <input class="det-input" style="width:100%;box-sizing:border-box"
+             placeholder="Brief subject of your message" />
+    </div>
+    <div>
+      <label class="adv-drawer-label">Message</label>
+      <textarea class="contact-textarea" style="width:100%;box-sizing:border-box" rows="6"
+                maxlength="1000"
+                placeholder="Type your message to James Whitmore…"
+                oninput="document.getElementById('adv-char').textContent=this.value.length+'/1000'">
+      </textarea>
+      <div class="contact-char-count" id="adv-char">0/1000</div>
+    </div>
+    <div>
+      <label class="adv-drawer-label">Urgency</label>
+      <div class="contact-seg">
+        ${urgencyOpts.map(o =>
+          `<button class="contact-seg-btn${adviserMsgState.urgency === o.val ? ' active' : ''}"
+                   onclick="setAdviserUrgency('${o.val}')">${o.label}</button>`
+        ).join('')}
+      </div>
+    </div>
+    <button class="btn-primary" style="width:100%;margin-top:4px"
+            onclick="submitAdviserMsg()">Send Secure Message</button>
+    <div class="contact-lock-note">
+      <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+        <rect x="3" y="11" width="18" height="11" rx="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+      256-bit TLS encrypted · Ref number issued on submission
+    </div>`;
+
+  /* ── Sending overlay ── */
+  if (adviserMsgState.status === 'sending') {
+    const overlay = document.createElement('div');
+    overlay.className = 'contact-form-overlay';
+    overlay.style.borderRadius = '0';
+    overlay.innerHTML = `
+      <div class="contact-spinner"></div>
+      <div style="font-family:var(--font-serif);font-size:18px;color:var(--text-1);letter-spacing:-0.3px">
+        Sending securely…
+      </div>`;
+    el.appendChild(overlay);
+  }
+}
+
+function submitAdviserMsg() {
+  adviserMsgState.status = 'sending';
+  renderAdviserForm();
+  setTimeout(() => {
+    adviserMsgState.status = 'sent';
+    adviserMsgState.ref = 'AW-2026-' + Math.floor(100000 + Math.random() * 900000);
+    renderAdviserForm();
+  }, 1200);
+}
+
+function resetAdviserMsg() {
+  adviserMsgState.status = 'idle';
+  adviserMsgState.ref    = '';
+  adviserMsgState.urgency = 'routine';
+  renderAdviserForm();
+}
+
+function setAdviserUrgency(val) {
+  adviserMsgState.urgency = val;
+  renderAdviserForm();
+}
