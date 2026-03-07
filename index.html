@@ -89,8 +89,8 @@
       <span class="nav-badge" id="docs-nav-badge">3</span>
     </button>
 
-    <button class="nav-item">
-      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <button class="nav-item" onclick="showPage('details',null);setActiveNav(this)">
+      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
       <span>My Details</span>
     </button>
 
@@ -608,6 +608,38 @@
 
       <!-- Document list (JS-rendered) -->
       <div id="doc-list"></div>
+    </div>
+
+    <!-- ═══════════════════════════════════ -->
+    <!-- PAGE: MY DETAILS                    -->
+    <!-- ═══════════════════════════════════ -->
+    <div id="page-details" class="page-section">
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb">
+            <span>Sumant Kumar</span>
+            <span class="breadcrumb-sep">/</span>
+            <span class="breadcrumb-current">My Details</span>
+          </div>
+          <div class="page-title">My Details</div>
+          <div class="page-date">Account since March 2018</div>
+        </div>
+        <div class="header-actions">
+          <button class="btn-secondary">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download Profile
+          </button>
+        </div>
+      </div>
+
+      <!-- Profile hero (JS-rendered) -->
+      <div id="details-hero" class="details-hero"></div>
+
+      <!-- Tab bar (JS-rendered) -->
+      <div id="details-tabs" class="details-tabs"></div>
+
+      <!-- Tab content (JS-rendered) -->
+      <div id="details-content"></div>
     </div>
 
     <!-- ═══════════════════════════════════ -->

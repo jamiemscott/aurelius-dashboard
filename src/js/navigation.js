@@ -7,6 +7,7 @@ const pageMap = {
   investments: 'page-investments',
   cgt:         'page-cgt',
   documents:   'page-documents',
+  details:     'page-details',
 };
 
 function showPage(key, triggerEl) {
