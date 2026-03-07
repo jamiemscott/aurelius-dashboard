@@ -1004,3 +1004,431 @@ function togglePaperless() {
   detailsState.data.paperless = !detailsState.data.paperless;
   renderDetailsContent();
 }
+
+/* ─── CONTACT PAGE ───────────────────────────────────────────── */
+
+let contactState = {
+  formStatus: 'idle',  // 'idle' | 'sending' | 'sent'
+  formRef: '',
+  formData: { type: '', subject: '', message: '', response: 'email', urgency: 'routine' },
+};
+
+function buildContactPage() {
+  renderContactHero();
+  renderContactStrip();
+  renderContactMain();
+  renderContactNumbers();
+  renderContactTrust();
+}
+
+/* ── Section 1: Quick-contact hero ── */
+function renderContactHero() {
+  var d = userData;
+  var adviserInitials = d.adviser.split(' ').map(function(w){ return w[0]; }).join('').slice(0,2);
+  document.getElementById('contact-hero').innerHTML = `
+    <div class="contact-hero-grid">
+      <div class="contact-action-tile">
+        <div class="contact-action-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"/>
+          </svg>
+        </div>
+        <div class="contact-action-title">Call Us</div>
+        <div class="contact-action-sub">0800 123 4567</div>
+        <div class="contact-action-desc">Freephone Client Services line, available Monday to Friday, 8am – 6pm.</div>
+        <button class="btn-secondary btn-sm" style="width:fit-content" onclick="alert('Call 0800 123 4567')">Call Now</button>
+      </div>
+      <div class="contact-action-tile">
+        <div class="contact-action-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"/>
+          </svg>
+        </div>
+        <div class="contact-action-title">Message Your Adviser</div>
+        <div class="contact-action-sub">${d.adviser}</div>
+        <div class="contact-action-desc">Send a secure, encrypted message directly to your dedicated relationship manager.</div>
+        <button class="btn-secondary btn-sm" style="width:fit-content" onclick="contactScrollToForm('message')">Send Message</button>
+      </div>
+      <div class="contact-action-tile">
+        <div class="contact-action-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/>
+          </svg>
+        </div>
+        <div class="contact-action-title">Schedule a Meeting</div>
+        <div class="contact-action-sub">Request a Callback</div>
+        <div class="contact-action-desc">We'll call you back at a time that suits your schedule, typically within 2 business hours.</div>
+        <button class="btn-secondary btn-sm" style="width:fit-content" onclick="contactScrollToForm('callback')">Request Callback</button>
+      </div>
+    </div>`;
+}
+
+/* ── Section 2: Three-col strip ── */
+function renderContactStrip() {
+  var d = userData;
+  var parts = d.adviser.split(' ');
+  var initials = parts.map(function(p){ return p[0]; }).join('').slice(0,2).toUpperCase();
+  document.getElementById('contact-strip').innerHTML = `
+    <div class="contact-strip">
+      <!-- Adviser card -->
+      <div class="card card-pad">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-3);margin-bottom:16px">Your Dedicated Adviser</div>
+        <div class="contact-adviser-row">
+          <div class="contact-adviser-avatar">${initials}</div>
+          <div>
+            <div class="contact-adviser-name">${d.adviser}</div>
+            <div class="contact-adviser-role">Senior Wealth Manager</div>
+          </div>
+        </div>
+        <div class="det-field-list">
+          <div class="det-field-row">
+            <span class="det-field-label">Direct Line</span>
+            <span class="det-field-val">+44 20 7946 0155</span>
+          </div>
+          <div class="det-field-row">
+            <span class="det-field-label">Email</span>
+            <span class="det-field-val">${d.adviserEmail}</span>
+          </div>
+        </div>
+        <div class="contact-avail-row">
+          <div class="contact-avail-dot"></div>
+          Available today &nbsp;·&nbsp; Mon–Fri, 9am – 5pm
+        </div>
+        <div style="margin-top:16px">
+          <button class="btn-secondary btn-sm" onclick="contactScrollToForm('adviser')">Send a Message</button>
+        </div>
+      </div>
+      <!-- Office card -->
+      <div class="card card-pad">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-3);margin-bottom:16px">London Office</div>
+        <div class="contact-office-addr">
+          <strong style="color:var(--text-1)">Aurelius Wealth Management</strong><br>
+          One Cavendish Square<br>
+          London, W1G 0LD<br>
+          United Kingdom
+        </div>
+        <div class="contact-office-row">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"/></svg>
+          +44 20 7946 0100
+        </div>
+        <div class="contact-office-row">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+          london@aurelius.co.uk
+        </div>
+        <a href="https://maps.google.com/?q=Cavendish+Square+London+W1G" target="_blank" rel="noopener" class="contact-dir-link">
+          Get Directions
+          <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+        <div><span class="contact-office-chip">
+          <svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg>
+          FCA Authorised · Ref 987654
+        </span></div>
+      </div>
+      <!-- Hours card -->
+      <div class="card card-pad">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-3);margin-bottom:16px">Business Hours</div>
+        <div class="contact-hours-row"><span class="contact-hours-day">Monday – Thursday</span><span class="contact-hours-time">8:00 am – 6:00 pm</span></div>
+        <div class="contact-hours-row"><span class="contact-hours-day">Friday</span><span class="contact-hours-time">8:00 am – 5:00 pm</span></div>
+        <div class="contact-hours-row"><span class="contact-hours-day">Saturday</span><span class="contact-hours-closed">Closed</span></div>
+        <div class="contact-hours-row"><span class="contact-hours-day">Sunday</span><span class="contact-hours-closed">Closed</span></div>
+        <div class="contact-hours-row" style="font-size:11px;color:var(--text-3);border-bottom:none;padding-top:4px">All times GMT / BST</div>
+        <div class="contact-emergency">
+          <div class="contact-emerg-dot"></div>
+          <div>
+            <strong style="color:var(--text-1)">24/7 Emergency Line</strong><br>
+            <span style="font-family:var(--font-serif);color:var(--gold)">0800 999 8765</span>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+/* ── Section 3: Enquiry form + SVG map ── */
+function renderContactMain() {
+  document.getElementById('contact-main').innerHTML = `
+    <div class="contact-main-grid">
+      <div class="card card-pad" id="contact-form-card">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-3);margin-bottom:20px">Send an Enquiry</div>
+        <div class="contact-form-wrap" id="contact-form-wrap">
+          ${renderContactForm()}
+        </div>
+      </div>
+      <div class="card card-pad">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-3);margin-bottom:14px">Our Location</div>
+        <div class="contact-map-wrap">${contactSVGMap()}</div>
+        <div class="contact-getting-there">
+          <div style="font-size:11px;font-weight:600;color:var(--text-2);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:2px">Getting There</div>
+          <div class="contact-getting-row">
+            <span class="contact-getting-icon">🚇</span>
+            <span><strong style="color:var(--text-1)">Oxford Circus</strong> (2 min walk) · Victoria, Central, Bakerloo lines<br>
+            <strong style="color:var(--text-1)">Bond Street</strong> (5 min walk) · Central, Jubilee lines</span>
+          </div>
+          <div class="contact-getting-row">
+            <span class="contact-getting-icon">🚌</span>
+            <span>Routes <strong style="color:var(--text-1)">10, 55, 98, C2</strong> — Oxford Street stop (2 min walk)</span>
+          </div>
+          <div class="contact-getting-row">
+            <span class="contact-getting-icon">🅿</span>
+            <span><strong style="color:var(--text-1)">Q-Park Cavendish Square</strong>, NCP on Wimpole Street</span>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderContactForm() {
+  var s = contactState;
+  if (s.formStatus === 'sent') {
+    return `
+      <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:24px 0;gap:14px">
+        <div class="contact-sent-icon">
+          <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+        </div>
+        <div class="contact-sent-title">Message Received</div>
+        <div class="contact-ref">Ref: AW-2026-${s.formRef}</div>
+        <div class="contact-sent-note">${userData.adviser} will respond to your enquiry within 1 business day. You will receive a confirmation to ${userData.emailPrimary}.</div>
+        <button class="btn-secondary" onclick="resetContactForm()">Send Another Enquiry</button>
+      </div>`;
+  }
+  var fd = s.formData;
+  return `
+    ${s.formStatus === 'sending' ? `
+    <div class="contact-form-overlay">
+      <div class="contact-spinner"></div>
+      <div style="font-family:var(--font-serif);font-size:18px;color:var(--text-1)">Sending securely…</div>
+      <div style="font-size:12px;color:var(--text-3)">Please wait a moment</div>
+    </div>` : ''}
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div>
+        <label style="font-size:12px;color:var(--text-3);font-weight:500;display:block;margin-bottom:6px">Enquiry Type</label>
+        <select class="det-select" id="cf-type" onchange="contactState.formData.type=this.value">
+          <option value="" ${!fd.type?'selected':''} disabled>Select enquiry type…</option>
+          <option value="investment" ${fd.type==='investment'?'selected':''}>Investment Query</option>
+          <option value="admin" ${fd.type==='admin'?'selected':''}>Account Administration</option>
+          <option value="tax" ${fd.type==='tax'?'selected':''}>Tax &amp; Planning</option>
+          <option value="products" ${fd.type==='products'?'selected':''}>New Products &amp; Services</option>
+          <option value="complaint" ${fd.type==='complaint'?'selected':''}>Complaint</option>
+          <option value="general" ${fd.type==='general'?'selected':''}>General Enquiry</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-size:12px;color:var(--text-3);font-weight:500;display:block;margin-bottom:6px">Subject</label>
+        <input class="det-input" type="text" id="cf-subject" placeholder="Brief subject of your enquiry" value="${fd.subject}" oninput="contactState.formData.subject=this.value">
+      </div>
+      <div>
+        <label style="font-size:12px;color:var(--text-3);font-weight:500;display:block;margin-bottom:6px">Message</label>
+        <textarea class="contact-textarea" id="cf-message" placeholder="Please describe your enquiry in as much detail as you're comfortable sharing…" maxlength="1000" oninput="contactState.formData.message=this.value;document.getElementById('cf-charcount').textContent=this.value.length+'/1000'">${fd.message}</textarea>
+        <div class="contact-char-count" id="cf-charcount">${fd.message.length}/1000</div>
+      </div>
+      <div>
+        <label style="font-size:12px;color:var(--text-3);font-weight:500;display:block;margin-bottom:8px">Preferred Response Method</label>
+        <div class="contact-seg">
+          <button class="contact-seg-btn ${fd.response==='email'?'active':''}" onclick="setContactResponse('email')">Email</button>
+          <button class="contact-seg-btn ${fd.response==='phone'?'active':''}" onclick="setContactResponse('phone')">Phone</button>
+          <button class="contact-seg-btn ${fd.response==='secure'?'active':''}" onclick="setContactResponse('secure')">Secure Message</button>
+        </div>
+      </div>
+      <div>
+        <label style="font-size:12px;color:var(--text-3);font-weight:500;display:block;margin-bottom:8px">Urgency</label>
+        <div class="contact-seg">
+          <button class="contact-seg-btn ${fd.urgency==='routine'?'active':''}" onclick="setContactUrgency('routine')">Routine</button>
+          <button class="contact-seg-btn ${fd.urgency==='soon'?'active':''}" onclick="setContactUrgency('soon')">Within 24 Hours</button>
+          <button class="contact-seg-btn ${fd.urgency==='urgent'?'active':''}" onclick="setContactUrgency('urgent')">Urgent</button>
+        </div>
+      </div>
+      <button class="btn-primary" style="width:100%;justify-content:center" onclick="submitContactForm()">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-right:6px"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"/></svg>
+        Send Enquiry Securely
+      </button>
+      <div class="contact-lock-note">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
+        256-bit TLS encrypted &nbsp;·&nbsp; Reference number issued on submission &nbsp;·&nbsp; Response within 1 business day
+      </div>
+    </div>`;
+}
+
+function submitContactForm() {
+  var fd = contactState.formData;
+  if (!fd.type || !fd.subject || !fd.message) {
+    alert('Please complete all required fields before sending.');
+    return;
+  }
+  contactState.formStatus = 'sending';
+  document.getElementById('contact-form-wrap').innerHTML = renderContactForm();
+  setTimeout(function() {
+    contactState.formRef = String(Math.floor(100000 + Math.random() * 900000));
+    contactState.formStatus = 'sent';
+    document.getElementById('contact-form-wrap').innerHTML = renderContactForm();
+  }, 1400);
+}
+
+function resetContactForm() {
+  contactState.formStatus = 'idle';
+  contactState.formRef = '';
+  contactState.formData = { type: '', subject: '', message: '', response: 'email', urgency: 'routine' };
+  document.getElementById('contact-form-wrap').innerHTML = renderContactForm();
+}
+
+function setContactResponse(val) {
+  contactState.formData.response = val;
+  document.getElementById('contact-form-wrap').innerHTML = renderContactForm();
+}
+
+function setContactUrgency(val) {
+  contactState.formData.urgency = val;
+  document.getElementById('contact-form-wrap').innerHTML = renderContactForm();
+}
+
+function contactScrollToForm(preset) {
+  var el = document.getElementById('contact-form-card');
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (preset === 'message') {
+    setTimeout(function() {
+      var sel = document.getElementById('cf-type');
+      if (sel) { sel.value = 'general'; contactState.formData.type = 'general'; }
+    }, 400);
+  } else if (preset === 'callback') {
+    setTimeout(function() {
+      var sel = document.getElementById('cf-type');
+      if (sel) { sel.value = 'general'; contactState.formData.type = 'general'; }
+      contactState.formData.response = 'phone';
+      document.getElementById('contact-form-wrap').innerHTML = renderContactForm();
+    }, 400);
+  } else if (preset === 'adviser') {
+    setTimeout(function() {
+      var sel = document.getElementById('cf-type');
+      if (sel) { sel.value = 'general'; contactState.formData.type = 'general'; }
+    }, 400);
+  }
+}
+
+/* ── Section 4: Contact numbers ── */
+function renderContactNumbers() {
+  var nums = [
+    { label: 'Client Services',  val: '0800 123 4567',    sub: 'Freephone · Mon–Fri 8am–6pm',  emerg: false },
+    { label: 'Investment Desk',  val: '+44 20 7946 0100', sub: 'Direct line · Mon–Fri 8am–6pm', emerg: false },
+    { label: 'Tax & Planning',   val: '+44 20 7946 0102', sub: 'By appointment',                emerg: false },
+    { label: 'Portfolio Admin',  val: '+44 20 7946 0103', sub: 'Mon–Fri 9am–5pm',               emerg: false },
+    { label: 'Complaints',       val: '+44 20 7946 0199', sub: 'FCA regulated process',          emerg: false },
+    { label: 'Emergency (24/7)', val: '0800 999 8765',    sub: 'Always available',               emerg: true  },
+  ];
+  document.getElementById('contact-numbers').innerHTML = `
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-3);margin-bottom:14px">All Contact Numbers</div>
+    <div class="contact-numbers-grid">
+      ${nums.map(function(n) { return `
+        <div class="contact-num-card">
+          <div class="contact-num-label">${n.label}</div>
+          <div class="contact-num-val${n.emerg?' emerg':''}">
+            ${n.emerg ? '<div class="contact-emerg-dot"></div>' : ''}
+            ${n.val}
+          </div>
+          <div class="contact-num-sub">${n.sub}</div>
+        </div>`;
+      }).join('')}
+    </div>`;
+}
+
+/* ── Section 5: Trust strip ── */
+function renderContactTrust() {
+  document.getElementById('contact-trust').innerHTML = `
+    <div class="contact-trust-grid">
+      <div class="contact-trust-item">
+        <div class="contact-trust-icon">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
+        </div>
+        <div class="contact-trust-text">
+          <div class="contact-trust-title">Secure Communications</div>
+          <div class="contact-trust-sub">All messages encrypted with 256-bit TLS. ISO 27001 certified infrastructure.</div>
+        </div>
+      </div>
+      <div class="contact-trust-item">
+        <div class="contact-trust-icon">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg>
+        </div>
+        <div class="contact-trust-text">
+          <div class="contact-trust-title">FCA Authorised &amp; Regulated</div>
+          <div class="contact-trust-sub">Aurelius Wealth Management Ltd. FCA Register No. 987654.</div>
+        </div>
+      </div>
+      <div class="contact-trust-item">
+        <div class="contact-trust-icon">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3c-4.97 0-9 3.578-9 8 0 2.04.78 3.91 2.07 5.34L3 21l4.84-1.29A9.33 9.33 0 0 0 12 21c4.97 0 9-3.578 9-8s-4.03-8-9-8Z"/></svg>
+        </div>
+        <div class="contact-trust-text">
+          <div class="contact-trust-title">FSCS Protected</div>
+          <div class="contact-trust-sub">Eligible deposits protected up to £85,000 per person by the Financial Services Compensation Scheme.</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+/* ── SVG Map of Cavendish Square area ── */
+function contactSVGMap() {
+  return `<svg class="contact-map-svg" viewBox="0 0 320 260" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="320" height="260" fill="var(--bg-input)"/>
+
+  <!-- Street grid -->
+  <!-- Oxford Street - major east-west -->
+  <line x1="0" y1="228" x2="320" y2="228" stroke="var(--text-3)" stroke-width="2.5" opacity="0.6"/>
+  <!-- Wigmore Street -->
+  <line x1="0" y1="130" x2="260" y2="130" stroke="var(--text-3)" stroke-width="1" opacity="0.4"/>
+  <!-- Cavendish Place -->
+  <line x1="60" y1="175" x2="220" y2="175" stroke="var(--text-3)" stroke-width="1" opacity="0.35"/>
+  <!-- Harley Street - vertical -->
+  <line x1="62" y1="80" x2="62" y2="255" stroke="var(--text-3)" stroke-width="1" opacity="0.4"/>
+  <!-- Portland Place - vertical -->
+  <line x1="218" y1="36" x2="218" y2="228" stroke="var(--text-3)" stroke-width="1" opacity="0.4"/>
+  <!-- Regent Street - angled -->
+  <line x1="245" y1="228" x2="285" y2="36" stroke="var(--text-3)" stroke-width="1.5" opacity="0.45"/>
+  <!-- New Cavendish St -->
+  <line x1="62" y1="100" x2="218" y2="100" stroke="var(--text-3)" stroke-width="1" opacity="0.3"/>
+  <!-- Henrietta Place -->
+  <line x1="62" y1="152" x2="218" y2="152" stroke="var(--text-3)" stroke-width="0.8" opacity="0.3"/>
+
+  <!-- Cavendish Square park -->
+  <rect x="88" y="140" width="96" height="60" rx="5" fill="var(--gold-dim)" stroke="var(--gold-glow)" stroke-width="1.5"/>
+  <text x="136" y="174" text-anchor="middle" font-size="5.5" fill="var(--gold)" font-family="sans-serif" font-weight="600" letter-spacing="0.5">CAVENDISH SQ</text>
+
+  <!-- Block fills for realism -->
+  <rect x="62" y="100" width="26" height="40" rx="2" fill="var(--border)" opacity="0.5"/>
+  <rect x="100" y="100" width="36" height="32" rx="2" fill="var(--border)" opacity="0.5"/>
+  <rect x="148" y="100" width="30" height="32" rx="2" fill="var(--border)" opacity="0.5"/>
+  <rect x="190" y="100" width="28" height="32" rx="2" fill="var(--border)" opacity="0.4"/>
+  <rect x="62" y="185" width="24" height="28" rx="2" fill="var(--border)" opacity="0.4"/>
+  <rect x="98" y="210" width="108" height="18" rx="2" fill="var(--border)" opacity="0.5"/>
+  <rect x="218" y="140" width="26" height="60" rx="2" fill="var(--border)" opacity="0.45"/>
+
+  <!-- Office pulse ring (animated) -->
+  <circle cx="130" cy="168" r="14" fill="none" stroke="var(--gold)" stroke-width="1" class="map-pulse"/>
+  <!-- Office pin -->
+  <circle cx="130" cy="168" r="7" fill="var(--gold)" stroke="var(--bg-card)" stroke-width="1.5"/>
+  <circle cx="130" cy="168" r="3" fill="var(--bg-card)"/>
+
+  <!-- Tube station markers -->
+  <!-- Oxford Circus -->
+  <circle cx="245" cy="231" r="5" fill="#CC0000" stroke="var(--bg-input)" stroke-width="1.5"/>
+  <text x="230" y="247" font-size="5.5" fill="var(--text-3)" font-family="sans-serif">Oxford Circus</text>
+  <!-- Bond Street -->
+  <circle cx="78" cy="231" r="5" fill="#CC0000" stroke="var(--bg-input)" stroke-width="1.5"/>
+  <text x="54" y="247" font-size="5.5" fill="var(--text-3)" font-family="sans-serif">Bond Street</text>
+  <!-- Regent's Park -->
+  <circle cx="218" cy="40" r="5" fill="#CC0000" stroke="var(--bg-input)" stroke-width="1.5"/>
+  <text x="186" y="35" font-size="5.5" fill="var(--text-3)" font-family="sans-serif">Regent's Park</text>
+
+  <!-- Street labels -->
+  <text x="148" y="222" font-size="6" fill="var(--text-3)" font-family="sans-serif" font-weight="600" letter-spacing="0.8" text-anchor="middle">OXFORD STREET</text>
+  <text x="14" y="126" font-size="5.5" fill="var(--text-3)" font-family="sans-serif" letter-spacing="0.4">WIGMORE ST</text>
+  <text x="265" y="126" font-size="5.5" fill="var(--text-3)" font-family="sans-serif" letter-spacing="0.4" text-anchor="middle" transform="rotate(-72 275 120)">REGENT ST</text>
+  <text x="72" y="96" font-size="5" fill="var(--text-3)" font-family="sans-serif" opacity="0.7">PORTLAND PL</text>
+
+  <!-- North arrow -->
+  <polygon points="299,14 303,26 299,23 295,26" fill="var(--text-2)" opacity="0.7"/>
+  <text x="299" y="32" font-size="6" fill="var(--text-3)" font-family="sans-serif" text-anchor="middle" font-weight="700">N</text>
+
+  <!-- Office label callout -->
+  <rect x="142" y="155" width="64" height="22" rx="4" fill="var(--bg-card)" stroke="var(--gold)" stroke-width="0.8" opacity="0.95"/>
+  <text x="174" y="163.5" font-size="5" fill="var(--gold)" font-family="sans-serif" font-weight="700" text-anchor="middle">AURELIUS WEALTH</text>
+  <text x="174" y="172" font-size="4.5" fill="var(--text-3)" font-family="sans-serif" text-anchor="middle">One Cavendish Square</text>
+</svg>`;
+}

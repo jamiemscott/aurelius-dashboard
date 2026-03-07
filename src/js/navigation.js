@@ -8,6 +8,7 @@ const pageMap = {
   cgt:         'page-cgt',
   documents:   'page-documents',
   details:     'page-details',
+  contact:     'page-contact',
 };
 
 function showPage(key, triggerEl) {

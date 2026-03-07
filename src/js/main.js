@@ -14,4 +14,5 @@ document.addEventListener('DOMContentLoaded', () => {
   buildInvestmentsTable();
   buildDocumentsPage();
   buildDetailsPage();
+  buildContactPage();
 });

@@ -94,7 +94,7 @@
       <span>My Details</span>
     </button>
 
-    <button class="nav-item">
+    <button class="nav-item" onclick="showPage('contact',null);setActiveNav(this)">
       <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       <span>Contact Us</span>
     </button>
@@ -640,6 +640,28 @@
 
       <!-- Tab content (JS-rendered) -->
       <div id="details-content"></div>
+    </div>
+
+    <!-- ═══════════════════════════════════ -->
+    <!-- CONTACT US                          -->
+    <!-- ═══════════════════════════════════ -->
+    <div id="page-contact" class="page-section">
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb">
+            <span>Sumant Kumar</span>
+            <span class="breadcrumb-sep">/</span>
+            <span class="breadcrumb-current">Contact Us</span>
+          </div>
+          <div class="page-title">Contact Us</div>
+          <div class="page-date">We're here whenever you need us</div>
+        </div>
+      </div>
+      <div id="contact-hero"></div>
+      <div id="contact-strip"></div>
+      <div id="contact-main"></div>
+      <div id="contact-numbers"></div>
+      <div id="contact-trust"></div>
     </div>
 
     <!-- ═══════════════════════════════════ -->
