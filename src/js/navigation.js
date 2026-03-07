@@ -24,6 +24,12 @@ function showPage(key, triggerEl) {
   document.querySelectorAll('.tab-btn').forEach((btn, i) => {
     btn.classList.toggle('active', keys[i] === key);
   });
+
+  // Sync left sidebar nav — match by the key embedded in each button's onclick
+  document.querySelectorAll('.nav-item').forEach(btn => {
+    const oc = btn.getAttribute('onclick') || '';
+    btn.classList.toggle('active', oc.includes(`'${key}'`));
+  });
 }
 
 function setActiveNav(el) {
