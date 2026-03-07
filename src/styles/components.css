@@ -1282,3 +1282,132 @@ tbody td:not(:first-child) { text-align: right; }
   height: 1px;
   background: var(--divider);
 }
+
+/* ─── USER MENU (Popover API) ────────────────────────────────── */
+
+/* Avatar button — reset + hover ring */
+button.avatar {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  transition: box-shadow 0.2s;
+}
+button.avatar:hover { box-shadow: 0 0 0 3px var(--gold-dim); }
+
+#user-menu {
+  position: fixed;
+  top: calc(var(--topbar-h) + 8px);
+  right: 14px;
+  bottom: auto;               /* override popover UA default (inset: 0) */
+  left: auto;                 /* override popover UA default (inset: 0) */
+  margin: 0;
+  width: 264px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--bg-card);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.3);
+
+  opacity: 0;
+  transform: scale(0.95) translateY(-8px);
+  transform-origin: top right;
+  transition:
+    opacity   0.2s ease,
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    display   0.2s allow-discrete,
+    overlay   0.2s allow-discrete;
+}
+
+#user-menu:popover-open {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+@starting-style {
+  #user-menu:popover-open {
+    opacity: 0;
+    transform: scale(0.95) translateY(-8px);
+  }
+}
+
+[data-theme="light"] #user-menu {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* Header */
+.um-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 14px 13px;
+  border-bottom: 1px solid var(--border);
+}
+
+.um-avatar {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--gold-dim), var(--gold-glow));
+  border: 1.5px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 600; color: var(--gold);
+  letter-spacing: 0.5px; flex-shrink: 0;
+}
+
+.um-name  { font-size: 13.5px; font-weight: 600; color: var(--text-1); line-height: 1.3; }
+.um-meta  { font-size: 11px; color: var(--text-3); margin-top: 2px; }
+
+/* Sections */
+.um-section       { padding: 6px; }
+.um-section-label {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-3);
+  padding: 5px 10px 3px;
+}
+
+.um-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text-2);
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s, color 0.15s;
+}
+
+.um-item:hover        { background: var(--bg-hover); color: var(--text-1); }
+.um-item svg          { flex-shrink: 0; opacity: 0.65; transition: opacity 0.15s; }
+.um-item:hover svg    { opacity: 1; }
+
+.um-badge {
+  margin-left: auto;
+  background: var(--gold-dim);
+  color: var(--gold-text);
+  font-size: 10px; font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 999px;
+}
+
+.um-hint {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--text-3);
+}
+
+.um-divider {
+  height: 1px;
+  background: var(--divider);
+  margin: 0 6px;
+}
+
+.um-item--danger             { color: var(--red); }
+.um-item--danger svg         { opacity: 0.8; }
+.um-item--danger:hover       { background: var(--red-dim); color: var(--red); }
+.um-item--danger:hover svg   { opacity: 1; }

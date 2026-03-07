@@ -45,6 +45,8 @@ function toggleTheme() {
   html.setAttribute('data-theme', isDark ? 'light' : 'dark');
   document.getElementById('theme-icon').textContent = isDark ? '☀️' : '🌙';
   document.getElementById('theme-label').textContent = isDark ? 'Light' : 'Dark';
+  const umHint = document.getElementById('um-theme-hint');
+  if (umHint) umHint.textContent = isDark ? 'Light' : 'Dark';
 }
 
 /* ─── RANGE PILLS ────────────────────────────────────────────── */
