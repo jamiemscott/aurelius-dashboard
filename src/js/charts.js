@@ -356,3 +356,651 @@ function buildInvestmentsTable() {
       <td><span class="gain-tag ${inv.up ? 'up' : 'down'}">${inv.up ? '▲' : '▼'} ${inv.glp}%</span></td>
     </tr>`).join('');
 }
+
+/* ─── MY DETAILS PAGE ──────────────────────────────────────── */
+
+let detailsState = {
+  activeTab: 'personal',
+  editing: new Set(),
+  data: null,
+};
+
+/* ── Utilities ── */
+
+function detMask(str, keep) {
+  keep = keep || 2;
+  if (!str || str.length <= keep * 2) return str;
+  return str.slice(0, keep) + '•'.repeat(str.length - keep * 2) + str.slice(-keep);
+}
+
+function detGetNested(obj, path) {
+  return path.split('.').reduce(function(o, k) { return o != null ? o[k] : undefined; }, obj);
+}
+
+function detSetNested(obj, path, val) {
+  var keys = path.split('.');
+  var last = keys.pop();
+  var target = keys.reduce(function(o, k) { return o[k]; }, obj);
+  target[last] = val;
+}
+
+/* ── Main build ── */
+
+function buildDetailsPage() {
+  detailsState.data = JSON.parse(JSON.stringify(userData));
+  renderDetailsHero();
+  renderDetailsTabs();
+  renderDetailsContent();
+}
+
+/* ── Hero ── */
+
+function renderDetailsHero() {
+  var el = document.getElementById('details-hero');
+  if (!el) return;
+  var d = detailsState.data;
+  el.innerHTML = `
+    <div class="det-avatar">${d.firstName[0]}${d.lastName[0]}</div>
+    <div class="det-hero-main">
+      <div class="det-hero-name">${d.title} ${d.firstName} ${d.lastName}</div>
+      <div class="det-hero-chips">
+        <span class="det-hero-chip">
+          <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg>
+          ${d.clientNumber}
+        </span>
+        <span class="det-hero-badge platinum">★ ${d.tier} Client</span>
+        <span class="det-hero-badge verified">
+          <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+          KYC Verified
+        </span>
+      </div>
+    </div>
+    <div class="det-hero-side">
+      <div class="det-hero-meta-row"><strong>Client since</strong> ${d.clientSince}</div>
+      <div class="det-hero-meta-row"><strong>Adviser</strong> ${d.adviser}</div>
+      <div class="det-hero-meta-row">Next review: <strong>${d.nextReview}</strong></div>
+    </div>`;
+}
+
+/* ── Tabs ── */
+
+function renderDetailsTabs() {
+  var el = document.getElementById('details-tabs');
+  if (!el) return;
+  var tabs = [
+    { id: 'personal',    label: 'Personal Information' },
+    { id: 'contact',     label: 'Contact Details' },
+    { id: 'security',    label: 'Security & Access' },
+    { id: 'preferences', label: 'Preferences' },
+  ];
+  el.innerHTML = tabs.map(function(t) {
+    return `<button class="details-tab ${t.id === detailsState.activeTab ? 'active' : ''}" onclick="setDetailsTab('${t.id}')">${t.label}</button>`;
+  }).join('');
+}
+
+function setDetailsTab(tab) {
+  detailsState.activeTab = tab;
+  detailsState.editing.clear();
+  renderDetailsTabs();
+  renderDetailsContent();
+}
+
+/* ── Content dispatcher ── */
+
+function renderDetailsContent() {
+  var el = document.getElementById('details-content');
+  if (!el) return;
+  var tab = detailsState.activeTab;
+  if      (tab === 'personal')    el.innerHTML = renderPersonalTab();
+  else if (tab === 'contact')     el.innerHTML = renderContactTab();
+  else if (tab === 'security')    el.innerHTML = renderSecurityTab();
+  else if (tab === 'preferences') el.innerHTML = renderPrefsTab();
+}
+
+/* ── Section actions ── */
+
+function editSection(id) {
+  detailsState.editing.add(id);
+  renderDetailsContent();
+}
+
+function cancelSection(id) {
+  detailsState.editing.delete(id);
+  renderDetailsContent();
+}
+
+function saveSection(id) {
+  var wrap = document.getElementById('det-section-' + id);
+  if (wrap) {
+    wrap.querySelectorAll('[data-field]').forEach(function(el) {
+      var field = el.dataset.field;
+      if (field && field[0] !== '_') {
+        var val = el.type === 'checkbox' ? el.checked : el.value;
+        detSetNested(detailsState.data, field, val);
+      }
+    });
+  }
+  if (id === 'password') detailsState.data.passwordChangedDate = 'Today';
+  detailsState.editing.delete(id);
+  renderDetailsHero();
+  renderDetailsContent();
+}
+
+/* ── Section header helper ── */
+
+function detSectionHd(title, sub, id, isEditing) {
+  var subHtml = sub ? `<div class="det-section-sub">${sub}</div>` : '';
+  var editIcon = `<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`;
+  var actions = isEditing
+    ? `<button class="btn-secondary btn-sm" onclick="cancelSection('${id}')">Cancel</button>
+       <button class="btn-primary btn-sm" onclick="saveSection('${id}')">Save Changes</button>`
+    : `<button class="btn-secondary btn-sm" onclick="editSection('${id}')">${editIcon} Edit</button>`;
+  return `
+    <div class="det-section-hd">
+      <div><div class="det-section-title">${title}</div>${subHtml}</div>
+      <div class="det-section-actions">${actions}</div>
+    </div>`;
+}
+
+/* ── Field row helper ── */
+
+function detRow(label, readHtml, editEl) {
+  var content = (editEl !== undefined)
+    ? `<div class="det-field-val" style="flex:1">${editEl}</div>`
+    : `<div class="det-field-val${!readHtml ? ' muted' : ''}">${readHtml || 'Not provided'}</div>`;
+  return `<div class="det-field-row"><div class="det-field-label">${label}</div>${content}</div>`;
+}
+
+/* ── Device icons for sessions ── */
+
+var DET_DEVICE_ICONS = {
+  laptop:  `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M1 20h22"/></svg>`,
+  mobile:  `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="18" r="1" fill="currentColor"/></svg>`,
+  desktop: `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>`,
+};
+
+/* ──────────────────────────────────────────────────────── */
+/* TAB 1: PERSONAL                                          */
+/* ──────────────────────────────────────────────────────── */
+
+function renderPersonalTab() {
+  var d = detailsState.data;
+  var pEdit = detailsState.editing.has('personal');
+  var tEdit = detailsState.editing.has('tax');
+
+  var personalFields = pEdit ? `
+    ${detRow('Title', null, `<select class="det-select" data-field="title">
+      <option ${d.title==='Mr'?'selected':''}>Mr</option>
+      <option ${d.title==='Mrs'?'selected':''}>Mrs</option>
+      <option ${d.title==='Ms'?'selected':''}>Ms</option>
+      <option ${d.title==='Dr'?'selected':''}>Dr</option>
+      <option ${d.title==='Prof'?'selected':''}>Prof</option>
+    </select>`)}
+    ${detRow('First Name', null, `<input class="det-input" data-field="firstName" value="${d.firstName}">`)}
+    ${detRow('Last Name', null, `<input class="det-input" data-field="lastName" value="${d.lastName}">`)}
+    ${detRow('Preferred Name', null, `<input class="det-input" data-field="preferredName" value="${d.preferredName}">`)}
+    ${detRow('Date of Birth', null, `<input class="det-input" data-field="dob" value="${d.dob}" placeholder="DD/MM/YYYY">`)}
+    ${detRow('Gender', null, `<select class="det-select" data-field="gender">
+      <option ${d.gender==='Male'?'selected':''}>Male</option>
+      <option ${d.gender==='Female'?'selected':''}>Female</option>
+      <option ${d.gender==='Non-binary'?'selected':''}>Non-binary</option>
+      <option ${d.gender==='Prefer not to say'?'selected':''}>Prefer not to say</option>
+    </select>`)}
+    ${detRow('Nationality', null, `<input class="det-input" data-field="nationality" value="${d.nationality}">`)}
+    ${detRow('Marital Status', null, `<select class="det-select" data-field="maritalStatus">
+      <option ${d.maritalStatus==='Single'?'selected':''}>Single</option>
+      <option ${d.maritalStatus==='Married'?'selected':''}>Married</option>
+      <option ${d.maritalStatus==='Civil Partnership'?'selected':''}>Civil Partnership</option>
+      <option ${d.maritalStatus==='Divorced'?'selected':''}>Divorced</option>
+      <option ${d.maritalStatus==='Widowed'?'selected':''}>Widowed</option>
+    </select>`)}
+    ${detRow('NI Number', null, `<input class="det-input" data-field="niNumber" value="${d.niNumber}" placeholder="AB123456C">`)}
+  ` : `
+    ${detRow('Full Legal Name', `${d.title} ${d.firstName} ${d.lastName}`)}
+    ${detRow('Preferred Name', d.preferredName)}
+    ${detRow('Date of Birth', d.dob)}
+    ${detRow('Gender', d.gender)}
+    ${detRow('Nationality', d.nationality)}
+    ${detRow('Marital Status', d.maritalStatus)}
+    ${detRow('NI Number', `<span style="letter-spacing:2px;font-family:monospace">${detMask(d.niNumber, 2)}</span>`)}
+  `;
+
+  var taxFields = tEdit ? `
+    ${detRow('Tax Residency', null, `<input class="det-input" data-field="taxResidency" value="${d.taxResidency}">`)}
+    ${detRow('UTR Number', null, `<input class="det-input" data-field="utr" value="${d.utr}" placeholder="10-digit UTR">`)}
+    ${detRow('FATCA Status', null, `<label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-1);cursor:pointer"><input type="checkbox" data-field="fatca" ${d.fatca?'checked':''} style="width:15px;height:15px;accent-color:var(--gold)"> US Person declaration</label>`)}
+  ` : `
+    ${detRow('Tax Residency', d.taxResidency)}
+    ${detRow('UTR Number', `<span style="letter-spacing:1px;font-family:monospace">${detMask(d.utr, 2)}</span>`)}
+    ${detRow('FATCA Status', d.fatca ? 'US Person' : 'Not a US Person')}
+    ${detRow('Tax Year End', '5 April')}
+  `;
+
+  return `
+    <div class="det-two-col">
+      <div>
+        <div id="det-section-personal" class="det-section">
+          ${detSectionHd('Personal Details', 'Legal name and identity', 'personal', pEdit)}
+          <div class="det-field-list">${personalFields}</div>
+        </div>
+        <div id="det-section-tax" class="det-section">
+          ${detSectionHd('Tax Information', 'HMRC and residency details', 'tax', tEdit)}
+          <div class="det-field-list">${taxFields}</div>
+        </div>
+      </div>
+      <div>
+        <div class="det-section">
+          <div class="det-section-hd">
+            <div><div class="det-section-title">Identity Verification</div><div class="det-section-sub">KYC & AML status</div></div>
+          </div>
+          <div class="det-kyc-status">
+            <div class="det-kyc-icon">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <div>
+              <div class="det-kyc-label">Identity Verified</div>
+              <div class="det-kyc-sub">Last verified ${d.kycVerifiedDate}</div>
+            </div>
+          </div>
+          <div class="det-field-list">
+            ${detRow('Document Type', d.kycDoc)}
+            ${detRow('Expiry Date', d.kycExpiry)}
+            ${detRow('KYC Status', `<span class="det-hero-badge verified"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Verified</span>`)}
+          </div>
+          <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--divider)">
+            <button class="btn-secondary btn-sm" style="width:100%;justify-content:center">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Upload New Document
+            </button>
+          </div>
+        </div>
+        <div class="det-section">
+          <div class="det-section-hd">
+            <div><div class="det-section-title">Account Status</div><div class="det-section-sub">Client profile summary</div></div>
+          </div>
+          <div class="det-field-list">
+            ${detRow('Client Number', `<code style="font-size:12px;color:var(--text-2);background:var(--tag-bg);padding:2px 8px;border-radius:5px;font-family:monospace">${d.clientNumber}</code>`)}
+            ${detRow('Client Since', d.clientSince)}
+            ${detRow('Account Tier', `<span class="det-hero-badge platinum">★ ${d.tier}</span>`)}
+            ${detRow('Next Review', d.nextReview)}
+            ${detRow('Relationship Manager', `<div><div style="font-size:13px;font-weight:500;color:var(--text-1)">${d.adviser}</div><div style="font-size:11px;color:var(--text-3);margin-top:2px">${d.adviserEmail}</div></div>`)}
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+/* ──────────────────────────────────────────────────────── */
+/* TAB 2: CONTACT                                           */
+/* ──────────────────────────────────────────────────────── */
+
+function renderContactTab() {
+  var d = detailsState.data;
+  var eEdit = detailsState.editing.has('email');
+  var pEdit = detailsState.editing.has('phone');
+  var aEdit = detailsState.editing.has('address');
+
+  var verifiedBadge = `<span class="det-verified-badge"><svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Verified</span>`;
+
+  var emailFields = eEdit ? `
+    ${detRow('Primary Email', null, `<input class="det-input" type="email" data-field="emailPrimary" value="${d.emailPrimary}">`)}
+    ${detRow('Secondary Email', null, `<input class="det-input" type="email" data-field="emailSecondary" value="${d.emailSecondary}" placeholder="Optional">`)}
+  ` : `
+    ${detRow('Primary Email', d.emailPrimary + (d.emailPrimaryVerified ? verifiedBadge : ''))}
+    ${detRow('Secondary Email', d.emailSecondary)}
+  `;
+
+  var phoneFields = pEdit ? `
+    ${detRow('Mobile', null, `<input class="det-input" type="tel" data-field="phoneMobile" value="${d.phoneMobile}">`)}
+    ${detRow('Home', null, `<input class="det-input" type="tel" data-field="phoneHome" value="${d.phoneHome}">`)}
+    ${detRow('Work', null, `<input class="det-input" type="tel" data-field="phoneWork" value="${d.phoneWork}" placeholder="Optional">`)}
+  ` : `
+    ${detRow('Mobile', d.phoneMobile ? `${d.phoneMobile} <span style="font-size:10px;color:var(--text-3);background:var(--tag-bg);padding:1px 7px;border-radius:99px;margin-left:4px">Primary</span>` : '')}
+    ${detRow('Home', d.phoneHome)}
+    ${detRow('Work', d.phoneWork)}
+  `;
+
+  var addrDisplay = `<div style="line-height:1.8">
+    ${d.addrLine1}${d.addrLine2 ? `<br>${d.addrLine2}` : ''}
+    <br>${d.addrCity}${d.addrCounty ? `, ${d.addrCounty}` : ''}
+    <br>${d.addrPostcode}
+    <br>${d.addrCountry}
+  </div>`;
+
+  var addrFields = aEdit ? `
+    ${detRow('Address Line 1', null, `<input class="det-input" data-field="addrLine1" value="${d.addrLine1}">`)}
+    ${detRow('Address Line 2', null, `<input class="det-input" data-field="addrLine2" value="${d.addrLine2}" placeholder="Optional">`)}
+    ${detRow('City', null, `<input class="det-input" data-field="addrCity" value="${d.addrCity}">`)}
+    ${detRow('County', null, `<input class="det-input" data-field="addrCounty" value="${d.addrCounty}" placeholder="Optional">`)}
+    ${detRow('Postcode', null, `<input class="det-input" data-field="addrPostcode" value="${d.addrPostcode}">`)}
+    ${detRow('Country', null, `<select class="det-select" data-field="addrCountry">
+      <option ${d.addrCountry==='United Kingdom'?'selected':''}>United Kingdom</option>
+      <option ${d.addrCountry==='United States'?'selected':''}>United States</option>
+      <option ${d.addrCountry==='Germany'?'selected':''}>Germany</option>
+      <option ${d.addrCountry==='France'?'selected':''}>France</option>
+      <option ${d.addrCountry==='Australia'?'selected':''}>Australia</option>
+    </select>`)}
+  ` : `
+    ${detRow('Address', addrDisplay)}
+  `;
+
+  return `
+    <div class="det-two-col">
+      <div>
+        <div id="det-section-email" class="det-section">
+          ${detSectionHd('Email Addresses', '', 'email', eEdit)}
+          <div class="det-field-list">${emailFields}</div>
+        </div>
+        <div id="det-section-phone" class="det-section">
+          ${detSectionHd('Phone Numbers', '', 'phone', pEdit)}
+          <div class="det-field-list">${phoneFields}</div>
+        </div>
+        <div class="det-section">
+          <div class="det-section-hd">
+            <div><div class="det-section-title">Preferred Contact Method</div><div class="det-section-sub">For non-urgent correspondence</div></div>
+          </div>
+          <div class="det-pref-group">
+            <button class="det-pref-btn ${d.preferredContact==='email'?'active':''}" onclick="setContactPref('email')">Email</button>
+            <button class="det-pref-btn ${d.preferredContact==='phone'?'active':''}" onclick="setContactPref('phone')">Phone</button>
+            <button class="det-pref-btn ${d.preferredContact==='post'?'active':''}"  onclick="setContactPref('post')">Post</button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div id="det-section-address" class="det-section">
+          ${detSectionHd('Registered Address', '', 'address', aEdit)}
+          <div class="det-field-list">${addrFields}</div>
+        </div>
+        <div class="det-section">
+          <div class="det-section-hd">
+            <div><div class="det-section-title">Correspondence Address</div></div>
+          </div>
+          <div class="det-toggle-row" style="margin-bottom:${d.corrSameAsReg?'0':'12px'}">
+            <span class="det-toggle-label">Same as registered address</span>
+            <label class="det-toggle">
+              <input type="checkbox" ${d.corrSameAsReg?'checked':''} onchange="toggleCorrSame()">
+              <span class="det-toggle-slider"></span>
+            </label>
+          </div>
+          ${d.corrSameAsReg
+            ? `<div style="font-size:12px;color:var(--text-3);margin-top:12px;display:flex;align-items:center;gap:6px">
+                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                Using registered address
+               </div>`
+            : `<div style="font-size:12px;color:var(--text-3)">Add a different address below if required.</div>`}
+        </div>
+      </div>
+    </div>`;
+}
+
+function setContactPref(val) {
+  detailsState.data.preferredContact = val;
+  renderDetailsContent();
+}
+
+function toggleCorrSame() {
+  detailsState.data.corrSameAsReg = !detailsState.data.corrSameAsReg;
+  renderDetailsContent();
+}
+
+/* ──────────────────────────────────────────────────────── */
+/* TAB 3: SECURITY                                          */
+/* ──────────────────────────────────────────────────────── */
+
+function renderSecurityTab() {
+  var d = detailsState.data;
+  var pwEdit = detailsState.editing.has('password');
+
+  var failedLogin = d.loginHistory.some(function(l) { return l.status === 'failed'; });
+
+  return `
+    <div class="det-security-grid">
+      <div id="det-section-password" class="det-section">
+        ${detSectionHd('Password', 'Account login credentials', 'password', pwEdit)}
+        <div class="det-field-list">
+          ${pwEdit ? `
+            ${detRow('Current Password', null, `<input class="det-input" type="password" data-field="_currentPw" placeholder="Enter current password">`)}
+            ${detRow('New Password', null, `<input class="det-input" type="password" data-field="_newPw" placeholder="Minimum 12 characters">`)}
+            ${detRow('Confirm Password', null, `<input class="det-input" type="password" data-field="_confirmPw" placeholder="Repeat new password">`)}
+          ` : `
+            ${detRow('Password', `<span class="det-password-dots">••••••••••••</span>`)}
+            ${detRow('Last Changed', d.passwordChangedDate)}
+          `}
+        </div>
+      </div>
+
+      <div class="det-section">
+        <div class="det-section-hd">
+          <div><div class="det-section-title">Two-Factor Authentication</div><div class="det-section-sub">Enhanced account security</div></div>
+        </div>
+        <div class="det-twofa-status ${d.twoFA ? 'on' : 'off'}">
+          <div style="display:flex;align-items:center;gap:10px;flex:1">
+            <div class="det-status-dot ${d.twoFA ? 'green' : 'red'}"></div>
+            <div>
+              <div style="font-size:13px;font-weight:600;color:${d.twoFA?'var(--green)':'var(--red)'}">${d.twoFA ? 'Enabled' : 'Disabled'}</div>
+              <div style="font-size:11px;color:var(--text-3);margin-top:1px">${d.twoFA ? d.twoFAMethod : 'Your account is less secure — enable 2FA now'}</div>
+            </div>
+          </div>
+          <label class="det-toggle">
+            <input type="checkbox" ${d.twoFA ? 'checked' : ''} onchange="toggleTwoFA()">
+            <span class="det-toggle-slider"></span>
+          </label>
+        </div>
+        <div class="det-field-list">
+          ${detRow('Method', d.twoFAMethod)}
+          ${detRow('Backup Codes', `<span style="color:var(--text-2)">8 of 10 remaining</span>`)}
+          ${detRow('Last Used', d.twoFALastUsed)}
+        </div>
+        <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--divider)">
+          <button class="btn-secondary btn-sm">Manage 2FA Settings</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="det-section">
+      <div class="det-section-hd">
+        <div><div class="det-section-title">Active Sessions</div><div class="det-section-sub">${d.sessions.length} device${d.sessions.length !== 1 ? 's' : ''} currently signed in</div></div>
+        <button class="btn-secondary btn-sm" style="color:var(--red);border-color:rgba(239,68,68,0.3)" onclick="alert('All other sessions have been revoked.')">Sign Out All Others</button>
+      </div>
+      ${d.sessions.map(function(s, i) {
+        return `
+          <div class="det-session-row">
+            <div class="det-session-icon">${DET_DEVICE_ICONS[s.icon] || DET_DEVICE_ICONS.laptop}</div>
+            <div class="det-session-info">
+              <div class="det-session-device">${s.device}</div>
+              <div class="det-session-meta">${s.browser} · ${s.location}</div>
+            </div>
+            <div class="det-session-badge ${s.lastSeen === 'Now' ? 'now' : ''}">${s.lastSeen === 'Now' ? '● Active now' : s.lastSeen}</div>
+            ${s.lastSeen !== 'Now' ? `<button class="det-revoke-btn" onclick="revokeSession(${i})">Revoke</button>` : ''}
+          </div>`;
+      }).join('')}
+    </div>
+
+    <div class="det-section">
+      <div class="det-section-hd">
+        <div><div class="det-section-title">Recent Login History</div><div class="det-section-sub">Last 5 access events</div></div>
+      </div>
+      <div class="table-wrap">
+        <table style="font-size:12px" aria-label="Login history">
+          <thead>
+            <tr>
+              <th>Date &amp; Time</th>
+              <th>Device</th>
+              <th>Location</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${d.loginHistory.map(function(l) {
+              return `<tr>
+                <td style="color:var(--text-2)">${l.date}</td>
+                <td>${l.device}</td>
+                <td style="color:var(--text-2)">${l.location}</td>
+                <td><span class="det-status-badge ${l.status}">${l.status === 'success' ? '✓ Success' : '✕ Failed'}</span></td>
+              </tr>`;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
+      ${failedLogin ? `
+        <div style="margin-top:14px;padding:10px 14px;background:var(--red-dim);border:1px solid rgba(239,68,68,0.2);border-radius:8px;font-size:12px;color:var(--red);display:flex;align-items:flex-start;gap:8px">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          A failed login attempt was detected on 22 Feb 2026 from Paris, France. If this wasn't you, please contact your adviser immediately.
+        </div>` : ''}
+    </div>`;
+}
+
+function toggleTwoFA() {
+  detailsState.data.twoFA = !detailsState.data.twoFA;
+  renderDetailsContent();
+}
+
+function revokeSession(idx) {
+  detailsState.data.sessions.splice(idx, 1);
+  renderDetailsContent();
+}
+
+/* ──────────────────────────────────────────────────────── */
+/* TAB 4: PREFERENCES                                       */
+/* ──────────────────────────────────────────────────────── */
+
+var DET_NOTIF_CHANNELS = [
+  { key: 'email', label: 'Email' },
+  { key: 'sms',   label: 'SMS' },
+  { key: 'inapp', label: 'In-App' },
+];
+
+var DET_NOTIF_ROWS = [
+  { key: 'statements', label: 'Monthly Statements',    sub: 'Portfolio & account statements' },
+  { key: 'trades',     label: 'Trade Confirmations',   sub: 'Buy and sell confirmations' },
+  { key: 'markets',    label: 'Market Alerts',         sub: 'Significant market movements' },
+  { key: 'reviews',    label: 'Quarterly Reviews',     sub: 'Adviser review notifications' },
+  { key: 'system',     label: 'System Announcements',  sub: 'Platform updates & maintenance' },
+];
+
+function renderPrefsTab() {
+  var d = detailsState.data;
+  var cEdit = detailsState.editing.has('comm');
+
+  var notifGrid = `
+    <div class="det-notif-wrap">
+      <div class="det-notif-header">
+        <div class="det-notif-label-col">Notification</div>
+        ${DET_NOTIF_CHANNELS.map(function(ch) { return `<div class="det-notif-ch-col">${ch.label}</div>`; }).join('')}
+      </div>
+      ${DET_NOTIF_ROWS.map(function(row) {
+        return `
+          <div class="det-notif-item">
+            <div class="det-notif-label-col">
+              <div class="det-notif-name">${row.label}</div>
+              <div class="det-notif-desc">${row.sub}</div>
+            </div>
+            ${DET_NOTIF_CHANNELS.map(function(ch) {
+              return `<div class="det-notif-ch-col">
+                <label class="det-toggle">
+                  <input type="checkbox" ${d.notif[ch.key][row.key]?'checked':''} onchange="togglePref('notif.${ch.key}.${row.key}')">
+                  <span class="det-toggle-slider"></span>
+                </label>
+              </div>`;
+            }).join('')}
+          </div>`;
+      }).join('')}
+    </div>`;
+
+  var commFields = cEdit ? `
+    ${detRow('Language', null, `<select class="det-select" data-field="language">
+      <option ${d.language==='English'?'selected':''}>English</option>
+      <option ${d.language==='Welsh'?'selected':''}>Welsh</option>
+    </select>`)}
+    ${detRow('Time Zone', null, `<select class="det-select" data-field="timezone">
+      <option value="Europe/London" ${d.timezone==='Europe/London'?'selected':''}>Europe/London (GMT)</option>
+      <option value="America/New_York" ${d.timezone==='America/New_York'?'selected':''}>America/New_York (EST)</option>
+      <option value="America/Los_Angeles" ${d.timezone==='America/Los_Angeles'?'selected':''}>America/Los_Angeles (PST)</option>
+    </select>`)}
+  ` : `
+    ${detRow('Language', d.language)}
+    ${detRow('Time Zone', d.timezone === 'Europe/London' ? 'Europe/London (GMT)' : d.timezone)}
+  `;
+
+  return `
+    <div class="det-section" style="margin-bottom:16px">
+      <div class="det-section-hd">
+        <div><div class="det-section-title">Notification Preferences</div><div class="det-section-sub">Choose how you receive alerts and updates</div></div>
+      </div>
+      ${notifGrid}
+    </div>
+
+    <div class="det-two-col-equal">
+      <div id="det-section-comm" class="det-section">
+        ${detSectionHd('Communication Preferences', '', 'comm', cEdit)}
+        <div class="det-toggle-row">
+          <div>
+            <div class="det-toggle-label">Paperless Statements</div>
+            <div class="det-toggle-sub">Receive all documents electronically</div>
+          </div>
+          <label class="det-toggle">
+            <input type="checkbox" ${d.paperless?'checked':''} onchange="togglePaperless()">
+            <span class="det-toggle-slider"></span>
+          </label>
+        </div>
+        <div class="det-field-list" style="margin-top:4px">${commFields}</div>
+      </div>
+
+      <div class="det-section">
+        <div class="det-section-hd">
+          <div><div class="det-section-title">Privacy & Marketing</div><div class="det-section-sub">Your data preferences</div></div>
+        </div>
+        <div class="det-toggle-row">
+          <div>
+            <div class="det-toggle-label">Marketing Emails</div>
+            <div class="det-toggle-sub">Newsletters, insights and product updates</div>
+          </div>
+          <label class="det-toggle">
+            <input type="checkbox" ${d.marketing?'checked':''} onchange="togglePref('marketing')">
+            <span class="det-toggle-slider"></span>
+          </label>
+        </div>
+        <div class="det-toggle-row">
+          <div>
+            <div class="det-toggle-label">Third-Party Data Sharing</div>
+            <div class="det-toggle-sub">Share data with trusted partners only</div>
+          </div>
+          <label class="det-toggle">
+            <input type="checkbox" ${d.thirdParty?'checked':''} onchange="togglePref('thirdParty')">
+            <span class="det-toggle-slider"></span>
+          </label>
+        </div>
+        <div class="det-toggle-row">
+          <div>
+            <div class="det-toggle-label">Analytics</div>
+            <div class="det-toggle-sub">Help us improve our platform</div>
+          </div>
+          <label class="det-toggle">
+            <input type="checkbox" ${d.analytics?'checked':''} onchange="togglePref('analytics')">
+            <span class="det-toggle-slider"></span>
+          </label>
+        </div>
+        <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--divider)">
+          <button class="btn-secondary btn-sm">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export My Data (GDPR)
+          </button>
+        </div>
+        <div class="det-danger-zone">
+          <div class="det-danger-title">Danger Zone</div>
+          <button class="det-danger-link" onclick="alert('Please contact your adviser to request account closure.')">Request Account Closure</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function togglePref(path) {
+  var val = detGetNested(detailsState.data, path);
+  detSetNested(detailsState.data, path, !val);
+  renderDetailsContent();
+}
+
+function togglePaperless() {
+  detailsState.data.paperless = !detailsState.data.paperless;
+  renderDetailsContent();
+}
