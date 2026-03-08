@@ -131,7 +131,7 @@
             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Download Report
           </button>
-          <button class="btn-primary">
+          <button class="btn-primary" popovertarget="add-investment-drawer">
             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             Add Investment
           </button>
@@ -412,7 +412,7 @@
             <option>Advised SIPP</option>
           </select>
           <button class="btn-secondary">Generate Report</button>
-          <button class="btn-primary">+ Add Funds</button>
+          <button class="btn-primary" popovertarget="add-fund-drawer">+ Add Funds</button>
         </div>
       </div>
 
@@ -877,6 +877,82 @@
     </button>
   </div>
 
+</div>
+
+<!-- ── ADD FUND DRAWER (Popover API) ───────────────────────────── -->
+<div id="add-fund-drawer" popover>
+  <div class="adv-drawer-inner">
+
+    <!-- Sticky header -->
+    <div class="adv-drawer-hd">
+      <div class="adv-drawer-hd-left">
+        <div class="add-inv-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </div>
+        <div>
+          <div class="adv-drawer-name">Add Fund</div>
+          <div class="adv-drawer-role">Dealing instruction · IMF9UBMY D</div>
+        </div>
+      </div>
+      <button class="adv-drawer-close"
+              popovertarget="add-fund-drawer"
+              popovertargetaction="hide"
+              aria-label="Close drawer">✕</button>
+    </div>
+
+    <!-- Security strip -->
+    <div class="adv-drawer-secure">
+      <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+      Dealing instruction routed securely to James Whitmore
+    </div>
+
+    <!-- Form body — rendered by renderAddFundForm() -->
+    <div class="adv-drawer-body" id="add-fund-body"></div>
+
+  </div>
+</div>
+
+<!-- ── ADD INVESTMENT DRAWER (Popover API) ─────────────────────── -->
+<div id="add-investment-drawer" popover>
+  <div class="adv-drawer-inner">
+
+    <!-- Sticky header -->
+    <div class="adv-drawer-hd">
+      <div class="adv-drawer-hd-left">
+        <div class="add-inv-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </div>
+        <div>
+          <div class="adv-drawer-name">Add Investment</div>
+          <div class="adv-drawer-role">New holding instruction</div>
+        </div>
+      </div>
+      <button class="adv-drawer-close"
+              popovertarget="add-investment-drawer"
+              popovertargetaction="hide"
+              aria-label="Close drawer">✕</button>
+    </div>
+
+    <!-- Security strip -->
+    <div class="adv-drawer-secure">
+      <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+      Instruction routed securely to James Whitmore
+    </div>
+
+    <!-- Form body — rendered by renderAddInvestmentForm() -->
+    <div class="adv-drawer-body" id="add-investment-body"></div>
+
+  </div>
 </div>
 
 <!-- ── JAVASCRIPT ─────────────────────────────────────────────── -->
