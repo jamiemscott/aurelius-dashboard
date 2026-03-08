@@ -1554,3 +1554,676 @@ function setAdviserUrgency(val) {
   adviserMsgState.urgency = val;
   renderAdviserForm();
 }
+
+/* ─── ADD INVESTMENT DRAWER ─────────────────────────────────────── */
+
+let addInvestmentState = {
+  status:  'idle',    // 'idle' | 'sending' | 'sent'
+  ref:     '',
+  method:  'amount',  // 'amount' | 'units'
+  wrapper: 'isa',     // 'isa' | 'gia' | 'sipp' | 'jisa'
+};
+
+function renderAddInvestmentForm() {
+  const el = document.getElementById('add-investment-body');
+  if (!el) return;
+
+  /* ── Sent confirmation ── */
+  if (addInvestmentState.status === 'sent') {
+    el.innerHTML = `
+      <div style="text-align:center;padding:16px 0 8px">
+        <div class="contact-sent-icon" style="margin:0 auto 16px">
+          <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <div style="font-family:var(--font-serif);font-size:22px;color:var(--text-1);letter-spacing:-0.5px;margin-bottom:8px">
+          Instruction Received
+        </div>
+        <div class="contact-ref">${addInvestmentState.ref}</div>
+        <div style="font-size:13px;color:var(--text-2);line-height:1.6;margin:12px 0 24px">
+          James Whitmore will review your investment instruction<br>within 1 business day.
+        </div>
+        <button class="btn-secondary" style="width:100%" onclick="resetAddInvestment()">
+          Submit Another
+        </button>
+      </div>`;
+    return;
+  }
+
+  /* ── Today's date for Trade Date default ── */
+  const today = new Date().toISOString().split('T')[0];
+
+  const wrapperOpts = [
+    { val: 'isa',  label: 'ISA' },
+    { val: 'gia',  label: 'GIA' },
+    { val: 'sipp', label: 'SIPP' },
+    { val: 'jisa', label: 'Junior ISA' },
+  ];
+
+  const methodOpts = [
+    { val: 'amount', label: 'By Amount' },
+    { val: 'units',  label: 'By Units' },
+  ];
+
+  el.innerHTML = `
+    <!-- SECTION 1: Security -->
+    <div class="add-inv-section">Security</div>
+
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div>
+        <label class="adv-drawer-label">Fund / Security Name <span style="color:var(--red)">*</span></label>
+        <input id="inv-name" class="det-input" style="width:100%;box-sizing:border-box"
+               placeholder="e.g. Artisan Partners Global Value" />
+      </div>
+      <div>
+        <label class="adv-drawer-label">ISIN</label>
+        <input id="inv-isin" class="det-input" style="width:100%;box-sizing:border-box;font-family:monospace;letter-spacing:0.5px"
+               placeholder="e.g. GB00B7FQLH15" maxlength="12" />
+      </div>
+      <div class="add-inv-row-2">
+        <div>
+          <label class="adv-drawer-label">Asset Type</label>
+          <select id="inv-type" class="det-select" style="width:100%">
+            <option>GBP Mutual Fund</option>
+            <option>ETF</option>
+            <option>UK Equity</option>
+            <option>Global Equity</option>
+            <option>Fixed Income</option>
+            <option>Alternative</option>
+            <option>Cash</option>
+          </select>
+        </div>
+        <div>
+          <label class="adv-drawer-label">Currency</label>
+          <select id="inv-currency" class="det-select" style="width:100%">
+            <option>GBP</option>
+            <option>USD</option>
+            <option>EUR</option>
+            <option>JPY</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: Account -->
+    <div class="add-inv-section">Account &amp; Wrapper</div>
+
+    <div class="contact-seg">
+      ${wrapperOpts.map(o =>
+        `<button class="contact-seg-btn${addInvestmentState.wrapper === o.val ? ' active' : ''}"
+                 onclick="setInvWrapper('${o.val}')">${o.label}</button>`
+      ).join('')}
+    </div>
+
+    <!-- SECTION 3: Trade Details -->
+    <div class="add-inv-section">Trade Details</div>
+
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div>
+        <label class="adv-drawer-label">Investment Method</label>
+        <div class="contact-seg">
+          ${methodOpts.map(o =>
+            `<button class="contact-seg-btn${addInvestmentState.method === o.val ? ' active' : ''}"
+                     onclick="setInvMethod('${o.val}')">${o.label}</button>`
+          ).join('')}
+        </div>
+      </div>
+
+      ${addInvestmentState.method === 'amount' ? `
+      <div>
+        <label class="adv-drawer-label">Investment Amount (£)</label>
+        <input id="inv-amount" class="det-input" type="number" min="0" step="0.01"
+               style="width:100%;box-sizing:border-box" placeholder="e.g. 10000"
+               oninput="updateInvSummary()" />
+      </div>` : `
+      <div>
+        <label class="adv-drawer-label">Number of Units</label>
+        <input id="inv-units" class="det-input" type="number" min="0" step="0.0001"
+               style="width:100%;box-sizing:border-box" placeholder="e.g. 430.00"
+               oninput="updateInvSummary()" />
+      </div>`}
+
+      <div>
+        <label class="adv-drawer-label">Unit Price (pence)</label>
+        <input id="inv-price" class="det-input" type="number" min="0" step="0.01"
+               style="width:100%;box-sizing:border-box" placeholder="e.g. 23.29"
+               oninput="updateInvSummary()" />
+      </div>
+
+      <div id="inv-summary-wrap"></div>
+
+      <div class="add-inv-row-2">
+        <div>
+          <label class="adv-drawer-label">Trade Date</label>
+          <input id="inv-date" class="det-input" type="date"
+                 style="width:100%;box-sizing:border-box" value="${today}" />
+        </div>
+        <div>
+          <label class="adv-drawer-label">Dealing Instruction</label>
+          <select id="inv-dealing" class="det-select" style="width:100%">
+            <option>Market Order</option>
+            <option>Limit Order</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4: Additional Instructions -->
+    <div class="add-inv-section">Additional Instructions</div>
+
+    <div>
+      <textarea id="inv-notes" class="contact-textarea" style="width:100%;box-sizing:border-box" rows="4"
+                maxlength="500" placeholder="Any specific instructions for your adviser…"
+                oninput="document.getElementById('inv-char').textContent=this.value.length+'/500'"></textarea>
+      <div class="contact-char-count" id="inv-char">0/500</div>
+    </div>
+
+    <button class="btn-primary" style="width:100%;margin-top:4px"
+            onclick="submitAddInvestment()">Submit Investment Instruction</button>
+
+    <div class="contact-lock-note">
+      <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+        <rect x="3" y="11" width="18" height="11" rx="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+      Routed securely to your adviser · Ref number issued on submission
+    </div>`;
+
+  /* ── Sending overlay ── */
+  if (addInvestmentState.status === 'sending') {
+    const overlay = document.createElement('div');
+    overlay.className = 'contact-form-overlay';
+    overlay.style.borderRadius = '0';
+    overlay.innerHTML = `
+      <div class="contact-spinner"></div>
+      <div style="font-family:var(--font-serif);font-size:18px;color:var(--text-1);letter-spacing:-0.3px">
+        Submitting securely…
+      </div>`;
+    el.appendChild(overlay);
+  }
+}
+
+function updateInvSummary() {
+  const wrap = document.getElementById('inv-summary-wrap');
+  if (!wrap) return;
+
+  const priceEl  = document.getElementById('inv-price');
+  const amtEl    = document.getElementById('inv-amount');
+  const unitsEl  = document.getElementById('inv-units');
+  const price    = parseFloat(priceEl  && priceEl.value  ? priceEl.value  : '');
+  const primary  = addInvestmentState.method === 'amount'
+    ? parseFloat(amtEl   && amtEl.value   ? amtEl.value   : '')
+    : parseFloat(unitsEl && unitsEl.value ? unitsEl.value : '');
+
+  if (!isNaN(price) && price > 0 && !isNaN(primary) && primary > 0) {
+    const pricePounds = price / 100;
+    if (addInvestmentState.method === 'amount') {
+      const estUnits = (primary / pricePounds).toLocaleString('en-GB', { maximumFractionDigits: 2 });
+      wrap.innerHTML = `
+        <div class="add-inv-summary">
+          <div>
+            <div class="add-inv-summary-label">Estimated Units</div>
+            <div class="add-inv-summary-val">${estUnits}</div>
+          </div>
+          <div style="text-align:right">
+            <div class="add-inv-summary-label">At Price</div>
+            <div class="add-inv-summary-val">${price}p</div>
+          </div>
+        </div>`;
+    } else {
+      const estCost = (primary * pricePounds).toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      wrap.innerHTML = `
+        <div class="add-inv-summary">
+          <div>
+            <div class="add-inv-summary-label">Estimated Cost</div>
+            <div class="add-inv-summary-val">£${estCost}</div>
+          </div>
+          <div style="text-align:right">
+            <div class="add-inv-summary-label">At Price</div>
+            <div class="add-inv-summary-val">${price}p</div>
+          </div>
+        </div>`;
+    }
+  } else {
+    wrap.innerHTML = '';
+  }
+}
+
+function submitAddInvestment() {
+  addInvestmentState.status = 'sending';
+  renderAddInvestmentForm();
+  setTimeout(() => {
+    addInvestmentState.status = 'sent';
+    addInvestmentState.ref = 'AW-' + new Date().getFullYear() + '-' + Math.floor(100000 + Math.random() * 900000);
+    renderAddInvestmentForm();
+  }, 1200);
+}
+
+function resetAddInvestment() {
+  addInvestmentState.status  = 'idle';
+  addInvestmentState.ref     = '';
+  addInvestmentState.method  = 'amount';
+  addInvestmentState.wrapper = 'isa';
+  renderAddInvestmentForm();
+}
+
+function setInvMethod(val) {
+  addInvestmentState.method = val;
+  renderAddInvestmentForm();
+}
+
+function setInvWrapper(val) {
+  addInvestmentState.wrapper = val;
+  renderAddInvestmentForm();
+}
+
+/* ─── ADD FUND DRAWER ───────────────────────────────────────────── */
+
+let addFundState = {
+  status:      'idle',    // 'idle' | 'sending' | 'sent'
+  ref:         '',
+  txType:      'buy',     // 'buy' | 'switch' | 'transfer' | 'regular'
+  method:      'amount',  // 'amount' | 'units'
+  wrapper:     'sipp',    // 'sipp' | 'isa' | 'gia' | 'jisa'
+  suitability: false,
+};
+
+function renderAddFundForm() {
+  const el = document.getElementById('add-fund-body');
+  if (!el) return;
+
+  /* ── Sent confirmation ── */
+  if (addFundState.status === 'sent') {
+    el.innerHTML = `
+      <div style="text-align:center;padding:16px 0 8px">
+        <div class="contact-sent-icon" style="margin:0 auto 16px">
+          <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <div style="font-family:var(--font-serif);font-size:22px;color:var(--text-1);letter-spacing:-0.5px;margin-bottom:8px">
+          Dealing Instruction Sent
+        </div>
+        <div class="contact-ref">${addFundState.ref}</div>
+        <div style="font-size:13px;color:var(--text-2);line-height:1.6;margin:12px 0 24px">
+          James Whitmore will review and action your instruction<br>within 1 business day. A confirmation note will be<br>added to your Document Library.
+        </div>
+        <button class="btn-secondary" style="width:100%" onclick="resetAddFund()">
+          Submit Another Instruction
+        </button>
+      </div>`;
+    return;
+  }
+
+  const today = new Date().toISOString().split('T')[0];
+
+  const txOpts = [
+    { val: 'buy',      label: 'Buy' },
+    { val: 'switch',   label: 'Switch' },
+    { val: 'transfer', label: 'Transfer In' },
+    { val: 'regular',  label: 'Regular Savings' },
+  ];
+
+  const wrapperOpts = [
+    { val: 'sipp', label: 'SIPP' },
+    { val: 'isa',  label: 'ISA' },
+    { val: 'gia',  label: 'GIA' },
+    { val: 'jisa', label: 'Junior ISA' },
+  ];
+
+  const methodOpts = [
+    { val: 'amount', label: 'By Amount' },
+    { val: 'units',  label: 'By Units' },
+  ];
+
+  const holdingOptions = investments.map(inv =>
+    `<option>${inv.name}</option>`
+  ).join('');
+
+  const showTradeBlock   = addFundState.txType === 'buy' || addFundState.txType === 'switch';
+  const showRegularBlock = addFundState.txType === 'regular';
+
+  el.innerHTML = `
+
+    <!-- SECTION 1: Fund Details -->
+    <div class="add-inv-section">Fund Details</div>
+
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div>
+        <label class="adv-drawer-label">Fund / Security Name <span style="color:var(--red)">*</span></label>
+        <input id="fund-name" class="det-input" style="width:100%;box-sizing:border-box"
+               placeholder="e.g. Artisan Partners Global Value" />
+      </div>
+      <div class="add-inv-row-2">
+        <div>
+          <label class="adv-drawer-label">ISIN</label>
+          <input id="fund-isin" class="det-input" style="width:100%;box-sizing:border-box;font-family:monospace;letter-spacing:0.5px"
+                 placeholder="e.g. GB00B7FQLH15" maxlength="12" />
+        </div>
+        <div>
+          <label class="adv-drawer-label">SEDOL</label>
+          <input id="fund-sedol" class="det-input" style="width:100%;box-sizing:border-box;font-family:monospace;letter-spacing:0.5px"
+                 placeholder="e.g. B7FQLH1" maxlength="7" />
+        </div>
+      </div>
+      <div>
+        <label class="adv-drawer-label">Fund House / Manager</label>
+        <input id="fund-house" class="det-input" style="width:100%;box-sizing:border-box"
+               placeholder="e.g. Artisan Partners" />
+      </div>
+      <div>
+        <label class="adv-drawer-label">Share Class</label>
+        <input id="fund-shareclass" class="det-input" style="width:100%;box-sizing:border-box"
+               placeholder="e.g. Z GBP Accumulation" />
+      </div>
+    </div>
+
+    <!-- SECTION 2: Classification -->
+    <div class="add-inv-section">Classification</div>
+
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="add-inv-row-2">
+        <div>
+          <label class="adv-drawer-label">Asset Class</label>
+          <select id="fund-assetclass" class="det-select" style="width:100%">
+            <option>Equity</option>
+            <option>Fixed Income</option>
+            <option>Multi-Asset</option>
+            <option>Alternative</option>
+            <option>Money Market</option>
+            <option>Property</option>
+          </select>
+        </div>
+        <div>
+          <label class="adv-drawer-label">Currency</label>
+          <select id="fund-currency" class="det-select" style="width:100%">
+            <option>GBP</option>
+            <option>USD</option>
+            <option>EUR</option>
+            <option>JPY</option>
+            <option>CHF</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label class="adv-drawer-label">Geographic Focus</label>
+        <select id="fund-geo" class="det-select" style="width:100%">
+          <option>Global</option>
+          <option>UK</option>
+          <option>North America</option>
+          <option>European</option>
+          <option>Asia Pacific</option>
+          <option>Emerging Markets</option>
+          <option>Japan</option>
+          <option>Sector Specific</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- SECTION 3: Transaction Type -->
+    <div class="add-inv-section">Transaction Type</div>
+
+    <div class="contact-seg" style="flex-wrap:wrap">
+      ${txOpts.map(o =>
+        `<button class="contact-seg-btn${addFundState.txType === o.val ? ' active' : ''}"
+                 onclick="setFundTxType('${o.val}')">${o.label}</button>`
+      ).join('')}
+    </div>
+
+    ${addFundState.txType === 'switch' ? `
+    <div style="margin-top:12px">
+      <label class="adv-drawer-label">Switch From (Existing Holding)</label>
+      <select id="fund-switch-from" class="det-select" style="width:100%">
+        ${holdingOptions}
+      </select>
+    </div>` : ''}
+
+    ${addFundState.txType === 'transfer' ? `
+    <div style="display:flex;flex-direction:column;gap:12px;margin-top:12px">
+      <div>
+        <label class="adv-drawer-label">Transferring Provider</label>
+        <input id="fund-transfer-provider" class="det-input" style="width:100%;box-sizing:border-box"
+               placeholder="e.g. Hargreaves Lansdown" />
+      </div>
+      <div class="add-inv-row-2">
+        <div>
+          <label class="adv-drawer-label">Approx. Transfer Value (£)</label>
+          <input id="fund-transfer-value" class="det-input" type="number" min="0"
+                 style="width:100%;box-sizing:border-box" placeholder="e.g. 50,000" />
+        </div>
+        <div>
+          <label class="adv-drawer-label">Transfer Type</label>
+          <select id="fund-transfer-type" class="det-select" style="width:100%">
+            <option>In-Specie (as is)</option>
+            <option>Cash Transfer</option>
+          </select>
+        </div>
+      </div>
+    </div>` : ''}
+
+    <!-- SECTION 4: Account & Wrapper -->
+    <div class="add-inv-section">Account &amp; Wrapper</div>
+
+    <div class="contact-seg">
+      ${wrapperOpts.map(o =>
+        `<button class="contact-seg-btn${addFundState.wrapper === o.val ? ' active' : ''}"
+                 onclick="setFundWrapper('${o.val}')">${o.label}</button>`
+      ).join('')}
+    </div>
+
+    ${showTradeBlock ? `
+    <!-- SECTION 5: Trade Execution -->
+    <div class="add-inv-section">Trade Execution</div>
+
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div>
+        <label class="adv-drawer-label">Investment Method</label>
+        <div class="contact-seg">
+          ${methodOpts.map(o =>
+            `<button class="contact-seg-btn${addFundState.method === o.val ? ' active' : ''}"
+                     onclick="setFundMethod('${o.val}')">${o.label}</button>`
+          ).join('')}
+        </div>
+      </div>
+
+      ${addFundState.method === 'amount' ? `
+      <div>
+        <label class="adv-drawer-label">Investment Amount (£)</label>
+        <input id="fund-amount" class="det-input" type="number" min="0" step="0.01"
+               style="width:100%;box-sizing:border-box" placeholder="e.g. 25,000"
+               oninput="updateFundSummary()" />
+      </div>` : `
+      <div>
+        <label class="adv-drawer-label">Number of Units</label>
+        <input id="fund-units" class="det-input" type="number" min="0" step="0.0001"
+               style="width:100%;box-sizing:border-box" placeholder="e.g. 1,000.00"
+               oninput="updateFundSummary()" />
+      </div>`}
+
+      <div>
+        <label class="adv-drawer-label">Unit Price (pence) <span style="color:var(--text-3);font-weight:400">— optional, for limit orders</span></label>
+        <input id="fund-price" class="det-input" type="number" min="0" step="0.01"
+               style="width:100%;box-sizing:border-box" placeholder="e.g. 2,329.00"
+               oninput="updateFundSummary()" />
+      </div>
+
+      <div id="fund-summary-wrap"></div>
+
+      <div class="add-inv-row-2">
+        <div>
+          <label class="adv-drawer-label">Trade Date</label>
+          <input id="fund-date" class="det-input" type="date"
+                 style="width:100%;box-sizing:border-box" value="${today}" />
+        </div>
+        <div>
+          <label class="adv-drawer-label">Settlement</label>
+          <select id="fund-settlement" class="det-select" style="width:100%">
+            <option>Standard (T+2)</option>
+            <option>Next Dealing Day</option>
+            <option>Specific Date</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label class="adv-drawer-label">Instruction Type</label>
+        <select id="fund-instruction" class="det-select" style="width:100%">
+          <option>Best Execution</option>
+          <option>Market Order</option>
+          <option>Limit Order</option>
+          <option>Stop Loss</option>
+        </select>
+      </div>
+    </div>` : ''}
+
+    ${showRegularBlock ? `
+    <!-- SECTION 5: Regular Savings -->
+    <div class="add-inv-section">Regular Savings</div>
+
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="add-inv-row-2">
+        <div>
+          <label class="adv-drawer-label">Monthly Amount (£)</label>
+          <input id="fund-regular-amount" class="det-input" type="number" min="0"
+                 style="width:100%;box-sizing:border-box" placeholder="e.g. 500" />
+        </div>
+        <div>
+          <label class="adv-drawer-label">Start Date</label>
+          <input id="fund-regular-start" class="det-input" type="date"
+                 style="width:100%;box-sizing:border-box" value="${today}" />
+        </div>
+      </div>
+      <div>
+        <label class="adv-drawer-label">Payment Method</label>
+        <select id="fund-payment" class="det-select" style="width:100%">
+          <option>Direct Debit</option>
+          <option>Standing Order</option>
+          <option>Cash Balance</option>
+        </select>
+      </div>
+    </div>` : ''}
+
+    <!-- SECTION 6: Risk & Suitability -->
+    <div class="add-inv-section">Risk &amp; Suitability</div>
+
+    <div class="add-fund-risk-strip">
+      <div>
+        <div class="add-inv-summary-label">Current Risk Profile</div>
+        <div style="font-size:13px;font-weight:600;color:var(--text-1);margin-top:2px">Balanced Growth · Level 5 of 10</div>
+      </div>
+      <div class="add-fund-risk-bar">
+        <div class="add-fund-risk-fill" style="width:50%"></div>
+      </div>
+    </div>
+
+    <label class="add-fund-checkbox-row">
+      <input type="checkbox" style="accent-color:var(--gold);width:16px;height:16px;flex-shrink:0;margin-top:1px"
+             ${addFundState.suitability ? 'checked' : ''}
+             onchange="addFundState.suitability=this.checked" />
+      <span style="font-size:12px;color:var(--text-2);line-height:1.5">
+        I confirm this fund aligns with my investment objectives and risk profile as documented in my most recent Suitability Report.
+      </span>
+    </label>
+
+    <!-- SECTION 7: Additional Notes -->
+    <div class="add-inv-section">Additional Notes</div>
+
+    <div>
+      <textarea id="fund-notes" class="contact-textarea" style="width:100%;box-sizing:border-box" rows="4"
+                maxlength="500" placeholder="Any specific instructions or considerations for your adviser…"
+                oninput="document.getElementById('fund-char').textContent=this.value.length+'/500'"></textarea>
+      <div class="contact-char-count" id="fund-char">0/500</div>
+    </div>
+
+    <button class="btn-primary" style="width:100%;margin-top:4px"
+            onclick="submitAddFund()">Submit Dealing Instruction</button>
+
+    <div class="contact-lock-note">
+      <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+        <rect x="3" y="11" width="18" height="11" rx="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+      FCA regulated · Instructions recorded for audit purposes · Ref issued on submission
+    </div>`;
+
+  /* ── Sending overlay ── */
+  if (addFundState.status === 'sending') {
+    const overlay = document.createElement('div');
+    overlay.className = 'contact-form-overlay';
+    overlay.style.borderRadius = '0';
+    overlay.innerHTML = `
+      <div class="contact-spinner"></div>
+      <div style="font-family:var(--font-serif);font-size:18px;color:var(--text-1);letter-spacing:-0.3px">
+        Submitting instruction…
+      </div>`;
+    el.appendChild(overlay);
+  }
+}
+
+function updateFundSummary() {
+  const wrap    = document.getElementById('fund-summary-wrap');
+  if (!wrap) return;
+  const priceEl = document.getElementById('fund-price');
+  const amtEl   = document.getElementById('fund-amount');
+  const unitsEl = document.getElementById('fund-units');
+  const price   = parseFloat(priceEl  && priceEl.value  ? priceEl.value  : '');
+  const primary = addFundState.method === 'amount'
+    ? parseFloat(amtEl   && amtEl.value   ? amtEl.value   : '')
+    : parseFloat(unitsEl && unitsEl.value ? unitsEl.value : '');
+
+  if (!isNaN(price) && price > 0 && !isNaN(primary) && primary > 0) {
+    const pricePounds = price / 100;
+    if (addFundState.method === 'amount') {
+      const estUnits = (primary / pricePounds).toLocaleString('en-GB', { maximumFractionDigits: 2 });
+      wrap.innerHTML = `
+        <div class="add-inv-summary">
+          <div><div class="add-inv-summary-label">Estimated Units</div><div class="add-inv-summary-val">${estUnits}</div></div>
+          <div style="text-align:right"><div class="add-inv-summary-label">At Price</div><div class="add-inv-summary-val">${price}p</div></div>
+        </div>`;
+    } else {
+      const estCost = (primary * pricePounds).toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      wrap.innerHTML = `
+        <div class="add-inv-summary">
+          <div><div class="add-inv-summary-label">Estimated Cost</div><div class="add-inv-summary-val">£${estCost}</div></div>
+          <div style="text-align:right"><div class="add-inv-summary-label">At Price</div><div class="add-inv-summary-val">${price}p</div></div>
+        </div>`;
+    }
+  } else {
+    wrap.innerHTML = '';
+  }
+}
+
+function submitAddFund() {
+  addFundState.status = 'sending';
+  renderAddFundForm();
+  setTimeout(() => {
+    addFundState.status = 'sent';
+    addFundState.ref = 'AW-' + new Date().getFullYear() + '-' + Math.floor(100000 + Math.random() * 900000);
+    renderAddFundForm();
+  }, 1200);
+}
+
+function resetAddFund() {
+  addFundState.status      = 'idle';
+  addFundState.ref         = '';
+  addFundState.txType      = 'buy';
+  addFundState.method      = 'amount';
+  addFundState.wrapper     = 'sipp';
+  addFundState.suitability = false;
+  renderAddFundForm();
+}
+
+function setFundTxType(val) {
+  addFundState.txType = val;
+  renderAddFundForm();
+}
+
+function setFundMethod(val) {
+  addFundState.method = val;
+  renderAddFundForm();
+}
+
+function setFundWrapper(val) {
+  addFundState.wrapper = val;
+  renderAddFundForm();
+}

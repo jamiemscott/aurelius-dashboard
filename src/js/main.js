@@ -24,4 +24,24 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.newState === 'open') renderAdviserForm();
     });
   }
+
+  renderAddInvestmentForm();
+
+  // Reset Add Investment drawer form to idle each time it is re-opened
+  const addInvDrawer = document.getElementById('add-investment-drawer');
+  if (addInvDrawer) {
+    addInvDrawer.addEventListener('toggle', e => {
+      if (e.newState === 'open') renderAddInvestmentForm();
+    });
+  }
+
+  renderAddFundForm();
+
+  // Reset Add Fund drawer form to idle each time it is re-opened
+  const addFundDrawer = document.getElementById('add-fund-drawer');
+  if (addFundDrawer) {
+    addFundDrawer.addEventListener('toggle', e => {
+      if (e.newState === 'open') renderAddFundForm();
+    });
+  }
 });
