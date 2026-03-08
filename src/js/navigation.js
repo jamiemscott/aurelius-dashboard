@@ -51,7 +51,8 @@ function toggleTheme() {
 
 /* ─── RANGE PILLS ────────────────────────────────────────────── */
 
-function setRange(el) {
+function setRange(el, range) {
   el.closest('.range-pills').querySelectorAll('.range-pill').forEach(p => p.classList.remove('active'));
   el.classList.add('active');
+  if (typeof updateHistoryView === 'function') updateHistoryView(range);
 }

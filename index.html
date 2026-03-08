@@ -289,18 +289,18 @@
       <div class="hist-stats">
         <div class="card kpi-card featured">
           <div class="kpi-label">Current Value</div>
-          <div class="kpi-value">£842,340</div>
-          <div class="kpi-change up"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>+£47,890 (6M)</div>
+          <div class="kpi-value" id="hist-kpi-value">£842,340</div>
+          <div class="kpi-change up" id="hist-kpi-change"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>+£47,890 (6M)</div>
         </div>
         <div class="card kpi-card">
           <div class="kpi-label">Period High</div>
-          <div class="kpi-value">£869,200</div>
-          <div style="font-size:12px;color:var(--text-3);margin-top:4px">15 Jan 2026</div>
+          <div class="kpi-value" id="hist-kpi-high">£869,200</div>
+          <div style="font-size:12px;color:var(--text-3);margin-top:4px" id="hist-kpi-high-date">15 Jan 2026</div>
         </div>
         <div class="card kpi-card">
           <div class="kpi-label">Period Low</div>
-          <div class="kpi-value">£771,440</div>
-          <div style="font-size:12px;color:var(--text-3);margin-top:4px">12 Nov 2025</div>
+          <div class="kpi-value" id="hist-kpi-low">£771,440</div>
+          <div style="font-size:12px;color:var(--text-3);margin-top:4px" id="hist-kpi-low-date">12 Nov 2025</div>
         </div>
       </div>
 
@@ -311,6 +311,8 @@
             <div class="chart-subtitle">Total portfolio · GBP</div>
           </div>
           <div class="range-pills">
+            <button class="range-pill" onclick="setRange(this,'1D')">1D</button>
+            <button class="range-pill" onclick="setRange(this,'1W')">1W</button>
             <button class="range-pill" onclick="setRange(this,'1M')">1M</button>
             <button class="range-pill" onclick="setRange(this,'3M')">3M</button>
             <button class="range-pill active" onclick="setRange(this,'6M')">6M</button>
@@ -320,16 +322,16 @@
         </div>
         <svg class="chart-svg" id="hist-chart" height="260" viewBox="0 0 800 260" preserveAspectRatio="none"></svg>
         <div style="display:flex;justify-content:space-between;margin-top:8px;">
-          <span style="font-size:11px;color:var(--text-3)">06/11/2025</span>
-          <span style="font-size:11px;color:var(--text-3)">06/02/2026</span>
+          <span style="font-size:11px;color:var(--text-3)" id="hist-date-start">06/11/2025</span>
+          <span style="font-size:11px;color:var(--text-3)" id="hist-date-end">06/02/2026</span>
         </div>
       </div>
 
       <div class="card card-pad">
         <div class="chart-header">
-          <div class="chart-title">Monthly Valuations</div>
+          <div class="chart-title" id="hist-table-title">Monthly Valuations</div>
         </div>
-        <table aria-label="Monthly valuations">
+        <table aria-label="Valuations table">
           <thead><tr>
             <th>Date</th>
             <th>Portfolio Value</th>
@@ -337,12 +339,8 @@
             <th>Total Invested</th>
             <th>Period Return</th>
           </tr></thead>
-          <tbody>
-            <tr><td><div class="td-name">6 Mar 2026</div></td><td>£842,340</td><td>£31,800</td><td>£810,540</td><td><span class="gain-tag up">▲ +1.48%</span></td></tr>
-            <tr><td><div class="td-name">6 Feb 2026</div></td><td>£829,920</td><td>£30,100</td><td>£799,820</td><td><span class="gain-tag down">▼ -2.34%</span></td></tr>
-            <tr><td><div class="td-name">6 Jan 2026</div></td><td>£849,740</td><td>£33,200</td><td>£816,540</td><td><span class="gain-tag up">▲ +5.82%</span></td></tr>
-            <tr><td><div class="td-name">6 Dec 2025</div></td><td>£803,050</td><td>£28,600</td><td>£774,450</td><td><span class="gain-tag up">▲ +2.11%</span></td></tr>
-            <tr><td><div class="td-name">6 Nov 2025</div></td><td>£786,440</td><td>£27,000</td><td>£759,440</td><td><span class="gain-tag down">▼ -1.02%</span></td></tr>
+          <tbody id="hist-table-body">
+            <!-- populated by updateHistoryView() -->
           </tbody>
         </table>
       </div>

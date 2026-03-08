@@ -2,7 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   buildPerfChart('perf-chart', 600, 200);
-  buildPerfChart('hist-chart', 800, 260);
+  updateHistoryView('6M');
   buildDonut('small-donut', allocationData, 34, 12);
   buildLegend('small-legend', allocationData.slice(0, 6));
   buildDonut('big-donut', allocationData, 38, 14);

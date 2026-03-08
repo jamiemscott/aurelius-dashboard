@@ -116,6 +116,50 @@ const userData = {
   ],
 };
 
+/* ─── VALUATION HISTORY DATA ─────────────────────────────────── */
+
+const historyData = (() => {
+  // Seeded LCG for reproducible dummy data
+  let seed = 7919;
+  const lcg = () => {
+    seed = (seed * 1664525 + 1013904223) & 0x7fffffff;
+    return seed / 0x7fffffff;
+  };
+
+  const rows = [];
+  const d    = new Date(2024, 2, 6); // 6 Mar 2024
+  const end  = new Date(2026, 2, 6); // 6 Mar 2026
+  let v = 668000; // starting portfolio value ~£668k
+
+  while (d <= end) {
+    const dow = d.getDay();
+    if (dow !== 0 && dow !== 6) { // Mon–Fri only
+      const change   = (lcg() - 0.47) * 0.016; // slight upward bias, ~±0.8%/day
+      v = Math.max(v * (1 + change), 550000);
+      const cashFrac = 0.030 + (lcg() - 0.5) * 0.012; // ~2.4–3.6% in cash
+      const cash     = Math.max(Math.round(v * cashFrac / 500) * 500, 8000);
+      rows.push({ date: new Date(d), value: Math.round(v), cash });
+    }
+    d.setDate(d.getDate() + 1);
+  }
+
+  // Normalise so the final entry matches the dashboard's live portfolio value
+  const scale = 842340 / rows[rows.length - 1].value;
+  rows.forEach(r => {
+    r.value    = Math.round(r.value * scale);
+    r.cash     = Math.max(Math.round(r.cash * scale / 500) * 500, 8000);
+    r.invested = r.value - r.cash;
+  });
+
+  // Pin last entry exactly to current dashboard values
+  const last     = rows[rows.length - 1];
+  last.value     = 842340;
+  last.cash      = 31800;
+  last.invested  = 810540;
+
+  return rows;
+})();
+
 const activity = [
   { icon: '↗', type: 'buy',  title: 'Bought Royal London Gbl Eqty', sub: 'SIPP · 842.4 units @ £14.82',       amount: '+£12,480',  pos: false, time: '2 Mar 2026'  },
   { icon: '÷', type: 'div',  title: 'Dividend Received',             sub: 'Artisan Partners · Q4 distribution', amount: '+£1,840',   pos: true,  time: '28 Feb 2026' },
