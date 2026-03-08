@@ -2227,3 +2227,176 @@ function setFundWrapper(val) {
   addFundState.wrapper = val;
   renderAddFundForm();
 }
+
+/* ─── VALUATION HISTORY VIEW ──────────────────────────────────── */
+
+function updateHistoryView(range) {
+  const today  = historyData[historyData.length - 1].date;
+  const cutoff = new Date(today);
+  switch (range) {
+    case '1D':  cutoff.setDate(cutoff.getDate() - 1);          break;
+    case '1W':  cutoff.setDate(cutoff.getDate() - 7);          break;
+    case '1M':  cutoff.setMonth(cutoff.getMonth() - 1);        break;
+    case '3M':  cutoff.setMonth(cutoff.getMonth() - 3);        break;
+    case '6M':  cutoff.setMonth(cutoff.getMonth() - 6);        break;
+    case '1Y':  cutoff.setFullYear(cutoff.getFullYear() - 1);  break;
+    default:    cutoff.setFullYear(2000);                       break; // ALL
+  }
+  const filtered = historyData.filter(r => r.date >= cutoff);
+  if (!filtered.length) return;
+  buildHistChart(filtered);
+  buildHistKPIs(filtered, range);
+  buildHistDateLabels(filtered);
+  buildHistTable(filtered, range);
+}
+
+function buildHistChart(filtered) {
+  const svg = document.getElementById('hist-chart');
+  if (!svg) return;
+  const w = 800, h = 260;
+  svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+
+  const base = filtered[0].value;
+  const pts  = filtered.map(r => ((r.value - base) / base) * 100);
+
+  const pad    = 20;
+  const xStep  = (w - pad * 2) / Math.max(pts.length - 1, 1);
+  const minV   = Math.min(...pts) - 1;
+  const maxV   = Math.max(...pts) + 1;
+  const yScale = v => h - pad - ((v - minV) / (maxV - minV)) * (h - pad * 2);
+
+  const linePoints = pts.map((v, i) => `${pad + i * xStep},${yScale(v)}`).join(' ');
+  const areaPoints = `${pad},${h - pad} ${linePoints} ${pad + (pts.length - 1) * xStep},${h - pad}`;
+
+  // Up to 6 evenly-spaced vertical grid lines
+  const gridCount = Math.min(pts.length - 1, 5);
+  const gridStep  = Math.max(Math.floor((pts.length - 1) / gridCount), 1);
+  const gridIdxs  = Array.from({ length: gridCount + 1 }, (_, k) => Math.min(k * gridStep, pts.length - 1));
+
+  svg.innerHTML = `
+    <defs>
+      <linearGradient id="hist-chart-grad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#F5A623" stop-opacity="0.25"/>
+        <stop offset="100%" stop-color="#F5A623" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <polygon points="${areaPoints}" fill="url(#hist-chart-grad)"/>
+    <polyline points="${linePoints}" fill="none" stroke="#F5A623" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="${pad + (pts.length - 1) * xStep}" cy="${yScale(pts[pts.length - 1])}" r="4" fill="#F5A623" stroke="var(--bg-card)" stroke-width="2"/>
+    ${gridIdxs.map(i =>
+      `<line x1="${pad + i * xStep}" y1="${pad}" x2="${pad + i * xStep}" y2="${h - pad}" stroke="var(--divider)" stroke-width="1" stroke-dasharray="3,4"/>`
+    ).join('')}
+  `;
+}
+
+function buildHistKPIs(filtered, range) {
+  const first = filtered[0];
+  const last  = filtered[filtered.length - 1];
+  const hi    = filtered.reduce((a, b) => b.value > a.value ? b : a);
+  const lo    = filtered.reduce((a, b) => b.value < a.value ? b : a);
+
+  const change     = last.value - first.value;
+  const changePct  = ((change / first.value) * 100).toFixed(1);
+  const up         = change >= 0;
+  const rangeLabel = { '1D':'1D','1W':'1W','1M':'1M','3M':'3M','6M':'6M','1Y':'1Y','ALL':'All' }[range] || range;
+
+  const fmt     = v => '£' + v.toLocaleString('en-GB');
+  const fmtDate = d => d.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+
+  const valEl  = document.getElementById('hist-kpi-value');
+  const chgEl  = document.getElementById('hist-kpi-change');
+  const hiEl   = document.getElementById('hist-kpi-high');
+  const hiDtEl = document.getElementById('hist-kpi-high-date');
+  const loEl   = document.getElementById('hist-kpi-low');
+  const loDtEl = document.getElementById('hist-kpi-low-date');
+
+  if (valEl) valEl.textContent = fmt(last.value);
+  if (chgEl) {
+    const arrow = `<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="${up ? '18 15 12 9 6 15' : '6 9 12 15 18 9'}"/></svg>`;
+    chgEl.className = `kpi-change ${up ? 'up' : 'down'}`;
+    chgEl.innerHTML = `${arrow}${up ? '+' : '-'}${fmt(Math.abs(change))} (${rangeLabel})`;
+  }
+  if (hiEl)   hiEl.textContent   = fmt(hi.value);
+  if (hiDtEl) hiDtEl.textContent = fmtDate(hi.date);
+  if (loEl)   loEl.textContent   = fmt(lo.value);
+  if (loDtEl) loDtEl.textContent = fmtDate(lo.date);
+}
+
+function buildHistDateLabels(filtered) {
+  const fmt = d => `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
+  const s = document.getElementById('hist-date-start');
+  const e = document.getElementById('hist-date-end');
+  if (s) s.textContent = fmt(filtered[0].date);
+  if (e) e.textContent = fmt(filtered[filtered.length - 1].date);
+}
+
+function buildHistTable(filtered, range) {
+  const titleEl = document.getElementById('hist-table-title');
+  const bodyEl  = document.getElementById('hist-table-body');
+  if (!bodyEl) return;
+
+  const fmt     = v => '£' + v.toLocaleString('en-GB');
+  const fmtDate = d => d.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+
+  let rows, title;
+
+  const titleMap = {
+    '1D': '1 Day Valuations', '1W': '1 Week Valuations', '1M': '1 Month Valuations',
+    '3M': '3 Month Valuations', '6M': '6 Month Valuations',
+    '1Y': '1 Year Valuations', 'ALL': 'All Time Valuations',
+  };
+
+  if (range === '1D' || range === '1W' || range === '1M') {
+    title = titleMap[range];
+    const daily = [...filtered].reverse();
+    rows = daily.map((r, i) => {
+      const prev = daily[i + 1];
+      const ret  = prev ? ((r.value - prev.value) / prev.value) * 100 : 0;
+      return { date: r.date, value: r.value, cash: r.cash, invested: r.invested, ret, up: ret >= 0 };
+    });
+
+  } else if (range === '3M') {
+    title = titleMap[range];
+    // Group by ISO week, take last entry per week
+    const buckets = new Map();
+    filtered.forEach(r => {
+      const d   = r.date;
+      const dow = d.getDay() || 7;
+      const thu = new Date(d); thu.setDate(d.getDate() - dow + 4);
+      const yr  = thu.getFullYear();
+      const wk  = Math.ceil((((thu - new Date(yr, 0, 1)) / 864e5) + 1) / 7);
+      buckets.set(`${yr}-W${String(wk).padStart(2,'0')}`, r);
+    });
+    const weekly = Array.from(buckets.values()).reverse();
+    rows = weekly.map((r, i) => {
+      const prev = weekly[i + 1];
+      const ret  = prev ? ((r.value - prev.value) / prev.value) * 100 : 0;
+      return { date: r.date, value: r.value, cash: r.cash, invested: r.invested, ret, up: ret >= 0 };
+    });
+
+  } else {
+    title = titleMap[range] || 'Monthly Valuations';
+    // Group by year-month, take last entry per month
+    const buckets = new Map();
+    filtered.forEach(r => {
+      buckets.set(`${r.date.getFullYear()}-${String(r.date.getMonth()).padStart(2,'0')}`, r);
+    });
+    const monthly = Array.from(buckets.values()).reverse();
+    rows = monthly.map((r, i) => {
+      const prev = monthly[i + 1];
+      const ret  = prev ? ((r.value - prev.value) / prev.value) * 100 : 0;
+      return { date: r.date, value: r.value, cash: r.cash, invested: r.invested, ret, up: ret >= 0 };
+    });
+  }
+
+  if (titleEl) titleEl.textContent = title;
+  bodyEl.innerHTML = rows.map(r => `
+    <tr>
+      <td><div class="td-name">${fmtDate(r.date)}</div></td>
+      <td>${fmt(r.value)}</td>
+      <td>${fmt(r.cash)}</td>
+      <td>${fmt(r.invested)}</td>
+      <td><span class="gain-tag ${r.up ? 'up' : 'down'}">${r.up ? '▲' : '▼'} ${r.up ? '+' : ''}${r.ret.toFixed(2)}%</span></td>
+    </tr>
+  `).join('');
+}
