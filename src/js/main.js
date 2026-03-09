@@ -44,4 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.newState === 'open') renderAddFundForm();
     });
   }
+
+  initChatbot();
 });
