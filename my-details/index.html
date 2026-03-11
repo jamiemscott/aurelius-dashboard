@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aurelius Wealth — Asset Allocation</title>
+<title>Aurelius Wealth — My Details</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../src/styles/bundle.css">
 </head>
@@ -17,7 +17,7 @@
     <div class="topbar-center">
       <a class="tab-btn" href="/">My Overview</a>
       <a class="tab-btn" href="/valuation-history/">Valuation History</a>
-      <a class="tab-btn active" href="/asset-allocation/">Asset Allocation</a>
+      <a class="tab-btn" href="/asset-allocation/">Asset Allocation</a>
       <a class="tab-btn" href="/my-investments/">My Investments</a>
       <a class="tab-btn" href="/capital-gains-tax/">Capital Gains Tax</a>
     </div>
@@ -33,12 +33,12 @@
     <div class="sidebar-section-label">Portfolio</div>
     <a class="nav-item" href="/"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Overview</span></a>
     <a class="nav-item" href="/valuation-history/"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span>Valuation History</span></a>
-    <a class="nav-item active" href="/asset-allocation/"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg><span>Asset Allocation</span></a>
+    <a class="nav-item" href="/asset-allocation/"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg><span>Asset Allocation</span></a>
     <a class="nav-item" href="/my-investments/"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>My Investments</span></a>
     <a class="nav-item" href="/capital-gains-tax/"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span>Capital Gains Tax</span></a>
     <div class="sidebar-section-label">Account</div>
     <a class="nav-item" href="/documents/"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Documents</span><span class="nav-badge" id="docs-nav-badge">3</span></a>
-    <a class="nav-item" href="/my-details/"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>My Details</span></a>
+    <a class="nav-item active" href="/my-details/"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>My Details</span></a>
     <a class="nav-item" href="/contact-us/"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Contact Us</span></a>
     <div class="sidebar-footer"><div class="advisor-card"><div class="advisor-label">Your Adviser</div><div class="advisor-name">James Whitmore</div><div class="advisor-contact">j.whitmore@aurelius.co.uk</div><button class="contact-btn" popovertarget="adviser-drawer">Message Adviser</button></div></div>
   </nav>
@@ -47,55 +47,22 @@
 
     <div class="page-header">
       <div>
-        <div class="breadcrumb"><span>Sumant Kumar</span><span class="breadcrumb-sep">/</span><span class="breadcrumb-current">Asset Allocation</span></div>
-        <div class="page-title">Asset Allocation</div>
-        <div class="page-date">All accounts · As at 6 March 2026</div>
+        <div class="breadcrumb"><span>Sumant Kumar</span><span class="breadcrumb-sep">/</span><span class="breadcrumb-current">My Details</span></div>
+        <div class="page-title">My Details</div>
+        <div class="page-date">Account since March 2018</div>
       </div>
       <div class="header-actions">
-        <select class="filter-select" aria-label="Account filter"><option>All Accounts</option><option>Advised SIPP</option></select>
+        <button class="btn-secondary">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download Profile
+        </button>
       </div>
     </div>
 
-    <div class="alloc-grid">
-      <div class="card card-pad" style="display:flex;flex-direction:column;gap:20px;align-items:center">
-        <div>
-          <div class="chart-title" style="text-align:center">Geographic Allocation</div>
-          <div class="chart-subtitle" style="text-align:center;margin-top:4px">By market value</div>
-        </div>
-        <svg class="big-donut-svg" id="big-donut" viewBox="0 0 100 100"></svg>
-        <div style="font-family:var(--font-serif);font-size:24px;color:var(--text-1);text-align:center;letter-spacing:-0.5px">£842,340 <span style="font-family:var(--font-sans);font-size:13px;color:var(--text-3)">total</span></div>
-      </div>
-      <div class="card card-pad">
-        <div class="chart-header"><div class="chart-title">Allocation Breakdown</div></div>
-        <div id="alloc-progress-list"></div>
-      </div>
-    </div>
-
-    <div class="two-col-equal">
-      <div class="card card-pad">
-        <div class="section-heading">By Asset Class</div>
-        <div id="asset-class-list"></div>
-      </div>
-      <div class="card card-pad">
-        <div class="section-heading">By Currency</div>
-        <div id="currency-list"></div>
-      </div>
-    </div>
-
-    <footer class="site-footer" role="contentinfo" aria-label="Site footer">
-      <div class="footer-upper">
-        <div class="footer-brand-col"><div class="footer-brand"><div class="footer-brand-mark">A</div><div class="footer-brand-name">Aurelius</div></div><p class="footer-tagline">Private wealth management for discerning investors. Authorised and regulated by the Financial Conduct Authority.</p><div class="footer-reg-badge"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> FCA Regulated</div></div>
-        <div><div class="footer-col-title">Services</div><ul class="footer-links"><li><a href="#">Portfolio Management</a></li><li><a href="#">Retirement Planning</a></li><li><a href="#">Tax &amp; Estate Planning</a></li><li><a href="#">ISA &amp; SIPP Accounts</a></li><li><a href="#">Discretionary Management</a></li></ul></div>
-        <div><div class="footer-col-title">Support</div><ul class="footer-links"><li><a href="#">Help Centre</a></li><li><a href="#">Contact Your Adviser</a></li><li><a href="#">Document Library</a></li><li><a href="#">Security &amp; Fraud</a></li><li><a href="#">Complaints Procedure</a></li></ul></div>
-        <div><div class="footer-col-title">Legal &amp; Regulatory</div><ul class="footer-links"><li><a href="#">Terms &amp; Conditions</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Cookie Policy</a></li><li><a href="#">MIFID II Disclosure</a></li><li><a href="#">Modern Slavery Act</a></li></ul></div>
-      </div>
-      <div class="footer-regulatory"><p class="footer-reg-text"><strong>Important information.</strong> Aurelius Wealth Management Limited is authorised and regulated by the <a href="#">Financial Conduct Authority</a> (FCA). Registered number 987654. Registered in England &amp; Wales. Company number 12345678. Registered office: 14 St James&#x2019;s Square, London, SW1Y 4LB.<br><br>The value of investments and the income from them can fall as well as rise and you may get back less than you invest. Past performance is not a reliable indicator of future results. This website is for information purposes only and does not constitute financial advice.</p></div>
-      <div class="footer-bottom">
-        <div class="footer-copyright">&#xa9; 2026 Aurelius Wealth Management Limited. All rights reserved.</div>
-        <div class="footer-fca"><div class="fca-dot"></div>FCA Reg. No. 987654 &#xb7; ICO Reg. ZA123456</div>
-        <div class="footer-bottom-links"><a href="#">Accessibility</a><div class="sep"></div><a href="#">Sitemap</a><div class="sep"></div><a href="#">Cookie Settings</a><div class="sep"></div><a href="#">Modern Slavery</a></div>
-      </div>
-    </footer>
+    <!-- JS-rendered sections -->
+    <div id="details-hero" class="details-hero"></div>
+    <div id="details-tabs" class="details-tabs"></div>
+    <div id="details-content"></div>
 
   </main>
 </div>
@@ -104,7 +71,6 @@
 <script src="../src/js/navigation.js"></script>
 <script src="../src/js/chatbot.js"></script>
 <script src="../src/js/main.js"></script>
-
 
 <!-- ── ADVISER MESSAGE DRAWER (Popover API) ───────────────────── -->
 <div id="adviser-drawer" popover>
@@ -135,8 +101,6 @@
 
 <!-- ── USER MENU (Popover API) ─────────────────────────────────── -->
 <div id="user-menu" popover>
-
-  <!-- Profile header -->
   <div class="um-header">
     <div class="um-avatar">SK</div>
     <div>
@@ -144,81 +108,45 @@
       <div class="um-meta">Platinum Client · AW-20182-UK</div>
     </div>
   </div>
-
-  <!-- Account section -->
   <div class="um-section">
     <div class="um-section-label">Account</div>
-
-    <a class="um-item" href="/my-details/"
-       onclick="document.getElementById('user-menu').hidePopover()">
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/>
-      </svg>
+    <a class="um-item" href="/my-details/" onclick="document.getElementById('user-menu').hidePopover()">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
       My Details
     </a>
-
     <button class="um-item">
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
-        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-      </svg>
-      Notifications
-      <span class="um-badge">3</span>
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      Notifications<span class="um-badge">3</span>
     </button>
-
     <button class="um-item">
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
-        <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-      </svg>
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
       Security &amp; 2FA
     </button>
-
     <button class="um-item">
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
-      </svg>
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       Download Statements
     </button>
   </div>
-
   <div class="um-divider"></div>
-
-  <!-- Preferences section -->
   <div class="um-section">
     <div class="um-section-label">Preferences</div>
-
     <button class="um-item" onclick="toggleTheme()">
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-        <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-      </svg>
-      Appearance
-      <span class="um-hint" id="um-theme-hint">Dark</span>
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      Appearance<span class="um-hint" id="um-theme-hint">Dark</span>
     </button>
-
     <button class="um-item">
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>
-      </svg>
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
       Help &amp; Support
     </button>
   </div>
-
   <div class="um-divider"></div>
-
-  <!-- Sign out -->
   <div class="um-section">
     <button class="um-item um-item--danger">
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
-        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
-      </svg>
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
       Sign Out
     </button>
   </div>
-
 </div>
-
 
 <!-- ── AVA CHAT WIDGET ────────────────────────────────────────── -->
 <button class="chat-bubble-btn" id="chat-bubble-btn"
@@ -227,30 +155,22 @@
     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
   </svg>
 </button>
-
 <div class="chat-window" id="chat-window" role="dialog" aria-label="Ava chat assistant">
   <div class="chat-hd">
     <div class="chat-hd-left">
       <div class="chat-avatar">A</div>
       <div>
         <div class="chat-hd-name">Ava</div>
-        <div class="chat-hd-status">
-          <span class="chat-online-dot"></span>Online · AI-powered
-        </div>
+        <div class="chat-hd-status"><span class="chat-online-dot"></span>Online · AI-powered</div>
       </div>
     </div>
     <button class="chat-close-btn" onclick="closeChatbot()" aria-label="Close chat">✕</button>
   </div>
   <div class="chat-messages" id="chat-messages"></div>
   <div class="chat-input-row">
-    <input class="chat-input" id="chat-input" type="text"
-           placeholder="Type a message…" autocomplete="off"
-           onkeydown="if(event.key==='Enter')handleChatSubmit()">
+    <input class="chat-input" id="chat-input" type="text" placeholder="Type a message…" autocomplete="off" onkeydown="if(event.key==='Enter')handleChatSubmit()">
     <button class="chat-send-btn" onclick="handleChatSubmit()" aria-label="Send message">
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-        <line x1="22" y1="2" x2="11" y2="13"/>
-        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-      </svg>
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
     </button>
   </div>
 </div>
