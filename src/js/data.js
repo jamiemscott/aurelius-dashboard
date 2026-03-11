@@ -57,6 +57,109 @@ const documents = [
   { id: 14, name: 'Investment Management Agreement',          category: 'form',           date: '12 Jan 2024', ts: 20240112, size: '328 KB', account: 'All Accounts',  unread: false },
 ];
 
+const userData = {
+  title: 'Mr', firstName: 'Sumant', lastName: 'Kumar',
+  preferredName: 'Sumant', dob: '14/07/1978',
+  gender: 'Male', nationality: 'British', maritalStatus: 'Married',
+  niNumber: 'AB123456C',
+  taxResidency: 'United Kingdom',
+  utr: '1234567890',
+  fatca: false, usPersonDeclaration: false,
+  clientNumber: 'AW-20182-UK',
+  clientSince: 'March 2018',
+  tier: 'Platinum',
+  nextReview: 'September 2026',
+  adviser: 'James Whitmore',
+  adviserEmail: 'j.whitmore@aurelius.co.uk',
+  kycStatus: 'verified',
+  kycDoc: 'Passport',
+  kycExpiry: '24 Nov 2031',
+  kycVerifiedDate: '18 Jan 2024',
+  emailPrimary: 'sumant.kumar@gmail.com',
+  emailPrimaryVerified: true,
+  emailSecondary: 's.kumar@kumar-ventures.co.uk',
+  phoneMobile: '+44 7700 900 142',
+  phoneHome: '+44 20 7946 0352',
+  phoneWork: '',
+  addrLine1: '14 Cavendish Square',
+  addrLine2: '',
+  addrCity: 'London',
+  addrCounty: '',
+  addrPostcode: 'W1G 0PH',
+  addrCountry: 'United Kingdom',
+  corrSameAsReg: true,
+  preferredContact: 'email',
+  paperless: true,
+  language: 'English',
+  timezone: 'Europe/London',
+  notif: {
+    email:  { statements: true,  trades: true,  markets: false, reviews: true,  system: true  },
+    sms:    { statements: false, trades: true,  markets: false, reviews: false, system: false },
+    inapp:  { statements: true,  trades: true,  markets: true,  reviews: true,  system: true  },
+  },
+  marketing: false,
+  thirdParty: false,
+  analytics: true,
+  passwordChangedDate: '12 Nov 2025',
+  twoFA: true, twoFAMethod: 'Authenticator App', twoFALastUsed: '6 Mar 2026',
+  sessions: [
+    { device: 'MacBook Pro 16"', browser: 'Safari', lastSeen: 'Now',             location: 'London, UK',    icon: 'laptop'  },
+    { device: 'iPhone 15 Pro',   browser: 'Safari', lastSeen: '2 hours ago',     location: 'London, UK',    icon: 'mobile'  },
+    { device: 'Chrome',          browser: 'Chrome', lastSeen: 'Yesterday 14:33', location: 'Edinburgh, UK', icon: 'desktop' },
+  ],
+  loginHistory: [
+    { date: '6 Mar 2026, 09:14',  device: 'MacBook Pro', location: 'London, UK',    status: 'success' },
+    { date: '4 Mar 2026, 16:52',  device: 'iPhone 15',   location: 'London, UK',    status: 'success' },
+    { date: '2 Mar 2026, 11:08',  device: 'Chrome',      location: 'Edinburgh, UK', status: 'success' },
+    { date: '28 Feb 2026, 08:45', device: 'MacBook Pro', location: 'London, UK',    status: 'success' },
+    { date: '22 Feb 2026, 19:31', device: 'Unknown',     location: 'Paris, FR',     status: 'failed'  },
+  ],
+};
+
+/* ─── VALUATION HISTORY DATA ─────────────────────────────────── */
+
+const historyData = (() => {
+  // Seeded LCG for reproducible dummy data
+  let seed = 7919;
+  const lcg = () => {
+    seed = (seed * 1664525 + 1013904223) & 0x7fffffff;
+    return seed / 0x7fffffff;
+  };
+
+  const rows = [];
+  const d    = new Date(2024, 2, 6); // 6 Mar 2024
+  const end  = new Date(2026, 2, 6); // 6 Mar 2026
+  let v = 668000; // starting portfolio value ~£668k
+
+  while (d <= end) {
+    const dow = d.getDay();
+    if (dow !== 0 && dow !== 6) { // Mon–Fri only
+      const change   = (lcg() - 0.47) * 0.016; // slight upward bias, ~±0.8%/day
+      v = Math.max(v * (1 + change), 550000);
+      const cashFrac = 0.030 + (lcg() - 0.5) * 0.012; // ~2.4–3.6% in cash
+      const cash     = Math.max(Math.round(v * cashFrac / 500) * 500, 8000);
+      rows.push({ date: new Date(d), value: Math.round(v), cash });
+    }
+    d.setDate(d.getDate() + 1);
+  }
+
+  // Normalise so the final entry matches the dashboard's live portfolio value
+  const scale = 842340 / rows[rows.length - 1].value;
+  rows.forEach(r => {
+    r.value    = Math.round(r.value * scale);
+    r.cash     = Math.max(Math.round(r.cash * scale / 500) * 500, 8000);
+    r.invested = r.value - r.cash;
+  });
+
+  // Pin last entry exactly to current dashboard values
+  const last     = rows[rows.length - 1];
+  last.value     = 842340;
+  last.cash      = 31800;
+  last.invested  = 810540;
+
+  return rows;
+})();
+
 const activity = [
   { icon: '↗', type: 'buy',  title: 'Bought Royal London Gbl Eqty', sub: 'SIPP · 842.4 units @ £14.82',       amount: '+£12,480',  pos: false, time: '2 Mar 2026'  },
   { icon: '÷', type: 'div',  title: 'Dividend Received',             sub: 'Artisan Partners · Q4 distribution', amount: '+£1,840',   pos: true,  time: '28 Feb 2026' },
