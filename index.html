@@ -42,7 +42,6 @@
       <button class="icon-btn" aria-label="Settings">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="8" cy="6" r="2" fill="var(--bg-card)" stroke="currentColor" stroke-width="1.7"/><circle cx="16" cy="12" r="2" fill="var(--bg-card)" stroke="currentColor" stroke-width="1.7"/><circle cx="10" cy="18" r="2" fill="var(--bg-card)" stroke="currentColor" stroke-width="1.7"/></svg>
       </button>
-
       <button class="avatar" popovertarget="user-menu" aria-label="Open user menu" aria-haspopup="true">SK</button>
     </div>
   </header>
@@ -84,12 +83,12 @@
       <span class="nav-badge" id="docs-nav-badge">3</span>
     </a>
 
-    <button class="nav-item" onclick="showPage('details',null);setActiveNav(this)">
-      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
+    <a class="nav-item" href="#">
+      <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       <span>My Details</span>
     </a>
 
-    <button class="nav-item" onclick="showPage('contact',null);setActiveNav(this)">
+    <a class="nav-item" href="#">
       <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       <span>Contact Us</span>
     </a>
@@ -99,7 +98,7 @@
         <div class="advisor-label">Your Adviser</div>
         <div class="advisor-name">James Whitmore</div>
         <div class="advisor-contact">j.whitmore@aurelius.co.uk</div>
-        <button class="contact-btn" popovertarget="adviser-drawer">Message Adviser</button>
+        <button class="contact-btn">Message Adviser</button>
       </div>
     </div>
   </nav>
@@ -107,70 +106,12 @@
   <!-- ── MAIN CONTENT ───────────────────── -->
   <main class="main" role="main">
 
-    <!-- ═══════════════════════════════════ -->
-    <!-- PAGE: OVERVIEW                      -->
-    <!-- ═══════════════════════════════════ -->
-    <div id="page-overview" class="page-section active">
-      <div class="page-header">
-        <div>
-          <div class="breadcrumb">
-            <span>Sumant Kumar</span>
-            <span class="breadcrumb-sep">/</span>
-            <span class="breadcrumb-current">My Overview</span>
-          </div>
-          <div class="page-title">Portfolio Overview</div>
-          <div class="page-date">As at Friday, 6 March 2026</div>
-        </div>
-        <div class="header-actions">
-          <button class="btn-secondary">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download Report
-          </button>
-          <button class="btn-primary" popovertarget="add-investment-drawer">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Add Investment
-          </button>
-        </div>
-      </div>
-
-      <!-- KPI Strip -->
-      <div class="kpi-grid">
-        <div class="kpi-group">
-          <div class="card kpi-card featured">
-            <div class="kpi-label">Total Portfolio Value</div>
-            <div class="kpi-value">£842,340</div>
-            <div class="kpi-change up">
-              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
-              +£12,480
-              <span class="kpi-change-period">this month</span>
-            </div>
-          </div>
-          <div class="card kpi-card">
-            <div class="kpi-label">Total Cost Basis</div>
-            <div class="kpi-value">£694,210</div>
-            <div class="kpi-change up">
-              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
-              +21.3% overall gain
-            </div>
-          </div>
-        </div>
-
-        <div class="kpi-group">
-          <div class="card kpi-card">
-            <div class="kpi-label">Annual Income</div>
-            <div class="kpi-value">£18,640</div>
-            <div class="kpi-change up">
-              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
-              2.21% yield
-            </div>
-          </div>
-          <div class="card kpi-card">
-            <div class="kpi-label">Cash Balance</div>
-            <div class="kpi-value">£31,800</div>
-            <div class="kpi-change" style="color:var(--text-3)">
-              3.77% of portfolio
-            </div>
-          </div>
+    <div class="page-header">
+      <div>
+        <div class="breadcrumb">
+          <span>Sumant Kumar</span>
+          <span class="breadcrumb-sep">/</span>
+          <span class="breadcrumb-current">My Overview</span>
         </div>
         <div class="page-title">Portfolio Overview</div>
         <div class="page-date">As at Friday, 6 March 2026</div>
@@ -207,22 +148,19 @@
           </div>
         </div>
       </div>
-
-      <div class="hist-stats">
-        <div class="card kpi-card featured">
-          <div class="kpi-label">Current Value</div>
-          <div class="kpi-value" id="hist-kpi-value">£842,340</div>
-          <div class="kpi-change up" id="hist-kpi-change"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>+£47,890 (6M)</div>
+      <div class="kpi-group">
+        <div class="card kpi-card">
+          <div class="kpi-label">Annual Income</div>
+          <div class="kpi-value">£18,640</div>
+          <div class="kpi-change up">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+            2.21% yield
+          </div>
         </div>
         <div class="card kpi-card">
-          <div class="kpi-label">Period High</div>
-          <div class="kpi-value" id="hist-kpi-high">£869,200</div>
-          <div style="font-size:12px;color:var(--text-3);margin-top:4px" id="hist-kpi-high-date">15 Jan 2026</div>
-        </div>
-        <div class="card kpi-card">
-          <div class="kpi-label">Period Low</div>
-          <div class="kpi-value" id="hist-kpi-low">£771,440</div>
-          <div style="font-size:12px;color:var(--text-3);margin-top:4px" id="hist-kpi-low-date">12 Nov 2025</div>
+          <div class="kpi-label">Cash Balance</div>
+          <div class="kpi-value">£31,800</div>
+          <div class="kpi-change" style="color:var(--text-3)">3.77% of portfolio</div>
         </div>
       </div>
     </div>
@@ -236,13 +174,11 @@
             <div class="chart-subtitle">Advised SIPP · Total return</div>
           </div>
           <div class="range-pills">
-            <button class="range-pill" onclick="setRange(this,'1D')">1D</button>
-            <button class="range-pill" onclick="setRange(this,'1W')">1W</button>
-            <button class="range-pill" onclick="setRange(this,'1M')">1M</button>
-            <button class="range-pill" onclick="setRange(this,'3M')">3M</button>
-            <button class="range-pill active" onclick="setRange(this,'6M')">6M</button>
-            <button class="range-pill" onclick="setRange(this,'1Y')">1Y</button>
-            <button class="range-pill" onclick="setRange(this,'ALL')">All</button>
+            <button class="range-pill" onclick="setRange(this)">1M</button>
+            <button class="range-pill" onclick="setRange(this)">3M</button>
+            <button class="range-pill active" onclick="setRange(this)">6M</button>
+            <button class="range-pill" onclick="setRange(this)">1Y</button>
+            <button class="range-pill" onclick="setRange(this)">All</button>
           </div>
         </div>
         <div class="chart-container">
@@ -250,50 +186,13 @@
           <div class="chart-tooltip" id="chart-tooltip"></div>
         </div>
         <div style="display:flex;justify-content:space-between;margin-top:8px;">
-          <span style="font-size:11px;color:var(--text-3)" id="hist-date-start">06/11/2025</span>
-          <span style="font-size:11px;color:var(--text-3)" id="hist-date-end">06/02/2026</span>
+          <span style="font-size:11px;color:var(--text-3)">Sep 2025</span>
+          <span style="font-size:11px;color:var(--text-3)">Mar 2026</span>
         </div>
       </div>
 
       <div class="card card-pad">
         <div class="chart-header">
-          <div class="chart-title" id="hist-table-title">Monthly Valuations</div>
-        </div>
-        <table aria-label="Valuations table">
-          <thead><tr>
-            <th>Date</th>
-            <th>Portfolio Value</th>
-            <th>Cash Balance</th>
-            <th>Total Invested</th>
-            <th>Period Return</th>
-          </tr></thead>
-          <tbody id="hist-table-body">
-            <!-- populated by updateHistoryView() -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- ═══════════════════════════════════ -->
-    <!-- PAGE: ASSET ALLOCATION              -->
-    <!-- ═══════════════════════════════════ -->
-    <div id="page-allocation" class="page-section">
-      <div class="page-header">
-        <div>
-          <div class="breadcrumb"><span>Sumant Kumar</span><span class="breadcrumb-sep">/</span><span class="breadcrumb-current">Asset Allocation</span></div>
-          <div class="page-title">Asset Allocation</div>
-          <div class="page-date">All accounts · As at 6 March 2026</div>
-        </div>
-        <div class="header-actions">
-          <select class="filter-select" aria-label="Account filter">
-            <option>All Accounts</option>
-            <option>Advised SIPP</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="alloc-grid">
-        <div class="card card-pad" style="display:flex;flex-direction:column;gap:20px;align-items:center">
           <div>
             <div class="chart-title">Asset Allocation</div>
             <div class="chart-subtitle">All accounts</div>
@@ -306,53 +205,15 @@
       </div>
     </div>
 
-    <!-- ═══════════════════════════════════ -->
-    <!-- PAGE: MY INVESTMENTS                -->
-    <!-- ═══════════════════════════════════ -->
-    <div id="page-investments" class="page-section">
-      <div class="page-header">
-        <div>
-          <div class="breadcrumb"><span>Sumant Kumar</span><span class="breadcrumb-sep">/</span><span class="breadcrumb-current">My Investments</span></div>
-          <div class="page-title">My Investments</div>
-          <div class="page-date">Dealing Portfolio — IMF9UBMY D</div>
-        </div>
-        <div class="header-actions">
-          <select class="filter-select" aria-label="Account filter">
-            <option>All Accounts</option>
-            <option>Advised SIPP</option>
-          </select>
-          <button class="btn-secondary">Generate Report</button>
-          <button class="btn-primary" popovertarget="add-fund-drawer">+ Add Funds</button>
-        </div>
-      </div>
-
-      <div class="stat-row" style="margin-bottom:20px">
-        <div class="stat-chip">
-          <div class="stat-chip-label">Total Market Value</div>
-          <div class="stat-chip-value gold">£842,340</div>
-        </div>
-        <div class="stat-chip">
-          <div class="stat-chip-label">Total Cost</div>
-          <div class="stat-chip-value">£694,210</div>
-        </div>
-        <div class="stat-chip">
-          <div class="stat-chip-label">Total Gain / Loss</div>
-          <div class="stat-chip-value green">+£148,130</div>
-        </div>
-        <div class="stat-chip">
-          <div class="stat-chip-label">Yield</div>
-          <div class="stat-chip-value">2.21%</div>
-        </div>
-        <div class="stat-chip">
-          <div class="stat-chip-label">Cash (GBP)</div>
-          <div class="stat-chip-value">£31,800</div>
-        </div>
-      </div>
-
-      <div class="card" style="margin-bottom:16px">
-        <div style="padding:16px 24px;border-bottom:1px solid var(--divider);font-size:14px;font-weight:600;color:var(--text-1);display:flex;align-items:center;gap:8px">
-          <svg width="14" height="14" fill="none" stroke="var(--gold)" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-          GBP Mutual Funds
+    <!-- Holdings + Activity -->
+    <div class="two-col">
+      <div class="card card-pad">
+        <div class="chart-header">
+          <div>
+            <div class="chart-title">Top Holdings</div>
+            <div class="chart-subtitle">By market value</div>
+          </div>
+          <a class="btn-secondary" style="font-size:12px;padding:6px 14px;text-decoration:none" href="/my-investments/">View All</a>
         </div>
         <div class="table-wrap">
           <table id="top-holdings-table" aria-label="Top holdings">
@@ -380,63 +241,7 @@
       </div>
     </div>
 
-    <!-- ═══════════════════════════════════ -->
-    <!-- PAGE: MY DETAILS                    -->
-    <!-- ═══════════════════════════════════ -->
-    <div id="page-details" class="page-section">
-      <div class="page-header">
-        <div>
-          <div class="breadcrumb">
-            <span>Sumant Kumar</span>
-            <span class="breadcrumb-sep">/</span>
-            <span class="breadcrumb-current">My Details</span>
-          </div>
-          <div class="page-title">My Details</div>
-          <div class="page-date">Account since March 2018</div>
-        </div>
-        <div class="header-actions">
-          <button class="btn-secondary">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download Profile
-          </button>
-        </div>
-      </div>
-
-      <!-- Profile hero (JS-rendered) -->
-      <div id="details-hero" class="details-hero"></div>
-
-      <!-- Tab bar (JS-rendered) -->
-      <div id="details-tabs" class="details-tabs"></div>
-
-      <!-- Tab content (JS-rendered) -->
-      <div id="details-content"></div>
-    </div>
-
-    <!-- ═══════════════════════════════════ -->
-    <!-- CONTACT US                          -->
-    <!-- ═══════════════════════════════════ -->
-    <div id="page-contact" class="page-section">
-      <div class="page-header">
-        <div>
-          <div class="breadcrumb">
-            <span>Sumant Kumar</span>
-            <span class="breadcrumb-sep">/</span>
-            <span class="breadcrumb-current">Contact Us</span>
-          </div>
-          <div class="page-title">Contact Us</div>
-          <div class="page-date">We're here whenever you need us</div>
-        </div>
-      </div>
-      <div id="contact-hero"></div>
-      <div id="contact-strip"></div>
-      <div id="contact-main"></div>
-      <div id="contact-numbers"></div>
-      <div id="contact-trust"></div>
-    </div>
-
-    <!-- ═══════════════════════════════════ -->
-    <!-- SITE FOOTER                         -->
-    <!-- ═══════════════════════════════════ -->
+    <!-- ── SITE FOOTER ──────────────────── -->
     <footer class="site-footer" role="contentinfo" aria-label="Site footer">
 
       <div class="footer-upper">
@@ -488,7 +293,7 @@
           <strong>Important information.</strong> Aurelius Wealth Management Limited is authorised and regulated by the
           <a href="#">Financial Conduct Authority</a> (FCA). Registered number 987654.
           Registered in England &amp; Wales. Company number 12345678. Registered office:
-          One Cavendish Square, London, W1G 0LD.<br><br>
+          14 St James&#x2019;s Square, London, SW1Y 4LB.<br><br>
           The value of investments and the income from them can fall as well as rise and you may get back less than you invest.
           Past performance is not a reliable indicator of future results. Tax treatment depends on individual circumstances
           and may be subject to change. This website is for information purposes only and does not constitute financial advice.
@@ -514,39 +319,12 @@
   </main>
 </div>
 
-<!-- ── ADVISER MESSAGE DRAWER (Popover API) ───────────────────── -->
-<div id="adviser-drawer" popover>
-  <div class="adv-drawer-inner">
+<!-- ── JAVASCRIPT ─────────────────────────────────────────────── -->
+<script src="src/js/data.js"></script>
+<script src="src/js/charts.js"></script>
+<script src="src/js/navigation.js"></script>
+<script src="src/js/main.js"></script>
 
-    <!-- Sticky header -->
-    <div class="adv-drawer-hd">
-      <div class="adv-drawer-hd-left">
-        <div class="adv-drawer-avatar">JW</div>
-        <div>
-          <div class="adv-drawer-name">James Whitmore</div>
-          <div class="adv-drawer-role">Senior Wealth Manager</div>
-        </div>
-      </div>
-      <button class="adv-drawer-close"
-              popovertarget="adviser-drawer"
-              popovertargetaction="hide"
-              aria-label="Close drawer">✕</button>
-    </div>
-
-    <!-- Security strip -->
-    <div class="adv-drawer-secure">
-      <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-      </svg>
-      Secure message · 256-bit TLS encrypted
-    </div>
-
-    <!-- Form body — rendered by renderAdviserForm() -->
-    <div class="adv-drawer-body" id="adv-form-body"></div>
-
-  </div>
-</div>
 
 <!-- ── USER MENU (Popover API) ─────────────────────────────────── -->
 <div id="user-menu" popover>
@@ -564,13 +342,13 @@
   <div class="um-section">
     <div class="um-section-label">Account</div>
 
-    <button class="um-item"
-            onclick="showPage('details',null); document.getElementById('user-menu').hidePopover()">
+    <a class="um-item" href="/my-details/"
+       onclick="document.getElementById('user-menu').hidePopover()">
       <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/>
       </svg>
       My Details
-    </button>
+    </a>
 
     <button class="um-item">
       <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
@@ -633,126 +411,6 @@
   </div>
 
 </div>
-
-<!-- ── ADD FUND DRAWER (Popover API) ───────────────────────────── -->
-<div id="add-fund-drawer" popover>
-  <div class="adv-drawer-inner">
-
-    <!-- Sticky header -->
-    <div class="adv-drawer-hd">
-      <div class="adv-drawer-hd-left">
-        <div class="add-inv-icon">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-          </svg>
-        </div>
-        <div>
-          <div class="adv-drawer-name">Add Fund</div>
-          <div class="adv-drawer-role">Dealing instruction · IMF9UBMY D</div>
-        </div>
-      </div>
-      <button class="adv-drawer-close"
-              popovertarget="add-fund-drawer"
-              popovertargetaction="hide"
-              aria-label="Close drawer">✕</button>
-    </div>
-
-    <!-- Security strip -->
-    <div class="adv-drawer-secure">
-      <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-      </svg>
-      Dealing instruction routed securely to James Whitmore
-    </div>
-
-    <!-- Form body — rendered by renderAddFundForm() -->
-    <div class="adv-drawer-body" id="add-fund-body"></div>
-
-  </div>
-</div>
-
-<!-- ── ADD INVESTMENT DRAWER (Popover API) ─────────────────────── -->
-<div id="add-investment-drawer" popover>
-  <div class="adv-drawer-inner">
-
-    <!-- Sticky header -->
-    <div class="adv-drawer-hd">
-      <div class="adv-drawer-hd-left">
-        <div class="add-inv-icon">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-          </svg>
-        </div>
-        <div>
-          <div class="adv-drawer-name">Add Investment</div>
-          <div class="adv-drawer-role">New holding instruction</div>
-        </div>
-      </div>
-      <button class="adv-drawer-close"
-              popovertarget="add-investment-drawer"
-              popovertargetaction="hide"
-              aria-label="Close drawer">✕</button>
-    </div>
-
-    <!-- Security strip -->
-    <div class="adv-drawer-secure">
-      <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-      </svg>
-      Instruction routed securely to James Whitmore
-    </div>
-
-    <!-- Form body — rendered by renderAddInvestmentForm() -->
-    <div class="adv-drawer-body" id="add-investment-body"></div>
-
-  </div>
-</div>
-
-<!-- ── AVA CHAT WIDGET ────────────────────────────────────────── -->
-<button class="chat-bubble-btn" id="chat-bubble-btn"
-        onclick="toggleChatbot()" aria-label="Open Ava chat assistant">
-  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
-       viewBox="0 0 24 24">
-    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-  </svg>
-</button>
-
-<div class="chat-window" id="chat-window" role="dialog" aria-label="Ava chat assistant">
-  <div class="chat-hd">
-    <div class="chat-hd-left">
-      <div class="chat-avatar">A</div>
-      <div>
-        <div class="chat-hd-name">Ava</div>
-        <div class="chat-hd-status">
-          <span class="chat-online-dot"></span>Online · AI-powered
-        </div>
-      </div>
-    </div>
-    <button class="chat-close-btn" onclick="closeChatbot()" aria-label="Close chat">✕</button>
-  </div>
-  <div class="chat-messages" id="chat-messages"></div>
-  <div class="chat-input-row">
-    <input class="chat-input" id="chat-input" type="text"
-           placeholder="Type a message…" autocomplete="off"
-           onkeydown="if(event.key==='Enter')handleChatSubmit()">
-    <button class="chat-send-btn" onclick="handleChatSubmit()" aria-label="Send message">
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"
-           viewBox="0 0 24 24">
-        <line x1="22" y1="2" x2="11" y2="13"/>
-        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-      </svg>
-    </button>
-  </div>
-</div>
-
-<!-- ── JAVASCRIPT ─────────────────────────────────────────────── -->
-<script src="src/js/data.js"></script>
-<script src="src/js/charts.js"></script>
-<script src="src/js/navigation.js"></script>
-<script src="src/js/chatbot.js"></script>
-<script src="src/js/main.js"></script>
 
 </body>
 </html>
