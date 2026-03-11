@@ -80,6 +80,7 @@
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
+  text-decoration: none;
 }
 
 .tab-btn:hover { color: var(--text-1); background: var(--bg-hover); }
@@ -213,6 +214,7 @@
   text-align: left;
   transition: all 0.2s ease;
   position: relative;
+  text-decoration: none;
 }
 
 .nav-item:hover { background: var(--bg-hover); color: var(--text-1); }

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aurelius Wealth — Portfolio Dashboard</title>
+<title>Aurelius Wealth — My Overview</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="src/styles/tokens.css">
 <link rel="stylesheet" href="src/styles/layout.css">
@@ -16,20 +16,20 @@
 
   <!-- ── TOPBAR ─────────────────────────── -->
   <header class="topbar">
-    <div class="topbar-brand">
+    <a class="topbar-brand" href="/" style="text-decoration:none">
       <div class="brand-mark">A</div>
       <div>
         <div class="brand-name">Aurelius</div>
         <div class="brand-sub">Wealth Management</div>
       </div>
-    </div>
+    </a>
 
     <div class="topbar-center">
-      <button class="tab-btn active" onclick="showPage('overview',this)">My Overview</button>
-      <button class="tab-btn" onclick="showPage('history',this)">Valuation History</button>
-      <button class="tab-btn" onclick="showPage('allocation',this)">Asset Allocation</button>
-      <button class="tab-btn" onclick="showPage('investments',this)">My Investments</button>
-      <button class="tab-btn" onclick="showPage('cgt',this)">Capital Gains Tax</button>
+      <a class="tab-btn active" href="/">My Overview</a>
+      <a class="tab-btn" href="/valuation-history/">Valuation History</a>
+      <a class="tab-btn" href="/asset-allocation/">Asset Allocation</a>
+      <a class="tab-btn" href="/my-investments/">My Investments</a>
+      <a class="tab-btn" href="/capital-gains-tax/">Capital Gains Tax</a>
     </div>
 
     <div class="topbar-right">
@@ -38,16 +38,13 @@
         <div class="toggle-track"><div class="toggle-thumb"></div></div>
         <span id="theme-label">Dark</span>
       </button>
-
       <button class="icon-btn" aria-label="Notifications">
         <div class="notif-dot"></div>
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
       </button>
-
       <button class="icon-btn" aria-label="Settings">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="8" cy="6" r="2" fill="var(--bg-card)" stroke="currentColor" stroke-width="1.7"/><circle cx="16" cy="12" r="2" fill="var(--bg-card)" stroke="currentColor" stroke-width="1.7"/><circle cx="10" cy="18" r="2" fill="var(--bg-card)" stroke="currentColor" stroke-width="1.7"/></svg>
       </button>
-
       <div class="avatar" title="Sumant Kumar">SK</div>
     </div>
   </header>
@@ -56,48 +53,48 @@
   <nav class="sidebar" aria-label="Main navigation">
     <div class="sidebar-section-label">Portfolio</div>
 
-    <button class="nav-item active" onclick="showPage('overview',null);setActiveNav(this)">
+    <a class="nav-item active" href="/">
       <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
       <span>Overview</span>
-    </button>
+    </a>
 
-    <button class="nav-item" onclick="showPage('history',null);setActiveNav(this)">
+    <a class="nav-item" href="/valuation-history/">
       <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
       <span>Valuation History</span>
-    </button>
+    </a>
 
-    <button class="nav-item" onclick="showPage('allocation',null);setActiveNav(this)">
+    <a class="nav-item" href="/asset-allocation/">
       <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
       <span>Asset Allocation</span>
-    </button>
+    </a>
 
-    <button class="nav-item" onclick="showPage('investments',null);setActiveNav(this)">
+    <a class="nav-item" href="/my-investments/">
       <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
       <span>My Investments</span>
-    </button>
+    </a>
 
-    <button class="nav-item" onclick="showPage('cgt',null);setActiveNav(this)">
+    <a class="nav-item" href="/capital-gains-tax/">
       <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
       <span>Capital Gains Tax</span>
-    </button>
+    </a>
 
     <div class="sidebar-section-label">Account</div>
 
-    <button class="nav-item" onclick="showPage('documents',null);setActiveNav(this)">
+    <a class="nav-item" href="/documents/">
       <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
       <span>Documents</span>
       <span class="nav-badge" id="docs-nav-badge">3</span>
-    </button>
+    </a>
 
-    <button class="nav-item">
+    <a class="nav-item" href="#">
       <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       <span>My Details</span>
-    </button>
+    </a>
 
-    <button class="nav-item">
+    <a class="nav-item" href="#">
       <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       <span>Contact Us</span>
-    </button>
+    </a>
 
     <div class="sidebar-footer">
       <div class="advisor-card">
@@ -112,507 +109,142 @@
   <!-- ── MAIN CONTENT ───────────────────── -->
   <main class="main" role="main">
 
-    <!-- ═══════════════════════════════════ -->
-    <!-- PAGE: OVERVIEW                      -->
-    <!-- ═══════════════════════════════════ -->
-    <div id="page-overview" class="page-section active">
-      <div class="page-header">
-        <div>
-          <div class="breadcrumb">
-            <span>Sumant Kumar</span>
-            <span class="breadcrumb-sep">/</span>
-            <span class="breadcrumb-current">My Overview</span>
-          </div>
-          <div class="page-title">Portfolio Overview</div>
-          <div class="page-date">As at Friday, 6 March 2026</div>
+    <div class="page-header">
+      <div>
+        <div class="breadcrumb">
+          <span>Sumant Kumar</span>
+          <span class="breadcrumb-sep">/</span>
+          <span class="breadcrumb-current">My Overview</span>
         </div>
-        <div class="header-actions">
-          <button class="btn-secondary">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download Report
-          </button>
-          <button class="btn-primary">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Add Investment
-          </button>
-        </div>
+        <div class="page-title">Portfolio Overview</div>
+        <div class="page-date">As at Friday, 6 March 2026</div>
       </div>
+      <div class="header-actions">
+        <button class="btn-secondary">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download Report
+        </button>
+        <button class="btn-primary">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Investment
+        </button>
+      </div>
+    </div>
 
-      <!-- KPI Strip -->
-      <div class="kpi-grid">
-        <div class="kpi-group">
-          <div class="card kpi-card featured">
-            <div class="kpi-label">Total Portfolio Value</div>
-            <div class="kpi-value">£842,340</div>
-            <div class="kpi-change up">
-              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
-              +£12,480
-              <span class="kpi-change-period">this month</span>
-            </div>
-          </div>
-          <div class="card kpi-card">
-            <div class="kpi-label">Total Cost Basis</div>
-            <div class="kpi-value">£694,210</div>
-            <div class="kpi-change up">
-              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
-              +21.3% overall gain
-            </div>
+    <!-- KPI Strip -->
+    <div class="kpi-grid">
+      <div class="kpi-group">
+        <div class="card kpi-card featured">
+          <div class="kpi-label">Total Portfolio Value</div>
+          <div class="kpi-value">£842,340</div>
+          <div class="kpi-change up">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+            +£12,480 <span class="kpi-change-period">this month</span>
           </div>
         </div>
-
-        <div class="kpi-group">
-          <div class="card kpi-card">
-            <div class="kpi-label">Annual Income</div>
-            <div class="kpi-value">£18,640</div>
-            <div class="kpi-change up">
-              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
-              2.21% yield
-            </div>
-          </div>
-          <div class="card kpi-card">
-            <div class="kpi-label">Cash Balance</div>
-            <div class="kpi-value">£31,800</div>
-            <div class="kpi-change" style="color:var(--text-3)">
-              3.77% of portfolio
-            </div>
+        <div class="card kpi-card">
+          <div class="kpi-label">Total Cost Basis</div>
+          <div class="kpi-value">£694,210</div>
+          <div class="kpi-change up">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+            +21.3% overall gain
           </div>
         </div>
       </div>
-
-      <!-- Chart + Allocation -->
-      <div class="two-col">
-        <div class="card card-pad">
-          <div class="chart-header">
-            <div>
-              <div class="chart-title">Portfolio Performance</div>
-              <div class="chart-subtitle">Advised SIPP · Total return</div>
-            </div>
-            <div class="range-pills">
-              <button class="range-pill" onclick="setRange(this,'1M')">1M</button>
-              <button class="range-pill" onclick="setRange(this,'3M')">3M</button>
-              <button class="range-pill active" onclick="setRange(this,'6M')">6M</button>
-              <button class="range-pill" onclick="setRange(this,'1Y')">1Y</button>
-              <button class="range-pill" onclick="setRange(this,'ALL')">All</button>
-            </div>
-          </div>
-          <div class="chart-container">
-            <svg class="chart-svg" id="perf-chart" height="200" viewBox="0 0 600 200" preserveAspectRatio="none"></svg>
-            <div class="chart-tooltip" id="chart-tooltip"></div>
-          </div>
-          <div style="display:flex;justify-content:space-between;margin-top:8px;">
-            <span style="font-size:11px;color:var(--text-3)">Sep 2025</span>
-            <span style="font-size:11px;color:var(--text-3)">Mar 2026</span>
+      <div class="kpi-group">
+        <div class="card kpi-card">
+          <div class="kpi-label">Annual Income</div>
+          <div class="kpi-value">£18,640</div>
+          <div class="kpi-change up">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+            2.21% yield
           </div>
         </div>
-
-        <div class="card card-pad">
-          <div class="chart-header">
-            <div>
-              <div class="chart-title">Asset Allocation</div>
-              <div class="chart-subtitle">All accounts</div>
-            </div>
-          </div>
-          <div class="donut-wrap">
-            <svg class="donut-svg" id="small-donut" viewBox="0 0 100 100"></svg>
-            <div class="legend" id="small-legend"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Holdings + Activity -->
-      <div class="two-col">
-        <div class="card card-pad">
-          <div class="chart-header">
-            <div>
-              <div class="chart-title">Top Holdings</div>
-              <div class="chart-subtitle">By market value</div>
-            </div>
-            <button class="btn-secondary" style="font-size:12px;padding:6px 14px;" onclick="showPage('investments',null)">View All</button>
-          </div>
-          <div class="table-wrap">
-            <table id="top-holdings-table" aria-label="Top holdings">
-              <thead>
-                <tr>
-                  <th>Fund / Security</th>
-                  <th>Market Value</th>
-                  <th>Gain / Loss</th>
-                  <th>Trend</th>
-                </tr>
-              </thead>
-              <tbody id="top-holdings-body"></tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="card card-pad">
-          <div class="chart-header">
-            <div>
-              <div class="chart-title">Recent Activity</div>
-              <div class="chart-subtitle">Last 30 days</div>
-            </div>
-          </div>
-          <div id="activity-feed"></div>
+        <div class="card kpi-card">
+          <div class="kpi-label">Cash Balance</div>
+          <div class="kpi-value">£31,800</div>
+          <div class="kpi-change" style="color:var(--text-3)">3.77% of portfolio</div>
         </div>
       </div>
     </div>
 
-    <!-- ═══════════════════════════════════ -->
-    <!-- PAGE: VALUATION HISTORY             -->
-    <!-- ═══════════════════════════════════ -->
-    <div id="page-history" class="page-section">
-      <div class="page-header">
-        <div>
-          <div class="breadcrumb"><span>Sumant Kumar</span><span class="breadcrumb-sep">/</span><span class="breadcrumb-current">Valuation History</span></div>
-          <div class="page-title">Valuation History</div>
-          <div class="page-date">All accounts combined</div>
-        </div>
-        <div class="header-actions">
-          <div class="filter-row" style="margin:0">
-            <select class="filter-select" aria-label="Account filter">
-              <option>All Accounts</option>
-              <option>Advised SIPP</option>
-              <option>ISA</option>
-            </select>
-            <select class="filter-select" aria-label="Date range">
-              <option>06-Nov-2025 to 06-Feb-2026</option>
-              <option>1 Year</option>
-              <option>All Time</option>
-            </select>
-          </div>
-          <button class="btn-secondary">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download PDF
-          </button>
-        </div>
-      </div>
-
-      <div class="hist-stats">
-        <div class="card kpi-card featured">
-          <div class="kpi-label">Current Value</div>
-          <div class="kpi-value">£842,340</div>
-          <div class="kpi-change up"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>+£47,890 (6M)</div>
-        </div>
-        <div class="card kpi-card">
-          <div class="kpi-label">Period High</div>
-          <div class="kpi-value">£869,200</div>
-          <div style="font-size:12px;color:var(--text-3);margin-top:4px">15 Jan 2026</div>
-        </div>
-        <div class="card kpi-card">
-          <div class="kpi-label">Period Low</div>
-          <div class="kpi-value">£771,440</div>
-          <div style="font-size:12px;color:var(--text-3);margin-top:4px">12 Nov 2025</div>
-        </div>
-      </div>
-
-      <div class="card card-pad" style="margin-bottom:20px">
+    <!-- Chart + Allocation -->
+    <div class="two-col">
+      <div class="card card-pad">
         <div class="chart-header">
           <div>
-            <div class="chart-title">Portfolio Value Over Time</div>
-            <div class="chart-subtitle">Total portfolio · GBP</div>
+            <div class="chart-title">Portfolio Performance</div>
+            <div class="chart-subtitle">Advised SIPP · Total return</div>
           </div>
           <div class="range-pills">
-            <button class="range-pill" onclick="setRange(this,'1M')">1M</button>
-            <button class="range-pill" onclick="setRange(this,'3M')">3M</button>
-            <button class="range-pill active" onclick="setRange(this,'6M')">6M</button>
-            <button class="range-pill" onclick="setRange(this,'1Y')">1Y</button>
-            <button class="range-pill" onclick="setRange(this,'ALL')">All</button>
+            <button class="range-pill" onclick="setRange(this)">1M</button>
+            <button class="range-pill" onclick="setRange(this)">3M</button>
+            <button class="range-pill active" onclick="setRange(this)">6M</button>
+            <button class="range-pill" onclick="setRange(this)">1Y</button>
+            <button class="range-pill" onclick="setRange(this)">All</button>
           </div>
         </div>
-        <svg class="chart-svg" id="hist-chart" height="260" viewBox="0 0 800 260" preserveAspectRatio="none"></svg>
+        <div class="chart-container">
+          <svg class="chart-svg" id="perf-chart" height="200" viewBox="0 0 600 200" preserveAspectRatio="none"></svg>
+          <div class="chart-tooltip" id="chart-tooltip"></div>
+        </div>
         <div style="display:flex;justify-content:space-between;margin-top:8px;">
-          <span style="font-size:11px;color:var(--text-3)">06/11/2025</span>
-          <span style="font-size:11px;color:var(--text-3)">06/02/2026</span>
+          <span style="font-size:11px;color:var(--text-3)">Sep 2025</span>
+          <span style="font-size:11px;color:var(--text-3)">Mar 2026</span>
         </div>
       </div>
 
       <div class="card card-pad">
         <div class="chart-header">
-          <div class="chart-title">Monthly Valuations</div>
-        </div>
-        <table aria-label="Monthly valuations">
-          <thead><tr>
-            <th>Date</th>
-            <th>Portfolio Value</th>
-            <th>Cash Balance</th>
-            <th>Total Invested</th>
-            <th>Period Return</th>
-          </tr></thead>
-          <tbody>
-            <tr><td><div class="td-name">6 Mar 2026</div></td><td>£842,340</td><td>£31,800</td><td>£810,540</td><td><span class="gain-tag up">▲ +1.48%</span></td></tr>
-            <tr><td><div class="td-name">6 Feb 2026</div></td><td>£829,920</td><td>£30,100</td><td>£799,820</td><td><span class="gain-tag down">▼ -2.34%</span></td></tr>
-            <tr><td><div class="td-name">6 Jan 2026</div></td><td>£849,740</td><td>£33,200</td><td>£816,540</td><td><span class="gain-tag up">▲ +5.82%</span></td></tr>
-            <tr><td><div class="td-name">6 Dec 2025</div></td><td>£803,050</td><td>£28,600</td><td>£774,450</td><td><span class="gain-tag up">▲ +2.11%</span></td></tr>
-            <tr><td><div class="td-name">6 Nov 2025</div></td><td>£786,440</td><td>£27,000</td><td>£759,440</td><td><span class="gain-tag down">▼ -1.02%</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- ═══════════════════════════════════ -->
-    <!-- PAGE: ASSET ALLOCATION              -->
-    <!-- ═══════════════════════════════════ -->
-    <div id="page-allocation" class="page-section">
-      <div class="page-header">
-        <div>
-          <div class="breadcrumb"><span>Sumant Kumar</span><span class="breadcrumb-sep">/</span><span class="breadcrumb-current">Asset Allocation</span></div>
-          <div class="page-title">Asset Allocation</div>
-          <div class="page-date">All accounts · As at 6 March 2026</div>
-        </div>
-        <div class="header-actions">
-          <select class="filter-select" aria-label="Account filter">
-            <option>All Accounts</option>
-            <option>Advised SIPP</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="alloc-grid">
-        <div class="card card-pad" style="display:flex;flex-direction:column;gap:20px;align-items:center">
           <div>
-            <div class="chart-title" style="text-align:center">Geographic Allocation</div>
-            <div class="chart-subtitle" style="text-align:center;margin-top:4px">By market value</div>
+            <div class="chart-title">Asset Allocation</div>
+            <div class="chart-subtitle">All accounts</div>
           </div>
-          <svg class="big-donut-svg" id="big-donut" viewBox="0 0 100 100"></svg>
-          <div style="font-family:var(--font-serif);font-size:24px;color:var(--text-1);text-align:center;letter-spacing:-0.5px">£842,340 <span style="font-family:var(--font-sans);font-size:13px;color:var(--text-3)">total</span></div>
         </div>
-
-        <div class="card card-pad">
-          <div class="chart-header">
-            <div class="chart-title">Allocation Breakdown</div>
-          </div>
-          <div id="alloc-progress-list"></div>
-        </div>
-      </div>
-
-      <div class="two-col-equal">
-        <div class="card card-pad">
-          <div class="section-heading">By Asset Class</div>
-          <div id="asset-class-list"></div>
-        </div>
-        <div class="card card-pad">
-          <div class="section-heading">By Currency</div>
-          <div id="currency-list"></div>
+        <div class="donut-wrap">
+          <svg class="donut-svg" id="small-donut" viewBox="0 0 100 100"></svg>
+          <div class="legend" id="small-legend"></div>
         </div>
       </div>
     </div>
 
-    <!-- ═══════════════════════════════════ -->
-    <!-- PAGE: MY INVESTMENTS                -->
-    <!-- ═══════════════════════════════════ -->
-    <div id="page-investments" class="page-section">
-      <div class="page-header">
-        <div>
-          <div class="breadcrumb"><span>Sumant Kumar</span><span class="breadcrumb-sep">/</span><span class="breadcrumb-current">My Investments</span></div>
-          <div class="page-title">My Investments</div>
-          <div class="page-date">Dealing Portfolio — IMF9UBMY D</div>
+    <!-- Holdings + Activity -->
+    <div class="two-col">
+      <div class="card card-pad">
+        <div class="chart-header">
+          <div>
+            <div class="chart-title">Top Holdings</div>
+            <div class="chart-subtitle">By market value</div>
+          </div>
+          <a class="btn-secondary" style="font-size:12px;padding:6px 14px;text-decoration:none" href="/my-investments/">View All</a>
         </div>
-        <div class="header-actions">
-          <select class="filter-select" aria-label="Account filter">
-            <option>All Accounts</option>
-            <option>Advised SIPP</option>
-          </select>
-          <button class="btn-secondary">Generate Report</button>
-          <button class="btn-primary">+ Add Funds</button>
-        </div>
-      </div>
-
-      <div class="stat-row" style="margin-bottom:20px">
-        <div class="stat-chip">
-          <div class="stat-chip-label">Total Market Value</div>
-          <div class="stat-chip-value gold">£842,340</div>
-        </div>
-        <div class="stat-chip">
-          <div class="stat-chip-label">Total Cost</div>
-          <div class="stat-chip-value">£694,210</div>
-        </div>
-        <div class="stat-chip">
-          <div class="stat-chip-label">Total Gain / Loss</div>
-          <div class="stat-chip-value green">+£148,130</div>
-        </div>
-        <div class="stat-chip">
-          <div class="stat-chip-label">Yield</div>
-          <div class="stat-chip-value">2.21%</div>
-        </div>
-        <div class="stat-chip">
-          <div class="stat-chip-label">Cash (GBP)</div>
-          <div class="stat-chip-value">£31,800</div>
-        </div>
-      </div>
-
-      <div class="card" style="margin-bottom:16px">
-        <div style="padding:16px 24px;border-bottom:1px solid var(--divider);font-size:14px;font-weight:600;color:var(--text-1);display:flex;align-items:center;gap:8px">
-          <svg width="14" height="14" fill="none" stroke="var(--gold)" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-          GBP Mutual Funds
-        </div>
-        <div class="table-wrap card-pad" style="padding-top:0">
-          <table id="investments-table" aria-label="Investment holdings">
+        <div class="table-wrap">
+          <table id="top-holdings-table" aria-label="Top holdings">
             <thead>
               <tr>
-                <th>Security</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Total Cost (£)</th>
-                <th>Market Value (£)</th>
-                <th>Assets %</th>
-                <th>Yield %</th>
-                <th>Gain/Loss (£)</th>
-                <th>Gain/Loss (%)</th>
+                <th>Fund / Security</th>
+                <th>Market Value</th>
+                <th>Gain / Loss</th>
+                <th>Trend</th>
               </tr>
             </thead>
-            <tbody id="investments-body"></tbody>
+            <tbody id="top-holdings-body"></tbody>
           </table>
         </div>
-        <div style="padding:16px 24px;border-top:1px solid var(--divider);display:flex;justify-content:space-between;align-items:center">
-          <span style="font-size:12px;font-weight:600;color:var(--text-2)">GBP Mutual Funds Total</span>
-          <div style="display:flex;gap:32px">
-            <div style="text-align:right"><div style="font-size:11px;color:var(--text-3)">Market Value</div><div style="font-size:14px;font-weight:600;color:var(--text-1)">£810,540</div></div>
-            <div style="text-align:right"><div style="font-size:11px;color:var(--text-3)">Total Gain</div><div style="font-size:14px;font-weight:600;color:var(--green)">+£148,130</div></div>
-          </div>
-        </div>
-      </div>
-
-      <div style="padding:12px;background:var(--gold-dim);border-radius:10px;font-size:12px;color:var(--text-2);border:1px solid var(--gold-glow)">
-        ⚠️ Values are indicative estimates and subject to FX rates. Prices are as at close of previous business day.
-      </div>
-    </div>
-
-    <!-- ═══════════════════════════════════ -->
-    <!-- PAGE: CAPITAL GAINS TAX             -->
-    <!-- ═══════════════════════════════════ -->
-    <div id="page-cgt" class="page-section">
-      <div class="page-header">
-        <div>
-          <div class="breadcrumb"><span>Sumant Kumar</span><span class="breadcrumb-sep">/</span><span class="breadcrumb-current">Capital Gains Tax</span></div>
-          <div class="page-title">Capital Gains Tax</div>
-          <div class="page-date">Tax Year 2025–2026</div>
-        </div>
-        <div class="header-actions">
-          <select class="filter-select" aria-label="Tax year">
-            <option>2025–2026</option>
-            <option>2024–2025</option>
-            <option>2023–2024</option>
-          </select>
-          <button class="btn-secondary">Download Tax Summary</button>
-        </div>
-      </div>
-
-      <div class="cgt-summary">
-        <div class="card cgt-card">
-          <div class="cgt-label">Realised Gains (YTD)</div>
-          <div class="cgt-value green">£24,830</div>
-          <div class="cgt-note">After allowances</div>
-        </div>
-        <div class="card cgt-card">
-          <div class="cgt-label">Annual CGT Allowance</div>
-          <div class="cgt-value gold">£3,000</div>
-          <div class="cgt-note">2025–26 allowance</div>
-        </div>
-        <div class="card cgt-card">
-          <div class="cgt-label">Estimated Tax Liability</div>
-          <div class="cgt-value">£5,215</div>
-          <div class="cgt-note">At 20% higher rate</div>
-        </div>
-      </div>
-
-      <div class="card card-pad" style="margin-bottom:20px">
-        <div class="chart-header">
-          <div class="chart-title">Disposal History — 2025/26</div>
-        </div>
-        <table aria-label="Capital gains disposals">
-          <thead><tr>
-            <th>Security</th>
-            <th>Date Disposed</th>
-            <th>Proceeds</th>
-            <th>Cost</th>
-            <th>Gain / Loss (£)</th>
-            <th>Gain / Loss (%)</th>
-          </tr></thead>
-          <tbody>
-            <tr><td><div class="td-name">Artisan Partners Gbl Global Value</div><div class="td-type">GBP Mutual Fund</div></td><td class="td-secondary">14 Feb 2026</td><td>£42,100</td><td>£31,400</td><td><span class="gain-tag up">+£10,700</span></td><td><span class="gain-tag up">+34.1%</span></td></tr>
-            <tr><td><div class="td-name">JPMorgan Emerging Markets Income</div><div class="td-type">GBP Mutual Fund</div></td><td class="td-secondary">28 Jan 2026</td><td>£18,650</td><td>£17,200</td><td><span class="gain-tag up">+£1,450</span></td><td><span class="gain-tag up">+8.4%</span></td></tr>
-            <tr><td><div class="td-name">Veritas Global Focus</div><div class="td-type">GBP Mutual Fund</div></td><td class="td-secondary">15 Jan 2026</td><td>£22,340</td><td>£24,900</td><td><span class="gain-tag down">-£2,560</span></td><td><span class="gain-tag down">-10.3%</span></td></tr>
-            <tr><td><div class="td-name">Royal London Global Equity</div><div class="td-type">GBP Mutual Fund</div></td><td class="td-secondary">3 Dec 2025</td><td>£31,800</td><td>£23,400</td><td><span class="gain-tag up">+£8,400</span></td><td><span class="gain-tag up">+35.9%</span></td></tr>
-          </tbody>
-        </table>
       </div>
 
       <div class="card card-pad">
         <div class="chart-header">
-          <div class="chart-title">Tax Documents</div>
-          <button class="btn-secondary" style="font-size:12px;padding:6px 14px;">View All</button>
-        </div>
-        <div class="doc-row">
-          <div class="doc-icon">📄</div>
-          <div class="doc-info">
-            <div class="doc-name">CGT Summary Report 2025–26</div>
-            <div class="doc-meta">Generated 6 Mar 2026 · PDF · 248 KB</div>
+          <div>
+            <div class="chart-title">Recent Activity</div>
+            <div class="chart-subtitle">Last 30 days</div>
           </div>
-          <svg class="doc-download" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         </div>
-        <div class="doc-row">
-          <div class="doc-icon">📄</div>
-          <div class="doc-info">
-            <div class="doc-name">Valuation Report Q4 2025</div>
-            <div class="doc-meta">Generated 31 Dec 2025 · PDF · 312 KB</div>
-          </div>
-          <svg class="doc-download" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        </div>
-        <div class="doc-row">
-          <div class="doc-icon">📄</div>
-          <div class="doc-info">
-            <div class="doc-name">Annual CGT Statement 2024–25</div>
-            <div class="doc-meta">Generated 6 Apr 2025 · PDF · 189 KB</div>
-          </div>
-          <svg class="doc-download" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        </div>
+        <div id="activity-feed"></div>
       </div>
     </div>
 
-    <!-- ═══════════════════════════════════ -->
-    <!-- PAGE: DOCUMENTS                     -->
-    <!-- ═══════════════════════════════════ -->
-    <div id="page-documents" class="page-section">
-      <div class="page-header">
-        <div>
-          <div class="breadcrumb">
-            <span>Sumant Kumar</span>
-            <span class="breadcrumb-sep">/</span>
-            <span class="breadcrumb-current">Documents</span>
-          </div>
-          <div class="page-title">Documents</div>
-          <div class="page-date">14 documents across your accounts</div>
-        </div>
-        <div class="header-actions">
-          <button class="btn-secondary">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download All
-          </button>
-          <button class="btn-primary">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Request Document
-          </button>
-        </div>
-      </div>
-
-      <!-- Stats strip (JS-rendered) -->
-      <div id="doc-stats-strip" class="doc-stats-strip"></div>
-
-      <!-- Filter bar -->
-      <div class="doc-filter-bar">
-        <div class="doc-tabs" id="doc-tabs"></div>
-        <div class="doc-search-wrap">
-          <svg class="doc-search-icon" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input class="doc-search-input" id="doc-search" type="search" placeholder="Search documents…" oninput="filterDocs()">
-        </div>
-      </div>
-
-      <!-- Document list (JS-rendered) -->
-      <div id="doc-list"></div>
-    </div>
-
-    <!-- ═══════════════════════════════════ -->
-    <!-- SITE FOOTER                         -->
-    <!-- ═══════════════════════════════════ -->
+    <!-- ── SITE FOOTER ──────────────────── -->
     <footer class="site-footer" role="contentinfo" aria-label="Site footer">
 
       <div class="footer-upper">
@@ -627,37 +259,34 @@
             FCA Regulated
           </div>
         </div>
-
         <div>
           <div class="footer-col-title">Services</div>
           <ul class="footer-links">
-            <li><a href="#">Portfolio Management <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></a></li>
-            <li><a href="#">Retirement Planning <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></a></li>
-            <li><a href="#">Tax &amp; Estate Planning <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></a></li>
-            <li><a href="#">ISA &amp; SIPP Accounts <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></a></li>
-            <li><a href="#">Discretionary Management <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></a></li>
+            <li><a href="#">Portfolio Management</a></li>
+            <li><a href="#">Retirement Planning</a></li>
+            <li><a href="#">Tax &amp; Estate Planning</a></li>
+            <li><a href="#">ISA &amp; SIPP Accounts</a></li>
+            <li><a href="#">Discretionary Management</a></li>
           </ul>
         </div>
-
         <div>
           <div class="footer-col-title">Support</div>
           <ul class="footer-links">
-            <li><a href="#">Help Centre <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></a></li>
-            <li><a href="#">Contact Your Adviser <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></a></li>
-            <li><a href="#">Document Library <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></a></li>
-            <li><a href="#">Security &amp; Fraud <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></a></li>
-            <li><a href="#">Complaints Procedure <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></a></li>
+            <li><a href="#">Help Centre</a></li>
+            <li><a href="#">Contact Your Adviser</a></li>
+            <li><a href="#">Document Library</a></li>
+            <li><a href="#">Security &amp; Fraud</a></li>
+            <li><a href="#">Complaints Procedure</a></li>
           </ul>
         </div>
-
         <div>
           <div class="footer-col-title">Legal &amp; Regulatory</div>
           <ul class="footer-links">
-            <li><a href="#">Terms &amp; Conditions <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></a></li>
-            <li><a href="#">Privacy Policy <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></a></li>
-            <li><a href="#">Cookie Policy <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></a></li>
-            <li><a href="#">MIFID II Disclosure <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></a></li>
-            <li><a href="#">Modern Slavery Act <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></a></li>
+            <li><a href="#">Terms &amp; Conditions</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+            <li><a href="#">MIFID II Disclosure</a></li>
+            <li><a href="#">Modern Slavery Act</a></li>
           </ul>
         </div>
       </div>
@@ -667,35 +296,23 @@
           <strong>Important information.</strong> Aurelius Wealth Management Limited is authorised and regulated by the
           <a href="#">Financial Conduct Authority</a> (FCA). Registered number 987654.
           Registered in England &amp; Wales. Company number 12345678. Registered office:
-          14 St James's Square, London, SW1Y 4LB.<br><br>
+          14 St James&#x2019;s Square, London, SW1Y 4LB.<br><br>
           The value of investments and the income from them can fall as well as rise and you may get back less than you invest.
           Past performance is not a reliable indicator of future results. Tax treatment depends on individual circumstances
           and may be subject to change. This website is for information purposes only and does not constitute financial advice.
-          If you are unsure whether an investment is right for you, please seek independent financial advice.
           Aurelius Wealth Management is covered by the <a href="#">Financial Services Compensation Scheme (FSCS)</a>.
-          Eligible deposits are protected up to £85,000 per person. Eligible investments are protected up to £85,000.
-          Full details are available at <a href="#">www.fscs.org.uk</a>.
+          Eligible deposits are protected up to &#xa3;85,000 per person. Full details at <a href="#">www.fscs.org.uk</a>.
           All telephone and electronic communications may be recorded for regulatory and quality purposes.
         </p>
       </div>
 
       <div class="footer-bottom">
-        <div class="footer-copyright">
-          © 2026 Aurelius Wealth Management Limited. All rights reserved.
-        </div>
-
-        <div class="footer-fca">
-          <div class="fca-dot"></div>
-          FCA Reg. No. 987654 · ICO Reg. ZA123456
-        </div>
-
+        <div class="footer-copyright">&#xa9; 2026 Aurelius Wealth Management Limited. All rights reserved.</div>
+        <div class="footer-fca"><div class="fca-dot"></div>FCA Reg. No. 987654 &#xb7; ICO Reg. ZA123456</div>
         <div class="footer-bottom-links">
-          <a href="#">Accessibility</a>
-          <div class="sep"></div>
-          <a href="#">Sitemap</a>
-          <div class="sep"></div>
-          <a href="#">Cookie Settings</a>
-          <div class="sep"></div>
+          <a href="#">Accessibility</a><div class="sep"></div>
+          <a href="#">Sitemap</a><div class="sep"></div>
+          <a href="#">Cookie Settings</a><div class="sep"></div>
           <a href="#">Modern Slavery</a>
         </div>
       </div>

@@ -1,34 +1,3 @@
-/* ─── NAVIGATION ────────────────────────────────────────────── */
-
-const pageMap = {
-  overview:    'page-overview',
-  history:     'page-history',
-  allocation:  'page-allocation',
-  investments: 'page-investments',
-  cgt:         'page-cgt',
-  documents:   'page-documents',
-};
-
-function showPage(key, triggerEl) {
-  Object.values(pageMap).forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.classList.remove('active');
-  });
-  const target = document.getElementById(pageMap[key]);
-  if (target) target.classList.add('active');
-
-  // Sync tab buttons in topbar
-  const keys = ['overview', 'history', 'allocation', 'investments', 'cgt'];
-  document.querySelectorAll('.tab-btn').forEach((btn, i) => {
-    btn.classList.toggle('active', keys[i] === key);
-  });
-}
-
-function setActiveNav(el) {
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  el.classList.add('active');
-}
-
 /* ─── THEME TOGGLE ──────────────────────────────────────────── */
 
 function toggleTheme() {
