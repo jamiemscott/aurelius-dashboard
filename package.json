@@ -1,0 +1,12 @@
+{
+  "name": "aurelius-dashboard",
+  "version": "1.0.0",
+  "description": "Aurelius Wealth Management Dashboard",
+  "scripts": {
+    "build": "node build.js --minify",
+    "dev": "node build.js --watch"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}
