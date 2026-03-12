@@ -19,7 +19,7 @@
 
 .activity-icon.is-buy { background: var(--green-dim); color: var(--green); }
 .activity-icon.is-sell { background: var(--red-dim); color: var(--red); }
-.activity-icon.is-div { background: var(--gold-dim); color: var(--gold); }
+.activity-icon.is-div { background: var(--gold-dim); color: var(--gold-text); }
 
 .activity-body { flex: 1; }
 .activity-title { font-size: 13px; font-weight: 500; color: var(--text-1); }

@@ -1,0 +1,5 @@
+/* ─── TYPOGRAPHY TOKENS ──────────────────────────────── */
+:root {
+  --font-sans:  'DM Sans', system-ui, sans-serif;
+  --font-serif: 'DM Serif Display', Georgia, serif;
+}

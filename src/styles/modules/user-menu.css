@@ -21,7 +21,7 @@ button.avatar:hover { box-shadow: 0 0 0 3px var(--gold-dim); }
   border: 1px solid var(--border);
   border-radius: 16px;
   background: var(--bg-card);
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 40px light-dark(rgba(0,0,0,0.12), rgba(0,0,0,0.45)), 0 2px 8px light-dark(rgba(0,0,0,0.06), rgba(0,0,0,0.3));
   opacity: 0;
   transform: scale(0.95) translateY(-8px);
   transform-origin: top right;
@@ -44,9 +44,6 @@ button.avatar:hover { box-shadow: 0 0 0 3px var(--gold-dim); }
   }
 }
 
-[data-theme="light"] #user-menu {
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
-}
 
 .um-header {
   display: flex;

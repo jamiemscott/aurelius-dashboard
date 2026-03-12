@@ -18,9 +18,14 @@ const path = require('path');
 const ROOT = __dirname;
 
 const PARTIALS = [
-  'src/styles/base.css',
-  'src/styles/theme.css',
-  'src/styles/layout.css',
+  // Base — resets, defaults, scrollbar, keyframes
+  'src/styles/base/base.css',
+  // Theme — design tokens
+  'src/styles/theme/fonts.css',
+  'src/styles/theme/colours.css',
+  // Layout — shell, topbar, sidebar, grids
+  'src/styles/layout/layout.css',
+  // Modules — reusable UI components
   'src/styles/modules/buttons.css',
   'src/styles/modules/cards.css',
   'src/styles/modules/tables.css',
@@ -32,8 +37,10 @@ const PARTIALS = [
   'src/styles/modules/details.css',
   'src/styles/modules/contact.css',
   'src/styles/modules/chat.css',
-  'src/styles/state.css',
-  'src/styles/pages.css',
+  // State — is-* classes
+  'src/styles/state/state.css',
+  // Pages — page-specific overrides
+  'src/styles/pages/pages.css',
 ].map(f => path.join(ROOT, f));
 
 const OUTPUT  = path.join(ROOT, 'src', 'styles', 'bundle.css');

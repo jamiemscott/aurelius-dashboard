@@ -1,0 +1,61 @@
+/* ─── COLOR-SCHEME ───────────────────────────────────────
+   Required for light-dark() to resolve correctly.
+   data-theme on <html> controls which branch is active.   */
+:root               { color-scheme: light dark; }
+[data-theme="dark"] { color-scheme: dark;       }
+[data-theme="light"]{ color-scheme: light;      }
+
+/* ─── INVARIANT TOKENS ───────────────────────────────── */
+:root {
+  /* Accent */
+  --gold:      #F5A623;
+  --gold-soft: #FFB547;
+  --gold-dim:  rgba(245,166,35,0.12);
+  --gold-glow: rgba(245,166,35,0.25);
+
+  /* Status */
+  --green:     #22C55E;
+  --red:       #EF4444;
+  --green-dim: rgba(34,197,94,0.12);
+  --red-dim:   rgba(239,68,68,0.12);
+
+  /* Layout */
+  --sidebar-w:   240px;
+  --topbar-h:    68px;
+  --pad:         24px;
+  --radius-card: 16px;
+  --radius-btn:  999px;
+  --radius-item: 12px;
+
+  /* ─── ADAPTIVE TOKENS ──────────────────────────────── */
+
+  /* Surfaces */
+  --bg:         light-dark(#F4F5F7,  #0B0D10);
+  --bg-card:    light-dark(#FFFFFF,  #14171C);
+  --bg-sidebar: light-dark(#FFFFFF,  #0E1014);
+  --bg-hover:   light-dark(#F0F1F4,  #1A1E25);
+  --bg-input:   light-dark(#F0F1F4,  #1A1E25);
+
+  /* Borders & dividers */
+  --border:  light-dark(rgba(0,0,0,0.06),  rgba(255,255,255,0.06));
+  --divider: light-dark(rgba(0,0,0,0.05),  rgba(255,255,255,0.05));
+  --tag-bg:  light-dark(rgba(0,0,0,0.04),  rgba(255,255,255,0.05));
+
+  /* Text */
+  --text-1: light-dark(#111318, #FFFFFF);
+  --text-2: light-dark(#555A65, #B0B3B8);
+  --text-3: light-dark(#696E75, #6B6F76);
+
+  /* Misc */
+  --progress-bg: light-dark(#E4E6EA, #2A2E35);
+
+  /* Gold text — WCAG-AA amber in light (5.48:1 on white), vivid gold in dark */
+  --gold-text: light-dark(#A05607, #F5A623);
+
+  /* Inset highlight — geometry is identical, only the opacity shifts */
+  --shadow-inner: inset 0 1px 0 light-dark(rgba(255,255,255,0.8), rgba(255,255,255,0.04));
+}
+
+/* Shadow card uses different geometry per theme — cannot collapse to light-dark() */
+[data-theme="dark"]  { --shadow-card: 0 20px 40px rgba(0,0,0,0.45); }
+[data-theme="light"] { --shadow-card: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04); }

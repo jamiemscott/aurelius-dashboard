@@ -14,7 +14,7 @@
   border: none;
   border-left: 1px solid var(--border);
   background: var(--bg-card);
-  box-shadow: -24px 0 60px rgba(0, 0, 0, 0.45);
+  box-shadow: -24px 0 60px light-dark(rgba(0,0,0,0.14), rgba(0,0,0,0.45));
   overflow-y: auto;
   overflow-x: hidden;
 
@@ -50,7 +50,7 @@
 }
 
 #adviser-drawer:popover-open::backdrop {
-  background: rgba(0, 0, 0, 0.38);
+  background: light-dark(rgba(0,0,0,0.22), rgba(0,0,0,0.38));
   backdrop-filter: blur(2px);
 }
 
@@ -59,15 +59,6 @@
     background: rgba(0, 0, 0, 0);
     backdrop-filter: blur(0px);
   }
-}
-
-/* Light theme adjustments */
-[data-theme="light"] #adviser-drawer {
-  box-shadow: -24px 0 60px rgba(0, 0, 0, 0.14);
-}
-
-[data-theme="light"] #adviser-drawer:popover-open::backdrop {
-  background: rgba(0, 0, 0, 0.22);
 }
 
 /* ─── ADD FUND DRAWER (Popover API) ───────────────────────── */
@@ -85,7 +76,7 @@
   border: none;
   border-left: 1px solid var(--border);
   background: var(--bg-card);
-  box-shadow: -24px 0 60px rgba(0, 0, 0, 0.45);
+  box-shadow: -24px 0 60px light-dark(rgba(0,0,0,0.14), rgba(0,0,0,0.45));
   overflow-y: auto;
   overflow-x: hidden;
 
@@ -117,7 +108,7 @@
 }
 
 #add-fund-drawer:popover-open::backdrop {
-  background: rgba(0, 0, 0, 0.38);
+  background: light-dark(rgba(0,0,0,0.22), rgba(0,0,0,0.38));
   backdrop-filter: blur(2px);
 }
 
@@ -126,14 +117,6 @@
     background: rgba(0, 0, 0, 0);
     backdrop-filter: blur(0px);
   }
-}
-
-[data-theme="light"] #add-fund-drawer {
-  box-shadow: -24px 0 60px rgba(0, 0, 0, 0.14);
-}
-
-[data-theme="light"] #add-fund-drawer:popover-open::backdrop {
-  background: rgba(0, 0, 0, 0.22);
 }
 
 /* Risk profile strip */
@@ -191,7 +174,7 @@
   border: none;
   border-left: 1px solid var(--border);
   background: var(--bg-card);
-  box-shadow: -24px 0 60px rgba(0, 0, 0, 0.45);
+  box-shadow: -24px 0 60px light-dark(rgba(0,0,0,0.14), rgba(0,0,0,0.45));
   overflow-y: auto;
   overflow-x: hidden;
 
@@ -223,7 +206,7 @@
 }
 
 #add-investment-drawer:popover-open::backdrop {
-  background: rgba(0, 0, 0, 0.38);
+  background: light-dark(rgba(0,0,0,0.22), rgba(0,0,0,0.38));
   backdrop-filter: blur(2px);
 }
 
@@ -232,14 +215,6 @@
     background: rgba(0, 0, 0, 0);
     backdrop-filter: blur(0px);
   }
-}
-
-[data-theme="light"] #add-investment-drawer {
-  box-shadow: -24px 0 60px rgba(0, 0, 0, 0.14);
-}
-
-[data-theme="light"] #add-investment-drawer:popover-open::backdrop {
-  background: rgba(0, 0, 0, 0.22);
 }
 
 /* ── Inner layout ── */
