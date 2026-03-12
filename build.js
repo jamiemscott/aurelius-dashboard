@@ -18,9 +18,21 @@ const path = require('path');
 const ROOT = __dirname;
 
 const PARTIALS = [
-  'src/styles/tokens.css',
+  'src/styles/base.css',
+  'src/styles/theme.css',
   'src/styles/layout.css',
-  'src/styles/components.css',
+  'src/styles/modules/buttons.css',
+  'src/styles/modules/cards.css',
+  'src/styles/modules/tables.css',
+  'src/styles/modules/navigation.css',
+  'src/styles/modules/activity.css',
+  'src/styles/modules/documents.css',
+  'src/styles/modules/user-menu.css',
+  'src/styles/modules/drawers.css',
+  'src/styles/modules/details.css',
+  'src/styles/modules/contact.css',
+  'src/styles/modules/chat.css',
+  'src/styles/state.css',
   'src/styles/pages.css',
 ].map(f => path.join(ROOT, f));
 

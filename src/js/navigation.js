@@ -14,27 +14,27 @@ const pageMap = {
 function showPage(key, triggerEl) {
   Object.values(pageMap).forEach(id => {
     const el = document.getElementById(id);
-    if (el) el.classList.remove('active');
+    if (el) el.classList.remove('is-active');
   });
   const target = document.getElementById(pageMap[key]);
-  if (target) target.classList.add('active');
+  if (target) target.classList.add('is-active');
 
   // Sync tab buttons in topbar
   const keys = ['overview', 'history', 'allocation', 'investments', 'cgt'];
   document.querySelectorAll('.tab-btn').forEach((btn, i) => {
-    btn.classList.toggle('active', keys[i] === key);
+    btn.classList.toggle('is-active', keys[i] === key);
   });
 
   // Sync left sidebar nav — match by the key embedded in each button's onclick
   document.querySelectorAll('.nav-item').forEach(btn => {
     const oc = btn.getAttribute('onclick') || '';
-    btn.classList.toggle('active', oc.includes(`'${key}'`));
+    btn.classList.toggle('is-active', oc.includes(`'${key}'`));
   });
 }
 
 function setActiveNav(el) {
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  el.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('is-active'));
+  el.classList.add('is-active');
 }
 
 /* ─── THEME TOGGLE ──────────────────────────────────────────── */
@@ -52,7 +52,7 @@ function toggleTheme() {
 /* ─── RANGE PILLS ────────────────────────────────────────────── */
 
 function setRange(el, range) {
-  el.closest('.range-pills').querySelectorAll('.range-pill').forEach(p => p.classList.remove('active'));
-  el.classList.add('active');
+  el.closest('.range-pills').querySelectorAll('.range-pill').forEach(p => p.classList.remove('is-active'));
+  el.classList.add('is-active');
   if (typeof updateHistoryView === 'function') updateHistoryView(range);
 }

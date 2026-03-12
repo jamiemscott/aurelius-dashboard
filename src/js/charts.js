@@ -122,7 +122,7 @@ function buildTopHoldings() {
     <tr>
       <td><div class="td-name">${h.name}</div><div class="td-type">${h.type}</div></td>
       <td><strong>${h.value}</strong></td>
-      <td><span class="td-change ${h.up === null ? '' : h.up ? 'up' : 'down'}">${h.pct !== '—' ? (h.up ? '▲' : '▼') + ' ' : ''}${h.pct}</span></td>
+      <td><span class="td-change ${h.up === null ? '' : h.up ? 'is-up' : 'is-down'}">${h.pct !== '—' ? (h.up ? '▲' : '▼') + ' ' : ''}${h.pct}</span></td>
       <td>${sparkSVG}</td>
     </tr>`;
   }).join('');
@@ -133,13 +133,13 @@ function buildActivityFeed() {
   if (!el) return;
   el.innerHTML = activity.map(a => `
     <div class="activity-item">
-      <div class="activity-icon ${a.type}">${a.icon}</div>
+      <div class="activity-icon is-${a.type}">${a.icon}</div>
       <div class="activity-body">
         <div class="activity-title">${a.title}</div>
         <div class="activity-sub">${a.sub}</div>
       </div>
       <div style="text-align:right;flex-shrink:0">
-        <div class="activity-amount ${a.pos ? 'pos' : ''}">${a.amount}</div>
+        <div class="activity-amount ${a.pos ? 'is-positive' : ''}">${a.amount}</div>
         <div class="activity-time">${a.time}</div>
       </div>
     </div>`).join('');
@@ -188,7 +188,7 @@ function buildDocTabs() {
       : documents.filter(d => d.category === cat && docState.unread.has(d.id)).length;
     const active = cat === docState.activeCategory;
     return `
-      <button class="doc-tab ${active ? 'active' : ''}" onclick="setDocCategory('${cat}')">
+      <button class="doc-tab ${active ? 'is-active' : ''}" onclick="setDocCategory('${cat}')">
         ${catLabels[cat]}
         <span class="doc-tab-count">${count}</span>
         ${unreadCount > 0 ? `<span class="doc-tab-unread">${unreadCount}</span>` : ''}
@@ -209,7 +209,7 @@ function renderDocStats() {
     { label: 'Reports',    value: bycat('report'),    gold: false, cat: 'report'    },
   ];
   el.innerHTML = stats.map(s => `
-    <div class="doc-stat ${s.gold && unread > 0 ? 'featured' : ''}" onclick="setDocCategory('${s.cat}')">
+    <div class="doc-stat ${s.gold && unread > 0 ? 'is-featured' : ''}" onclick="setDocCategory('${s.cat}')">
       <div class="doc-stat-value ${s.gold && unread > 0 ? 'gold' : ''}">${s.value}</div>
       <div class="doc-stat-label">${s.label}</div>
     </div>`).join('');
@@ -282,8 +282,8 @@ function renderDocEntry(doc, isUnread) {
   const cat = DOC_CATS[doc.category];
   const dlIcon = `<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`;
   return `
-    <div class="doc-entry ${isUnread ? 'unread' : ''}" onclick="markDocRead(${doc.id})">
-      <div class="doc-entry-dot ${isUnread ? 'on' : ''}"></div>
+    <div class="doc-entry ${isUnread ? 'is-unread' : ''}" onclick="markDocRead(${doc.id})">
+      <div class="doc-entry-dot ${isUnread ? 'is-on' : ''}"></div>
       <div class="doc-entry-icon" style="color:${cat.color};background:${cat.bg}">${DOC_ICONS[doc.category]}</div>
       <div class="doc-entry-body">
         <div class="doc-entry-name">${doc.name}${isUnread ? ' <span class="doc-new-tag">NEW</span>' : ''}</div>
@@ -352,8 +352,8 @@ function buildInvestmentsTable() {
       <td><strong>£${inv.mv}</strong></td>
       <td class="td-secondary">${inv.assets}%</td>
       <td class="td-secondary">${inv.yield}%</td>
-      <td><span class="td-change ${inv.up ? 'up' : 'down'}">£${inv.gl}</span></td>
-      <td><span class="gain-tag ${inv.up ? 'up' : 'down'}">${inv.up ? '▲' : '▼'} ${inv.glp}%</span></td>
+      <td><span class="td-change ${inv.up ? 'is-up' : 'is-down'}">£${inv.gl}</span></td>
+      <td><span class="gain-tag ${inv.up ? 'is-up' : 'is-down'}">${inv.up ? '▲' : '▼'} ${inv.glp}%</span></td>
     </tr>`).join('');
 }
 
@@ -408,8 +408,8 @@ function renderDetailsHero() {
           <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg>
           ${d.clientNumber}
         </span>
-        <span class="det-hero-badge platinum">★ ${d.tier} Client</span>
-        <span class="det-hero-badge verified">
+        <span class="det-hero-badge is-platinum">★ ${d.tier} Client</span>
+        <span class="det-hero-badge is-verified">
           <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
           KYC Verified
         </span>
@@ -434,7 +434,7 @@ function renderDetailsTabs() {
     { id: 'preferences', label: 'Preferences' },
   ];
   el.innerHTML = tabs.map(function(t) {
-    return `<button class="details-tab ${t.id === detailsState.activeTab ? 'active' : ''}" onclick="setDetailsTab('${t.id}')">${t.label}</button>`;
+    return `<button class="details-tab ${t.id === detailsState.activeTab ? 'is-active' : ''}" onclick="setDetailsTab('${t.id}')">${t.label}</button>`;
   }).join('');
 }
 
@@ -605,7 +605,7 @@ function renderPersonalTab() {
           <div class="det-field-list">
             ${detRow('Document Type', d.kycDoc)}
             ${detRow('Expiry Date', d.kycExpiry)}
-            ${detRow('KYC Status', `<span class="det-hero-badge verified"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Verified</span>`)}
+            ${detRow('KYC Status', `<span class="det-hero-badge is-verified"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Verified</span>`)}
           </div>
           <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--divider)">
             <button class="btn-secondary btn-sm" style="width:100%;justify-content:center">
@@ -621,7 +621,7 @@ function renderPersonalTab() {
           <div class="det-field-list">
             ${detRow('Client Number', `<code style="font-size:12px;color:var(--text-2);background:var(--tag-bg);padding:2px 8px;border-radius:5px;font-family:monospace">${d.clientNumber}</code>`)}
             ${detRow('Client Since', d.clientSince)}
-            ${detRow('Account Tier', `<span class="det-hero-badge platinum">★ ${d.tier}</span>`)}
+            ${detRow('Account Tier', `<span class="det-hero-badge is-platinum">★ ${d.tier}</span>`)}
             ${detRow('Next Review', d.nextReview)}
             ${detRow('Relationship Manager', `<div><div style="font-size:13px;font-weight:500;color:var(--text-1)">${d.adviser}</div><div style="font-size:11px;color:var(--text-3);margin-top:2px">${d.adviserEmail}</div></div>`)}
           </div>
@@ -700,9 +700,9 @@ function renderContactTab() {
             <div><div class="det-section-title">Preferred Contact Method</div><div class="det-section-sub">For non-urgent correspondence</div></div>
           </div>
           <div class="det-pref-group">
-            <button class="det-pref-btn ${d.preferredContact==='email'?'active':''}" onclick="setContactPref('email')">Email</button>
-            <button class="det-pref-btn ${d.preferredContact==='phone'?'active':''}" onclick="setContactPref('phone')">Phone</button>
-            <button class="det-pref-btn ${d.preferredContact==='post'?'active':''}"  onclick="setContactPref('post')">Post</button>
+            <button class="det-pref-btn ${d.preferredContact==='email'?'is-active':''}" onclick="setContactPref('email')">Email</button>
+            <button class="det-pref-btn ${d.preferredContact==='phone'?'is-active':''}" onclick="setContactPref('phone')">Phone</button>
+            <button class="det-pref-btn ${d.preferredContact==='post'?'is-active':''}"  onclick="setContactPref('post')">Post</button>
           </div>
         </div>
       </div>
@@ -773,7 +773,7 @@ function renderSecurityTab() {
         <div class="det-section-hd">
           <div><div class="det-section-title">Two-Factor Authentication</div><div class="det-section-sub">Enhanced account security</div></div>
         </div>
-        <div class="det-twofa-status ${d.twoFA ? 'on' : 'off'}">
+        <div class="det-twofa-status ${d.twoFA ? 'is-on' : 'is-off'}">
           <div style="display:flex;align-items:center;gap:10px;flex:1">
             <div class="det-status-dot ${d.twoFA ? 'green' : 'red'}"></div>
             <div>
@@ -810,7 +810,7 @@ function renderSecurityTab() {
               <div class="det-session-device">${s.device}</div>
               <div class="det-session-meta">${s.browser} · ${s.location}</div>
             </div>
-            <div class="det-session-badge ${s.lastSeen === 'Now' ? 'now' : ''}">${s.lastSeen === 'Now' ? '● Active now' : s.lastSeen}</div>
+            <div class="det-session-badge ${s.lastSeen === 'Now' ? 'is-now' : ''}">${s.lastSeen === 'Now' ? '● Active now' : s.lastSeen}</div>
             ${s.lastSeen !== 'Now' ? `<button class="det-revoke-btn" onclick="revokeSession(${i})">Revoke</button>` : ''}
           </div>`;
       }).join('')}
@@ -836,7 +836,7 @@ function renderSecurityTab() {
                 <td style="color:var(--text-2)">${l.date}</td>
                 <td>${l.device}</td>
                 <td style="color:var(--text-2)">${l.location}</td>
-                <td><span class="det-status-badge ${l.status}">${l.status === 'success' ? '✓ Success' : '✕ Failed'}</span></td>
+                <td><span class="det-status-badge is-${l.status}">${l.status === 'success' ? '✓ Success' : '✕ Failed'}</span></td>
               </tr>`;
             }).join('')}
           </tbody>
@@ -1223,17 +1223,17 @@ function renderContactForm() {
       <div>
         <label style="font-size:12px;color:var(--text-3);font-weight:500;display:block;margin-bottom:8px">Preferred Response Method</label>
         <div class="contact-seg">
-          <button class="contact-seg-btn ${fd.response==='email'?'active':''}" onclick="setContactResponse('email')">Email</button>
-          <button class="contact-seg-btn ${fd.response==='phone'?'active':''}" onclick="setContactResponse('phone')">Phone</button>
-          <button class="contact-seg-btn ${fd.response==='secure'?'active':''}" onclick="setContactResponse('secure')">Secure Message</button>
+          <button class="contact-seg-btn ${fd.response==='email'?'is-active':''}" onclick="setContactResponse('email')">Email</button>
+          <button class="contact-seg-btn ${fd.response==='phone'?'is-active':''}" onclick="setContactResponse('phone')">Phone</button>
+          <button class="contact-seg-btn ${fd.response==='secure'?'is-active':''}" onclick="setContactResponse('secure')">Secure Message</button>
         </div>
       </div>
       <div>
         <label style="font-size:12px;color:var(--text-3);font-weight:500;display:block;margin-bottom:8px">Urgency</label>
         <div class="contact-seg">
-          <button class="contact-seg-btn ${fd.urgency==='routine'?'active':''}" onclick="setContactUrgency('routine')">Routine</button>
-          <button class="contact-seg-btn ${fd.urgency==='soon'?'active':''}" onclick="setContactUrgency('soon')">Within 24 Hours</button>
-          <button class="contact-seg-btn ${fd.urgency==='urgent'?'active':''}" onclick="setContactUrgency('urgent')">Urgent</button>
+          <button class="contact-seg-btn ${fd.urgency==='routine'?'is-active':''}" onclick="setContactUrgency('routine')">Routine</button>
+          <button class="contact-seg-btn ${fd.urgency==='soon'?'is-active':''}" onclick="setContactUrgency('soon')">Within 24 Hours</button>
+          <button class="contact-seg-btn ${fd.urgency==='urgent'?'is-active':''}" onclick="setContactUrgency('urgent')">Urgent</button>
         </div>
       </div>
       <button class="btn-primary" style="width:100%;justify-content:center" onclick="submitContactForm()">
@@ -1504,7 +1504,7 @@ function renderAdviserForm() {
       <label class="adv-drawer-label">Urgency</label>
       <div class="contact-seg">
         ${urgencyOpts.map(o =>
-          `<button class="contact-seg-btn${adviserMsgState.urgency === o.val ? ' active' : ''}"
+          `<button class="contact-seg-btn${adviserMsgState.urgency === o.val ? ' is-active' : ''}"
                    onclick="setAdviserUrgency('${o.val}')">${o.label}</button>`
         ).join('')}
       </div>
@@ -1651,7 +1651,7 @@ function renderAddInvestmentForm() {
 
     <div class="contact-seg">
       ${wrapperOpts.map(o =>
-        `<button class="contact-seg-btn${addInvestmentState.wrapper === o.val ? ' active' : ''}"
+        `<button class="contact-seg-btn${addInvestmentState.wrapper === o.val ? ' is-active' : ''}"
                  onclick="setInvWrapper('${o.val}')">${o.label}</button>`
       ).join('')}
     </div>
@@ -1664,7 +1664,7 @@ function renderAddInvestmentForm() {
         <label class="adv-drawer-label">Investment Method</label>
         <div class="contact-seg">
           ${methodOpts.map(o =>
-            `<button class="contact-seg-btn${addInvestmentState.method === o.val ? ' active' : ''}"
+            `<button class="contact-seg-btn${addInvestmentState.method === o.val ? ' is-active' : ''}"
                      onclick="setInvMethod('${o.val}')">${o.label}</button>`
           ).join('')}
         </div>
@@ -1966,7 +1966,7 @@ function renderAddFundForm() {
 
     <div class="contact-seg" style="flex-wrap:wrap">
       ${txOpts.map(o =>
-        `<button class="contact-seg-btn${addFundState.txType === o.val ? ' active' : ''}"
+        `<button class="contact-seg-btn${addFundState.txType === o.val ? ' is-active' : ''}"
                  onclick="setFundTxType('${o.val}')">${o.label}</button>`
       ).join('')}
     </div>
@@ -2007,7 +2007,7 @@ function renderAddFundForm() {
 
     <div class="contact-seg">
       ${wrapperOpts.map(o =>
-        `<button class="contact-seg-btn${addFundState.wrapper === o.val ? ' active' : ''}"
+        `<button class="contact-seg-btn${addFundState.wrapper === o.val ? ' is-active' : ''}"
                  onclick="setFundWrapper('${o.val}')">${o.label}</button>`
       ).join('')}
     </div>
@@ -2021,7 +2021,7 @@ function renderAddFundForm() {
         <label class="adv-drawer-label">Investment Method</label>
         <div class="contact-seg">
           ${methodOpts.map(o =>
-            `<button class="contact-seg-btn${addFundState.method === o.val ? ' active' : ''}"
+            `<button class="contact-seg-btn${addFundState.method === o.val ? ' is-active' : ''}"
                      onclick="setFundMethod('${o.val}')">${o.label}</button>`
           ).join('')}
         </div>
@@ -2396,7 +2396,7 @@ function buildHistTable(filtered, range) {
       <td>${fmt(r.value)}</td>
       <td>${fmt(r.cash)}</td>
       <td>${fmt(r.invested)}</td>
-      <td><span class="gain-tag ${r.up ? 'up' : 'down'}">${r.up ? '▲' : '▼'} ${r.up ? '+' : ''}${r.ret.toFixed(2)}%</span></td>
+      <td><span class="gain-tag ${r.up ? 'is-up' : 'is-down'}">${r.up ? '▲' : '▼'} ${r.up ? '+' : ''}${r.ret.toFixed(2)}%</span></td>
     </tr>
   `).join('');
 }
