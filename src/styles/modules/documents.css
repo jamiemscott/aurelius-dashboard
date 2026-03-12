@@ -1,0 +1,211 @@
+/* ─── DOCUMENT ROW ───────────────────────────────────── */
+.doc-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--divider);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.doc-row:last-child { border-bottom: none; }
+.doc-row:hover { background: var(--bg-hover); margin: 0 -16px; padding: 14px 16px; border-radius: 8px; }
+
+.doc-icon {
+  width: 36px; height: 36px;
+  background: var(--gold-dim);
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold);
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.doc-info { flex: 1; }
+.doc-name { font-size: 13px; font-weight: 500; color: var(--text-1); }
+.doc-meta { font-size: 11px; color: var(--text-3); margin-top: 2px; }
+.doc-download { color: var(--text-3); transition: color 0.2s; }
+.doc-row:hover .doc-download { color: var(--gold); }
+
+/* ─── FILTER ROW ─────────────────────────────────────── */
+.filter-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  align-items: center;
+}
+
+.filter-select {
+  padding: 7px 12px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-btn);
+  color: var(--text-1);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+  appearance: none;
+  padding-right: 28px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B6F76' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.filter-select:focus { border-color: var(--gold); }
+
+/* ─── GOLD RULE ──────────────────────────────────────── */
+.gold-rule {
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  border-radius: 1px;
+  margin-bottom: 16px;
+  width: 48px;
+}
+
+/* ─── DOCUMENT LIST ENTRIES ─────────────────────────── */
+.doc-entry {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--divider);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.doc-entry:last-child { border-bottom: none; }
+.doc-entry:hover { background: var(--bg-hover); }
+.doc-entry.is-unread { background: var(--gold-dim); }
+.doc-entry.is-unread:hover { background: rgba(245,166,35,0.18); }
+
+.doc-entry-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: transparent;
+  transition: all 0.3s;
+}
+
+.doc-entry-dot.is-on {
+  background: var(--gold);
+  box-shadow: 0 0 6px rgba(245,166,35,0.6);
+}
+
+.doc-entry-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.doc-entry-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.doc-entry-name {
+  font-size: 13.5px;
+  color: var(--text-1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+}
+
+.doc-entry.is-unread .doc-entry-name { font-weight: 600; }
+
+.doc-new-tag {
+  background: var(--gold);
+  color: #0B0D10;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 99px;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+  font-family: var(--font-sans);
+}
+
+.doc-entry-meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 3px;
+  font-size: 11.5px;
+  color: var(--text-3);
+}
+
+.doc-cat-chip { font-weight: 500; }
+.doc-meta-dot { opacity: 0.4; }
+
+.doc-account-chip {
+  font-size: 11px;
+  padding: 1px 7px;
+  background: var(--tag-bg);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+}
+
+.doc-entry-date {
+  font-size: 12px;
+  color: var(--text-3);
+  white-space: nowrap;
+  min-width: 82px;
+  text-align: right;
+}
+
+.doc-entry-size {
+  font-size: 12px;
+  color: var(--text-3);
+  min-width: 55px;
+  text-align: right;
+}
+
+.doc-entry-dl {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-3);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.doc-entry-dl:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-dim);
+}
+
+/* ─── SECTION DIVIDER ────────────────────────────────── */
+.section-heading {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-2);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-heading::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--divider);
+}

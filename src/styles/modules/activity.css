@@ -1,0 +1,30 @@
+/* ─── ACTIVITY FEED ──────────────────────────────────── */
+.activity-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--divider);
+  align-items: flex-start;
+}
+
+.activity-item:last-child { border-bottom: none; }
+
+.activity-icon {
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 15px;
+}
+
+.activity-icon.is-buy { background: var(--green-dim); color: var(--green); }
+.activity-icon.is-sell { background: var(--red-dim); color: var(--red); }
+.activity-icon.is-div { background: var(--gold-dim); color: var(--gold); }
+
+.activity-body { flex: 1; }
+.activity-title { font-size: 13px; font-weight: 500; color: var(--text-1); }
+.activity-sub { font-size: 12px; color: var(--text-3); margin-top: 2px; }
+.activity-amount { font-size: 13px; font-weight: 600; color: var(--text-1); }
+.activity-amount.is-positive { color: var(--green); }
+.activity-amount.is-negative { color: var(--red); }
+.activity-time { font-size: 11px; color: var(--text-3); margin-top: 2px; text-align: right; }

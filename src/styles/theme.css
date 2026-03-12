@@ -74,10 +74,10 @@
 }
 
 /* Apply the accessible gold-text token everywhere gold appears as foreground text */
-[data-theme="light"] .nav-item.active,
-[data-theme="light"] .nav-item.active .nav-icon,
-[data-theme="light"] .kpi-card.featured .kpi-value,
-[data-theme="light"] .range-pill.active,
+[data-theme="light"] .nav-item.is-active,
+[data-theme="light"] .nav-item.is-active .nav-icon,
+[data-theme="light"] .kpi-card.is-featured .kpi-value,
+[data-theme="light"] .range-pill.is-active,
 [data-theme="light"] .btn-secondary,
 [data-theme="light"] .stat-chip-value.gold,
 [data-theme="light"] .cgt-value.gold,
@@ -85,19 +85,19 @@
 [data-theme="light"] .footer-reg-text a,
 [data-theme="light"] .doc-row:hover .doc-download,
 [data-theme="light"] .advisor-label,
-[data-theme="light"] .activity-icon.div,
+[data-theme="light"] .activity-icon.is-div,
 [data-theme="light"] .footer-reg-badge svg,
 [data-theme="light"] .footer-fca,
 [data-theme="light"] .nav-badge {
   color: var(--gold-text);
 }
 
-[data-theme="light"] .nav-item.active {
+[data-theme="light"] .nav-item.is-active {
   background: rgba(160,86,7,0.08);
   color: var(--gold-text);
 }
 
-[data-theme="light"] .range-pill.active {
+[data-theme="light"] .range-pill.is-active {
   background: rgba(160,86,7,0.08);
   color: var(--gold-text);
 }
@@ -121,35 +121,11 @@
   color: var(--gold-text);
 }
 
-[data-theme="light"] .kpi-card.featured {
+[data-theme="light"] .kpi-card.is-featured {
   border-color: rgba(160,86,7,0.25);
 }
 
 [data-theme="light"] .footer-reg-text a {
   color: var(--gold-text);
   border-bottom-color: rgba(160,86,7,0.3);
-}
-
-/* ─── RESET & BASE ───────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html, body {
-  height: 100%;
-  font-family: var(--font-sans);
-  font-size: 14px;
-  background: var(--bg);
-  color: var(--text-1);
-  transition: background 0.3s ease, color 0.3s ease;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* ─── SCROLLBAR ──────────────────────────────────────── */
-::-webkit-scrollbar { width: 4px; height: 4px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--text-3); border-radius: 4px; }
-
-/* ─── ANIMATIONS ─────────────────────────────────────── */
-@keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
 }

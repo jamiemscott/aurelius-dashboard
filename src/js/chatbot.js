@@ -24,7 +24,7 @@ function initChatbot() {
 function toggleChatbot() {
   chatState.open = !chatState.open;
   const win = document.getElementById('chat-window');
-  if (win) win.classList.toggle('open', chatState.open);
+  if (win) win.classList.toggle('is-open', chatState.open);
   if (chatState.open) {
     setTimeout(() => {
       const inp = document.getElementById('chat-input');
@@ -36,7 +36,7 @@ function toggleChatbot() {
 function closeChatbot() {
   chatState.open = false;
   const win = document.getElementById('chat-window');
-  if (win) win.classList.remove('open');
+  if (win) win.classList.remove('is-open');
 }
 
 /* ── Bot Response Library ──────────────────────────────────── */

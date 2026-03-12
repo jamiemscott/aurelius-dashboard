@@ -84,12 +84,12 @@
 }
 
 .tab-btn:hover { color: var(--text-1); background: var(--bg-hover); }
-.tab-btn.active {
+.tab-btn.is-active {
   background: var(--bg-card);
   color: var(--text-1);
   box-shadow: 0 1px 4px rgba(0,0,0,0.15);
 }
-[data-theme="dark"] .tab-btn.active { box-shadow: 0 1px 6px rgba(0,0,0,0.4); }
+[data-theme="dark"] .tab-btn.is-active { box-shadow: 0 1px 6px rgba(0,0,0,0.4); }
 
 .topbar-right {
   display: flex;
@@ -219,12 +219,12 @@
 
 .nav-item:hover { background: var(--bg-hover); color: var(--text-1); }
 
-.nav-item.active {
+.nav-item.is-active {
   background: var(--gold-dim);
   color: var(--gold);
 }
 
-.nav-item.active .nav-icon { color: var(--gold); }
+.nav-item.is-active .nav-icon { color: var(--gold); }
 
 .nav-icon {
   width: 18px; height: 18px;
@@ -234,7 +234,7 @@
 }
 
 .nav-item:hover .nav-icon { color: var(--text-1); }
-.nav-item.active .nav-icon { color: var(--gold); }
+.nav-item.is-active .nav-icon { color: var(--gold); }
 
 .nav-badge {
   margin-left: auto;
@@ -309,7 +309,7 @@
 
 /* ─── PAGE SECTIONS ──────────────────────────────────── */
 .page-section { display: none; }
-.page-section.active { display: block; animation: fade-in-up 0.3s ease; }
+.page-section.is-active { display: block; animation: fade-in-up 0.3s ease; }
 
 /* ─── PAGE HEADER ────────────────────────────────────── */
 .page-header {

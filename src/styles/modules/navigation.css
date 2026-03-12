@@ -1,0 +1,64 @@
+.tab-btn {
+  padding: 6px 16px;
+  border-radius: var(--radius-btn);
+  border: none;
+  background: transparent;
+  color: var(--text-2);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.tab-btn:hover { color: var(--text-1); background: var(--bg-hover); }
+.tab-btn.is-active {
+  background: var(--bg-card);
+  color: var(--text-1);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+[data-theme="dark"] .tab-btn.is-active { box-shadow: 0 1px 6px rgba(0,0,0,0.4); }
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon-btn {
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 10px;
+  border: none;
+  background: var(--bg-input);
+  color: var(--text-2);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.icon-btn:hover { background: var(--bg-hover); color: var(--text-1); }
+
+.notif-dot {
+  position: absolute;
+  top: 7px; right: 7px;
+  width: 7px; height: 7px;
+  background: var(--gold);
+  border-radius: 50%;
+  border: 2px solid var(--bg-card);
+}
+
+.avatar {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--gold-dim), var(--gold-glow));
+  border: 1.5px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gold);
+  cursor: pointer;
+  letter-spacing: 0.5px;
+}
