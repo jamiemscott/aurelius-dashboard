@@ -1,4 +1,4 @@
-/* ─── DESIGN TOKENS ──────────────────────────────────── */
+/* ─── COLOUR & SPACING TOKENS ────────────────────────── */
 :root {
   /* Accent */
   --gold:        #F5A623;
@@ -19,10 +19,6 @@
   --radius-card: 16px;
   --radius-btn:  999px;
   --radius-item: 12px;
-
-  /* Typography */
-  --font-sans:  'DM Sans', system-ui, sans-serif;
-  --font-serif: 'DM Serif Display', Georgia, serif;
 }
 
 /* ─── DARK THEME (default) ───────────────────────────── */
