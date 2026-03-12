@@ -77,16 +77,13 @@
 
 /* Featured KPI */
 .kpi-card.is-featured {
-  background: linear-gradient(135deg, #1A1E25, #14171C);
-  border-color: var(--gold-glow);
+  background: linear-gradient(135deg,
+    light-dark(#FFFDF7, #1A1E25),
+    light-dark(#FFF8EC, #14171C));
+  border-color: light-dark(rgba(160,86,7,0.25), var(--gold-glow));
 }
 
-[data-theme="light"] .kpi-card.is-featured {
-  background: linear-gradient(135deg, #FFFDF7, #FFF8EC);
-  border-color: rgba(245,166,35,0.3);
-}
-
-.kpi-card.is-featured .kpi-value { color: var(--gold); }
+.kpi-card.is-featured .kpi-value { color: var(--gold-text); }
 
 /* ─── CHART CARD ─────────────────────────────────────── */
 .chart-header {
@@ -114,7 +111,7 @@
 }
 
 .range-pill:hover { color: var(--text-1); background: var(--bg-hover); }
-.range-pill.is-active { background: var(--gold-dim); color: var(--gold); }
+.range-pill.is-active { background: light-dark(rgba(160,86,7,0.08), var(--gold-dim)); color: var(--gold-text); }
 
 .chart-svg { width: 100%; display: block; }
 

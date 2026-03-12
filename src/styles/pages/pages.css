@@ -25,7 +25,7 @@
 
 .cgt-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-3); }
 .cgt-value { font-family: var(--font-serif); font-size: 28px; color: var(--text-1); letter-spacing: -1px; }
-.cgt-value.gold { color: var(--gold); }
+.cgt-value.gold { color: var(--gold-text); }
 .cgt-value.green { color: var(--green); }
 .cgt-note { font-size: 11px; color: var(--text-3); }
 
@@ -275,7 +275,7 @@
   text-transform: uppercase;
 }
 
-.footer-reg-badge svg { color: var(--gold); flex-shrink: 0; }
+.footer-reg-badge svg { color: var(--gold-text); flex-shrink: 0; }
 
 .footer-col-title {
   font-size: 10px;
@@ -303,7 +303,7 @@
   gap: 6px;
 }
 
-.footer-links li a:hover { color: var(--gold); }
+.footer-links li a:hover { color: var(--gold-text); }
 
 .footer-links li a svg { opacity: 0; transition: opacity 0.2s; flex-shrink: 0; }
 .footer-links li a:hover svg { opacity: 1; }
@@ -324,9 +324,9 @@
 .footer-reg-text strong { color: var(--text-2); font-weight: 600; }
 
 .footer-reg-text a {
-  color: var(--gold);
+  color: var(--gold-text);
   text-decoration: none;
-  border-bottom: 1px solid var(--gold-glow);
+  border-bottom: 1px solid light-dark(rgba(160,86,7,0.30), var(--gold-glow));
   transition: border-color 0.2s;
 }
 
@@ -373,7 +373,7 @@
   align-items: center;
   gap: 6px;
   font-size: 11px;
-  color: var(--text-3);
+  color: light-dark(var(--gold-text), var(--text-3));
 }
 
 .fca-dot {

@@ -30,7 +30,7 @@
   display: flex; align-items: center; gap: 6px;
 }
 
-.btn-secondary:hover { background: var(--gold-dim); }
+.btn-secondary:hover { background: light-dark(rgba(160,86,7,0.06), var(--gold-dim)); }
 
 
 /* Theme toggle */
@@ -54,26 +54,24 @@
 
 .toggle-track {
   width: 30px; height: 16px;
-  background: var(--bg-hover);
+  background: light-dark(var(--progress-bg), var(--gold-dim));
+  border: 1px solid light-dark(transparent, var(--gold-glow));
   border-radius: 8px;
   position: relative;
   transition: background 0.2s ease;
   flex-shrink: 0;
 }
 
-[data-theme="dark"] .toggle-track { background: var(--gold-dim); border: 1px solid var(--gold-glow); }
-[data-theme="light"] .toggle-track { background: var(--progress-bg); }
-
 .toggle-thumb {
   position: absolute;
   top: 2px; left: 2px;
   width: 12px; height: 12px;
   border-radius: 50%;
-  background: var(--text-3);
+  background: light-dark(var(--text-3), var(--gold));
   transition: all 0.25s ease;
 }
 
-[data-theme="dark"] .toggle-thumb { transform: translateX(14px); background: var(--gold); }
+[data-theme="dark"] .toggle-thumb { transform: translateX(14px); }
 
 
 .contact-btn {
