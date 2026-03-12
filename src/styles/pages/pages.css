@@ -107,8 +107,8 @@
 }
 
 .doc-tab:hover { color: var(--text-1); background: var(--bg-hover); }
-.doc-tab.is-active { background: var(--bg-card); color: var(--text-1); box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
-[data-theme="dark"] .doc-tab.is-active { box-shadow: 0 1px 6px rgba(0,0,0,0.4); }
+.doc-tab.is-active { background: var(--bg-card); color: var(--text-1); box-shadow: 0 1px 6px rgba(0,0,0,0.4); }
+html:has(.theme-checkbox:checked) .doc-tab.is-active { box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
 
 .doc-tab-count {
   background: var(--tag-bg);
@@ -416,8 +416,8 @@
 }
 
 .details-tab:hover { color: var(--text-1); background: var(--bg-hover); }
-.details-tab.is-active { background: var(--bg-card); color: var(--text-1); box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
-[data-theme="dark"] .details-tab.is-active { box-shadow: 0 1px 6px rgba(0,0,0,0.4); }
+.details-tab.is-active { background: var(--bg-card); color: var(--text-1); box-shadow: 0 1px 6px rgba(0,0,0,0.4); }
+html:has(.theme-checkbox:checked) .details-tab.is-active { box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
 
 /* Hero card */
 .details-hero {

@@ -46,10 +46,9 @@
 .contact-seg-btn.is-active {
   background: var(--bg-card);
   color: var(--text-1);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.4);
 }
-
-[data-theme="dark"] .contact-seg-btn.is-active { box-shadow: 0 1px 6px rgba(0,0,0,0.4); }
+html:has(.theme-checkbox:checked) .contact-seg-btn.is-active { box-shadow: 0 1px 4px rgba(0,0,0,0.2); }
 
 .contact-form-wrap {
   position: relative;
