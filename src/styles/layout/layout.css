@@ -89,7 +89,8 @@
   color: var(--text-1);
   box-shadow: 0 1px 4px rgba(0,0,0,0.15);
 }
-[data-theme="dark"] .tab-btn.is-active { box-shadow: 0 1px 6px rgba(0,0,0,0.4); }
+.tab-btn.is-active { box-shadow: 0 1px 6px rgba(0,0,0,0.4); }
+html:has(.theme-checkbox:checked) .tab-btn.is-active { box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
 
 .topbar-right {
   display: flex;
@@ -171,7 +172,8 @@
   transition: all 0.25s ease;
 }
 
-[data-theme="dark"] .toggle-thumb { transform: translateX(14px); }
+.toggle-thumb { transform: translateX(14px); }
+html:has(.theme-checkbox:checked) .toggle-thumb { transform: translateX(0); }
 
 /* ─── SIDEBAR ────────────────────────────────────────── */
 .sidebar {

@@ -1,9 +1,9 @@
-/* ─── COLOR-SCHEME ───────────────────────────────────────
+/* ─── COLOR-SCHEME ───────────────────────────────────────────
    Required for light-dark() to resolve correctly.
-   data-theme on <html> controls which branch is active.   */
-:root               { color-scheme: light dark; }
-[data-theme="dark"] { color-scheme: dark;       }
-[data-theme="light"]{ color-scheme: light;      }
+   Dark is the default; checking the hidden .theme-checkbox
+   switches to light via the :has() selector.             */
+:root { color-scheme: dark; }
+html:has(.theme-checkbox:checked) { color-scheme: light; }
 
 /* ─── INVARIANT TOKENS ───────────────────────────────── */
 :root {
@@ -56,6 +56,6 @@
   --shadow-inner: inset 0 1px 0 light-dark(rgba(255,255,255,0.8), rgba(255,255,255,0.04));
 }
 
-/* Shadow card uses different geometry per theme — cannot collapse to light-dark() */
-[data-theme="dark"]  { --shadow-card: 0 20px 40px rgba(0,0,0,0.45); }
-[data-theme="light"] { --shadow-card: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04); }
+/* shadow-card: dark is default in :root; light overrides via :has() */
+:root { --shadow-card: 0 20px 40px rgba(0,0,0,0.45); }
+html:has(.theme-checkbox:checked) { --shadow-card: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04); }

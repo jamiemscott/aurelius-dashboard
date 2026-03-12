@@ -71,7 +71,6 @@
   transition: all 0.25s ease;
 }
 
-[data-theme="dark"] .toggle-thumb { transform: translateX(14px); }
 
 
 .contact-btn {
@@ -89,3 +88,29 @@
 }
 
 .contact-btn:hover { opacity: 0.85; }
+
+/* ─── HIDDEN THEME CHECKBOX ─────────────────────────── */
+/* Visually hidden but still in DOM for keyboard/a11y    */
+.theme-checkbox {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Icon / label visibility — dark=default, light=checked */
+.theme-icon-light,
+.theme-label-light,
+.theme-hint-light { display: none; }
+
+html:has(.theme-checkbox:checked) .theme-icon-dark,
+html:has(.theme-checkbox:checked) .theme-label-dark,
+html:has(.theme-checkbox:checked) .theme-hint-dark { display: none; }
+
+html:has(.theme-checkbox:checked) .theme-icon-light,
+html:has(.theme-checkbox:checked) .theme-label-light,
+html:has(.theme-checkbox:checked) .theme-hint-light { display: inline; }
+
