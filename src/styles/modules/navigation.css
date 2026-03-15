@@ -1,3 +1,4 @@
+/* ─── TOPBAR TABS ────────────────────────────────────── */
 .tab-btn {
   padding: 6px 16px;
   border-radius: var(--radius-btn);
@@ -21,12 +22,7 @@
 }
 html:has(.theme-checkbox:checked) .tab-btn.is-active { box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
 
-.topbar-right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
+/* ─── ICON BUTTONS ───────────────────────────────────── */
 .icon-btn {
   width: 36px; height: 36px;
   display: flex; align-items: center; justify-content: center;
@@ -50,6 +46,7 @@ html:has(.theme-checkbox:checked) .tab-btn.is-active { box-shadow: 0 1px 4px rgb
   border: 2px solid var(--bg-card);
 }
 
+/* ─── AVATAR ─────────────────────────────────────────── */
 .avatar {
   width: 36px; height: 36px;
   border-radius: 10px;
@@ -61,4 +58,63 @@ html:has(.theme-checkbox:checked) .tab-btn.is-active { box-shadow: 0 1px 4px rgb
   color: var(--gold);
   cursor: pointer;
   letter-spacing: 0.5px;
+}
+
+/* ─── SIDEBAR NAVIGATION ─────────────────────────────── */
+.sidebar-section-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-3);
+  padding: 0 12px;
+  margin: 16px 0 6px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-item);
+  border: none;
+  background: transparent;
+  color: var(--text-2);
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: all 0.2s ease;
+  position: relative;
+  text-decoration: none;
+}
+
+.nav-item:hover { background: var(--bg-hover); color: var(--text-1); }
+
+.nav-item.is-active {
+  background: var(--gold-dim);
+  color: var(--gold);
+}
+
+.nav-icon {
+  width: 18px; height: 18px;
+  flex-shrink: 0;
+  color: var(--text-3);
+  transition: color 0.2s ease;
+}
+
+.nav-item:hover .nav-icon  { color: var(--text-1); }
+.nav-item.is-active .nav-icon { color: var(--gold); }
+
+.nav-badge {
+  margin-left: auto;
+  background: var(--gold);
+  color: #0B0D10;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 99px;
+  line-height: 1.4;
 }

@@ -1,0 +1,38 @@
+/* ─── AURELIUS WEALTH — CSS BUNDLE ───────────────────────────
+   Load order follows SMACSS layers:
+   Theme → Base → Layout → Modules → State → Pages
+   ─────────────────────────────────────────────────────────── */
+
+/* Theme */
+@import "theme/colours.css";
+@import "theme/fonts.css";
+
+/* Base */
+@import "base/base.css";
+
+/* Layout */
+@import "layout/layout.css";
+
+/* Modules */
+@import "modules/brand.css";
+@import "modules/navigation.css";
+@import "modules/theme-toggle.css";
+@import "modules/advisor-card.css";
+@import "modules/breadcrumb.css";
+@import "modules/page-header.css";
+@import "modules/buttons.css";
+@import "modules/cards.css";
+@import "modules/tables.css";
+@import "modules/activity.css";
+@import "modules/documents.css";
+@import "modules/contact.css";
+@import "modules/details.css";
+@import "modules/drawers.css";
+@import "modules/chat.css";
+@import "modules/user-menu.css";
+
+/* State */
+@import "state/state.css";
+
+/* Pages */
+@import "pages/pages.css";

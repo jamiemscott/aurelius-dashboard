@@ -158,3 +158,9 @@
 
 .legend-label { font-size: 12px; color: var(--text-2); flex: 1; }
 .legend-pct { font-size: 12px; font-weight: 600; color: var(--text-1); }
+
+/* ─── RESPONSIVE ─────────────────────────────────────── */
+@media (max-width: 1200px) {
+  .kpi-grid  { grid-template-columns: 1fr; }
+  .kpi-group { grid-template-columns: 1fr 1fr; }
+}
