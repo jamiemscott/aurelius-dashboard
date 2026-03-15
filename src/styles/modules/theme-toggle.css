@@ -1,0 +1,41 @@
+/* ─── THEME TOGGLE ───────────────────────────────────── */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: var(--radius-btn);
+  border: 1px solid var(--border);
+  background: var(--bg-input);
+  color: var(--text-2);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-toggle:hover { color: var(--text-1); border-color: var(--gold); }
+
+.toggle-track {
+  width: 30px; height: 16px;
+  background: var(--bg-hover);
+  border-radius: 8px;
+  position: relative;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+}
+
+[data-theme="dark"]  .toggle-track { background: var(--gold-dim); border: 1px solid var(--gold-glow); }
+[data-theme="light"] .toggle-track { background: var(--progress-bg); }
+
+.toggle-thumb {
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--text-3);
+  transition: all 0.25s ease;
+}
+
+[data-theme="dark"] .toggle-thumb { transform: translateX(14px); background: var(--gold); }

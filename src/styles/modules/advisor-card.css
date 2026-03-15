@@ -1,0 +1,45 @@
+/* ─── ADVISOR CARD ───────────────────────────────────── */
+.advisor-card {
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-glow);
+  border-radius: var(--radius-item);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.advisor-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.advisor-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-1);
+}
+
+.advisor-contact {
+  font-size: 11px;
+  color: var(--text-2);
+}
+
+.contact-btn {
+  margin-top: 4px;
+  padding: 7px 12px;
+  background: var(--gold);
+  color: #0B0D10;
+  border: none;
+  border-radius: var(--radius-btn);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition: opacity 0.2s;
+}
+
+.contact-btn:hover { opacity: 0.85; }
