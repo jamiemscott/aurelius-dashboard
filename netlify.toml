@@ -5,6 +5,24 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# ─── ASSET OPTIMISATION ────────────────────────────────
+# Netlify runs its own CSS minifier as a second pass after
+# build.js --minify, so the deployed bundle.css is as small
+# as possible. HTML and JS minification are also enabled.
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  bundle = false   # bundling is already handled by build.js
+  minify = true
+
+[build.processing.html]
+  pretty_urls = true
+
+[build.processing.js]
+  bundle = false
+  minify = true
+
 # ─── LIGHTHOUSE ────────────────────────────────────────
 # Runs a Lighthouse audit after every deploy and surfaces
 # the scores in the Netlify deploy summary.
