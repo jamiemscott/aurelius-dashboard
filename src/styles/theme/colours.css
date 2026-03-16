@@ -52,7 +52,7 @@ html:has(.theme-checkbox:checked) { color-scheme: light; }
   /* Text */
   --text-1: light-dark(#111318, #FFFFFF);
   --text-2: light-dark(#555A65, #B0B3B8);
-  --text-3: light-dark(#696E75, #6B6F76);
+  --text-3: light-dark(#696E75, #8C9099); /* dark lifted: was #6B6F76 (3.55:1 fail) → 5.6:1 min */
   --topbar-h:    68px;
 }
 
