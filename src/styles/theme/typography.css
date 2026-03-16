@@ -19,7 +19,7 @@
 
   /* ─── SCALE BASIS ─────────────────────────────────────────────
      Change only this value to rescale the entire type system.    */
-  --fs-base: 14px;
+  --fs-2xl:        calc(var(--fs-base) + 3px);  /* 17px — heading-sm:  brand name, minor serif    */
 
 
   /* ─── FONT SIZE SCALE ─────────────────────────────────────────
@@ -29,24 +29,44 @@
 
   /* Below base — dense UI labels & metadata */
   --fs-2xs:        calc(var(--fs-base) - 5px); /*  9px — microtext:  badge chips, status markers  */
-  --fs-xs:         calc(var(--fs-base) - 4px); /* 10px — eyebrow:    uppercase section labels     */
-  --fs-sm:         calc(var(--fs-base) - 3px); /* 11px — caption:    meta text, timestamps, subs  */
-  --fs-md:         calc(var(--fs-base) - 2px); /* 12px — secondary:  dates, breadcrumbs, hints    */
-  --fs-ui:         calc(var(--fs-base) - 1px); /* 13px — ui-chrome:  buttons, nav, table cells    */
+  --fs-3xl:        calc(var(--fs-base) + 4px);  /* 18px — heading-md:  section headings           */
+  --fs-4xl:        calc(var(--fs-base) + 6px);  /* 20px — heading-lg:  drawer/modal headings      */
+  --fs-5xl:        calc(var(--fs-base) + 8px);  /* 22px — heading-xl:  page titles (h1)           */
+  --fs-6xl:        calc(var(--fs-base) + 10px); /* 24px — heading-2xl: hero headings              */
+  --fs-badge:         var(--fs-xs);          /* 10px — badge text, eyebrow labels          */
+  --fs-base: 14px;
+
+  /* Body copy */
+  --fs-body:          var(--fs-base);        /* 14px — default prose                       */
+  --fs-body-sm:       var(--fs-md);          /* 12px — secondary / supporting body text    */
+  --fs-btn:           var(--fs-ui);          /* 13px — button labels                       */
+  --fs-caption:       var(--fs-md);          /* 12px — chart captions, table footnotes     */
+  --fs-data-lg:       var(--fs-6xl);         /* 24px — large data panel value              */
+  --fs-data-md:       var(--fs-4xl);         /* 20px — medium data display                 */
+  --fs-display-md: calc(var(--fs-base) + 14px); /* 28px — display-md:  hero figures, CGT totals   */
+  --fs-display-sm: calc(var(--fs-base) + 12px); /* 26px — display-sm:  primary KPI values (serif) */
+  --fs-drawer-title:  var(--fs-4xl);         /* 20px — drawer / modal heading              */
+  --fs-help:          var(--fs-sm);          /* 11px — help text, hint copy                */
+  --fs-input:         var(--fs-base);        /* 14px — form field values                   */
+  --fs-input-label:   var(--fs-md);          /* 12px — form field labels                   */
+
+  /* Data display (serif numbers) */
+  --fs-kpi:           var(--fs-display-sm);  /* 26px — primary KPI value                   */
+  --fs-kpi-hero:      var(--fs-display-md);  /* 28px — hero figure (CGT, portfolio total)  */
 
   /* Base — the default prose/body size */
   /* --fs-base                             14px — body:     default prose, form values, labels    */
 
   /* Above base — headings & display */
   --fs-lg:         calc(var(--fs-base) + 1px);  /* 15px — panel-title: card/widget headings       */
-  --fs-xl:         calc(var(--fs-base) + 2px);  /* 16px — heading-xs:  brand mark, stat-chip vals */
-  --fs-2xl:        calc(var(--fs-base) + 3px);  /* 17px — heading-sm:  brand name, minor serif    */
-  --fs-3xl:        calc(var(--fs-base) + 4px);  /* 18px — heading-md:  section headings           */
-  --fs-4xl:        calc(var(--fs-base) + 6px);  /* 20px — heading-lg:  drawer/modal headings      */
-  --fs-5xl:        calc(var(--fs-base) + 8px);  /* 22px — heading-xl:  page titles (h1)           */
-  --fs-6xl:        calc(var(--fs-base) + 10px); /* 24px — heading-2xl: hero headings              */
-  --fs-display-sm: calc(var(--fs-base) + 12px); /* 26px — display-sm:  primary KPI values (serif) */
-  --fs-display-md: calc(var(--fs-base) + 14px); /* 28px — display-md:  hero figures, CGT totals   */
+  --fs-md:         calc(var(--fs-base) - 2px); /* 12px — secondary:  dates, breadcrumbs, hints    */
+
+  /* Metadata & labels */
+  --fs-meta:          var(--fs-sm);          /* 11px — timestamps, sub-labels, status      */
+  --fs-micro:         var(--fs-2xs);         /* 9px  — ultra-small markers, tag chips      */
+
+  /* UI chrome */
+  --fs-nav:           var(--fs-ui);          /* 13px — nav items, topbar tabs              */
 
 
   /* ─── SEMANTIC ROLE TOKENS ─────────────────────────────────────
@@ -56,50 +76,30 @@
 
   /* Page & section structure */
   --fs-page-title:    var(--fs-5xl);         /* 22px — main page heading (h1 equivalent)   */
-  --fs-section-title: var(--fs-3xl);         /* 18px — panel / section heading (h2)        */
   --fs-panel-title:   var(--fs-lg);          /* 15px — card / widget title                 */
-  --fs-drawer-title:  var(--fs-4xl);         /* 20px — drawer / modal heading              */
-
-  /* Body copy */
-  --fs-body:          var(--fs-base);        /* 14px — default prose                       */
-  --fs-body-sm:       var(--fs-md);          /* 12px — secondary / supporting body text    */
-  --fs-help:          var(--fs-sm);          /* 11px — help text, hint copy                */
-
-  /* UI chrome */
-  --fs-nav:           var(--fs-ui);          /* 13px — nav items, topbar tabs              */
-  --fs-btn:           var(--fs-ui);          /* 13px — button labels                       */
-  --fs-input:         var(--fs-base);        /* 14px — form field values                   */
-  --fs-input-label:   var(--fs-md);          /* 12px — form field labels                   */
-
-  /* Metadata & labels */
-  --fs-meta:          var(--fs-sm);          /* 11px — timestamps, sub-labels, status      */
-  --fs-caption:       var(--fs-md);          /* 12px — chart captions, table footnotes     */
-  --fs-badge:         var(--fs-xs);          /* 10px — badge text, eyebrow labels          */
-  --fs-micro:         var(--fs-2xs);         /* 9px  — ultra-small markers, tag chips      */
-
-  /* Data display (serif numbers) */
-  --fs-kpi:           var(--fs-display-sm);  /* 26px — primary KPI value                   */
-  --fs-kpi-hero:      var(--fs-display-md);  /* 28px — hero figure (CGT, portfolio total)  */
-  --fs-data-lg:       var(--fs-6xl);         /* 24px — large data panel value              */
-  --fs-data-md:       var(--fs-4xl);         /* 20px — medium data display                 */
+  --fs-section-title: var(--fs-3xl);         /* 18px — panel / section heading (h2)        */
+  --fs-sm:         calc(var(--fs-base) - 3px); /* 11px — caption:    meta text, timestamps, subs  */
+  --fs-ui:         calc(var(--fs-base) - 1px); /* 13px — ui-chrome:  buttons, nav, table cells    */
+  --fs-xl:         calc(var(--fs-base) + 2px);  /* 16px — heading-xs:  brand mark, stat-chip vals */
+  --fs-xs:         calc(var(--fs-base) - 4px); /* 10px — eyebrow:    uppercase section labels     */
+  --fw-bold:      700; /* badge labels, uppercase microtext, heavy tags  */
+  --fw-medium:    500; /* UI labels, nav items, secondary emphasis       */
 
 
   /* ─── FONT WEIGHT SCALE ────────────────────────────────────────
      Named weights map directly to CSS numeric values.            */
   --fw-regular:   400; /* body copy, serif display numerals              */
-  --fw-medium:    500; /* UI labels, nav items, secondary emphasis       */
   --fw-semibold:  600; /* card titles, data values, strong emphasis      */
-  --fw-bold:      700; /* badge labels, uppercase microtext, heavy tags  */
+  --lh-loose:   1.75;  /* legal disclaimers, regulatory / footer copy    */
 
 
   /* ─── LINE HEIGHT SCALE ─────────────────────────────────────────
      Unitless ratios — scales correctly with any font size.       */
   --lh-none:    1;     /* display numbers, KPI values — zero leading     */
-  --lh-tight:   1.2;   /* headings — compact but still readable          */
-  --lh-snug:    1.35;  /* sub-headings, compact body UI                  */
   --lh-normal:  1.5;   /* standard UI body text, form elements           */
   --lh-relaxed: 1.65;  /* comfortable reading paragraphs, help text      */
-  --lh-loose:   1.75;  /* legal disclaimers, regulatory / footer copy    */
+  --lh-snug:    1.35;  /* sub-headings, compact body UI                  */
+  --lh-tight:   1.2;   /* headings — compact but still readable          */
 
 
   /* ─── LETTER SPACING SCALE ─────────────────────────────────────
@@ -109,10 +109,10 @@
   /* Negative — tight display headings */
   --ls-display: -0.04em; /* ≈ -1px   at 26px — large serif KPI numerals  */
   --ls-heading: -0.03em; /* ≈ -0.5px at 17px — brand name, page titles   */
-  --ls-snug:    -0.02em; /* ≈ -0.3px at 15px — medium headings, panels   */
 
   /* Zero — default for all body & UI text */
   --ls-normal:   0;
+  --ls-snug:    -0.02em; /* ≈ -0.3px at 15px — medium headings, panels   */
 
   /* Positive — spaced labels & uppercase text */
   --ls-wide:     0.04em; /* ≈ 0.5px at 12px  — small labels, contact btns  */
@@ -131,16 +131,16 @@
    h4–h6 switch to sans-serif as they approach UI-chrome scale.   */
 
 h1, h2, h3 {
+  color: var(--text-1);
   font-family: var(--font-serif);
   font-weight: var(--fw-regular); /* serif looks best at regular weight */
-  color: var(--text-1);
   line-height: var(--lh-tight);
 }
 
 h4, h5, h6 {
+  color: var(--text-1);
   font-family: var(--font-sans);
   font-weight: var(--fw-semibold);
-  color: var(--text-1);
   line-height: var(--lh-snug);
 }
 
@@ -171,38 +171,38 @@ h5 {
 
 h6 {
   /* h6 intentionally uses eyebrow style: small, spaced, uppercase */
+  color: var(--text-3);
   font-size: var(--fs-badge);        /* 10px — label / eyebrow      */
   font-weight: var(--fw-bold);
-  text-transform: uppercase;
   letter-spacing: var(--ls-widest);
-  color: var(--text-3);
+  text-transform: uppercase;
 }
 
 /* ── Body copy ─────────────────────────────────────────────────── */
 p {
+  color: var(--text-2);
   font-size: var(--fs-body);         /* 14px */
   line-height: var(--lh-relaxed);
-  color: var(--text-2);
 }
 
 p + p { margin-top: 0.75em; }
 
 /* ── Inline elements ───────────────────────────────────────────── */
-strong, b { font-weight: var(--fw-semibold); color: var(--text-1); }
+strong, b { color: var(--text-1); font-weight: var(--fw-semibold); }
 em, i     { font-style: italic; }
 
 small {
-  font-size: var(--fs-help);         /* 11px */
   color: var(--text-3);
+  font-size: var(--fs-help);         /* 11px */
   line-height: var(--lh-normal);
 }
 
 /* ── Lists ─────────────────────────────────────────────────────── */
 ul, ol {
-  padding-left: 1.25em;
+  color: var(--text-2);
   font-size: var(--fs-body);         /* 14px */
   line-height: var(--lh-relaxed);
-  color: var(--text-2);
+  padding-left: 1.25em;
 }
 
 ul { list-style: disc; }
@@ -214,47 +214,47 @@ li:last-child { margin-bottom: 0; }
 /* Nested lists — one step smaller to preserve hierarchy */
 li ul,
 li ol {
-  margin-top: 0.3em;
   font-size: 0.93em; /* ≈13px when parent is 14px */
+  margin-top: 0.3em;
 }
 
 /* ── Inline code ───────────────────────────────────────────────── */
 code {
-  font-family: ui-monospace, 'Cascadia Code', 'Fira Code', monospace;
-  font-size: var(--fs-ui);           /* 13px */
   background: var(--bg-input);
   border-radius: 4px;
-  padding: 0.15em 0.4em;
   color: var(--text-1);
+  font-family: ui-monospace, 'Cascadia Code', 'Fira Code', monospace;
+  font-size: var(--fs-ui);           /* 13px */
+  padding: 0.15em 0.4em;
 }
 
 /* ── Block code ────────────────────────────────────────────────── */
 pre {
-  font-family: ui-monospace, 'Cascadia Code', 'Fira Code', monospace;
-  font-size: var(--fs-ui);           /* 13px */
-  line-height: var(--lh-normal);
   background: var(--bg-input);
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
-  padding: 16px;
-  overflow-x: auto;
   color: var(--text-1);
+  font-family: ui-monospace, 'Cascadia Code', 'Fira Code', monospace;
+  font-size: var(--fs-ui);           /* 13px */
+  line-height: var(--lh-normal);
+  overflow-x: auto;
+  padding: 16px;
 }
 
 pre code {
   background: none;
-  padding: 0;
   font-size: inherit;
+  padding: 0;
 }
 
 /* ── Blockquote — advisory notes & disclaimers ─────────────────── */
 blockquote {
-  font-size: var(--fs-body-sm);      /* 12px */
-  line-height: var(--lh-loose);
-  color: var(--text-3);
   border-left: 3px solid var(--gold-glow);
-  padding-left: 12px;
+  color: var(--text-3);
+  font-size: var(--fs-body-sm);      /* 12px */
   font-style: italic;
+  line-height: var(--lh-loose);
+  padding-left: 12px;
 }
 
 /* ── Horizontal rule ───────────────────────────────────────────── */
@@ -278,7 +278,7 @@ a:hover {
 
 /* ── Form labels ───────────────────────────────────────────────── */
 label {
+  color: var(--text-2);
   font-size: var(--fs-input-label);  /* 12px */
   font-weight: var(--fw-medium);
-  color: var(--text-2);
 }

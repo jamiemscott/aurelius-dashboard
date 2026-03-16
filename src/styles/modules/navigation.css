@@ -1,94 +1,94 @@
 /* ─── TOPBAR TABS ────────────────────────────────────── */
 .tab-btn {
-  padding: 6px 16px;
-  border-radius: var(--radius-btn);
-  border: none;
   background: transparent;
+  border: none;
+  border-radius: var(--radius-btn);
   color: var(--text-2);
+  cursor: pointer;
   font-family: var(--font-sans);
   font-size: var(--fs-nav);          /* 13px */
   font-weight: var(--fw-medium);
-  cursor: pointer;
+  padding: 6px 16px;
+  text-decoration: none;
   transition: all 0.2s ease;
   white-space: nowrap;
-  text-decoration: none;
 }
 
-.tab-btn:hover { color: var(--text-1); background: var(--bg-hover); }
+.tab-btn:hover { background: var(--bg-hover); color: var(--text-1); }
 .tab-btn.is-active {
   background: var(--bg-card);
-  color: var(--text-1);
   box-shadow: 0 1px 6px rgba(0,0,0,0.4);
+  color: var(--text-1);
 }
 html:has(.theme-checkbox:checked) .tab-btn.is-active { box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
 
 /* ─── ICON BUTTONS ───────────────────────────────────── */
 .icon-btn {
-  width: 36px; height: 36px;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 10px;
-  border: none;
   background: var(--bg-input);
+  border: none;
+  border-radius: 10px;
   color: var(--text-2);
   cursor: pointer;
-  transition: all 0.2s ease;
+  display: flex; align-items: center; justify-content: center;
   position: relative;
+  transition: all 0.2s ease;
+  width: 36px; height: 36px;
 }
 
 .icon-btn:hover { background: var(--bg-hover); color: var(--text-1); }
 
 .notif-dot {
+  background: var(--gold);
+  border: 2px solid var(--bg-card);
+  border-radius: 50%;
   position: absolute;
   top: 7px; right: 7px;
   width: 7px; height: 7px;
-  background: var(--gold);
-  border-radius: 50%;
-  border: 2px solid var(--bg-card);
 }
 
 /* ─── AVATAR ─────────────────────────────────────────── */
 .avatar {
-  width: 36px; height: 36px;
-  border-radius: 10px;
   background: linear-gradient(135deg, var(--gold-dim), var(--gold-glow));
   border: 1.5px solid var(--gold);
+  border-radius: 10px;
+  color: var(--gold);
+  cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   font-size: var(--fs-md);           /* 12px */
   font-weight: var(--fw-semibold);
-  color: var(--gold);
-  cursor: pointer;
   letter-spacing: var(--ls-wide);
+  width: 36px; height: 36px;
 }
 
 /* ─── SIDEBAR NAVIGATION ─────────────────────────────── */
 .sidebar-section-label {
+  color: var(--text-3);
   font-size: var(--fs-badge);        /* 10px */
   font-weight: var(--fw-semibold);
   letter-spacing: var(--ls-widest);
-  text-transform: uppercase;
-  color: var(--text-3);
-  padding: 0 12px;
   margin: 16px 0 6px;
+  padding: 0 12px;
+  text-transform: uppercase;
 }
 
 .nav-item {
-  display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: var(--radius-item);
-  border: none;
   background: transparent;
+  border: none;
+  border-radius: var(--radius-item);
   color: var(--text-2);
+  cursor: pointer;
+  display: flex;
   font-family: var(--font-sans);
   font-size: var(--fs-nav);          /* 13px */
   font-weight: var(--fw-medium);
-  cursor: pointer;
-  width: 100%;
-  text-align: left;
-  transition: all 0.2s ease;
+  gap: 10px;
+  padding: 10px 12px;
   position: relative;
+  text-align: left;
   text-decoration: none;
+  transition: all 0.2s ease;
+  width: 100%;
 }
 
 .nav-item:hover { background: var(--bg-hover); color: var(--text-1); }
@@ -99,22 +99,22 @@ html:has(.theme-checkbox:checked) .tab-btn.is-active { box-shadow: 0 1px 4px rgb
 }
 
 .nav-icon {
-  width: 18px; height: 18px;
-  flex-shrink: 0;
   color: var(--text-3);
+  flex-shrink: 0;
   transition: color 0.2s ease;
+  width: 18px; height: 18px;
 }
 
 .nav-item:hover .nav-icon  { color: var(--text-1); }
 .nav-item.is-active .nav-icon { color: var(--gold); }
 
 .nav-badge {
-  margin-left: auto;
   background: var(--gold);
+  border-radius: 99px;
   color: #0B0D10;
   font-size: var(--fs-micro);        /* 9px */
   font-weight: var(--fw-bold);
-  padding: 2px 6px;
-  border-radius: 99px;
   line-height: var(--lh-snug);
+  margin-left: auto;
+  padding: 2px 6px;
 }

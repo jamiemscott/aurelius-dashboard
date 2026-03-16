@@ -1,10 +1,10 @@
 /* ─── BREADCRUMB ─────────────────────────────────────── */
 .breadcrumb {
-  display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: var(--fs-md);           /* 12px */
   color: var(--text-3);
+  display: flex;
+  font-size: var(--fs-md);           /* 12px */
+  gap: 6px;
   margin-bottom: 4px;
 }
 

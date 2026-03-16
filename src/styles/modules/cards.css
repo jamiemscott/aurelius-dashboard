@@ -1,11 +1,11 @@
 /* ─── CARD ───────────────────────────────────────────── */
 .card {
   background: var(--bg-card);
-  border-radius: var(--radius-card);
   border: 1px solid var(--border);
+  border-radius: var(--radius-card);
   box-shadow: var(--shadow-inner), var(--shadow-card);
-  transition: background 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card-pad { padding: var(--pad); }
@@ -13,57 +13,57 @@
 /* ─── KPI GRID ───────────────────────────────────────── */
 .kpi-grid {
   display: grid;
-  grid-template-columns: 1fr 380px;
   gap: 16px;
+  grid-template-columns: 1fr 380px;
   margin-bottom: 20px;
 }
 
 .kpi-group {
   display: grid;
-  grid-template-columns: 1fr 1fr;
   gap: 16px;
+  grid-template-columns: 1fr 1fr;
 }
 
 .kpi-card {
-  padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  position: relative;
   overflow: hidden;
+  padding: 20px;
+  position: relative;
 }
 
 .kpi-card::after {
+  background: var(--gold-dim);
+  border-radius: 50%;
   content: '';
   position: absolute;
   top: 0; right: 0;
-  width: 70px; height: 70px;
-  border-radius: 50%;
-  background: var(--gold-dim);
   transform: translate(30px, -30px);
+  width: 70px; height: 70px;
 }
 
 .kpi-label {
-  font-size: var(--fs-sm);           /* 11px */
-  text-transform: uppercase;
-  letter-spacing: var(--ls-widest);
-  font-weight: var(--fw-semibold);
   color: var(--text-3);
+  font-size: var(--fs-sm);           /* 11px */
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-widest);
+  text-transform: uppercase;
 }
 
 .kpi-value {
+  color: var(--text-1);
   font-family: var(--font-serif);
   font-size: var(--fs-kpi);          /* 26px */
-  color: var(--text-1);
   letter-spacing: var(--ls-display);
   line-height: var(--lh-none);
 }
 
 .kpi-change {
+  align-items: center;
+  display: flex;
   font-size: var(--fs-md);           /* 12px */
   font-weight: var(--fw-medium);
-  display: flex;
-  align-items: center;
   gap: 4px;
 }
 

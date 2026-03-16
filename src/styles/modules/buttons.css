@@ -1,33 +1,33 @@
 /* ─── BUTTONS ─────────────────────────────────────────── */
 .btn-primary {
-  padding: 9px 20px;
   background: var(--gold);
-  color: #0B0D10;
   border: none;
   border-radius: var(--radius-btn);
+  color: #0B0D10;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--font-sans);
   font-size: var(--fs-btn);          /* 13px */
   font-weight: var(--fw-semibold);
-  cursor: pointer;
-  font-family: var(--font-sans);
+  padding: 9px 20px;
   transition: opacity 0.2s, transform 0.1s;
-  display: flex; align-items: center; gap: 6px;
 }
 
 .btn-primary:hover  { opacity: 0.88; }
 .btn-primary:active { transform: scale(0.98); }
 
 .btn-secondary {
-  padding: 9px 20px;
   background: transparent;
-  color: var(--gold-text);
   border: 1px solid light-dark(rgba(160,86,7,0.3), var(--gold-glow));
   border-radius: var(--radius-btn);
+  color: var(--gold-text);
+  cursor: pointer;
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--font-sans);
   font-size: var(--fs-btn);          /* 13px */
   font-weight: var(--fw-semibold);
-  cursor: pointer;
-  font-family: var(--font-sans);
+  padding: 9px 20px;
   transition: all 0.2s;
-  display: flex; align-items: center; gap: 6px;
 }
 
 .btn-secondary:hover { background: light-dark(rgba(160,86,7,0.06), var(--gold-dim)); }
