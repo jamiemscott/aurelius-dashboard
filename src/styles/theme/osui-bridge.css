@@ -14,106 +14,153 @@
       Aurelius tokens are fully resolved before this file is parsed.
       OSUI component CSS (injected later by OutSystems) finds its
       variables pre-populated.
+
+   Verified against OSUI v2.27.0 source (_root.scss + per-component
+   SCSS files, January 2026).
    ───────────────────────────────────────────────────────────────── */
 
 :root {
 
   /* ─── BRAND COLOUR ──────────────────────────────────────────── */
-  --color-primary:       var(--gold);         /* #F5A623 */
-  --color-primary-hover: var(--gold-glow);    /* rgba(245,166,35,0.25) */
-  --color-secondary:     var(--gold-soft);    /* #FFB547 */
+  --color-primary:          var(--gold);         /* #F5A623 */
+  --color-primary-hover:    var(--gold-glow);    /* rgba(245,166,35,0.25) */
+  --color-primary-selected: var(--gold-dim);     /* rgba(245,166,35,0.12) */
+  --color-secondary:        var(--gold-soft);    /* #FFB547 */
+  --color-secondary-hover:  color-mix(in srgb, var(--gold-soft) 85%, #000);
+  --color-secondary-selected: var(--gold-dim);
 
 
   /* ─── SEMANTIC / STATUS COLOUR ──────────────────────────────── */
-  --color-error:         var(--red);          /* #EF4444 */
-  --color-error-light:   var(--red-dim);      /* rgba(239,68,68,0.12) */
-  --color-info:          var(--gold-soft);    /* #FFB547 — no blue in Aurelius palette */
-  --color-info-light:    var(--gold-dim);     /* rgba(245,166,35,0.12) */
-  --color-success:       var(--green);        /* #22C55E */
-  --color-success-light: var(--green-dim);    /* rgba(34,197,94,0.12) */
-  --color-warning:       var(--gold);         /* #F5A623 — gold reads naturally as warning */
-  --color-warning-light: var(--gold-dim);     /* rgba(245,166,35,0.12) */
+  --color-error:         var(--red);             /* #EF4444 */
+  --color-error-light:   var(--red-dim);         /* rgba(239,68,68,0.12) */
+  --color-info:          var(--gold-soft);        /* no blue in Aurelius palette; gold reads as info */
+  --color-info-light:    var(--gold-dim);
+  --color-success:       var(--green);            /* #22C55E */
+  --color-success-light: var(--green-dim);        /* rgba(34,197,94,0.12) */
+  --color-warning:       var(--gold);             /* #F5A623 — gold is the natural warning hue */
+  --color-warning-light: var(--gold-dim);
+
+
+  /* ─── SURFACE / APP ─────────────────────────────────────────── */
+  --color-background-body:  var(--bg);            /* page canvas (dark: #0B0D10, light: #F4F5F7) */
+  --color-background-login: var(--bg-card);       /* modal / login surface */
+  --overlay-background:     light-dark(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.55));
 
 
   /* ─── NEUTRAL SCALE ─────────────────────────────────────────── */
   /* OSUI convention: 0 = lightest, 10 = darkest (in light mode).
-     Dark mode inverts the luminance direction, so every step uses
-     light-dark() to supply the correct value per scheme.           */
-  --color-neutral-0:  light-dark(#ffffff,     var(--bg));         /* page canvas */
-  --color-neutral-1:  light-dark(var(--bg),   var(--bg-sidebar)); /* off-white / near-black */
-  --color-neutral-2:  light-dark(#e8eaf0,     var(--bg-card));    /* subtle surface */
-  --color-neutral-3:  light-dark(#d5d8e0,     var(--bg-hover));   /* border-adjacent surface */
-  --color-neutral-4:  light-dark(#b8bcc8,     #3a3e47);           /* mid — hardcoded both ends */
-  --color-neutral-5:  light-dark(#8c9099,     var(--text-3));     /* subdued text / muted icon */
-  --color-neutral-6:  light-dark(var(--text-3), var(--text-2));   /* secondary text */
-  --color-neutral-7:  light-dark(var(--text-2), var(--text-2));   /* secondary text (both modes) */
-  --color-neutral-8:  light-dark(#3a3e47,     #d0d3d8);           /* mid — hardcoded both ends */
-  --color-neutral-9:  light-dark(#111318,     #f0f1f4);           /* near-black / near-white */
-  --color-neutral-10: light-dark(#000000,     var(--text-1));     /* maximum contrast */
+     Dark mode inverts luminance direction so every step uses
+     light-dark() to supply the correct value per color-scheme.    */
+  --color-neutral-0:  light-dark(#ffffff,        var(--bg));          /* page canvas */
+  --color-neutral-1:  light-dark(var(--bg),      var(--bg-sidebar));  /* off-white / near-black */
+  --color-neutral-2:  light-dark(#e8eaf0,        var(--bg-card));     /* subtle surface */
+  --color-neutral-3:  light-dark(#d5d8e0,        var(--bg-hover));    /* border-adjacent */
+  --color-neutral-4:  light-dark(#b8bcc8,        #3a3e47);            /* mid (both ends hardcoded) */
+  --color-neutral-5:  light-dark(#8c9099,        var(--text-3));      /* subdued text / muted icon */
+  --color-neutral-6:  light-dark(var(--text-3),  var(--text-2));      /* secondary text */
+  --color-neutral-7:  light-dark(var(--text-2),  var(--text-2));      /* secondary text (both modes) */
+  --color-neutral-8:  light-dark(#3a3e47,        #d0d3d8);            /* mid (both ends hardcoded) */
+  --color-neutral-9:  light-dark(#111318,        #f0f1f4);            /* near-black / near-white */
+  --color-neutral-10: light-dark(#000000,        var(--text-1));      /* maximum contrast */
 
 
   /* ─── TYPOGRAPHY — FONT SIZE ────────────────────────────────── */
-  --font-size-base:    var(--fs-base);        /* 14px */
-  --font-size-body:    var(--fs-body);        /* 14px */
-  --font-size-body-s:  var(--fs-ui);          /* 13px */
-  --font-size-body-xs: var(--fs-sm);          /* 11px */
-  --font-size-display: var(--fs-kpi-hero);    /* 28px */
-  --font-size-h1:      var(--fs-page-title);  /* 22px */
-  --font-size-h2:      var(--fs-section-title); /* 18px */
-  --font-size-h3:      var(--fs-data-lg);     /* 24px */
-  --font-size-h4:      var(--fs-drawer-title); /* 20px */
-  --font-size-h5:      var(--fs-input);       /* 14px (--fs-input = --fs-base) */
-  --font-size-h6:      var(--fs-body);        /* 14px */
+  /* Sizes mapped to nearest Aurelius token; OSUI defaults shown for reference.
+     Intent is for OSUI components to adopt Aurelius's denser type scale.  */
+  --font-size-base:    var(--fs-base);            /* OSUI: 16px → Aurelius: 14px */
+  --font-size-display: var(--fs-kpi-hero);        /* OSUI: 36px → Aurelius: 28px */
+  --font-size-h1:      var(--fs-page-title);      /* OSUI: 32px → Aurelius: 22px */
+  --font-size-h2:      var(--fs-section-title);   /* OSUI: 28px → Aurelius: 18px */
+  --font-size-h3:      var(--fs-data-lg);         /* OSUI: 24px → Aurelius: 24px (exact) */
+  --font-size-h4:      var(--fs-drawer-title);    /* OSUI: 22px → Aurelius: 20px */
+  --font-size-h5:      var(--fs-lg);              /* OSUI: 20px → Aurelius: 15px */
+  --font-size-h6:      var(--fs-xl);              /* OSUI: 18px → Aurelius: 16px */
+  --font-size-label:   var(--fs-sm);              /* OSUI: 11px → Aurelius: 11px (exact) */
+  --font-size-s:       var(--fs-ui);              /* OSUI: 14px → Aurelius: 13px */
+  --font-size-xs:      var(--fs-md);              /* OSUI: 12px → Aurelius: 12px (exact) */
 
 
   /* ─── TYPOGRAPHY — FONT WEIGHT ──────────────────────────────── */
-  --font-weight-bold:      var(--fw-bold);      /* 700 */
-  --font-weight-light:     300;                 /* no --fw-light token — hardcoded */
-  --font-weight-regular:   var(--fw-regular);   /* 400 */
-  --font-weight-semibold:  var(--fw-semibold);  /* 600 */
+  /* OSUI uses --font-{descriptor} names (without "weight").
+     --font-weight-* aliases kept for any template that references them. */
+  --font-bold:           var(--fw-bold);          /* 700 */
+  --font-light:          300;                     /* no --fw-light token — hardcoded */
+  --font-regular:        var(--fw-regular);       /* 400 */
+  --font-semi-bold:      var(--fw-semibold);      /* 600 */
+
+  --font-weight-bold:    var(--fw-bold);
+  --font-weight-light:   300;
+  --font-weight-regular: var(--fw-regular);
+  --font-weight-semibold: var(--fw-semibold);
 
 
   /* ─── TYPOGRAPHY — FONT FAMILY ──────────────────────────────── */
-  --font-family-base:    var(--font-sans);    /* Inter */
-  --font-family-heading: var(--font-serif);   /* Playfair Display */
+  --font-family-base:    var(--font-sans);        /* Inter */
+  --font-family-heading: var(--font-serif);       /* Playfair Display */
 
 
   /* ─── SPACING ───────────────────────────────────────────────── */
-  /* OSUI uses an 8px-grid named scale.  Aurelius spacing is not yet
-     fully tokenised beyond --pad (24px), so most steps are hardcoded.
-     If Aurelius gains --space-* tokens this section can be updated.  */
-  --space-base: 16px;
-  --space-l:    32px;
-  --space-m:    var(--pad);   /* 24px */
+  /* OSUI uses an 8-pt named scale; values verified from _root.scss.
+     --pad (24px) maps exactly to OSUI's --space-l.
+     All other steps hardcoded — if Aurelius gains --space-* tokens
+     this section can be thinned out.                              */
   --space-none: 0;
-  --space-s:    8px;
-  --space-xl:   40px;
   --space-xs:   4px;
+  --space-s:    8px;
+  --space-m:    12px;                             /* OSUI: 12px (was incorrectly var(--pad)/24px) */
+  --space-base: 16px;
+  --space-l:    var(--pad);                       /* OSUI: 24px = Aurelius --pad (was incorrectly 32px) */
+  --space-xl:   32px;                             /* OSUI: 32px (was incorrectly 40px) */
   --space-xxl:  48px;
 
 
+  /* ─── BORDER SIZE ────────────────────────────────────────────── */
+  --border-size-none: 0;
+  --border-size-s:    1px;
+  --border-size-m:    2px;
+  --border-size-l:    3px;
+
+
   /* ─── BORDER RADIUS ─────────────────────────────────────────── */
-  --border-radius-circle:  var(--radius-btn);  /* 999px */
+  --border-radius-circle:  var(--radius-btn);    /* 999px — pill / fully round */
   --border-radius-none:    0;
-  --border-radius-rounded: var(--radius-card); /* 16px */
-  --border-radius-soft:    var(--radius-item); /* 12px */
+  --border-radius-rounded: var(--radius-card);   /* 16px — card-style rounding */
+  --border-radius-soft:    var(--radius-item);   /* 12px — subtle rounding */
 
 
   /* ─── SHADOW ────────────────────────────────────────────────── */
-  --shadow-l:    0 24px 48px rgba(0, 0, 0, 0.50);
-  --shadow-m:    var(--shadow-card);
   --shadow-none: none;
-  --shadow-s:    0 2px 8px rgba(0, 0, 0, 0.10);
+  --shadow-xs:   0 1px  4px  rgba(0, 0, 0, 0.06);
+  --shadow-s:    0 2px  8px  rgba(0, 0, 0, 0.10);
+  --shadow-m:    var(--shadow-card);             /* adaptive: dark 0 20px 40px / light 0 4px 24px */
+  --shadow-l:    0 24px 48px rgba(0, 0, 0, 0.50);
   --shadow-xl:   0 32px 64px rgba(0, 0, 0, 0.60);
-  --shadow-xs:   0 1px 4px rgba(0, 0, 0, 0.06);
 
 
   /* ─── Z-INDEX (LAYER) ───────────────────────────────────────── */
-  /* No Aurelius equivalents — declared directly at sensible values. */
-  --layer-global-instant-interaction: 9000;
-  --osui-bottom-sheet-layer:          300;
-  --osui-notification-layer:          400;
-  --osui-popup-layer:                 200;
-  --osui-sidebar-layer:               100;
+  /* Mirrors OSUI's layer system exactly so component JS reads the
+     correct computed values.  Previously had large arbitrary numbers
+     (100–400 / 9000) which did not match what OSUI JS expects.   */
+  --layer-system-scale:               5;
+  --layer-global-screen:              0;
+  --layer-global-negative:           -1;
+  --layer-global-auto:                auto;
+  --layer-global-elevated:            calc(var(--layer-system-scale) + var(--layer-global-screen));        /* 5  */
+  --layer-global-navigation:          calc(var(--layer-system-scale) + var(--layer-global-elevated));      /* 10 */
+  --layer-global-off-canvas:          calc(var(--layer-system-scale) + var(--layer-global-navigation));    /* 15 */
+  --layer-global-instant-interaction: calc(var(--layer-system-scale) + var(--layer-global-off-canvas));    /* 20 */
+
+  --layer-local-tier-1: 1;
+  --layer-local-tier-2: 2;
+  --layer-local-tier-3: 3;
+  --layer-local-tier-4: 4;
+  --layer-local-tier-5: 5;
+
+  /* Component aliases consumed by OSUI component JavaScript */
+  --osui-bottom-sheet-layer:          var(--layer-global-off-canvas);                                      /* 15 */
+  --osui-menu-layer:                  calc(var(--layer-global-navigation) + var(--layer-local-tier-2));    /* 12 */
+  --osui-notification-layer:          var(--layer-global-instant-interaction);                             /* 20 */
+  --osui-popup-layer:                 var(--layer-global-instant-interaction);                             /* 20 */
+  --osui-sidebar-layer:               var(--layer-global-off-canvas);                                      /* 15 */
 
 }
