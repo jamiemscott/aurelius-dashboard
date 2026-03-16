@@ -4,7 +4,7 @@
 html, body {
   height: 100%;
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: var(--fs-base); /* 14px — defined in theme/typography.css */
   background: var(--bg);
   color: var(--text-1);
   transition: background 0.3s ease, color 0.3s ease;

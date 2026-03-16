@@ -6,8 +6,8 @@
   background: transparent;
   color: var(--text-2);
   font-family: var(--font-sans);
-  font-size: 13px;
-  font-weight: 500;
+  font-size: var(--fs-nav);          /* 13px */
+  font-weight: var(--fw-medium);
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
@@ -53,18 +53,18 @@ html:has(.theme-checkbox:checked) .tab-btn.is-active { box-shadow: 0 1px 4px rgb
   background: linear-gradient(135deg, var(--gold-dim), var(--gold-glow));
   border: 1.5px solid var(--gold);
   display: flex; align-items: center; justify-content: center;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: var(--fs-md);           /* 12px */
+  font-weight: var(--fw-semibold);
   color: var(--gold);
   cursor: pointer;
-  letter-spacing: 0.5px;
+  letter-spacing: var(--ls-wide);
 }
 
 /* ─── SIDEBAR NAVIGATION ─────────────────────────────── */
 .sidebar-section-label {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
+  font-size: var(--fs-badge);        /* 10px */
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-widest);
   text-transform: uppercase;
   color: var(--text-3);
   padding: 0 12px;
@@ -81,8 +81,8 @@ html:has(.theme-checkbox:checked) .tab-btn.is-active { box-shadow: 0 1px 4px rgb
   background: transparent;
   color: var(--text-2);
   font-family: var(--font-sans);
-  font-size: 13.5px;
-  font-weight: 500;
+  font-size: var(--fs-nav);          /* 13px */
+  font-weight: var(--fw-medium);
   cursor: pointer;
   width: 100%;
   text-align: left;
@@ -112,9 +112,9 @@ html:has(.theme-checkbox:checked) .tab-btn.is-active { box-shadow: 0 1px 4px rgb
   margin-left: auto;
   background: var(--gold);
   color: #0B0D10;
-  font-size: 10px;
-  font-weight: 700;
+  font-size: var(--fs-micro);        /* 9px */
+  font-weight: var(--fw-bold);
   padding: 2px 6px;
   border-radius: 99px;
-  line-height: 1.4;
+  line-height: var(--lh-snug);
 }

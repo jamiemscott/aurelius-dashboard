@@ -16,8 +16,8 @@
 }
 
 .progress-label { flex: 1; }
-.progress-name  { font-size: 13px; color: var(--text-1); font-weight: 500; }
-.progress-sub   { font-size: 11px; color: var(--text-3); }
+.progress-name  { font-size: var(--fs-ui); color: var(--text-1); font-weight: var(--fw-medium); }
+.progress-sub   { font-size: var(--fs-sm); color: var(--text-3); }
 
 .progress-bar-wrap  { flex: 2; }
 .progress-bar-track {
@@ -33,7 +33,7 @@
   transition: width 0.5s ease;
 }
 
-.progress-pct { font-size: 12px; font-weight: 600; color: var(--text-2); min-width: 36px; text-align: right; }
+.progress-pct { font-size: var(--fs-md); font-weight: var(--fw-semibold); color: var(--text-2); min-width: 36px; text-align: right; }
 
 /* ─── STAT CHIP ──────────────────────────────────────── */
 .stat-row {
@@ -49,8 +49,8 @@
   padding: 12px 14px;
 }
 
-.stat-chip-label { font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
-.stat-chip-value { font-size: 16px; font-weight: 600; color: var(--text-1); }
+.stat-chip-label { font-size: var(--fs-sm); color: var(--text-3); text-transform: uppercase; letter-spacing: var(--ls-wider); margin-bottom: 4px; }
+.stat-chip-value { font-size: var(--fs-xl); font-weight: var(--fw-semibold); color: var(--text-1); }
 .stat-chip-value.gold  { color: var(--gold-text); }
 .stat-chip-value.green { color: var(--green); }
 .stat-chip-value.red   { color: var(--red); }

@@ -18,13 +18,13 @@
   border-radius: 9px;
   display: flex; align-items: center; justify-content: center;
   color: var(--gold);
-  font-size: 15px;
+  font-size: var(--fs-lg);              /* 15px — icon glyph size */
   flex-shrink: 0;
 }
 
 .doc-info { flex: 1; }
-.doc-name { font-size: 13px; font-weight: 500; color: var(--text-1); }
-.doc-meta { font-size: 11px; color: var(--text-3); margin-top: 2px; }
+.doc-name { font-size: var(--fs-ui); font-weight: var(--fw-medium); color: var(--text-1); }
+.doc-meta { font-size: var(--fs-sm); color: var(--text-3); margin-top: 2px; }
 .doc-download { color: var(--text-3); transition: color 0.2s; }
 .doc-row:hover .doc-download { color: var(--gold-text); }
 
@@ -43,7 +43,7 @@
   border-radius: var(--radius-btn);
   color: var(--text-1);
   font-family: var(--font-sans);
-  font-size: 12px;
+  font-size: var(--fs-md);
   cursor: pointer;
   outline: none;
   transition: border-color 0.2s;
@@ -111,7 +111,7 @@
 }
 
 .doc-entry-name {
-  font-size: 13.5px;
+  font-size: var(--fs-ui);              /* 13px — normalised from 13.5px */
   color: var(--text-1);
   white-space: nowrap;
   overflow: hidden;
@@ -119,16 +119,16 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-weight: 400;
+  font-weight: var(--fw-regular);
 }
 
-.doc-entry.is-unread .doc-entry-name { font-weight: 600; }
+.doc-entry.is-unread .doc-entry-name { font-weight: var(--fw-semibold); }
 
 .doc-new-tag {
   background: var(--gold);
   color: #0B0D10;
-  font-size: 9px;
-  font-weight: 700;
+  font-size: var(--fs-2xs);            /* 9px — micro badge */
+  font-weight: var(--fw-bold);
   padding: 2px 6px;
   border-radius: 99px;
   letter-spacing: 0.5px;
@@ -141,15 +141,15 @@
   align-items: center;
   gap: 5px;
   margin-top: 3px;
-  font-size: 11.5px;
+  font-size: var(--fs-sm);             /* 11px — normalised from 11.5px */
   color: var(--text-3);
 }
 
-.doc-cat-chip { font-weight: 500; }
+.doc-cat-chip { font-weight: var(--fw-medium); }
 .doc-meta-dot { opacity: 0.4; }
 
 .doc-account-chip {
-  font-size: 11px;
+  font-size: var(--fs-sm);
   padding: 1px 7px;
   background: var(--tag-bg);
   border: 1px solid var(--border);
@@ -157,7 +157,7 @@
 }
 
 .doc-entry-date {
-  font-size: 12px;
+  font-size: var(--fs-md);
   color: var(--text-3);
   white-space: nowrap;
   min-width: 82px;
@@ -165,7 +165,7 @@
 }
 
 .doc-entry-size {
-  font-size: 12px;
+  font-size: var(--fs-md);
   color: var(--text-3);
   min-width: 55px;
   text-align: right;
@@ -194,8 +194,8 @@
 
 /* ─── SECTION DIVIDER ────────────────────────────────── */
 .section-heading {
-  font-size: 13px;
-  font-weight: 600;
+  font-size: var(--fs-ui);
+  font-weight: var(--fw-semibold);
   color: var(--text-2);
   margin-bottom: 14px;
   display: flex;
@@ -236,20 +236,20 @@
 
 .doc-stat-value {
   font-family: var(--font-serif);
-  font-size: 26px;
-  letter-spacing: -0.5px;
+  font-size: var(--fs-kpi);            /* 26px */
+  letter-spacing: var(--ls-snug);      /* -0.02em ≈ -0.52px at 26px */
   color: var(--text-1);
-  line-height: 1;
+  line-height: var(--lh-none);
 }
 
 .doc-stat-value.gold { color: var(--gold); }
 
 .doc-stat-label {
-  font-size: 11px;
+  font-size: var(--fs-sm);
   color: var(--text-3);
   margin-top: 5px;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
+  letter-spacing: var(--ls-wider);     /* 0.07em ≈ 0.8px at 11px */
 }
 
 .doc-filter-bar {
@@ -280,8 +280,8 @@
   background: transparent;
   color: var(--text-2);
   font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: 500;
+  font-size: var(--fs-md);
+  font-weight: var(--fw-medium);
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.2s;
@@ -294,8 +294,8 @@ html:has(.theme-checkbox:checked) .doc-tab.is-active { box-shadow: 0 1px 4px rgb
 .doc-tab-count {
   background: var(--tag-bg);
   color: var(--text-3);
-  font-size: 10px;
-  font-weight: 600;
+  font-size: var(--fs-badge);
+  font-weight: var(--fw-semibold);
   padding: 1px 5px;
   border-radius: 99px;
 }
@@ -303,8 +303,8 @@ html:has(.theme-checkbox:checked) .doc-tab.is-active { box-shadow: 0 1px 4px rgb
 .doc-tab-unread {
   background: var(--gold);
   color: #0B0D10;
-  font-size: 10px;
-  font-weight: 700;
+  font-size: var(--fs-badge);
+  font-weight: var(--fw-bold);
   padding: 1px 5px;
   border-radius: 99px;
 }
@@ -329,7 +329,7 @@ html:has(.theme-checkbox:checked) .doc-tab.is-active { box-shadow: 0 1px 4px rgb
   border: none;
   outline: none;
   font-family: var(--font-sans);
-  font-size: 13px;
+  font-size: var(--fs-ui);
   color: var(--text-1);
   width: 200px;
 }
@@ -347,11 +347,11 @@ html:has(.theme-checkbox:checked) .doc-tab.is-active { box-shadow: 0 1px 4px rgb
 }
 
 .doc-group-label {
-  font-size: 11px;
-  font-weight: 700;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
   color: var(--text-2);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: var(--ls-widest);    /* 0.11em ≈ 1.2px at 11px */
 }
 
 .doc-group-label.new-label { color: var(--gold); }
@@ -359,13 +359,13 @@ html:has(.theme-checkbox:checked) .doc-tab.is-active { box-shadow: 0 1px 4px rgb
 .doc-group-badge {
   background: var(--gold);
   color: #0B0D10;
-  font-size: 10px;
-  font-weight: 700;
+  font-size: var(--fs-badge);
+  font-weight: var(--fw-bold);
   padding: 1px 7px;
   border-radius: 99px;
 }
 
-.doc-group-count { font-size: 11px; color: var(--text-3); }
+.doc-group-count { font-size: var(--fs-sm); color: var(--text-3); }
 
 .doc-mark-all {
   margin-left: auto;
@@ -373,7 +373,7 @@ html:has(.theme-checkbox:checked) .doc-tab.is-active { box-shadow: 0 1px 4px rgb
   border: none;
   color: var(--text-3);
   font-family: var(--font-sans);
-  font-size: 11px;
+  font-size: var(--fs-sm);
   cursor: pointer;
   transition: color 0.2s;
   padding: 0;
@@ -388,6 +388,6 @@ html:has(.theme-checkbox:checked) .doc-tab.is-active { box-shadow: 0 1px 4px rgb
   justify-content: center;
   padding: 64px 24px;
   color: var(--text-3);
-  font-size: 13px;
+  font-size: var(--fs-ui);
   text-align: center;
 }
