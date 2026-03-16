@@ -1,11 +1,15 @@
 /* ─── AURELIUS WEALTH — CSS BUNDLE ───────────────────────────
    Load order follows SMACSS layers:
    Theme → Base → Layout → Modules → State → Pages
+
+   This file is the dev entrypoint (browser resolves @imports).
+   For production, build.js concatenates + minifies all partials
+   into this same file — edit build.js PARTIALS, not this file.
    ─────────────────────────────────────────────────────────── */
 
 /* Theme */
-@import "theme/colours.css";
 @import "theme/fonts.css";
+@import "theme/colours.css";
 @import "theme/typography.css";
 @import "theme/animations.css";
 
