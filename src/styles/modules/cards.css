@@ -67,7 +67,7 @@
   gap: 4px;
 }
 
-.kpi-change.is-up { color: var(--green); }
+.kpi-change.is-up   { color: var(--green); }
 .kpi-change.is-down { color: var(--red); }
 
 .kpi-change-period {
@@ -84,80 +84,6 @@
 }
 
 .kpi-card.is-featured .kpi-value { color: var(--gold-text); }
-
-/* ─── CHART CARD ─────────────────────────────────────── */
-.chart-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.chart-title { font-size: 15px; font-weight: 600; color: var(--text-1); }
-.chart-subtitle { font-size: 12px; color: var(--text-3); margin-top: 2px; }
-
-.range-pills { display: flex; gap: 4px; }
-.range-pill {
-  padding: 4px 10px;
-  border-radius: 99px;
-  border: none;
-  background: transparent;
-  color: var(--text-3);
-  font-size: 11px;
-  font-weight: 600;
-  cursor: pointer;
-  font-family: var(--font-sans);
-  transition: all 0.2s;
-}
-
-.range-pill:hover { color: var(--text-1); background: var(--bg-hover); }
-.range-pill.is-active { background: light-dark(rgba(160,86,7,0.08), var(--gold-dim)); color: var(--gold-text); }
-
-.chart-svg { width: 100%; display: block; }
-
-/* ─── CHART TOOLTIP ──────────────────────────────────── */
-.chart-tooltip {
-  position: absolute;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 8px 12px;
-  font-size: 12px;
-  color: var(--text-1);
-  pointer-events: none;
-  box-shadow: var(--shadow-card);
-  white-space: nowrap;
-  z-index: 50;
-  display: none;
-}
-
-.chart-container { position: relative; }
-
-/* ─── DONUT CHART ────────────────────────────────────── */
-.donut-wrap {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-}
-
-.donut-svg { width: 150px; height: 150px; flex-shrink: 0; }
-
-.legend { display: flex; flex-direction: column; gap: 10px; flex: 1; }
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.legend-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.legend-label { font-size: 12px; color: var(--text-2); flex: 1; }
-.legend-pct { font-size: 12px; font-weight: 600; color: var(--text-1); }
 
 /* ─── RESPONSIVE ─────────────────────────────────────── */
 @media (max-width: 1200px) {
