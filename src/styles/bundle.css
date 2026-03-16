@@ -12,6 +12,7 @@
 @import "theme/colours.css";
 @import "theme/typography.css";
 @import "theme/animations.css";
+@import "theme/osui-bridge.css";
 
 /* Base */
 @import "base/base.css";

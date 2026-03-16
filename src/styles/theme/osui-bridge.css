@@ -1,0 +1,119 @@
+/* ─── OUTSYSTEMS UI → AURELIUS TOKEN BRIDGE ──────────────────────────
+   Unidirectional adapter: maps OSUI CSS custom property vocabulary to
+   Aurelius design tokens.  Direction of every mapping:
+
+       OSUI variable  ←  Aurelius token
+
+   Rules:
+   1. This file ONLY declares :root custom properties.
+   2. No Aurelius token is ever modified here.
+   3. Load order (enforced by bundle.css):
+        fonts.css → colours.css → typography.css → animations.css
+        → osui-bridge.css  ← this file
+        → base/base.css → layout → modules …
+      Aurelius tokens are fully resolved before this file is parsed.
+      OSUI component CSS (injected later by OutSystems) finds its
+      variables pre-populated.
+   ───────────────────────────────────────────────────────────────── */
+
+:root {
+
+  /* ─── BRAND COLOUR ──────────────────────────────────────────── */
+  --color-primary:       var(--gold);         /* #F5A623 */
+  --color-primary-hover: var(--gold-glow);    /* rgba(245,166,35,0.25) */
+  --color-secondary:     var(--gold-soft);    /* #FFB547 */
+
+
+  /* ─── SEMANTIC / STATUS COLOUR ──────────────────────────────── */
+  --color-error:         var(--red);          /* #EF4444 */
+  --color-error-light:   var(--red-dim);      /* rgba(239,68,68,0.12) */
+  --color-info:          var(--gold-soft);    /* #FFB547 — no blue in Aurelius palette */
+  --color-info-light:    var(--gold-dim);     /* rgba(245,166,35,0.12) */
+  --color-success:       var(--green);        /* #22C55E */
+  --color-success-light: var(--green-dim);    /* rgba(34,197,94,0.12) */
+  --color-warning:       var(--gold);         /* #F5A623 — gold reads naturally as warning */
+  --color-warning-light: var(--gold-dim);     /* rgba(245,166,35,0.12) */
+
+
+  /* ─── NEUTRAL SCALE ─────────────────────────────────────────── */
+  /* OSUI convention: 0 = lightest, 10 = darkest (in light mode).
+     Dark mode inverts the luminance direction, so every step uses
+     light-dark() to supply the correct value per scheme.           */
+  --color-neutral-0:  light-dark(#ffffff,     var(--bg));         /* page canvas */
+  --color-neutral-1:  light-dark(var(--bg),   var(--bg-sidebar)); /* off-white / near-black */
+  --color-neutral-2:  light-dark(#e8eaf0,     var(--bg-card));    /* subtle surface */
+  --color-neutral-3:  light-dark(#d5d8e0,     var(--bg-hover));   /* border-adjacent surface */
+  --color-neutral-4:  light-dark(#b8bcc8,     #3a3e47);           /* mid — hardcoded both ends */
+  --color-neutral-5:  light-dark(#8c9099,     var(--text-3));     /* subdued text / muted icon */
+  --color-neutral-6:  light-dark(var(--text-3), var(--text-2));   /* secondary text */
+  --color-neutral-7:  light-dark(var(--text-2), var(--text-2));   /* secondary text (both modes) */
+  --color-neutral-8:  light-dark(#3a3e47,     #d0d3d8);           /* mid — hardcoded both ends */
+  --color-neutral-9:  light-dark(#111318,     #f0f1f4);           /* near-black / near-white */
+  --color-neutral-10: light-dark(#000000,     var(--text-1));     /* maximum contrast */
+
+
+  /* ─── TYPOGRAPHY — FONT SIZE ────────────────────────────────── */
+  --font-size-base:    var(--fs-base);        /* 14px */
+  --font-size-body:    var(--fs-body);        /* 14px */
+  --font-size-body-s:  var(--fs-ui);          /* 13px */
+  --font-size-body-xs: var(--fs-sm);          /* 11px */
+  --font-size-display: var(--fs-kpi-hero);    /* 28px */
+  --font-size-h1:      var(--fs-page-title);  /* 22px */
+  --font-size-h2:      var(--fs-section-title); /* 18px */
+  --font-size-h3:      var(--fs-data-lg);     /* 24px */
+  --font-size-h4:      var(--fs-drawer-title); /* 20px */
+  --font-size-h5:      var(--fs-input);       /* 14px (--fs-input = --fs-base) */
+  --font-size-h6:      var(--fs-body);        /* 14px */
+
+
+  /* ─── TYPOGRAPHY — FONT WEIGHT ──────────────────────────────── */
+  --font-weight-bold:      var(--fw-bold);      /* 700 */
+  --font-weight-light:     300;                 /* no --fw-light token — hardcoded */
+  --font-weight-regular:   var(--fw-regular);   /* 400 */
+  --font-weight-semibold:  var(--fw-semibold);  /* 600 */
+
+
+  /* ─── TYPOGRAPHY — FONT FAMILY ──────────────────────────────── */
+  --font-family-base:    var(--font-sans);    /* Inter */
+  --font-family-heading: var(--font-serif);   /* Playfair Display */
+
+
+  /* ─── SPACING ───────────────────────────────────────────────── */
+  /* OSUI uses an 8px-grid named scale.  Aurelius spacing is not yet
+     fully tokenised beyond --pad (24px), so most steps are hardcoded.
+     If Aurelius gains --space-* tokens this section can be updated.  */
+  --space-base: 16px;
+  --space-l:    32px;
+  --space-m:    var(--pad);   /* 24px */
+  --space-none: 0;
+  --space-s:    8px;
+  --space-xl:   40px;
+  --space-xs:   4px;
+  --space-xxl:  48px;
+
+
+  /* ─── BORDER RADIUS ─────────────────────────────────────────── */
+  --border-radius-circle:  var(--radius-btn);  /* 999px */
+  --border-radius-none:    0;
+  --border-radius-rounded: var(--radius-card); /* 16px */
+  --border-radius-soft:    var(--radius-item); /* 12px */
+
+
+  /* ─── SHADOW ────────────────────────────────────────────────── */
+  --shadow-l:    0 24px 48px rgba(0, 0, 0, 0.50);
+  --shadow-m:    var(--shadow-card);
+  --shadow-none: none;
+  --shadow-s:    0 2px 8px rgba(0, 0, 0, 0.10);
+  --shadow-xl:   0 32px 64px rgba(0, 0, 0, 0.60);
+  --shadow-xs:   0 1px 4px rgba(0, 0, 0, 0.06);
+
+
+  /* ─── Z-INDEX (LAYER) ───────────────────────────────────────── */
+  /* No Aurelius equivalents — declared directly at sensible values. */
+  --layer-global-instant-interaction: 9000;
+  --osui-bottom-sheet-layer:          300;
+  --osui-notification-layer:          400;
+  --osui-popup-layer:                 200;
+  --osui-sidebar-layer:               100;
+
+}
