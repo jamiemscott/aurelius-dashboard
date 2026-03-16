@@ -18,25 +18,35 @@ const path = require('path');
 const ROOT = __dirname;
 
 const PARTIALS = [
-  // Base — resets, defaults, scrollbar, keyframes
-  'src/styles/base/base.css',
-  // Theme — design tokens
+  // Theme — design tokens (must load before everything else)
   'src/styles/theme/fonts.css',
   'src/styles/theme/colours.css',
+  'src/styles/theme/typography.css',
+  'src/styles/theme/animations.css',
+  // Base — resets, defaults, scrollbar
+  'src/styles/base/base.css',
   // Layout — shell, topbar, sidebar, grids
   'src/styles/layout/layout.css',
   // Modules — reusable UI components
+  'src/styles/modules/brand.css',
+  'src/styles/modules/navigation.css',
+  'src/styles/modules/theme-toggle.css',
   'src/styles/modules/buttons.css',
   'src/styles/modules/cards.css',
+  'src/styles/modules/charts.css',
   'src/styles/modules/tables.css',
-  'src/styles/modules/navigation.css',
+  'src/styles/modules/progress.css',
   'src/styles/modules/activity.css',
   'src/styles/modules/documents.css',
-  'src/styles/modules/user-menu.css',
-  'src/styles/modules/drawers.css',
-  'src/styles/modules/details.css',
+  'src/styles/modules/footer.css',
+  'src/styles/modules/advisor-card.css',
+  'src/styles/modules/breadcrumb.css',
+  'src/styles/modules/page-header.css',
   'src/styles/modules/contact.css',
+  'src/styles/modules/details.css',
+  'src/styles/modules/drawers.css',
   'src/styles/modules/chat.css',
+  'src/styles/modules/user-menu.css',
   // State — is-* classes
   'src/styles/state/state.css',
   // Pages — page-specific overrides
