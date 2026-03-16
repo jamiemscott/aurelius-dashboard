@@ -13,14 +13,14 @@
   display: flex; align-items: center; gap: 6px;
 }
 
-.btn-primary:hover { opacity: 0.88; }
+.btn-primary:hover  { opacity: 0.88; }
 .btn-primary:active { transform: scale(0.98); }
 
 .btn-secondary {
   padding: 9px 20px;
   background: transparent;
-  color: var(--gold);
-  border: 1px solid var(--gold-glow);
+  color: var(--gold-text);
+  border: 1px solid light-dark(rgba(160,86,7,0.3), var(--gold-glow));
   border-radius: var(--radius-btn);
   font-size: 13px;
   font-weight: 600;
@@ -31,86 +31,3 @@
 }
 
 .btn-secondary:hover { background: light-dark(rgba(160,86,7,0.06), var(--gold-dim)); }
-
-
-/* Theme toggle */
-.theme-toggle {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 12px;
-  border-radius: var(--radius-btn);
-  border: 1px solid var(--border);
-  background: var(--bg-input);
-  color: var(--text-2);
-  font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.theme-toggle:hover { color: var(--text-1); border-color: var(--gold); }
-
-.toggle-track {
-  width: 30px; height: 16px;
-  background: light-dark(var(--progress-bg), var(--gold-dim));
-  border: 1px solid light-dark(transparent, var(--gold-glow));
-  border-radius: 8px;
-  position: relative;
-  transition: background 0.2s ease;
-  flex-shrink: 0;
-}
-
-.toggle-thumb {
-  position: absolute;
-  top: 2px; left: 2px;
-  width: 12px; height: 12px;
-  border-radius: 50%;
-  background: light-dark(var(--text-3), var(--gold));
-  transition: all 0.25s ease;
-}
-
-
-
-.contact-btn {
-  margin-top: 4px;
-  padding: 7px 12px;
-  background: var(--gold);
-  color: #0B0D10;
-  border: none;
-  border-radius: var(--radius-btn);
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  font-family: var(--font-sans);
-  transition: opacity 0.2s;
-}
-
-.contact-btn:hover { opacity: 0.85; }
-
-/* ─── HIDDEN THEME CHECKBOX ─────────────────────────── */
-/* Visually hidden but still in DOM for keyboard/a11y    */
-.theme-checkbox {
-  position: absolute;
-  width: 1px; height: 1px;
-  padding: 0; margin: -1px;
-  overflow: hidden;
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
-}
-
-/* Icon / label visibility — dark=default, light=checked */
-.theme-icon-light,
-.theme-label-light,
-.theme-hint-light { display: none; }
-
-html:has(.theme-checkbox:checked) .theme-icon-dark,
-html:has(.theme-checkbox:checked) .theme-label-dark,
-html:has(.theme-checkbox:checked) .theme-hint-dark { display: none; }
-
-html:has(.theme-checkbox:checked) .theme-icon-light,
-html:has(.theme-checkbox:checked) .theme-label-light,
-html:has(.theme-checkbox:checked) .theme-hint-light { display: inline; }
-
