@@ -6,6 +6,7 @@
 /* Theme */
 @import "theme/colours.css";
 @import "theme/fonts.css";
+@import "theme/typography.css";
 
 /* Base */
 @import "base/base.css";

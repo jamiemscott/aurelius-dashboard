@@ -7,10 +7,10 @@ table {
 }
 
 thead th {
-  font-size: 11px;
+  font-size: var(--fs-sm);           /* 11px */
   text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 600;
+  letter-spacing: var(--ls-widest);
+  font-weight: var(--fw-semibold);
   color: var(--text-3);
   padding: 0 16px 12px;
   text-align: left;
@@ -31,18 +31,18 @@ tbody tr:hover      { background: var(--bg-hover); }
 
 tbody td {
   padding: 16px;
-  font-size: 13px;
+  font-size: var(--fs-ui);           /* 13px */
   color: var(--text-1);
   white-space: nowrap;
 }
 
 tbody td:not(:first-child) { text-align: right; }
 
-.td-name      { font-weight: 500; }
-.td-type      { font-size: 11px; color: var(--text-3); margin-top: 2px; }
+.td-name      { font-weight: var(--fw-medium); }
+.td-type      { font-size: var(--fs-sm); color: var(--text-3); margin-top: 2px; }
 .td-secondary { color: var(--text-2); }
 
-.td-change.is-up   { color: var(--green); font-weight: 500; }
-.td-change.is-down { color: var(--red);   font-weight: 500; }
+.td-change.is-up   { color: var(--green); font-weight: var(--fw-medium); }
+.td-change.is-down { color: var(--red);   font-weight: var(--fw-medium); }
 
 .sparkline { display: inline-block; width: 60px; height: 24px; }

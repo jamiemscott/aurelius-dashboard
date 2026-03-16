@@ -5,8 +5,8 @@
   color: #0B0D10;
   border: none;
   border-radius: var(--radius-btn);
-  font-size: 13px;
-  font-weight: 600;
+  font-size: var(--fs-btn);          /* 13px */
+  font-weight: var(--fw-semibold);
   cursor: pointer;
   font-family: var(--font-sans);
   transition: opacity 0.2s, transform 0.1s;
@@ -22,8 +22,8 @@
   color: var(--gold-text);
   border: 1px solid light-dark(rgba(160,86,7,0.3), var(--gold-glow));
   border-radius: var(--radius-btn);
-  font-size: 13px;
-  font-weight: 600;
+  font-size: var(--fs-btn);          /* 13px */
+  font-weight: var(--fw-semibold);
   cursor: pointer;
   font-family: var(--font-sans);
   transition: all 0.2s;

@@ -250,22 +250,22 @@
   border: 2px solid var(--gold);
   display: flex; align-items: center; justify-content: center;
   font-family: var(--font-serif);
-  font-size: 15px;
+  font-size: var(--fs-lg);             /* 15px — monogram */
   color: var(--gold);
   flex-shrink: 0;
-  letter-spacing: -0.5px;
+  letter-spacing: var(--ls-heading);   /* -0.03em ≈ -0.45px at 15px */
 }
 
 .adv-drawer-name {
   font-family: var(--font-serif);
-  font-size: 16px;
+  font-size: var(--fs-xl);             /* 16px */
   color: var(--text-1);
-  letter-spacing: -0.3px;
-  line-height: 1.2;
+  letter-spacing: var(--ls-heading);   /* -0.03em ≈ -0.48px at 16px */
+  line-height: var(--lh-tight);
 }
 
 .adv-drawer-role {
-  font-size: 11px;
+  font-size: var(--fs-sm);
   color: var(--text-3);
   margin-top: 2px;
 }
@@ -276,7 +276,7 @@
   border: 1px solid var(--border);
   background: var(--bg-input);
   color: var(--text-2);
-  font-size: 14px;
+  font-size: var(--fs-body);           /* 14px */
   cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   transition: background 0.2s, color 0.2s;
@@ -294,9 +294,9 @@
   padding: 10px 22px;
   background: var(--green-dim);
   border-bottom: 1px solid var(--divider);
-  font-size: 11px;
+  font-size: var(--fs-sm);
   color: var(--green);
-  font-weight: 500;
+  font-weight: var(--fw-medium);
 }
 
 .adv-drawer-body {
@@ -308,9 +308,9 @@
 }
 
 .adv-drawer-label {
-  font-size: 12px;
+  font-size: var(--fs-md);
   color: var(--text-3);
-  font-weight: 500;
+  font-weight: var(--fw-medium);
   display: block;
   margin-bottom: 7px;
 }
@@ -334,22 +334,22 @@
 
 .adv-drawer-sent-title {
   font-family: var(--font-serif);
-  font-size: 20px;
+  font-size: var(--fs-drawer-title);   /* 20px */
   color: var(--text-1);
-  letter-spacing: -0.4px;
+  letter-spacing: var(--ls-snug);      /* -0.02em = -0.4px at 20px */
 }
 
 .adv-drawer-sent-note {
-  font-size: 12px;
+  font-size: var(--fs-md);
   color: var(--text-3);
-  line-height: 1.7;
+  line-height: var(--lh-loose);
   max-width: 280px;
 }
 
 /* ─── SECTION DIVIDER ────────────────────────────────── */
 .section-heading {
-  font-size: 13px;
-  font-weight: 600;
+  font-size: var(--fs-ui);
+  font-weight: var(--fw-semibold);
   color: var(--text-2);
   margin-bottom: 14px;
   display: flex;

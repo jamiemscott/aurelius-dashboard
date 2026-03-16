@@ -9,7 +9,7 @@
   border: 1px solid var(--border);
   border-radius: 8px;
   font-family: var(--font-sans);
-  font-size: 13px;
+  font-size: var(--fs-ui);
   color: var(--text-1);
   outline: none;
   transition: border-color 0.2s;
@@ -34,8 +34,8 @@
   border: none;
   background: transparent;
   font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: 500;
+  font-size: var(--fs-md);
+  font-weight: var(--fw-medium);
   color: var(--text-2);
   cursor: pointer;
   transition: all 0.2s;
@@ -92,14 +92,14 @@ html:has(.theme-checkbox:checked) .contact-seg-btn.is-active { box-shadow: 0 1px
 
 .contact-sent-title {
   font-family: var(--font-serif);
-  font-size: 22px;
+  font-size: var(--fs-page-title);     /* 22px */
   color: var(--text-1);
-  letter-spacing: -0.5px;
+  letter-spacing: var(--ls-snug);      /* -0.02em ≈ -0.44px at 22px */
 }
 
 .contact-ref {
   font-family: var(--font-serif);
-  font-size: 14px;
+  font-size: var(--fs-body);           /* 14px */
   color: var(--gold);
   letter-spacing: 0.5px;
   padding: 6px 14px;
@@ -109,14 +109,14 @@ html:has(.theme-checkbox:checked) .contact-seg-btn.is-active { box-shadow: 0 1px
 }
 
 .contact-sent-note {
-  font-size: 12px;
+  font-size: var(--fs-md);
   color: var(--text-3);
-  line-height: 1.6;
+  line-height: var(--lh-relaxed);
   max-width: 280px;
 }
 
 .contact-char-count {
-  font-size: 11px;
+  font-size: var(--fs-sm);
   color: var(--text-3);
   text-align: right;
   margin-top: 4px;
@@ -126,10 +126,10 @@ html:has(.theme-checkbox:checked) .contact-seg-btn.is-active { box-shadow: 0 1px
   display: flex;
   align-items: center;
   gap: 7px;
-  font-size: 11px;
+  font-size: var(--fs-sm);
   color: var(--text-3);
   margin-top: 14px;
-  line-height: 1.5;
+  line-height: var(--lh-normal);
 }
 
 .contact-lock-note svg { flex-shrink: 0; color: var(--text-3); }
@@ -386,22 +386,22 @@ html:has(.theme-checkbox:checked) .contact-seg-btn.is-active { box-shadow: 0 1px
   border: 2px solid var(--gold);
   display: flex; align-items: center; justify-content: center;
   font-family: var(--font-serif);
-  font-size: 15px;
+  font-size: var(--fs-lg);             /* 15px — monogram */
   color: var(--gold);
   flex-shrink: 0;
-  letter-spacing: -0.5px;
+  letter-spacing: var(--ls-heading);   /* -0.03em ≈ -0.45px at 15px */
 }
 
 .adv-drawer-name {
   font-family: var(--font-serif);
-  font-size: 16px;
+  font-size: var(--fs-xl);             /* 16px */
   color: var(--text-1);
-  letter-spacing: -0.3px;
-  line-height: 1.2;
+  letter-spacing: var(--ls-heading);   /* -0.03em ≈ -0.48px at 16px */
+  line-height: var(--lh-tight);
 }
 
 .adv-drawer-role {
-  font-size: 11px;
+  font-size: var(--fs-sm);
   color: var(--text-3);
   margin-top: 2px;
 }
@@ -412,7 +412,7 @@ html:has(.theme-checkbox:checked) .contact-seg-btn.is-active { box-shadow: 0 1px
   border: 1px solid var(--border);
   background: var(--bg-input);
   color: var(--text-2);
-  font-size: 14px;
+  font-size: var(--fs-body);           /* 14px */
   cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   transition: background 0.2s, color 0.2s;
@@ -430,9 +430,9 @@ html:has(.theme-checkbox:checked) .contact-seg-btn.is-active { box-shadow: 0 1px
   padding: 10px 22px;
   background: var(--green-dim);
   border-bottom: 1px solid var(--divider);
-  font-size: 11px;
+  font-size: var(--fs-sm);
   color: var(--green);
-  font-weight: 500;
+  font-weight: var(--fw-medium);
 }
 
 .adv-drawer-body {
@@ -444,9 +444,9 @@ html:has(.theme-checkbox:checked) .contact-seg-btn.is-active { box-shadow: 0 1px
 }
 
 .adv-drawer-label {
-  font-size: 12px;
+  font-size: var(--fs-md);
   color: var(--text-3);
-  font-weight: 500;
+  font-weight: var(--fw-medium);
   display: block;
   margin-bottom: 7px;
 }
@@ -470,22 +470,22 @@ html:has(.theme-checkbox:checked) .contact-seg-btn.is-active { box-shadow: 0 1px
 
 .adv-drawer-sent-title {
   font-family: var(--font-serif);
-  font-size: 20px;
+  font-size: var(--fs-drawer-title);   /* 20px */
   color: var(--text-1);
-  letter-spacing: -0.4px;
+  letter-spacing: var(--ls-snug);      /* -0.02em = -0.4px at 20px */
 }
 
 .adv-drawer-sent-note {
-  font-size: 12px;
+  font-size: var(--fs-md);
   color: var(--text-3);
-  line-height: 1.7;
+  line-height: var(--lh-loose);
   max-width: 280px;
 }
 
 /* ─── SECTION DIVIDER ────────────────────────────────── */
 .section-heading {
-  font-size: 13px;
-  font-weight: 600;
+  font-size: var(--fs-ui);
+  font-weight: var(--fw-semibold);
   color: var(--text-2);
   margin-bottom: 14px;
   display: flex;
@@ -543,12 +543,12 @@ html:has(.theme-checkbox:checked) .contact-seg-btn.is-active { box-shadow: 0 1px
   background: linear-gradient(135deg, var(--gold-dim), var(--gold-glow));
   border: 2px solid var(--gold);
   display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-serif); font-size: 16px; color: var(--gold);
+  font-family: var(--font-serif); font-size: var(--fs-xl); color: var(--gold); /* 16px */
   flex-shrink: 0;
 }
-.chat-hd-name { font-size: 14px; font-weight: 600; color: var(--text-1); }
+.chat-hd-name { font-size: var(--fs-body); font-weight: var(--fw-semibold); color: var(--text-1); }
 .chat-hd-status {
-  font-size: 11px; color: var(--text-3);
+  font-size: var(--fs-sm); color: var(--text-3);
   display: flex; align-items: center; gap: 5px; margin-top: 2px;
 }
 .chat-online-dot {
@@ -557,7 +557,7 @@ html:has(.theme-checkbox:checked) .contact-seg-btn.is-active { box-shadow: 0 1px
 }
 .chat-close-btn {
   width: 28px; height: 28px; border-radius: 50%; background: var(--bg-input);
-  border: none; cursor: pointer; color: var(--text-3); font-size: 13px;
+  border: none; cursor: pointer; color: var(--text-3); font-size: var(--fs-ui);
   display: flex; align-items: center; justify-content: center; transition: background 0.2s;
 }
 .chat-close-btn:hover { background: var(--bg-hover); color: var(--text-1); }
@@ -572,12 +572,12 @@ html:has(.theme-checkbox:checked) .contact-seg-btn.is-active { box-shadow: 0 1px
 .chat-msg-user { align-self: flex-end; align-items: flex-end; }
 
 .chat-bubble-inner {
-  padding: 9px 13px; font-size: 13px; line-height: 1.55;
+  padding: 9px 13px; font-size: var(--fs-ui); line-height: var(--lh-normal);
   border-radius: 4px 16px 16px 16px;
 }
 .chat-msg-bot  .chat-bubble-inner { background: var(--bg-input); color: var(--text-1); }
 .chat-msg-user .chat-bubble-inner {
-  background: var(--gold); color: #0B0D10; font-weight: 500;
+  background: var(--gold); color: #0B0D10; font-weight: var(--fw-medium);
   border-radius: 16px 4px 16px 16px;
 }
 
@@ -586,7 +586,7 @@ html:has(.theme-checkbox:checked) .contact-seg-btn.is-active { box-shadow: 0 1px
 .chat-chip {
   padding: 5px 12px; border-radius: var(--radius-btn);
   border: 1px solid var(--border); background: var(--bg-card);
-  color: var(--text-2); font-size: 12px; cursor: pointer;
+  color: var(--text-2); font-size: var(--fs-md); cursor: pointer;
   font-family: var(--font-sans); transition: all 0.18s; white-space: nowrap;
 }
 .chat-chip:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); }
@@ -619,7 +619,7 @@ html:has(.theme-checkbox:checked) .contact-seg-btn.is-active { box-shadow: 0 1px
 .chat-input {
   flex: 1; padding: 8px 14px; background: var(--bg-input);
   border: 1px solid var(--border); border-radius: var(--radius-btn);
-  font-size: 13px; color: var(--text-1); font-family: var(--font-sans);
+  font-size: var(--fs-ui); color: var(--text-1); font-family: var(--font-sans);
   outline: none; transition: border-color 0.2s;
 }
 .chat-input:focus { border-color: var(--gold); }

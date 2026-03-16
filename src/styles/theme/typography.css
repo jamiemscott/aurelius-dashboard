@@ -1,0 +1,284 @@
+/* ─── TYPOGRAPHY SYSTEM ─────────────────────────────────────────
+   Single source of truth for all type decisions in Aurelius Wealth.
+   All other stylesheets must reference these tokens rather than
+   hard-coding font sizes, weights, line heights, or letter spacing.
+
+   SCALE BASIS
+   ───────────
+   --fs-base: 14px  — the root body font size (also set on <html>
+   in base/base.css). All scale steps are calculated from this via
+   calc(), so changing one value rescales the entire UI.
+
+   LOAD ORDER
+   ──────────
+   This file must load after theme/fonts.css (font-family tokens)
+   and before base/base.css (which consumes --fs-base).
+   ─────────────────────────────────────────────────────────────── */
+
+:root {
+
+  /* ─── SCALE BASIS ─────────────────────────────────────────────
+     Change only this value to rescale the entire type system.    */
+  --fs-base: 14px;
+
+
+  /* ─── FONT SIZE SCALE ─────────────────────────────────────────
+     Steps below base: subtract from --fs-base
+     Steps above base: add to --fs-base
+     Comments show the resolved px value at the default base.     */
+
+  /* Below base — dense UI labels & metadata */
+  --fs-2xs:        calc(var(--fs-base) - 5px); /*  9px — microtext:  badge chips, status markers  */
+  --fs-xs:         calc(var(--fs-base) - 4px); /* 10px — eyebrow:    uppercase section labels     */
+  --fs-sm:         calc(var(--fs-base) - 3px); /* 11px — caption:    meta text, timestamps, subs  */
+  --fs-md:         calc(var(--fs-base) - 2px); /* 12px — secondary:  dates, breadcrumbs, hints    */
+  --fs-ui:         calc(var(--fs-base) - 1px); /* 13px — ui-chrome:  buttons, nav, table cells    */
+
+  /* Base — the default prose/body size */
+  /* --fs-base                             14px — body:     default prose, form values, labels    */
+
+  /* Above base — headings & display */
+  --fs-lg:         calc(var(--fs-base) + 1px);  /* 15px — panel-title: card/widget headings       */
+  --fs-xl:         calc(var(--fs-base) + 2px);  /* 16px — heading-xs:  brand mark, stat-chip vals */
+  --fs-2xl:        calc(var(--fs-base) + 3px);  /* 17px — heading-sm:  brand name, minor serif    */
+  --fs-3xl:        calc(var(--fs-base) + 4px);  /* 18px — heading-md:  section headings           */
+  --fs-4xl:        calc(var(--fs-base) + 6px);  /* 20px — heading-lg:  drawer/modal headings      */
+  --fs-5xl:        calc(var(--fs-base) + 8px);  /* 22px — heading-xl:  page titles (h1)           */
+  --fs-6xl:        calc(var(--fs-base) + 10px); /* 24px — heading-2xl: hero headings              */
+  --fs-display-sm: calc(var(--fs-base) + 12px); /* 26px — display-sm:  primary KPI values (serif) */
+  --fs-display-md: calc(var(--fs-base) + 14px); /* 28px — display-md:  hero figures, CGT totals   */
+
+
+  /* ─── SEMANTIC ROLE TOKENS ─────────────────────────────────────
+     Map scale tokens to named UI roles in this product.
+     Prefer these in component files — they communicate intent and
+     allow global role changes without touching component files.   */
+
+  /* Page & section structure */
+  --fs-page-title:    var(--fs-5xl);         /* 22px — main page heading (h1 equivalent)   */
+  --fs-section-title: var(--fs-3xl);         /* 18px — panel / section heading (h2)        */
+  --fs-panel-title:   var(--fs-lg);          /* 15px — card / widget title                 */
+  --fs-drawer-title:  var(--fs-4xl);         /* 20px — drawer / modal heading              */
+
+  /* Body copy */
+  --fs-body:          var(--fs-base);        /* 14px — default prose                       */
+  --fs-body-sm:       var(--fs-md);          /* 12px — secondary / supporting body text    */
+  --fs-help:          var(--fs-sm);          /* 11px — help text, hint copy                */
+
+  /* UI chrome */
+  --fs-nav:           var(--fs-ui);          /* 13px — nav items, topbar tabs              */
+  --fs-btn:           var(--fs-ui);          /* 13px — button labels                       */
+  --fs-input:         var(--fs-base);        /* 14px — form field values                   */
+  --fs-input-label:   var(--fs-md);          /* 12px — form field labels                   */
+
+  /* Metadata & labels */
+  --fs-meta:          var(--fs-sm);          /* 11px — timestamps, sub-labels, status      */
+  --fs-caption:       var(--fs-md);          /* 12px — chart captions, table footnotes     */
+  --fs-badge:         var(--fs-xs);          /* 10px — badge text, eyebrow labels          */
+  --fs-micro:         var(--fs-2xs);         /* 9px  — ultra-small markers, tag chips      */
+
+  /* Data display (serif numbers) */
+  --fs-kpi:           var(--fs-display-sm);  /* 26px — primary KPI value                   */
+  --fs-kpi-hero:      var(--fs-display-md);  /* 28px — hero figure (CGT, portfolio total)  */
+  --fs-data-lg:       var(--fs-6xl);         /* 24px — large data panel value              */
+  --fs-data-md:       var(--fs-4xl);         /* 20px — medium data display                 */
+
+
+  /* ─── FONT WEIGHT SCALE ────────────────────────────────────────
+     Named weights map directly to CSS numeric values.            */
+  --fw-regular:   400; /* body copy, serif display numerals              */
+  --fw-medium:    500; /* UI labels, nav items, secondary emphasis       */
+  --fw-semibold:  600; /* card titles, data values, strong emphasis      */
+  --fw-bold:      700; /* badge labels, uppercase microtext, heavy tags  */
+
+
+  /* ─── LINE HEIGHT SCALE ─────────────────────────────────────────
+     Unitless ratios — scales correctly with any font size.       */
+  --lh-none:    1;     /* display numbers, KPI values — zero leading     */
+  --lh-tight:   1.2;   /* headings — compact but still readable          */
+  --lh-snug:    1.35;  /* sub-headings, compact body UI                  */
+  --lh-normal:  1.5;   /* standard UI body text, form elements           */
+  --lh-relaxed: 1.65;  /* comfortable reading paragraphs, help text      */
+  --lh-loose:   1.75;  /* legal disclaimers, regulatory / footer copy    */
+
+
+  /* ─── LETTER SPACING SCALE ─────────────────────────────────────
+     em values scale proportionally with font size (best practice).
+     Comments show the approximate px equivalent at common sizes.  */
+
+  /* Negative — tight display headings */
+  --ls-display: -0.04em; /* ≈ -1px   at 26px — large serif KPI numerals  */
+  --ls-heading: -0.03em; /* ≈ -0.5px at 17px — brand name, page titles   */
+  --ls-snug:    -0.02em; /* ≈ -0.3px at 15px — medium headings, panels   */
+
+  /* Zero — default for all body & UI text */
+  --ls-normal:   0;
+
+  /* Positive — spaced labels & uppercase text */
+  --ls-wide:     0.04em; /* ≈ 0.5px at 12px  — small labels, contact btns  */
+  --ls-wider:    0.07em; /* ≈ 0.8px at 11px  — uppercase stat chip labels   */
+  --ls-widest:   0.11em; /* ≈ 1.5px at 14px  — all-caps section dividers    */
+
+}
+
+
+/* ─── BASE ELEMENT TYPOGRAPHY ─────────────────────────────────────
+   Establishes the visual hierarchy for semantic HTML elements.
+   Component classes override these as needed.                     */
+
+/* ── Headings ──────────────────────────────────────────────────── */
+/* Default to serif for h1–h3 (display / structural headings).
+   h4–h6 switch to sans-serif as they approach UI-chrome scale.   */
+
+h1, h2, h3 {
+  font-family: var(--font-serif);
+  font-weight: var(--fw-regular); /* serif looks best at regular weight */
+  color: var(--text-1);
+  line-height: var(--lh-tight);
+}
+
+h4, h5, h6 {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-semibold);
+  color: var(--text-1);
+  line-height: var(--lh-snug);
+}
+
+h1 {
+  font-size: var(--fs-page-title);  /* 22px — main page heading   */
+  letter-spacing: var(--ls-heading);
+}
+
+h2 {
+  font-size: var(--fs-section-title); /* 18px — section / card heading */
+  letter-spacing: var(--ls-snug);
+}
+
+h3 {
+  font-size: var(--fs-xl);           /* 16px — sub-section heading  */
+  letter-spacing: var(--ls-snug);
+}
+
+h4 {
+  font-size: var(--fs-panel-title);  /* 15px — panel / widget title */
+  letter-spacing: 0;
+}
+
+h5 {
+  font-size: var(--fs-body);         /* 14px — minor heading        */
+  letter-spacing: 0;
+}
+
+h6 {
+  /* h6 intentionally uses eyebrow style: small, spaced, uppercase */
+  font-size: var(--fs-badge);        /* 10px — label / eyebrow      */
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-widest);
+  color: var(--text-3);
+}
+
+/* ── Body copy ─────────────────────────────────────────────────── */
+p {
+  font-size: var(--fs-body);         /* 14px */
+  line-height: var(--lh-relaxed);
+  color: var(--text-2);
+}
+
+p + p { margin-top: 0.75em; }
+
+/* ── Inline elements ───────────────────────────────────────────── */
+strong, b { font-weight: var(--fw-semibold); color: var(--text-1); }
+em, i     { font-style: italic; }
+
+small {
+  font-size: var(--fs-help);         /* 11px */
+  color: var(--text-3);
+  line-height: var(--lh-normal);
+}
+
+/* ── Lists ─────────────────────────────────────────────────────── */
+ul, ol {
+  padding-left: 1.25em;
+  font-size: var(--fs-body);         /* 14px */
+  line-height: var(--lh-relaxed);
+  color: var(--text-2);
+}
+
+ul { list-style: disc; }
+ol { list-style: decimal; }
+
+li { margin-bottom: 0.3em; }
+li:last-child { margin-bottom: 0; }
+
+/* Nested lists — one step smaller to preserve hierarchy */
+li ul,
+li ol {
+  margin-top: 0.3em;
+  font-size: 0.93em; /* ≈13px when parent is 14px */
+}
+
+/* ── Inline code ───────────────────────────────────────────────── */
+code {
+  font-family: ui-monospace, 'Cascadia Code', 'Fira Code', monospace;
+  font-size: var(--fs-ui);           /* 13px */
+  background: var(--bg-input);
+  border-radius: 4px;
+  padding: 0.15em 0.4em;
+  color: var(--text-1);
+}
+
+/* ── Block code ────────────────────────────────────────────────── */
+pre {
+  font-family: ui-monospace, 'Cascadia Code', 'Fira Code', monospace;
+  font-size: var(--fs-ui);           /* 13px */
+  line-height: var(--lh-normal);
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 16px;
+  overflow-x: auto;
+  color: var(--text-1);
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+}
+
+/* ── Blockquote — advisory notes & disclaimers ─────────────────── */
+blockquote {
+  font-size: var(--fs-body-sm);      /* 12px */
+  line-height: var(--lh-loose);
+  color: var(--text-3);
+  border-left: 3px solid var(--gold-glow);
+  padding-left: 12px;
+  font-style: italic;
+}
+
+/* ── Horizontal rule ───────────────────────────────────────────── */
+hr {
+  border: none;
+  border-top: 1px solid var(--divider);
+  margin: 16px 0;
+}
+
+/* ── Links ─────────────────────────────────────────────────────── */
+a {
+  color: var(--gold-text);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--gold);
+  text-decoration: underline;
+}
+
+/* ── Form labels ───────────────────────────────────────────────── */
+label {
+  font-size: var(--fs-input-label);  /* 12px */
+  font-weight: var(--fw-medium);
+  color: var(--text-2);
+}

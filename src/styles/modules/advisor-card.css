@@ -10,21 +10,21 @@
 }
 
 .advisor-label {
-  font-size: 10px;
+  font-size: var(--fs-badge);        /* 10px */
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: var(--ls-widest);
   color: var(--gold);
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
 }
 
 .advisor-name {
-  font-size: 13px;
-  font-weight: 600;
+  font-size: var(--fs-ui);           /* 13px */
+  font-weight: var(--fw-semibold);
   color: var(--text-1);
 }
 
 .advisor-contact {
-  font-size: 11px;
+  font-size: var(--fs-sm);           /* 11px */
   color: var(--text-2);
 }
 
@@ -35,8 +35,8 @@
   color: #0B0D10;
   border: none;
   border-radius: var(--radius-btn);
-  font-size: 12px;
-  font-weight: 600;
+  font-size: var(--fs-md);           /* 12px */
+  font-weight: var(--fw-semibold);
   cursor: pointer;
   font-family: var(--font-sans);
   transition: opacity 0.2s;
