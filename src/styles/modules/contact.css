@@ -79,7 +79,6 @@ html:has(.theme-checkbox:checked) .contact-seg-btn.is-active { box-shadow: 0 1px
   width: 34px; height: 34px;
 }
 
-@keyframes spin { to { transform: rotate(360deg); } }
 
 .contact-sent-icon {
   background: var(--green-dim);
@@ -604,10 +603,6 @@ html:has(.theme-checkbox:checked) .contact-seg-btn.is-active { box-shadow: 0 1px
 }
 .chat-typing-dot:nth-child(2) { animation-delay: 0.15s; }
 .chat-typing-dot:nth-child(3) { animation-delay: 0.30s; }
-@keyframes chat-bounce {
-  0%, 60%, 100% { transform: translateY(0); }
-  30%           { transform: translateY(-5px); }
-}
 
 /* Input row */
 .chat-input-row {

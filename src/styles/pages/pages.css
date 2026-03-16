@@ -388,11 +388,6 @@ html:has(.theme-checkbox:checked) .details-tab.is-active { box-shadow: 0 1px 4px
   width: 18px;
 }
 
-/* Map pulse animation */
-@keyframes mapPulse {
-  0%   { opacity: 0.5; transform: scale(1); }
-  100% { opacity: 0; transform: scale(2.2); }
-}
 
 .map-pulse {
   animation: mapPulse 2.2s ease-out infinite;
