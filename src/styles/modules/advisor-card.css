@@ -3,42 +3,42 @@
   background: var(--gold-dim);
   border: 1px solid var(--gold-glow);
   border-radius: var(--radius-item);
-  padding: 12px;
   display: flex;
   flex-direction: column;
   gap: 6px;
+  padding: 12px;
 }
 
 .advisor-label {
-  font-size: var(--fs-badge);        /* 10px */
-  text-transform: uppercase;
-  letter-spacing: var(--ls-widest);
   color: var(--gold);
+  font-size: var(--fs-badge);        /* 10px */
   font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-widest);
+  text-transform: uppercase;
 }
 
 .advisor-name {
+  color: var(--text-1);
   font-size: var(--fs-ui);           /* 13px */
   font-weight: var(--fw-semibold);
-  color: var(--text-1);
 }
 
 .advisor-contact {
-  font-size: var(--fs-sm);           /* 11px */
   color: var(--text-2);
+  font-size: var(--fs-sm);           /* 11px */
 }
 
 .contact-btn {
-  margin-top: 4px;
-  padding: 7px 12px;
   background: var(--gold);
-  color: #0B0D10;
   border: none;
   border-radius: var(--radius-btn);
-  font-size: var(--fs-md);           /* 12px */
-  font-weight: var(--fw-semibold);
+  color: #0B0D10;
   cursor: pointer;
   font-family: var(--font-sans);
+  font-size: var(--fs-md);           /* 12px */
+  font-weight: var(--fw-semibold);
+  margin-top: 4px;
+  padding: 7px 12px;
   transition: opacity 0.2s;
 }
 

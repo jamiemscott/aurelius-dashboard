@@ -8,52 +8,52 @@ html:has(.theme-checkbox:checked) { color-scheme: light; }
 /* ─── INVARIANT TOKENS ───────────────────────────────── */
 :root {
   /* Accent */
-  --gold:      #F5A623;
-  --gold-soft: #FFB547;
-  --gold-dim:  rgba(245,166,35,0.12);
-  --gold-glow: rgba(245,166,35,0.25);
-
-  /* Status */
-  --green:     #22C55E;
-  --red:       #EF4444;
-  --green-dim: rgba(34,197,94,0.12);
-  --red-dim:   rgba(239,68,68,0.12);
-
-  /* Layout */
-  --sidebar-w:   240px;
-  --topbar-h:    68px;
-  --pad:         24px;
-  --radius-card: 16px;
-  --radius-btn:  999px;
-  --radius-item: 12px;
 
   /* ─── ADAPTIVE TOKENS ──────────────────────────────── */
 
   /* Surfaces */
   --bg:         light-dark(#F4F5F7,  #0B0D10);
   --bg-card:    light-dark(#FFFFFF,  #14171C);
-  --bg-sidebar: light-dark(#FFFFFF,  #0E1014);
   --bg-hover:   light-dark(#F0F1F4,  #1A1E25);
   --bg-input:   light-dark(#F0F1F4,  #1A1E25);
+  --bg-sidebar: light-dark(#FFFFFF,  #0E1014);
 
   /* Borders & dividers */
   --border:  light-dark(rgba(0,0,0,0.06),  rgba(255,255,255,0.06));
   --divider: light-dark(rgba(0,0,0,0.05),  rgba(255,255,255,0.05));
+  --gold:      #F5A623;
+  --gold-dim:  rgba(245,166,35,0.12);
+  --gold-glow: rgba(245,166,35,0.25);
+  --gold-soft: #FFB547;
+
+  /* Gold text — WCAG-AA amber in light (5.48:1 on white), vivid gold in dark */
+  --gold-text: light-dark(#A05607, #F5A623);
+
+  /* Status */
+  --green:     #22C55E;
+  --green-dim: rgba(34,197,94,0.12);
+  --pad:         24px;
+
+  /* Misc */
+  --progress-bg: light-dark(#E4E6EA, #2A2E35);
+  --radius-btn:  999px;
+  --radius-card: 16px;
+  --radius-item: 12px;
+  --red:       #EF4444;
+  --red-dim:   rgba(239,68,68,0.12);
+
+  /* Inset highlight — geometry is identical, only the opacity shifts */
+  --shadow-inner: inset 0 1px 0 light-dark(rgba(255,255,255,0.8), rgba(255,255,255,0.04));
+
+  /* Layout */
+  --sidebar-w:   240px;
   --tag-bg:  light-dark(rgba(0,0,0,0.04),  rgba(255,255,255,0.05));
 
   /* Text */
   --text-1: light-dark(#111318, #FFFFFF);
   --text-2: light-dark(#555A65, #B0B3B8);
   --text-3: light-dark(#696E75, #6B6F76);
-
-  /* Misc */
-  --progress-bg: light-dark(#E4E6EA, #2A2E35);
-
-  /* Gold text — WCAG-AA amber in light (5.48:1 on white), vivid gold in dark */
-  --gold-text: light-dark(#A05607, #F5A623);
-
-  /* Inset highlight — geometry is identical, only the opacity shifts */
-  --shadow-inner: inset 0 1px 0 light-dark(rgba(255,255,255,0.8), rgba(255,255,255,0.04));
+  --topbar-h:    68px;
 }
 
 /* shadow-card: dark is default in :root; light overrides via :has() */

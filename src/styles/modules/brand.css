@@ -1,29 +1,29 @@
 /* ─── BRAND ──────────────────────────────────────────── */
 .brand-mark {
-  width: 34px; height: 34px;
   background: linear-gradient(135deg, var(--gold), var(--gold-soft));
   border-radius: 8px;
+  color: #0B0D10;
   display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
   font-family: var(--font-serif);
   font-size: var(--fs-xl);           /* 16px */
-  color: #0B0D10;
   font-weight: var(--fw-semibold);
   letter-spacing: var(--ls-heading);
-  flex-shrink: 0;
+  width: 34px; height: 34px;
 }
 
 .brand-name {
+  color: var(--text-1);
   font-family: var(--font-serif);
   font-size: var(--fs-2xl);          /* 17px */
-  color: var(--text-1);
   letter-spacing: var(--ls-snug);
   line-height: var(--lh-none);
 }
 
 .brand-sub {
-  font-size: var(--fs-xs);           /* 10px */
   color: var(--text-3);
+  font-size: var(--fs-xs);           /* 10px */
   letter-spacing: var(--ls-widest);
-  text-transform: uppercase;
   margin-top: 2px;
+  text-transform: uppercase;
 }

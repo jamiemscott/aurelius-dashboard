@@ -1,39 +1,39 @@
 /* ─── PROGRESS LIST ──────────────────────────────────── */
 .progress-item {
-  display: flex;
   align-items: center;
+  border-bottom: 1px solid var(--divider);
+  display: flex;
   gap: 12px;
   padding: 12px 0;
-  border-bottom: 1px solid var(--divider);
 }
 
 .progress-item:last-child { border-bottom: none; }
 
 .progress-dot {
-  width: 10px; height: 10px;
   border-radius: 50%;
   flex-shrink: 0;
+  width: 10px; height: 10px;
 }
 
 .progress-label { flex: 1; }
-.progress-name  { font-size: var(--fs-ui); color: var(--text-1); font-weight: var(--fw-medium); }
-.progress-sub   { font-size: var(--fs-sm); color: var(--text-3); }
+.progress-name  { color: var(--text-1); font-size: var(--fs-ui); font-weight: var(--fw-medium); }
+.progress-sub   { color: var(--text-3); font-size: var(--fs-sm); }
 
 .progress-bar-wrap  { flex: 2; }
 .progress-bar-track {
-  height: 6px;
   background: var(--progress-bg);
   border-radius: 99px;
+  height: 6px;
   overflow: hidden;
 }
 
 .progress-bar-fill {
-  height: 100%;
   border-radius: 99px;
+  height: 100%;
   transition: width 0.5s ease;
 }
 
-.progress-pct { font-size: var(--fs-md); font-weight: var(--fw-semibold); color: var(--text-2); min-width: 36px; text-align: right; }
+.progress-pct { color: var(--text-2); font-size: var(--fs-md); font-weight: var(--fw-semibold); min-width: 36px; text-align: right; }
 
 /* ─── STAT CHIP ──────────────────────────────────────── */
 .stat-row {
@@ -43,14 +43,14 @@
 }
 
 .stat-chip {
-  flex: 1;
   background: var(--tag-bg);
   border-radius: 10px;
+  flex: 1;
   padding: 12px 14px;
 }
 
-.stat-chip-label { font-size: var(--fs-sm); color: var(--text-3); text-transform: uppercase; letter-spacing: var(--ls-wider); margin-bottom: 4px; }
-.stat-chip-value { font-size: var(--fs-xl); font-weight: var(--fw-semibold); color: var(--text-1); }
+.stat-chip-label { color: var(--text-3); font-size: var(--fs-sm); letter-spacing: var(--ls-wider); margin-bottom: 4px; text-transform: uppercase; }
+.stat-chip-value { color: var(--text-1); font-size: var(--fs-xl); font-weight: var(--fw-semibold); }
 .stat-chip-value.gold  { color: var(--gold-text); }
 .stat-chip-value.green { color: var(--green); }
 .stat-chip-value.red   { color: var(--red); }
