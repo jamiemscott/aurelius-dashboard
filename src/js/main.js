@@ -12,9 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
   buildTopHoldings();
   buildActivityFeed();
   buildInvestmentsTable();
-  buildDocumentsPage();
-  buildDetailsPage();
-  buildContactPage();
+  if (document.getElementById('doc-list'))          buildDocumentsPage();
+  if (document.getElementById('details-hero'))      buildDetailsPage();
+  if (document.getElementById('contact-hero'))      buildContactPage();
   renderAdviserForm();
 
   // Reset drawer form to idle each time it is re-opened

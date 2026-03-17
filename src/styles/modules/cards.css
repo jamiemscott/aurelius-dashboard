@@ -45,7 +45,7 @@
 
 .kpi-label {
   color: var(--text-3);
-  font-size: var(--fs-sm);           /* 11px */
+  font-size: var(--fs-md);           /* 12px */
   font-weight: var(--fw-semibold);
   letter-spacing: var(--ls-widest);
   text-transform: uppercase;

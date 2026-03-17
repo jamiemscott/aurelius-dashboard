@@ -47,7 +47,7 @@
 .chat-hd-name { color: var(--text-1); font-size: var(--fs-body); font-weight: var(--fw-semibold); }
 .chat-hd-status {
   display: flex; align-items: center; gap: 5px; margin-top: 2px;
-  font-size: var(--fs-sm); color: var(--text-3); /* 11px */
+  font-size: var(--fs-md); color: var(--text-3); /* 12px */
 }
 .chat-online-dot {
   background: var(--green); box-shadow: 0 0 6px var(--green); flex-shrink: 0;
