@@ -1,4 +1,12 @@
 /* ─── BRAND ──────────────────────────────────────────── */
+.brand {
+  align-items: center;
+  color: inherit;
+  display: flex;
+  gap: 10px;
+  text-decoration: none;
+}
+
 .brand-mark {
   align-items: center;
   background: linear-gradient(135deg, var(--gold), var(--gold-soft));

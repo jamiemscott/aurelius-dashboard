@@ -24,14 +24,6 @@
   z-index: 100;
 }
 
-.topbar-brand {
-  align-items: center;
-  color: inherit;
-  display: flex;
-  gap: 10px;
-  text-decoration: none;
-}
-
 [role="banner"] > nav {
   align-items: center;
   background: var(--bg-input);
@@ -41,7 +33,7 @@
   padding: 4px;
 }
 
-.topbar-right {
+.site-controls {
   align-items: center;
   display: flex;
   gap: 12px;
