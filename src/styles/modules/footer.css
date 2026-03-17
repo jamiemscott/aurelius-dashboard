@@ -103,7 +103,7 @@
 
 .footer-reg-text {
   color: var(--text-3);
-  font-size: var(--fs-sm);           /* 11px */
+  font-size: var(--fs-md);           /* 12px */
   line-height: var(--lh-loose);
   max-width: 900px;
 }
@@ -131,7 +131,7 @@
 
 .footer-copyright {
   color: var(--text-3);
-  font-size: var(--fs-sm);           /* 11px */
+  font-size: var(--fs-md);           /* 12px */
 }
 
 .footer-bottom-links {
@@ -142,7 +142,7 @@
 
 .footer-bottom-links a {
   color: var(--text-3);
-  font-size: var(--fs-sm);           /* 11px */
+  font-size: var(--fs-md);           /* 12px */
   text-decoration: none;
   transition: color 0.2s;
 }
@@ -159,7 +159,7 @@
   align-items: center;
   color: light-dark(var(--gold-text), var(--text-3));
   display: flex;
-  font-size: var(--fs-sm);           /* 11px */
+  font-size: var(--fs-md);           /* 12px */
   gap: 6px;
 }
 

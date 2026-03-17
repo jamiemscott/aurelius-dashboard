@@ -64,7 +64,7 @@ button.avatar:hover { box-shadow: 0 0 0 3px var(--gold-dim); }
 }
 
 .um-name  { color: var(--text-1); font-size: var(--fs-ui); font-weight: var(--fw-semibold); line-height: var(--lh-snug); }
-.um-meta  { color: var(--text-3); font-size: var(--fs-sm); margin-top: 2px; }
+.um-meta  { color: var(--text-3); font-size: var(--fs-md); margin-top: 2px; }
 
 .um-section       { padding: 6px; }
 .um-section-label {
@@ -107,7 +107,7 @@ button.avatar:hover { box-shadow: 0 0 0 3px var(--gold-dim); }
 
 .um-hint {
   color: var(--text-3);
-  font-size: var(--fs-sm);           /* 11px */
+  font-size: var(--fs-md);           /* 12px */
   margin-left: auto;
 }
 

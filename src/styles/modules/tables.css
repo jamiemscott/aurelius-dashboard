@@ -9,7 +9,7 @@ table {
 thead th {
   border-bottom: 1px solid var(--divider);
   color: var(--text-3);
-  font-size: var(--fs-sm);           /* 11px */
+  font-size: var(--fs-md);           /* 12px */
   font-weight: var(--fw-semibold);
   letter-spacing: var(--ls-widest);
   padding: 0 16px 12px;
@@ -39,7 +39,7 @@ tbody td {
 tbody td:not(:first-child) { text-align: right; }
 
 .td-name      { font-weight: var(--fw-medium); }
-.td-type      { color: var(--text-3); font-size: var(--fs-sm); margin-top: 2px; }
+.td-type      { color: var(--text-3); font-size: var(--fs-md); margin-top: 2px; }
 .td-secondary { color: var(--text-2); }
 
 .td-change.is-up   { color: var(--green); font-weight: var(--fw-medium); }
