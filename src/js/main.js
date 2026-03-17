@@ -45,5 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Theme live region — announces the outcome to screen readers
+  document.querySelector('.theme-checkbox')?.addEventListener('change', e => {
+    const live = document.querySelector('.theme-live');
+    if (live) live.textContent = e.target.checked ? 'Light mode' : 'Dark mode';
+  });
+
   initChatbot();
 });

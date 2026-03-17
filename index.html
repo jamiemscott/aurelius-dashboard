@@ -30,14 +30,14 @@
     </nav>
 
     <div class="site-controls">
-      <input type="checkbox" id="theme-checkbox" class="theme-checkbox" aria-label="Toggle colour theme">
-      <label class="theme-toggle" for="theme-checkbox">
-        <span class="theme-icon-dark">🌙</span>
-        <span class="theme-icon-light">☀️</span>
-        <div class="toggle-track"><div class="toggle-thumb"></div></div>
-        <span class="theme-label-dark">Dark</span>
-        <span class="theme-label-light">Light</span>
-      </label>
+      <div class="theme-switcher">
+        <input type="checkbox" role="switch" id="theme-checkbox" class="theme-checkbox" aria-label="Colour theme">
+        <label class="theme-toggle" for="theme-checkbox" aria-hidden="true">
+          <span class="theme-label-dark">Dark</span>
+          <span class="theme-label-light">Light</span>
+        </label>
+      </div>
+      <span class="theme-live" role="status" aria-live="polite" aria-atomic="true"></span>
       <button class="icon-btn" aria-label="Notifications">
         <div class="notif-dot"></div>
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>

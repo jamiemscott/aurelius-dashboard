@@ -13,34 +13,53 @@
   gap: 8px;
   padding: 6px 12px;
   transition: all 0.2s ease;
+  user-select: none;
 }
 
 .theme-toggle:hover { border-color: var(--gold); color: var(--text-1); }
 
-.toggle-track {
-  background: light-dark(var(--progress-bg), var(--gold-dim));
+/* ─── ICON ───────────────────────────────────────────── */
+/* ::before carries the sun / moon icon.                 */
+/* Content is swapped on :checked via :has().            */
+.theme-toggle::before {
+  content: "🌙";
+  font-style: normal;
+  line-height: 1;
+}
+
+html:has(.theme-checkbox:checked) .theme-toggle::before { content: "☀️"; }
+
+/* ─── TRACK + THUMB ──────────────────────────────────── */
+/* ::after is the pill track.                            */
+/* Thumb = a radial-gradient circle whose background-    */
+/* position slides via CSS transition — no extra node.   */
+.theme-toggle::after {
+  background-color: light-dark(var(--progress-bg), var(--gold-dim));
+  background-image: radial-gradient(
+    circle,
+    light-dark(var(--text-3), var(--gold)) 6px,
+    transparent 6.5px
+  );
+  background-position: calc(100% - 14px) center; /* thumb right = dark default */
+  background-repeat: no-repeat;
+  background-size: 12px 12px;
   border: 1px solid light-dark(transparent, var(--gold-glow));
   border-radius: 8px;
+  box-sizing: content-box;
+  content: "";
+  display: inline-block;
   flex-shrink: 0;
-  position: relative;
-  transition: background 0.2s ease;
-  width: 30px; height: 16px;
+  height: 16px;
+  transition: background-color 0.2s ease, background-position 0.25s ease;
+  width: 30px;
 }
 
-.toggle-thumb {
-  background: light-dark(var(--text-3), var(--gold));
-  border-radius: 50%;
-  position: absolute;
-  top: 2px; left: 2px;
-  transform: translateX(14px);
-  transition: all 0.25s ease;
-  width: 12px; height: 12px;
+html:has(.theme-checkbox:checked) .theme-toggle::after {
+  background-position: 2px center;               /* thumb left = light mode */
 }
 
-html:has(.theme-checkbox:checked) .toggle-thumb { transform: translateX(0); }
-
-/* ─── HIDDEN THEME CHECKBOX ──────────────────────────── */
-/* Visually hidden but accessible for keyboard / a11y    */
+/* ─── HIDDEN CHECKBOX ────────────────────────────────── */
+/* Visually hidden but reachable by keyboard / a11y      */
 .theme-checkbox {
   border: 0;
   clip: rect(0,0,0,0);
@@ -51,15 +70,32 @@ html:has(.theme-checkbox:checked) .toggle-thumb { transform: translateX(0); }
   width: 1px; height: 1px;
 }
 
-/* Icon / label visibility — dark = default, light = checked */
-.theme-icon-light,
-.theme-label-light,
+/* ─── LABEL TEXT ─────────────────────────────────────── */
+/* aria-hidden spans — switch label text with :checked   */
+.theme-label-light { display: none; }
+
+html:has(.theme-checkbox:checked) .theme-label-dark  { display: none; }
+html:has(.theme-checkbox:checked) .theme-label-light { display: inline; }
+
+/* ─── LIVE REGION ────────────────────────────────────── */
+/* Visually hidden — populated by JS on state change to  */
+/* announce outcome in plain language ("Light mode" etc) */
+.theme-live {
+  clip: rect(0,0,0,0);
+  overflow: hidden;
+  padding: 0; margin: -1px;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px; height: 1px;
+}
+
+/* ─── WRAPPER ────────────────────────────────────────── */
+/* display:contents keeps input+label as direct flex     */
+/* children of .site-controls — no layout side-effects   */
+.theme-switcher { display: contents; }
+
+/* ─── USER MENU APPEARANCE HINT ──────────────────────── */
 .theme-hint-light { display: none; }
 
-html:has(.theme-checkbox:checked) .theme-icon-dark,
-html:has(.theme-checkbox:checked) .theme-label-dark,
-html:has(.theme-checkbox:checked) .theme-hint-dark { display: none; }
-
-html:has(.theme-checkbox:checked) .theme-icon-light,
-html:has(.theme-checkbox:checked) .theme-label-light,
+html:has(.theme-checkbox:checked) .theme-hint-dark  { display: none; }
 html:has(.theme-checkbox:checked) .theme-hint-light { display: inline; }
