@@ -8,7 +8,7 @@
    1. This file ONLY declares :root custom properties.
    2. No Aurelius token is ever modified here.
    3. Load order (enforced by bundle.css):
-        fonts.css → colours.css → typography.css → animations.css
+        fonts.css → brand.css → colours.css → typography.css → animations.css
         → osui-bridge.css  ← this file
         → base/base.css → layout → modules …
       Aurelius tokens are fully resolved before this file is parsed.
@@ -49,19 +49,21 @@
 
   /* ─── NEUTRAL SCALE ─────────────────────────────────────────── */
   /* OSUI convention: 0 = lightest, 10 = darkest (in light mode).
-     Dark mode inverts luminance direction so every step uses
-     light-dark() to supply the correct value per color-scheme.    */
-  --color-neutral-0:  light-dark(#ffffff,        var(--bg));          /* page canvas */
-  --color-neutral-1:  light-dark(var(--bg),      var(--bg-sidebar));  /* off-white / near-black */
-  --color-neutral-2:  light-dark(#e8eaf0,        var(--bg-card));     /* subtle surface */
-  --color-neutral-3:  light-dark(#d5d8e0,        var(--bg-hover));    /* border-adjacent */
-  --color-neutral-4:  light-dark(#b8bcc8,        #3a3e47);            /* mid (both ends hardcoded) */
-  --color-neutral-5:  light-dark(#8c9099,        var(--text-3));      /* subdued text / muted icon */
-  --color-neutral-6:  light-dark(var(--text-3),  var(--text-2));      /* secondary text */
-  --color-neutral-7:  light-dark(var(--text-2),  var(--text-2));      /* secondary text (both modes) */
-  --color-neutral-8:  light-dark(#3a3e47,        #d0d3d8);            /* mid (both ends hardcoded) */
-  --color-neutral-9:  light-dark(#111318,        #f0f1f4);            /* near-black / near-white */
-  --color-neutral-10: light-dark(#000000,        var(--text-1));      /* maximum contrast */
+     Aurelius --neutral-* tokens share the same convention (0=light,
+     10=dark) so dark mode requires a symmetric inversion: step N in
+     dark mode maps to step (10-N) in the scale.
+     The midpoint (5) is the same in both modes.                   */
+  --color-neutral-0:  light-dark(var(--neutral-0),  var(--neutral-10));
+  --color-neutral-1:  light-dark(var(--neutral-1),  var(--neutral-9));
+  --color-neutral-2:  light-dark(var(--neutral-2),  var(--neutral-8));
+  --color-neutral-3:  light-dark(var(--neutral-3),  var(--neutral-7));
+  --color-neutral-4:  light-dark(var(--neutral-4),  var(--neutral-6));
+  --color-neutral-5:  light-dark(var(--neutral-5),  var(--neutral-5));  /* midpoint — same both modes */
+  --color-neutral-6:  light-dark(var(--neutral-6),  var(--neutral-4));
+  --color-neutral-7:  light-dark(var(--neutral-7),  var(--neutral-3));
+  --color-neutral-8:  light-dark(var(--neutral-8),  var(--neutral-2));
+  --color-neutral-9:  light-dark(var(--neutral-9),  var(--neutral-1));
+  --color-neutral-10: light-dark(var(--neutral-10), var(--neutral-0));
 
 
   /* ─── TYPOGRAPHY — FONT SIZE ────────────────────────────────── */

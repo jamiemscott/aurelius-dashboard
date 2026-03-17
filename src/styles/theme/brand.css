@@ -1,0 +1,104 @@
+/* ─── AURELIUS SEED COLOUR SYSTEM ─────────────────────────────
+   Single source of truth for all colour scales.
+
+   HOW IT WORKS
+   ────────────
+   Three "seed" variables define the entire palette.  Change a
+   seed → every derived scale step updates automatically via CSS
+   relative colours (oklch).  No other hex values need touching.
+
+   OSUI COMPATIBILITY
+   ──────────────────
+   --neutral-0 … --neutral-10  (0 = lightest, 10 = darkest)
+   mirrors the OSUI convention.  osui-bridge.css consumes these
+   tokens directly to populate --color-neutral-* variables.
+
+   --brand-* and --brand-alpha-* feed the OSUI --color-primary
+   chain through colours.css → --gold → osui-bridge.css.
+
+   BROWSER SUPPORT
+   ───────────────
+   CSS relative colours (oklch(from …)) require:
+     Chrome 119+  ·  Firefox 128+  ·  Safari 16.4+
+   All current as of 2026.
+   ─────────────────────────────────────────────────────────── */
+
+
+/* ─── SEEDS ─────────────────────────────────────────────────
+   The ONLY values that need to change to re-theme.           */
+:root {
+  --seed-primary:   #F5A623;   /* brand gold — primary action colour  */
+  --seed-secondary: #FFB547;   /* secondary / soft gold               */
+  --seed-neutral:   #6B6F76;   /* neutral scale base hue (blue-grey)  */
+}
+
+
+/* ─── PRIMARY BRAND SCALE ────────────────────────────────────
+   50 = palest tint · 500 = seed colour · 900 = deepest shade
+
+   Lightness values are absolute (not relative to seed) so the
+   scale remains even regardless of how light/dark the seed is.
+   Chroma is scaled proportionally to preserve hue character.
+   --brand-700 is dark enough to pass WCAG AA on white (4.5:1). */
+:root {
+  --brand-50:  oklch(from var(--seed-primary) 0.97 calc(c * 0.08) h);
+  --brand-100: oklch(from var(--seed-primary) 0.94 calc(c * 0.15) h);
+  --brand-200: oklch(from var(--seed-primary) 0.89 calc(c * 0.35) h);
+  --brand-300: oklch(from var(--seed-primary) 0.84 calc(c * 0.60) h);
+  --brand-400: oklch(from var(--seed-primary) 0.83 calc(c * 0.85) h);
+  --brand-500: var(--seed-primary);                                       /* ≈ #F5A623 */
+  --brand-600: oklch(from var(--seed-primary) 0.68 calc(c * 1.02) h);
+  --brand-700: oklch(from var(--seed-primary) 0.48 calc(c * 0.90) h);   /* ≈ #A05607  WCAG-AA */
+  --brand-800: oklch(from var(--seed-primary) 0.36 calc(c * 0.80) h);
+  --brand-900: oklch(from var(--seed-primary) 0.25 calc(c * 0.65) h);
+
+  /* Alpha variants — seed hue/chroma preserved, only opacity varies */
+  --brand-alpha-08: oklch(from var(--seed-primary) l c h / 0.08);
+  --brand-alpha-12: oklch(from var(--seed-primary) l c h / 0.12);
+  --brand-alpha-25: oklch(from var(--seed-primary) l c h / 0.25);
+}
+
+
+/* ─── NEUTRAL SCALE ──────────────────────────────────────────
+   0 = lightest (≈ white) · 10 = darkest (≈ near-black).
+
+   Each step targets a specific lightness level calibrated to
+   match the original Aurelius hex values; chroma is kept very
+   low to read as clean grey with a subtle blue-grey tint.
+
+   Comments show the approximate original hex for reference.   */
+:root {
+  --neutral-0:  oklch(from var(--seed-neutral) 0.99 calc(c * 0.10) h);  /* ≈ #FFFFFF  */
+  --neutral-1:  oklch(from var(--seed-neutral) 0.97 calc(c * 0.28) h);  /* ≈ #F4F5F7  */
+  --neutral-2:  oklch(from var(--seed-neutral) 0.95 calc(c * 0.36) h);  /* ≈ #F0F1F4  */
+  --neutral-3:  oklch(from var(--seed-neutral) 0.91 calc(c * 0.50) h);  /* ≈ #E4E6EA  */
+  --neutral-4:  oklch(from var(--seed-neutral) 0.74 calc(c * 0.64) h);  /* ≈ #B0B3B8  */
+  --neutral-5:  oklch(from var(--seed-neutral) 0.63 calc(c * 0.90) h);  /* ≈ #8C9099  */
+  --neutral-6:  oklch(from var(--seed-neutral) 0.49 calc(c * 1.00) h);  /* ≈ #696E75  */
+  --neutral-7:  oklch(from var(--seed-neutral) 0.41 calc(c * 1.00) h);  /* ≈ #555A65  */
+  --neutral-8:  oklch(from var(--seed-neutral) 0.22 calc(c * 0.85) h);  /* ≈ #2A2E35  */
+  --neutral-9:  oklch(from var(--seed-neutral) 0.13 calc(c * 0.73) h);  /* ≈ #14171C  */
+  --neutral-10: oklch(from var(--seed-neutral) 0.08 calc(c * 0.73) h);  /* ≈ #0B0D10  */
+}
+
+
+/* ─── STATUS COLOURS ─────────────────────────────────────────
+   Semantic colours: NOT derived from seeds.
+   Their meaning (success/error/etc.) must stay stable across
+   any brand re-theme, so they use fixed values.
+
+   Alpha variants use CSS relative colour syntax so the alpha
+   tracks the base colour automatically if it ever changes.    */
+:root {
+  --status-success:       #22C55E;
+  --status-success-alpha: oklch(from #22C55E l c h / 0.12);
+
+  --status-error:         #EF4444;
+  --status-error-alpha:   oklch(from #EF4444 l c h / 0.12);
+
+  --status-warning:       #F59E0B;
+  --status-warning-alpha: oklch(from #F59E0B l c h / 0.12);
+
+  --status-info:          #3B82F6;
+  --status-info-alpha:    oklch(from #3B82F6 l c h / 0.12);
+}
