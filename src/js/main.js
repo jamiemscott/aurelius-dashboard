@@ -45,5 +45,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Account menu — keep aria-expanded in sync with popover open/close state
+  const userMenuPopover = document.getElementById('user-menu');
+  const userMenuBtn = document.querySelector('[aria-controls="user-menu"]');
+  if (userMenuPopover && userMenuBtn) {
+    userMenuPopover.addEventListener('toggle', e => {
+      userMenuBtn.setAttribute('aria-expanded', String(e.newState === 'open'));
+    });
+  }
+
+  // Theme live region — announces the outcome to screen readers
+  document.querySelector('.theme-checkbox')?.addEventListener('change', e => {
+    const live = document.querySelector('.theme-live');
+    if (live) live.textContent = e.target.checked ? 'Light mode' : 'Dark mode';
+  });
+
   initChatbot();
 });

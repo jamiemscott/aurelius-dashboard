@@ -1,15 +1,31 @@
 /* ─── BRAND ──────────────────────────────────────────── */
+.brand {
+  align-items: center;
+  color: inherit;
+  display: flex;
+  gap: 10px;
+  text-decoration: none;
+}
+
 .brand-mark {
+  align-items: center;
   background: linear-gradient(135deg, var(--gold), var(--gold-soft));
   border-radius: 8px;
-  color: #0B0D10;
-  display: flex; align-items: center; justify-content: center;
+  color: var(--neutral-10);          /* always dark — sits on gold gradient */
+  display: flex;
   flex-shrink: 0;
   font-family: var(--font-serif);
   font-size: var(--fs-xl);           /* 16px */
   font-weight: var(--fw-semibold);
+  height: 34px;
+  justify-content: center;
   letter-spacing: var(--ls-heading);
-  width: 34px; height: 34px;
+  width: 34px;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
 }
 
 .brand-name {
