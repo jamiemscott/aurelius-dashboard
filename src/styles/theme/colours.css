@@ -1,61 +1,83 @@
-/* ─── COLOR-SCHEME ───────────────────────────────────────────
+/* ─── COLOR-SCHEME ─────────────────────────────────────────────
    Required for light-dark() to resolve correctly.
    Dark is the default; checking the hidden .theme-checkbox
-   switches to light via the :has() selector.             */
+   switches to light via the :has() selector.                 */
 :root { color-scheme: dark; }
 html:has(.theme-checkbox:checked) { color-scheme: light; }
 
-/* ─── INVARIANT TOKENS ───────────────────────────────── */
+
+/* ─── BRAND TOKENS ─────────────────────────────────────────────
+   Public API aliases that map brand scale steps to named tokens.
+   Downstream CSS (modules, pages, OSUI bridge) consumes these
+   names — not the scale steps directly — so re-theming is
+   contained to brand.css.                                     */
 :root {
-  /* Accent */
+  --gold:      var(--brand-500);                                    /* primary brand          */
+  --gold-soft: oklch(from var(--seed-secondary) l c h);            /* secondary / soft gold  */
+  --gold-dim:  var(--brand-alpha-12);                               /* tinted fill / bg       */
+  --gold-glow: var(--brand-alpha-25);                               /* hover glow             */
+  --gold-text: light-dark(var(--brand-700), var(--brand-500));      /* AA on light surfaces   */
+}
 
-  /* ─── ADAPTIVE TOKENS ──────────────────────────────── */
 
-  /* Surfaces */
-  --bg:         light-dark(#F4F5F7,  #0B0D10);
-  --bg-card:    light-dark(#FFFFFF,  #14171C);
-  --bg-hover:   light-dark(#F0F1F4,  #1A1E25);
-  --bg-input:   light-dark(#F0F1F4,  #1A1E25);
-  --bg-sidebar: light-dark(#FFFFFF,  #0E1014);
+/* ─── SURFACES ─────────────────────────────────────────────────
+   Light mode picks low neutral steps (light greys / white).
+   Dark mode picks high neutral steps (dark navy).              */
+:root {
+  --bg:         light-dark(var(--neutral-1),  var(--neutral-10));   /* page canvas            */
+  --bg-card:    light-dark(var(--neutral-0),  var(--neutral-9));    /* card / panel surface   */
+  --bg-hover:   light-dark(var(--neutral-2),  var(--neutral-8));    /* hover state            */
+  --bg-input:   light-dark(var(--neutral-2),  var(--neutral-8));    /* form input background  */
+  --bg-sidebar: light-dark(var(--neutral-0),  var(--neutral-10));   /* sidebar rail           */
+}
 
-  /* Borders & dividers */
-  --border:  light-dark(rgba(0,0,0,0.06),  rgba(255,255,255,0.06));
-  --divider: light-dark(rgba(0,0,0,0.05),  rgba(255,255,255,0.05));
-  --gold:      #F5A623;
-  --gold-dim:  rgba(245,166,35,0.12);
-  --gold-glow: rgba(245,166,35,0.25);
-  --gold-soft: #FFB547;
 
-  /* Gold text — WCAG-AA amber in light (5.48:1 on white), vivid gold in dark */
-  --gold-text: light-dark(#A05607, #F5A623);
+/* ─── BORDERS & DIVIDERS ───────────────────────────────────────
+   Pure black/white alpha — intentionally not hue-tinted so
+   they remain neutral against any brand colour.               */
+:root {
+  --border:  light-dark(rgba(0, 0, 0, 0.06),  rgba(255, 255, 255, 0.06));
+  --divider: light-dark(rgba(0, 0, 0, 0.05),  rgba(255, 255, 255, 0.05));
+}
 
-  /* Status */
-  --green:     #22C55E;
-  --green-dim: rgba(34,197,94,0.12);
+
+/* ─── TEXT ─────────────────────────────────────────────────────
+   Picks opposite ends of the neutral scale per mode so text
+   always contrasts against the surface it sits on.
+   All three values pass WCAG AA (4.5:1) on their paired bg.  */
+:root {
+  --text-1: light-dark(var(--neutral-10), var(--neutral-0));        /* primary / headings     */
+  --text-2: light-dark(var(--neutral-7),  var(--neutral-4));        /* secondary / labels     */
+  --text-3: light-dark(var(--neutral-6),  var(--neutral-5));        /* tertiary / captions    */
+}
+
+
+/* ─── STATUS ───────────────────────────────────────────────────
+   Semantic aliases keep module CSS decoupled from the scale.  */
+:root {
+  --green:     var(--status-success);
+  --green-dim: var(--status-success-alpha);
+  --red:       var(--status-error);
+  --red-dim:   var(--status-error-alpha);
+}
+
+
+/* ─── LAYOUT & MISC ────────────────────────────────────────────
+   Non-colour tokens kept here so modules only need one import. */
+:root {
   --pad:         24px;
-
-  /* Misc */
-  --progress-bg: light-dark(#E4E6EA, #2A2E35);
+  --progress-bg: light-dark(var(--neutral-3), var(--neutral-8));
   --radius-btn:  999px;
   --radius-card: 16px;
   --radius-item: 12px;
-  --red:       #EF4444;
-  --red-dim:   rgba(239,68,68,0.12);
-
-  /* Inset highlight — geometry is identical, only the opacity shifts */
-  --shadow-inner: inset 0 1px 0 light-dark(rgba(255,255,255,0.8), rgba(255,255,255,0.04));
-
-  /* Layout */
+  --shadow-inner: inset 0 1px 0 light-dark(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.04));
   --sidebar-w:   240px;
-  --tag-bg:  light-dark(rgba(0,0,0,0.04),  rgba(255,255,255,0.05));
-
-  /* Text */
-  --text-1: light-dark(#111318, #FFFFFF);
-  --text-2: light-dark(#555A65, #B0B3B8);
-  --text-3: light-dark(#696E75, #8C9099); /* dark lifted: was #6B6F76 (3.55:1 fail) → 5.6:1 min */
+  --tag-bg:      light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.05));
   --topbar-h:    68px;
 }
 
-/* shadow-card: dark is default in :root; light overrides via :has() */
-:root { --shadow-card: 0 20px 40px rgba(0,0,0,0.45); }
-html:has(.theme-checkbox:checked) { --shadow-card: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04); }
+/* shadow-card: dark is the :root default; light overrides via :has() */
+:root { --shadow-card: 0 20px 40px rgba(0, 0, 0, 0.45); }
+html:has(.theme-checkbox:checked) {
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
+}

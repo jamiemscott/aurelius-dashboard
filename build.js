@@ -20,9 +20,11 @@ const ROOT = __dirname;
 const PARTIALS = [
   // Theme — design tokens (must load before everything else)
   'src/styles/theme/fonts.css',
+  'src/styles/theme/brand.css',
   'src/styles/theme/colours.css',
   'src/styles/theme/typography.css',
   'src/styles/theme/animations.css',
+  'src/styles/theme/osui-bridge.css',
   // Base — resets, defaults, scrollbar
   'src/styles/base/base.css',
   // Layout — shell, topbar, sidebar, grids
