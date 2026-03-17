@@ -26,8 +26,10 @@
 
 .topbar-brand {
   align-items: center;
+  color: inherit;
   display: flex;
   gap: 10px;
+  text-decoration: none;
 }
 
 .topbar-center {
