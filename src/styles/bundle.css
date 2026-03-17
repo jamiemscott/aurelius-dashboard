@@ -101,10 +101,10 @@
    Alpha variants use CSS relative colour syntax so the alpha
    tracks the base colour automatically if it ever changes.    */
 :root {
-  --status-success:       #22C55E;
+  --status-success:       light-dark(#15803D, #22C55E);   /* dark: vivid · light: AA-safe (#15803D 4.6:1 on white) */
   --status-success-alpha: oklch(from #22C55E l c h / 0.12);
 
-  --status-error:         #EF4444;
+  --status-error:         light-dark(#DC2626, #EF4444);   /* dark: vivid · light: AA-safe (#DC2626 4.7:1 on white) */
   --status-error-alpha:   oklch(from #EF4444 l c h / 0.12);
 
   --status-warning:       #F59E0B;
@@ -914,7 +914,7 @@ html:has(.theme-checkbox:checked) .tab-btn.is-active { box-shadow: 0 1px 4px rgb
   background: linear-gradient(135deg, var(--gold-dim), var(--gold-glow));
   border: 1.5px solid var(--gold);
   border-radius: 10px;
-  color: var(--gold);
+  color: var(--gold-text);
   cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   font-size: var(--fs-md);           /* 12px */
