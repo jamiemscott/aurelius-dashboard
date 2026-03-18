@@ -1,0 +1,309 @@
+/* ─── NOTIFICATIONS PANEL ────────────────────────────── */
+
+/* ── Panel shell ── */
+#notif-panel {
+  background: var(--bg-card);
+  border: none;
+  border-left: 1px solid var(--border);
+  box-shadow: -24px 0 60px light-dark(rgba(0,0,0,0.14), rgba(0,0,0,0.45));
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+  inset-block: 0;
+  inset-inline-end: 0;
+  inset-inline-start: auto;
+  margin: 0;
+  max-width: 100vw;
+  overflow: hidden;
+  padding: 0;
+  position: fixed;
+  translate: 100% 0;
+  transition:
+    translate  0.36s cubic-bezier(0.16, 1, 0.3, 1),
+    overlay    0.36s ease allow-discrete,
+    display    0.36s ease allow-discrete;
+  width: 380px;
+}
+
+#notif-panel:popover-open          { translate: 0 0; }
+@starting-style {
+  #notif-panel:popover-open        { translate: 100% 0; }
+}
+
+/* ── Backdrop ── */
+#notif-panel::backdrop {
+  backdrop-filter: blur(0px);
+  background: rgba(0,0,0,0);
+  transition:
+    background       0.36s ease,
+    backdrop-filter  0.36s ease,
+    overlay          0.36s ease allow-discrete,
+    display          0.36s ease allow-discrete;
+}
+#notif-panel:popover-open::backdrop {
+  backdrop-filter: blur(2px);
+  background: light-dark(rgba(0,0,0,0.22), rgba(0,0,0,0.38));
+}
+@starting-style {
+  #notif-panel:popover-open::backdrop {
+    backdrop-filter: blur(0px);
+    background: rgba(0,0,0,0);
+  }
+}
+
+/* ── Header ── */
+.np-hd {
+  align-items: center;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  padding: 18px 20px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.np-hd-left {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  min-width: 0;
+}
+
+.np-hd-left svg { color: var(--text-2); flex-shrink: 0; }
+
+.np-title {
+  color: var(--text-1);
+  font-size: var(--fs-panel-title);  /* 15px */
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-snug);
+  white-space: nowrap;
+}
+
+.np-count {
+  background: var(--gold-dim);
+  border-radius: var(--radius-btn);
+  color: var(--gold-text);
+  font-size: var(--fs-xs);           /* 10px */
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wide);
+  padding: 2px 7px;
+  white-space: nowrap;
+}
+.np-count:empty { display: none; }
+
+.np-hd-right {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+.np-mark-all-btn {
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-btn);
+  color: var(--gold-text);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: var(--fs-md);           /* 12px */
+  font-weight: var(--fw-medium);
+  padding: 4px 10px;
+  transition: background 0.15s ease;
+  white-space: nowrap;
+}
+.np-mark-all-btn:hover { background: var(--gold-dim); }
+
+/* Hide "mark all read" when nothing is unread */
+#notif-panel:not(:has([data-unread])) .np-mark-all-btn { display: none; }
+
+.np-close {
+  align-items: center;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--text-2);
+  cursor: pointer;
+  display: flex;
+  flex-shrink: 0;
+  font-size: 13px;
+  height: 28px;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+  transition: background 0.15s ease, color 0.15s ease;
+  width: 28px;
+}
+.np-close:hover { background: var(--bg-hover); color: var(--text-1); }
+
+/* ── Scrollable body ── */
+.np-body {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 10px;
+  /* Fade-to-transparent at bottom signals more content below */
+  mask-image: linear-gradient(to bottom, black calc(100% - 48px), transparent 100%);
+}
+
+/* ── List ── */
+.np-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Type-based color tokens ── */
+[data-type="portfolio"] { --notif-color: var(--green);                         --notif-bg: var(--green-dim); }
+[data-type="adviser"]   { --notif-color: var(--gold);                          --notif-bg: var(--gold-dim);  }
+[data-type="document"]  { --notif-color: light-dark(#6366F1, #818CF8);         --notif-bg: light-dark(rgba(99,102,241,0.10),  rgba(129,140,248,0.12)); }
+[data-type="tax"]       { --notif-color: light-dark(#D97706, #FBBF24);         --notif-bg: light-dark(rgba(217,119,6,0.10),   rgba(251,191,36,0.12));  }
+[data-type="security"]  { --notif-color: var(--red);                           --notif-bg: var(--red-dim);   }
+[data-type="dividend"]  { --notif-color: light-dark(#0EA5E9, #38BDF8);         --notif-bg: light-dark(rgba(14,165,233,0.10),  rgba(56,189,248,0.12));  }
+
+/* ── Notification item ── */
+.np-item {
+  animation: fade-in-up 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--i, 0) * 55ms);   /* stagger via inline --i */
+  border-radius: var(--radius-item);
+  display: flex;
+  gap: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Colored left accent stripe */
+.np-item::before {
+  background: var(--notif-color, var(--border));
+  border-radius: 2px 0 0 2px;
+  content: '';
+  flex-shrink: 0;
+  opacity: 0.35;
+  width: 3px;
+}
+.np-item[data-unread]::before { opacity: 1; }
+
+/* ── Row button ── */
+.np-item-btn {
+  align-items: flex-start;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex: 1;
+  gap: 11px;
+  min-width: 0;
+  padding: 12px 10px 12px 13px;
+  text-align: left;
+  transition: background 0.15s ease;
+}
+.np-item-btn:hover { background: var(--bg-hover); }
+
+/* Unread items get a subtle type-tinted wash */
+.np-item[data-unread] .np-item-btn {
+  background: color-mix(in oklch, var(--notif-color, var(--gold)) 8%, transparent);
+}
+.np-item[data-unread] .np-item-btn:hover {
+  background: color-mix(in oklch, var(--notif-color, var(--gold)) 13%, var(--bg-hover) 87%);
+}
+
+/* ── Icon chip ── */
+.np-icon {
+  align-items: center;
+  background: var(--notif-bg, var(--bg-input));
+  border-radius: 8px;
+  color: var(--notif-color, var(--text-2));
+  display: flex;
+  flex-shrink: 0;
+  height: 30px;
+  justify-content: center;
+  margin-top: 1px;
+  width: 30px;
+}
+
+/* ── Text content ── */
+.np-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.np-item-title {
+  color: var(--text-1);
+  font-size: var(--fs-body);         /* 14px */
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-snug);
+}
+.np-item:not([data-unread]) .np-item-title {
+  color: var(--text-2);
+  font-weight: var(--fw-medium);
+}
+
+.np-item-body {
+  color: var(--text-3);
+  font-size: var(--fs-md);           /* 12px */
+  line-height: var(--lh-snug);
+}
+
+.np-item-time {
+  color: var(--text-3);
+  display: block;
+  font-size: var(--fs-xs);           /* 10px */
+  letter-spacing: var(--ls-wide);
+  margin-top: 2px;
+}
+
+/* ── Unread indicator dot ── */
+.np-unread-dot {
+  background: var(--notif-color, var(--gold));
+  border-radius: 50%;
+  flex-shrink: 0;
+  height: 7px;
+  margin-left: auto;
+  margin-top: 5px;
+  width: 7px;
+}
+
+/* ── Dismiss button ── */
+.np-dismiss {
+  align-items: center;
+  align-self: flex-start;
+  background: transparent;
+  border: none;
+  color: var(--text-3);
+  cursor: pointer;
+  display: flex;
+  font-size: 11px;
+  justify-content: center;
+  margin-right: 6px;
+  margin-top: 8px;
+  opacity: 0;
+  padding: 4px 6px;
+  transition: opacity 0.15s ease, color 0.15s ease;
+}
+.np-item:hover .np-dismiss,
+.np-item:focus-within .np-dismiss { opacity: 1; }
+.np-dismiss:hover { color: var(--text-1); }
+
+/* ── Empty state — zero JS via :has() ── */
+.np-empty {
+  align-items: center;
+  color: var(--text-3);
+  display: none;
+  flex-direction: column;
+  font-size: var(--fs-body);
+  gap: 14px;
+  padding: 56px 24px;
+  text-align: center;
+}
+.np-empty svg { opacity: 0.35; }
+
+.np-body:not(:has(.np-item)) .np-empty { display: flex; }
+
+/* ── Trigger button: hide gold dot when all read ── */
+#notif-btn.has-no-unread .notif-dot { display: none; }

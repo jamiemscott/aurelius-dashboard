@@ -34,7 +34,7 @@
         </label>
       </div>
       <span class="theme-live" role="status" aria-live="polite" aria-atomic="true"></span>
-      <button class="icon-btn" aria-label="Notifications, 3 unread"><span class="notif-dot" aria-hidden="true"></span><svg aria-hidden="true" focusable="false" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></button>
+      <button class="icon-btn" id="notif-btn" popovertarget="notif-panel" aria-controls="notif-panel" aria-expanded="false" aria-haspopup="dialog" aria-label="Notifications, 3 unread"><span class="notif-dot" aria-hidden="true"></span><svg aria-hidden="true" focusable="false" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></button>
       <button class="icon-btn" aria-label="Settings"><svg aria-hidden="true" focusable="false" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="8" cy="6" r="2" fill="var(--bg-card)" stroke="currentColor" stroke-width="1.7"/><circle cx="16" cy="12" r="2" fill="var(--bg-card)" stroke="currentColor" stroke-width="1.7"/><circle cx="10" cy="18" r="2" fill="var(--bg-card)" stroke="currentColor" stroke-width="1.7"/></svg></button>
       <button class="avatar" popovertarget="user-menu" aria-label="Account menu" aria-haspopup="dialog" aria-expanded="false" aria-controls="user-menu">SK</button>
     </div>
@@ -345,6 +345,126 @@
         <polygon points="22 2 15 22 11 13 2 9 22 2"/>
       </svg>
     </button>
+  </div>
+</div>
+
+<!-- ── NOTIFICATIONS PANEL (Popover API) ─────────────────────── -->
+<div id="notif-panel" popover="auto" role="dialog" aria-label="Notifications">
+  <div class="np-hd">
+    <div class="np-hd-left">
+      <svg aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="np-title">Notifications</span>
+      <span class="np-count" id="notif-count" aria-live="polite" aria-atomic="true">3 unread</span>
+    </div>
+    <div class="np-hd-right">
+      <button class="np-mark-all-btn" id="notif-mark-all" aria-label="Mark all notifications as read">Mark all read</button>
+      <button class="np-close" popovertarget="notif-panel" popovertargetaction="hide" aria-label="Close notifications">&#x2715;</button>
+    </div>
+  </div>
+
+  <div class="np-body">
+    <ul class="np-list" role="list" id="notif-list">
+
+      <!-- 1. Portfolio milestone — UNREAD -->
+      <li class="np-item" data-type="portfolio" data-unread style="--i:0">
+        <button class="np-item-btn" aria-label="Mark as read: Portfolio milestone reached">
+          <span class="np-icon" aria-hidden="true">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </span>
+          <span class="np-content">
+            <span class="np-item-title">Portfolio milestone reached</span>
+            <span class="np-item-body">Your portfolio has crossed &#xA3;850,000 for the first time. Total return is now +21.4%.</span>
+            <time class="np-item-time" datetime="2026-03-18T10:30">Today, 10:30 am</time>
+          </span>
+          <span class="np-unread-dot" aria-hidden="true"></span>
+        </button>
+        <button class="np-dismiss" aria-label="Dismiss notification">&#x2715;</button>
+      </li>
+
+      <!-- 2. Adviser message — UNREAD -->
+      <li class="np-item" data-type="adviser" data-unread style="--i:1">
+        <button class="np-item-btn" aria-label="Mark as read: Message from James Whitmore">
+          <span class="np-icon" aria-hidden="true">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </span>
+          <span class="np-content">
+            <span class="np-item-title">Message from James Whitmore</span>
+            <span class="np-item-body">Your adviser has sent a secure message regarding your annual review scheduled for April.</span>
+            <time class="np-item-time" datetime="2026-03-17T14:15">Yesterday, 2:15 pm</time>
+          </span>
+          <span class="np-unread-dot" aria-hidden="true"></span>
+        </button>
+        <button class="np-dismiss" aria-label="Dismiss notification">&#x2715;</button>
+      </li>
+
+      <!-- 3. Security alert — UNREAD -->
+      <li class="np-item" data-type="security" data-unread style="--i:2">
+        <button class="np-item-btn" aria-label="Mark as read: New sign-in detected">
+          <span class="np-icon" aria-hidden="true">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </span>
+          <span class="np-content">
+            <span class="np-item-title">New sign-in detected</span>
+            <span class="np-item-body">A sign-in from Chrome on macOS in London. Not you? Contact your adviser immediately.</span>
+            <time class="np-item-time" datetime="2026-03-16T09:02">16 Mar, 9:02 am</time>
+          </span>
+          <span class="np-unread-dot" aria-hidden="true"></span>
+        </button>
+        <button class="np-dismiss" aria-label="Dismiss notification">&#x2715;</button>
+      </li>
+
+      <!-- 4. Document ready — READ -->
+      <li class="np-item" data-type="document" style="--i:3">
+        <button class="np-item-btn" aria-label="Annual statement ready">
+          <span class="np-icon" aria-hidden="true">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </span>
+          <span class="np-content">
+            <span class="np-item-title">Annual statement available</span>
+            <span class="np-item-body">Your 2025&#x2013;26 annual valuation statement is ready to download from Documents.</span>
+            <time class="np-item-time" datetime="2026-03-10T08:00">10 Mar</time>
+          </span>
+        </button>
+        <button class="np-dismiss" aria-label="Dismiss notification">&#x2715;</button>
+      </li>
+
+      <!-- 5. ISA allowance warning — READ -->
+      <li class="np-item" data-type="tax" style="--i:4">
+        <button class="np-item-btn" aria-label="ISA allowance expiring soon">
+          <span class="np-icon" aria-hidden="true">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </span>
+          <span class="np-content">
+            <span class="np-item-title">ISA allowance expiring</span>
+            <span class="np-item-body">&#xA3;8,240 of your 2025&#x2013;26 ISA allowance remains unused. Tax year ends 5 April 2026.</span>
+            <time class="np-item-time" datetime="2026-03-05T09:00">5 Mar</time>
+          </span>
+        </button>
+        <button class="np-dismiss" aria-label="Dismiss notification">&#x2715;</button>
+      </li>
+
+      <!-- 6. Dividend received — READ -->
+      <li class="np-item" data-type="dividend" style="--i:5">
+        <button class="np-item-btn" aria-label="Dividend received">
+          <span class="np-icon" aria-hidden="true">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </span>
+          <span class="np-content">
+            <span class="np-item-title">Dividend received &#x2014; &#xA3;312.40</span>
+            <span class="np-item-body">Vanguard FTSE All-World dividend credited to your SIPP account.</span>
+            <time class="np-item-time" datetime="2026-03-01">1 Mar</time>
+          </span>
+        </button>
+        <button class="np-dismiss" aria-label="Dismiss notification">&#x2715;</button>
+      </li>
+
+    </ul>
+
+    <!-- Empty state — shown via CSS :has() when list has no items -->
+    <div class="np-empty">
+      <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span>You&#x2019;re all caught up</span>
+    </div>
   </div>
 </div>
 
