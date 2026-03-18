@@ -60,5 +60,53 @@ document.addEventListener('DOMContentLoaded', () => {
     if (live) live.textContent = e.target.checked ? 'Light mode' : 'Dark mode';
   });
 
+  // ── NOTIFICATIONS PANEL ─────────────────────────────────────
+  const notifPanel = document.getElementById('notif-panel');
+  const notifBtn   = document.getElementById('notif-btn');
+  const notifList  = document.getElementById('notif-list');
+  const notifCount = document.getElementById('notif-count');
+  const markAllBtn = document.getElementById('notif-mark-all');
+
+  function syncNotifBadge() {
+    const n = notifList ? notifList.querySelectorAll('[data-unread]').length : 0;
+    if (notifCount) notifCount.textContent = n > 0 ? `${n} unread` : '';
+    if (notifBtn) {
+      notifBtn.setAttribute('aria-label', n > 0 ? `Notifications, ${n} unread` : 'Notifications');
+      notifBtn.classList.toggle('has-no-unread', n === 0);
+    }
+  }
+
+  if (notifPanel && notifBtn) {
+    notifPanel.addEventListener('toggle', e => {
+      notifBtn.setAttribute('aria-expanded', String(e.newState === 'open'));
+    });
+  }
+
+  if (notifList) {
+    notifList.addEventListener('click', e => {
+      const dismiss = e.target.closest('.np-dismiss');
+      if (dismiss) {
+        dismiss.closest('.np-item')?.remove();
+        syncNotifBadge();
+        return;
+      }
+      const btn = e.target.closest('.np-item-btn');
+      if (btn) {
+        const item = btn.closest('.np-item');
+        if (item?.hasAttribute('data-unread')) {
+          item.removeAttribute('data-unread');
+          syncNotifBadge();
+        }
+      }
+    });
+  }
+
+  if (markAllBtn) {
+    markAllBtn.addEventListener('click', () => {
+      notifList?.querySelectorAll('[data-unread]').forEach(el => el.removeAttribute('data-unread'));
+      syncNotifBadge();
+    });
+  }
+
   initChatbot();
 });

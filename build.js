@@ -49,6 +49,7 @@ const PARTIALS = [
   'src/styles/modules/drawers.css',
   'src/styles/modules/chat.css',
   'src/styles/modules/user-menu.css',
+  'src/styles/modules/notifications.css',
   // State — is-* classes
   'src/styles/state/state.css',
   // Pages — page-specific overrides
