@@ -16,15 +16,22 @@
   background: var(--bg-card);
   border-bottom: 1px solid var(--border);
   box-shadow: var(--shadow-inner);
-  display: flex;
+  display: grid;
   grid-area: topbar;
-  justify-content: space-between;
+  grid-template-columns: 1fr auto 1fr; /* brand | nav pill (auto-centred) | controls */
   padding: 0 var(--pad);
   transition: background 0.3s ease;
   z-index: 100;
 }
 
-[role="banner"] > nav {
+/* Makes any OS container div a transparent flex pass-through */
+[role="banner"] > * {
+  align-items: center;
+  display: flex;
+  min-width: 0;
+}
+
+.topbar-nav {
   align-items: center;
   background: var(--bg-input);
   border-radius: var(--radius-btn);
@@ -37,6 +44,7 @@
   align-items: center;
   display: flex;
   gap: 12px;
+  margin-left: auto; /* right-aligns whether a direct grid item or inside a wrapper */
 }
 
 /* ─── SIDEBAR ────────────────────────────────────────── */
@@ -92,7 +100,7 @@
 
 @media (max-width: 900px) {
   :root { --sidebar-w: 60px; }
-  [role="banner"] > nav { display: none; }
+  .topbar-nav { display: none; }
   .nav-item { justify-content: center; padding: 10px; }
   .nav-item span, .sidebar-section-label, .sidebar-footer { display: none; }
   .brand-name, .brand-sub { display: none; }
