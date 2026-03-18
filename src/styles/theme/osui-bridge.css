@@ -190,3 +190,25 @@
 .osui-inline-svg {
   display: contents;
 }
+
+/* ─── OUTSYSTEMS THEME SWITCHER — WRAPPER SUPPRESSION ────────────────────
+   OutSystems wraps the .theme-checkbox input in a plain <span> inside
+   .theme-switcher, and adds the OSFillParent utility class to the label.
+   Two overrides needed:
+   1. The <span> becomes a flex child (because .theme-switcher is
+      display:contents). Make it layout-transparent so only the label
+      participates in the flex row — same pattern as InlineSVG above.
+   2. OSFillParent sets width:100% / flex:1 on the label, which expands
+      the toggle to fill the entire controls bar. Re-assert the compact
+      display:flex and auto sizing that .theme-toggle expects.
+   Note: html:has(.theme-checkbox:checked) still works correctly —
+   :has() resolves against the full DOM tree regardless of nesting.   */
+.theme-switcher > span {
+  display: contents;
+}
+
+.theme-toggle.OSFillParent {
+  display: flex;
+  flex: 0 0 auto;
+  width: auto;
+}
