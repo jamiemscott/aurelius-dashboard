@@ -166,3 +166,13 @@
   --osui-sidebar-layer:               var(--layer-global-off-canvas);                                      /* 15 */
 
 }
+
+/* ─── OUTSYSTEMS THEMEGRID — GLOBAL SUPPRESSION ──────────────────────────
+   ThemeGrid is not used in this application. OutSystems injects
+   ThemeGrid_MarginGutter (and sibling utility classes) onto block elements
+   automatically. Left alone they add unwanted margins that pollute custom
+   layouts (e.g. the topbar nav pill). Suppress all of them globally.    */
+[class*="ThemeGrid_"] {
+  margin: 0;
+  padding: 0;
+}
