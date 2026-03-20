@@ -206,17 +206,21 @@
       .theme-switcher's children reach .site-controls directly.
    2. The <span> wrapping the checkbox also becomes a flex child (via the
       chain of display:contents above it). Make it layout-transparent too.
-   3. OSFillParent on the label sets width:100% / flex:1 — re-assert the
-      compact sizing that .theme-toggle expects.
+   3. OSFillParent on the label is defined in OutSystems' _Basic_ stylesheet
+      as unlayered CSS: .OSFillParent { display:block; width:100% }. Because
+      OutSystems wraps our injected bundle in @layer theme.theme, _Basic_'s
+      unlayered rules win over our layered rules regardless of specificity.
+      !important reverses this: layered !important beats unlayered !important,
+      so our layered !important beats _Basic_'s regular declarations.
    Note: html:has(.theme-checkbox:checked) still works correctly —
    :has() resolves against the full DOM tree regardless of nesting.   */
 [data-block*="ThemeSwitcher"],
 .theme-switcher > span {
-  display: contents;
+  display: contents !important;
 }
 
 .theme-toggle.OSFillParent {
-  display: flex;
-  flex: 0 0 auto;
-  width: auto;
+  display: flex !important;
+  flex: 0 0 auto !important;
+  width: auto !important;
 }
