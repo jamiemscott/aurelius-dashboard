@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Place a new investment instruction — Aurelius Wealth Management.">
+<title>Aurelius Wealth — Add Investment</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../src/styles/bundle.css">
+</head>
+<body>
+<div class="shell">
+  <header role="banner">
+    <a class="brand" href="/" aria-label="Aurelius Wealth Management &mdash; home">
+      <span class="brand-mark" aria-hidden="true">A</span>
+      <span class="brand-text">
+        <span class="brand-name">Aurelius</span>
+        <span class="brand-sub">Wealth Management</span>
+      </span>
+    </a>
+    <nav class="topbar-nav" aria-label="Primary">
+      <a class="tab-btn" href="/">My Overview</a>
+      <a class="tab-btn" href="/valuation-history/">Valuation History</a>
+      <a class="tab-btn" href="/asset-allocation/">Asset Allocation</a>
+      <a class="tab-btn is-active" href="/my-investments/">My Investments</a>
+      <a class="tab-btn" href="/capital-gains-tax/">Capital Gains Tax</a>
+    </nav>
+    <div class="site-controls">
+      <div class="theme-switcher">
+        <input type="checkbox" role="switch" id="theme-checkbox" class="theme-checkbox" aria-label="Colour theme">
+        <label class="theme-toggle" for="theme-checkbox" aria-hidden="true">
+          <span class="theme-label-dark">Dark</span>
+          <span class="theme-label-light">Light</span>
+        </label>
+      </div>
+      <span class="theme-live" role="status" aria-live="polite" aria-atomic="true"></span>
+      <button class="icon-btn" id="notif-btn" popovertarget="notif-panel" aria-controls="notif-panel" aria-expanded="false" aria-haspopup="dialog" aria-label="Notifications, 3 unread"><span class="notif-dot" aria-hidden="true"></span><svg aria-hidden="true" focusable="false" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></button>
+      <button class="icon-btn" aria-label="Settings"><svg aria-hidden="true" focusable="false" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="8" cy="6" r="2" fill="var(--bg-card)" stroke="currentColor" stroke-width="1.7"/><circle cx="16" cy="12" r="2" fill="var(--bg-card)" stroke="currentColor" stroke-width="1.7"/><circle cx="10" cy="18" r="2" fill="var(--bg-card)" stroke="currentColor" stroke-width="1.7"/></svg></button>
+      <button class="avatar" popovertarget="user-menu" aria-label="Account menu" aria-haspopup="dialog" aria-expanded="false" aria-controls="user-menu">SK</button>
+    </div>
+  </header>
+
+  <aside class="sidebar" aria-label="Site navigation">
+  <nav aria-label="Main navigation">
+    <div role="group" aria-labelledby="nav-portfolio">
+    <h2 id="nav-portfolio" class="sidebar-section-label">Portfolio</h2>
+    <a class="nav-item" href="/" aria-label="Overview"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Overview</span></a>
+    <a class="nav-item" href="/valuation-history/" aria-label="Valuation History"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span>Valuation History</span></a>
+    <a class="nav-item" href="/asset-allocation/" aria-label="Asset Allocation"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg><span>Asset Allocation</span></a>
+    <a class="nav-item is-active" href="/my-investments/" aria-label="My Investments"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>My Investments</span></a>
+    <a class="nav-item" href="/capital-gains-tax/" aria-label="Capital Gains Tax"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span>Capital Gains Tax</span></a>
+    </div>
+    <div role="group" aria-labelledby="nav-account">
+    <h2 id="nav-account" class="sidebar-section-label">Account</h2>
+    <a class="nav-item" href="/documents/" aria-label="Documents"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Documents</span><span class="nav-badge" id="docs-nav-badge">3</span></a>
+    <a class="nav-item" href="/my-details/" aria-label="My Details"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>My Details</span></a>
+    <a class="nav-item" href="/contact-us/" aria-label="Contact Us"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Contact Us</span></a>
+    </div>
+  </nav>
+  <footer class="sidebar-footer"><div class="advisor-card"><div class="advisor-label">Your Adviser</div><div class="advisor-name">James Whitmore</div><div class="advisor-contact">j.whitmore@aurelius.co.uk</div><button class="contact-btn" popovertarget="adviser-drawer">Message Adviser</button></div></footer>
+</aside>
+
+  <main class="main" role="main">
+
+    <div class="page-header">
+      <div>
+        <div class="breadcrumb"><span>Sumant Kumar</span><span class="breadcrumb-sep">/</span><a class="breadcrumb-link" href="/my-investments/">My Investments</a><span class="breadcrumb-sep">/</span><span class="breadcrumb-current">Add Investment</span></div>
+        <div class="page-title">Add Investment</div>
+        <div class="page-date">New dealing instruction &mdash; IMF9UBMY D</div>
+      </div>
+    </div>
+
+    <!-- ── 4-STEP WIZARD ───────────────────────────────────────── -->
+    <div class="ai-wizard" role="region" aria-label="Add investment wizard">
+
+      <!-- Step indicator -->
+      <nav class="ai-steps" aria-label="Wizard steps">
+        <div class="ai-step is-active" id="ai-step-1" aria-current="step">
+          <span class="ai-step-num" aria-hidden="true">1</span>
+          <span class="ai-step-label">Find Investment</span>
+        </div>
+        <div class="ai-step-line" aria-hidden="true"></div>
+        <div class="ai-step" id="ai-step-2">
+          <span class="ai-step-num" aria-hidden="true">2</span>
+          <span class="ai-step-label">Account &amp; Amount</span>
+        </div>
+        <div class="ai-step-line" aria-hidden="true"></div>
+        <div class="ai-step" id="ai-step-3">
+          <span class="ai-step-num" aria-hidden="true">3</span>
+          <span class="ai-step-label">Review</span>
+        </div>
+        <div class="ai-step-line" aria-hidden="true"></div>
+        <div class="ai-step" id="ai-step-4">
+          <span class="ai-step-num" aria-hidden="true">4</span>
+          <span class="ai-step-label">Confirmed</span>
+        </div>
+      </nav>
+
+      <!-- ── STEP 1: Find Investment ──────────────────────────── -->
+      <div class="ai-panel is-active" id="ai-panel-1" role="tabpanel" aria-labelledby="ai-step-1">
+        <div class="ai-step-inner ai-step-centred">
+
+          <div class="ai-search-wrap">
+            <svg class="ai-search-icon" aria-hidden="true" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input class="det-input ai-search-input" id="ai-search" type="search"
+                   placeholder="Search by fund name, ISIN or ticker&hellip;"
+                   autocomplete="off" aria-label="Search for a fund, ETF or share">
+          </div>
+
+          <div class="ai-filter-chips" role="group" aria-label="Filter by asset type">
+            <button class="ai-chip is-active" data-filter="all">All</button>
+            <button class="ai-chip" data-filter="etf">ETFs</button>
+            <button class="ai-chip" data-filter="fund">Funds</button>
+            <button class="ai-chip" data-filter="share">Shares</button>
+            <button class="ai-chip" data-filter="bond">Bonds</button>
+          </div>
+
+          <ul class="ai-fund-list" role="list" aria-label="Available investments" id="ai-fund-list">
+
+            <li class="ai-fund-card" role="listitem" data-fund-id="vwrl"
+                data-name="Vanguard FTSE All-World ETF" data-isin="IE00B3RBWM25"
+                data-type="etf" data-price="91.24"
+                data-1yr="+18.4%" data-3yr="+42.1%" data-5yr="+73.6%" data-ytd="+4.2%"
+                data-ocf="0.22%" data-risk="5"
+                data-desc="Broad global equity exposure tracking the FTSE All-World Index, covering over 3,900 companies across developed and emerging markets in a single fund.">
+              <button class="ai-fund-card-btn" aria-pressed="false" aria-label="Select Vanguard FTSE All-World ETF">
+                <div class="ai-fund-main">
+                  <div class="ai-fund-name-row">
+                    <span class="ai-fund-name">Vanguard FTSE All-World ETF</span>
+                    <div class="ai-fund-badges">
+                      <span class="ai-badge ai-badge--isin">IE00B3RBWM25</span>
+                      <span class="ai-badge ai-badge--type">Global Equity ETF</span>
+                    </div>
+                  </div>
+                  <div class="ai-fund-metrics">
+                    <div class="ai-fund-metric">
+                      <span class="ai-metric-label">1yr</span>
+                      <span class="ai-metric-value green">+18.4%</span>
+                    </div>
+                    <div class="ai-fund-metric">
+                      <span class="ai-metric-label">OCF</span>
+                      <span class="ai-metric-value">0.22%</span>
+                    </div>
+                    <div class="ai-fund-metric">
+                      <span class="ai-metric-label">Risk</span>
+                      <span class="ai-risk-bar" aria-label="Risk rating 5 out of 7">
+                        <span class="ai-risk-seg is-filled"></span><span class="ai-risk-seg is-filled"></span><span class="ai-risk-seg is-filled"></span><span class="ai-risk-seg is-filled"></span><span class="ai-risk-seg is-filled"></span><span class="ai-risk-seg"></span><span class="ai-risk-seg"></span>
+                      </span>
+                    </div>
+                    <span class="ai-fund-checkmark" aria-hidden="true">
+                      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    </span>
+                  </div>
+                </div>
+              </button>
+              <div class="ai-fund-stats" id="ai-stats-vwrl" hidden>
+                <p class="ai-stats-desc">Broad global equity exposure tracking the FTSE All-World Index, covering over 3,900 companies across developed and emerging markets in a single fund.</p>
+                <div class="ai-stats-returns">
+                  <div class="ai-stats-return"><span class="ai-metric-label">YTD</span><span class="ai-metric-value green">+4.2%</span></div>
+                  <div class="ai-stats-return"><span class="ai-metric-label">1yr</span><span class="ai-metric-value green">+18.4%</span></div>
+                  <div class="ai-stats-return"><span class="ai-metric-label">3yr</span><span class="ai-metric-value green">+42.1%</span></div>
+                  <div class="ai-stats-return"><span class="ai-metric-label">5yr</span><span class="ai-metric-value green">+73.6%</span></div>
+                </div>
+                <div class="ai-stats-meta">
+                  <span>OCF: 0.22%</span><span>Unit price: &pound;91.24</span><span>KIID risk: 5/7</span>
+                </div>
+              </div>
+            </li>
+
+            <li class="ai-fund-card" role="listitem" data-fund-id="iwrd"
+                data-name="iShares Core MSCI World ETF" data-isin="IE00B4L5Y983"
+                data-type="etf" data-price="78.35"
+                data-1yr="+19.1%" data-3yr="+44.7%" data-5yr="+79.2%" data-ytd="+4.8%"
+                data-ocf="0.20%" data-risk="5"
+                data-desc="Tracks the MSCI World Index giving exposure to over 1,600 large and mid-cap equities across 23 developed market countries. One of the lowest-cost global equity ETFs available.">
+              <button class="ai-fund-card-btn" aria-pressed="false" aria-label="Select iShares Core MSCI World ETF">
+                <div class="ai-fund-main">
+                  <div class="ai-fund-name-row">
+                    <span class="ai-fund-name">iShares Core MSCI World ETF</span>
+                    <div class="ai-fund-badges">
+                      <span class="ai-badge ai-badge--isin">IE00B4L5Y983</span>
+                      <span class="ai-badge ai-badge--type">Global Equity ETF</span>
+                    </div>
+                  </div>
+                  <div class="ai-fund-metrics">
+                    <div class="ai-fund-metric">
+                      <span class="ai-metric-label">1yr</span>
+                      <span class="ai-metric-value green">+19.1%</span>
+                    </div>
+                    <div class="ai-fund-metric">
+                      <span class="ai-metric-label">OCF</span>
+                      <span class="ai-metric-value">0.20%</span>
+                    </div>
+                    <div class="ai-fund-metric">
+                      <span class="ai-metric-label">Risk</span>
+                      <span class="ai-risk-bar" aria-label="Risk rating 5 out of 7">
+                        <span class="ai-risk-seg is-filled"></span><span class="ai-risk-seg is-filled"></span><span class="ai-risk-seg is-filled"></span><span class="ai-risk-seg is-filled"></span><span class="ai-risk-seg is-filled"></span><span class="ai-risk-seg"></span><span class="ai-risk-seg"></span>
+                      </span>
+                    </div>
+                    <span class="ai-fund-checkmark" aria-hidden="true">
+                      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    </span>
+                  </div>
+                </div>
+              </button>
+              <div class="ai-fund-stats" id="ai-stats-iwrd" hidden>
+                <p class="ai-stats-desc">Tracks the MSCI World Index giving exposure to over 1,600 large and mid-cap equities across 23 developed market countries. One of the lowest-cost global equity ETFs available.</p>
+                <div class="ai-stats-returns">
+                  <div class="ai-stats-return"><span class="ai-metric-label">YTD</span><span class="ai-metric-value green">+4.8%</span></div>
+                  <div class="ai-stats-return"><span class="ai-metric-label">1yr</span><span class="ai-metric-value green">+19.1%</span></div>
+                  <div class="ai-stats-return"><span class="ai-metric-label">3yr</span><span class="ai-metric-value green">+44.7%</span></div>
+                  <div class="ai-stats-return"><span class="ai-metric-label">5yr</span><span class="ai-metric-value green">+79.2%</span></div>
+                </div>
+                <div class="ai-stats-meta">
+                  <span>OCF: 0.20%</span><span>Unit price: &pound;78.35</span><span>KIID risk: 5/7</span>
+                </div>
+              </div>
+            </li>
+
+            <li class="ai-fund-card" role="listitem" data-fund-id="fundsmith"
+                data-name="Fundsmith Equity Fund T Acc" data-isin="GB00B4Q5X527"
+                data-type="fund" data-price="622.50"
+                data-1yr="+11.2%" data-3yr="+18.4%" data-5yr="+51.3%" data-ytd="+2.1%"
+                data-ocf="1.05%" data-risk="6"
+                data-desc="A high-conviction global equity fund managed by Terry Smith. Invests in a concentrated portfolio of quality companies with sustainable competitive advantages, held for the long term.">
+              <button class="ai-fund-card-btn" aria-pressed="false" aria-label="Select Fundsmith Equity Fund T Acc">
+                <div class="ai-fund-main">
+                  <div class="ai-fund-name-row">
+                    <span class="ai-fund-name">Fundsmith Equity Fund T Acc</span>
+                    <div class="ai-fund-badges">
+                      <span class="ai-badge ai-badge--isin">GB00B4Q5X527</span>
+                      <span class="ai-badge ai-badge--type">Global Equity Fund</span>
+                    </div>
+                  </div>
+                  <div class="ai-fund-metrics">
+                    <div class="ai-fund-metric">
+                      <span class="ai-metric-label">1yr</span>
+                      <span class="ai-metric-value green">+11.2%</span>
+                    </div>
+                    <div class="ai-fund-metric">
+                      <span class="ai-metric-label">OCF</span>
+                      <span class="ai-metric-value">1.05%</span>
+                    </div>
+                    <div class="ai-fund-metric">
+                      <span class="ai-metric-label">Risk</span>
+                      <span class="ai-risk-bar" aria-label="Risk rating 6 out of 7">
+                        <span class="ai-risk-seg is-filled"></span><span class="ai-risk-seg is-filled"></span><span class="ai-risk-seg is-filled"></span><span class="ai-risk-seg is-filled"></span><span class="ai-risk-seg is-filled"></span><span class="ai-risk-seg is-filled"></span><span class="ai-risk-seg"></span>
+                      </span>
+                    </div>
+                    <span class="ai-fund-checkmark" aria-hidden="true">
+                      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    </span>
+                  </div>
+                </div>
+              </button>
+              <div class="ai-fund-stats" id="ai-stats-fundsmith" hidden>
+                <p class="ai-stats-desc">A high-conviction global equity fund managed by Terry Smith. Invests in a concentrated portfolio of quality companies with sustainable competitive advantages, held for the long term.</p>
+                <div class="ai-stats-returns">
+                  <div class="ai-stats-return"><span class="ai-metric-label">YTD</span><span class="ai-metric-value green">+2.1%</span></div>
+                  <div class="ai-stats-return"><span class="ai-metric-label">1yr</span><span class="ai-metric-value green">+11.2%</span></div>
+                  <div class="ai-stats-return"><span class="ai-metric-label">3yr</span><span class="ai-metric-value green">+18.4%</span></div>
+                  <div class="ai-stats-return"><span class="ai-metric-label">5yr</span><span class="ai-metric-value green">+51.3%</span></div>
+                </div>
+                <div class="ai-stats-meta">
+                  <span>OCF: 1.05%</span><span>Unit price: &pound;622.50</span><span>KIID risk: 6/7</span>
+                </div>
+              </div>
+            </li>
+
+            <li class="ai-fund-card" role="listitem" data-fund-id="ls80"
+                data-name="Vanguard LifeStrategy 80% Equity" data-isin="GB00B4PQW151"
+                data-type="fund" data-price="312.18"
+                data-1yr="+13.7%" data-3yr="+24.9%" data-5yr="+58.2%" data-ytd="+3.1%"
+                data-ocf="0.22%" data-risk="4"
+                data-desc="A ready-made portfolio fund holding approximately 80% global equities and 20% bonds. Automatically rebalanced, providing diversified growth at very low cost.">
+              <button class="ai-fund-card-btn" aria-pressed="false" aria-label="Select Vanguard LifeStrategy 80% Equity">
+                <div class="ai-fund-main">
+                  <div class="ai-fund-name-row">
+                    <span class="ai-fund-name">Vanguard LifeStrategy 80% Equity</span>
+                    <div class="ai-fund-badges">
+                      <span class="ai-badge ai-badge--isin">GB00B4PQW151</span>
+                      <span class="ai-badge ai-badge--type">Mixed Asset Fund</span>
+                    </div>
+                  </div>
+                  <div class="ai-fund-metrics">
+                    <div class="ai-fund-metric">
+                      <span class="ai-metric-label">1yr</span>
+                      <span class="ai-metric-value green">+13.7%</span>
+                    </div>
+                    <div class="ai-fund-metric">
+                      <span class="ai-metric-label">OCF</span>
+                      <span class="ai-metric-value">0.22%</span>
+                    </div>
+                    <div class="ai-fund-metric">
+                      <span class="ai-metric-label">Risk</span>
+                      <span class="ai-risk-bar" aria-label="Risk rating 4 out of 7">
+                        <span class="ai-risk-seg is-filled"></span><span class="ai-risk-seg is-filled"></span><span class="ai-risk-seg is-filled"></span><span class="ai-risk-seg is-filled"></span><span class="ai-risk-seg"></span><span class="ai-risk-seg"></span><span class="ai-risk-seg"></span>
+                      </span>
+                    </div>
+                    <span class="ai-fund-checkmark" aria-hidden="true">
+                      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    </span>
+                  </div>
+                </div>
+              </button>
+              <div class="ai-fund-stats" id="ai-stats-ls80" hidden>
+                <p class="ai-stats-desc">A ready-made portfolio fund holding approximately 80% global equities and 20% bonds. Automatically rebalanced, providing diversified growth at very low cost.</p>
+                <div class="ai-stats-returns">
+                  <div class="ai-stats-return"><span class="ai-metric-label">YTD</span><span class="ai-metric-value green">+3.1%</span></div>
+                  <div class="ai-stats-return"><span class="ai-metric-label">1yr</span><span class="ai-metric-value green">+13.7%</span></div>
+                  <div class="ai-stats-return"><span class="ai-metric-label">3yr</span><span class="ai-metric-value green">+24.9%</span></div>
+                  <div class="ai-stats-return"><span class="ai-metric-label">5yr</span><span class="ai-metric-value green">+58.2%</span></div>
+                </div>
+                <div class="ai-stats-meta">
+                  <span>OCF: 0.22%</span><span>Unit price: &pound;312.18</span><span>KIID risk: 4/7</span>
+                </div>
+              </div>
+            </li>
+
+            <li class="ai-fund-card" role="listitem" data-fund-id="rlei"
+                data-name="Royal London UK Equity Income" data-isin="GB00B3LRCQ57"
+                data-type="fund" data-price="215.64"
+                data-1yr="+8.9%" data-3yr="+19.2%" data-5yr="+38.7%" data-ytd="+1.8%"
+                data-ocf="0.78%" data-risk="5"
+                data-desc="An actively managed UK equity income fund focusing on dividend-paying companies. Aims to deliver a yield above the FTSE All-Share Index while providing long-term capital growth.">
+              <button class="ai-fund-card-btn" aria-pressed="false" aria-label="Select Royal London UK Equity Income">
+                <div class="ai-fund-main">
+                  <div class="ai-fund-name-row">
+                    <span class="ai-fund-name">Royal London UK Equity Income</span>
+                    <div class="ai-fund-badges">
+                      <span class="ai-badge ai-badge--isin">GB00B3LRCQ57</span>
+                      <span class="ai-badge ai-badge--type">UK Equity Fund</span>
+                    </div>
+                  </div>
+                  <div class="ai-fund-metrics">
+                    <div class="ai-fund-metric">
+                      <span class="ai-metric-label">1yr</span>
+                      <span class="ai-metric-value green">+8.9%</span>
+                    </div>
+                    <div class="ai-fund-metric">
+                      <span class="ai-metric-label">OCF</span>
+                      <span class="ai-metric-value">0.78%</span>
+                    </div>
+                    <div class="ai-fund-metric">
+                      <span class="ai-metric-label">Risk</span>
+                      <span class="ai-risk-bar" aria-label="Risk rating 5 out of 7">
+                        <span class="ai-risk-seg is-filled"></span><span class="ai-risk-seg is-filled"></span><span class="ai-risk-seg is-filled"></span><span class="ai-risk-seg is-filled"></span><span class="ai-risk-seg is-filled"></span><span class="ai-risk-seg"></span><span class="ai-risk-seg"></span>
+                      </span>
+                    </div>
+                    <span class="ai-fund-checkmark" aria-hidden="true">
+                      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    </span>
+                  </div>
+                </div>
+              </button>
+              <div class="ai-fund-stats" id="ai-stats-rlei" hidden>
+                <p class="ai-stats-desc">An actively managed UK equity income fund focusing on dividend-paying companies. Aims to deliver a yield above the FTSE All-Share Index while providing long-term capital growth.</p>
+                <div class="ai-stats-returns">
+                  <div class="ai-stats-return"><span class="ai-metric-label">YTD</span><span class="ai-metric-value green">+1.8%</span></div>
+                  <div class="ai-stats-return"><span class="ai-metric-label">1yr</span><span class="ai-metric-value green">+8.9%</span></div>
+                  <div class="ai-stats-return"><span class="ai-metric-label">3yr</span><span class="ai-metric-value green">+19.2%</span></div>
+                  <div class="ai-stats-return"><span class="ai-metric-label">5yr</span><span class="ai-metric-value green">+38.7%</span></div>
+                </div>
+                <div class="ai-stats-meta">
+                  <span>OCF: 0.78%</span><span>Unit price: &pound;215.64</span><span>KIID risk: 5/7</span>
+                </div>
+              </div>
+            </li>
+
+          </ul>
+
+          <div class="ai-step-actions">
+            <button class="btn-primary" id="ai-btn-1" disabled aria-disabled="true" onclick="goToStep(2)">
+              Continue
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── STEP 2: Account & Amount ─────────────────────────── -->
+      <div class="ai-panel" id="ai-panel-2" role="tabpanel" aria-labelledby="ai-step-2">
+        <div class="ai-two-col ai-s58-42">
+
+          <!-- Left — form -->
+          <div class="ai-form-col">
+
+            <div class="ai-form-section">
+              <label class="ai-field-label" id="label-wrapper">Invest into</label>
+              <div class="contact-seg ai-wrapper-seg" role="group" aria-labelledby="label-wrapper">
+                <button class="contact-seg-btn is-active" data-wrapper="isa" onclick="setWrapper('isa')">ISA</button>
+                <button class="contact-seg-btn" data-wrapper="gia" onclick="setWrapper('gia')">GIA</button>
+                <button class="contact-seg-btn" data-wrapper="sipp" onclick="setWrapper('sipp')">SIPP</button>
+                <button class="contact-seg-btn" data-wrapper="jisa" disabled aria-disabled="true" onclick="setWrapper('jisa')">JISA</button>
+              </div>
+              <p class="ai-field-caption" id="ai-wrapper-caption">&pound;8,240 remaining ISA allowance this tax year</p>
+            </div>
+
+            <div class="ai-form-section">
+              <label class="ai-field-label" id="label-method">Investment method</label>
+              <div class="contact-seg ai-method-seg" role="group" aria-labelledby="label-method">
+                <button class="contact-seg-btn is-active" data-method="amount" onclick="setMethod('amount')">By amount (&pound;)</button>
+                <button class="contact-seg-btn" data-method="units" onclick="setMethod('units')">By units</button>
+              </div>
+            </div>
+
+            <div class="ai-form-section" id="ai-amount-wrap">
+              <label class="ai-field-label" for="ai-amount">Investment amount</label>
+              <div class="ai-input-prefix-wrap">
+                <span class="ai-input-prefix" aria-hidden="true">&pound;</span>
+                <input class="det-input ai-amount-input" id="ai-amount" type="number" min="0" step="0.01"
+                       placeholder="0.00" aria-label="Investment amount in pounds" oninput="updateOrderSummary()">
+              </div>
+              <p class="ai-field-caption">Available cash: &pound;12,450.00</p>
+            </div>
+
+            <div class="ai-form-section" id="ai-units-wrap" hidden>
+              <label class="ai-field-label" for="ai-units">Number of units</label>
+              <input class="det-input" id="ai-units" type="number" min="0" step="0.0001"
+                     placeholder="0.0000" aria-label="Number of units" oninput="updateOrderSummary()">
+              <p class="ai-field-caption">Available cash: &pound;12,450.00</p>
+            </div>
+
+            <div class="ai-form-section">
+              <label class="ai-field-label" for="ai-unit-price">Unit price (indicative)</label>
+              <div class="ai-input-prefix-wrap">
+                <span class="ai-input-prefix" aria-hidden="true">&pound;</span>
+                <input class="det-input ai-amount-input" id="ai-unit-price" type="text"
+                       readonly aria-readonly="true" aria-label="Indicative unit price">
+              </div>
+            </div>
+
+            <div class="ai-form-section">
+              <label class="ai-field-label" for="ai-trade-date">Trade date</label>
+              <input class="det-input" id="ai-trade-date" type="date" aria-label="Requested trade date">
+            </div>
+
+            <div class="ai-form-section">
+              <label class="ai-field-label" for="ai-dealing">Dealing instruction</label>
+              <select class="det-select" id="ai-dealing" aria-label="Dealing instruction type" onchange="handleDealingChange()">
+                <option value="market">At next available price</option>
+                <option value="limit">Limit order</option>
+              </select>
+            </div>
+
+            <div class="ai-form-section" id="ai-limit-wrap" hidden>
+              <label class="ai-field-label" for="ai-limit-price">Limit price</label>
+              <div class="ai-input-prefix-wrap">
+                <span class="ai-input-prefix" aria-hidden="true">&pound;</span>
+                <input class="det-input ai-amount-input" id="ai-limit-price" type="number" min="0" step="0.01"
+                       placeholder="0.00" aria-label="Limit price in pounds">
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right — Order Summary -->
+          <div class="ai-order-summary-wrap">
+            <div class="ai-order-summary" id="ai-order-summary" aria-live="polite" aria-atomic="false">
+              <div class="ai-os-title">Order Summary</div>
+              <div class="ai-os-fund" id="ai-os-fund-name">&mdash;</div>
+              <div class="ai-os-sub" id="ai-os-sub">&mdash;</div>
+              <div class="ai-os-divider"></div>
+              <dl class="ai-os-rows">
+                <div class="ai-os-row">
+                  <dt>Investment amount</dt>
+                  <dd id="ai-os-amount">&mdash;</dd>
+                </div>
+                <div class="ai-os-row">
+                  <dt>Est. unit price</dt>
+                  <dd id="ai-os-price">&mdash;</dd>
+                </div>
+                <div class="ai-os-row">
+                  <dt>Est. units</dt>
+                  <dd id="ai-os-units">&mdash;</dd>
+                </div>
+              </dl>
+              <div class="ai-os-divider"></div>
+              <dl class="ai-os-rows">
+                <div class="ai-os-row">
+                  <dt>Platform fee (0.25%)</dt>
+                  <dd id="ai-os-platform-fee">&mdash;</dd>
+                </div>
+                <div class="ai-os-row">
+                  <dt>Dealing charge</dt>
+                  <dd id="ai-os-dealing-charge">&pound;0.00</dd>
+                </div>
+              </dl>
+              <div class="ai-os-divider"></div>
+              <dl class="ai-os-rows">
+                <div class="ai-os-row ai-os-total">
+                  <dt>Estimated total</dt>
+                  <dd id="ai-os-total">&mdash;</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="ai-step-actions ai-step-actions--split">
+          <button class="btn-secondary" onclick="goToStep(1)">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            Back
+          </button>
+          <button class="btn-primary" id="ai-btn-2" onclick="goToStep(3)">
+            Review instruction
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ── STEP 3: Review & Confirm ─────────────────────────── -->
+      <div class="ai-panel" id="ai-panel-3" role="tabpanel" aria-labelledby="ai-step-3">
+        <div class="ai-two-col ai-s60-40">
+
+          <!-- Left — instruction details -->
+          <div class="ai-form-col">
+            <h2 class="ai-review-heading">Review your instruction</h2>
+            <dl class="ai-review-table" id="ai-review-table">
+              <!-- populated by JS -->
+            </dl>
+
+            <div class="ai-form-section" style="margin-top:24px">
+              <label class="ai-field-label" for="ai-notes">Additional instructions <span class="ai-optional">(optional)</span></label>
+              <textarea class="contact-textarea" id="ai-notes" maxlength="500" rows="3"
+                        placeholder="Additional instructions for James Whitmore&hellip;"
+                        oninput="aiState.notes = this.value"></textarea>
+              <p class="ai-field-caption ai-char-count"><span id="ai-notes-count">0</span>/500</p>
+            </div>
+
+            <label class="ai-ack-row" for="ai-ack">
+              <input type="checkbox" id="ai-ack" class="ai-ack-check" onchange="togglePlaceBtn()">
+              <span class="ai-ack-text">I confirm I have read the charges and risks involved in this investment.</span>
+            </label>
+          </div>
+
+          <!-- Right — regulatory panel -->
+          <div class="ai-reg-panel">
+            <div class="ai-reg-section">
+              <div class="ai-reg-title">Charges</div>
+              <dl class="ai-reg-rows" id="ai-reg-charges">
+                <!-- populated by JS -->
+              </dl>
+            </div>
+            <div class="ai-reg-section">
+              <div class="ai-reg-title">Key risks</div>
+              <ul class="ai-reg-risks">
+                <li>The value of investments can fall as well as rise. You may get back less than you invest.</li>
+                <li>Past performance is not a reliable indicator of future results.</li>
+                <li>Currency movements may affect the value of overseas investments.</li>
+              </ul>
+            </div>
+            <p class="ai-reg-footnote">This instruction will be passed to your adviser James Whitmore for execution. Aurelius does not execute trades directly.</p>
+          </div>
+
+        </div>
+
+        <div class="ai-step-actions ai-step-actions--split">
+          <button class="btn-secondary" onclick="goToStep(2)">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            Amend details
+          </button>
+          <button class="btn-primary" id="ai-btn-3" disabled aria-disabled="true" onclick="submitInstruction()">
+            Place instruction
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ── STEP 4: Confirmed ────────────────────────────────── -->
+      <div class="ai-panel" id="ai-panel-4" role="tabpanel" aria-labelledby="ai-step-4">
+        <div class="ai-confirm-wrap">
+
+          <div class="ai-confirm-check" aria-hidden="true">
+            <svg class="ai-check-svg" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle class="ai-check-circle" cx="26" cy="26" r="24" stroke="var(--gold)" stroke-width="2.5" fill="none"/>
+              <polyline class="ai-check-tick" points="14,26 22,34 38,18" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </div>
+
+          <h1 class="ai-confirm-title">Instruction placed</h1>
+          <p class="ai-confirm-sub">Your dealing instruction has been submitted successfully.</p>
+
+          <div class="ai-confirm-ref">
+            <span class="ai-confirm-ref-label">Reference</span>
+            <span class="ai-confirm-ref-num" id="ai-confirm-ref">&mdash;</span>
+          </div>
+
+          <dl class="ai-confirm-summary" id="ai-confirm-summary">
+            <!-- populated by JS -->
+          </dl>
+
+          <div class="ai-confirm-routing">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Securely routed to James Whitmore for execution
+          </div>
+
+          <div class="ai-confirm-actions">
+            <a class="btn-primary" href="/my-investments/">View My Investments</a>
+            <button class="btn-secondary" onclick="resetWizard()">Add another investment</button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <!-- end .ai-wizard -->
+
+    <footer class="site-footer" role="contentinfo" aria-label="Site footer">
+      <div class="footer-upper">
+        <div class="footer-brand-col"><div class="footer-brand"><div class="footer-brand-mark">A</div><div class="footer-brand-name">Aurelius</div></div><p class="footer-tagline">Private wealth management for discerning investors. Authorised and regulated by the Financial Conduct Authority.</p><div class="footer-reg-badge"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> FCA Regulated</div></div>
+        <div><div class="footer-col-title">Services</div><ul class="footer-links"><li><a href="#">Portfolio Management</a></li><li><a href="#">Retirement Planning</a></li><li><a href="#">Tax &amp; Estate Planning</a></li><li><a href="#">ISA &amp; SIPP Accounts</a></li><li><a href="#">Discretionary Management</a></li></ul></div>
+        <div><div class="footer-col-title">Support</div><ul class="footer-links"><li><a href="#">Help Centre</a></li><li><a href="#">Contact Your Adviser</a></li><li><a href="#">Document Library</a></li><li><a href="#">Security &amp; Fraud</a></li><li><a href="#">Complaints Procedure</a></li></ul></div>
+        <div><div class="footer-col-title">Legal &amp; Regulatory</div><ul class="footer-links"><li><a href="#">Terms &amp; Conditions</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Cookie Policy</a></li><li><a href="#">MIFID II Disclosure</a></li><li><a href="#">Modern Slavery Act</a></li></ul></div>
+      </div>
+      <div class="footer-regulatory"><p class="footer-reg-text"><strong>Important information.</strong> Aurelius Wealth Management Limited is authorised and regulated by the <a href="#">Financial Conduct Authority</a> (FCA). Registered number 987654. Registered in England &amp; Wales. Company number 12345678. Registered office: 14 St James&#x2019;s Square, London, SW1Y 4LB.<br><br>The value of investments and the income from them can fall as well as rise and you may get back less than you invest. Past performance is not a reliable indicator of future results. This website is for information purposes only and does not constitute financial advice.</p></div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">&#xa9; 2026 Aurelius Wealth Management Limited. All rights reserved.</div>
+        <div class="footer-fca"><div class="fca-dot"></div>FCA Reg. No. 987654 &#xb7; ICO Reg. ZA123456</div>
+        <div class="footer-bottom-links"><a href="#">Accessibility</a><div class="sep"></div><a href="#">Sitemap</a><div class="sep"></div><a href="#">Cookie Settings</a><div class="sep"></div><a href="#">Modern Slavery</a></div>
+      </div>
+    </footer>
+
+  </main>
+</div>
+<script src="../../src/js/navigation.js"></script>
+<script src="../../src/js/chatbot.js"></script>
+<script src="../../src/js/main.js"></script>
+<script src="../../src/js/add-investment.js"></script>
+
+
+<!-- ── ADVISER MESSAGE DRAWER (Popover API) ───────────────────── -->
+<div id="adviser-drawer" popover>
+  <div class="adv-drawer-inner">
+    <div class="adv-drawer-hd">
+      <div class="adv-drawer-hd-left">
+        <div class="adv-drawer-avatar">JW</div>
+        <div>
+          <div class="adv-drawer-name">James Whitmore</div>
+          <div class="adv-drawer-role">Senior Wealth Manager</div>
+        </div>
+      </div>
+      <button class="adv-drawer-close"
+              popovertarget="adviser-drawer"
+              popovertargetaction="hide"
+              aria-label="Close drawer">&#x2715;</button>
+    </div>
+    <div class="adv-drawer-secure">
+      <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+      Secure message &middot; 256-bit TLS encrypted
+    </div>
+    <div class="adv-drawer-body" id="adv-form-body"></div>
+  </div>
+</div>
+
+<!-- ── USER MENU (Popover API) ─────────────────────────────────── -->
+<div id="user-menu" popover>
+  <div class="um-header">
+    <div class="um-avatar">SK</div>
+    <div>
+      <div class="um-name">Sumant Kumar</div>
+      <div class="um-meta">Platinum Client &middot; AW-20182-UK</div>
+    </div>
+  </div>
+  <div class="um-section">
+    <div class="um-section-label">Account</div>
+    <a class="um-item" href="/my-details/" onclick="document.getElementById('user-menu').hidePopover()">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
+      My Details
+    </a>
+    <button class="um-item">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      Notifications <span class="um-badge">3</span>
+    </button>
+    <button class="um-item">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Security &amp; 2FA
+    </button>
+  </div>
+  <div class="um-divider"></div>
+  <div class="um-section">
+    <div class="um-section-label">Preferences</div>
+    <label class="um-item" for="theme-checkbox">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      Appearance
+      <span class="um-hint theme-hint-dark">Dark</span>
+      <span class="um-hint theme-hint-light">Light</span>
+    </label>
+    <button class="um-item">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Help &amp; Support
+    </button>
+  </div>
+  <div class="um-divider"></div>
+  <div class="um-section">
+    <button class="um-item um-item--danger">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Sign Out
+    </button>
+  </div>
+</div>
+
+<!-- ── AVA CHAT WIDGET ────────────────────────────────────────── -->
+<button class="chat-bubble-btn" id="chat-bubble-btn"
+        onclick="toggleChatbot()" aria-label="Open Ava chat assistant">
+  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+</button>
+
+<div class="chat-window" id="chat-window" role="dialog" aria-label="Ava chat assistant">
+  <div class="chat-hd">
+    <div class="chat-hd-left">
+      <div class="chat-avatar">A</div>
+      <div>
+        <div class="chat-hd-name">Ava</div>
+        <div class="chat-hd-status">
+          <span class="chat-online-dot"></span>Online &middot; AI-powered
+        </div>
+      </div>
+    </div>
+    <button class="chat-close-btn" onclick="closeChatbot()" aria-label="Close chat">&#x2715;</button>
+  </div>
+  <div class="chat-messages" id="chat-messages"></div>
+  <div class="chat-input-row">
+    <input class="chat-input" id="chat-input" type="text"
+           placeholder="Type a message&hellip;" autocomplete="off"
+           onkeydown="if(event.key==='Enter')handleChatSubmit()">
+    <button class="chat-send-btn" onclick="handleChatSubmit()" aria-label="Send message">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ── NOTIFICATIONS PANEL (Popover API) ─────────────────────── -->
+<div id="notif-panel" popover="auto" role="dialog" aria-label="Notifications">
+  <div class="np-hd">
+    <div class="np-hd-left">
+      <svg aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="np-title">Notifications</span>
+      <span class="np-count" id="notif-count" aria-live="polite" aria-atomic="true">3 unread</span>
+    </div>
+    <div class="np-hd-right">
+      <button class="np-mark-all-btn" id="notif-mark-all" aria-label="Mark all notifications as read">Mark all read</button>
+      <button class="np-close" popovertarget="notif-panel" popovertargetaction="hide" aria-label="Close notifications">&#x2715;</button>
+    </div>
+  </div>
+  <div class="np-body">
+    <ul class="np-list" role="list" id="notif-list">
+      <li class="np-item" data-type="portfolio" data-unread style="--i:0">
+        <button class="np-item-btn" aria-label="Mark as read: Portfolio milestone reached">
+          <span class="np-icon" aria-hidden="true"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
+          <span class="np-content">
+            <span class="np-item-title">Portfolio milestone reached</span>
+            <span class="np-item-body">Your portfolio has crossed &pound;850,000 for the first time. Total return is now +21.4%.</span>
+            <time class="np-item-time" datetime="2026-03-18T10:30">Today, 10:30 am</time>
+          </span>
+          <span class="np-unread-dot" aria-hidden="true"></span>
+        </button>
+        <button class="np-dismiss" aria-label="Dismiss notification">&#x2715;</button>
+      </li>
+      <li class="np-item" data-type="adviser" data-unread style="--i:1">
+        <button class="np-item-btn" aria-label="Mark as read: Message from James Whitmore">
+          <span class="np-icon" aria-hidden="true"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+          <span class="np-content">
+            <span class="np-item-title">Message from James Whitmore</span>
+            <span class="np-item-body">Your adviser has sent a secure message regarding your annual review scheduled for April.</span>
+            <time class="np-item-time" datetime="2026-03-17T14:15">Yesterday, 2:15 pm</time>
+          </span>
+          <span class="np-unread-dot" aria-hidden="true"></span>
+        </button>
+        <button class="np-dismiss" aria-label="Dismiss notification">&#x2715;</button>
+      </li>
+      <li class="np-item" data-type="security" data-unread style="--i:2">
+        <button class="np-item-btn" aria-label="Mark as read: New sign-in detected">
+          <span class="np-icon" aria-hidden="true"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+          <span class="np-content">
+            <span class="np-item-title">New sign-in detected</span>
+            <span class="np-item-body">A sign-in from Chrome on macOS in London. Not you? Contact your adviser immediately.</span>
+            <time class="np-item-time" datetime="2026-03-16T09:02">16 Mar, 9:02 am</time>
+          </span>
+          <span class="np-unread-dot" aria-hidden="true"></span>
+        </button>
+        <button class="np-dismiss" aria-label="Dismiss notification">&#x2715;</button>
+      </li>
+      <li class="np-item" data-type="tax" style="--i:3">
+        <button class="np-item-btn" aria-label="ISA allowance expiring soon">
+          <span class="np-icon" aria-hidden="true"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+          <span class="np-content">
+            <span class="np-item-title">ISA allowance expiring</span>
+            <span class="np-item-body">&pound;8,240 of your 2025&ndash;26 ISA allowance remains unused. Tax year ends 5 April 2026.</span>
+            <time class="np-item-time" datetime="2026-03-05T09:00">5 Mar</time>
+          </span>
+        </button>
+        <button class="np-dismiss" aria-label="Dismiss notification">&#x2715;</button>
+      </li>
+    </ul>
+    <div class="np-empty">
+      <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span>You&#x2019;re all caught up</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

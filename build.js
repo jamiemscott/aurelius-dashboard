@@ -50,6 +50,7 @@ const PARTIALS = [
   'src/styles/modules/chat.css',
   'src/styles/modules/user-menu.css',
   'src/styles/modules/notifications.css',
+  'src/styles/modules/add-investment.css',
   // State — is-* classes
   'src/styles/state/state.css',
   // Pages — page-specific overrides
