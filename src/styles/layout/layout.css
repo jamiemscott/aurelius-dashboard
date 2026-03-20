@@ -68,6 +68,14 @@
   transition: background 0.3s ease;
 }
 
+/* OutSystems injects data-block / data-container wrappers inside the sidebar
+   that become unwanted flex children, adding gaps between nav groups and items.
+   display:contents removes them from the layout tree. */
+.site-sidebar [data-block],
+.site-sidebar [data-container] {
+  display: contents;
+}
+
 .sidebar-footer {
   border-top: 1px solid var(--divider);
   margin-top: auto;
