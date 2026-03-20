@@ -167,6 +167,19 @@
 
 }
 
+/* ─── BANNER LAYOUT — FORCE GRID STRUCTURE ───────────────────────────────
+   OutSystems can inject unlayered screen-specific CSS files that sit outside
+   any @layer declaration. Unlayered regular declarations beat ALL layered
+   rules, so our layout.css grid definitions can be silently overridden.
+   !important in a named layer beats unlayered regular declarations (layered
+   !important vs unlayered regular = layered wins), enforcing the 3-column
+   grid and symmetric padding regardless of what OS screen CSS does.        */
+[role="banner"] {
+  display: grid !important;
+  grid-template-columns: auto 1fr auto !important;
+  padding-inline: var(--pad) !important;
+}
+
 /* ─── OUTSYSTEMS THEMEGRID — GLOBAL SUPPRESSION ──────────────────────────
    ThemeGrid is not used in this application. OutSystems injects
    ThemeGrid_MarginGutter (and sibling utility classes) onto block elements

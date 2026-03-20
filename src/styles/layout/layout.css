@@ -33,7 +33,7 @@
    children regardless of how many wrapper layers OS adds. */
 [role="banner"] [data-block],
 [role="banner"] [data-container]:not(.brand):not(.topbar-nav):not(.site-controls) {
-  display: contents;
+  display: contents !important;
 }
 
 .topbar-nav {
