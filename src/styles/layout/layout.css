@@ -55,7 +55,9 @@
   align-items: center;
   display: flex;
   gap: 12px;
-  margin-left: auto; /* right-aligns whether a direct grid item or inside a wrapper */
+  /* margin-left: auto removed — grid auto 1fr auto already places this in the
+     rightmost column; the auto margin was a flexbox-era pattern that consumed
+     free space and pulled controls away from the banner's padding-right */
 }
 
 /* ─── SIDEBAR ────────────────────────────────────────── */
