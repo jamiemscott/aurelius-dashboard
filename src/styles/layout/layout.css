@@ -24,19 +24,15 @@
   z-index: 100;
 }
 
-/* Transparent pass-through for any injected wrapper divs.
-   In the prototype this targets .brand/nav/.site-controls directly (they
-   already have display:flex so this is a no-op for them). */
-[role="banner"] > * {
-  align-items: center;
-  display: flex;
-  min-width: 0;
-}
-
 /* OutSystems wraps each block in <div data-block="…" class="OSBlockWidget">.
-   display:contents removes that wrapper from the layout tree so .brand, nav,
-   and .site-controls become direct grid children — identical to the prototype. */
-[role="banner"] > [data-block] {
+   display:contents removes ALL such wrappers from the layout tree — using a
+   descendant selector (not >) so it works even if OS injects an extra
+   data-container div between [role="banner"] and the data-block elements.
+   Any intermediate data-container is also flattened the same way so that
+   .brand, .topbar-nav, and .site-controls always end up as direct grid
+   children regardless of how many wrapper layers OS adds. */
+[role="banner"] [data-block],
+[role="banner"] [data-container]:not(.brand):not(.topbar-nav):not(.site-controls) {
   display: contents;
 }
 
