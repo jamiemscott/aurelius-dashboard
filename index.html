@@ -56,10 +56,11 @@
   </header>
 
   <!-- ── SIDEBAR ────────────────────────── -->
-  <nav class="sidebar" aria-label="Main navigation">
+  <aside class="sidebar" aria-label="Site navigation">
+  <nav aria-label="Main navigation">
 
     <div role="group" aria-labelledby="nav-portfolio">
-      <div id="nav-portfolio" class="sidebar-section-label">Portfolio</div>
+      <h2 id="nav-portfolio" class="sidebar-section-label">Portfolio</h2>
       <a class="nav-item is-active" href="/" aria-label="Overview">
         <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
         <span>Overview</span>
@@ -83,7 +84,7 @@
     </div>
 
     <div role="group" aria-labelledby="nav-account">
-      <div id="nav-account" class="sidebar-section-label">Account</div>
+      <h2 id="nav-account" class="sidebar-section-label">Account</h2>
       <a class="nav-item" href="/documents/" aria-label="Documents">
         <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
         <span>Documents</span>
@@ -99,7 +100,8 @@
       </a>
     </div>
 
-    <footer class="sidebar-footer">
+  </nav>
+  <footer class="sidebar-footer">
       <div class="advisor-card">
         <div class="advisor-label">Your Adviser</div>
         <div class="advisor-name">James Whitmore</div>
@@ -107,8 +109,7 @@
         <button class="contact-btn" popovertarget="adviser-drawer">Message Adviser</button>
       </div>
     </footer>
-
-  </nav>
+</aside>
 
   <!-- ── MAIN CONTENT ───────────────────── -->
   <main class="main" role="main">
