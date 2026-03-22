@@ -188,6 +188,72 @@ html:has(.theme-checkbox:checked) .details-tab.is-active { box-shadow: 0 1px 4px
 }
 
 
+/* ─── ADD FUNDS PAGE ──────────────────────────────────── */
+
+.add-funds-layout {
+  margin: 0 auto;
+  max-width: 680px;
+}
+
+.add-funds-secure-strip {
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-btn);
+  color: var(--text-3);
+  display: flex;
+  font-size: var(--fs-sm);
+  gap: 7px;
+  margin-bottom: 16px;
+  padding: 10px 14px;
+}
+
+.add-funds-secure-strip svg { flex-shrink: 0; }
+
+.add-funds-hint {
+  color: var(--text-3);
+  font-size: var(--fs-md);
+  line-height: var(--lh-relaxed);
+  margin-bottom: 4px;
+}
+
+.add-funds-info-strip {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-btn);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.add-funds-info-row {
+  align-items: center;
+  border-bottom: 1px solid var(--divider);
+  color: var(--text-3);
+  display: flex;
+  font-size: var(--fs-md);
+  gap: 9px;
+  padding: 10px 14px;
+}
+
+.add-funds-info-row:last-child { border-bottom: none; }
+.add-funds-info-row strong { color: var(--text-2); font-weight: var(--fw-medium); }
+.add-funds-info-row svg { color: var(--gold); flex-shrink: 0; }
+
+.add-funds-actions {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.add-funds-cancel {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
 /* ─── CONTACT PAGE ────────────────────────────────────── */
 
 /* Hero action tiles */

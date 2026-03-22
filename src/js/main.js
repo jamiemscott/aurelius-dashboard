@@ -37,6 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   renderAddFundForm();
 
+  if (document.getElementById('add-funds-form')) renderAddFundsPage();
+
   // Reset Add Fund drawer form to idle each time it is re-opened
   const addFundDrawer = document.getElementById('add-fund-drawer');
   if (addFundDrawer) {
