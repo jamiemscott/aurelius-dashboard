@@ -2400,3 +2400,276 @@ function buildHistTable(filtered, range) {
     </tr>
   `).join('');
 }
+
+/* ─── ADD FUNDS PAGE ─────────────────────────────────────────────── */
+
+const addFundsState = {
+  step:   1,
+  method: 'bank',
+  amount: '',
+  ref:    ''
+};
+
+const addFundsMethods = {
+  bank: {
+    label:   'Bank Transfer',
+    sub:     'BACS',
+    detail:  '2\u20133 working days \xb7 No fee',
+    icon:    '<svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="8" width="20" height="12" rx="2"/><path d="M6 8V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/><line x1="6" y1="14" x2="10" y2="14"/></svg>',
+    from:    'HSBC \xb7\xb7\xb7\xb74821',
+    arrival: '2\u20133 working days',
+    fee:     '\xa30.00'
+  },
+  chaps: {
+    label:   'Same-Day Transfer',
+    sub:     'CHAPS',
+    detail:  'Before 4:00 PM \xb7 No fee',
+    icon:    '<svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+    from:    'HSBC \xb7\xb7\xb7\xb74821',
+    arrival: 'Same working day (before 4:00 PM)',
+    fee:     '\xa30.00'
+  },
+  card: {
+    label:   'Debit Card',
+    sub:     'Visa / Mastercard',
+    detail:  'Instant \xb7 No fee up to \xa310,000',
+    icon:    '<svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>',
+    from:    'Visa \xb7\xb7\xb7\xb77293',
+    arrival: 'Instant once payment clears',
+    fee:     '\xa30.00 (under \xa310,000)'
+  }
+};
+
+function renderAddFundsPage() {
+  const el = document.getElementById('add-funds-form');
+  if (!el) return;
+
+  const s = addFundsState;
+  const m = addFundsMethods[s.method];
+
+  const checkIcon = '<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>';
+
+  function stepClass(n) {
+    if (s.step > n)   return 'is-complete';
+    if (s.step === n) return 'is-active';
+    return '';
+  }
+
+  const stepsHtml = [
+    '<div class="steps">',
+    '  <div class="step ' + stepClass(1) + '">',
+    '    <div class="step-num">' + (s.step > 1 ? checkIcon : '1') + '</div>',
+    '    <span class="step-label">Method &amp; Amount</span>',
+    '  </div>',
+    '  <div class="step-connector ' + (s.step > 1 ? 'is-complete' : '') + '"></div>',
+    '  <div class="step ' + stepClass(2) + '">',
+    '    <div class="step-num">' + (s.step > 2 ? checkIcon : '2') + '</div>',
+    '    <span class="step-label">Review</span>',
+    '  </div>',
+    '  <div class="step-connector ' + (s.step > 2 ? 'is-complete' : '') + '"></div>',
+    '  <div class="step ' + stepClass(3) + '">',
+    '    <div class="step-num">3</div>',
+    '    <span class="step-label">Confirmation</span>',
+    '  </div>',
+    '</div>'
+  ].join('\n');
+
+  /* ── Step 3: Success ── */
+  if (s.step === 3) {
+    const fmtAmt = Number(s.amount).toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    el.innerHTML =
+      '<div class="card card-pad">' +
+        stepsHtml +
+        '<div class="form-success">' +
+          '<div class="form-success-icon">' +
+            '<svg width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">' +
+              '<polyline points="20 6 9 17 4 12"/>' +
+            '</svg>' +
+          '</div>' +
+          '<div class="form-success-title">Deposit Submitted</div>' +
+          '<div class="form-success-sub">' +
+            'Your deposit of <strong>\xa3' + fmtAmt + '</strong> via ' + m.label + ' has been received and is being processed.' +
+          '</div>' +
+          '<div class="form-ref-badge">' +
+            '<div class="form-ref-label">Reference Number</div>' +
+            '<div class="form-ref-value">' + s.ref + '</div>' +
+          '</div>' +
+          '<div class="form-success-timeline">' +
+            '<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>' +
+            'Estimated arrival: <strong>' + m.arrival + '</strong>' +
+          '</div>' +
+          '<div class="form-success-actions">' +
+            '<a href="/my-investments/" class="btn-primary" style="text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px">' +
+              '<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>' +
+              'Back to My Investments' +
+            '</a>' +
+            '<button class="btn-secondary" onclick="resetAddFunds()">Make Another Deposit</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    return;
+  }
+
+  /* ── Step 2: Review ── */
+  if (s.step === 2) {
+    const fmtAmt = Number(s.amount).toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    el.innerHTML =
+      '<div class="card card-pad">' +
+        stepsHtml +
+        '<p class="add-funds-hint">Review your deposit details below. Once confirmed, your instruction will be sent securely.</p>' +
+        '<div class="form-section-hd">Deposit Summary</div>' +
+        '<div class="review-card">' +
+          '<div class="review-row">' +
+            '<span class="review-row-label">Deposit amount</span>' +
+            '<span class="review-row-value">\xa3' + fmtAmt + '</span>' +
+          '</div>' +
+          '<div class="review-row">' +
+            '<span class="review-row-label">Payment method</span>' +
+            '<span class="review-row-value">' + m.label + ' (' + m.sub + ')</span>' +
+          '</div>' +
+          '<div class="review-row">' +
+            '<span class="review-row-label">From account</span>' +
+            '<span class="review-row-value">' + m.from + '</span>' +
+          '</div>' +
+          '<div class="review-row">' +
+            '<span class="review-row-label">Estimated arrival</span>' +
+            '<span class="review-row-value">' + m.arrival + '</span>' +
+          '</div>' +
+          '<div class="review-row">' +
+            '<span class="review-row-label">Transaction fee</span>' +
+            '<span class="review-row-value is-gold">' + m.fee + '</span>' +
+          '</div>' +
+          '<div class="review-row review-row--total">' +
+            '<span class="review-row-label">Total to deposit</span>' +
+            '<span class="review-row-value">\xa3' + fmtAmt + '</span>' +
+          '</div>' +
+        '</div>' +
+        '<label class="form-checkbox-row">' +
+          '<input type="checkbox" id="af-confirm-chk" onchange="document.getElementById(\'af-confirm-btn\').disabled = !this.checked">' +
+          '<span class="form-checkbox-text">' +
+            'I confirm this deposit instruction is correct and I understand funds may take time to clear. I have read and agree to the <a href="#">Deposit Terms &amp; Conditions</a>.' +
+          '</span>' +
+        '</label>' +
+        '<div class="add-funds-actions">' +
+          '<button id="af-confirm-btn" class="btn-primary" disabled onclick="confirmAddFunds()">Confirm Deposit</button>' +
+          '<button class="btn-secondary" onclick="setAddFundsStep(1)">' +
+            '<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>' +
+            'Back' +
+          '</button>' +
+        '</div>' +
+      '</div>';
+    return;
+  }
+
+  /* ── Step 1: Method & Amount ── */
+  const quickAmounts = [500, 1000, 5000, 10000];
+
+  const methodCardsHtml = Object.entries(addFundsMethods).map(function(entry) {
+    const key = entry[0];
+    const mth = entry[1];
+    return '<button class="method-card ' + (s.method === key ? 'is-selected' : '') + '"' +
+      ' onclick="setAddFundsMethod(\'' + key + '\')"' +
+      ' aria-pressed="' + (s.method === key) + '">' +
+      '<div class="method-card-icon" aria-hidden="true">' + mth.icon + '</div>' +
+      '<div class="method-card-label">' + mth.label + '</div>' +
+      '<div class="method-card-detail">' + mth.detail + '</div>' +
+      '</button>';
+  }).join('');
+
+  const chipsHtml = quickAmounts.map(function(a) {
+    return '<button class="amount-chip ' + (Number(s.amount) === a ? 'is-active' : '') + '"' +
+      ' onclick="setAddFundsAmount(' + a + ')">' +
+      '\xa3' + a.toLocaleString('en-GB') +
+      '</button>';
+  }).join('');
+
+  el.innerHTML =
+    '<div class="card card-pad">' +
+      stepsHtml +
+      '<div class="form-section-hd">Deposit Method</div>' +
+      '<div class="method-cards">' + methodCardsHtml + '</div>' +
+      '<div class="form-section-hd">Amount</div>' +
+      '<div class="amount-wrap">' +
+        '<span class="amount-prefix" aria-hidden="true">\xa3</span>' +
+        '<input class="amount-input" id="af-amount-input" type="number" min="1" step="0.01" placeholder="0.00"' +
+        ' value="' + s.amount + '"' +
+        ' oninput="addFundsState.amount = this.value; updateAmountChips(this.value)"' +
+        ' aria-label="Deposit amount in pounds sterling">' +
+      '</div>' +
+      '<div class="amount-chips" id="af-chips">' + chipsHtml + '</div>' +
+      '<div class="add-funds-info-strip">' +
+        '<div class="add-funds-info-row">' +
+          '<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="8" width="20" height="12" rx="2"/><path d="M6 8V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/></svg>' +
+          '<span>Depositing from: <strong>' + m.from + '</strong></span>' +
+        '</div>' +
+        '<div class="add-funds-info-row">' +
+          '<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>' +
+          '<span>Current cash balance: <strong>\xa34,250.00</strong></span>' +
+        '</div>' +
+        '<div class="add-funds-info-row">' +
+          '<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>' +
+          '<span>Daily deposit limit: <strong>\xa3250,000</strong></span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="add-funds-actions">' +
+        '<button class="btn-primary" onclick="submitAddFunds()">' +
+          'Continue' +
+          '<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>' +
+        '</button>' +
+        '<a href="/my-investments/" class="btn-secondary add-funds-cancel">Cancel</a>' +
+      '</div>' +
+    '</div>';
+}
+
+function setAddFundsMethod(m) {
+  addFundsState.method = m;
+  renderAddFundsPage();
+}
+
+function setAddFundsAmount(v) {
+  addFundsState.amount = String(v);
+  renderAddFundsPage();
+}
+
+function updateAmountChips(v) {
+  document.querySelectorAll('.amount-chip').forEach(function(c) {
+    const chipVal = parseInt(c.textContent.replace(/[^\d]/g, ''));
+    c.classList.toggle('is-active', Number(v) === chipVal);
+  });
+}
+
+function setAddFundsStep(n) {
+  addFundsState.step = n;
+  renderAddFundsPage();
+}
+
+function submitAddFunds() {
+  const amount = parseFloat(addFundsState.amount);
+  if (!amount || amount < 1) {
+    const inp = document.getElementById('af-amount-input');
+    if (inp) {
+      inp.focus();
+      inp.style.borderColor = 'var(--red)';
+      inp.style.boxShadow = '0 0 0 3px rgba(239,68,68,0.15)';
+    }
+    return;
+  }
+  addFundsState.step = 2;
+  renderAddFundsPage();
+}
+
+function confirmAddFunds() {
+  const pad = function(n) { return String(n).padStart(2, '0'); };
+  const d = new Date();
+  addFundsState.ref = 'DEP-' + d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + '-' + Math.floor(1000 + Math.random() * 9000);
+  addFundsState.step = 3;
+  renderAddFundsPage();
+}
+
+function resetAddFunds() {
+  addFundsState.step   = 1;
+  addFundsState.method = 'bank';
+  addFundsState.amount = '';
+  addFundsState.ref    = '';
+  renderAddFundsPage();
+}
