@@ -224,3 +224,13 @@
   flex: 0 0 auto !important;
   width: auto !important;
 }
+
+/* ─── OUTSYSTEMS FOOTER COPYRIGHT — WRAPPER SUPPRESSION ──────────────────
+   OutSystems wraps all three .footer-bottom children in a single
+   OSBlockWidget (data-block="Common.Footer_Copyright"), collapsing the
+   three-item flex row into one child. display:contents removes it from
+   the layout tree so .footer-copyright, .footer-fca, and
+   .footer-bottom-links participate in .footer-bottom's flex directly.  */
+.site-footer .OSBlockWidget {
+  display: contents;
+}
