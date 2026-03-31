@@ -14,31 +14,6 @@
   padding: 40px 0 32px;
 }
 
-.footer-brand {
-  align-items: center;
-  display: flex;
-  gap: 10px;
-  margin-bottom: 14px;
-}
-
-.footer-brand-mark {
-  background: linear-gradient(135deg, var(--gold), var(--gold-soft));
-  border-radius: 7px;
-  color: #0B0D10;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  font-family: var(--font-serif);
-  font-size: var(--fs-body);         /* 14px */
-  font-weight: var(--fw-semibold);
-  width: 30px; height: 30px;
-}
-
-.footer-brand-name {
-  color: var(--text-1);
-  font-family: var(--font-serif);
-  font-size: var(--fs-lg);           /* 15px */
-  letter-spacing: var(--ls-snug);
-}
 
 .footer-tagline {
   color: var(--text-3);
@@ -80,7 +55,7 @@
   list-style: none;
 }
 
-.footer-links li a {
+.footer-links a {
   align-items: center;
   color: var(--text-2);
   display: flex;
@@ -90,10 +65,10 @@
   transition: color 0.2s ease;
 }
 
-.footer-links li a:hover { color: var(--gold-text); }
+.footer-links a:hover { color: var(--gold-text); }
 
-.footer-links li a svg { flex-shrink: 0; opacity: 0; transition: opacity 0.2s; }
-.footer-links li a:hover svg { opacity: 1; }
+.footer-links a svg { flex-shrink: 0; opacity: 0; transition: opacity 0.2s; }
+.footer-links a:hover svg { opacity: 1; }
 
 /* Regulatory notice */
 .footer-regulatory {
@@ -107,6 +82,8 @@
   line-height: var(--lh-loose);
   max-width: 900px;
 }
+
+.footer-reg-text + .footer-reg-text { margin-top: 12px; }
 
 .footer-reg-text strong { color: var(--text-2); font-weight: var(--fw-semibold); }
 
@@ -138,6 +115,11 @@
   align-items: center;
   display: flex;
   gap: 20px;
+  list-style: none;
+}
+
+.footer-bottom-links li {
+  position: relative;
 }
 
 .footer-bottom-links a {
@@ -149,9 +131,14 @@
 
 .footer-bottom-links a:hover { color: var(--text-2); }
 
-.footer-bottom-links .sep {
+.footer-bottom-links li + li::before {
   background: var(--divider);
+  content: '';
   height: 12px;
+  left: -10px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   width: 1px;
 }
 
@@ -163,10 +150,12 @@
   gap: 6px;
 }
 
-.fca-dot {
+.footer-fca::before {
   background: var(--green);
   border-radius: 50%;
   box-shadow: 0 0 6px var(--green);
+  content: '';
   flex-shrink: 0;
-  width: 6px; height: 6px;
+  height: 6px;
+  width: 6px;
 }

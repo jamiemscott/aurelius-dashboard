@@ -43,3 +43,19 @@
   margin-top: 2px;
   text-transform: uppercase;
 }
+
+/* ─── FOOTER CONTEXT ─────────────────────────────────── */
+.site-footer .brand {
+  margin-bottom: 14px;
+}
+
+.site-footer .brand-mark {
+  border-radius: 7px;
+  font-size: var(--fs-body);         /* 14px */
+  height: 30px;
+  width: 30px;
+}
+
+.site-footer .brand-name {
+  font-size: var(--fs-lg);           /* 15px */
+}
