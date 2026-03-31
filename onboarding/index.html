@@ -1,0 +1,2170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Begin your wealth journey with Aurelius — a personalised onboarding experience built around you.">
+<title>Begin Your Journey — Aurelius Wealth</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<style>
+/* ─── ONBOARDING PAGE ─────────────────────────────────────────────────────
+   Standalone experience — overrides the dashboard shell layout.
+   Uses Aurelius design tokens from bundle.css.
+   ──────────────────────────────────────────────────────────────────────── */
+
+/* ─── ELEMENT PALETTE ─────────────────────────────────── */
+:root {
+  --el-water-accent: #38BDF8;
+  --el-water-glow:   rgba(56, 189, 248, 0.18);
+  --el-water-bg:     #020A16;
+
+  --el-wood-accent:  #4ADE80;
+  --el-wood-glow:    rgba(74, 222, 128, 0.18);
+  --el-wood-bg:      #030D06;
+
+  --el-fire-accent:  #FB923C;
+  --el-fire-glow:    rgba(251, 146, 60, 0.22);
+  --el-fire-bg:      #140602;
+
+  --el-earth-accent: #FBBF24;
+  --el-earth-glow:   rgba(251, 191, 36, 0.22);
+  --el-earth-bg:     #110D01;
+
+  --el-metal-accent: #CBD5E1;
+  --el-metal-glow:   rgba(203, 213, 225, 0.15);
+  --el-metal-bg:     #070C14;
+
+  --ob-bg:           #04080F;
+  --ob-accent:       #38BDF8;
+  --ob-glow:         rgba(56, 189, 248, 0.18);
+}
+
+/* ─── RESET shell layout ─────────────────────────────── */
+html { color-scheme: dark; scroll-behavior: smooth; }
+
+body {
+  background: var(--ob-bg);
+  color: #E8EDF5;
+  display: block !important;
+  font-family: var(--font-sans);
+  margin: 0;
+  overflow-x: hidden;
+  transition: background-color 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── FIXED HEADER ──────────────────────────────────── */
+.ob-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  left: 0;
+  padding: 24px 40px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 100;
+}
+
+.ob-header::after {
+  background: linear-gradient(to bottom, var(--ob-bg) 0%, transparent 100%);
+  bottom: -32px;
+  content: '';
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: background 1.4s ease;
+  z-index: -1;
+}
+
+.ob-header .brand-mark {
+  border-radius: 8px;
+  font-size: 15px;
+  height: 32px;
+  width: 32px;
+}
+
+.ob-header .brand-name { font-size: 16px; }
+.ob-header .brand-sub  { display: none; }
+
+/* ─── SECTION PROGRESS (fixed bottom) ─────────────── */
+.ob-progress {
+  bottom: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  left: 50%;
+  position: fixed;
+  transform: translateX(-50%);
+  z-index: 100;
+}
+
+.ob-progress-dots {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+}
+
+.ob-dot {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  cursor: pointer;
+  height: 6px;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 6px;
+}
+
+.ob-dot.is-active {
+  background: var(--ob-accent);
+  box-shadow: 0 0 12px var(--ob-accent);
+  transform: scale(1.5);
+  width: 20px;
+  border-radius: 3px;
+}
+
+.ob-dot.is-done {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.ob-progress-label {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-transform: uppercase;
+  transition: all 0.5s ease;
+}
+
+/* ─── SECTIONS ─────────────────────────────────────── */
+.ob-section {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 100px 40px 80px;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ─── ATMOSPHERIC BACKGROUNDS ──────────────────────── */
+.ob-bg-layer {
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 0;
+}
+
+/* Radial glow blobs */
+.ob-glow {
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+  position: absolute;
+}
+
+/* ─── HERO SECTION ─────────────────────────────────── */
+.ob-hero {
+  text-align: center;
+}
+
+.ob-hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.ob-hero-eyebrow {
+  color: var(--el-water-accent);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  margin-bottom: 28px;
+  opacity: 0;
+  text-transform: uppercase;
+  animation: ob-fade-up 0.8s 0.2s ease both;
+}
+
+.ob-hero h1 {
+  color: #F0F4F8;
+  font-family: var(--font-serif);
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin: 0 0 20px;
+  opacity: 0;
+  animation: ob-fade-up 0.9s 0.4s ease both;
+}
+
+.ob-hero h1 em {
+  color: var(--el-water-accent);
+  font-style: italic;
+}
+
+.ob-hero-sub {
+  color: rgba(232, 237, 245, 0.5);
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.65;
+  margin: 0 auto 48px;
+  max-width: 440px;
+  opacity: 0;
+  animation: ob-fade-up 0.9s 0.6s ease both;
+}
+
+.ob-cta-group {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  opacity: 0;
+  animation: ob-fade-up 0.9s 0.8s ease both;
+}
+
+.ob-btn-begin {
+  align-items: center;
+  background: linear-gradient(135deg, #38BDF8, #0EA5E9);
+  border: none;
+  border-radius: 999px;
+  color: #020A16;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 600;
+  gap: 10px;
+  padding: 16px 40px;
+  position: relative;
+  transition: opacity 0.2s, transform 0.15s;
+}
+
+.ob-btn-begin::after {
+  border-radius: inherit;
+  bottom: -3px;
+  box-shadow: 0 0 40px rgba(56, 189, 248, 0.5);
+  content: '';
+  left: -3px;
+  opacity: 0;
+  position: absolute;
+  right: -3px;
+  top: -3px;
+  transition: opacity 0.3s;
+}
+
+.ob-btn-begin:hover { opacity: 0.9; transform: translateY(-2px); }
+.ob-btn-begin:hover::after { opacity: 1; }
+.ob-btn-begin:active { transform: translateY(0) scale(0.98); }
+
+.ob-btn-begin svg { transition: transform 0.2s; }
+.ob-btn-begin:hover svg { transform: translateX(4px); }
+
+.ob-skip-link {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 12px;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.ob-skip-link:hover { color: rgba(255, 255, 255, 0.6); }
+
+/* ─── HERO WHEEL ───────────────────────────────────── */
+.ob-wheel-wrap {
+  margin: 0 auto 48px;
+  opacity: 0;
+  position: relative;
+  width: 260px;
+  height: 260px;
+  animation: ob-scale-in 1.2s 0.1s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.ob-wheel-svg {
+  height: 100%;
+  width: 100%;
+}
+
+.ob-arc {
+  stroke-linecap: round;
+  stroke-width: 10;
+  fill: none;
+  filter: drop-shadow(0 0 6px currentColor);
+  stroke-dasharray: 115 396;
+  transition: opacity 0.5s, filter 0.5s;
+}
+
+.ob-arc-water  { color: var(--el-water-accent); stroke: currentColor; }
+.ob-arc-wood   { color: var(--el-wood-accent);  stroke: currentColor; }
+.ob-arc-fire   { color: var(--el-fire-accent);  stroke: currentColor; }
+.ob-arc-earth  { color: var(--el-earth-accent); stroke: currentColor; }
+.ob-arc-metal  { color: var(--el-metal-accent); stroke: currentColor; }
+
+.ob-arc.is-dim {
+  opacity: 0.18;
+  filter: none;
+}
+
+.ob-wheel-center {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.ob-wheel-mark {
+  align-items: center;
+  background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+  border-radius: 14px;
+  color: #0B0D10;
+  display: flex;
+  font-family: var(--font-serif);
+  font-size: 22px;
+  height: 52px;
+  justify-content: center;
+  width: 52px;
+}
+
+.ob-wheel-spin {
+  position: absolute;
+  inset: 0;
+  animation: ob-slow-spin 30s linear infinite;
+}
+
+@keyframes ob-slow-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── CHAPTERS ─────────────────────────────────────── */
+.ob-chapter {
+  text-align: center;
+}
+
+.ob-chapter-inner {
+  max-width: 680px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* Element label / tag */
+.ob-el-tag {
+  align-items: center;
+  display: inline-flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: all 0.6s ease;
+}
+
+.ob-el-tag.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ob-el-tag-dot {
+  background: var(--ob-accent);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--ob-accent);
+  flex-shrink: 0;
+  height: 7px;
+  width: 7px;
+}
+
+.ob-el-tag-name {
+  color: var(--ob-accent);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.ob-el-tag-sub {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+
+.ob-el-tag-sep {
+  color: rgba(255, 255, 255, 0.15);
+  font-size: 11px;
+}
+
+.ob-chapter h2 {
+  color: #F0F4F8;
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 4.5vw, 52px);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin: 0 0 12px;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: all 0.7s 0.08s ease;
+}
+
+.ob-chapter h2.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ob-chapter-desc {
+  color: rgba(232, 237, 245, 0.45);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.65;
+  margin: 0 auto 44px;
+  max-width: 420px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: all 0.6s 0.16s ease;
+}
+
+.ob-chapter-desc.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── OPTION CARDS ─────────────────────────────────── */
+.ob-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.ob-option {
+  cursor: pointer;
+  display: block;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.ob-option.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ob-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.ob-option-card {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 140px;
+  padding: 20px 24px;
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ob-option-card:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.16);
+  transform: translateY(-3px);
+}
+
+.ob-option input:checked + .ob-option-card {
+  background: var(--ob-glow);
+  border-color: var(--ob-accent);
+  box-shadow: 0 0 0 1px var(--ob-accent), 0 8px 32px var(--ob-glow);
+  transform: translateY(-3px);
+}
+
+.ob-option input:checked + .ob-option-card .ob-option-icon {
+  color: var(--ob-accent);
+}
+
+.ob-option input:checked + .ob-option-card .ob-option-label {
+  color: #F0F4F8;
+}
+
+.ob-option-icon {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 22px;
+  line-height: 1;
+  transition: color 0.25s;
+}
+
+.ob-option-label {
+  color: rgba(232, 237, 245, 0.7);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  transition: color 0.25s;
+}
+
+.ob-option-sublabel {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 11px;
+  font-weight: 400;
+  text-align: center;
+}
+
+/* Goal cards (larger) */
+.ob-options.ob-goals .ob-option-card {
+  min-width: 160px;
+  padding: 24px 28px;
+}
+
+/* Scenario cards (wider) */
+.ob-options.ob-scenarios {
+  flex-direction: column;
+  align-items: center;
+}
+
+.ob-options.ob-scenarios .ob-option-card {
+  flex-direction: row;
+  min-width: 480px;
+  max-width: 560px;
+  text-align: left;
+  gap: 16px;
+  padding: 20px 24px;
+}
+
+.ob-options.ob-scenarios .ob-option-icon {
+  font-size: 26px;
+  flex-shrink: 0;
+  width: 40px;
+  text-align: center;
+}
+
+.ob-options.ob-scenarios .ob-option-content {
+  flex: 1;
+}
+
+.ob-options.ob-scenarios .ob-option-label {
+  text-align: left;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.ob-options.ob-scenarios .ob-option-sublabel {
+  text-align: left;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Timeline slider (chapter 2) */
+.ob-timeline-wrap {
+  margin: 0 auto 40px;
+  max-width: 480px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: all 0.6s 0.4s ease;
+  width: 100%;
+}
+
+.ob-timeline-wrap.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ob-timeline-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.ob-timeline-title {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ob-timeline-value {
+  color: var(--el-wood-accent);
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.ob-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  height: 4px;
+  outline: none;
+  width: 100%;
+}
+
+.ob-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--el-wood-accent);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--el-wood-accent);
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+}
+
+.ob-slider::-moz-range-thumb {
+  background: var(--el-wood-accent);
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--el-wood-accent);
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+}
+
+.ob-timeline-marks {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.ob-timeline-mark {
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 10px;
+}
+
+/* Identity form (chapter 5) */
+.ob-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0 auto 40px;
+  max-width: 400px;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s 0.2s ease;
+}
+
+.ob-form.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ob-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.ob-label {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ob-input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: #F0F4F8;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  outline: none;
+  padding: 14px 18px;
+  transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ob-input:focus {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: var(--el-metal-accent);
+  box-shadow: 0 0 0 3px rgba(203, 213, 225, 0.1);
+}
+
+.ob-input::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+/* ─── CONTINUE BUTTON ──────────────────────────────── */
+.ob-continue-wrap {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: all 0.5s 0.5s ease;
+}
+
+.ob-continue-wrap.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ob-btn-continue {
+  align-items: center;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  gap: 10px;
+  letter-spacing: 0.03em;
+  padding: 13px 32px;
+  position: relative;
+  transition: all 0.25s ease;
+}
+
+.ob-btn-continue::before {
+  background: var(--ob-glow);
+  border-radius: inherit;
+  content: '';
+  inset: 0;
+  opacity: 0;
+  position: absolute;
+  transition: opacity 0.3s;
+}
+
+.ob-btn-continue:hover {
+  border-color: var(--ob-accent);
+  color: var(--ob-accent);
+}
+
+.ob-btn-continue:hover::before { opacity: 1; }
+
+.ob-btn-continue svg {
+  transition: transform 0.2s;
+}
+.ob-btn-continue:hover svg { transform: translateX(5px); }
+
+/* Primary continue (for chapter 5) */
+.ob-btn-continue.is-primary {
+  background: linear-gradient(135deg, var(--el-metal-accent), #94A3B8);
+  border: none;
+  color: #04080F;
+  font-weight: 600;
+}
+
+.ob-btn-continue.is-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  color: #04080F;
+}
+
+/* ─── REVEAL SECTION ───────────────────────────────── */
+.ob-reveal {
+  text-align: center;
+}
+
+.ob-reveal-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.ob-reveal-eyebrow {
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  margin-bottom: 16px;
+  opacity: 0;
+  text-transform: uppercase;
+  transition: all 0.6s ease;
+}
+
+.ob-reveal-eyebrow.is-visible { opacity: 1; }
+
+.ob-reveal h2 {
+  color: #F0F4F8;
+  font-family: var(--font-serif);
+  font-size: clamp(30px, 5vw, 56px);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin: 0 0 48px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.7s 0.1s ease;
+}
+
+.ob-reveal h2.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ob-reveal-profile {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  display: grid;
+  gap: 48px;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 36px;
+  opacity: 0;
+  overflow: hidden;
+  padding: 40px;
+  transform: translateY(30px);
+  transition: all 0.8s 0.2s ease;
+}
+
+.ob-reveal-profile.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ob-profile-badge {
+  text-align: left;
+}
+
+.ob-profile-badge-label {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.ob-profile-name {
+  color: #F0F4F8;
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.ob-profile-desc {
+  color: rgba(232, 237, 245, 0.45);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.ob-profile-score {
+  align-items: center;
+  display: flex;
+  gap: 4px;
+  margin-top: 20px;
+}
+
+.ob-score-dot {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  height: 6px;
+  width: 24px;
+  transition: background 0.4s ease;
+}
+
+.ob-score-dot.is-active {
+  background: var(--gold);
+  box-shadow: 0 0 8px rgba(245, 166, 35, 0.5);
+}
+
+/* Allocation chart */
+.ob-allocation {
+  text-align: left;
+}
+
+.ob-allocation-title {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.ob-alloc-row {
+  margin-bottom: 12px;
+}
+
+.ob-alloc-meta {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.ob-alloc-label {
+  color: rgba(232, 237, 245, 0.65);
+  font-size: 13px;
+}
+
+.ob-alloc-pct {
+  color: rgba(255, 255, 255, 0.9);
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.ob-alloc-bar-track {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  height: 5px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.ob-alloc-bar {
+  border-radius: 999px;
+  height: 100%;
+  width: 0;
+  transition: width 1.2s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+.ob-alloc-bar.stocks  { background: linear-gradient(90deg, #38BDF8, #0EA5E9); }
+.ob-alloc-bar.bonds   { background: linear-gradient(90deg, #4ADE80, #22C55E); }
+.ob-alloc-bar.alts    { background: linear-gradient(90deg, #FBBF24, #F59E0B); }
+.ob-alloc-bar.cash    { background: linear-gradient(90deg, #CBD5E1, #94A3B8); }
+
+/* Projection */
+.ob-projection {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  margin-bottom: 36px;
+  opacity: 0;
+  padding: 28px 32px;
+  transform: translateY(20px);
+  transition: all 0.7s 0.35s ease;
+}
+
+.ob-projection.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ob-projection-title {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.ob-projection-values {
+  align-items: flex-end;
+  display: flex;
+  gap: 48px;
+  justify-content: center;
+}
+
+.ob-proj-item {
+  text-align: center;
+}
+
+.ob-proj-label {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 11px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.ob-proj-value {
+  color: #F0F4F8;
+  font-family: var(--font-serif);
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.ob-proj-value.is-gold { color: var(--gold); }
+
+.ob-proj-context {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+.ob-reveal-cta {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: all 0.6s 0.5s ease;
+}
+
+.ob-reveal-cta.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ob-btn-primary {
+  align-items: center;
+  background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+  border: none;
+  border-radius: 999px;
+  color: #0B0D10;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 600;
+  gap: 10px;
+  padding: 16px 44px;
+  position: relative;
+  transition: opacity 0.2s, transform 0.15s;
+}
+
+.ob-btn-primary::after {
+  border-radius: inherit;
+  box-shadow: 0 0 40px rgba(245, 166, 35, 0.5);
+  content: '';
+  inset: -3px;
+  opacity: 0;
+  position: absolute;
+  transition: opacity 0.3s;
+}
+
+.ob-btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+.ob-btn-primary:hover::after { opacity: 1; }
+.ob-btn-primary:active { transform: translateY(0) scale(0.98); }
+
+.ob-reveal-small {
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 12px;
+  line-height: 1.5;
+  margin-top: 20px;
+}
+
+/* ─── PARTICLE EFFECTS ─────────────────────────────── */
+.ob-particles {
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.ob-particle {
+  border-radius: 50%;
+  position: absolute;
+}
+
+/* Water: floating bubbles */
+.ob-water .ob-particle {
+  animation: water-rise var(--dur, 5s) ease-in var(--delay, 0s) infinite;
+  background: radial-gradient(circle at 30% 30%, rgba(56, 189, 248, 0.5), rgba(14, 165, 233, 0.15));
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+@keyframes water-rise {
+  0%   { opacity: 0; transform: translateY(0) scale(1); }
+  10%  { opacity: 0.6; }
+  90%  { opacity: 0.3; }
+  100% { opacity: 0; transform: translateY(-40vh) scale(0.3); }
+}
+
+/* Wood: ascending organic shapes */
+.ob-wood .ob-particle {
+  animation: wood-grow var(--dur, 6s) ease-out var(--delay, 0s) infinite;
+  background: radial-gradient(circle, rgba(74, 222, 128, 0.4), transparent 70%);
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+}
+
+@keyframes wood-grow {
+  0%   { opacity: 0; transform: translateY(0) scale(0.5) rotate(0deg); }
+  20%  { opacity: 0.5; }
+  80%  { opacity: 0.2; }
+  100% { opacity: 0; transform: translateY(-30vh) scale(1.5) rotate(90deg); }
+}
+
+/* Fire: rising embers */
+.ob-fire .ob-particle {
+  animation: ember-rise var(--dur, 3.5s) ease-in var(--delay, 0s) infinite;
+  background: radial-gradient(circle at 40% 40%, rgba(253, 186, 116, 0.8), rgba(251, 146, 60, 0.3));
+  border-radius: 50% 20% 50% 20%;
+}
+
+@keyframes ember-rise {
+  0%   { opacity: 0.9; transform: translateY(0) translateX(0) scale(1) rotate(0deg); }
+  50%  { transform: translateY(-15vh) translateX(var(--sway, 20px)) scale(0.7) rotate(120deg); }
+  100% { opacity: 0; transform: translateY(-35vh) translateX(calc(var(--sway, 20px) * -0.5)) scale(0.2) rotate(240deg); }
+}
+
+/* Earth: rising geometric fragments */
+.ob-earth .ob-particle {
+  animation: earth-float var(--dur, 7s) ease-in-out var(--delay, 0s) infinite;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.35), transparent 70%);
+  border-radius: 4px;
+  transform-origin: center;
+}
+
+@keyframes earth-float {
+  0%   { opacity: 0; transform: translateY(0) rotate(0deg); }
+  15%  { opacity: 0.5; }
+  85%  { opacity: 0.2; }
+  100% { opacity: 0; transform: translateY(-25vh) rotate(180deg); }
+}
+
+/* Metal: precise rising lines */
+.ob-metal .ob-particle {
+  animation: metal-rise var(--dur, 4s) linear var(--delay, 0s) infinite;
+  background: linear-gradient(to top, rgba(203, 213, 225, 0.4), transparent);
+  border-radius: 1px;
+  height: var(--h, 30px);
+  width: 1px;
+}
+
+@keyframes metal-rise {
+  0%   { opacity: 0; transform: translateY(0); }
+  10%  { opacity: 0.6; }
+  90%  { opacity: 0.2; }
+  100% { opacity: 0; transform: translateY(-40vh); }
+}
+
+/* ─── ATMOSPHERIC GLOWS ────────────────────────────── */
+.ob-glow-center {
+  border-radius: 50%;
+  filter: blur(120px);
+  left: 50%;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+}
+
+/* ─── SCROLL CUE ───────────────────────────────────── */
+.ob-scroll-cue {
+  align-items: center;
+  bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.ob-scroll-mouse {
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+  height: 32px;
+  position: relative;
+  width: 18px;
+}
+
+.ob-scroll-wheel {
+  animation: scroll-wheel 2s ease-in-out infinite;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  height: 5px;
+  left: 50%;
+  position: absolute;
+  top: 5px;
+  transform: translateX(-50%);
+  width: 5px;
+}
+
+@keyframes scroll-wheel {
+  0%, 100% { opacity: 1; top: 5px; }
+  60%       { opacity: 0; top: 16px; }
+}
+
+.ob-scroll-text {
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ─── LEGAL FOOTER ─────────────────────────────────── */
+.ob-legal {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 11px;
+  line-height: 1.7;
+  margin: 0 auto;
+  max-width: 880px;
+  padding: 40px 40px 48px;
+  text-align: center;
+}
+
+.ob-legal a {
+  color: rgba(255, 255, 255, 0.35);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.ob-legal a:hover { color: rgba(255, 255, 255, 0.6); }
+
+.ob-legal-links {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+/* ─── KEYFRAMES ────────────────────────────────────── */
+@keyframes ob-fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ob-scale-in {
+  from { opacity: 0; transform: scale(0.7) rotate(-15deg); }
+  to   { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+@keyframes ob-pulse-glow {
+  0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
+  50%       { opacity: 0.7; transform: translate(-50%, -50%) scale(1.15); }
+}
+
+/* ─── GRID OVERLAY ─────────────────────────────────── */
+.ob-grid-overlay {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  inset: 0;
+  pointer-events: none;
+  position: fixed;
+  z-index: 0;
+}
+
+/* ─── RESPONSIVE ───────────────────────────────────── */
+@media (max-width: 640px) {
+  .ob-header { padding: 20px 24px; }
+  .ob-section { padding: 90px 24px 70px; }
+  .ob-options.ob-scenarios .ob-option-card { min-width: 0; width: 100%; }
+  .ob-reveal-profile { grid-template-columns: 1fr; gap: 32px; padding: 28px; }
+  .ob-projection-values { gap: 24px; flex-wrap: wrap; }
+  .ob-projection { padding: 20px; }
+  .ob-legal { padding: 32px 24px 40px; }
+}
+
+/* ─── REDUCED MOTION ───────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .ob-particle, .ob-wheel-spin, .ob-scroll-wheel { animation: none; }
+  .ob-el-tag, .ob-chapter h2, .ob-chapter-desc, .ob-continue-wrap,
+  .ob-timeline-wrap, .ob-form, .ob-option,
+  .ob-reveal-eyebrow, .ob-reveal h2, .ob-reveal-profile,
+  .ob-projection, .ob-reveal-cta {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+</style>
+</head>
+
+<body class="ob-page">
+
+<!-- ── SUBTLE GRID ────────────────────────────── -->
+<div class="ob-grid-overlay" aria-hidden="true"></div>
+
+<!-- ── FIXED HEADER ──────────────────────────── -->
+<header class="ob-header">
+  <a class="brand" href="/" aria-label="Aurelius Wealth Management — home">
+    <span class="brand-mark" aria-hidden="true">A</span>
+    <span class="brand-text">
+      <span class="brand-name">Aurelius</span>
+    </span>
+  </a>
+  <a href="/sign-in" class="ob-skip-link" style="color: rgba(255,255,255,0.25); text-decoration: none; font-size: 13px;">Already a client? Sign in →</a>
+</header>
+
+<!-- ── PROGRESS INDICATOR ─────────────────────── -->
+<nav class="ob-progress" aria-label="Journey progress">
+  <div class="ob-progress-dots">
+    <button class="ob-dot is-active" data-section="section-water" aria-label="Step 1: Water"></button>
+    <button class="ob-dot" data-section="section-wood"  aria-label="Step 2: Wood"></button>
+    <button class="ob-dot" data-section="section-fire"  aria-label="Step 3: Fire"></button>
+    <button class="ob-dot" data-section="section-earth" aria-label="Step 4: Earth"></button>
+    <button class="ob-dot" data-section="section-metal" aria-label="Step 5: Metal"></button>
+  </div>
+  <p class="ob-progress-label" id="ob-step-label">Water · Step 1 of 5</p>
+</nav>
+
+<!-- ── HERO ──────────────────────────────────── -->
+<section class="ob-section ob-hero" id="section-hero">
+
+  <!-- Atmospheric glow -->
+  <div class="ob-glow-center" style="width:600px;height:600px;background:radial-gradient(circle,rgba(56,189,248,0.12),transparent 70%);animation:ob-pulse-glow 6s ease-in-out infinite;" aria-hidden="true"></div>
+
+  <div class="ob-hero-inner">
+
+    <!-- The Five-Element Wheel -->
+    <div class="ob-wheel-wrap" aria-hidden="true">
+
+      <!-- Slowly-orbiting outer ring -->
+      <div class="ob-wheel-spin" style="position:absolute;inset:0;">
+        <svg viewBox="0 0 260 260" style="width:100%;height:100%;opacity:0.12;">
+          <circle cx="130" cy="130" r="120" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="0.5" stroke-dasharray="4 8"/>
+        </svg>
+      </div>
+
+      <svg class="ob-wheel-svg" viewBox="0 0 260 260" aria-label="Five elements wheel">
+        <!-- Water: top, rotated 0° from 12-o-clock start -->
+        <g transform="rotate(-90, 130, 130)">
+          <circle class="ob-arc ob-arc-water" cx="130" cy="130" r="110"
+            stroke-dasharray="115 576" stroke-dashoffset="0"/>
+        </g>
+        <!-- Wood: 72° offset -->
+        <g transform="rotate(-18, 130, 130)">
+          <circle class="ob-arc ob-arc-wood" cx="130" cy="130" r="110"
+            stroke-dasharray="115 576" stroke-dashoffset="0"/>
+        </g>
+        <!-- Fire: 144° offset -->
+        <g transform="rotate(54, 130, 130)">
+          <circle class="ob-arc ob-arc-fire" cx="130" cy="130" r="110"
+            stroke-dasharray="115 576" stroke-dashoffset="0"/>
+        </g>
+        <!-- Earth: 216° offset -->
+        <g transform="rotate(126, 130, 130)">
+          <circle class="ob-arc ob-arc-earth" cx="130" cy="130" r="110"
+            stroke-dasharray="115 576" stroke-dashoffset="0"/>
+        </g>
+        <!-- Metal: 288° offset -->
+        <g transform="rotate(198, 130, 130)">
+          <circle class="ob-arc ob-arc-metal" cx="130" cy="130" r="110"
+            stroke-dasharray="115 576" stroke-dashoffset="0"/>
+        </g>
+      </svg>
+
+      <div class="ob-wheel-center">
+        <div class="ob-wheel-mark">A</div>
+      </div>
+    </div>
+
+    <p class="ob-hero-eyebrow">The Five Elements of Wealth</p>
+    <h1>Your wealth,<br><em>your way</em></h1>
+    <p class="ob-hero-sub">Five questions. Five minutes. A portfolio shaped entirely around you — not a template, not a guess.</p>
+
+    <div class="ob-cta-group">
+      <button class="ob-btn-begin" id="btn-begin">
+        Begin the journey
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <a href="#section-water" class="ob-skip-link">Skip intro, start now</a>
+    </div>
+  </div>
+
+  <!-- Scroll cue -->
+  <div class="ob-scroll-cue" aria-hidden="true">
+    <div class="ob-scroll-mouse"><div class="ob-scroll-wheel"></div></div>
+    <span class="ob-scroll-text">Scroll</span>
+  </div>
+
+</section>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- CHAPTER 1 — WATER ─ Activation & Flow          -->
+<!-- ════════════════════════════════════════════════ -->
+<section class="ob-section ob-chapter ob-water" id="section-water"
+  data-element="0" data-accent="#38BDF8" data-bg="#020A16" data-glow="rgba(56,189,248,0.18)">
+
+  <!-- Atmospheric glow -->
+  <div class="ob-glow-center" style="width:700px;height:500px;background:radial-gradient(ellipse,rgba(56,189,248,0.12) 0%,transparent 70%);" aria-hidden="true"></div>
+
+  <!-- Particles -->
+  <div class="ob-particles" aria-hidden="true">
+    <span class="ob-particle" style="--dur:5.5s;--delay:0s;  width:8px; height:8px; left:15%; bottom:10%;"></span>
+    <span class="ob-particle" style="--dur:7s;  --delay:1.2s; width:12px;height:12px;left:28%; bottom:15%;"></span>
+    <span class="ob-particle" style="--dur:4.5s;--delay:2.4s; width:6px; height:6px; left:42%; bottom:5%;"></span>
+    <span class="ob-particle" style="--dur:6s;  --delay:0.8s; width:10px;height:10px;left:58%; bottom:20%;"></span>
+    <span class="ob-particle" style="--dur:5s;  --delay:3s;   width:7px; height:7px; left:72%; bottom:8%;"></span>
+    <span class="ob-particle" style="--dur:8s;  --delay:1.8s; width:14px;height:14px;left:85%; bottom:12%;"></span>
+    <span class="ob-particle" style="--dur:6.5s;--delay:0.5s; width:5px; height:5px; left:8%;  bottom:30%;"></span>
+    <span class="ob-particle" style="--dur:4s;  --delay:2s;   width:9px; height:9px; left:93%; bottom:25%;"></span>
+  </div>
+
+  <div class="ob-chapter-inner">
+
+    <div class="ob-el-tag">
+      <span class="ob-el-tag-dot"></span>
+      <span class="ob-el-tag-name">Water</span>
+      <span class="ob-el-tag-sep">·</span>
+      <span class="ob-el-tag-sub">Activation &amp; Flow</span>
+    </div>
+
+    <h2>What flows into<br>your life each year?</h2>
+    <p class="ob-chapter-desc">Your income shapes every possibility. There's no right or wrong — just yours.</p>
+
+    <div class="ob-options" role="radiogroup" aria-label="Annual income">
+      <label class="ob-option">
+        <input type="radio" name="income" value="1">
+        <div class="ob-option-card">
+          <span class="ob-option-icon">🌊</span>
+          <span class="ob-option-label">Under £25k</span>
+        </div>
+      </label>
+      <label class="ob-option">
+        <input type="radio" name="income" value="2">
+        <div class="ob-option-card">
+          <span class="ob-option-icon">💧</span>
+          <span class="ob-option-label">£25k – £50k</span>
+        </div>
+      </label>
+      <label class="ob-option">
+        <input type="radio" name="income" value="3">
+        <div class="ob-option-card">
+          <span class="ob-option-icon">🫧</span>
+          <span class="ob-option-label">£50k – £100k</span>
+        </div>
+      </label>
+      <label class="ob-option">
+        <input type="radio" name="income" value="4">
+        <div class="ob-option-card">
+          <span class="ob-option-icon">🌊</span>
+          <span class="ob-option-label">£100k – £250k</span>
+        </div>
+      </label>
+      <label class="ob-option">
+        <input type="radio" name="income" value="5">
+        <div class="ob-option-card">
+          <span class="ob-option-icon">🌊</span>
+          <span class="ob-option-label">Over £250k</span>
+        </div>
+      </label>
+    </div>
+
+    <div class="ob-continue-wrap">
+      <button class="ob-btn-continue" data-next="section-wood">
+        Continue
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- CHAPTER 2 — WOOD ─ Growth & Relationship       -->
+<!-- ════════════════════════════════════════════════ -->
+<section class="ob-section ob-chapter ob-wood" id="section-wood"
+  data-element="1" data-accent="#4ADE80" data-bg="#030D06" data-glow="rgba(74,222,128,0.18)">
+
+  <div class="ob-glow-center" style="width:600px;height:600px;background:radial-gradient(circle,rgba(74,222,128,0.1) 0%,transparent 70%);" aria-hidden="true"></div>
+
+  <div class="ob-particles" aria-hidden="true">
+    <span class="ob-particle" style="--dur:7s;  --delay:0s;   width:18px;height:14px;left:12%;bottom:8%;"></span>
+    <span class="ob-particle" style="--dur:9s;  --delay:1.5s; width:24px;height:18px;left:25%;bottom:15%;"></span>
+    <span class="ob-particle" style="--dur:6s;  --delay:3s;   width:14px;height:20px;left:45%;bottom:5%;"></span>
+    <span class="ob-particle" style="--dur:8s;  --delay:0.7s; width:20px;height:16px;left:62%;bottom:12%;"></span>
+    <span class="ob-particle" style="--dur:10s; --delay:2s;   width:28px;height:22px;left:78%;bottom:20%;"></span>
+    <span class="ob-particle" style="--dur:7.5s;--delay:4s;   width:16px;height:12px;left:90%;bottom:7%;"></span>
+  </div>
+
+  <div class="ob-chapter-inner">
+
+    <div class="ob-el-tag">
+      <span class="ob-el-tag-dot"></span>
+      <span class="ob-el-tag-name">Wood</span>
+      <span class="ob-el-tag-sep">·</span>
+      <span class="ob-el-tag-sub">Growth &amp; Relationship</span>
+    </div>
+
+    <h2>What are you<br>growing toward?</h2>
+    <p class="ob-chapter-desc">Every investor has a destination. Choose yours and we'll build the path.</p>
+
+    <div class="ob-options ob-goals" role="radiogroup" aria-label="Investment goal">
+      <label class="ob-option">
+        <input type="radio" name="goal" value="retirement">
+        <div class="ob-option-card">
+          <span class="ob-option-icon">🌅</span>
+          <span class="ob-option-label">Retirement</span>
+          <span class="ob-option-sublabel">A life free to choose</span>
+        </div>
+      </label>
+      <label class="ob-option">
+        <input type="radio" name="goal" value="home">
+        <div class="ob-option-card">
+          <span class="ob-option-icon">🏡</span>
+          <span class="ob-option-label">First Home</span>
+          <span class="ob-option-sublabel">Putting down roots</span>
+        </div>
+      </label>
+      <label class="ob-option">
+        <input type="radio" name="goal" value="wealth">
+        <div class="ob-option-card">
+          <span class="ob-option-icon">📈</span>
+          <span class="ob-option-label">Build Wealth</span>
+          <span class="ob-option-sublabel">Long-term growth</span>
+        </div>
+      </label>
+      <label class="ob-option">
+        <input type="radio" name="goal" value="income">
+        <div class="ob-option-card">
+          <span class="ob-option-icon">🌿</span>
+          <span class="ob-option-label">Income</span>
+          <span class="ob-option-sublabel">Money while you live</span>
+        </div>
+      </label>
+    </div>
+
+    <!-- Time horizon slider -->
+    <div class="ob-timeline-wrap">
+      <div class="ob-timeline-header">
+        <span class="ob-timeline-title">How long can your money breathe?</span>
+        <span class="ob-timeline-value" id="timeline-display">10 years</span>
+      </div>
+      <input class="ob-slider" type="range" id="timeline-slider"
+        min="1" max="30" value="10" step="1" aria-label="Investment time horizon">
+      <div class="ob-timeline-marks">
+        <span class="ob-timeline-mark">1yr</span>
+        <span class="ob-timeline-mark">5yr</span>
+        <span class="ob-timeline-mark">10yr</span>
+        <span class="ob-timeline-mark">20yr</span>
+        <span class="ob-timeline-mark">30yr</span>
+      </div>
+    </div>
+
+    <div class="ob-continue-wrap">
+      <button class="ob-btn-continue" data-next="section-fire">
+        Continue
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- CHAPTER 3 — FIRE ─ Intelligence & Insight      -->
+<!-- ════════════════════════════════════════════════ -->
+<section class="ob-section ob-chapter ob-fire" id="section-fire"
+  data-element="2" data-accent="#FB923C" data-bg="#140602" data-glow="rgba(251,146,60,0.22)">
+
+  <div class="ob-glow-center" style="width:700px;height:400px;background:radial-gradient(ellipse at 50% 80%,rgba(251,146,60,0.15) 0%,transparent 70%);" aria-hidden="true"></div>
+
+  <div class="ob-particles" aria-hidden="true">
+    <span class="ob-particle" style="--dur:3.2s;--delay:0s;   --sway:30px;  width:5px; height:5px; left:18%;bottom:5%;"></span>
+    <span class="ob-particle" style="--dur:2.8s;--delay:0.6s; --sway:-25px; width:4px; height:4px; left:30%;bottom:8%;"></span>
+    <span class="ob-particle" style="--dur:3.8s;--delay:1.2s; --sway:20px;  width:6px; height:6px; left:44%;bottom:3%;"></span>
+    <span class="ob-particle" style="--dur:2.5s;--delay:0.3s; --sway:-30px; width:3px; height:3px; left:55%;bottom:10%;"></span>
+    <span class="ob-particle" style="--dur:3.5s;--delay:1.8s; --sway:25px;  width:5px; height:5px; left:68%;bottom:6%;"></span>
+    <span class="ob-particle" style="--dur:2.2s;--delay:0.9s; --sway:-20px; width:4px; height:4px; left:79%;bottom:4%;"></span>
+    <span class="ob-particle" style="--dur:4s;  --delay:2.4s; --sway:15px;  width:7px; height:7px; left:88%;bottom:12%;"></span>
+    <span class="ob-particle" style="--dur:3s;  --delay:1.5s; --sway:-35px; width:3px; height:3px; left:8%; bottom:7%;"></span>
+    <span class="ob-particle" style="--dur:2.8s;--delay:3s;   --sway:28px;  width:5px; height:5px; left:35%;bottom:15%;"></span>
+    <span class="ob-particle" style="--dur:3.4s;--delay:2.1s; --sway:-22px; width:4px; height:4px; left:62%;bottom:18%;"></span>
+  </div>
+
+  <div class="ob-chapter-inner">
+
+    <div class="ob-el-tag">
+      <span class="ob-el-tag-dot"></span>
+      <span class="ob-el-tag-name">Fire</span>
+      <span class="ob-el-tag-sep">·</span>
+      <span class="ob-el-tag-sub">Intelligence &amp; Insight</span>
+    </div>
+
+    <h2>How do you respond<br>when the market burns?</h2>
+    <p class="ob-chapter-desc">Your portfolio drops 25% in a year. What's your instinct?</p>
+
+    <div class="ob-options ob-scenarios" role="radiogroup" aria-label="Risk response">
+      <label class="ob-option">
+        <input type="radio" name="risk" value="1">
+        <div class="ob-option-card">
+          <span class="ob-option-icon">🛡️</span>
+          <div class="ob-option-content">
+            <div class="ob-option-label">I'd sell before it falls further</div>
+            <div class="ob-option-sublabel">Protecting what I have matters most. I'd rather miss a recovery than lose more.</div>
+          </div>
+        </div>
+      </label>
+      <label class="ob-option">
+        <input type="radio" name="risk" value="3">
+        <div class="ob-option-card">
+          <span class="ob-option-icon">⚖️</span>
+          <div class="ob-option-content">
+            <div class="ob-option-label">I'd hold and wait it out</div>
+            <div class="ob-option-sublabel">Markets recover. I'd feel uncomfortable but stay the course.</div>
+          </div>
+        </div>
+      </label>
+      <label class="ob-option">
+        <input type="radio" name="risk" value="5">
+        <div class="ob-option-card">
+          <span class="ob-option-icon">🔥</span>
+          <div class="ob-option-content">
+            <div class="ob-option-label">I'd buy more at lower prices</div>
+            <div class="ob-option-sublabel">Downturns are opportunities. I'd invest more while prices are low.</div>
+          </div>
+        </div>
+      </label>
+    </div>
+
+    <div class="ob-continue-wrap">
+      <button class="ob-btn-continue" data-next="section-earth">
+        Continue
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- CHAPTER 4 — EARTH ─ Access & Longevity         -->
+<!-- ════════════════════════════════════════════════ -->
+<section class="ob-section ob-chapter ob-earth" id="section-earth"
+  data-element="3" data-accent="#FBBF24" data-bg="#110D01" data-glow="rgba(251,191,36,0.22)">
+
+  <div class="ob-glow-center" style="width:600px;height:600px;background:radial-gradient(circle,rgba(251,191,36,0.1) 0%,transparent 70%);" aria-hidden="true"></div>
+
+  <div class="ob-particles" aria-hidden="true">
+    <span class="ob-particle" style="--dur:7.5s;--delay:0s;   width:10px;height:10px;border-radius:3px;left:14%;bottom:10%;"></span>
+    <span class="ob-particle" style="--dur:9s;  --delay:1.5s; width:14px;height:14px;border-radius:4px;left:28%;bottom:18%;"></span>
+    <span class="ob-particle" style="--dur:6.5s;--delay:3s;   width:8px; height:8px; border-radius:2px;left:46%;bottom:6%;"></span>
+    <span class="ob-particle" style="--dur:8.5s;--delay:0.8s; width:12px;height:12px;border-radius:3px;left:60%;bottom:14%;"></span>
+    <span class="ob-particle" style="--dur:10s; --delay:2.2s; width:16px;height:16px;border-radius:5px;left:76%;bottom:22%;"></span>
+    <span class="ob-particle" style="--dur:7s;  --delay:4s;   width:9px; height:9px; border-radius:3px;left:90%;bottom:8%;"></span>
+  </div>
+
+  <div class="ob-chapter-inner">
+
+    <div class="ob-el-tag">
+      <span class="ob-el-tag-dot"></span>
+      <span class="ob-el-tag-name">Earth</span>
+      <span class="ob-el-tag-sep">·</span>
+      <span class="ob-el-tag-sub">Access &amp; Longevity</span>
+    </div>
+
+    <h2>What have you<br>already built?</h2>
+    <p class="ob-chapter-desc">Your existing wealth is your foundation. It shapes how ambitious we can be together.</p>
+
+    <div class="ob-options" role="radiogroup" aria-label="Total assets or savings">
+      <label class="ob-option">
+        <input type="radio" name="assets" value="1">
+        <div class="ob-option-card">
+          <span class="ob-option-icon">🌱</span>
+          <span class="ob-option-label">Under £10k</span>
+          <span class="ob-option-sublabel">Just starting out</span>
+        </div>
+      </label>
+      <label class="ob-option">
+        <input type="radio" name="assets" value="2">
+        <div class="ob-option-card">
+          <span class="ob-option-icon">🪨</span>
+          <span class="ob-option-label">£10k – £50k</span>
+          <span class="ob-option-sublabel">Building momentum</span>
+        </div>
+      </label>
+      <label class="ob-option">
+        <input type="radio" name="assets" value="3">
+        <div class="ob-option-card">
+          <span class="ob-option-icon">🏔️</span>
+          <span class="ob-option-label">£50k – £250k</span>
+          <span class="ob-option-sublabel">Solid foundations</span>
+        </div>
+      </label>
+      <label class="ob-option">
+        <input type="radio" name="assets" value="4">
+        <div class="ob-option-card">
+          <span class="ob-option-icon">🗻</span>
+          <span class="ob-option-label">£250k – £1m</span>
+          <span class="ob-option-sublabel">Established wealth</span>
+        </div>
+      </label>
+      <label class="ob-option">
+        <input type="radio" name="assets" value="5">
+        <div class="ob-option-card">
+          <span class="ob-option-icon">🌍</span>
+          <span class="ob-option-label">Over £1m</span>
+          <span class="ob-option-sublabel">Significant portfolio</span>
+        </div>
+      </label>
+    </div>
+
+    <div class="ob-continue-wrap">
+      <button class="ob-btn-continue" data-next="section-metal">
+        Continue
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- CHAPTER 5 — METAL ─ Trust & Governance         -->
+<!-- ════════════════════════════════════════════════ -->
+<section class="ob-section ob-chapter ob-metal" id="section-metal"
+  data-element="4" data-accent="#CBD5E1" data-bg="#070C14" data-glow="rgba(203,213,225,0.15)">
+
+  <div class="ob-glow-center" style="width:500px;height:500px;background:radial-gradient(circle,rgba(203,213,225,0.08) 0%,transparent 70%);" aria-hidden="true"></div>
+
+  <div class="ob-particles" aria-hidden="true">
+    <span class="ob-particle" style="--dur:4s;  --delay:0s;   --h:40px; width:1px;left:12%;bottom:5%;"></span>
+    <span class="ob-particle" style="--dur:5s;  --delay:1s;   --h:60px; width:1px;left:24%;bottom:8%;"></span>
+    <span class="ob-particle" style="--dur:3.5s;--delay:2.5s; --h:30px; width:1px;left:38%;bottom:3%;"></span>
+    <span class="ob-particle" style="--dur:4.5s;--delay:0.5s; --h:50px; width:1px;left:52%;bottom:10%;"></span>
+    <span class="ob-particle" style="--dur:3s;  --delay:1.8s; --h:35px; width:1px;left:66%;bottom:6%;"></span>
+    <span class="ob-particle" style="--dur:5.5s;--delay:3.2s; --h:55px; width:1px;left:80%;bottom:4%;"></span>
+    <span class="ob-particle" style="--dur:4s;  --delay:2s;   --h:45px; width:1px;left:92%;bottom:12%;"></span>
+  </div>
+
+  <div class="ob-chapter-inner">
+
+    <div class="ob-el-tag">
+      <span class="ob-el-tag-dot"></span>
+      <span class="ob-el-tag-name">Metal</span>
+      <span class="ob-el-tag-sep">·</span>
+      <span class="ob-el-tag-sub">Trust &amp; Governance</span>
+    </div>
+
+    <h2>Almost there.<br>Who are you?</h2>
+    <p class="ob-chapter-desc">Two details and we can build your personalised portfolio picture — no commitment required.</p>
+
+    <div class="ob-form" id="ob-identity-form">
+      <div class="ob-field">
+        <label class="ob-label" for="ob-name">First name</label>
+        <input class="ob-input" type="text" id="ob-name" name="first_name"
+          placeholder="Your first name" autocomplete="given-name">
+      </div>
+      <div class="ob-field">
+        <label class="ob-label" for="ob-email">Email address</label>
+        <input class="ob-input" type="email" id="ob-email" name="email"
+          placeholder="you@example.com" autocomplete="email">
+      </div>
+    </div>
+
+    <div class="ob-continue-wrap">
+      <button class="ob-btn-continue is-primary" id="btn-reveal" data-next="section-reveal">
+        See my portfolio picture
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- REVEAL — Your Portfolio Picture                 -->
+<!-- ════════════════════════════════════════════════ -->
+<section class="ob-section ob-reveal" id="section-reveal"
+  data-accent="#F5A623" data-bg="#08090F">
+
+  <div class="ob-glow-center" style="width:800px;height:400px;background:radial-gradient(ellipse,rgba(245,166,35,0.08) 0%,transparent 70%);" aria-hidden="true"></div>
+
+  <div class="ob-reveal-inner">
+
+    <p class="ob-reveal-eyebrow" id="reveal-eyebrow">Your Aurelius Profile</p>
+    <h2 id="reveal-headline">Here's your<br>wealth picture</h2>
+
+    <div class="ob-reveal-profile" id="reveal-profile">
+      <div class="ob-profile-badge">
+        <p class="ob-profile-badge-label">Your investor profile</p>
+        <p class="ob-profile-name" id="reveal-profile-name">The Balanced Builder</p>
+        <p class="ob-profile-desc" id="reveal-profile-desc">You believe in steady, long-term growth. You're comfortable riding out market volatility, and you want a portfolio that grows meaningfully without keeping you up at night.</p>
+        <div class="ob-profile-score" id="reveal-score" aria-label="Risk score">
+          <span class="ob-score-dot"></span>
+          <span class="ob-score-dot"></span>
+          <span class="ob-score-dot"></span>
+          <span class="ob-score-dot"></span>
+          <span class="ob-score-dot"></span>
+        </div>
+        <p style="color:rgba(255,255,255,0.2);font-size:10px;margin-top:8px;letter-spacing:0.08em;">Risk appetite · 1 = cautious · 5 = bold</p>
+      </div>
+
+      <div class="ob-allocation">
+        <p class="ob-allocation-title">Suggested allocation</p>
+
+        <div class="ob-alloc-row">
+          <div class="ob-alloc-meta">
+            <span class="ob-alloc-label">Global Equities</span>
+            <span class="ob-alloc-pct" id="pct-stocks">55%</span>
+          </div>
+          <div class="ob-alloc-bar-track">
+            <div class="ob-alloc-bar stocks" id="bar-stocks"></div>
+          </div>
+        </div>
+
+        <div class="ob-alloc-row">
+          <div class="ob-alloc-meta">
+            <span class="ob-alloc-label">Bonds &amp; Fixed Income</span>
+            <span class="ob-alloc-pct" id="pct-bonds">30%</span>
+          </div>
+          <div class="ob-alloc-bar-track">
+            <div class="ob-alloc-bar bonds" id="bar-bonds"></div>
+          </div>
+        </div>
+
+        <div class="ob-alloc-row">
+          <div class="ob-alloc-meta">
+            <span class="ob-alloc-label">Alternatives</span>
+            <span class="ob-alloc-pct" id="pct-alts">10%</span>
+          </div>
+          <div class="ob-alloc-bar-track">
+            <div class="ob-alloc-bar alts" id="bar-alts"></div>
+          </div>
+        </div>
+
+        <div class="ob-alloc-row">
+          <div class="ob-alloc-meta">
+            <span class="ob-alloc-label">Cash &amp; Equivalents</span>
+            <span class="ob-alloc-pct" id="pct-cash">5%</span>
+          </div>
+          <div class="ob-alloc-bar-track">
+            <div class="ob-alloc-bar cash" id="bar-cash"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Projection -->
+    <div class="ob-projection" id="reveal-projection">
+      <p class="ob-projection-title">Projected growth · illustrative, based on historical returns</p>
+      <div class="ob-projection-values">
+        <div class="ob-proj-item">
+          <p class="ob-proj-label">Invest today</p>
+          <p class="ob-proj-value">£<span id="proj-start">10,000</span></p>
+        </div>
+        <div class="ob-proj-item">
+          <p class="ob-proj-label">Estimate in 10 years</p>
+          <p class="ob-proj-value is-gold">£<span id="proj-end">18,600</span></p>
+          <p class="ob-proj-context">Conservative estimate · moderate growth</p>
+        </div>
+        <div class="ob-proj-item">
+          <p class="ob-proj-label">Optimistic scenario</p>
+          <p class="ob-proj-value" style="font-size:22px;color:rgba(255,255,255,0.5)">£<span id="proj-opt">26,800</span></p>
+          <p class="ob-proj-context">Strong growth · market tailwinds</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ob-reveal-cta" id="reveal-cta">
+      <button class="ob-btn-primary">
+        Start my Aurelius journey
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <p class="ob-reveal-small">No commitment. Your information is never sold.<br>Aurelius is authorised by the FCA. Investments can fall as well as rise.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── LEGAL FOOTER ───────────────────────────── -->
+<footer class="ob-legal">
+  <nav class="ob-legal-links" aria-label="Legal navigation">
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms of Service</a>
+    <a href="#">Cookie Policy</a>
+    <a href="#">Accessibility</a>
+  </nav>
+  <p>Aurelius Wealth Management Ltd is authorised and regulated by the Financial Conduct Authority (FCA), firm reference number 000000. Registered in England and Wales, company number 00000000. Registered office: 00 Example Street, London, EC2A 0AA.</p>
+  <p style="margin-top:10px;">Past performance is not a reliable indicator of future results. The value of investments, and the income from them, can fall as well as rise. You may get back less than you invest. Tax treatment depends on your individual circumstances and may change in the future.</p>
+  <p style="margin-top:10px;">© 2026 Aurelius Wealth Management Ltd. All rights reserved.</p>
+</footer>
+
+<!-- ── GSAP ──────────────────────────────────── -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script>
+/* ─── ONBOARDING LOGIC ─────────────────────────────────────────────── */
+'use strict';
+
+gsap.registerPlugin(ScrollTrigger);
+
+/* ── State ─────────────────────────────────── */
+const state = {
+  income:   null,
+  goal:     null,
+  timeline: 10,
+  risk:     null,
+  assets:   null,
+  name:     '',
+  email:    ''
+};
+
+/* ── Element configs ────────────────────────── */
+const ELEMENTS = [
+  { id: 'section-water', name: 'Water', step: '1',  accent: '#38BDF8', bg: '#020A16', glow: 'rgba(56,189,248,0.18)' },
+  { id: 'section-wood',  name: 'Wood',  step: '2',  accent: '#4ADE80', bg: '#030D06', glow: 'rgba(74,222,128,0.18)' },
+  { id: 'section-fire',  name: 'Fire',  step: '3',  accent: '#FB923C', bg: '#140602', glow: 'rgba(251,146,60,0.22)' },
+  { id: 'section-earth', name: 'Earth', step: '4',  accent: '#FBBF24', bg: '#110D01', glow: 'rgba(251,191,36,0.22)' },
+  { id: 'section-metal', name: 'Metal', step: '5',  accent: '#CBD5E1', bg: '#070C14', glow: 'rgba(203,213,225,0.15)' },
+];
+
+const PROFILES = [
+  { name: 'The Careful Custodian',   desc: 'Safety is your priority. You prefer predictable, measured growth over the excitement of high returns. Your portfolio prioritises capital preservation above all else.', stocks: 20, bonds: 50, alts: 20, cash: 10 },
+  { name: 'The Steady Grower',       desc: 'You believe in consistent progress. You're comfortable with modest fluctuations in exchange for better long-term returns than cash or bonds alone can offer.', stocks: 35, bonds: 40, alts: 15, cash: 10 },
+  { name: 'The Balanced Builder',    desc: 'You believe in steady, long-term growth. You\'re comfortable riding out market volatility, and you want a portfolio that grows meaningfully without keeping you up at night.', stocks: 55, bonds: 30, alts: 10, cash: 5 },
+  { name: 'The Confident Investor',  desc: 'Growth is your focus. You accept significant short-term swings in exchange for stronger long-term performance. You trust in the market\'s long-term trajectory.', stocks: 70, bonds: 20, alts: 8, cash: 2 },
+  { name: 'The Bold Architect',      desc: 'You thrive on opportunity. Market downturns don\'t rattle you — they excite you. Your portfolio leans heavily into equities for maximum long-term growth potential.', stocks: 85, bonds: 10, alts: 5, cash: 0 },
+];
+
+/* ── DOM helpers ────────────────────────────── */
+const $ = id => document.getElementById(id);
+const dots = document.querySelectorAll('.ob-dot');
+const stepLabel = $('ob-step-label');
+
+/* ── Background / accent transitions ────────── */
+function setElement(idx) {
+  const el = ELEMENTS[idx];
+  if (!el) return;
+
+  gsap.to('body', {
+    backgroundColor: el.bg,
+    duration: 1.4,
+    ease: 'power2.inOut',
+    overwrite: true
+  });
+
+  document.documentElement.style.setProperty('--ob-accent', el.accent);
+  document.documentElement.style.setProperty('--ob-glow',   el.glow);
+  document.documentElement.style.setProperty('--ob-bg',     el.bg);
+
+  // Progress dots
+  dots.forEach((dot, i) => {
+    dot.classList.toggle('is-active', i === idx);
+    dot.classList.toggle('is-done',   i < idx);
+  });
+
+  // Step label
+  if (stepLabel) stepLabel.textContent = `${el.name} · Step ${el.step} of 5`;
+
+  // Highlight active arc on wheel
+  document.querySelectorAll('.ob-arc').forEach((arc, i) => {
+    arc.classList.toggle('is-dim', i > idx);
+  });
+}
+
+/* ── Hero → Water scroll trigger ────────────── */
+ScrollTrigger.create({
+  trigger: '#section-hero',
+  start: 'bottom 60%',
+  onEnter:     () => setElement(0),
+  onEnterBack: () => {
+    gsap.to('body', { backgroundColor: '#04080F', duration: 1.4, ease: 'power2.inOut' });
+    document.documentElement.style.setProperty('--ob-accent', '#38BDF8');
+    document.documentElement.style.setProperty('--ob-bg', '#04080F');
+    dots.forEach(d => { d.classList.remove('is-active', 'is-done'); });
+    if (stepLabel) stepLabel.textContent = 'Water · Step 1 of 5';
+    document.querySelectorAll('.ob-arc').forEach(a => a.classList.remove('is-dim'));
+  }
+});
+
+/* ── Chapter scroll triggers ────────────────── */
+ELEMENTS.forEach((el, idx) => {
+  const section = document.getElementById(el.id);
+  if (!section) return;
+
+  ScrollTrigger.create({
+    trigger: section,
+    start: 'top 55%',
+    onEnter:     () => setElement(idx),
+    onEnterBack: () => setElement(idx),
+  });
+
+  /* Animate content in */
+  const inner = section.querySelector('.ob-chapter-inner');
+  const tag   = section.querySelector('.ob-el-tag');
+  const h2    = section.querySelector('h2');
+  const desc  = section.querySelector('.ob-chapter-desc');
+  const opts  = section.querySelectorAll('.ob-option');
+  const cont  = section.querySelector('.ob-continue-wrap');
+  const tl    = section.querySelector('.ob-timeline-wrap');
+  const form  = section.querySelector('.ob-form');
+
+  ScrollTrigger.create({
+    trigger: section,
+    start: 'top 70%',
+    onEnter() {
+      if (tag)  tag.classList.add('is-visible');
+      if (h2)   h2.classList.add('is-visible');
+      if (desc) desc.classList.add('is-visible');
+      if (form) setTimeout(() => form.classList.add('is-visible'), 200);
+      if (tl)   setTimeout(() => tl.classList.add('is-visible'), 300);
+
+      opts.forEach((opt, i) => {
+        setTimeout(() => opt.classList.add('is-visible'), 300 + i * 80);
+      });
+      if (cont) setTimeout(() => cont.classList.add('is-visible'), 300 + opts.length * 80 + 100);
+    }
+  });
+});
+
+/* ── Reveal section ─────────────────────────── */
+ScrollTrigger.create({
+  trigger: '#section-reveal',
+  start: 'top 60%',
+  onEnter() {
+    gsap.to('body', { backgroundColor: '#08090F', duration: 1.4, ease: 'power2.inOut' });
+    document.documentElement.style.setProperty('--ob-accent', '#F5A623');
+    document.documentElement.style.setProperty('--ob-bg', '#08090F');
+
+    dots.forEach(d => { d.classList.remove('is-active'); d.classList.add('is-done'); });
+    if (stepLabel) stepLabel.textContent = 'Your profile is ready';
+
+    buildReveal();
+  },
+  onEnterBack() {
+    setElement(4); // back to Metal
+  }
+});
+
+/* ── Build the reveal ───────────────────────── */
+function buildReveal() {
+  const riskScore = Number(state.risk) || 3;
+  const profile   = PROFILES[Math.min(riskScore - 1, 4)];
+
+  // Profile text
+  const pName = $('reveal-profile-name');
+  const pDesc = $('reveal-profile-desc');
+  const fname = state.name ? `, ${state.name.split(' ')[0]}` : '';
+
+  if (pName) pName.textContent = profile.name;
+  if (pDesc) pDesc.textContent = profile.desc;
+
+  // Score dots
+  const scoreDots = document.querySelectorAll('.ob-score-dot');
+  scoreDots.forEach((d, i) => d.classList.toggle('is-active', i < riskScore));
+
+  // Headline with name
+  const headline = $('reveal-headline');
+  if (headline) {
+    headline.innerHTML = fname
+      ? `Hi${fname},<br>here's your wealth picture`
+      : `Here's your<br>wealth picture`;
+  }
+
+  // Allocation bars
+  const allocations = [
+    { barId: 'bar-stocks', pctId: 'pct-stocks', pct: profile.stocks },
+    { barId: 'bar-bonds',  pctId: 'pct-bonds',  pct: profile.bonds  },
+    { barId: 'bar-alts',   pctId: 'pct-alts',   pct: profile.alts   },
+    { barId: 'bar-cash',   pctId: 'pct-cash',   pct: profile.cash   },
+  ];
+
+  allocations.forEach(({ barId, pctId, pct }) => {
+    const bar = $(barId);
+    const pctEl = $(pctId);
+    if (pctEl) pctEl.textContent = `${pct}%`;
+    if (bar) setTimeout(() => { bar.style.width = `${pct}%`; }, 400);
+  });
+
+  // Projection — simplified model
+  const horizon = state.timeline || 10;
+  const startAmount = 10000;
+  const conservativeRate = 0.05 + (riskScore - 1) * 0.01;
+  const optimisticRate   = 0.08 + (riskScore - 1) * 0.015;
+  const end = Math.round(startAmount * Math.pow(1 + conservativeRate, horizon));
+  const opt = Math.round(startAmount * Math.pow(1 + optimisticRate,   horizon));
+
+  const projEnd = $('proj-end');
+  const projOpt = $('proj-opt');
+  if (projEnd) projEnd.textContent = end.toLocaleString('en-GB');
+  if (projOpt) projOpt.textContent = opt.toLocaleString('en-GB');
+
+  // Animate elements in
+  const eyebrow  = $('reveal-eyebrow');
+  const revH2    = document.querySelector('#section-reveal h2');
+  const profCard = $('reveal-profile');
+  const proj     = $('reveal-projection');
+  const cta      = $('reveal-cta');
+
+  if (eyebrow)  eyebrow.classList.add('is-visible');
+
+  setTimeout(() => {
+    if (revH2)   revH2.classList.add('is-visible');
+  }, 100);
+
+  setTimeout(() => {
+    if (profCard) profCard.classList.add('is-visible');
+  }, 250);
+
+  setTimeout(() => {
+    if (proj) proj.classList.add('is-visible');
+  }, 450);
+
+  setTimeout(() => {
+    if (cta) cta.classList.add('is-visible');
+  }, 600);
+}
+
+/* ── "Begin" button ─────────────────────────── */
+const btnBegin = $('btn-begin');
+if (btnBegin) {
+  btnBegin.addEventListener('click', () => {
+    const target = document.getElementById('section-water');
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+}
+
+/* ── "Continue" buttons ──────────────────────── */
+document.querySelectorAll('.ob-btn-continue').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const nextId = btn.dataset.next;
+    if (!nextId) return;
+    const next = document.getElementById(nextId);
+    if (next) next.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+/* ── Progress dot nav ────────────────────────── */
+dots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    const target = document.getElementById(dot.dataset.section);
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+/* ── Radio inputs ────────────────────────────── */
+document.querySelectorAll('input[type="radio"]').forEach(radio => {
+  radio.addEventListener('change', () => {
+    state[radio.name] = radio.value;
+  });
+});
+
+/* ── Timeline slider ─────────────────────────── */
+const slider  = $('timeline-slider');
+const display = $('timeline-display');
+if (slider && display) {
+  slider.addEventListener('input', () => {
+    state.timeline  = Number(slider.value);
+    display.textContent = `${slider.value} year${slider.value > 1 ? 's' : ''}`;
+  });
+}
+
+/* ── Identity form ───────────────────────────── */
+const nameInput  = $('ob-name');
+const emailInput = $('ob-email');
+if (nameInput)  nameInput.addEventListener('input',  () => { state.name  = nameInput.value; });
+if (emailInput) emailInput.addEventListener('input', () => { state.email = emailInput.value; });
+
+/* ── Hero initial state ──────────────────────── */
+document.body.style.backgroundColor = '#04080F';
+setElement(0);
+</script>
+</body>
+</html>
