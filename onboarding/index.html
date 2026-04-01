@@ -44,13 +44,81 @@
 html { color-scheme: dark; scroll-behavior: smooth; }
 
 body {
-  background: var(--ob-bg);
+  background-color: #04080F;
   color: #E8EDF5;
   display: block !important;
   font-family: var(--font-sans);
   margin: 0;
   overflow-x: hidden;
   transition: background-color 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── SCROLL-DRIVEN REVEALS ────────────────────────── */
+/*
+  All content is VISIBLE by default — no opacity:0 initial
+  states that depend on JS. CSS view() timelines layer on top
+  where supported, giving the reveal animation as a pure CSS
+  progressive enhancement.
+
+  overflow: clip (not hidden) is required on scroll containers
+  so the browser can detect the view-progress-timeline root.
+*/
+
+@keyframes ob-view-reveal {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ob-view-reveal-sm {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+
+    .ob-el-tag {
+      animation: ob-view-reveal 0.5s ease both;
+      animation-timeline: view();
+      animation-range: entry 2% entry 28%;
+    }
+
+    .ob-chapter h2 {
+      animation: ob-view-reveal 0.6s ease both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 32%;
+    }
+
+    .ob-chapter-desc {
+      animation: ob-view-reveal-sm 0.5s ease both;
+      animation-timeline: view();
+      animation-range: entry 10% entry 36%;
+    }
+
+    .ob-option:nth-child(1) { animation: ob-view-reveal-sm 0.45s ease both; animation-timeline: view(); animation-range: entry 14% entry 38%; }
+    .ob-option:nth-child(2) { animation: ob-view-reveal-sm 0.45s ease both; animation-timeline: view(); animation-range: entry 17% entry 41%; }
+    .ob-option:nth-child(3) { animation: ob-view-reveal-sm 0.45s ease both; animation-timeline: view(); animation-range: entry 20% entry 44%; }
+    .ob-option:nth-child(4) { animation: ob-view-reveal-sm 0.45s ease both; animation-timeline: view(); animation-range: entry 23% entry 47%; }
+    .ob-option:nth-child(5) { animation: ob-view-reveal-sm 0.45s ease both; animation-timeline: view(); animation-range: entry 26% entry 50%; }
+
+    .ob-timeline-wrap {
+      animation: ob-view-reveal-sm 0.5s ease both;
+      animation-timeline: view();
+      animation-range: entry 30% entry 55%;
+    }
+
+    .ob-form {
+      animation: ob-view-reveal-sm 0.5s ease both;
+      animation-timeline: view();
+      animation-range: entry 10% entry 36%;
+    }
+
+    .ob-continue-wrap {
+      animation: ob-view-reveal-sm 0.4s ease both;
+      animation-timeline: view();
+      animation-range: entry 35% entry 58%;
+    }
+  }
 }
 
 /* ─── FIXED HEADER ──────────────────────────────────── */
@@ -140,15 +208,15 @@ body {
 /* ─── SECTIONS ─────────────────────────────────────── */
 .ob-section {
   align-items: center;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
   min-height: 100vh;
-  overflow: hidden;
+  overflow: clip; /* clip not hidden — required for animation-timeline: view() */
   padding: 100px 40px 80px;
   position: relative;
   width: 100%;
-  box-sizing: border-box;
 }
 
 /* ─── ATMOSPHERIC BACKGROUNDS ──────────────────────── */
@@ -187,9 +255,7 @@ body {
   font-size: 11px;
   letter-spacing: 0.18em;
   margin-bottom: 28px;
-  opacity: 0;
   text-transform: uppercase;
-  animation: ob-fade-up 0.8s 0.2s ease both;
 }
 
 .ob-hero h1 {
@@ -200,8 +266,6 @@ body {
   letter-spacing: -0.03em;
   line-height: 1.05;
   margin: 0 0 20px;
-  opacity: 0;
-  animation: ob-fade-up 0.9s 0.4s ease both;
 }
 
 .ob-hero h1 em {
@@ -216,8 +280,6 @@ body {
   line-height: 1.65;
   margin: 0 auto 48px;
   max-width: 440px;
-  opacity: 0;
-  animation: ob-fade-up 0.9s 0.6s ease both;
 }
 
 .ob-cta-group {
@@ -225,8 +287,15 @@ body {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  opacity: 0;
-  animation: ob-fade-up 0.9s 0.8s ease both;
+}
+
+/* Hero entrance — only when motion is preferred */
+@media (prefers-reduced-motion: no-preference) {
+  .ob-hero-eyebrow { animation: ob-fade-up 0.8s 0.2s ease both; }
+  .ob-hero h1      { animation: ob-fade-up 0.9s 0.4s ease both; }
+  .ob-hero-sub     { animation: ob-fade-up 0.9s 0.6s ease both; }
+  .ob-cta-group    { animation: ob-fade-up 0.9s 0.8s ease both; }
+  .ob-wheel-wrap   { animation: ob-scale-in 1.2s 0.1s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
 }
 
 .ob-btn-begin {
@@ -277,11 +346,9 @@ body {
 /* ─── HERO WHEEL ───────────────────────────────────── */
 .ob-wheel-wrap {
   margin: 0 auto 48px;
-  opacity: 0;
   position: relative;
   width: 260px;
   height: 260px;
-  animation: ob-scale-in 1.2s 0.1s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
 .ob-wheel-svg {
@@ -362,14 +429,6 @@ body {
   display: inline-flex;
   gap: 8px;
   margin-bottom: 32px;
-  opacity: 0;
-  transform: translateY(16px);
-  transition: all 0.6s ease;
-}
-
-.ob-el-tag.is-visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .ob-el-tag-dot {
@@ -408,14 +467,6 @@ body {
   letter-spacing: -0.025em;
   line-height: 1.1;
   margin: 0 0 12px;
-  opacity: 0;
-  transform: translateY(24px);
-  transition: all 0.7s 0.08s ease;
-}
-
-.ob-chapter h2.is-visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .ob-chapter-desc {
@@ -425,14 +476,6 @@ body {
   line-height: 1.65;
   margin: 0 auto 44px;
   max-width: 420px;
-  opacity: 0;
-  transform: translateY(16px);
-  transition: all 0.6s 0.16s ease;
-}
-
-.ob-chapter-desc.is-visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 /* ─── OPTION CARDS ─────────────────────────────────── */
@@ -447,14 +490,6 @@ body {
 .ob-option {
   cursor: pointer;
   display: block;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.ob-option.is-visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .ob-option input[type="radio"] {
@@ -570,15 +605,7 @@ body {
 .ob-timeline-wrap {
   margin: 0 auto 40px;
   max-width: 480px;
-  opacity: 0;
-  transform: translateY(16px);
-  transition: all 0.6s 0.4s ease;
   width: 100%;
-}
-
-.ob-timeline-wrap.is-visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .ob-timeline-header {
@@ -654,14 +681,6 @@ body {
   margin: 0 auto 40px;
   max-width: 400px;
   width: 100%;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.6s 0.2s ease;
-}
-
-.ob-form.is-visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .ob-field {
@@ -705,14 +724,7 @@ body {
 
 /* ─── CONTINUE BUTTON ──────────────────────────────── */
 .ob-continue-wrap {
-  opacity: 0;
-  transform: translateY(12px);
-  transition: all 0.5s 0.5s ease;
-}
-
-.ob-continue-wrap.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+  margin-top: 8px;
 }
 
 .ob-btn-continue {
@@ -786,12 +798,8 @@ body {
   font-size: 11px;
   letter-spacing: 0.18em;
   margin-bottom: 16px;
-  opacity: 0;
   text-transform: uppercase;
-  transition: all 0.6s ease;
 }
-
-.ob-reveal-eyebrow.is-visible { opacity: 1; }
 
 .ob-reveal h2 {
   color: #F0F4F8;
@@ -801,14 +809,6 @@ body {
   letter-spacing: -0.025em;
   line-height: 1.1;
   margin: 0 0 48px;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.7s 0.1s ease;
-}
-
-.ob-reveal h2.is-visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .ob-reveal-profile {
@@ -820,16 +820,8 @@ body {
   gap: 48px;
   grid-template-columns: 1fr 1fr;
   margin-bottom: 36px;
-  opacity: 0;
-  overflow: hidden;
+  overflow: clip;
   padding: 40px;
-  transform: translateY(30px);
-  transition: all 0.8s 0.2s ease;
-}
-
-.ob-reveal-profile.is-visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .ob-profile-badge {
@@ -942,15 +934,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 16px;
   margin-bottom: 36px;
-  opacity: 0;
   padding: 28px 32px;
-  transform: translateY(20px);
-  transition: all 0.7s 0.35s ease;
-}
-
-.ob-projection.is-visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .ob-projection-title {
@@ -999,14 +983,7 @@ body {
 }
 
 .ob-reveal-cta {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: all 0.6s 0.5s ease;
-}
-
-.ob-reveal-cta.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+  margin-top: 8px;
 }
 
 .ob-btn-primary {
@@ -1258,15 +1235,9 @@ body {
 
 /* ─── REDUCED MOTION ───────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .ob-particle, .ob-wheel-spin, .ob-scroll-wheel { animation: none; }
-  .ob-el-tag, .ob-chapter h2, .ob-chapter-desc, .ob-continue-wrap,
-  .ob-timeline-wrap, .ob-form, .ob-option,
-  .ob-reveal-eyebrow, .ob-reveal h2, .ob-reveal-profile,
-  .ob-projection, .ob-reveal-cta {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
+  .ob-particle, .ob-wheel-spin, .ob-scroll-wheel,
+  .ob-hero-eyebrow, .ob-hero h1, .ob-hero-sub, .ob-cta-group,
+  .ob-wheel-wrap { animation: none !important; }
 }
 </style>
 </head>
@@ -1886,14 +1857,11 @@ body {
   <p style="margin-top:10px;">© 2026 Aurelius Wealth Management Ltd. All rights reserved.</p>
 </footer>
 
-<!-- ── GSAP ──────────────────────────────────── -->
+<!-- ── GSAP (bg colour transitions only — no ScrollTrigger) ────────── -->
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script>
 /* ─── ONBOARDING LOGIC ─────────────────────────────────────────────── */
 'use strict';
-
-gsap.registerPlugin(ScrollTrigger);
 
 /* ── State ─────────────────────────────────── */
 const state = {
@@ -1917,7 +1885,7 @@ const ELEMENTS = [
 
 const PROFILES = [
   { name: 'The Careful Custodian',   desc: 'Safety is your priority. You prefer predictable, measured growth over the excitement of high returns. Your portfolio prioritises capital preservation above all else.', stocks: 20, bonds: 50, alts: 20, cash: 10 },
-  { name: 'The Steady Grower',       desc: 'You believe in consistent progress. You're comfortable with modest fluctuations in exchange for better long-term returns than cash or bonds alone can offer.', stocks: 35, bonds: 40, alts: 15, cash: 10 },
+  { name: 'The Steady Grower',       desc: 'You believe in consistent progress. You\'re comfortable with modest fluctuations in exchange for better long-term returns than cash or bonds alone can offer.', stocks: 35, bonds: 40, alts: 15, cash: 10 },
   { name: 'The Balanced Builder',    desc: 'You believe in steady, long-term growth. You\'re comfortable riding out market volatility, and you want a portfolio that grows meaningfully without keeping you up at night.', stocks: 55, bonds: 30, alts: 10, cash: 5 },
   { name: 'The Confident Investor',  desc: 'Growth is your focus. You accept significant short-term swings in exchange for stronger long-term performance. You trust in the market\'s long-term trajectory.', stocks: 70, bonds: 20, alts: 8, cash: 2 },
   { name: 'The Bold Architect',      desc: 'You thrive on opportunity. Market downturns don\'t rattle you — they excite you. Your portfolio leans heavily into equities for maximum long-term growth potential.', stocks: 85, bonds: 10, alts: 5, cash: 0 },
@@ -1933,112 +1901,59 @@ function setElement(idx) {
   const el = ELEMENTS[idx];
   if (!el) return;
 
-  gsap.to('body', {
-    backgroundColor: el.bg,
-    duration: 1.4,
-    ease: 'power2.inOut',
-    overwrite: true
-  });
+  if (typeof gsap !== 'undefined') {
+    gsap.to('body', { backgroundColor: el.bg, duration: 1.4, ease: 'power2.inOut', overwrite: true });
+  } else {
+    document.body.style.backgroundColor = el.bg;
+  }
 
   document.documentElement.style.setProperty('--ob-accent', el.accent);
   document.documentElement.style.setProperty('--ob-glow',   el.glow);
   document.documentElement.style.setProperty('--ob-bg',     el.bg);
 
-  // Progress dots
   dots.forEach((dot, i) => {
     dot.classList.toggle('is-active', i === idx);
     dot.classList.toggle('is-done',   i < idx);
   });
 
-  // Step label
   if (stepLabel) stepLabel.textContent = `${el.name} · Step ${el.step} of 5`;
 
-  // Highlight active arc on wheel
   document.querySelectorAll('.ob-arc').forEach((arc, i) => {
     arc.classList.toggle('is-dim', i > idx);
   });
 }
 
-/* ── Hero → Water scroll trigger ────────────── */
-ScrollTrigger.create({
-  trigger: '#section-hero',
-  start: 'bottom 60%',
-  onEnter:     () => setElement(0),
-  onEnterBack: () => {
-    gsap.to('body', { backgroundColor: '#04080F', duration: 1.4, ease: 'power2.inOut' });
-    document.documentElement.style.setProperty('--ob-accent', '#38BDF8');
-    document.documentElement.style.setProperty('--ob-bg', '#04080F');
-    dots.forEach(d => { d.classList.remove('is-active', 'is-done'); });
-    if (stepLabel) stepLabel.textContent = 'Water · Step 1 of 5';
-    document.querySelectorAll('.ob-arc').forEach(a => a.classList.remove('is-dim'));
+function setHero() {
+  if (typeof gsap !== 'undefined') {
+    gsap.to('body', { backgroundColor: '#04080F', duration: 1.4, ease: 'power2.inOut', overwrite: true });
+  } else {
+    document.body.style.backgroundColor = '#04080F';
   }
-});
+  document.documentElement.style.setProperty('--ob-accent', '#38BDF8');
+  document.documentElement.style.setProperty('--ob-bg', '#04080F');
+  dots.forEach(d => { d.classList.remove('is-active', 'is-done'); });
+  if (stepLabel) stepLabel.textContent = 'Water · Step 1 of 5';
+  document.querySelectorAll('.ob-arc').forEach(a => a.classList.remove('is-dim'));
+}
 
-/* ── Chapter scroll triggers ────────────────── */
-ELEMENTS.forEach((el, idx) => {
-  const section = document.getElementById(el.id);
-  if (!section) return;
-
-  ScrollTrigger.create({
-    trigger: section,
-    start: 'top 55%',
-    onEnter:     () => setElement(idx),
-    onEnterBack: () => setElement(idx),
-  });
-
-  /* Animate content in */
-  const inner = section.querySelector('.ob-chapter-inner');
-  const tag   = section.querySelector('.ob-el-tag');
-  const h2    = section.querySelector('h2');
-  const desc  = section.querySelector('.ob-chapter-desc');
-  const opts  = section.querySelectorAll('.ob-option');
-  const cont  = section.querySelector('.ob-continue-wrap');
-  const tl    = section.querySelector('.ob-timeline-wrap');
-  const form  = section.querySelector('.ob-form');
-
-  ScrollTrigger.create({
-    trigger: section,
-    start: 'top 70%',
-    onEnter() {
-      if (tag)  tag.classList.add('is-visible');
-      if (h2)   h2.classList.add('is-visible');
-      if (desc) desc.classList.add('is-visible');
-      if (form) setTimeout(() => form.classList.add('is-visible'), 200);
-      if (tl)   setTimeout(() => tl.classList.add('is-visible'), 300);
-
-      opts.forEach((opt, i) => {
-        setTimeout(() => opt.classList.add('is-visible'), 300 + i * 80);
-      });
-      if (cont) setTimeout(() => cont.classList.add('is-visible'), 300 + opts.length * 80 + 100);
-    }
-  });
-});
-
-/* ── Reveal section ─────────────────────────── */
-ScrollTrigger.create({
-  trigger: '#section-reveal',
-  start: 'top 60%',
-  onEnter() {
-    gsap.to('body', { backgroundColor: '#08090F', duration: 1.4, ease: 'power2.inOut' });
-    document.documentElement.style.setProperty('--ob-accent', '#F5A623');
-    document.documentElement.style.setProperty('--ob-bg', '#08090F');
-
-    dots.forEach(d => { d.classList.remove('is-active'); d.classList.add('is-done'); });
-    if (stepLabel) stepLabel.textContent = 'Your profile is ready';
-
-    buildReveal();
-  },
-  onEnterBack() {
-    setElement(4); // back to Metal
+function setReveal() {
+  if (typeof gsap !== 'undefined') {
+    gsap.to('body', { backgroundColor: '#08090F', duration: 1.4, ease: 'power2.inOut', overwrite: true });
+  } else {
+    document.body.style.backgroundColor = '#08090F';
   }
-});
+  document.documentElement.style.setProperty('--ob-accent', '#F5A623');
+  document.documentElement.style.setProperty('--ob-bg', '#08090F');
+  dots.forEach(d => { d.classList.remove('is-active'); d.classList.add('is-done'); });
+  if (stepLabel) stepLabel.textContent = 'Your profile is ready';
+}
 
 /* ── Build the reveal ───────────────────────── */
+let revealBuilt = false;
 function buildReveal() {
   const riskScore = Number(state.risk) || 3;
   const profile   = PROFILES[Math.min(riskScore - 1, 4)];
 
-  // Profile text
   const pName = $('reveal-profile-name');
   const pDesc = $('reveal-profile-desc');
   const fname = state.name ? `, ${state.name.split(' ')[0]}` : '';
@@ -2046,11 +1961,9 @@ function buildReveal() {
   if (pName) pName.textContent = profile.name;
   if (pDesc) pDesc.textContent = profile.desc;
 
-  // Score dots
   const scoreDots = document.querySelectorAll('.ob-score-dot');
   scoreDots.forEach((d, i) => d.classList.toggle('is-active', i < riskScore));
 
-  // Headline with name
   const headline = $('reveal-headline');
   if (headline) {
     headline.innerHTML = fname
@@ -2058,7 +1971,6 @@ function buildReveal() {
       : `Here's your<br>wealth picture`;
   }
 
-  // Allocation bars
   const allocations = [
     { barId: 'bar-stocks', pctId: 'pct-stocks', pct: profile.stocks },
     { barId: 'bar-bonds',  pctId: 'pct-bonds',  pct: profile.bonds  },
@@ -2073,7 +1985,6 @@ function buildReveal() {
     if (bar) setTimeout(() => { bar.style.width = `${pct}%`; }, 400);
   });
 
-  // Projection — simplified model
   const horizon = state.timeline || 10;
   const startAmount = 10000;
   const conservativeRate = 0.05 + (riskScore - 1) * 0.01;
@@ -2085,32 +1996,42 @@ function buildReveal() {
   const projOpt = $('proj-opt');
   if (projEnd) projEnd.textContent = end.toLocaleString('en-GB');
   if (projOpt) projOpt.textContent = opt.toLocaleString('en-GB');
-
-  // Animate elements in
-  const eyebrow  = $('reveal-eyebrow');
-  const revH2    = document.querySelector('#section-reveal h2');
-  const profCard = $('reveal-profile');
-  const proj     = $('reveal-projection');
-  const cta      = $('reveal-cta');
-
-  if (eyebrow)  eyebrow.classList.add('is-visible');
-
-  setTimeout(() => {
-    if (revH2)   revH2.classList.add('is-visible');
-  }, 100);
-
-  setTimeout(() => {
-    if (profCard) profCard.classList.add('is-visible');
-  }, 250);
-
-  setTimeout(() => {
-    if (proj) proj.classList.add('is-visible');
-  }, 450);
-
-  setTimeout(() => {
-    if (cta) cta.classList.add('is-visible');
-  }, 600);
 }
+
+/* ── IntersectionObserver — background & progress ── */
+// Fires when a section crosses the 40% mark from the top of the viewport.
+// rootMargin '-40% 0px -40% 0px' means the trigger zone is the middle 20% of the viewport.
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const id = entry.target.id;
+
+    if (id === 'section-hero') {
+      setHero();
+      return;
+    }
+
+    if (id === 'section-reveal') {
+      setReveal();
+      if (!revealBuilt) {
+        revealBuilt = true;
+        buildReveal();
+      }
+      return;
+    }
+
+    const idx = ELEMENTS.findIndex(el => el.id === id);
+    if (idx !== -1) setElement(idx);
+  });
+}, {
+  rootMargin: '-35% 0px -35% 0px',
+  threshold:  0
+});
+
+['section-hero', ...ELEMENTS.map(e => e.id), 'section-reveal'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) sectionObserver.observe(el);
+});
 
 /* ── "Begin" button ─────────────────────────── */
 const btnBegin = $('btn-begin');
@@ -2162,9 +2083,8 @@ const emailInput = $('ob-email');
 if (nameInput)  nameInput.addEventListener('input',  () => { state.name  = nameInput.value; });
 if (emailInput) emailInput.addEventListener('input', () => { state.email = emailInput.value; });
 
-/* ── Hero initial state ──────────────────────── */
+/* ── Initial background ──────────────────────── */
 document.body.style.backgroundColor = '#04080F';
-setElement(0);
 </script>
 </body>
 </html>
