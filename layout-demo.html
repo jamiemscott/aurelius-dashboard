@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurelius — Layout Demo · shell--no-sidebar</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="src/styles/bundle.css">
+</head>
+<body>
+
+<div class="shell shell--no-sidebar">
+
+  <!-- ── TOPBAR ─────────────────────────── -->
+  <header role="banner">
+    <a class="brand" href="/" aria-label="Aurelius Wealth Management — home">
+      <span class="brand-mark" aria-hidden="true">A</span>
+      <span class="brand-text">
+        <span class="brand-name">Aurelius</span>
+        <span class="brand-sub">Wealth Management</span>
+      </span>
+    </a>
+
+    <nav class="topbar-nav" aria-label="Primary">
+      <a class="tab-btn" href="/">My Overview</a>
+      <a class="tab-btn" href="/valuation-history/">Valuation History</a>
+      <a class="tab-btn" href="/asset-allocation/">Asset Allocation</a>
+      <a class="tab-btn is-active" href="/layout-demo.html">Layout Demo</a>
+    </nav>
+
+    <div class="site-controls">
+      <div class="theme-switcher">
+        <input type="checkbox" role="switch" id="theme-checkbox" class="theme-checkbox" aria-label="Colour theme">
+        <label class="theme-toggle" for="theme-checkbox" aria-hidden="true">
+          <span class="theme-label-dark">Dark</span>
+          <span class="theme-label-light">Light</span>
+        </label>
+      </div>
+      <span class="theme-live" role="status" aria-live="polite" aria-atomic="true"></span>
+      <button class="icon-btn" aria-label="Settings">
+        <svg aria-hidden="true" focusable="false" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="8" cy="6" r="2" fill="var(--bg-card)" stroke="currentColor" stroke-width="1.7"/><circle cx="16" cy="12" r="2" fill="var(--bg-card)" stroke="currentColor" stroke-width="1.7"/><circle cx="10" cy="18" r="2" fill="var(--bg-card)" stroke="currentColor" stroke-width="1.7"/></svg>
+      </button>
+      <button class="avatar" aria-label="Account menu">SK</button>
+    </div>
+  </header>
+
+  <!-- ── MAIN — no sidebar, full width ─── -->
+  <main class="main" id="main-content" role="main">
+
+    <div class="page-header">
+      <div>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <span>Developer</span>
+          <span class="breadcrumb-sep" aria-hidden="true">/</span>
+          <span class="breadcrumb-current">Layout Demo</span>
+        </nav>
+        <h1 class="page-title">shell--no-sidebar</h1>
+        <p class="page-date">Full-width layout · header + main only, no sidebar column</p>
+      </div>
+      <div class="header-actions">
+        <a class="btn-secondary" href="/">← Back to dashboard</a>
+      </div>
+    </div>
+
+    <!-- ── Modifier annotation ─────────────── -->
+    <div class="card" style="margin-bottom: 20px; border-left: 3px solid var(--brand-gold); padding: 20px 24px;">
+      <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 8px;">How to use</p>
+      <p style="font-family: 'DM Mono', monospace; font-size: 0.875rem; color: var(--text);">
+        &lt;div class="<strong>shell shell--no-sidebar</strong>"&gt;
+      </p>
+      <p style="font-size: 0.8125rem; color: var(--text-muted); margin-top: 10px; line-height: 1.6;">
+        Add <code style="background: var(--bg-input); padding: 1px 6px; border-radius: 4px;">shell--no-sidebar</code> alongside <code style="background: var(--bg-input); padding: 1px 6px; border-radius: 4px;">shell</code> to switch the grid from a two-column layout (sidebar + main) to a single full-width column. The topbar still spans the full viewport. Any <code style="background: var(--bg-input); padding: 1px 6px; border-radius: 4px;">.sidebar</code> element present in the DOM is automatically hidden.
+      </p>
+    </div>
+
+    <!-- ── KPI row — three equal columns ──── -->
+    <div class="three-col">
+      <div class="card kpi-card">
+        <div class="kpi-label">Total Portfolio Value</div>
+        <div class="kpi-value">£482,310</div>
+        <div class="kpi-change up">+£12,480 <span class="kpi-change-period">this month</span></div>
+      </div>
+      <div class="card kpi-card">
+        <div class="kpi-label">Unrealised Gain / Loss</div>
+        <div class="kpi-value">+£38,200</div>
+        <div class="kpi-change up">+8.6% <span class="kpi-change-period">since inception</span></div>
+      </div>
+      <div class="card kpi-card">
+        <div class="kpi-label">Income Received YTD</div>
+        <div class="kpi-value">£4,820</div>
+        <div class="kpi-change up">+£310 <span class="kpi-change-period">vs last year</span></div>
+      </div>
+    </div>
+
+    <!-- ── Two-col content ─────────────────── -->
+    <div class="two-col">
+      <div class="card" style="padding: 24px;">
+        <p class="page-subtitle" style="margin-bottom: 16px;">Asset Allocation</p>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.8125rem; margin-bottom: 6px;">
+              <span style="color: var(--text);">Global Equities</span>
+              <span style="color: var(--text-muted);">55%</span>
+            </div>
+            <div style="height: 6px; background: var(--bg-input); border-radius: 3px; overflow: hidden;">
+              <div style="height: 100%; width: 55%; background: var(--brand-gold); border-radius: 3px; transition: width 0.6s ease;"></div>
+            </div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.8125rem; margin-bottom: 6px;">
+              <span style="color: var(--text);">Bonds &amp; Fixed Income</span>
+              <span style="color: var(--text-muted);">25%</span>
+            </div>
+            <div style="height: 6px; background: var(--bg-input); border-radius: 3px; overflow: hidden;">
+              <div style="height: 100%; width: 25%; background: var(--brand-gold); border-radius: 3px; transition: width 0.6s ease;"></div>
+            </div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.8125rem; margin-bottom: 6px;">
+              <span style="color: var(--text);">Alternatives</span>
+              <span style="color: var(--text-muted);">12%</span>
+            </div>
+            <div style="height: 6px; background: var(--bg-input); border-radius: 3px; overflow: hidden;">
+              <div style="height: 100%; width: 12%; background: var(--brand-gold); border-radius: 3px; transition: width 0.6s ease;"></div>
+            </div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.8125rem; margin-bottom: 6px;">
+              <span style="color: var(--text);">Cash &amp; Equivalents</span>
+              <span style="color: var(--text-muted);">8%</span>
+            </div>
+            <div style="height: 6px; background: var(--bg-input); border-radius: 3px; overflow: hidden;">
+              <div style="height: 100%; width: 8%; background: var(--brand-gold); border-radius: 3px; transition: width 0.6s ease;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="padding: 24px;">
+        <p class="page-subtitle" style="margin-bottom: 16px;">Recent Activity</p>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px;">
+          <li style="display: flex; justify-content: space-between; align-items: flex-start; font-size: 0.8125rem; padding-bottom: 14px; border-bottom: 1px solid var(--border);">
+            <div>
+              <div style="color: var(--text); font-weight: 500;">Vanguard FTSE All-World ETF</div>
+              <div style="color: var(--text-muted); margin-top: 2px;">Buy · 24 units</div>
+            </div>
+            <div style="text-align: right;">
+              <div style="color: var(--text);">£3,204.00</div>
+              <div style="color: var(--text-muted); margin-top: 2px;">28 Mar 2026</div>
+            </div>
+          </li>
+          <li style="display: flex; justify-content: space-between; align-items: flex-start; font-size: 0.8125rem; padding-bottom: 14px; border-bottom: 1px solid var(--border);">
+            <div>
+              <div style="color: var(--text); font-weight: 500;">iShares Corp Bond ETF</div>
+              <div style="color: var(--text-muted); margin-top: 2px;">Dividend received</div>
+            </div>
+            <div style="text-align: right;">
+              <div style="color: var(--success, #4ade80);">+£142.50</div>
+              <div style="color: var(--text-muted); margin-top: 2px;">15 Mar 2026</div>
+            </div>
+          </li>
+          <li style="display: flex; justify-content: space-between; align-items: flex-start; font-size: 0.8125rem;">
+            <div>
+              <div style="color: var(--text); font-weight: 500;">Cash Deposit</div>
+              <div style="color: var(--text-muted); margin-top: 2px;">Bank transfer</div>
+            </div>
+            <div style="text-align: right;">
+              <div style="color: var(--success, #4ade80);">+£5,000.00</div>
+              <div style="color: var(--text-muted); margin-top: 2px;">1 Mar 2026</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ── Footer ─────────────────────────── -->
+    <footer class="site-footer">
+      <div class="footer-regulatory">
+        <p class="footer-reg-text">
+          <strong>Important information.</strong> Aurelius Wealth Management Limited is authorised and regulated by the
+          Financial Conduct Authority (FCA). Registered number 987654. Registered in England &amp; Wales.
+          The value of investments and the income from them can fall as well as rise and you may get back less than you invest.
+        </p>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">© 2026 Aurelius Wealth Management Limited. All rights reserved.</div>
+        <div class="footer-fca"><div class="fca-dot"></div>FCA Reg. No. 987654</div>
+      </div>
+    </footer>
+
+  </main>
+
+</div>
+
+<script>
+  // Theme toggle
+  document.querySelector('.theme-checkbox')?.addEventListener('change', e => {
+    document.body.classList.toggle('theme-light', e.target.checked);
+    const live = document.querySelector('.theme-live');
+    if (live) live.textContent = e.target.checked ? 'Light mode' : 'Dark mode';
+  });
+</script>
+
+</body>
+</html>
