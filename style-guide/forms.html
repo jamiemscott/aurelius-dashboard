@@ -21,58 +21,514 @@
     <div class="sg-page-header">
       <p class="sg-page-kicker">Style Guide</p>
       <h1 class="sg-page-title">Forms</h1>
-      <p class="sg-page-desc">Form components power the Add Funds flow and other transactional surfaces. All form primitives and composite patterns are defined in <code>modules/forms.css</code>. Accessibility is non-negotiable: every input must have an associated <code>&lt;label&gt;</code>, and every interactive state must be keyboard-operable.</p>
+      <p class="sg-page-desc">Every native form element available in the Aurelius design system, alongside the custom composite patterns used in the Add Funds flow. Every input must have an associated <code>&lt;label&gt;</code>. All interactive states must be keyboard-operable. Defined in <code>modules/forms.css</code> and <code>base/base.css</code>.</p>
     </div>
 
-    <!-- ── Labels & Text Inputs ───────────────────────────── -->
-    <section class="sg-section" id="labels-inputs">
+    <!-- ── Text Input ─────────────────────────────────────── -->
+    <section class="sg-section" id="text-input">
       <div class="sg-section-header">
-        <h2 class="sg-section-title">Labels &amp; Text Inputs</h2>
-        <p class="sg-section-desc">Standard label + input pairs. Labels use <code>--fs-input-label</code>, <code>--fw-medium</code>, and <code>--text-2</code>. Inputs use <code>--bg-input</code>, <code>--shadow-inner</code>, and <code>--radius-item</code>. Always associate labels via <code>for</code>/<code>id</code> — never rely on <code>placeholder</code> text as the label.</p>
+        <h2 class="sg-section-title">Text Input — <code>&lt;input type="text"&gt;</code></h2>
+        <p class="sg-section-desc">The standard single-line text field. Always associate with a <code>&lt;label&gt;</code> via matching <code>for</code>/<code>id</code>. Add <code>aria-describedby</code> to link helper text. Never rely on <code>placeholder</code> as the label — it disappears on input and fails contrast requirements.</p>
       </div>
       <div class="sg-demo">
-        <div style="display:flex;flex-direction:column;gap:20px;max-width:400px">
-          <div>
-            <label for="sg-input-1" style="display:block;font-size:var(--fs-input-label);font-weight:var(--fw-medium);color:var(--text-2);margin-bottom:6px">Account name</label>
-            <input id="sg-input-1" type="text" placeholder="e.g. Stocks &amp; Shares ISA" style="width:100%;box-sizing:border-box;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-item);padding:10px 14px;font-size:var(--fs-input);color:var(--text-1);box-shadow:var(--shadow-inner);outline:none">
+        <div class="sg-form-grid">
+          <div class="sg-field">
+            <label for="f-text-1">Full name</label>
+            <input id="f-text-1" type="text" placeholder="e.g. Sarah Mitchell">
           </div>
-          <div>
-            <label for="sg-input-2" style="display:block;font-size:var(--fs-input-label);font-weight:var(--fw-medium);color:var(--text-2);margin-bottom:6px">Sort code</label>
-            <input id="sg-input-2" type="text" placeholder="00-00-00" style="width:100%;box-sizing:border-box;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-item);padding:10px 14px;font-size:var(--fs-input);color:var(--text-1);box-shadow:var(--shadow-inner);outline:none">
-            <p style="margin:6px 0 0;font-size:var(--fs-help);color:var(--text-3)">The 6-digit sort code on your bank statement</p>
+          <div class="sg-field">
+            <label for="f-text-2">Account reference <span class="sg-field-required" aria-hidden="true">*</span></label>
+            <input id="f-text-2" type="text" placeholder="AW-0000-0000" required aria-required="true">
+            <p class="sg-field-hint" id="f-text-2-hint">Found on your welcome letter</p>
           </div>
-          <div>
-            <label for="sg-input-3" style="display:block;font-size:var(--fs-input-label);font-weight:var(--fw-medium);color:var(--text-2);margin-bottom:6px">Account number</label>
-            <input id="sg-input-3" type="text" placeholder="8 digits" style="width:100%;box-sizing:border-box;background:var(--bg-input);border:1px solid var(--gold-glow);border-radius:var(--radius-item);padding:10px 14px;font-size:var(--fs-input);color:var(--text-1);box-shadow:var(--shadow-inner);outline:none" value="12345678">
-            <p style="margin:6px 0 0;font-size:var(--fs-help);color:var(--gold-text)">This field is focused / selected</p>
+          <div class="sg-field">
+            <label for="f-text-3">Account name (focus state)</label>
+            <input id="f-text-3" type="text" value="Stocks &amp; Shares ISA" class="sg-is-focused" style="border-color:var(--gold-glow);outline:2px solid var(--gold-dim)">
+          </div>
+          <div class="sg-field">
+            <label for="f-text-4">Account name (disabled)</label>
+            <input id="f-text-4" type="text" value="Growth Portfolio" disabled>
+          </div>
+          <div class="sg-field">
+            <label for="f-text-5">Sort code (error state)</label>
+            <input id="f-text-5" type="text" value="12-34" aria-invalid="true" aria-describedby="f-text-5-err" style="border-color:var(--red)">
+            <p class="sg-field-error" id="f-text-5-err" role="alert">Enter a valid 6-digit sort code (e.g. 12-34-56)</p>
           </div>
         </div>
       </div>
       <div class="sg-code">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
-        <pre><code class="language-html">&lt;label for="account-name"&gt;Account name&lt;/label&gt;
-&lt;input id="account-name" type="text" placeholder="e.g. Stocks &amp; Shares ISA"&gt;
+        <pre><code class="language-html">&lt;!-- Standard --&gt;
+&lt;label for="name"&gt;Full name&lt;/label&gt;
+&lt;input id="name" type="text" placeholder="e.g. Sarah Mitchell"&gt;
 
-&lt;!-- Helper text: associate with aria-describedby --&gt;
-&lt;label for="sort-code"&gt;Sort code&lt;/label&gt;
-&lt;input id="sort-code" type="text" placeholder="00-00-00"
-  aria-describedby="sort-code-hint"&gt;
-&lt;p id="sort-code-hint"&gt;The 6-digit sort code on your bank statement&lt;/p&gt;</code></pre>
+&lt;!-- With helper text --&gt;
+&lt;label for="ref"&gt;Account reference&lt;/label&gt;
+&lt;input id="ref" type="text" aria-describedby="ref-hint"&gt;
+&lt;p id="ref-hint"&gt;Found on your welcome letter&lt;/p&gt;
+
+&lt;!-- Error state --&gt;
+&lt;input id="sort" type="text" aria-invalid="true" aria-describedby="sort-err"&gt;
+&lt;p id="sort-err" role="alert"&gt;Enter a valid 6-digit sort code&lt;/p&gt;
+
+&lt;!-- Disabled --&gt;
+&lt;input type="text" disabled value="Growth Portfolio"&gt;</code></pre>
       </div>
     </section>
 
-    <!-- ── Progress Steps ─────────────────────────────────── -->
+    <!-- ── Other Input Types ──────────────────────────────── -->
+    <section class="sg-section" id="input-types">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Input Types</h2>
+        <p class="sg-section-desc">Use the most specific <code>type</code> attribute for each input — this gives mobile users the correct keyboard (numeric, email, phone), enables browser validation, and aids assistive technology. All types inherit the same visual styling as <code>type="text"</code>.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="sg-form-grid">
+          <div class="sg-field">
+            <label for="f-email">Email address</label>
+            <input id="f-email" type="email" placeholder="name@example.com" autocomplete="email">
+          </div>
+          <div class="sg-field">
+            <label for="f-tel">Phone number</label>
+            <input id="f-tel" type="tel" placeholder="+44 7700 900000" autocomplete="tel">
+          </div>
+          <div class="sg-field">
+            <label for="f-number">Number</label>
+            <input id="f-number" type="number" min="0" max="100000" step="500" placeholder="0" value="5000">
+          </div>
+          <div class="sg-field">
+            <label for="f-date">Date</label>
+            <input id="f-date" type="date" value="2024-03-15">
+          </div>
+          <div class="sg-field">
+            <label for="f-password">Password</label>
+            <input id="f-password" type="password" placeholder="Enter your password" autocomplete="current-password">
+          </div>
+          <div class="sg-field">
+            <label for="f-search">Search</label>
+            <input id="f-search" type="search" placeholder="Search holdings…" role="searchbox">
+          </div>
+          <div class="sg-field">
+            <label for="f-url">Website URL</label>
+            <input id="f-url" type="url" placeholder="https://">
+          </div>
+          <div class="sg-field">
+            <label for="f-time">Time</label>
+            <input id="f-time" type="time" value="09:30">
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;input type="email"    autocomplete="email"&gt;
+&lt;input type="tel"      autocomplete="tel"&gt;
+&lt;input type="number"   min="0" max="100000" step="500"&gt;
+&lt;input type="date"     value="2024-03-15"&gt;
+&lt;input type="password" autocomplete="current-password"&gt;
+&lt;input type="search"   role="searchbox"&gt;
+&lt;input type="url"      placeholder="https://"&gt;
+&lt;input type="time"     value="09:30"&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Textarea ───────────────────────────────────────── -->
+    <section class="sg-section" id="textarea">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Textarea — <code>&lt;textarea&gt;</code></h2>
+        <p class="sg-section-desc">Multi-line free text input. Set an explicit <code>rows</code> attribute to give the field a meaningful initial height — do not rely on browser defaults. Use <code>resize: vertical</code> only (CSS already applies this) so users can adjust height but not break horizontal layout.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="sg-form-grid sg-form-grid--single">
+          <div class="sg-field">
+            <label for="f-textarea">Investment goals</label>
+            <textarea id="f-textarea" rows="4" placeholder="Describe your long-term investment objectives and any specific considerations your adviser should be aware of…" aria-describedby="f-textarea-hint" style="width:100%;box-sizing:border-box;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-item);padding:10px 14px;font-size:var(--fs-input);color:var(--text-1);font-family:var(--font-sans);line-height:var(--lh-relaxed);resize:vertical;box-shadow:var(--shadow-inner);outline:none"></textarea>
+            <p class="sg-field-hint" id="f-textarea-hint">Maximum 500 characters. This information will be shared with your assigned adviser.</p>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;label for="goals"&gt;Investment goals&lt;/label&gt;
+&lt;textarea
+  id="goals"
+  rows="4"
+  maxlength="500"
+  aria-describedby="goals-hint"
+  placeholder="Describe your long-term investment objectives…"
+&gt;&lt;/textarea&gt;
+&lt;p id="goals-hint"&gt;Maximum 500 characters.&lt;/p&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Select ─────────────────────────────────────────── -->
+    <section class="sg-section" id="select">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Select — <code>&lt;select&gt;</code></h2>
+        <p class="sg-section-desc">Use for choosing from a predefined list of options. Always include a disabled, empty first option as a visible prompt when no value is pre-selected. For large option sets (10+), prefer a searchable combobox pattern. The <code>multiple</code> attribute renders a list box — size it explicitly with <code>size</code>.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="sg-form-grid">
+          <div class="sg-field">
+            <label for="f-select">Account type</label>
+            <select id="f-select" style="width:100%;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-item);padding:10px 14px;font-size:var(--fs-input);color:var(--text-1);font-family:var(--font-sans);box-shadow:var(--shadow-inner);outline:none;cursor:pointer;appearance:auto">
+              <option value="" disabled selected>Select account type…</option>
+              <option value="isa">Stocks &amp; Shares ISA</option>
+              <option value="sipp">Self-Invested Personal Pension (SIPP)</option>
+              <option value="gia">General Investment Account</option>
+              <option value="jisa">Junior ISA</option>
+            </select>
+          </div>
+          <div class="sg-field">
+            <label for="f-select-pre">Risk profile</label>
+            <select id="f-select-pre" style="width:100%;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-item);padding:10px 14px;font-size:var(--fs-input);color:var(--text-1);font-family:var(--font-sans);box-shadow:var(--shadow-inner);outline:none;cursor:pointer;appearance:auto">
+              <option value="1">1 — Very cautious</option>
+              <option value="2">2 — Cautious</option>
+              <option value="3" selected>3 — Balanced</option>
+              <option value="4">4 — Growth</option>
+              <option value="5">5 — Aggressive growth</option>
+            </select>
+          </div>
+          <div class="sg-field">
+            <label for="f-select-disabled">Account (disabled)</label>
+            <select id="f-select-disabled" disabled style="width:100%;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-item);padding:10px 14px;font-size:var(--fs-input);color:var(--text-3);font-family:var(--font-sans);box-shadow:var(--shadow-inner);outline:none;cursor:not-allowed;appearance:auto;opacity:0.5">
+              <option>Growth Portfolio</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;label for="account-type"&gt;Account type&lt;/label&gt;
+&lt;select id="account-type"&gt;
+  &lt;option value="" disabled selected&gt;Select account type…&lt;/option&gt;
+  &lt;option value="isa"&gt;Stocks &amp; Shares ISA&lt;/option&gt;
+  &lt;option value="sipp"&gt;SIPP&lt;/option&gt;
+  &lt;option value="gia"&gt;General Investment Account&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Checkboxes ─────────────────────────────────────── -->
+    <section class="sg-section" id="checkboxes">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Checkboxes — <code>&lt;input type="checkbox"&gt;</code></h2>
+        <p class="sg-section-desc">For binary true/false choices or selecting one or more items from a set. Each checkbox must have its own associated <code>&lt;label&gt;</code>. Group related checkboxes in a <code>&lt;fieldset&gt;</code> with a <code>&lt;legend&gt;</code>. The browser handles checked/focus states — do not override with custom elements that break AT.</p>
+      </div>
+      <div class="sg-demo sg-demo--col">
+        <fieldset style="border:none;padding:0;margin:0">
+          <legend style="color:var(--text-1);font-size:var(--fs-body);font-weight:var(--fw-medium);margin-bottom:12px">Notification preferences</legend>
+          <div class="sg-check-group">
+            <div class="sg-check-row">
+              <input type="checkbox" id="f-chk-1" checked style="accent-color:var(--gold);width:16px;height:16px;flex-shrink:0;cursor:pointer">
+              <label for="f-chk-1" style="cursor:pointer">
+                <span style="color:var(--text-1);font-size:var(--fs-body);font-weight:var(--fw-medium)">Portfolio alerts</span>
+                <span style="display:block;color:var(--text-3);font-size:var(--fs-sm)">Notify me when my portfolio value changes by more than 5%</span>
+              </label>
+            </div>
+            <div class="sg-check-row">
+              <input type="checkbox" id="f-chk-2" checked style="accent-color:var(--gold);width:16px;height:16px;flex-shrink:0;cursor:pointer">
+              <label for="f-chk-2" style="cursor:pointer">
+                <span style="color:var(--text-1);font-size:var(--fs-body);font-weight:var(--fw-medium)">Monthly statements</span>
+                <span style="display:block;color:var(--text-3);font-size:var(--fs-sm)">Receive a monthly summary of portfolio activity by email</span>
+              </label>
+            </div>
+            <div class="sg-check-row">
+              <input type="checkbox" id="f-chk-3" style="accent-color:var(--gold);width:16px;height:16px;flex-shrink:0;cursor:pointer">
+              <label for="f-chk-3" style="cursor:pointer">
+                <span style="color:var(--text-1);font-size:var(--fs-body);font-weight:var(--fw-medium)">Marketing communications</span>
+                <span style="display:block;color:var(--text-3);font-size:var(--fs-sm)">Receive updates about new products, investment opportunities, and market insights</span>
+              </label>
+            </div>
+            <div class="sg-check-row">
+              <input type="checkbox" id="f-chk-4" disabled style="width:16px;height:16px;flex-shrink:0;cursor:not-allowed;opacity:0.5">
+              <label for="f-chk-4" style="cursor:not-allowed;opacity:0.5">
+                <span style="color:var(--text-1);font-size:var(--fs-body);font-weight:var(--fw-medium)">Regulatory notices (required)</span>
+                <span style="display:block;color:var(--text-3);font-size:var(--fs-sm)">Mandatory regulatory and compliance notifications — cannot be disabled</span>
+              </label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;fieldset&gt;
+  &lt;legend&gt;Notification preferences&lt;/legend&gt;
+
+  &lt;div class="sg-check-row"&gt;
+    &lt;input type="checkbox" id="alerts" checked&gt;
+    &lt;label for="alerts"&gt;
+      Portfolio alerts
+      &lt;span&gt;Notify me when value changes by more than 5%&lt;/span&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Disabled --&gt;
+  &lt;input type="checkbox" id="required" disabled&gt;
+  &lt;label for="required"&gt;Regulatory notices (required)&lt;/label&gt;
+&lt;/fieldset&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Radio Buttons ──────────────────────────────────── -->
+    <section class="sg-section" id="radio">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Radio Buttons — <code>&lt;input type="radio"&gt;</code></h2>
+        <p class="sg-section-desc">For mutually exclusive choices where only one option can be selected. All radio buttons in a group must share the same <code>name</code> attribute. Always wrap in a <code>&lt;fieldset&gt;</code> + <code>&lt;legend&gt;</code> for proper screen reader grouping. Keyboard: arrow keys move between options.</p>
+      </div>
+      <div class="sg-demo sg-demo--col">
+        <fieldset style="border:none;padding:0;margin:0">
+          <legend style="color:var(--text-1);font-size:var(--fs-body);font-weight:var(--fw-medium);margin-bottom:12px">Withdrawal frequency</legend>
+          <div class="sg-check-group">
+            <div class="sg-check-row">
+              <input type="radio" id="f-rad-1" name="frequency" value="monthly" checked style="accent-color:var(--gold);width:16px;height:16px;flex-shrink:0;cursor:pointer">
+              <label for="f-rad-1" style="color:var(--text-1);font-size:var(--fs-body);cursor:pointer">Monthly</label>
+            </div>
+            <div class="sg-check-row">
+              <input type="radio" id="f-rad-2" name="frequency" value="quarterly" style="accent-color:var(--gold);width:16px;height:16px;flex-shrink:0;cursor:pointer">
+              <label for="f-rad-2" style="color:var(--text-1);font-size:var(--fs-body);cursor:pointer">Quarterly</label>
+            </div>
+            <div class="sg-check-row">
+              <input type="radio" id="f-rad-3" name="frequency" value="annually" style="accent-color:var(--gold);width:16px;height:16px;flex-shrink:0;cursor:pointer">
+              <label for="f-rad-3" style="color:var(--text-1);font-size:var(--fs-body);cursor:pointer">Annually</label>
+            </div>
+            <div class="sg-check-row">
+              <input type="radio" id="f-rad-4" name="frequency" value="manual" disabled style="width:16px;height:16px;flex-shrink:0;cursor:not-allowed;opacity:0.5">
+              <label for="f-rad-4" style="color:var(--text-3);font-size:var(--fs-body);cursor:not-allowed">On demand (unavailable for this account type)</label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;fieldset&gt;
+  &lt;legend&gt;Withdrawal frequency&lt;/legend&gt;
+
+  &lt;input type="radio" id="monthly" name="frequency" value="monthly" checked&gt;
+  &lt;label for="monthly"&gt;Monthly&lt;/label&gt;
+
+  &lt;input type="radio" id="quarterly" name="frequency" value="quarterly"&gt;
+  &lt;label for="quarterly"&gt;Quarterly&lt;/label&gt;
+
+  &lt;input type="radio" id="annually" name="frequency" value="annually"&gt;
+  &lt;label for="annually"&gt;Annually&lt;/label&gt;
+&lt;/fieldset&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Toggle / Switch ────────────────────────────────── -->
+    <section class="sg-section" id="toggle">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Toggle Switch — <code>role="switch"</code></h2>
+        <p class="sg-section-desc">A checkbox styled as an on/off toggle for boolean settings. Always use <code>role="switch"</code> on the <code>&lt;input&gt;</code> so screen readers announce "on" and "off" states correctly. The dashboard uses this pattern for the light/dark theme toggle in the topbar.</p>
+      </div>
+      <div class="sg-demo">
+        <div style="display:flex;flex-direction:column;gap:16px;max-width:400px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+            <div>
+              <p style="margin:0;color:var(--text-1);font-size:var(--fs-body);font-weight:var(--fw-medium)">Auto-rebalancing</p>
+              <p style="margin:0;color:var(--text-3);font-size:var(--fs-sm)">Automatically rebalance portfolio quarterly</p>
+            </div>
+            <div class="theme-switcher" style="flex-shrink:0">
+              <input type="checkbox" role="switch" id="f-toggle-1" class="theme-checkbox" aria-label="Auto-rebalancing" checked>
+              <label class="theme-toggle" for="f-toggle-1" aria-hidden="true">
+                <span class="theme-label-dark">Off</span>
+                <span class="theme-label-light">On</span>
+              </label>
+            </div>
+          </div>
+          <div style="height:1px;background:var(--divider)"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+            <div>
+              <p style="margin:0;color:var(--text-1);font-size:var(--fs-body);font-weight:var(--fw-medium)">Dividend reinvestment</p>
+              <p style="margin:0;color:var(--text-3);font-size:var(--fs-sm)">Automatically reinvest dividend income</p>
+            </div>
+            <div class="theme-switcher" style="flex-shrink:0">
+              <input type="checkbox" role="switch" id="f-toggle-2" class="theme-checkbox" aria-label="Dividend reinvestment">
+              <label class="theme-toggle" for="f-toggle-2" aria-hidden="true">
+                <span class="theme-label-dark">Off</span>
+                <span class="theme-label-light">On</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="theme-switcher"&gt;
+  &lt;input
+    type="checkbox"
+    role="switch"
+    id="rebalancing"
+    class="theme-checkbox"
+    aria-label="Auto-rebalancing"
+    checked
+  &gt;
+  &lt;label class="theme-toggle" for="rebalancing" aria-hidden="true"&gt;
+    &lt;span class="theme-label-dark"&gt;Off&lt;/span&gt;
+    &lt;span class="theme-label-light"&gt;On&lt;/span&gt;
+  &lt;/label&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Range Slider ───────────────────────────────────── -->
+    <section class="sg-section" id="range">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Range Slider — <code>&lt;input type="range"&gt;</code></h2>
+        <p class="sg-section-desc">For selecting a value within a defined range. Always show the current value visibly — the native <code>&lt;input type="range"&gt;</code> renders no output element. Set <code>min</code>, <code>max</code>, and <code>step</code> explicitly. Update <code>aria-valuenow</code> and <code>aria-valuetext</code> dynamically as the value changes.</p>
+      </div>
+      <div class="sg-demo">
+        <div style="display:flex;flex-direction:column;gap:24px;max-width:480px">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
+              <label for="f-range-1" style="color:var(--text-2);font-size:var(--fs-input-label);font-weight:var(--fw-medium)">Investment horizon</label>
+              <span style="color:var(--text-1);font-size:var(--fs-sm);font-weight:var(--fw-semibold)" id="f-range-1-val">10 years</span>
+            </div>
+            <input id="f-range-1" type="range" min="1" max="30" step="1" value="10"
+              style="width:100%;accent-color:var(--gold);cursor:pointer"
+              aria-valuemin="1" aria-valuemax="30" aria-valuenow="10" aria-valuetext="10 years"
+              oninput="document.getElementById('f-range-1-val').textContent=this.value+' year'+(this.value==1?'':'s')">
+            <div style="display:flex;justify-content:space-between;margin-top:4px">
+              <span style="color:var(--text-3);font-size:var(--fs-xs)">1 year</span>
+              <span style="color:var(--text-3);font-size:var(--fs-xs)">30 years</span>
+            </div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
+              <label for="f-range-2" style="color:var(--text-2);font-size:var(--fs-input-label);font-weight:var(--fw-medium)">Monthly contribution</label>
+              <span style="color:var(--text-1);font-size:var(--fs-sm);font-weight:var(--fw-semibold)" id="f-range-2-val">£500</span>
+            </div>
+            <input id="f-range-2" type="range" min="0" max="2000" step="50" value="500"
+              style="width:100%;accent-color:var(--gold);cursor:pointer"
+              aria-valuemin="0" aria-valuemax="2000" aria-valuenow="500" aria-valuetext="£500"
+              oninput="document.getElementById('f-range-2-val').textContent='£'+Number(this.value).toLocaleString()">
+            <div style="display:flex;justify-content:space-between;margin-top:4px">
+              <span style="color:var(--text-3);font-size:var(--fs-xs)">£0</span>
+              <span style="color:var(--text-3);font-size:var(--fs-xs)">£2,000</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;label for="horizon"&gt;Investment horizon&lt;/label&gt;
+&lt;output id="horizon-val"&gt;10 years&lt;/output&gt;
+&lt;input
+  id="horizon"
+  type="range"
+  min="1" max="30" step="1" value="10"
+  aria-valuemin="1" aria-valuemax="30"
+  aria-valuenow="10" aria-valuetext="10 years"
+&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── File Input ─────────────────────────────────────── -->
+    <section class="sg-section" id="file-input">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">File Input — <code>&lt;input type="file"&gt;</code></h2>
+        <p class="sg-section-desc">For document upload — statements, identification, mandates. Constrain accepted types with the <code>accept</code> attribute. The native input is visually hidden and triggered by a styled <code>&lt;label&gt;</code> button, but the real <code>&lt;input&gt;</code> must remain in the DOM for keyboard and AT access.</p>
+      </div>
+      <div class="sg-demo">
+        <div style="display:flex;flex-direction:column;gap:12px;max-width:400px">
+          <div class="sg-field">
+            <label for="f-file" style="color:var(--text-2);font-size:var(--fs-input-label);font-weight:var(--fw-medium);display:block;margin-bottom:6px">Upload bank statement</label>
+            <label for="f-file" style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:var(--bg-input);border:1px dashed var(--border);border-radius:var(--radius-item);cursor:pointer;color:var(--text-2);font-size:var(--fs-sm);font-weight:var(--fw-medium);transition:border-color 0.15s">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              Choose file or drag &amp; drop
+            </label>
+            <input id="f-file" type="file" accept=".pdf,.jpg,.png" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0">
+            <p class="sg-field-hint">PDF, JPG or PNG · Max 10MB</p>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;!-- Visually styled label triggers the real input --&gt;
+&lt;label for="statement"&gt;Upload bank statement&lt;/label&gt;
+&lt;label for="statement" class="sg-file-btn"&gt;
+  Choose file or drag &amp; drop
+&lt;/label&gt;
+
+&lt;!-- The real input stays accessible but visually hidden --&gt;
+&lt;input
+  id="statement"
+  type="file"
+  accept=".pdf,.jpg,.png"
+  style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)"
+&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Fieldset & Legend ───────────────────────────────── -->
+    <section class="sg-section" id="fieldset">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Fieldset &amp; Legend</h2>
+        <p class="sg-section-desc">Group related form controls with <code>&lt;fieldset&gt;</code> + <code>&lt;legend&gt;</code>. This is mandatory for radio groups and checkbox groups — it tells screen readers the group name. For visual sections without a group of related inputs, use a plain <code>&lt;div&gt;</code> with a heading instead. The default browser border on <code>&lt;fieldset&gt;</code> should be reset in CSS.</p>
+      </div>
+      <div class="sg-demo">
+        <form style="display:flex;flex-direction:column;gap:24px;max-width:480px">
+          <fieldset style="border:1px solid var(--border);border-radius:var(--radius-card);padding:20px 20px 16px;margin:0">
+            <legend style="color:var(--text-1);font-size:var(--fs-panel-title);font-weight:var(--fw-semibold);padding:0 6px;margin-left:-6px">Personal details</legend>
+            <div class="sg-form-grid">
+              <div class="sg-field">
+                <label for="f-fn">First name</label>
+                <input id="f-fn" type="text" placeholder="Sarah" autocomplete="given-name">
+              </div>
+              <div class="sg-field">
+                <label for="f-ln">Last name</label>
+                <input id="f-ln" type="text" placeholder="Mitchell" autocomplete="family-name">
+              </div>
+            </div>
+          </fieldset>
+          <fieldset style="border:1px solid var(--border);border-radius:var(--radius-card);padding:20px 20px 16px;margin:0">
+            <legend style="color:var(--text-1);font-size:var(--fs-panel-title);font-weight:var(--fw-semibold);padding:0 6px;margin-left:-6px">Contact preferences</legend>
+            <div class="sg-check-group">
+              <div class="sg-check-row">
+                <input type="radio" id="f-pref-email" name="contact-pref" value="email" checked style="accent-color:var(--gold);width:16px;height:16px;flex-shrink:0">
+                <label for="f-pref-email" style="color:var(--text-1);font-size:var(--fs-body)">Email</label>
+              </div>
+              <div class="sg-check-row">
+                <input type="radio" id="f-pref-phone" name="contact-pref" value="phone" style="accent-color:var(--gold);width:16px;height:16px;flex-shrink:0">
+                <label for="f-pref-phone" style="color:var(--text-1);font-size:var(--fs-body)">Phone</label>
+              </div>
+              <div class="sg-check-row">
+                <input type="radio" id="f-pref-post" name="contact-pref" value="post" style="accent-color:var(--gold);width:16px;height:16px;flex-shrink:0">
+                <label for="f-pref-post" style="color:var(--text-1);font-size:var(--fs-body)">Post</label>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;fieldset&gt;
+  &lt;legend&gt;Personal details&lt;/legend&gt;
+  &lt;label for="fname"&gt;First name&lt;/label&gt;
+  &lt;input id="fname" type="text" autocomplete="given-name"&gt;
+  &lt;label for="lname"&gt;Last name&lt;/label&gt;
+  &lt;input id="lname" type="text" autocomplete="family-name"&gt;
+&lt;/fieldset&gt;
+
+&lt;!-- Radio group — fieldset+legend is mandatory --&gt;
+&lt;fieldset&gt;
+  &lt;legend&gt;Contact preference&lt;/legend&gt;
+  &lt;input type="radio" id="email" name="contact" value="email" checked&gt;
+  &lt;label for="email"&gt;Email&lt;/label&gt;
+&lt;/fieldset&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Add Funds Components ───────────────────────────── -->
     <section class="sg-section" id="steps">
       <div class="sg-section-header">
         <h2 class="sg-section-title">Progress Steps — <code>.steps</code></h2>
-        <p class="sg-section-desc">A horizontal step indicator for multi-stage forms. Steps take <code>.is-active</code> (current step) or <code>.is-complete</code> (completed step). Use an <code>aria-current="step"</code> attribute on the active step element for accessibility. The connecting lines are rendered via <code>.step-connector</code> elements between each <code>.step</code>.</p>
+        <p class="sg-section-desc">A horizontal step indicator for multi-stage forms. Steps take <code>.is-active</code> (current) or <code>.is-complete</code> (done). The active step gets <code>aria-current="step"</code>. Connectors between steps use <code>.step-connector</code>.</p>
       </div>
       <div class="sg-demo">
-        <div class="steps" role="list" aria-label="Add funds steps">
+        <div class="steps" role="list" aria-label="Add funds progress">
           <div class="step is-complete" role="listitem">
-            <div class="step-num" aria-hidden="true">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
+            <div class="step-num" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
             <span class="step-label">Source</span>
           </div>
           <div class="step-connector" aria-hidden="true"></div>
@@ -94,22 +550,15 @@
       </div>
       <div class="sg-code">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
-        <pre><code class="language-html">&lt;div class="steps" role="list" aria-label="Add funds steps"&gt;
+        <pre><code class="language-html">&lt;div class="steps" role="list" aria-label="Add funds progress"&gt;
   &lt;div class="step is-complete" role="listitem"&gt;
-    &lt;div class="step-num" aria-hidden="true"&gt;
-      &lt;svg&gt;&lt;!-- checkmark --&gt;&lt;/svg&gt;
-    &lt;/div&gt;
+    &lt;div class="step-num" aria-hidden="true"&gt;✓&lt;/div&gt;
     &lt;span class="step-label"&gt;Source&lt;/span&gt;
   &lt;/div&gt;
   &lt;div class="step-connector" aria-hidden="true"&gt;&lt;/div&gt;
   &lt;div class="step is-active" role="listitem" aria-current="step"&gt;
     &lt;div class="step-num" aria-hidden="true"&gt;2&lt;/div&gt;
     &lt;span class="step-label"&gt;Amount&lt;/span&gt;
-  &lt;/div&gt;
-  &lt;div class="step-connector" aria-hidden="true"&gt;&lt;/div&gt;
-  &lt;div class="step" role="listitem"&gt;
-    &lt;div class="step-num" aria-hidden="true"&gt;3&lt;/div&gt;
-    &lt;span class="step-label"&gt;Review&lt;/span&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
       </div>
@@ -119,28 +568,22 @@
     <section class="sg-section" id="method-cards">
       <div class="sg-section-header">
         <h2 class="sg-section-title">Method Cards — <code>.method-card</code></h2>
-        <p class="sg-section-desc">Selectable option cards for choosing a payment or transfer method. Built as <code>&lt;button&gt;</code> elements for native keyboard access. Add <code>aria-pressed="true"</code> when selected. The card contains an icon (<code>.method-card-icon</code>), primary label (<code>.method-card-label</code>), and secondary detail (<code>.method-card-detail</code>).</p>
+        <p class="sg-section-desc">Selectable option cards for choosing a payment or transfer method. Built as <code>&lt;button&gt;</code> elements with <code>aria-pressed</code> toggling selected state. Contains an icon, label, and detail string.</p>
       </div>
       <div class="sg-demo">
         <div class="method-cards">
-          <button class="method-card" aria-pressed="true" style="outline:none">
-            <div class="method-card-icon" aria-hidden="true">
-              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-            </div>
+          <button class="method-card" aria-pressed="true">
+            <div class="method-card-icon" aria-hidden="true"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
             <div class="method-card-label">Bank Transfer</div>
             <div class="method-card-detail">2–3 business days · No fee</div>
           </button>
-          <button class="method-card" aria-pressed="false" style="outline:none">
-            <div class="method-card-icon" aria-hidden="true">
-              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-            </div>
+          <button class="method-card" aria-pressed="false">
+            <div class="method-card-icon" aria-hidden="true"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
             <div class="method-card-label">Debit Card</div>
             <div class="method-card-detail">Instant · 0.5% fee</div>
           </button>
-          <button class="method-card" aria-pressed="false" style="outline:none">
-            <div class="method-card-icon" aria-hidden="true">
-              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-            </div>
+          <button class="method-card" aria-pressed="false">
+            <div class="method-card-icon" aria-hidden="true"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
             <div class="method-card-label">Standing Order</div>
             <div class="method-card-detail">Recurring · No fee</div>
           </button>
@@ -150,9 +593,7 @@
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
         <pre><code class="language-html">&lt;div class="method-cards"&gt;
   &lt;button class="method-card" aria-pressed="true"&gt;
-    &lt;div class="method-card-icon" aria-hidden="true"&gt;
-      &lt;svg&gt;&lt;!-- icon --&gt;&lt;/svg&gt;
-    &lt;/div&gt;
+    &lt;div class="method-card-icon" aria-hidden="true"&gt;&lt;svg&gt;…&lt;/svg&gt;&lt;/div&gt;
     &lt;div class="method-card-label"&gt;Bank Transfer&lt;/div&gt;
     &lt;div class="method-card-detail"&gt;2–3 business days · No fee&lt;/div&gt;
   &lt;/button&gt;
@@ -160,42 +601,17 @@
       </div>
     </section>
 
-    <!-- ── Amount Input ───────────────────────────────────── -->
+    <!-- ── Amount Input + Chips ───────────────────────────── -->
     <section class="sg-section" id="amount-input">
       <div class="sg-section-header">
-        <h2 class="sg-section-title">Amount Input — <code>.amount-wrap</code></h2>
-        <p class="sg-section-desc">A currency-prefixed amount field. The <code>.amount-prefix</code> holds the currency symbol (£, $, €) and is purely presentational — the <code>aria-label</code> on the input should include the currency: <code>aria-label="Amount in pounds"</code>. The numeric input uses <code>type="number"</code> with appropriate <code>min</code>/<code>max</code> constraints.</p>
+        <h2 class="sg-section-title">Amount Input &amp; Chips</h2>
+        <p class="sg-section-desc">A currency-prefixed number field paired with preset value shortcuts. The <code>.amount-prefix</code> symbol is <code>aria-hidden</code> — the <code>aria-label</code> on the input includes the currency. Chips use <code>aria-pressed</code> and sync their selected state with the input value bidirectionally via JS.</p>
       </div>
-      <div class="sg-demo sg-demo--center">
+      <div class="sg-demo sg-demo--col">
         <div class="amount-wrap">
           <span class="amount-prefix" aria-hidden="true">£</span>
           <input class="amount-input" type="number" id="sg-amount" min="1" max="100000" placeholder="0.00" aria-label="Amount in pounds" value="5000">
         </div>
-      </div>
-      <div class="sg-code">
-        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
-        <pre><code class="language-html">&lt;div class="amount-wrap"&gt;
-  &lt;span class="amount-prefix" aria-hidden="true"&gt;£&lt;/span&gt;
-  &lt;input
-    class="amount-input"
-    type="number"
-    id="amount"
-    min="1"
-    max="100000"
-    placeholder="0.00"
-    aria-label="Amount in pounds"
-  &gt;
-&lt;/div&gt;</code></pre>
-      </div>
-    </section>
-
-    <!-- ── Amount Chips ───────────────────────────────────── -->
-    <section class="sg-section" id="amount-chips">
-      <div class="sg-section-header">
-        <h2 class="sg-section-title">Amount Chips — <code>.amount-chip</code></h2>
-        <p class="sg-section-desc">Preset value shortcuts that populate the amount input when clicked. Built as <code>&lt;button&gt;</code> elements with <code>aria-pressed</code> to indicate selection. Grouped inside <code>.amount-chips</code>. Sync chip selection state with the amount input value in JavaScript.</p>
-      </div>
-      <div class="sg-demo sg-demo--center">
         <div class="amount-chips" role="group" aria-label="Preset amounts">
           <button class="amount-chip" aria-pressed="false">£500</button>
           <button class="amount-chip" aria-pressed="false">£1,000</button>
@@ -206,11 +622,16 @@
       </div>
       <div class="sg-code">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
-        <pre><code class="language-html">&lt;div class="amount-chips" role="group" aria-label="Preset amounts"&gt;
+        <pre><code class="language-html">&lt;div class="amount-wrap"&gt;
+  &lt;span class="amount-prefix" aria-hidden="true"&gt;£&lt;/span&gt;
+  &lt;input class="amount-input" type="number"
+    id="amount" min="1" max="100000"
+    aria-label="Amount in pounds"&gt;
+&lt;/div&gt;
+
+&lt;div class="amount-chips" role="group" aria-label="Preset amounts"&gt;
   &lt;button class="amount-chip" aria-pressed="false"&gt;£500&lt;/button&gt;
-  &lt;button class="amount-chip" aria-pressed="false"&gt;£1,000&lt;/button&gt;
   &lt;button class="amount-chip" aria-pressed="true"&gt;£5,000&lt;/button&gt;
-  &lt;button class="amount-chip" aria-pressed="false"&gt;£10,000&lt;/button&gt;
 &lt;/div&gt;</code></pre>
       </div>
     </section>
@@ -219,32 +640,17 @@
     <section class="sg-section" id="review-card">
       <div class="sg-section-header">
         <h2 class="sg-section-title">Review Card — <code>.review-card</code></h2>
-        <p class="sg-section-desc">A summary panel displayed before confirming a transaction. Label/value rows use <code>.review-row</code>, <code>.review-row-label</code>, and <code>.review-row-value</code>. The total row uses the <code>.review-row--total</code> modifier for visual emphasis. Wrap in a <code>&lt;dl&gt;</code> for semantic description list markup.</p>
+        <p class="sg-section-desc">A summary panel before confirming a transaction. Label/value rows use <code>.review-row</code>. The total row uses <code>.review-row--total</code>. Wrap in a <code>&lt;dl&gt;</code> for semantic key/value structure.</p>
       </div>
       <div class="sg-demo">
         <div class="review-card" style="max-width:400px">
           <div class="form-section-hd">Transaction Summary</div>
           <dl style="margin:0">
-            <div class="review-row">
-              <dt class="review-row-label">Payment method</dt>
-              <dd class="review-row-value">Bank Transfer</dd>
-            </div>
-            <div class="review-row">
-              <dt class="review-row-label">Amount</dt>
-              <dd class="review-row-value">£5,000.00</dd>
-            </div>
-            <div class="review-row">
-              <dt class="review-row-label">Destination</dt>
-              <dd class="review-row-value">Stocks &amp; Shares ISA</dd>
-            </div>
-            <div class="review-row">
-              <dt class="review-row-label">Processing time</dt>
-              <dd class="review-row-value">2–3 business days</dd>
-            </div>
-            <div class="review-row review-row--total">
-              <dt class="review-row-label">Total debit</dt>
-              <dd class="review-row-value">£5,000.00</dd>
-            </div>
+            <div class="review-row"><dt class="review-row-label">Payment method</dt><dd class="review-row-value">Bank Transfer</dd></div>
+            <div class="review-row"><dt class="review-row-label">Amount</dt><dd class="review-row-value">£5,000.00</dd></div>
+            <div class="review-row"><dt class="review-row-label">Destination</dt><dd class="review-row-value">Stocks &amp; Shares ISA</dd></div>
+            <div class="review-row"><dt class="review-row-label">Processing time</dt><dd class="review-row-value">2–3 business days</dd></div>
+            <div class="review-row review-row--total"><dt class="review-row-label">Total debit</dt><dd class="review-row-value">£5,000.00</dd></div>
           </dl>
         </div>
       </div>
@@ -266,41 +672,15 @@
       </div>
     </section>
 
-    <!-- ── Checkbox ───────────────────────────────────────── -->
-    <section class="sg-section" id="checkbox">
-      <div class="sg-section-header">
-        <h2 class="sg-section-title">Checkbox Row — <code>.form-checkbox-row</code></h2>
-        <p class="sg-section-desc">Consent and agreement checkbox used in confirmation steps. Always uses a native <code>&lt;input type="checkbox"&gt;</code> for full keyboard and AT support. The <code>.form-checkbox-text</code> element wraps the label copy and may contain inline links for terms.</p>
-      </div>
-      <div class="sg-demo">
-        <div class="form-checkbox-row">
-          <input type="checkbox" id="sg-terms" style="width:16px;height:16px;accent-color:var(--gold);flex-shrink:0">
-          <label for="sg-terms" class="form-checkbox-text">I confirm this instruction and agree to the <a href="#" style="color:var(--gold-text)">Terms &amp; Conditions</a> and <a href="#" style="color:var(--gold-text)">Privacy Policy</a>.</label>
-        </div>
-      </div>
-      <div class="sg-code">
-        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
-        <pre><code class="language-html">&lt;div class="form-checkbox-row"&gt;
-  &lt;input type="checkbox" id="terms"&gt;
-  &lt;label for="terms" class="form-checkbox-text"&gt;
-    I confirm this instruction and agree to the
-    &lt;a href="/terms"&gt;Terms &amp; Conditions&lt;/a&gt;.
-  &lt;/label&gt;
-&lt;/div&gt;</code></pre>
-      </div>
-    </section>
-
     <!-- ── Success State ──────────────────────────────────── -->
     <section class="sg-section" id="form-success">
       <div class="sg-section-header">
         <h2 class="sg-section-title">Success State — <code>.form-success</code></h2>
-        <p class="sg-section-desc">The post-submission confirmation screen. Contains a success icon, title, subtitle, a reference badge, timeline, and action buttons. The entire section should receive <code>role="status"</code> and <code>aria-live="polite"</code> so screen readers announce the successful outcome when it appears.</p>
+        <p class="sg-section-desc">The post-submission confirmation. Apply <code>role="status"</code> and <code>aria-live="polite"</code> so screen readers announce the outcome when it appears. Contains icon, title, message, reference badge, and action buttons.</p>
       </div>
       <div class="sg-demo sg-demo--center">
         <div class="form-success" role="status" aria-live="polite">
-          <div class="form-success-icon" aria-hidden="true">
-            <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
+          <div class="form-success-icon" aria-hidden="true"><svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
           <h2 class="form-success-title">Funds on their way</h2>
           <p class="form-success-sub">Your transfer of £5,000 to Stocks &amp; Shares ISA has been submitted and will be processed within 2–3 business days.</p>
           <div class="form-ref-badge">
@@ -312,13 +692,9 @@
       <div class="sg-code">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
         <pre><code class="language-html">&lt;div class="form-success" role="status" aria-live="polite"&gt;
-  &lt;div class="form-success-icon" aria-hidden="true"&gt;
-    &lt;svg&gt;&lt;!-- checkmark --&gt;&lt;/svg&gt;
-  &lt;/div&gt;
+  &lt;div class="form-success-icon" aria-hidden="true"&gt;&lt;svg&gt;…&lt;/svg&gt;&lt;/div&gt;
   &lt;h2 class="form-success-title"&gt;Funds on their way&lt;/h2&gt;
-  &lt;p class="form-success-sub"&gt;
-    Your transfer of £5,000 has been submitted.
-  &lt;/p&gt;
+  &lt;p class="form-success-sub"&gt;Your transfer has been submitted.&lt;/p&gt;
   &lt;div class="form-ref-badge"&gt;
     &lt;span class="form-ref-label"&gt;Reference&lt;/span&gt;
     &lt;span class="form-ref-value"&gt;AW-2024-00847&lt;/span&gt;

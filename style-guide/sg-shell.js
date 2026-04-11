@@ -9,7 +9,7 @@
  */
 
 const PAGES = [
-  { id: 'colours',      label: 'Colours',      href: 'colours.html',      icon: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3" fill="currentColor"/>' },
+  { id: 'colours',      label: 'Colours',      href: 'index.html',        icon: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3" fill="currentColor"/>' },
   { id: 'typography',   label: 'Typography',   href: 'typography.html',   icon: '<polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/>' },
   { id: 'spacing',      label: 'Spacing',      href: 'spacing.html',      icon: '<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>' },
   { id: 'buttons',      label: 'Buttons',      href: 'buttons.html',      icon: '<rect x="3" y="8" width="18" height="8" rx="4"/>' },
