@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="layout">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Layout — Aurelius Style Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Layout</h1>
+      <p class="sg-page-desc">The Aurelius shell is a three-region CSS grid: topbar, sidebar, and main. All layout primitives are defined in <code>layout/layout.css</code>. Page-level content uses <code>.page-section</code> as the scroll-safe container, and column layouts (<code>.two-col</code>, <code>.three-col</code>, <code>.two-col-equal</code>) for responsive multi-column composition.</p>
+    </div>
+
+    <!-- ── Shell Grid ─────────────────────────────────────── -->
+    <section class="sg-section" id="shell-grid">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Shell Grid — <code>.shell</code></h2>
+        <p class="sg-section-desc">The outer layout wrapper. A CSS grid with three named areas: the fixed topbar, fixed sidebar, and scrolling main. The <code>--topbar-h</code> and <code>--sidebar-w</code> tokens define the dimensions. Never add padding or margin to <code>.shell</code> directly — use the inner regions. The modifier <code>.shell--no-sidebar</code> removes the sidebar for full-width pages like onboarding.</p>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <div class="sg-layout-diagram">
+          <div class="sg-layout-topbar">
+            <span>header <code>[topbar-h]</code></span>
+          </div>
+          <div class="sg-layout-body">
+            <div class="sg-layout-sidebar">
+              <span>aside<br><code>[sidebar-w]</code></span>
+            </div>
+            <div class="sg-layout-main">
+              <span>main<br><code>.main</code></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;!-- Standard shell --&gt;
+&lt;div class="shell"&gt;
+  &lt;header role="banner"&gt;&lt;!-- topbar --&gt;&lt;/header&gt;
+  &lt;aside class="site-sidebar"&gt;&lt;!-- sidebar --&gt;&lt;/aside&gt;
+  &lt;main class="main" role="main"&gt;&lt;!-- content --&gt;&lt;/main&gt;
+&lt;/div&gt;
+
+&lt;!-- Full-width (no sidebar) --&gt;
+&lt;div class="shell shell--no-sidebar"&gt;
+  &lt;header role="banner"&gt;&lt;!-- topbar --&gt;&lt;/header&gt;
+  &lt;main class="main" role="main"&gt;&lt;!-- full-width content --&gt;&lt;/main&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Page Section ───────────────────────────────────── -->
+    <section class="sg-section" id="page-section">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Page Section — <code>.page-section</code></h2>
+        <p class="sg-section-desc">The standard content wrapper inside <code>.main</code>. Provides consistent horizontal padding and max-width clamping to keep content readable at wide viewports. Every distinct block of page content — a table, a chart, a KPI group — should live inside its own <code>.page-section</code>.</p>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <div class="sg-grid-demo" style="border:2px dashed var(--border);border-radius:var(--radius-card);overflow:hidden">
+          <div style="background:var(--bg);padding:4px 8px;border-bottom:1px solid var(--border)">
+            <span style="color:var(--text-3);font-size:var(--fs-xs);font-family:monospace">.main</span>
+          </div>
+          <div style="padding:12px">
+            <div class="sg-layout-block" style="margin-bottom:8px">
+              <span style="color:var(--text-3);font-size:var(--fs-xs);font-family:monospace">.page-section — page header</span>
+            </div>
+            <div class="sg-layout-block" style="margin-bottom:8px">
+              <span style="color:var(--text-3);font-size:var(--fs-xs);font-family:monospace">.page-section — KPI grid</span>
+            </div>
+            <div class="sg-layout-block" style="margin-bottom:8px">
+              <span style="color:var(--text-3);font-size:var(--fs-xs);font-family:monospace">.page-section — table</span>
+            </div>
+            <div class="sg-layout-block">
+              <span style="color:var(--text-3);font-size:var(--fs-xs);font-family:monospace">.page-section — chart</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;main class="main" role="main"&gt;
+  &lt;section class="page-section"&gt;
+    &lt;div class="page-header"&gt;&lt;!-- h1 + actions --&gt;&lt;/div&gt;
+  &lt;/section&gt;
+  &lt;section class="page-section"&gt;
+    &lt;div class="kpi-grid"&gt;&lt;!-- KPI cards --&gt;&lt;/div&gt;
+  &lt;/section&gt;
+  &lt;section class="page-section"&gt;
+    &lt;div class="table-wrap"&gt;&lt;!-- table --&gt;&lt;/div&gt;
+  &lt;/section&gt;
+&lt;/main&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Two Column Layout ──────────────────────────────── -->
+    <section class="sg-section" id="two-col">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Two Column — <code>.two-col</code></h2>
+        <p class="sg-section-desc">An asymmetric two-column grid — main content left (wider), supporting content right (narrower). Collapses to a single column on small viewports. Use for chart + summary, table + filter panel, or chart + allocation breakdown arrangements.</p>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <div class="two-col" style="gap:12px">
+          <div class="sg-layout-block sg-layout-block--tall" style="grid-column:1">
+            <span style="color:var(--text-3);font-size:var(--fs-xs);font-family:monospace">.two-col — primary (wide)</span>
+          </div>
+          <div class="sg-layout-block sg-layout-block--tall" style="grid-column:2">
+            <span style="color:var(--text-3);font-size:var(--fs-xs);font-family:monospace">.two-col — secondary (narrow)</span>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="two-col"&gt;
+  &lt;div class="card card-pad"&gt;&lt;!-- primary: chart, table --&gt;&lt;/div&gt;
+  &lt;div class="card card-pad"&gt;&lt;!-- secondary: summary, filters --&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Two Column Equal ───────────────────────────────── -->
+    <section class="sg-section" id="two-col-equal">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Two Column Equal — <code>.two-col-equal</code></h2>
+        <p class="sg-section-desc">A symmetric 50/50 two-column grid. Use when both columns have equal visual weight — e.g. two charts side by side, or a card pair. Collapses to single column below the breakpoint.</p>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <div class="two-col-equal" style="gap:12px">
+          <div class="sg-layout-block">
+            <span style="color:var(--text-3);font-size:var(--fs-xs);font-family:monospace">50%</span>
+          </div>
+          <div class="sg-layout-block">
+            <span style="color:var(--text-3);font-size:var(--fs-xs);font-family:monospace">50%</span>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="two-col-equal"&gt;
+  &lt;div class="card card-pad"&gt;&lt;!-- left chart --&gt;&lt;/div&gt;
+  &lt;div class="card card-pad"&gt;&lt;!-- right chart --&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Three Column Layout ────────────────────────────── -->
+    <section class="sg-section" id="three-col">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Three Column — <code>.three-col</code></h2>
+        <p class="sg-section-desc">An equal three-column grid for dense comparative content. Each column is ~33% of the available width. Collapses progressively: 3 → 2 → 1 column at smaller viewports. Use sparingly — only when three genuinely parallel items exist (e.g. three allocation category panels).</p>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <div class="three-col" style="gap:12px">
+          <div class="sg-layout-block">
+            <span style="color:var(--text-3);font-size:var(--fs-xs);font-family:monospace">~33%</span>
+          </div>
+          <div class="sg-layout-block">
+            <span style="color:var(--text-3);font-size:var(--fs-xs);font-family:monospace">~33%</span>
+          </div>
+          <div class="sg-layout-block">
+            <span style="color:var(--text-3);font-size:var(--fs-xs);font-family:monospace">~33%</span>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="three-col"&gt;
+  &lt;div class="card card-pad"&gt;&lt;!-- column 1 --&gt;&lt;/div&gt;
+  &lt;div class="card card-pad"&gt;&lt;!-- column 2 --&gt;&lt;/div&gt;
+  &lt;div class="card card-pad"&gt;&lt;!-- column 3 --&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Layout Principles ──────────────────────────────── -->
+    <section class="sg-section" id="layout-principles">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Layout Principles</h2>
+        <p class="sg-section-desc">Rules to follow when composing pages in the Aurelius dashboard.</p>
+      </div>
+      <div class="sg-demo">
+        <ul style="color:var(--text-2);font-size:var(--fs-body);line-height:var(--lh-relaxed);padding-left:20px;margin:0">
+          <li style="margin-bottom:10px"><strong style="color:var(--text-1)">Nesting depth.</strong> Never nest column grids inside column grids. <code>.two-col</code> inside <code>.three-col</code> creates unpredictable results. Use <code>.page-section</code> to separate layout regions vertically.</li>
+          <li style="margin-bottom:10px"><strong style="color:var(--text-1)">Card as layout block.</strong> Cards (<code>.card</code>) are the atomic layout unit for column content. Do not place raw content directly inside <code>.two-col</code> — wrap it in a card first.</li>
+          <li style="margin-bottom:10px"><strong style="color:var(--text-1)">Scroll region.</strong> The <code>.main</code> region is the only scrolling region. The topbar and sidebar are position-fixed. Never add overflow scroll to <code>.page-section</code> or column wrappers.</li>
+          <li style="margin-bottom:10px"><strong style="color:var(--text-1)">Spacing.</strong> Use <code>gap: var(--pad)</code> between column children. Vertical spacing between <code>.page-section</code> blocks is handled by the layout CSS — do not add extra <code>margin-bottom</code> to sections.</li>
+          <li><strong style="color:var(--text-1)">No sidebar pages.</strong> Use <code>.shell--no-sidebar</code> only for full-immersion experiences (onboarding). Never remove the sidebar from authenticated data pages — it disorients users who rely on it for navigation.</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+</body>
+</html>

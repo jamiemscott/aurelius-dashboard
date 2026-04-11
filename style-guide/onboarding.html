@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="onboarding">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Onboarding — Aurelius Style Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Onboarding</h1>
+      <p class="sg-page-desc">The "Know Your Element" investment personality assessment is a bespoke full-screen experience at <code>/onboarding</code>. It uses the Five Elements motif (Water, Wood, Fire, Earth, Metal) to help users discover their investment style through a series of interactive screens. CSS lives in <code>modules/onboarding.css</code>; JS is split into screen-specific modules under <code>src/js/onboarding/</code>.</p>
+    </div>
+
+    <!-- ── Elemental Palette ──────────────────────────────── -->
+    <section class="sg-section" id="elemental-palette">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Elemental Palette</h2>
+        <p class="sg-section-desc">Five element colours drawn from classical Wu Xing philosophy, tuned for WCAG AA contrast on both light and dark surfaces via <code>light-dark()</code>. Each element has a solid colour and a translucent background variant for tinted surfaces. Defined in <code>theme/colours.css</code>.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="sg-token-grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr))">
+          <!-- Water -->
+          <div class="sg-element-chip">
+            <div class="sg-element-header" style="background:var(--el-water-bg);border-color:var(--el-water)">
+              <div class="sg-element-swatch" style="background:var(--el-water)"></div>
+              <div>
+                <div class="sg-element-name" style="color:var(--el-water)">Water</div>
+                <div class="sg-element-sub">Adaptive · Intuitive</div>
+              </div>
+            </div>
+            <div class="sg-element-tokens">
+              <div class="sg-token-row"><span class="sg-token-name">--el-water</span><span style="color:var(--el-water);font-size:var(--fs-xs)">●</span></div>
+              <div class="sg-token-row"><span class="sg-token-name">--el-water-bg</span><span style="background:var(--el-water-bg);width:16px;height:10px;border-radius:2px;display:inline-block;vertical-align:middle;border:1px solid var(--el-water)"></span></div>
+            </div>
+          </div>
+          <!-- Wood -->
+          <div class="sg-element-chip">
+            <div class="sg-element-header" style="background:var(--el-wood-bg);border-color:var(--el-wood)">
+              <div class="sg-element-swatch" style="background:var(--el-wood)"></div>
+              <div>
+                <div class="sg-element-name" style="color:var(--el-wood)">Wood</div>
+                <div class="sg-element-sub">Growth · Visionary</div>
+              </div>
+            </div>
+            <div class="sg-element-tokens">
+              <div class="sg-token-row"><span class="sg-token-name">--el-wood</span><span style="color:var(--el-wood);font-size:var(--fs-xs)">●</span></div>
+              <div class="sg-token-row"><span class="sg-token-name">--el-wood-bg</span><span style="background:var(--el-wood-bg);width:16px;height:10px;border-radius:2px;display:inline-block;vertical-align:middle;border:1px solid var(--el-wood)"></span></div>
+            </div>
+          </div>
+          <!-- Fire -->
+          <div class="sg-element-chip">
+            <div class="sg-element-header" style="background:var(--el-fire-bg);border-color:var(--el-fire)">
+              <div class="sg-element-swatch" style="background:var(--el-fire)"></div>
+              <div>
+                <div class="sg-element-name" style="color:var(--el-fire)">Fire</div>
+                <div class="sg-element-sub">Bold · Instinctive</div>
+              </div>
+            </div>
+            <div class="sg-element-tokens">
+              <div class="sg-token-row"><span class="sg-token-name">--el-fire</span><span style="color:var(--el-fire);font-size:var(--fs-xs)">●</span></div>
+              <div class="sg-token-row"><span class="sg-token-name">--el-fire-bg</span><span style="background:var(--el-fire-bg);width:16px;height:10px;border-radius:2px;display:inline-block;vertical-align:middle;border:1px solid var(--el-fire)"></span></div>
+            </div>
+          </div>
+          <!-- Earth -->
+          <div class="sg-element-chip">
+            <div class="sg-element-header" style="background:var(--el-earth-bg);border-color:var(--el-earth)">
+              <div class="sg-element-swatch" style="background:var(--el-earth)"></div>
+              <div>
+                <div class="sg-element-name" style="color:var(--el-earth)">Earth</div>
+                <div class="sg-element-sub">Steady · Protective</div>
+              </div>
+            </div>
+            <div class="sg-element-tokens">
+              <div class="sg-token-row"><span class="sg-token-name">--el-earth</span><span style="color:var(--el-earth);font-size:var(--fs-xs)">●</span></div>
+              <div class="sg-token-row"><span class="sg-token-name">--el-earth-bg</span><span style="background:var(--el-earth-bg);width:16px;height:10px;border-radius:2px;display:inline-block;vertical-align:middle;border:1px solid var(--el-earth)"></span></div>
+            </div>
+          </div>
+          <!-- Metal -->
+          <div class="sg-element-chip">
+            <div class="sg-element-header" style="background:var(--el-metal-bg);border-color:var(--el-metal)">
+              <div class="sg-element-swatch" style="background:var(--el-metal)"></div>
+              <div>
+                <div class="sg-element-name" style="color:var(--el-metal)">Metal</div>
+                <div class="sg-element-sub">Precise · Disciplined</div>
+              </div>
+            </div>
+            <div class="sg-element-tokens">
+              <div class="sg-token-row"><span class="sg-token-name">--el-metal</span><span style="color:var(--el-metal);font-size:var(--fs-xs)">●</span></div>
+              <div class="sg-token-row"><span class="sg-token-name">--el-metal-bg</span><span style="background:var(--el-metal-bg);width:16px;height:10px;border-radius:2px;display:inline-block;vertical-align:middle;border:1px solid var(--el-metal)"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">/* Solid element colours — use for text, borders, fills */
+color: var(--el-water);
+color: var(--el-wood);
+color: var(--el-fire);
+color: var(--el-earth);
+color: var(--el-metal);
+
+/* Tinted backgrounds — paired with matching solid border */
+background: var(--el-water-bg);
+background: var(--el-wood-bg);
+background: var(--el-fire-bg);
+background: var(--el-earth-bg);
+background: var(--el-metal-bg);</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Architecture Overview ──────────────────────────── -->
+    <section class="sg-section" id="ob-architecture">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Architecture Overview</h2>
+        <p class="sg-section-desc">The onboarding experience is a single-page, multi-screen flow. Each screen is a <code>&lt;section&gt;</code> element with the <code>hidden</code> attribute; the active screen has <code>hidden</code> removed by the JS state machine. Screen transitions use CSS <code>animation</code> classes driven by <code>data-state</code> attributes. No routing library — pure vanilla JS.</p>
+      </div>
+      <div class="sg-demo">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px">
+          <div style="padding:12px 16px;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-item);text-align:center">
+            <div style="font-size:var(--fs-xs);color:var(--text-3);margin-bottom:4px;letter-spacing:var(--ls-wide)">Screen 1</div>
+            <div style="font-weight:var(--fw-medium);color:var(--text-1);font-size:var(--fs-sm)">Welcome</div>
+            <div style="font-size:var(--fs-xs);color:var(--text-3);margin-top:4px">#ob-welcome</div>
+          </div>
+          <div style="padding:12px 16px;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-item);text-align:center">
+            <div style="font-size:var(--fs-xs);color:var(--text-3);margin-bottom:4px;letter-spacing:var(--ls-wide)">Screen 2</div>
+            <div style="font-weight:var(--fw-medium);color:var(--text-1);font-size:var(--fs-sm)">Risk Dial</div>
+            <div style="font-size:var(--fs-xs);color:var(--text-3);margin-top:4px">#ob-dial</div>
+          </div>
+          <div style="padding:12px 16px;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-item);text-align:center">
+            <div style="font-size:var(--fs-xs);color:var(--text-3);margin-bottom:4px;letter-spacing:var(--ls-wide)">Screen 3</div>
+            <div style="font-weight:var(--fw-medium);color:var(--text-1);font-size:var(--fs-sm)">Risk Spectrum</div>
+            <div style="font-size:var(--fs-xs);color:var(--text-3);margin-top:4px">#ob-risk</div>
+          </div>
+          <div style="padding:12px 16px;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-item);text-align:center">
+            <div style="font-size:var(--fs-xs);color:var(--text-3);margin-bottom:4px;letter-spacing:var(--ls-wide)">Screen 4</div>
+            <div style="font-weight:var(--fw-medium);color:var(--text-1);font-size:var(--fs-sm)">Card Swipe</div>
+            <div style="font-size:var(--fs-xs);color:var(--text-3);margin-top:4px">#ob-swipe</div>
+          </div>
+          <div style="padding:12px 16px;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-item);text-align:center">
+            <div style="font-size:var(--fs-xs);color:var(--text-3);margin-bottom:4px;letter-spacing:var(--ls-wide)">Screen 5</div>
+            <div style="font-weight:var(--fw-medium);color:var(--text-1);font-size:var(--fs-sm)">Priority Rank</div>
+            <div style="font-size:var(--fs-xs);color:var(--text-3);margin-top:4px">#ob-rank</div>
+          </div>
+          <div style="padding:12px 16px;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-item);text-align:center">
+            <div style="font-size:var(--fs-xs);color:var(--text-3);margin-bottom:4px;letter-spacing:var(--ls-wide)">Screen 6</div>
+            <div style="font-weight:var(--fw-medium);color:var(--text-1);font-size:var(--fs-sm)">Knowledge</div>
+            <div style="font-size:var(--fs-xs);color:var(--text-3);margin-top:4px">#ob-knowledge</div>
+          </div>
+          <div style="padding:12px 16px;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-item);text-align:center">
+            <div style="font-size:var(--fs-xs);color:var(--text-3);margin-bottom:4px;letter-spacing:var(--ls-wide)">Screen 7</div>
+            <div style="font-weight:var(--fw-medium);color:var(--text-1);font-size:var(--fs-sm)">Amount</div>
+            <div style="font-size:var(--fs-xs);color:var(--text-3);margin-top:4px">#ob-amount</div>
+          </div>
+          <div style="padding:12px 16px;background:var(--gold-dim);border:1px solid var(--gold-glow);border-radius:var(--radius-item);text-align:center">
+            <div style="font-size:var(--fs-xs);color:var(--gold-text);margin-bottom:4px;letter-spacing:var(--ls-wide)">Screen 8</div>
+            <div style="font-weight:var(--fw-medium);color:var(--text-1);font-size:var(--fs-sm)">Results</div>
+            <div style="font-size:var(--fs-xs);color:var(--gold-text);margin-top:4px">#ob-results</div>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;!-- Each screen: hidden until JS removes the attribute --&gt;
+&lt;section id="ob-welcome" class="ob-screen" hidden&gt;
+  &lt;!-- screen content --&gt;
+&lt;/section&gt;
+
+&lt;section id="ob-dial" class="ob-screen" hidden&gt;
+  &lt;!-- screen content --&gt;
+&lt;/section&gt;
+
+&lt;!-- JS state machine: --&gt;
+&lt;!-- goTo(screenId) — removes hidden from target, adds to current --&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── JS Modules ─────────────────────────────────────── -->
+    <section class="sg-section" id="ob-js-modules">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">JavaScript Modules</h2>
+        <p class="sg-section-desc">Each interactive screen has its own ES module to keep concerns isolated. The orchestrator (<code>onboarding.js</code>) manages the shared state object <code>S</code>, handles screen transitions, and collects answers. Screen modules are imported lazily or statically depending on complexity. Results are communicated via a custom event.</p>
+      </div>
+      <div class="sg-demo">
+        <div style="display:flex;flex-direction:column;gap:8px;font-family:ui-monospace,monospace;font-size:var(--fs-sm)">
+          <div style="display:flex;align-items:flex-start;gap:16px;padding:10px 14px;background:var(--bg-input);border-radius:var(--radius-item)">
+            <span style="color:var(--gold-text);min-width:180px">src/js/onboarding.js</span>
+            <span style="color:var(--text-2)">State machine — S object, goTo(), completeStep(), event dispatch</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:16px;padding:10px 14px;background:var(--bg-input);border-radius:var(--radius-item)">
+            <span style="color:var(--el-water);min-width:180px">onboarding/dial.js</span>
+            <span style="color:var(--text-2)">SVG rotary dial — drag (mouse+touch), keyboard (ArrowLeft/Right)</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:16px;padding:10px 14px;background:var(--bg-input);border-radius:var(--radius-item)">
+            <span style="color:var(--el-water);min-width:180px">onboarding/risk.js</span>
+            <span style="color:var(--text-2)">Custom visual range thumb synced to native &lt;input type="range"&gt;</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:16px;padding:10px 14px;background:var(--bg-input);border-radius:var(--radius-item)">
+            <span style="color:var(--el-water);min-width:180px">onboarding/swipe.js</span>
+            <span style="color:var(--text-2)">Card swipe — drag, keyboard (Arrow keys), accessible buttons</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:16px;padding:10px 14px;background:var(--bg-input);border-radius:var(--radius-item)">
+            <span style="color:var(--el-water);min-width:180px">onboarding/rank.js</span>
+            <span style="color:var(--text-2)">Drag-to-rank — HTML5 drag API + keyboard (Space/Arrow/Enter/Esc)</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:16px;padding:10px 14px;background:var(--bg-input);border-radius:var(--radius-item)">
+            <span style="color:var(--el-water);min-width:180px">onboarding/knowledge.js</span>
+            <span style="color:var(--text-2)">Tap-to-cycle confidence cards with dynamic aria-label updates</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:16px;padding:10px 14px;background:var(--bg-input);border-radius:var(--radius-item)">
+            <span style="color:var(--el-water);min-width:180px">onboarding/amount.js</span>
+            <span style="color:var(--text-2)">Native range + bidirectional chip sync; chips use aria-pressed</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:16px;padding:10px 14px;background:var(--bg-input);border-radius:var(--radius-item)">
+            <span style="color:var(--gold-text);min-width:180px">onboarding/results.js</span>
+            <span style="color:var(--text-2)">Listens for ob:complete — calculates scores, animates el-bar fills</span>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-javascript">// onboarding.js — state object shape
+const S = {
+  screen: 'welcome',   // current screen id
+  risk: 50,            // dial position (0–100)
+  riskSlider: 5,       // spectrum position (1–10)
+  swipeAnswers: [],    // array of { card, direction }
+  rank: [],            // ordered priority ids
+  knowledge: {},       // { assetId: confidence (0|1|2) }
+  amount: 5000,        // investment amount in £
+};
+
+// Completing a step and moving forward:
+completeStep('dial', { risk: 72 });  // merges into S, calls goTo()
+
+// Results received via custom event:
+document.addEventListener('ob:complete', e => {
+  // e.detail === final S object
+});</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Screen Components ──────────────────────────────── -->
+    <section class="sg-section" id="ob-components">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Onboarding CSS Classes</h2>
+        <p class="sg-section-desc">Key CSS class prefixes and their roles within <code>modules/onboarding.css</code>. All onboarding classes use the <code>ob-</code> prefix to avoid collisions with the main UI.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="table-wrap">
+          <table aria-label="Onboarding CSS classes">
+            <thead>
+              <tr>
+                <th scope="col">Class / Prefix</th>
+                <th scope="col">Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>.ob-screen</code></td>
+                <td class="td-secondary">Full-viewport screen wrapper — each assessment step</td>
+              </tr>
+              <tr>
+                <td><code>.ob-header</code></td>
+                <td class="td-secondary">Top bar within each screen — back button + step indicator</td>
+              </tr>
+              <tr>
+                <td><code>.ob-body</code></td>
+                <td class="td-secondary">Main content area — centres the interactive element</td>
+              </tr>
+              <tr>
+                <td><code>.ob-footer</code></td>
+                <td class="td-secondary">Bottom action area — navigation buttons</td>
+              </tr>
+              <tr>
+                <td><code>.ob-dial</code>, <code>.ob-dial-*</code></td>
+                <td class="td-secondary">SVG rotary dial and its sub-elements</td>
+              </tr>
+              <tr>
+                <td><code>.ob-card</code>, <code>.ob-card-stack</code></td>
+                <td class="td-secondary">Swipeable card and stack container</td>
+              </tr>
+              <tr>
+                <td><code>.ob-rank-item</code></td>
+                <td class="td-secondary">Draggable/keyboard-sortable priority item</td>
+              </tr>
+              <tr>
+                <td><code>.ob-knowledge-card</code></td>
+                <td class="td-secondary">Tap-to-cycle knowledge confidence card</td>
+              </tr>
+              <tr>
+                <td><code>.ob-elbar</code>, <code>.ob-elbar-fill</code></td>
+                <td class="td-secondary">Elemental score bar track and animated fill</td>
+              </tr>
+              <tr>
+                <td><code>.ob-result-element</code></td>
+                <td class="td-secondary">Results screen — element name + score + bar row</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Accessibility Approach ─────────────────────────── -->
+    <section class="sg-section" id="ob-a11y">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Accessibility Approach</h2>
+        <p class="sg-section-desc">The onboarding experience replaces gesture-only interactions with fully keyboard and screen reader-operable alternatives. The following patterns are applied throughout.</p>
+      </div>
+      <div class="sg-demo">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="padding:14px;background:var(--bg-input);border-radius:var(--radius-item);border-left:3px solid var(--el-water)">
+            <div style="font-weight:var(--fw-semibold);color:var(--text-1);margin-bottom:4px">Dial — <code>#ob-dial</code></div>
+            <p style="color:var(--text-2);font-size:var(--fs-sm);margin:0">Mouse/touch drag rotates the dial. Keyboard: <kbd>ArrowLeft</kbd>/<kbd>ArrowRight</kbd> adjusts by 1; <kbd>Shift+Arrow</kbd> by 10. Uses <code>role="slider"</code> with <code>aria-valuenow</code>, <code>aria-valuemin</code>, <code>aria-valuemax</code>, and <code>aria-valuetext</code> (e.g. "72 — Balanced").</p>
+          </div>
+          <div style="padding:14px;background:var(--bg-input);border-radius:var(--radius-item);border-left:3px solid var(--el-wood)">
+            <div style="font-weight:var(--fw-semibold);color:var(--text-1);margin-bottom:4px">Card Swipe — <code>#ob-swipe</code></div>
+            <p style="color:var(--text-2);font-size:var(--fs-sm);margin:0">Drag left/right to swipe. Keyboard: <kbd>ArrowLeft</kbd> = decline, <kbd>ArrowRight</kbd> = accept. Accessible labelled buttons appear below the stack for pointer users. An <code>aria-live="polite"</code> region announces each new card.</p>
+          </div>
+          <div style="padding:14px;background:var(--bg-input);border-radius:var(--radius-item);border-left:3px solid var(--el-fire)">
+            <div style="font-weight:var(--fw-semibold);color:var(--text-1);margin-bottom:4px">Rank &amp; Sort — <code>#ob-rank</code></div>
+            <p style="color:var(--text-2);font-size:var(--fs-sm);margin:0">HTML5 drag API for mouse users. Full keyboard: <kbd>Space</kbd> to grab, <kbd>ArrowUp</kbd>/<kbd>ArrowDown</kbd> to reorder, <kbd>Enter</kbd>/<kbd>Space</kbd> to drop, <kbd>Escape</kbd> to cancel. Position announced via <code>aria-live</code> on each move.</p>
+          </div>
+          <div style="padding:14px;background:var(--bg-input);border-radius:var(--radius-item);border-left:3px solid var(--el-earth)">
+            <div style="font-weight:var(--fw-semibold);color:var(--text-1);margin-bottom:4px">Knowledge Cards — <code>#ob-knowledge</code></div>
+            <p style="color:var(--text-2);font-size:var(--fs-sm);margin:0">Cards cycle through confidence states (None → Basic → Experienced) on click. Each is a <code>&lt;button&gt;</code> with a dynamic <code>aria-label</code> updated on each state change to announce the new level.</p>
+          </div>
+          <div style="padding:14px;background:var(--bg-input);border-radius:var(--radius-item);border-left:3px solid var(--gold)">
+            <div style="font-weight:var(--fw-semibold);color:var(--text-1);margin-bottom:4px">Animations</div>
+            <p style="color:var(--text-2);font-size:var(--fs-sm);margin:0">All animations are wrapped in <code>@media (prefers-reduced-motion: no-preference)</code>. When reduced motion is preferred, screens fade-in only — no sliding, rotation, or scale transforms.</p>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">/* Wrap all non-trivial animations */
+@media (prefers-reduced-motion: no-preference) {
+  .ob-screen[data-state="entering"] {
+    animation: ob-screen-in 0.35s ease both;
+  }
+  .ob-screen[data-state="exiting"] {
+    animation: ob-screen-out 0.25s ease both;
+  }
+}
+
+/* Fallback: always apply the final state immediately */
+.ob-screen {
+  opacity: 1; /* visible when not hidden */
+}</code></pre>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+</body>
+</html>

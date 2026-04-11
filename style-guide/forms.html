@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="forms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forms — Aurelius Style Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Forms</h1>
+      <p class="sg-page-desc">Form components power the Add Funds flow and other transactional surfaces. All form primitives and composite patterns are defined in <code>modules/forms.css</code>. Accessibility is non-negotiable: every input must have an associated <code>&lt;label&gt;</code>, and every interactive state must be keyboard-operable.</p>
+    </div>
+
+    <!-- ── Labels & Text Inputs ───────────────────────────── -->
+    <section class="sg-section" id="labels-inputs">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Labels &amp; Text Inputs</h2>
+        <p class="sg-section-desc">Standard label + input pairs. Labels use <code>--fs-input-label</code>, <code>--fw-medium</code>, and <code>--text-2</code>. Inputs use <code>--bg-input</code>, <code>--shadow-inner</code>, and <code>--radius-item</code>. Always associate labels via <code>for</code>/<code>id</code> — never rely on <code>placeholder</code> text as the label.</p>
+      </div>
+      <div class="sg-demo">
+        <div style="display:flex;flex-direction:column;gap:20px;max-width:400px">
+          <div>
+            <label for="sg-input-1" style="display:block;font-size:var(--fs-input-label);font-weight:var(--fw-medium);color:var(--text-2);margin-bottom:6px">Account name</label>
+            <input id="sg-input-1" type="text" placeholder="e.g. Stocks &amp; Shares ISA" style="width:100%;box-sizing:border-box;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-item);padding:10px 14px;font-size:var(--fs-input);color:var(--text-1);box-shadow:var(--shadow-inner);outline:none">
+          </div>
+          <div>
+            <label for="sg-input-2" style="display:block;font-size:var(--fs-input-label);font-weight:var(--fw-medium);color:var(--text-2);margin-bottom:6px">Sort code</label>
+            <input id="sg-input-2" type="text" placeholder="00-00-00" style="width:100%;box-sizing:border-box;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-item);padding:10px 14px;font-size:var(--fs-input);color:var(--text-1);box-shadow:var(--shadow-inner);outline:none">
+            <p style="margin:6px 0 0;font-size:var(--fs-help);color:var(--text-3)">The 6-digit sort code on your bank statement</p>
+          </div>
+          <div>
+            <label for="sg-input-3" style="display:block;font-size:var(--fs-input-label);font-weight:var(--fw-medium);color:var(--text-2);margin-bottom:6px">Account number</label>
+            <input id="sg-input-3" type="text" placeholder="8 digits" style="width:100%;box-sizing:border-box;background:var(--bg-input);border:1px solid var(--gold-glow);border-radius:var(--radius-item);padding:10px 14px;font-size:var(--fs-input);color:var(--text-1);box-shadow:var(--shadow-inner);outline:none" value="12345678">
+            <p style="margin:6px 0 0;font-size:var(--fs-help);color:var(--gold-text)">This field is focused / selected</p>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;label for="account-name"&gt;Account name&lt;/label&gt;
+&lt;input id="account-name" type="text" placeholder="e.g. Stocks &amp; Shares ISA"&gt;
+
+&lt;!-- Helper text: associate with aria-describedby --&gt;
+&lt;label for="sort-code"&gt;Sort code&lt;/label&gt;
+&lt;input id="sort-code" type="text" placeholder="00-00-00"
+  aria-describedby="sort-code-hint"&gt;
+&lt;p id="sort-code-hint"&gt;The 6-digit sort code on your bank statement&lt;/p&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Progress Steps ─────────────────────────────────── -->
+    <section class="sg-section" id="steps">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Progress Steps — <code>.steps</code></h2>
+        <p class="sg-section-desc">A horizontal step indicator for multi-stage forms. Steps take <code>.is-active</code> (current step) or <code>.is-complete</code> (completed step). Use an <code>aria-current="step"</code> attribute on the active step element for accessibility. The connecting lines are rendered via <code>.step-connector</code> elements between each <code>.step</code>.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="steps" role="list" aria-label="Add funds steps">
+          <div class="step is-complete" role="listitem">
+            <div class="step-num" aria-hidden="true">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <span class="step-label">Source</span>
+          </div>
+          <div class="step-connector" aria-hidden="true"></div>
+          <div class="step is-active" role="listitem" aria-current="step">
+            <div class="step-num" aria-hidden="true">2</div>
+            <span class="step-label">Amount</span>
+          </div>
+          <div class="step-connector" aria-hidden="true"></div>
+          <div class="step" role="listitem">
+            <div class="step-num" aria-hidden="true">3</div>
+            <span class="step-label">Review</span>
+          </div>
+          <div class="step-connector" aria-hidden="true"></div>
+          <div class="step" role="listitem">
+            <div class="step-num" aria-hidden="true">4</div>
+            <span class="step-label">Confirm</span>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="steps" role="list" aria-label="Add funds steps"&gt;
+  &lt;div class="step is-complete" role="listitem"&gt;
+    &lt;div class="step-num" aria-hidden="true"&gt;
+      &lt;svg&gt;&lt;!-- checkmark --&gt;&lt;/svg&gt;
+    &lt;/div&gt;
+    &lt;span class="step-label"&gt;Source&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="step-connector" aria-hidden="true"&gt;&lt;/div&gt;
+  &lt;div class="step is-active" role="listitem" aria-current="step"&gt;
+    &lt;div class="step-num" aria-hidden="true"&gt;2&lt;/div&gt;
+    &lt;span class="step-label"&gt;Amount&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="step-connector" aria-hidden="true"&gt;&lt;/div&gt;
+  &lt;div class="step" role="listitem"&gt;
+    &lt;div class="step-num" aria-hidden="true"&gt;3&lt;/div&gt;
+    &lt;span class="step-label"&gt;Review&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Method Cards ───────────────────────────────────── -->
+    <section class="sg-section" id="method-cards">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Method Cards — <code>.method-card</code></h2>
+        <p class="sg-section-desc">Selectable option cards for choosing a payment or transfer method. Built as <code>&lt;button&gt;</code> elements for native keyboard access. Add <code>aria-pressed="true"</code> when selected. The card contains an icon (<code>.method-card-icon</code>), primary label (<code>.method-card-label</code>), and secondary detail (<code>.method-card-detail</code>).</p>
+      </div>
+      <div class="sg-demo">
+        <div class="method-cards">
+          <button class="method-card" aria-pressed="true" style="outline:none">
+            <div class="method-card-icon" aria-hidden="true">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+            </div>
+            <div class="method-card-label">Bank Transfer</div>
+            <div class="method-card-detail">2–3 business days · No fee</div>
+          </button>
+          <button class="method-card" aria-pressed="false" style="outline:none">
+            <div class="method-card-icon" aria-hidden="true">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            </div>
+            <div class="method-card-label">Debit Card</div>
+            <div class="method-card-detail">Instant · 0.5% fee</div>
+          </button>
+          <button class="method-card" aria-pressed="false" style="outline:none">
+            <div class="method-card-icon" aria-hidden="true">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            </div>
+            <div class="method-card-label">Standing Order</div>
+            <div class="method-card-detail">Recurring · No fee</div>
+          </button>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="method-cards"&gt;
+  &lt;button class="method-card" aria-pressed="true"&gt;
+    &lt;div class="method-card-icon" aria-hidden="true"&gt;
+      &lt;svg&gt;&lt;!-- icon --&gt;&lt;/svg&gt;
+    &lt;/div&gt;
+    &lt;div class="method-card-label"&gt;Bank Transfer&lt;/div&gt;
+    &lt;div class="method-card-detail"&gt;2–3 business days · No fee&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Amount Input ───────────────────────────────────── -->
+    <section class="sg-section" id="amount-input">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Amount Input — <code>.amount-wrap</code></h2>
+        <p class="sg-section-desc">A currency-prefixed amount field. The <code>.amount-prefix</code> holds the currency symbol (£, $, €) and is purely presentational — the <code>aria-label</code> on the input should include the currency: <code>aria-label="Amount in pounds"</code>. The numeric input uses <code>type="number"</code> with appropriate <code>min</code>/<code>max</code> constraints.</p>
+      </div>
+      <div class="sg-demo sg-demo--center">
+        <div class="amount-wrap">
+          <span class="amount-prefix" aria-hidden="true">£</span>
+          <input class="amount-input" type="number" id="sg-amount" min="1" max="100000" placeholder="0.00" aria-label="Amount in pounds" value="5000">
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="amount-wrap"&gt;
+  &lt;span class="amount-prefix" aria-hidden="true"&gt;£&lt;/span&gt;
+  &lt;input
+    class="amount-input"
+    type="number"
+    id="amount"
+    min="1"
+    max="100000"
+    placeholder="0.00"
+    aria-label="Amount in pounds"
+  &gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Amount Chips ───────────────────────────────────── -->
+    <section class="sg-section" id="amount-chips">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Amount Chips — <code>.amount-chip</code></h2>
+        <p class="sg-section-desc">Preset value shortcuts that populate the amount input when clicked. Built as <code>&lt;button&gt;</code> elements with <code>aria-pressed</code> to indicate selection. Grouped inside <code>.amount-chips</code>. Sync chip selection state with the amount input value in JavaScript.</p>
+      </div>
+      <div class="sg-demo sg-demo--center">
+        <div class="amount-chips" role="group" aria-label="Preset amounts">
+          <button class="amount-chip" aria-pressed="false">£500</button>
+          <button class="amount-chip" aria-pressed="false">£1,000</button>
+          <button class="amount-chip" aria-pressed="true">£5,000</button>
+          <button class="amount-chip" aria-pressed="false">£10,000</button>
+          <button class="amount-chip" aria-pressed="false">£25,000</button>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="amount-chips" role="group" aria-label="Preset amounts"&gt;
+  &lt;button class="amount-chip" aria-pressed="false"&gt;£500&lt;/button&gt;
+  &lt;button class="amount-chip" aria-pressed="false"&gt;£1,000&lt;/button&gt;
+  &lt;button class="amount-chip" aria-pressed="true"&gt;£5,000&lt;/button&gt;
+  &lt;button class="amount-chip" aria-pressed="false"&gt;£10,000&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Review Card ────────────────────────────────────── -->
+    <section class="sg-section" id="review-card">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Review Card — <code>.review-card</code></h2>
+        <p class="sg-section-desc">A summary panel displayed before confirming a transaction. Label/value rows use <code>.review-row</code>, <code>.review-row-label</code>, and <code>.review-row-value</code>. The total row uses the <code>.review-row--total</code> modifier for visual emphasis. Wrap in a <code>&lt;dl&gt;</code> for semantic description list markup.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="review-card" style="max-width:400px">
+          <div class="form-section-hd">Transaction Summary</div>
+          <dl style="margin:0">
+            <div class="review-row">
+              <dt class="review-row-label">Payment method</dt>
+              <dd class="review-row-value">Bank Transfer</dd>
+            </div>
+            <div class="review-row">
+              <dt class="review-row-label">Amount</dt>
+              <dd class="review-row-value">£5,000.00</dd>
+            </div>
+            <div class="review-row">
+              <dt class="review-row-label">Destination</dt>
+              <dd class="review-row-value">Stocks &amp; Shares ISA</dd>
+            </div>
+            <div class="review-row">
+              <dt class="review-row-label">Processing time</dt>
+              <dd class="review-row-value">2–3 business days</dd>
+            </div>
+            <div class="review-row review-row--total">
+              <dt class="review-row-label">Total debit</dt>
+              <dd class="review-row-value">£5,000.00</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="review-card"&gt;
+  &lt;div class="form-section-hd"&gt;Transaction Summary&lt;/div&gt;
+  &lt;dl&gt;
+    &lt;div class="review-row"&gt;
+      &lt;dt class="review-row-label"&gt;Amount&lt;/dt&gt;
+      &lt;dd class="review-row-value"&gt;£5,000.00&lt;/dd&gt;
+    &lt;/div&gt;
+    &lt;div class="review-row review-row--total"&gt;
+      &lt;dt class="review-row-label"&gt;Total debit&lt;/dt&gt;
+      &lt;dd class="review-row-value"&gt;£5,000.00&lt;/dd&gt;
+    &lt;/div&gt;
+  &lt;/dl&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Checkbox ───────────────────────────────────────── -->
+    <section class="sg-section" id="checkbox">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Checkbox Row — <code>.form-checkbox-row</code></h2>
+        <p class="sg-section-desc">Consent and agreement checkbox used in confirmation steps. Always uses a native <code>&lt;input type="checkbox"&gt;</code> for full keyboard and AT support. The <code>.form-checkbox-text</code> element wraps the label copy and may contain inline links for terms.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="form-checkbox-row">
+          <input type="checkbox" id="sg-terms" style="width:16px;height:16px;accent-color:var(--gold);flex-shrink:0">
+          <label for="sg-terms" class="form-checkbox-text">I confirm this instruction and agree to the <a href="#" style="color:var(--gold-text)">Terms &amp; Conditions</a> and <a href="#" style="color:var(--gold-text)">Privacy Policy</a>.</label>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="form-checkbox-row"&gt;
+  &lt;input type="checkbox" id="terms"&gt;
+  &lt;label for="terms" class="form-checkbox-text"&gt;
+    I confirm this instruction and agree to the
+    &lt;a href="/terms"&gt;Terms &amp; Conditions&lt;/a&gt;.
+  &lt;/label&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Success State ──────────────────────────────────── -->
+    <section class="sg-section" id="form-success">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Success State — <code>.form-success</code></h2>
+        <p class="sg-section-desc">The post-submission confirmation screen. Contains a success icon, title, subtitle, a reference badge, timeline, and action buttons. The entire section should receive <code>role="status"</code> and <code>aria-live="polite"</code> so screen readers announce the successful outcome when it appears.</p>
+      </div>
+      <div class="sg-demo sg-demo--center">
+        <div class="form-success" role="status" aria-live="polite">
+          <div class="form-success-icon" aria-hidden="true">
+            <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h2 class="form-success-title">Funds on their way</h2>
+          <p class="form-success-sub">Your transfer of £5,000 to Stocks &amp; Shares ISA has been submitted and will be processed within 2–3 business days.</p>
+          <div class="form-ref-badge">
+            <span class="form-ref-label">Reference</span>
+            <span class="form-ref-value">AW-2024-00847</span>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="form-success" role="status" aria-live="polite"&gt;
+  &lt;div class="form-success-icon" aria-hidden="true"&gt;
+    &lt;svg&gt;&lt;!-- checkmark --&gt;&lt;/svg&gt;
+  &lt;/div&gt;
+  &lt;h2 class="form-success-title"&gt;Funds on their way&lt;/h2&gt;
+  &lt;p class="form-success-sub"&gt;
+    Your transfer of £5,000 has been submitted.
+  &lt;/p&gt;
+  &lt;div class="form-ref-badge"&gt;
+    &lt;span class="form-ref-label"&gt;Reference&lt;/span&gt;
+    &lt;span class="form-ref-value"&gt;AW-2024-00847&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+</body>
+</html>

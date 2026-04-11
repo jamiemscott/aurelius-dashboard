@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="spacing">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spacing — Aurelius Style Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Spacing &amp; Radius</h1>
+      <p class="sg-page-desc">Spacing tokens, border-radius values, and shadow tokens that define the tactile language of the Aurelius UI. All values live in <code>theme/colours.css</code> as custom properties and resolve correctly across light and dark modes.</p>
+    </div>
+
+    <!-- ── Spacing ─────────────────────────────────────────── -->
+    <section class="sg-section" id="spacing-tokens">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Spacing Tokens</h2>
+        <p class="sg-section-desc">The primary spacing unit is <code>--pad</code>, which acts as the base module. All padding, margin, and gap values should be multiples or fractions of this value for visual consistency. Avoid arbitrary pixel values — build from the token.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="sg-space-scale">
+          <div class="sg-space-row">
+            <div class="sg-space-bar" style="width:calc(var(--pad) * 0.25);background:var(--gold)"></div>
+            <div class="sg-space-info"><code>calc(var(--pad) * 0.25)</code><span class="sg-space-use">Micro gap — icon to label</span></div>
+          </div>
+          <div class="sg-space-row">
+            <div class="sg-space-bar" style="width:calc(var(--pad) * 0.5);background:var(--gold)"></div>
+            <div class="sg-space-info"><code>calc(var(--pad) * 0.5)</code><span class="sg-space-use">Tight gap — inline elements</span></div>
+          </div>
+          <div class="sg-space-row">
+            <div class="sg-space-bar" style="width:var(--pad);background:var(--gold)"></div>
+            <div class="sg-space-info"><code>var(--pad)</code><span class="sg-space-use">Base unit — card padding, list gaps</span></div>
+          </div>
+          <div class="sg-space-row">
+            <div class="sg-space-bar" style="width:calc(var(--pad) * 1.5);background:var(--gold)"></div>
+            <div class="sg-space-info"><code>calc(var(--pad) * 1.5)</code><span class="sg-space-use">Section row gaps</span></div>
+          </div>
+          <div class="sg-space-row">
+            <div class="sg-space-bar" style="width:calc(var(--pad) * 2);background:var(--gold)"></div>
+            <div class="sg-space-info"><code>calc(var(--pad) * 2)</code><span class="sg-space-use">Card-to-card spacing</span></div>
+          </div>
+          <div class="sg-space-row">
+            <div class="sg-space-bar" style="width:calc(var(--pad) * 3);background:var(--gold)"></div>
+            <div class="sg-space-info"><code>calc(var(--pad) * 3)</code><span class="sg-space-use">Section-to-section vertical rhythm</span></div>
+          </div>
+          <div class="sg-space-row">
+            <div class="sg-space-bar" style="width:calc(var(--pad) * 4);background:var(--gold)"></div>
+            <div class="sg-space-info"><code>calc(var(--pad) * 4)</code><span class="sg-space-use">Page-level top/bottom padding</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">padding: var(--pad);                    /* card inner padding */
+padding: calc(var(--pad) * 0.75);       /* compact padding */
+gap: calc(var(--pad) * 0.5);           /* tight flex/grid gaps */
+gap: var(--pad);                        /* standard grid gaps */
+margin-bottom: calc(var(--pad) * 2);   /* between sections */</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Structural Dimensions ──────────────────────────── -->
+    <section class="sg-section" id="structural-dimensions">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Structural Dimensions</h2>
+        <p class="sg-section-desc">Fixed structural tokens that define the shell layout. These should only be consumed — not overridden — in module-level CSS. They exist so layout math can reference known constants.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="sg-token-grid">
+          <div class="sg-token-chip sg-token-chip--dim">
+            <div class="sg-token-swatch sg-token-swatch--dim" style="background:var(--gold-dim);display:flex;align-items:center;justify-content:center;color:var(--gold-text);font-weight:var(--fw-semibold);font-size:var(--fs-xs)">H</div>
+            <div class="sg-token-info">
+              <div class="sg-token-name">--topbar-h</div>
+              <div class="sg-token-value">Top bar height</div>
+            </div>
+          </div>
+          <div class="sg-token-chip sg-token-chip--dim">
+            <div class="sg-token-swatch sg-token-swatch--dim" style="background:var(--gold-dim);display:flex;align-items:center;justify-content:center;color:var(--gold-text);font-weight:var(--fw-semibold);font-size:var(--fs-xs)">W</div>
+            <div class="sg-token-info">
+              <div class="sg-token-name">--sidebar-w</div>
+              <div class="sg-token-value">Sidebar width</div>
+            </div>
+          </div>
+          <div class="sg-token-chip sg-token-chip--dim">
+            <div class="sg-token-swatch sg-token-swatch--dim" style="background:var(--gold-dim);display:flex;align-items:center;justify-content:center;color:var(--gold-text);font-weight:var(--fw-semibold);font-size:var(--fs-xs)">P</div>
+            <div class="sg-token-info">
+              <div class="sg-token-name">--pad</div>
+              <div class="sg-token-value">Base spacing unit</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">/* Consumed in layout — do not redefine in modules */
+height: var(--topbar-h);          /* aligns elements to the topbar */
+width: var(--sidebar-w);          /* aligns elements to the sidebar */
+padding-left: var(--sidebar-w);   /* offset main content area */</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Border Radius ──────────────────────────────────── -->
+    <section class="sg-section" id="border-radius">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Border Radius</h2>
+        <p class="sg-section-desc">Three radius tokens build a consistent softness language. <code>--radius-btn</code> is pill-shaped for interactive elements. <code>--radius-card</code> is the standard panel rounding. <code>--radius-item</code> is a subtle rounding for list items and chips.</p>
+      </div>
+      <div class="sg-demo sg-demo--grid">
+        <div class="sg-radius-sample">
+          <div class="sg-radius-box" style="border-radius:var(--radius-btn);background:var(--gold-dim);border:1px solid var(--gold-glow)"></div>
+          <div class="sg-radius-label"><code>--radius-btn</code><span>Buttons &amp; pills</span></div>
+        </div>
+        <div class="sg-radius-sample">
+          <div class="sg-radius-box" style="border-radius:var(--radius-card);background:var(--gold-dim);border:1px solid var(--gold-glow)"></div>
+          <div class="sg-radius-label"><code>--radius-card</code><span>Cards &amp; panels</span></div>
+        </div>
+        <div class="sg-radius-sample">
+          <div class="sg-radius-box" style="border-radius:var(--radius-item);background:var(--gold-dim);border:1px solid var(--gold-glow)"></div>
+          <div class="sg-radius-label"><code>--radius-item</code><span>List items &amp; chips</span></div>
+        </div>
+        <div class="sg-radius-sample">
+          <div class="sg-radius-box" style="border-radius:0;background:var(--gold-dim);border:1px solid var(--gold-glow)"></div>
+          <div class="sg-radius-label"><code>0</code><span>Table cells (no rounding)</span></div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">border-radius: var(--radius-btn);    /* buttons, toggles, pills */
+border-radius: var(--radius-card);   /* cards, modals, panels */
+border-radius: var(--radius-item);   /* list rows, chips, tags */
+border-radius: 50%;                  /* avatars, circular indicators */</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Shadows ─────────────────────────────────────────── -->
+    <section class="sg-section" id="shadow-tokens">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Shadow Tokens</h2>
+        <p class="sg-section-desc">Two shadow tokens establish elevation. <code>--shadow-card</code> lifts floating surfaces (cards, dropdowns). <code>--shadow-inner</code> is used for sunken inputs and inset panels. Both resolve to appropriate levels in light and dark modes via <code>light-dark()</code>.</p>
+      </div>
+      <div class="sg-demo sg-demo--grid">
+        <div class="sg-shadow-sample">
+          <div class="sg-shadow-box" style="box-shadow:var(--shadow-card);border-radius:var(--radius-card);background:var(--bg-card)">
+            <span style="color:var(--text-2);font-size:var(--fs-sm)">Card shadow</span>
+          </div>
+          <div class="sg-radius-label" style="margin-top:16px"><code>--shadow-card</code><span>Cards, panels, dropdowns</span></div>
+        </div>
+        <div class="sg-shadow-sample">
+          <div class="sg-shadow-box" style="box-shadow:var(--shadow-inner);border-radius:var(--radius-item);background:var(--bg-input)">
+            <span style="color:var(--text-2);font-size:var(--fs-sm)">Inner shadow</span>
+          </div>
+          <div class="sg-radius-label" style="margin-top:16px"><code>--shadow-inner</code><span>Inputs, sunken panels</span></div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">box-shadow: var(--shadow-card);    /* cards, floating panels */
+box-shadow: var(--shadow-inner);   /* inputs, inset areas */
+box-shadow: none;                  /* reset — e.g. table rows */</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Borders & Dividers ─────────────────────────────── -->
+    <section class="sg-section" id="borders">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Borders &amp; Dividers</h2>
+        <p class="sg-section-desc"><code>--border</code> defines the standard 1px rule for card edges, input outlines, and interactive state rings. <code>--divider</code> is lighter — use it for internal table rows, section separators, and list item dividers. Neither should appear on body-level elements (only on elevated surfaces).</p>
+      </div>
+      <div class="sg-demo">
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <div style="padding:var(--pad);border:1px solid var(--border);border-radius:var(--radius-card);color:var(--text-2);font-size:var(--fs-sm)">
+            <code>border: 1px solid var(--border)</code> — card and input outlines
+          </div>
+          <div style="padding-bottom:var(--pad);border-bottom:1px solid var(--divider)">
+            <span style="color:var(--text-2);font-size:var(--fs-sm)"><code>border-bottom: 1px solid var(--divider)</code> — row and section dividers</span>
+          </div>
+          <div style="padding:var(--pad);border:1px solid var(--gold-glow);border-radius:var(--radius-card);color:var(--text-2);font-size:var(--fs-sm)">
+            <code>border: 1px solid var(--gold-glow)</code> — focus/selected state borders
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">border: 1px solid var(--border);        /* card edges, input outlines */
+border-bottom: 1px solid var(--divider);/* table rows, list separators */
+border: 1px solid var(--gold-glow);     /* focus ring, selected state */
+outline: 2px solid var(--gold);         /* keyboard focus indicator */</code></pre>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="buttons">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buttons — Aurelius Style Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Buttons</h1>
+      <p class="sg-page-desc">Two button variants cover all interactive needs in the dashboard. Buttons are defined in <code>modules/buttons.css</code>. Icon buttons and avatars live in <code>modules/navigation.css</code>. Never create custom button styles — extend from these patterns.</p>
+    </div>
+
+    <!-- ── Primary Button ─────────────────────────────────── -->
+    <section class="sg-section" id="btn-primary">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Primary Button</h2>
+        <p class="sg-section-desc">The highest-emphasis action on a page. Use for the single most important CTA — e.g. "Save Changes", "Continue", "Add Funds". Never place more than one <code>.btn-primary</code> in the same visible context. The gold fill communicates the brand's primary action colour.</p>
+      </div>
+      <div class="sg-demo sg-demo--center">
+        <button class="btn-primary">Save Changes</button>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;button class="btn-primary"&gt;Save Changes&lt;/button&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Secondary Button ───────────────────────────────── -->
+    <section class="sg-section" id="btn-secondary">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Secondary Button</h2>
+        <p class="sg-section-desc">A lower-emphasis alternative. Use alongside a primary button for cancel/back actions, or as the sole action when no primary CTA is needed. The outlined or muted treatment signals secondary intent without visual competition.</p>
+      </div>
+      <div class="sg-demo sg-demo--center">
+        <button class="btn-secondary">Cancel</button>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;button class="btn-secondary"&gt;Cancel&lt;/button&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Button Pair ────────────────────────────────────── -->
+    <section class="sg-section" id="btn-pair">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Primary + Secondary Pair</h2>
+        <p class="sg-section-desc">The canonical two-button pattern: primary right, secondary left. Always position the primary action to the right so users read secondary → primary and confirm deliberately. Use a flex row with a <code>gap</code> of <code>var(--pad)</code>.</p>
+      </div>
+      <div class="sg-demo sg-demo--center">
+        <div style="display:flex;gap:var(--pad)">
+          <button class="btn-secondary">Back</button>
+          <button class="btn-primary">Continue</button>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div style="display:flex;gap:var(--pad)"&gt;
+  &lt;button class="btn-secondary"&gt;Back&lt;/button&gt;
+  &lt;button class="btn-primary"&gt;Continue&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Button with Icon ───────────────────────────────── -->
+    <section class="sg-section" id="btn-with-icon">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Button with Icon</h2>
+        <p class="sg-section-desc">Add a leading or trailing SVG icon inside any button variant. Keep icons at 16×16 or 18×18. The icon should be <code>aria-hidden="true"</code> and <code>focusable="false"</code>. The button's text label provides the accessible name — never rely on icon alone.</p>
+      </div>
+      <div class="sg-demo sg-demo--grid">
+        <button class="btn-primary" style="display:inline-flex;align-items:center;gap:8px">
+          <svg aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          Add Funds
+        </button>
+        <button class="btn-secondary" style="display:inline-flex;align-items:center;gap:8px">
+          <svg aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h12"/></svg>
+          View Report
+        </button>
+        <button class="btn-primary" style="display:inline-flex;align-items:center;gap:8px">
+          Continue
+          <svg aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;!-- Leading icon --&gt;
+&lt;button class="btn-primary" style="display:inline-flex;align-items:center;gap:8px"&gt;
+  &lt;svg aria-hidden="true" focusable="false" width="16" height="16"
+    fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"&gt;
+    &lt;path d="M12 5v14M5 12l7 7 7-7"/&gt;
+  &lt;/svg&gt;
+  Add Funds
+&lt;/button&gt;
+
+&lt;!-- Trailing icon --&gt;
+&lt;button class="btn-primary" style="display:inline-flex;align-items:center;gap:8px"&gt;
+  Continue
+  &lt;svg aria-hidden="true" focusable="false" width="16" height="16"
+    fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"&gt;
+    &lt;polyline points="9 18 15 12 9 6"/&gt;
+  &lt;/svg&gt;
+&lt;/button&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Disabled State ─────────────────────────────────── -->
+    <section class="sg-section" id="btn-disabled">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Disabled State</h2>
+        <p class="sg-section-desc">Use the HTML <code>disabled</code> attribute — never a class-only approach. The browser handles <code>cursor: not-allowed</code>, focus suppression, and AT announcements automatically. Consider adding an explanatory tooltip via <code>aria-describedby</code> on the disabled button to explain why the action is unavailable.</p>
+      </div>
+      <div class="sg-demo sg-demo--grid">
+        <button class="btn-primary" disabled>Save Changes</button>
+        <button class="btn-secondary" disabled>Cancel</button>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;!-- Use the disabled attribute — not a CSS class --&gt;
+&lt;button class="btn-primary" disabled&gt;Save Changes&lt;/button&gt;
+&lt;button class="btn-secondary" disabled&gt;Cancel&lt;/button&gt;
+
+&lt;!-- With aria-describedby for context --&gt;
+&lt;button class="btn-primary" disabled aria-describedby="save-hint"&gt;Save Changes&lt;/button&gt;
+&lt;p id="save-hint" class="sr-only"&gt;Complete all required fields to enable save.&lt;/p&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Icon Button ────────────────────────────────────── -->
+    <section class="sg-section" id="icon-btn">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Icon Button — <code>.icon-btn</code></h2>
+        <p class="sg-section-desc">A minimal square button for toolbar actions — settings, filters, more. Always provide a descriptive <code>aria-label</code> since there is no visible text. Part of the navigation shell; defined in <code>modules/navigation.css</code>.</p>
+      </div>
+      <div class="sg-demo sg-demo--grid">
+        <button class="icon-btn" aria-label="Settings">
+          <svg aria-hidden="true" focusable="false" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="8" cy="6" r="2" fill="var(--bg-card)" stroke="currentColor" stroke-width="1.7"/><circle cx="16" cy="12" r="2" fill="var(--bg-card)" stroke="currentColor" stroke-width="1.7"/><circle cx="10" cy="18" r="2" fill="var(--bg-card)" stroke="currentColor" stroke-width="1.7"/></svg>
+        </button>
+        <button class="icon-btn" aria-label="Filter results">
+          <svg aria-hidden="true" focusable="false" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+        </button>
+        <button class="icon-btn" aria-label="Download report">
+          <svg aria-hidden="true" focusable="false" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </button>
+        <button class="icon-btn" aria-label="More options">
+          <svg aria-hidden="true" focusable="false" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1" fill="currentColor"/><circle cx="12" cy="12" r="1" fill="currentColor"/><circle cx="12" cy="19" r="1" fill="currentColor"/></svg>
+        </button>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;button class="icon-btn" aria-label="Settings"&gt;
+  &lt;svg aria-hidden="true" focusable="false" width="18" height="18"
+    fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"&gt;
+    &lt;!-- icon paths --&gt;
+  &lt;/svg&gt;
+&lt;/button&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Avatar Button ──────────────────────────────────── -->
+    <section class="sg-section" id="avatar">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Avatar Button — <code>.avatar</code></h2>
+        <p class="sg-section-desc">A circular button displaying the user's initials. Used in the topbar for account access. The initials are the accessible label — supplement with <code>aria-label</code> describing the action (e.g. "Account — Sarah King"). Defined in <code>modules/navigation.css</code>.</p>
+      </div>
+      <div class="sg-demo sg-demo--grid">
+        <button class="avatar" aria-label="Account — Sarah King">SK</button>
+        <button class="avatar" aria-label="Account — James Thornton">JT</button>
+        <button class="avatar" aria-label="Account — Priya Patel">PP</button>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;button class="avatar" aria-label="Account — Sarah King"&gt;SK&lt;/button&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Do & Don't ─────────────────────────────────────── -->
+    <section class="sg-section" id="btn-do-dont">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Do &amp; Don't</h2>
+        <p class="sg-section-desc">Common mistakes and correct patterns for button usage in the Aurelius dashboard.</p>
+      </div>
+      <div class="sg-do-dont">
+        <div class="sg-do">
+          <div class="sg-do-label">Do</div>
+          <div class="sg-demo" style="flex-direction:column;gap:12px;align-items:flex-start">
+            <div><button class="btn-primary">Save Changes</button></div>
+            <p style="color:var(--text-2);font-size:var(--fs-sm)">One primary action per context. Clear, verb-led label.</p>
+          </div>
+        </div>
+        <div class="sg-dont">
+          <div class="sg-dont-label">Don't</div>
+          <div class="sg-demo" style="flex-direction:column;gap:12px;align-items:flex-start">
+            <div style="display:flex;gap:8px">
+              <button class="btn-primary">Submit</button>
+              <button class="btn-primary">Save</button>
+              <button class="btn-primary">OK</button>
+            </div>
+            <p style="color:var(--text-2);font-size:var(--fs-sm)">Multiple primary buttons compete for attention and confuse users.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+</body>
+</html>

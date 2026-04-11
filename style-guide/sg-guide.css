@@ -1,0 +1,879 @@
+/* ─── AURELIUS STYLE GUIDE — CHROME ───────────────────────────────────────────
+   Style guide–only chrome. Never added to bundle.css.
+   All design tokens consumed from bundle.css (already on every page).
+   ─────────────────────────────────────────────────────────────────────────── */
+
+
+/* ─── PAGE HEADER ─────────────────────────────────────────────────────────── */
+.sg-page-header {
+  border-bottom: 1px solid var(--divider);
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+}
+
+.sg-page-kicker {
+  color: var(--gold-text);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-widest);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.sg-page-title {
+  color: var(--text-1);
+  font-family: var(--font-serif);
+  font-size: var(--fs-page-title);
+  font-weight: var(--fw-regular);
+  letter-spacing: var(--ls-heading);
+  line-height: var(--lh-tight);
+  margin-bottom: 8px;
+}
+
+.sg-page-desc {
+  color: var(--text-2);
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+  max-width: 640px;
+}
+
+
+/* ─── SECTION ─────────────────────────────────────────────────────────────── */
+.sg-section {
+  margin-bottom: 56px;
+  scroll-margin-top: 24px;
+}
+
+.sg-section + .sg-section {
+  border-top: 1px solid var(--divider);
+  padding-top: 56px;
+}
+
+.sg-section-header {
+  margin-bottom: 20px;
+}
+
+.sg-section-title {
+  color: var(--text-1);
+  font-family: var(--font-sans);
+  font-size: var(--fs-section-title);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-snug);
+  line-height: var(--lh-snug);
+  margin-bottom: 6px;
+}
+
+.sg-section-desc {
+  color: var(--text-2);
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+  max-width: 600px;
+}
+
+.sg-section-desc code {
+  background: var(--bg-input);
+  border-radius: 4px;
+  color: var(--gold-text);
+  font-size: var(--fs-ui);
+  padding: 1px 5px;
+}
+
+.sg-label {
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-widest);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.sg-divider {
+  border: none;
+  border-top: 1px solid var(--divider);
+  margin: 40px 0;
+}
+
+
+/* ─── DEMO BOX ────────────────────────────────────────────────────────────── */
+.sg-demo {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  margin-bottom: 12px;
+  padding: 32px 24px;
+}
+
+.sg-demo--tight  { padding: 16px 20px; }
+.sg-demo--flush  { padding: 0; overflow: hidden; }
+
+.sg-demo--grid {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.sg-demo--center {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.sg-demo--row {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.sg-demo--col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Forced dark surface for contrast-sensitive components */
+.sg-demo--dark {
+  background: var(--neutral-10);
+}
+
+/* Subtle checker for transparent component demos */
+.sg-demo--checker {
+  background-image: linear-gradient(45deg, var(--bg-hover) 25%, transparent 25%),
+                    linear-gradient(-45deg, var(--bg-hover) 25%, transparent 25%),
+                    linear-gradient(45deg, transparent 75%, var(--bg-hover) 75%),
+                    linear-gradient(-45deg, transparent 75%, var(--bg-hover) 75%);
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+  background-size: 16px 16px;
+}
+
+/* Demo sub-label below a variant */
+.sg-demo-label {
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-wide);
+  margin-top: 8px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.sg-variant-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+
+/* ─── CODE BLOCK ──────────────────────────────────────────────────────────── */
+.sg-code {
+  position: relative;
+}
+
+.sg-code pre[class*="language-"] {
+  background: light-dark(#1e1e2e, #0d1117) !important;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-item);
+  font-size: 12.5px;
+  line-height: 1.65;
+  margin: 0 !important;
+  max-height: 360px;
+  overflow: auto;
+  padding: 20px 20px 20px 20px !important;
+}
+
+/* Prism token overrides — Aurelius palette */
+.sg-code .token.tag,
+.sg-code .token.punctuation { color: light-dark(#8ba5c7, #7aa2c0); }
+.sg-code .token.attr-name    { color: light-dark(#6e9ecf, #9ecbff); }
+.sg-code .token.attr-value,
+.sg-code .token.string       { color: light-dark(#c49a38, #f5cc6e); }
+.sg-code .token.comment      { color: light-dark(#6a737d, #6a737d); font-style: italic; }
+.sg-code .token.keyword      { color: light-dark(#b83e20, #e06a45); }
+
+.sg-copy-btn {
+  align-items: center;
+  background: light-dark(rgba(255,255,255,0.06), rgba(255,255,255,0.06));
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-2);
+  cursor: pointer;
+  display: flex;
+  font-family: var(--font-sans);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  gap: 5px;
+  letter-spacing: var(--ls-wide);
+  padding: 5px 10px;
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  transition: all 0.15s;
+  z-index: 1;
+}
+
+.sg-copy-btn:hover { background: var(--bg-hover); color: var(--text-1); }
+.sg-copy-btn svg   { height: 12px; width: 12px; flex-shrink: 0; }
+
+.sg-copy-btn--copied {
+  background: var(--green-dim) !important;
+  border-color: var(--green) !important;
+  color: var(--green) !important;
+}
+
+
+/* ─── COLOUR TOKEN GRID ───────────────────────────────────────────────────── */
+.sg-token-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+}
+
+.sg-token-chip {
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-item);
+  display: flex;
+  gap: 12px;
+  padding: 10px 12px;
+}
+
+.sg-token-swatch {
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 6px;
+  flex-shrink: 0;
+  height: 32px;
+  width: 32px;
+}
+
+.sg-token-info {
+  min-width: 0;
+}
+
+.sg-token-name {
+  color: var(--text-1);
+  font-family: ui-monospace, 'Cascadia Code', monospace;
+  font-size: 11px;
+  font-weight: var(--fw-medium);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sg-token-value {
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+  margin-top: 1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Full-width colour swatch row (for gradient / surface tokens) */
+.sg-colour-row {
+  border-radius: var(--radius-item);
+  display: flex;
+  gap: 2px;
+  height: 48px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.sg-colour-row-swatch {
+  flex: 1;
+}
+
+
+/* ─── TYPE SPECIMEN ──────────────────────────────────────────────────────── */
+.sg-type-row {
+  align-items: baseline;
+  border-bottom: 1px solid var(--divider);
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 120px 60px 1fr;
+  padding: 14px 0;
+}
+
+.sg-type-row:last-child { border-bottom: none; }
+
+.sg-type-token {
+  color: var(--gold-text);
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+}
+
+.sg-type-size {
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+}
+
+.sg-type-sample {
+  color: var(--text-1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* ─── SPACING SWATCH ──────────────────────────────────────────────────────── */
+.sg-space-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sg-space-row {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+}
+
+.sg-space-bar-wrap {
+  flex: 1;
+  height: 24px;
+  position: relative;
+}
+
+.sg-space-bar {
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-glow);
+  border-radius: 3px;
+  height: 100%;
+}
+
+.sg-space-meta {
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  min-width: 200px;
+}
+
+.sg-space-token {
+  color: var(--gold-text);
+}
+
+.sg-space-val {
+  color: var(--text-3);
+}
+
+/* Radius swatch */
+.sg-radius-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.sg-radius-chip {
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 20px;
+  text-align: center;
+  width: 140px;
+}
+
+.sg-radius-box {
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-glow);
+  height: 48px;
+  width: 80px;
+}
+
+
+/* ─── SHADOW SWATCH ───────────────────────────────────────────────────────── */
+.sg-shadow-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.sg-shadow-chip {
+  background: var(--bg-card);
+  border: 1px solid transparent;
+  border-radius: var(--radius-card);
+  height: 100px;
+  padding: 16px;
+  width: 200px;
+}
+
+
+/* ─── TABLE DEMO ──────────────────────────────────────────────────────────── */
+.sg-demo table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.sg-demo th {
+  border-bottom: 1px solid var(--border);
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-widest);
+  padding: 8px 12px;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.sg-demo td {
+  border-bottom: 1px solid var(--divider);
+  color: var(--text-2);
+  font-size: var(--fs-body);
+  padding: 12px 12px;
+}
+
+.sg-demo tr:last-child td { border-bottom: none; }
+.sg-demo td:first-child,
+.sg-demo th:first-child   { color: var(--text-1); font-weight: var(--fw-medium); }
+
+
+/* ─── LAYOUT DIAGRAM ──────────────────────────────────────────────────────── */
+.sg-layout-diagram {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  display: grid;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.sg-layout-cell {
+  align-items: center;
+  background: var(--bg-hover);
+  border: 1px dashed var(--border);
+  color: var(--text-3);
+  display: flex;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  justify-content: center;
+  letter-spacing: var(--ls-wide);
+  min-height: 60px;
+  text-transform: uppercase;
+}
+
+.sg-layout-cell--header {
+  background: light-dark(rgba(245,166,35,0.07), rgba(245,166,35,0.07));
+  border-color: var(--gold-glow);
+  color: var(--gold-text);
+}
+
+.sg-layout-cell--sidebar {
+  background: light-dark(rgba(74,143,232,0.06), rgba(74,143,232,0.06));
+  border-color: var(--el-water-bg);
+  color: var(--el-water);
+  min-height: 120px;
+}
+
+.sg-layout-cell--main {
+  background: transparent;
+  min-height: 120px;
+}
+
+
+/* ─── GRID DEMO ───────────────────────────────────────────────────────────── */
+.sg-grid-demo {
+  display: grid;
+  gap: 16px;
+}
+
+.sg-grid-demo--2 { grid-template-columns: repeat(2, 1fr); }
+.sg-grid-demo--3 { grid-template-columns: repeat(3, 1fr); }
+.sg-grid-demo--4 { grid-template-columns: repeat(4, 1fr); }
+
+.sg-grid-cell {
+  align-items: center;
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-glow);
+  border-radius: var(--radius-item);
+  color: var(--gold-text);
+  display: flex;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  height: 56px;
+  justify-content: center;
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+}
+
+
+/* ─── ONBOARDING ELEMENT CHIPS ────────────────────────────────────────────── */
+.sg-element-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+}
+
+.sg-element-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 20px 16px;
+  text-align: center;
+}
+
+.sg-element-orb {
+  border-radius: 50%;
+  height: 48px;
+  margin: 0 auto 12px;
+  opacity: 0.85;
+  width: 48px;
+}
+
+.sg-element-name {
+  color: var(--text-1);
+  font-family: var(--font-serif);
+  font-size: var(--fs-xl);
+  margin-bottom: 4px;
+}
+
+.sg-element-role {
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+}
+
+
+/* ─── DO / DON'T ──────────────────────────────────────────────────────────── */
+.sg-do-dont {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.sg-do,
+.sg-dont {
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.sg-do   { border: 1px solid var(--green); }
+.sg-dont { border: 1px solid var(--red);   }
+
+.sg-do-header,
+.sg-dont-header {
+  align-items: center;
+  display: flex;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  gap: 6px;
+  letter-spacing: var(--ls-widest);
+  padding: 8px 14px;
+  text-transform: uppercase;
+}
+
+.sg-do-header   { background: var(--green-dim); color: var(--green); }
+.sg-dont-header { background: var(--red-dim);   color: var(--red);   }
+
+.sg-do-body,
+.sg-dont-body {
+  background: var(--bg-card);
+  padding: 16px 14px;
+}
+
+
+/* ─── SIDEBAR NAV SPECIFIC TO STYLE GUIDE ────────────────────────────────── */
+.sg-sidebar-section {
+  color: var(--text-3);
+  font-size: var(--fs-badge);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-widest);
+  margin: 20px 0 6px;
+  padding: 0 12px;
+  text-transform: uppercase;
+}
+
+/* Scroll-spy highlight on TOC items */
+.sg-toc-item.is-current > a {
+  color: var(--gold);
+}
+
+
+/* ─── TYPE SCALE (typography page) ───────────────────────────────────────── */
+.sg-type-scale {
+  display: flex;
+  flex-direction: column;
+}
+
+.sg-type-scale .sg-type-row {
+  align-items: baseline;
+  border-bottom: 1px solid var(--divider);
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 200px 1fr;
+  padding: 12px 0;
+}
+
+.sg-type-scale .sg-type-row:last-child { border-bottom: none; }
+
+.sg-type-label {
+  color: var(--text-3);
+  flex-shrink: 0;
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+}
+
+.sg-type-label code {
+  background: none;
+  color: var(--gold-text);
+  font-size: 11px;
+  padding: 0;
+}
+
+.sg-type-specimen {
+  color: var(--text-1);
+  font-family: var(--font-sans);
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sg-type-family {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+
+/* ─── LINE HEIGHT SAMPLES ─────────────────────────────────────────────────── */
+.sg-lh-sample {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sg-lh-label {
+  color: var(--text-3);
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+}
+
+
+/* ─── SPACING SCALE (spacing page) ───────────────────────────────────────── */
+.sg-space-scale {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sg-space-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.sg-space-info code {
+  color: var(--gold-text);
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+}
+
+.sg-space-use {
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+}
+
+
+/* ─── RADIUS SAMPLES ──────────────────────────────────────────────────────── */
+.sg-radius-sample {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sg-radius-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sg-radius-label code {
+  color: var(--gold-text);
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+}
+
+.sg-radius-label span {
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+}
+
+
+/* ─── SHADOW SAMPLES ──────────────────────────────────────────────────────── */
+.sg-shadow-sample {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 160px;
+}
+
+.sg-shadow-box {
+  align-items: center;
+  display: flex;
+  height: 80px;
+  justify-content: center;
+  max-width: 220px;
+  width: 100%;
+}
+
+
+/* ─── LAYOUT DIAGRAM (extended) ──────────────────────────────────────────── */
+.sg-layout-topbar {
+  align-items: center;
+  background: light-dark(rgba(245,166,35,0.07), rgba(245,166,35,0.07));
+  border-bottom: 1px dashed var(--gold-glow);
+  color: var(--gold-text);
+  display: flex;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  justify-content: center;
+  letter-spacing: var(--ls-wide);
+  min-height: 44px;
+  padding: 0 16px;
+  text-transform: uppercase;
+}
+
+.sg-layout-body {
+  display: flex;
+  min-height: 120px;
+}
+
+.sg-layout-sidebar {
+  align-items: center;
+  background: light-dark(rgba(74,143,232,0.06), rgba(74,143,232,0.06));
+  border-right: 1px dashed var(--border);
+  color: var(--el-water);
+  display: flex;
+  flex-direction: column;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  justify-content: center;
+  letter-spacing: var(--ls-wide);
+  min-width: 80px;
+  padding: 16px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.sg-layout-main {
+  align-items: center;
+  color: var(--text-3);
+  display: flex;
+  flex: 1;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  justify-content: center;
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+}
+
+.sg-layout-block {
+  align-items: center;
+  background: var(--bg-hover);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-item);
+  color: var(--text-3);
+  display: flex;
+  font-size: var(--fs-xs);
+  justify-content: center;
+  min-height: 44px;
+  padding: 8px 12px;
+}
+
+.sg-layout-block--tall { min-height: 80px; }
+
+
+/* ─── DO/DON'T LABEL SHORTHAND ────────────────────────────────────────────── */
+.sg-do-label {
+  background: var(--green-dim);
+  color: var(--green);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-widest);
+  padding: 6px 12px;
+  text-transform: uppercase;
+}
+
+.sg-dont-label {
+  background: var(--red-dim);
+  color: var(--red);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-widest);
+  padding: 6px 12px;
+  text-transform: uppercase;
+}
+
+
+/* ─── ELEMENT CHIPS (onboarding palette) ─────────────────────────────────── */
+.sg-element-chip {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.sg-element-header {
+  align-items: center;
+  border-bottom: 1px solid;
+  display: flex;
+  gap: 12px;
+  padding: 14px 16px;
+}
+
+.sg-element-swatch {
+  border-radius: 50%;
+  flex-shrink: 0;
+  height: 28px;
+  width: 28px;
+}
+
+/* Override the generic .sg-element-name inside a chip */
+.sg-element-chip .sg-element-name {
+  font-family: var(--font-sans);
+  font-size: var(--fs-md);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-snug);
+  line-height: 1.2;
+}
+
+.sg-element-sub {
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+  margin-top: 2px;
+}
+
+.sg-element-tokens {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 16px;
+}
+
+.sg-token-row {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sg-token-row .sg-token-name { font-size: 11px; }
+
+
+/* ─── RESPONSIVE ──────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .sg-do-dont { grid-template-columns: 1fr; }
+  .sg-grid-demo--3 { grid-template-columns: repeat(2, 1fr); }
+  .sg-grid-demo--4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .sg-token-grid { grid-template-columns: 1fr 1fr; }
+  .sg-type-row   { grid-template-columns: 1fr; }
+  .sg-type-scale .sg-type-row { grid-template-columns: 1fr; }
+}
