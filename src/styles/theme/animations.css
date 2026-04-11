@@ -25,3 +25,26 @@
   0%   { opacity: 0.5; transform: scale(1); }
   100% { opacity: 0; transform: scale(2.2); }
 }
+
+/* ── Onboarding screen transitions ───────────────────────── */
+@keyframes ob-screen-in {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes ob-screen-out {
+  from { opacity: 1; transform: none; }
+  to   { opacity: 0; transform: translateX(-12px); }
+}
+
+/* Step-completion overlay fade */
+@keyframes ob-sol-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Animated SVG checkmark stroke-dasharray draw */
+@keyframes ob-check-draw {
+  from { stroke-dasharray: 0 24; }
+  to   { stroke-dasharray: 24 0; }
+}

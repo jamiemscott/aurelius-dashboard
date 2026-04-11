@@ -52,6 +52,7 @@ const PARTIALS = [
   'src/styles/modules/user-menu.css',
   'src/styles/modules/notifications.css',
   'src/styles/modules/add-investment.css',
+  'src/styles/modules/onboarding.css',
   // State — is-* classes
   'src/styles/state/state.css',
   // Pages — page-specific overrides
