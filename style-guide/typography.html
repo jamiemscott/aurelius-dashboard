@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="typography">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Typography — Aurelius Style Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Typography</h1>
+      <p class="sg-page-desc">All type sizes, weights, line heights, and letter-spacing values live in <code>theme/typography.css</code> as custom properties. The primary typeface is <strong>DM Sans</strong> for UI copy and <strong>DM Serif Display</strong> for editorial headlines. Always use the semantic token names — never hardcoded px or rem values.</p>
+    </div>
+
+    <!-- ── Type Scale ─────────────────────────────────────── -->
+    <section class="sg-section" id="type-scale">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Type Scale</h2>
+        <p class="sg-section-desc">Font sizes expressed as <code>--fs-*</code> tokens. The scale is defined in <code>clamp()</code> expressions where appropriate so text breathes across viewport widths. Use these tokens — never raw <code>px</code> or <code>rem</code>.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="sg-type-scale">
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-6xl</code></span><span class="sg-type-specimen" style="font-size:var(--fs-6xl)">The quick brown fox</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-5xl</code></span><span class="sg-type-specimen" style="font-size:var(--fs-5xl)">The quick brown fox</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-4xl</code></span><span class="sg-type-specimen" style="font-size:var(--fs-4xl)">The quick brown fox</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-3xl</code></span><span class="sg-type-specimen" style="font-size:var(--fs-3xl)">The quick brown fox</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-2xl</code></span><span class="sg-type-specimen" style="font-size:var(--fs-2xl)">The quick brown fox</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-xl</code></span><span class="sg-type-specimen" style="font-size:var(--fs-xl)">The quick brown fox</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-lg</code></span><span class="sg-type-specimen" style="font-size:var(--fs-lg)">The quick brown fox</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-md</code></span><span class="sg-type-specimen" style="font-size:var(--fs-md)">The quick brown fox</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-base</code></span><span class="sg-type-specimen" style="font-size:var(--fs-base)">The quick brown fox</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-sm</code></span><span class="sg-type-specimen" style="font-size:var(--fs-sm)">The quick brown fox</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-xs</code></span><span class="sg-type-specimen" style="font-size:var(--fs-xs)">The quick brown fox</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-2xs</code></span><span class="sg-type-specimen" style="font-size:var(--fs-2xs)">The quick brown fox</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-micro</code></span><span class="sg-type-specimen" style="font-size:var(--fs-micro)">The quick brown fox</span></div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">font-size: var(--fs-page-title);   /* main page h1 */
+font-size: var(--fs-section-title);/* card / panel headings */
+font-size: var(--fs-panel-title);  /* sidebar group labels */
+font-size: var(--fs-body);         /* standard body copy */
+font-size: var(--fs-body-sm);      /* compact body / secondary text */
+font-size: var(--fs-caption);      /* captions, helper text */
+font-size: var(--fs-meta);         /* metadata, timestamps */
+font-size: var(--fs-kpi);          /* KPI large values */
+font-size: var(--fs-kpi-hero);     /* featured KPI hero value */</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Semantic Size Tokens ───────────────────────────── -->
+    <section class="sg-section" id="semantic-sizes">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Semantic Size Tokens</h2>
+        <p class="sg-section-desc">In addition to the numeric scale, named semantic tokens map specific sizes to UI roles. These are the preferred aliases — they convey intent and decouple layout from absolute values.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="sg-type-scale">
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-display-md</code></span><span class="sg-type-specimen" style="font-size:var(--fs-display-md)">Portfolio Overview</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-display-sm</code></span><span class="sg-type-specimen" style="font-size:var(--fs-display-sm)">Portfolio Overview</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-page-title</code></span><span class="sg-type-specimen" style="font-size:var(--fs-page-title)">My Overview</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-section-title</code></span><span class="sg-type-specimen" style="font-size:var(--fs-section-title)">Recent Transactions</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-panel-title</code></span><span class="sg-type-specimen" style="font-size:var(--fs-panel-title)">Asset Allocation</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-drawer-title</code></span><span class="sg-type-specimen" style="font-size:var(--fs-drawer-title)">Add Funds</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-data-lg</code></span><span class="sg-type-specimen" style="font-size:var(--fs-data-lg)">£1,284,500</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-data-md</code></span><span class="sg-type-specimen" style="font-size:var(--fs-data-md)">£284,500</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-kpi-hero</code></span><span class="sg-type-specimen" style="font-size:var(--fs-kpi-hero)">£1,284,500</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-kpi</code></span><span class="sg-type-specimen" style="font-size:var(--fs-kpi)">+12.4%</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-nav</code></span><span class="sg-type-specimen" style="font-size:var(--fs-nav)">My Investments</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-btn</code></span><span class="sg-type-specimen" style="font-size:var(--fs-btn)">Save Changes</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-input</code></span><span class="sg-type-specimen" style="font-size:var(--fs-input)">Enter amount</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-input-label</code></span><span class="sg-type-specimen" style="font-size:var(--fs-input-label)">Account name</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-ui</code></span><span class="sg-type-specimen" style="font-size:var(--fs-ui)">UI element text</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-help</code></span><span class="sg-type-specimen" style="font-size:var(--fs-help)">Please enter a valid amount</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-badge</code></span><span class="sg-type-specimen" style="font-size:var(--fs-badge)">NEW · 3</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── DM Sans Typeface ────────────────────────────────── -->
+    <section class="sg-section" id="dm-sans">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">DM Sans — Primary Typeface</h2>
+        <p class="sg-section-desc">DM Sans is used for all UI copy: navigation, body text, labels, buttons, and data values. It is loaded via Google Fonts with a variable font axis range of 9–40 optical sizes. Available weights: 300 (light), 400 (regular), 500 (medium), 600 (semibold).</p>
+      </div>
+      <div class="sg-demo">
+        <div class="sg-type-family">
+          <p style="font-family:'DM Sans',sans-serif;font-weight:300;font-size:var(--fs-xl);color:var(--text-1)">Light 300 — Aurelius Wealth Management</p>
+          <p style="font-family:'DM Sans',sans-serif;font-weight:400;font-size:var(--fs-xl);color:var(--text-1)">Regular 400 — Aurelius Wealth Management</p>
+          <p style="font-family:'DM Sans',sans-serif;font-weight:500;font-size:var(--fs-xl);color:var(--text-1)">Medium 500 — Aurelius Wealth Management</p>
+          <p style="font-family:'DM Sans',sans-serif;font-weight:600;font-size:var(--fs-xl);color:var(--text-1)">Semibold 600 — Aurelius Wealth Management</p>
+          <p style="font-family:'DM Sans',sans-serif;font-weight:300;font-style:italic;font-size:var(--fs-xl);color:var(--text-2)">Italic Light 300 — Aurelius Wealth Management</p>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">font-family: 'DM Sans', sans-serif;   /* always quote variable fonts */
+font-weight: var(--fw-regular);       /* 400 */
+font-weight: var(--fw-medium);        /* 500 */
+font-weight: var(--fw-semibold);      /* 600 */
+font-weight: var(--fw-bold);          /* 700 — sparingly */</code></pre>
+      </div>
+    </section>
+
+    <!-- ── DM Serif Display ────────────────────────────────── -->
+    <section class="sg-section" id="serif-display">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">DM Serif Display — Editorial Typeface</h2>
+        <p class="sg-section-desc">DM Serif Display is reserved for large editorial or hero contexts — onboarding titles, marketing headlines, and decorative display moments. Never use it for body copy or UI chrome. Apply with care: one instance per screen at most.</p>
+      </div>
+      <div class="sg-demo">
+        <div style="display:flex;flex-direction:column;gap:24px">
+          <p style="font-family:'DM Serif Display',serif;font-weight:400;font-size:var(--fs-5xl);color:var(--text-1);line-height:var(--lh-tight)">Know Your Element</p>
+          <p style="font-family:'DM Serif Display',serif;font-weight:400;font-size:var(--fs-3xl);color:var(--text-1);line-height:var(--lh-snug)">Portfolio at a Glance</p>
+          <p style="font-family:'DM Serif Display',serif;font-style:italic;font-weight:400;font-size:var(--fs-3xl);color:var(--gold-text);line-height:var(--lh-snug)">Your journey begins here</p>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">font-family: 'DM Serif Display', serif;
+font-weight: 400;                          /* only weight available */
+font-style: italic;                        /* optional editorial accent */
+font-size: var(--fs-5xl);
+line-height: var(--lh-tight);</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Font Weights ────────────────────────────────────── -->
+    <section class="sg-section" id="font-weights">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Font Weights</h2>
+        <p class="sg-section-desc">Four weight tokens cover all UI needs. Prefer <code>--fw-regular</code> for body and <code>--fw-medium</code> for labels. Use <code>--fw-semibold</code> for headings and data values. <code>--fw-bold</code> is available for emphasis but use sparingly.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="sg-type-family">
+          <div class="sg-type-row">
+            <span class="sg-type-label"><code>--fw-regular</code> (400)</span>
+            <span style="font-size:var(--fs-xl);font-weight:var(--fw-regular)">Portfolio value at a glance</span>
+          </div>
+          <div class="sg-type-row">
+            <span class="sg-type-label"><code>--fw-medium</code> (500)</span>
+            <span style="font-size:var(--fs-xl);font-weight:var(--fw-medium)">Portfolio value at a glance</span>
+          </div>
+          <div class="sg-type-row">
+            <span class="sg-type-label"><code>--fw-semibold</code> (600)</span>
+            <span style="font-size:var(--fs-xl);font-weight:var(--fw-semibold)">Portfolio value at a glance</span>
+          </div>
+          <div class="sg-type-row">
+            <span class="sg-type-label"><code>--fw-bold</code> (700)</span>
+            <span style="font-size:var(--fs-xl);font-weight:var(--fw-bold)">Portfolio value at a glance</span>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">font-weight: var(--fw-regular);    /* body copy, descriptions */
+font-weight: var(--fw-medium);     /* labels, nav items, captions */
+font-weight: var(--fw-semibold);   /* headings, card titles, KPI values */
+font-weight: var(--fw-bold);       /* emphasis, strong — use sparingly */</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Line Heights ────────────────────────────────────── -->
+    <section class="sg-section" id="line-heights">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Line Heights</h2>
+        <p class="sg-section-desc">Six line-height tokens from tight display to loose reading. <code>--lh-none</code> (1) is for single-line numeric data. <code>--lh-normal</code> (1.5) is the default. <code>--lh-relaxed</code> improves readability for longer paragraphs.</p>
+      </div>
+      <div class="sg-demo">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px">
+          <div class="sg-lh-sample"><div class="sg-lh-label"><code>--lh-none</code> (1)</div><p style="font-size:var(--fs-md);line-height:var(--lh-none)">£1,284,500<br>+12.4%</p></div>
+          <div class="sg-lh-sample"><div class="sg-lh-label"><code>--lh-tight</code> (~1.2)</div><p style="font-size:var(--fs-md);line-height:var(--lh-tight)">Portfolio Overview<br>Total Invested Value</p></div>
+          <div class="sg-lh-sample"><div class="sg-lh-label"><code>--lh-snug</code> (~1.35)</div><p style="font-size:var(--fs-md);line-height:var(--lh-snug)">Section heading<br>Sub-heading text here</p></div>
+          <div class="sg-lh-sample"><div class="sg-lh-label"><code>--lh-normal</code> (1.5)</div><p style="font-size:var(--fs-md);line-height:var(--lh-normal)">Standard body copy.<br>Two lines of text.</p></div>
+          <div class="sg-lh-sample"><div class="sg-lh-label"><code>--lh-relaxed</code> (~1.625)</div><p style="font-size:var(--fs-md);line-height:var(--lh-relaxed)">Longer descriptive<br>paragraph content.</p></div>
+          <div class="sg-lh-sample"><div class="sg-lh-label"><code>--lh-loose</code> (2)</div><p style="font-size:var(--fs-md);line-height:var(--lh-loose)">Spaced<br>text.</p></div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">line-height: var(--lh-none);      /* data values, single-line numbers */
+line-height: var(--lh-tight);     /* headings, display text */
+line-height: var(--lh-snug);      /* card titles, subheadings */
+line-height: var(--lh-normal);    /* body copy (default) */
+line-height: var(--lh-relaxed);   /* long-form text, descriptions */
+line-height: var(--lh-loose);     /* list items with room to breathe */</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Letter Spacing ─────────────────────────────────── -->
+    <section class="sg-section" id="letter-spacing">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Letter Spacing</h2>
+        <p class="sg-section-desc">Tracking tokens for display, heading, label, and monospace contexts. <code>--ls-widest</code> is used exclusively for all-caps labels and section kickers. Never apply wide tracking to body copy.</p>
+      </div>
+      <div class="sg-demo">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div class="sg-type-row"><span class="sg-type-label"><code>--ls-snug</code></span><span style="font-size:var(--fs-lg);letter-spacing:var(--ls-snug)">Portfolio Value</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--ls-normal</code></span><span style="font-size:var(--fs-lg);letter-spacing:var(--ls-normal)">Portfolio Value</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--ls-wide</code></span><span style="font-size:var(--fs-lg);letter-spacing:var(--ls-wide)">Portfolio Value</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--ls-wider</code></span><span style="font-size:var(--fs-md);letter-spacing:var(--ls-wider);text-transform:uppercase">Section Label</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--ls-widest</code></span><span style="font-size:var(--fs-sm);letter-spacing:var(--ls-widest);text-transform:uppercase">Style Guide</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--ls-heading</code></span><span style="font-size:var(--fs-xl);letter-spacing:var(--ls-heading)">My Investments</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--ls-display</code></span><span style="font-size:var(--fs-3xl);letter-spacing:var(--ls-display)">Aurelius</span></div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">letter-spacing: var(--ls-snug);   /* tighten display sizes slightly */
+letter-spacing: var(--ls-normal); /* body copy default */
+letter-spacing: var(--ls-heading);/* section headings */
+letter-spacing: var(--ls-display);/* large serif display titles */
+letter-spacing: var(--ls-wider);  /* ALL-CAPS labels, eyebrows */
+letter-spacing: var(--ls-widest); /* page kickers, badges — caps only */</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Text Colours ────────────────────────────────────── -->
+    <section class="sg-section" id="text-colours">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Text Colours</h2>
+        <p class="sg-section-desc">Three semantic text tokens establish a clear visual hierarchy. Never use raw hex for text — always use these tokens to ensure both light and dark modes remain accessible.</p>
+      </div>
+      <div class="sg-demo">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <p style="font-size:var(--fs-xl);color:var(--text-1);font-weight:var(--fw-semibold)"><code>--text-1</code> — Primary heading and data values. Highest contrast.</p>
+          <p style="font-size:var(--fs-lg);color:var(--text-2)"><code>--text-2</code> — Body copy, descriptions, and secondary labels.</p>
+          <p style="font-size:var(--fs-md);color:var(--text-3)"><code>--text-3</code> — Captions, helper text, timestamps, and metadata.</p>
+          <p style="font-size:var(--fs-lg);color:var(--gold-text)"><code>--gold-text</code> — Brand-coloured text, accessible on both surfaces.</p>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">color: var(--text-1);      /* headings, data, primary emphasis */
+color: var(--text-2);      /* body copy, card content */
+color: var(--text-3);      /* captions, helper, timestamps */
+color: var(--gold-text);   /* brand accent text — AA compliant */</code></pre>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+</body>
+</html>

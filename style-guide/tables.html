@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="tables">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tables — Aurelius Style Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Tables</h1>
+      <p class="sg-page-desc">Data tables are used throughout the dashboard to display investment holdings, transactions, and performance data. Table styles are defined in <code>modules/tables.css</code>. Always wrap tables in <code>.table-wrap</code> to enable horizontal scrolling on small viewports.</p>
+    </div>
+
+    <!-- ── Base Table ─────────────────────────────────────── -->
+    <section class="sg-section" id="table-base">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Base Table</h2>
+        <p class="sg-section-desc">The standard table pattern. Wrap in <code>.table-wrap</code> for responsive overflow. Always include a <code>&lt;caption&gt;</code> or <code>aria-label</code> on the <code>&lt;table&gt;</code> element for screen readers. Header cells use <code>&lt;th scope="col"&gt;</code>. Column type classes (<code>.td-name</code>, <code>.td-type</code>, etc.) control alignment and emphasis.</p>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <div class="table-wrap">
+          <table aria-label="Investment holdings">
+            <thead>
+              <tr>
+                <th scope="col" class="td-name">Holding</th>
+                <th scope="col" class="td-type">Type</th>
+                <th scope="col" style="text-align:right">Value</th>
+                <th scope="col" style="text-align:right">Weight</th>
+                <th scope="col" class="td-change" style="text-align:right">Change</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="td-name">Vanguard FTSE Global All Cap</td>
+                <td class="td-type">Fund</td>
+                <td style="text-align:right;font-variant-numeric:tabular-nums">£284,500</td>
+                <td class="td-secondary" style="text-align:right">22.1%</td>
+                <td class="td-change is-up" style="text-align:right">+4.2%</td>
+              </tr>
+              <tr>
+                <td class="td-name">iShares Core MSCI World ETF</td>
+                <td class="td-type">ETF</td>
+                <td style="text-align:right;font-variant-numeric:tabular-nums">£196,800</td>
+                <td class="td-secondary" style="text-align:right">15.3%</td>
+                <td class="td-change is-up" style="text-align:right">+7.8%</td>
+              </tr>
+              <tr>
+                <td class="td-name">Fundsmith Equity</td>
+                <td class="td-type">Fund</td>
+                <td style="text-align:right;font-variant-numeric:tabular-nums">£158,400</td>
+                <td class="td-secondary" style="text-align:right">12.3%</td>
+                <td class="td-change is-down" style="text-align:right">−1.4%</td>
+              </tr>
+              <tr>
+                <td class="td-name">Pershing Square Holdings</td>
+                <td class="td-type">Investment Trust</td>
+                <td style="text-align:right;font-variant-numeric:tabular-nums">£92,000</td>
+                <td class="td-secondary" style="text-align:right">7.2%</td>
+                <td class="td-change is-up" style="text-align:right">+12.1%</td>
+              </tr>
+              <tr>
+                <td class="td-name">UK Government Bonds (Gilts)</td>
+                <td class="td-type">Bond</td>
+                <td style="text-align:right;font-variant-numeric:tabular-nums">£74,600</td>
+                <td class="td-secondary" style="text-align:right">5.8%</td>
+                <td class="td-change is-down" style="text-align:right">−0.6%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="table-wrap"&gt;
+  &lt;table aria-label="Investment holdings"&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th scope="col" class="td-name"&gt;Holding&lt;/th&gt;
+        &lt;th scope="col" class="td-type"&gt;Type&lt;/th&gt;
+        &lt;th scope="col" style="text-align:right"&gt;Value&lt;/th&gt;
+        &lt;th scope="col" class="td-change" style="text-align:right"&gt;Change&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td class="td-name"&gt;Vanguard FTSE Global All Cap&lt;/td&gt;
+        &lt;td class="td-type"&gt;Fund&lt;/td&gt;
+        &lt;td style="text-align:right"&gt;£284,500&lt;/td&gt;
+        &lt;td class="td-change is-up" style="text-align:right"&gt;+4.2%&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Column Type Classes ────────────────────────────── -->
+    <section class="sg-section" id="table-columns">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Column Type Classes</h2>
+        <p class="sg-section-desc">Semantic column classes control typography weight, colour, and alignment for different data types. Apply to both <code>&lt;th&gt;</code> and its corresponding <code>&lt;td&gt;</code> cells for consistent column presentation.</p>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <div class="table-wrap">
+          <table aria-label="Column class examples">
+            <thead>
+              <tr>
+                <th scope="col">Class</th>
+                <th scope="col">Purpose</th>
+                <th scope="col">Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>.td-name</code></td>
+                <td class="td-secondary">Primary identifier — asset name, instrument name</td>
+                <td class="td-name">Vanguard FTSE Global All Cap</td>
+              </tr>
+              <tr>
+                <td><code>.td-type</code></td>
+                <td class="td-secondary">Category label — fund type, asset class</td>
+                <td class="td-type">Investment Trust</td>
+              </tr>
+              <tr>
+                <td><code>.td-secondary</code></td>
+                <td class="td-secondary">Supplementary data — weight, allocation %, period</td>
+                <td class="td-secondary">22.1%</td>
+              </tr>
+              <tr>
+                <td><code>.td-change.is-up</code></td>
+                <td class="td-secondary">Positive movement indicator</td>
+                <td class="td-change is-up">+12.4%</td>
+              </tr>
+              <tr>
+                <td><code>.td-change.is-down</code></td>
+                <td class="td-secondary">Negative movement indicator</td>
+                <td class="td-change is-down">−3.1%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;td class="td-name"&gt;Asset name&lt;/td&gt;          &lt;!-- primary label, --text-1 --&gt;
+&lt;td class="td-type"&gt;Fund&lt;/td&gt;               &lt;!-- category badge style --&gt;
+&lt;td class="td-secondary"&gt;22.1%&lt;/td&gt;          &lt;!-- muted, --text-2 --&gt;
+&lt;td class="td-change is-up"&gt;+4.2%&lt;/td&gt;      &lt;!-- green, --green --&gt;
+&lt;td class="td-change is-down"&gt;−1.4%&lt;/td&gt;   &lt;!-- red, --red --&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Sparkline ──────────────────────────────────────── -->
+    <section class="sg-section" id="sparkline">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Sparkline Column — <code>.sparkline</code></h2>
+        <p class="sg-section-desc">A minimal inline chart column for showing a holding's trend over time. The <code>.sparkline</code> cell contains an inline SVG. Keep sparklines simple — 2px stroke, no axes, no labels. The SVG must include a descriptive <code>&lt;title&gt;</code> for assistive technology.</p>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <div class="table-wrap">
+          <table aria-label="Holdings with sparklines">
+            <thead>
+              <tr>
+                <th scope="col" class="td-name">Holding</th>
+                <th scope="col" style="text-align:right">Value</th>
+                <th scope="col" class="sparkline" style="text-align:center">Trend</th>
+                <th scope="col" class="td-change" style="text-align:right">1Y Change</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="td-name">Vanguard FTSE Global All Cap</td>
+                <td style="text-align:right;font-variant-numeric:tabular-nums">£284,500</td>
+                <td class="sparkline" style="text-align:center">
+                  <svg width="60" height="24" viewBox="0 0 60 24" fill="none" aria-label="Trend: upward">
+                    <polyline points="0,20 10,16 20,14 30,10 40,8 50,5 60,3" stroke="var(--green)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </td>
+                <td class="td-change is-up" style="text-align:right">+4.2%</td>
+              </tr>
+              <tr>
+                <td class="td-name">Fundsmith Equity</td>
+                <td style="text-align:right;font-variant-numeric:tabular-nums">£158,400</td>
+                <td class="sparkline" style="text-align:center">
+                  <svg width="60" height="24" viewBox="0 0 60 24" fill="none" aria-label="Trend: slight decline">
+                    <polyline points="0,8 10,7 20,9 30,10 40,14 50,16 60,18" stroke="var(--red)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </td>
+                <td class="td-change is-down" style="text-align:right">−1.4%</td>
+              </tr>
+              <tr>
+                <td class="td-name">Pershing Square Holdings</td>
+                <td style="text-align:right;font-variant-numeric:tabular-nums">£92,000</td>
+                <td class="sparkline" style="text-align:center">
+                  <svg width="60" height="24" viewBox="0 0 60 24" fill="none" aria-label="Trend: strong upward">
+                    <polyline points="0,22 10,18 20,20 30,14 40,10 50,6 60,2" stroke="var(--green)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </td>
+                <td class="td-change is-up" style="text-align:right">+12.1%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;td class="sparkline"&gt;
+  &lt;svg width="60" height="24" viewBox="0 0 60 24" fill="none"
+    aria-label="Trend: upward"&gt;
+    &lt;polyline
+      points="0,20 10,16 20,14 30,10 40,8 50,5 60,3"
+      stroke="var(--green)"
+      stroke-width="2"
+      fill="none"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    /&gt;
+  &lt;/svg&gt;
+&lt;/td&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Accessibility Notes ─────────────────────────────── -->
+    <section class="sg-section" id="table-a11y">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Accessibility Notes</h2>
+        <p class="sg-section-desc">Financial data tables must be fully accessible. The rules below are non-negotiable in the Aurelius codebase.</p>
+      </div>
+      <div class="sg-demo">
+        <ul style="color:var(--text-2);font-size:var(--fs-body);line-height:var(--lh-relaxed);padding-left:20px;margin:0">
+          <li style="margin-bottom:8px">All <code>&lt;table&gt;</code> elements must have an <code>aria-label</code> or visible <code>&lt;caption&gt;</code></li>
+          <li style="margin-bottom:8px">Header cells must use <code>&lt;th scope="col"&gt;</code> or <code>&lt;th scope="row"&gt;</code></li>
+          <li style="margin-bottom:8px">Numeric values should use <code>font-variant-numeric: tabular-nums</code> for alignment</li>
+          <li style="margin-bottom:8px">Change direction must not rely on colour alone — use +/− symbols or an arrow icon alongside the <code>.is-up</code> / <code>.is-down</code> class</li>
+          <li style="margin-bottom:8px">Currency and percentage values should be written for screen readers: "£284,500" not "284500"</li>
+          <li>Wrap all tables in <code>.table-wrap</code> for horizontal scroll at small viewports</li>
+        </ul>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;!-- Required: label, scope, sign prefix on change values --&gt;
+&lt;table aria-label="Investment holdings"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th scope="col"&gt;Holding&lt;/th&gt;
+      &lt;th scope="col" style="text-align:right"&gt;1Y Change&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Vanguard FTSE Global All Cap&lt;/td&gt;
+      &lt;!-- + prefix for screen readers; .is-up for colour --&gt;
+      &lt;td class="td-change is-up" style="text-align:right"&gt;+4.2%&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+</body>
+</html>
