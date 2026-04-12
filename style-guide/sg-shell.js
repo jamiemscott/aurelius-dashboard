@@ -74,7 +74,7 @@ function buildSidebar(activePage) {
   }).join('\n');
 
   return `
-  <aside class="site-sidebar" aria-label="Style guide navigation">
+  <aside class="sidebar" aria-label="Style guide navigation">
     <nav aria-label="Style guide sections">
       <div role="group" aria-labelledby="sg-nav-label">
         <h2 id="sg-nav-label" class="sidebar-section-label">Style Guide</h2>
