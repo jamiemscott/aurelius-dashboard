@@ -61,17 +61,36 @@
 }
 
 /*
- * OutSystems injects its own chevron/icon element alongside the <select>.
- * Target the direct next sibling after a select (the OS arrow node) and
- * common OS class-name patterns. Scoped tightly to .chat-context-field
- * to avoid hiding anything else on the page.
- * If the generated class name differs, add it here.
+ * OutSystems wraps the <select> in a <div class="dropdown-container"> and
+ * renders its arrow via a ::after pseudo-element on that wrapper using an
+ * icon font (content: var(--osui-icon-arrow-down)).
+ *
+ * Fix:
+ *   1. Give .dropdown-container flex: 1 so it fills the .chat-context-field
+ *      flex column and the <select> inside it fills its width.
+ *   2. Suppress the ::after arrow with content: none — cleaner than
+ *      display: none for pseudo-elements, leaves the box model intact.
+ *
+ * Both rules are scoped to .chat-context-field to avoid touching any other
+ * dropdowns elsewhere on the page.
  */
-.chat-context-field select + *,
+.chat-context-field .dropdown-container {
+  flex: 1;
+  min-width: 0;
+  position: relative; /* keep stacking context intact for OS transitions */
+}
+
+.chat-context-field .dropdown-container::after {
+  content: none !important;
+}
+
+/*
+ * Fallback: hide any other OS-injected sibling arrow nodes in case the
+ * dropdown-container pattern changes across OS widget versions.
+ */
 .chat-context-field select ~ svg,
 .chat-context-field select ~ i,
 .chat-context-field select ~ span[class],
-.chat-context-field [class*="OSDropdown"] ~ *,
 .chat-context-field [class*="arrow"],
 .chat-context-field [class*="chevron"],
 .chat-context-field [class*="caret"] {
