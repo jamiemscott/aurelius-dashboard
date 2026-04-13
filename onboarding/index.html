@@ -71,14 +71,93 @@
       </div>
 
       <div class="ob-landing-bottom">
+        <p class="ob-disclaimer">This assessment is for profiling purposes only and does not constitute financial advice. Aurelius Wealth Management is authorised and regulated by the Financial Conduct Authority.</p>
         <button
           class="ob-btn"
-          data-goto="s-dial"
+          data-goto="s-register"
           aria-describedby="landing-meta"
         >
           Begin Assessment
         </button>
         <p id="landing-meta" class="ob-landing-meta">4 minutes · Confidential · FCA Regulated</p>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════════════
+         SCREEN 0b · REGISTER — Name & Email
+         ════════════════════════════════════════════════════════════════ -->
+    <section
+      id="s-register"
+      class="ob-screen ob-screen--register"
+      aria-label="Tell us who you are"
+      hidden
+    >
+      <div class="ob-reg-wrap">
+
+        <div class="ob-reg-top">
+          <div class="ob-logo-row ob-logo-row--compact">
+            <div class="ob-logo-mark ob-logo-mark--sm">A</div>
+            <span class="ob-comp-brand">Aurelius Wealth Management</span>
+          </div>
+        </div>
+
+        <div class="ob-reg-body">
+          <p class="ob-reg-kicker">Before we begin</p>
+          <h2 class="ob-reg-heading">Put a name<br>to your element</h2>
+          <p class="ob-reg-desc">We'll use this to save your results — we won't be in touch until <em>you</em> decide to take the next step.</p>
+
+          <form class="ob-reg-form" id="ob-reg-form" novalidate>
+
+            <div class="ob-reg-field">
+              <label class="ob-reg-label" for="reg-name">First name</label>
+              <input
+                class="ob-reg-input"
+                type="text"
+                id="reg-name"
+                name="firstName"
+                placeholder="e.g. Jamie"
+                autocomplete="given-name"
+                autocapitalize="words"
+                spellcheck="false"
+                maxlength="50"
+                required
+              >
+              <p class="ob-reg-error" id="reg-name-err" role="alert" hidden>Please enter your first name</p>
+            </div>
+
+            <div class="ob-reg-field">
+              <label class="ob-reg-label" for="reg-email">Email address</label>
+              <input
+                class="ob-reg-input"
+                type="email"
+                id="reg-email"
+                name="email"
+                placeholder="e.g. jamie@example.com"
+                autocomplete="email"
+                spellcheck="false"
+                maxlength="254"
+                required
+              >
+              <p class="ob-reg-error" id="reg-email-err" role="alert" hidden>Please enter a valid email address</p>
+            </div>
+
+            <div class="ob-reg-consent">
+              <input type="checkbox" id="reg-consent" name="consent" required>
+              <label for="reg-consent">I agree to Aurelius storing my results in line with the <a href="#" class="ob-reg-link">Privacy Policy</a></label>
+            </div>
+            <p class="ob-reg-consent-err" id="reg-consent-err" role="alert" hidden>Please accept to continue</p>
+
+          </form>
+        </div>
+
+      </div>
+
+      <div class="ob-foot">
+        <p class="ob-disclaimer">This assessment is for profiling purposes only and does not constitute financial advice. Aurelius Wealth Management is authorised and regulated by the Financial Conduct Authority.</p>
+        <button class="ob-btn" id="btn-reg-submit" type="submit" form="ob-reg-form">
+          Start My Assessment
+        </button>
       </div>
     </section>
 
@@ -170,6 +249,7 @@
       </div>
 
       <div class="ob-foot">
+        <p class="ob-disclaimer">This assessment is for profiling purposes only and does not constitute financial advice. Aurelius Wealth Management is authorised and regulated by the Financial Conduct Authority.</p>
         <button
           class="ob-btn"
           data-complete-from="s-dial"
@@ -265,6 +345,7 @@
       </div>
 
       <div class="ob-foot">
+        <p class="ob-disclaimer">This assessment is for profiling purposes only and does not constitute financial advice. Aurelius Wealth Management is authorised and regulated by the Financial Conduct Authority.</p>
         <button
           class="ob-btn"
           data-complete-from="s-risk"
@@ -364,6 +445,7 @@
       </div>
 
       <div class="ob-foot" id="swipe-foot" hidden>
+        <p class="ob-disclaimer">This assessment is for profiling purposes only and does not constitute financial advice. Aurelius Wealth Management is authorised and regulated by the Financial Conduct Authority.</p>
         <button
           class="ob-btn"
           data-complete-from="s-swipe"
@@ -456,6 +538,7 @@
       </div>
 
       <div class="ob-foot">
+        <p class="ob-disclaimer">This assessment is for profiling purposes only and does not constitute financial advice. Aurelius Wealth Management is authorised and regulated by the Financial Conduct Authority.</p>
         <button
           class="ob-btn"
           data-complete-from="s-rank"
@@ -518,6 +601,7 @@
       </div>
 
       <div class="ob-foot">
+        <p class="ob-disclaimer">This assessment is for profiling purposes only and does not constitute financial advice. Aurelius Wealth Management is authorised and regulated by the Financial Conduct Authority.</p>
         <button
           class="ob-btn"
           data-complete-from="s-know"
@@ -597,6 +681,7 @@
       </div>
 
       <div class="ob-foot">
+        <p class="ob-disclaimer">This assessment is for profiling purposes only and does not constitute financial advice. Aurelius Wealth Management is authorised and regulated by the Financial Conduct Authority.</p>
         <button class="ob-btn" id="btn-complete-assessment">
           Complete Assessment
         </button>
@@ -624,6 +709,7 @@
       <div class="ob-comp-body" id="comp-body" tabindex="-1">
         <p class="ob-comp-kicker">Assessment Complete</p>
         <h2 class="ob-comp-heading" id="comp-heading">Your Investment<br>Profile</h2>
+        <p class="ob-comp-name" id="comp-name" hidden></p>
         <div class="ob-comp-rule" aria-hidden="true"></div>
 
         <!-- Dominant element banner (populated by JS) -->
@@ -656,9 +742,14 @@
           This assessment is for profiling purposes only and does not constitute financial advice. Aurelius Wealth Management is authorised and regulated by the Financial Conduct Authority.
         </p>
 
-        <button class="ob-btn ob-btn--ghost" data-goto="s-landing">
-          Retake Assessment
-        </button>
+        <div class="ob-comp-cta-wrap">
+          <button class="ob-btn" id="btn-open-account">
+            Ready to open your account?
+          </button>
+          <button class="ob-btn ob-btn--ghost" data-goto="s-landing">
+            Retake Assessment
+          </button>
+        </div>
       </div>
     </section>
 
@@ -679,6 +770,7 @@
   </style>
 
   <!-- ─── JavaScript modules ───────────────────────────────── -->
+  <script src="../src/js/onboarding/register.js"   type="module"></script>
   <script src="../src/js/onboarding/dial.js"       type="module"></script>
   <script src="../src/js/onboarding/risk.js"       type="module"></script>
   <script src="../src/js/onboarding/swipe.js"      type="module"></script>

@@ -9,12 +9,14 @@
 
 // ── Shared state ────────────────────────────────────────────────────────────
 export const S = {
-  lifeStage: 0,
-  risk:       2,
-  swipe:      [],
-  rank:       [],
-  knowledge:  [],
-  amount:     3,
+  firstName:  '',
+  email:      '',
+  lifeStage:  0,
+  risk:        2,
+  swipe:       [],
+  rank:        [],
+  knowledge:   [],
+  amount:      3,
 };
 
 // ── Screen transition ────────────────────────────────────────────────────────
