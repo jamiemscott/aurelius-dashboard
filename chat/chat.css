@@ -52,9 +52,16 @@
   }
 }
 
-.chat-select {
+/*
+ * Target both .chat-select (static HTML) and any <select> inside .chat-context
+ * (OutSystems may not preserve class names). Using the element selector also
+ * gives us higher specificity to override OS default stylesheet rules.
+ */
+.chat-select,
+.chat-context select {
   appearance: none;
   -webkit-appearance: none;
+  -moz-appearance: none;
   background-color: var(--bg-input);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23888' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
   background-position: right 12px center;
@@ -72,10 +79,30 @@
   outline: none;
   padding: 9px 36px 9px 13px;
   transition: border-color 0.2s;
+  width: 100%;
 }
 
-.chat-select:focus {
+.chat-select:focus,
+.chat-context select:focus {
   border-color: var(--gold);
+}
+
+/*
+ * OutSystems injects its own chevron/icon element alongside the <select>.
+ * Target the direct next sibling after a select (the OS arrow node) and
+ * common OS class-name patterns. Scoped tightly to .chat-context-field
+ * to avoid hiding anything else on the page.
+ * If the generated class name differs, add it here.
+ */
+.chat-context-field select + *,
+.chat-context-field select ~ svg,
+.chat-context-field select ~ i,
+.chat-context-field select ~ span[class],
+.chat-context-field [class*="OSDropdown"] ~ *,
+.chat-context-field [class*="arrow"],
+.chat-context-field [class*="chevron"],
+.chat-context-field [class*="caret"] {
+  display: none !important;
 }
 
 .chat-select-label {
