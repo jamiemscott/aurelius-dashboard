@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adviser Chat — Aurelius Wealth Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/styles/bundle.css">
+  <link rel="stylesheet" href="/chat/chat.css">
+</head>
+<body>
+<div class="shell shell--no-sidebar">
+
+  <!-- ── Topbar ──────────────────────────────────────────────────────────── -->
+  <header role="banner">
+    <a class="brand" href="../index.html" aria-label="Aurelius Wealth Management — home">
+      <span class="brand-mark" aria-hidden="true">A</span>
+      <span class="brand-text">
+        <span class="brand-name">Aurelius</span>
+        <span class="brand-sub">Wealth Management</span>
+      </span>
+    </a>
+
+    <nav class="topbar-nav" aria-label="Primary">
+      <a class="tab-btn" href="../index.html">My Overview</a>
+      <a class="tab-btn" href="../valuation-history/index.html">Valuation History</a>
+      <a class="tab-btn" href="../asset-allocation/index.html">Asset Allocation</a>
+      <a class="tab-btn" href="../my-investments/index.html">My Investments</a>
+      <a class="tab-btn" href="../capital-gains-tax/index.html">Capital Gains Tax</a>
+    </nav>
+
+    <div class="site-controls">
+      <div class="theme-switcher">
+        <input type="checkbox" role="switch" id="theme-checkbox" class="theme-checkbox" aria-label="Colour theme">
+        <label class="theme-toggle" for="theme-checkbox" aria-hidden="true">
+          <span class="theme-label-dark">Dark</span>
+          <span class="theme-label-light">Light</span>
+        </label>
+      </div>
+      <span class="theme-live" role="status" aria-live="polite" aria-atomic="true"></span>
+      <button class="icon-btn" aria-label="Notifications">
+        <svg aria-hidden="true" focusable="false" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </button>
+      <button class="icon-btn" aria-label="Settings">
+        <svg aria-hidden="true" focusable="false" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="8" cy="6" r="2" fill="var(--bg-card)" stroke="currentColor" stroke-width="1.7"/><circle cx="16" cy="12" r="2" fill="var(--bg-card)" stroke="currentColor" stroke-width="1.7"/><circle cx="10" cy="18" r="2" fill="var(--bg-card)" stroke="currentColor" stroke-width="1.7"/></svg>
+      </button>
+      <button class="avatar" aria-label="Account">SK</button>
+    </div>
+  </header>
+
+  <!-- ── Main ───────────────────────────────────────────────────────────── -->
+  <main class="main chat-main" role="main" id="chat-main">
+    <div class="chat-wrap">
+
+      <!-- Context bar: adviser + recommendation type -->
+      <div class="chat-context" role="region" aria-label="Chat settings">
+        <div class="chat-context-field">
+          <label class="chat-select-label" for="chat-adviser">Investor profile</label>
+          <select class="chat-select" id="chat-adviser" aria-label="Select investor profile">
+            <option>The Ghoster</option>
+            <option>The Slow Burn</option>
+            <option>The Love Bomber</option>
+            <option>The Overthinker</option>
+            <option>The Situationship</option>
+            <option>The Adrenaline Junkie</option>
+            <option>The Commitment-Phobe</option>
+            <option>The Healthy Relationship</option>
+            <option>The One That Got Away</option>
+          </select>
+        </div>
+        <div class="chat-context-field">
+          <label class="chat-select-label" for="chat-type">Recommendation type</label>
+          <select class="chat-select" id="chat-type" aria-label="Select recommendation type">
+            <option>General recommendation</option>
+            <option>Filter by screening criteria</option>
+            <option>Explore sector or theme</option>
+            <option>Sort by cost or returns</option>
+            <option>Compare funds</option>
+            <option>Deep dive on a fund</option>
+            <option>Ask about holdings</option>
+            <option>Filter by region</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Messages -->
+      <div class="adv-messages" id="adv-messages" role="log" aria-label="Conversation" aria-live="polite" aria-relevant="additions">
+
+        <div class="adv-divider" role="separator">
+          <span class="adv-divider-label">Today · 09:40</span>
+        </div>
+
+        <!-- Bot: opening message -->
+        <div class="adv-msg adv-msg--bot">
+          <div class="adv-avatar adv-avatar--bot" aria-hidden="true">A</div>
+          <div class="adv-bubble">
+            <p class="adv-sender">Aurelius</p>
+            <div class="adv-bubble-inner">
+              <p class="adv-text">Good morning. I'm here to help you explore your investment options. What would you like to know today?</p>
+            </div>
+            <time class="adv-time" datetime="2026-04-13T09:40">09:40</time>
+          </div>
+        </div>
+
+        <!-- Bot: follow-up suggestion chips -->
+        <div class="adv-msg adv-msg--bot">
+          <div class="adv-avatar adv-avatar--bot" aria-hidden="true" style="visibility:hidden">A</div>
+          <div class="adv-bubble">
+            <div class="adv-bubble-inner">
+              <p class="adv-text">You might want to start with one of these:</p>
+              <div class="adv-suggestions">
+                <button class="adv-chip">Show top performers</button>
+                <button class="adv-chip">Compare fund costs</button>
+                <button class="adv-chip">Explore ESG options</button>
+                <button class="adv-chip">Review my holdings</button>
+              </div>
+            </div>
+            <time class="adv-time" datetime="2026-04-13T09:40">09:40</time>
+          </div>
+        </div>
+
+        <!-- User message -->
+        <div class="adv-msg adv-msg--user">
+          <div class="adv-bubble">
+            <div class="adv-bubble-inner">
+              <p class="adv-text">What global equity funds would you recommend with a focus on sustainable growth?</p>
+            </div>
+            <time class="adv-time" datetime="2026-04-13T09:41">09:41</time>
+          </div>
+          <div class="adv-avatar adv-avatar--user" aria-hidden="true">SK</div>
+        </div>
+
+        <!-- Bot: detailed response -->
+        <div class="adv-msg adv-msg--bot">
+          <div class="adv-avatar adv-avatar--bot" aria-hidden="true">A</div>
+          <div class="adv-bubble">
+            <p class="adv-sender">Aurelius</p>
+            <div class="adv-bubble-inner">
+              <p class="adv-text">Based on your portfolio profile and current market conditions, here are three global equity funds worth considering for sustainable long-term growth:</p>
+              <p class="adv-text"><strong>Fundsmith Equity Fund</strong> — Ongoing charge 0.94%. Five-year return: +82.3%. Focused on high-quality, cash-generative global businesses.</p>
+              <p class="adv-text"><strong>Baillie Gifford Global Alpha</strong> — Ongoing charge 0.60%. Five-year return: +61.1%. Long-term growth bias with a concentrated global portfolio.</p>
+              <p class="adv-text"><strong>Vanguard ESG Global All Cap</strong> — Ongoing charge 0.24%. Five-year return: +54.7%. Low-cost, ESG-screened exposure to global equities.</p>
+            </div>
+            <time class="adv-time" datetime="2026-04-13T09:42">09:42</time>
+          </div>
+        </div>
+
+        <div class="adv-msg adv-msg--bot">
+          <div class="adv-avatar adv-avatar--bot" aria-hidden="true" style="visibility:hidden">A</div>
+          <div class="adv-bubble">
+            <div class="adv-bubble-inner">
+              <p class="adv-text">Would you like me to go deeper on any of these, or compare them side by side?</p>
+              <div class="adv-suggestions">
+                <button class="adv-chip">Compare all three</button>
+                <button class="adv-chip">Deep dive: Fundsmith</button>
+                <button class="adv-chip">Show charges breakdown</button>
+              </div>
+            </div>
+            <time class="adv-time" datetime="2026-04-13T09:42">09:42</time>
+          </div>
+        </div>
+
+        <!-- User: follow-up -->
+        <div class="adv-msg adv-msg--user">
+          <div class="adv-bubble">
+            <div class="adv-bubble-inner">
+              <p class="adv-text">Compare all three please</p>
+            </div>
+            <time class="adv-time" datetime="2026-04-13T09:43">09:43</time>
+          </div>
+          <div class="adv-avatar adv-avatar--user" aria-hidden="true">SK</div>
+        </div>
+
+        <!-- Bot: typing indicator -->
+        <div class="adv-msg adv-msg--bot" id="adv-typing" aria-label="Adviser is typing">
+          <div class="adv-avatar adv-avatar--bot" aria-hidden="true">A</div>
+          <div class="adv-bubble">
+            <div class="adv-bubble-inner">
+              <span class="adv-dots" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /chat-messages -->
+
+      <!-- Input bar -->
+      <div class="adv-input-bar" role="region" aria-label="Send a message">
+        <textarea
+          class="adv-textarea"
+          id="chat-input"
+          placeholder="Ask your adviser anything…"
+          rows="1"
+          aria-label="Message"
+          aria-multiline="true"
+          maxlength="2000"
+        ></textarea>
+        <button class="adv-send-btn" id="chat-send" aria-label="Send message" disabled>
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </button>
+      </div>
+
+    </div><!-- /chat-wrap -->
+  </main>
+
+</div><!-- /shell -->
+
+<script>
+(function () {
+  /* ── Theme toggle ─────────────────────────────────────────────────────── */
+  const checkbox = document.getElementById('theme-checkbox');
+  const live = document.querySelector('.theme-live');
+  if (checkbox && live) {
+    checkbox.addEventListener('change', () => {
+      live.textContent = checkbox.checked ? 'Light mode' : 'Dark mode';
+    });
+  }
+
+  /* ── Auto-resize textarea ─────────────────────────────────────────────── */
+  const textarea = document.getElementById('chat-input');
+  const sendBtn  = document.getElementById('chat-send');
+
+  function resizeTextarea() {
+    textarea.style.height = 'auto';
+    textarea.style.height = Math.min(textarea.scrollHeight, 140) + 'px';
+  }
+
+  textarea.addEventListener('input', function () {
+    resizeTextarea();
+    sendBtn.disabled = this.value.trim().length === 0;
+  });
+
+  /* ── Send on Enter (Shift+Enter for newline) ──────────────────────────── */
+  textarea.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      if (!sendBtn.disabled) sendMessage();
+    }
+  });
+
+  sendBtn.addEventListener('click', sendMessage);
+
+  /* ── Suggestion chips ─────────────────────────────────────────────────── */
+  document.addEventListener('click', function (e) {
+    if (e.target.classList.contains('chat-chip')) {
+      textarea.value = e.target.textContent;
+      resizeTextarea();
+      sendBtn.disabled = false;
+      textarea.focus();
+    }
+  });
+
+  /* ── Scroll to bottom helper ──────────────────────────────────────────── */
+  const messages = document.getElementById('adv-messages');
+
+  function scrollToBottom() {
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  scrollToBottom();
+
+  /* ── Send message ─────────────────────────────────────────────────────── */
+  function sendMessage() {
+    const text = textarea.value.trim();
+    if (!text) return;
+
+    /* Append user bubble */
+    appendUserMessage(text);
+
+    /* Clear input */
+    textarea.value = '';
+    textarea.style.height = 'auto';
+    sendBtn.disabled = true;
+
+    /* Show typing indicator */
+    const typing = document.getElementById('adv-typing');
+    if (typing) typing.style.display = 'flex';
+    scrollToBottom();
+
+    /* Simulate bot reply after delay */
+    setTimeout(() => {
+      if (typing) typing.style.display = 'none';
+      appendBotMessage('Thanks for your message. This is a design mock — connect me to a real LLM to generate live responses.');
+      scrollToBottom();
+    }, 1800);
+  }
+
+  function now() {
+    return new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  function appendUserMessage(text) {
+    const t = now();
+    const div = document.createElement('div');
+    div.className = 'adv-msg adv-msg--user';
+    div.innerHTML = `
+      <div class="adv-bubble">
+        <div class="adv-bubble-inner">
+          <p class="adv-text">${escHtml(text)}</p>
+        </div>
+        <time class="adv-time">${t}</time>
+      </div>
+      <div class="adv-avatar adv-avatar--user" aria-hidden="true">SK</div>`;
+
+    const typing = document.getElementById('adv-typing');
+    messages.insertBefore(div, typing);
+    scrollToBottom();
+  }
+
+  function appendBotMessage(text) {
+    const t = now();
+    const div = document.createElement('div');
+    div.className = 'chat-msg adv-msg--bot';
+    div.innerHTML = `
+      <div class="adv-avatar adv-avatar--bot" aria-hidden="true">A</div>
+      <div class="adv-bubble">
+        <div class="adv-bubble-inner">
+          <p class="adv-text">${escHtml(text)}</p>
+        </div>
+        <time class="adv-time">${t}</time>
+      </div>`;
+    messages.appendChild(div);
+  }
+
+  function escHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+})();
+</script>
+</body>
+</html>
