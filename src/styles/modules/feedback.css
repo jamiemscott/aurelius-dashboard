@@ -1,0 +1,165 @@
+/* ─── OUTSYSTEMS SYSTEM FEEDBACK MESSAGES ────────────────────
+   Overrides the OS-generated markup for system feedback messages.
+   We have no control over the HTML — these rules must target the
+   exact class names OutSystems injects.
+
+   OS markup structure (cannot be modified):
+   ┌─────────────────────────────────────────────────────────┐
+   │ <div id="feedbackMessageContainer"                      │
+   │      class="feedback-message-wrapper">                  │
+   │   <div class="feedback-message                          │
+   │               feedback-message-{error|success|          │
+   │               warning|info}"                            │
+   │        tabindex="0" role="alert">                       │
+   │     <i class="fa fa-{icon}" aria-hidden="true"></i>     │
+   │     <div class="feedback-message-text">…</div>          │
+   │   </div>                                                │
+   │ </div>                                                   │
+   └─────────────────────────────────────────────────────────┘
+
+   Variants: error · success · warning · info
+   ─────────────────────────────────────────────────────────── */
+
+
+/* ─── WRAPPER ───────────────────────────────────────────────── */
+/*
+ * OS positions the wrapper fixed at the top of the viewport.
+ * We respect that but nudge it down to clear the topbar and
+ * center it horizontally.
+ */
+.feedback-message-wrapper {
+  left: 50%;
+  max-width: min(480px, calc(100vw - 32px));
+  pointer-events: none;    /* don't block clicks on the page behind */
+  position: fixed;
+  top: calc(var(--topbar-h, 68px) + 12px);
+  transform: translateX(-50%);
+  width: 100%;
+  z-index: var(--layer-global-instant-interaction, 20);
+}
+
+
+/* ─── BASE MESSAGE ──────────────────────────────────────────── */
+.feedback-message {
+  align-items: flex-start;
+  border-radius: var(--radius-item);
+  border: 1px solid transparent;
+  box-shadow: var(--shadow-card);
+  color: var(--text-1);
+  cursor: default;
+  display: flex;
+  font-family: var(--font-sans);
+  font-size: var(--fs-ui);           /* 13px */
+  font-weight: var(--fw-medium);
+  gap: 10px;
+  line-height: var(--lh-snug);
+  padding: 13px 16px;
+  pointer-events: auto;
+  position: relative;
+
+  /* Entrance animation */
+  animation: feedback-slide-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Left accent bar — coloured per variant via the custom property set below */
+.feedback-message::before {
+  background: var(--fb-color);
+  border-radius: 2px 0 0 2px;
+  bottom: 0;
+  content: '';
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 3px;
+}
+
+/* Icon — FontAwesome .fa injected by OS, size & colour only */
+.feedback-message .fa {
+  color: var(--fb-color);
+  flex-shrink: 0;
+  font-size: 15px;
+  line-height: 1.4;              /* align with first line of text */
+  margin-left: 6px;              /* clearance from the 3px accent bar */
+}
+
+/* Message text */
+.feedback-message-text {
+  flex: 1;
+  min-width: 0;
+}
+
+
+/* ─── VARIANT TOKENS ────────────────────────────────────────── */
+/*
+ * Each variant sets two custom properties used by the base rules:
+ *   --fb-color  : the accent / icon colour
+ *   --fb-bg     : the tinted background fill
+ *   --fb-border : the border colour
+ */
+
+/* Error — red */
+.feedback-message-error {
+  --fb-color:  var(--red);
+  --fb-bg:     var(--red-dim);
+  --fb-border: color-mix(in srgb, var(--red) 30%, transparent);
+  background:  var(--fb-bg);
+  border-color: var(--fb-border);
+}
+
+/* Success — green */
+.feedback-message-success {
+  --fb-color:  var(--green);
+  --fb-bg:     var(--green-dim);
+  --fb-border: color-mix(in srgb, var(--green) 30%, transparent);
+  background:  var(--fb-bg);
+  border-color: var(--fb-border);
+}
+
+/* Warning — gold (natural warning hue in the Aurelius palette) */
+.feedback-message-warning {
+  --fb-color:  var(--gold);
+  --fb-bg:     var(--gold-dim);
+  --fb-border: var(--gold-glow);
+  background:  var(--fb-bg);
+  border-color: var(--fb-border);
+}
+
+/* Info — gold-soft (no blue in the palette; gold reads as informational) */
+.feedback-message-info {
+  --fb-color:  var(--gold-soft);
+  --fb-bg:     var(--gold-dim);
+  --fb-border: var(--gold-glow);
+  background:  var(--fb-bg);
+  border-color: var(--fb-border);
+}
+
+
+/* ─── ANIMATION ─────────────────────────────────────────────── */
+@keyframes feedback-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ─── OS DEFAULT OVERRIDE RESETS ────────────────────────────── */
+/*
+ * OutSystems ships its own .feedback-message styles.  These resets
+ * ensure our rules win regardless of OSUI specificity or !important.
+ */
+.feedback-message-wrapper,
+.feedback-message {
+  /* Reset any OS-injected positioning on the inner element */
+  margin: 0 !important;
+}
+
+.feedback-message {
+  /* OS may set these inline or via their stylesheet — normalise */
+  border-radius: var(--radius-item) !important;
+  padding: 13px 16px !important;
+}
