@@ -4,6 +4,7 @@
  */
 
 import { S, completeStep } from '../onboarding.js';
+import { personaliseResults } from './register.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('ob:complete', buildAndComplete);
@@ -137,5 +138,6 @@ export function buildAndComplete() {
     grid.appendChild(card);
   });
 
+  personaliseResults();
   completeStep('s-amount', 's-complete', 'Assessment complete', 'Generating your profile');
 }
