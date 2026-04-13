@@ -354,6 +354,15 @@
   }
 }
 
+/*
+ * OutSystems injects a <span> wrapper around the textarea that cannot be removed.
+ * display: contents makes the span invisible to the flex layout so the textarea
+ * inside it behaves as a direct flex child, restoring flex: 1 growth correctly.
+ */
+.adv-input-bar > span {
+  display: contents;
+}
+
 .adv-textarea {
   background: var(--bg-input);
   border: 1px solid var(--border);
