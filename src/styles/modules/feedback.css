@@ -53,6 +53,7 @@
   font-weight: var(--fw-medium);
   gap: 10px;
   line-height: var(--lh-snug);
+  overflow: hidden;  /* clips ::before accent bar to follow border-radius at corners */
   padding: 13px 16px;
   pointer-events: auto;
   position: relative;
@@ -64,7 +65,6 @@
 /* Left accent bar — coloured per variant via the custom property set below */
 .feedback-message::before {
   background: var(--fb-color);
-  border-radius: 2px 0 0 2px;
   bottom: 0;
   content: '';
   left: 0;
@@ -149,17 +149,28 @@
 
 /* ─── OS DEFAULT OVERRIDE RESETS ────────────────────────────── */
 /*
- * OutSystems ships its own .feedback-message styles.  These resets
- * ensure our rules win regardless of OSUI specificity or !important.
+ * Why !important here but not elsewhere in this file?
+ *
+ * OutSystems wraps our entire bundle.css in @layer theme.theme.
+ * OS's own _Basic_ stylesheet is UNLAYERED CSS.
+ * In the normal cascade, unlayered beats all layered declarations
+ * regardless of specificity — so every rule we write normally
+ * loses to whatever _Basic_ sets on .feedback-message.
+ *
+ * !important reverses this: within !important declarations the
+ * layer order inverts, so a layered !important beats an unlayered
+ * regular declaration.  (See identical pattern in osui-bridge.css
+ * for .theme-toggle.OSFillParent.)
+ *
+ * Only properties where _Basic_ is known to set competing values
+ * get !important — keep the surface area minimal.
  */
 .feedback-message-wrapper,
 .feedback-message {
-  /* Reset any OS-injected positioning on the inner element */
-  margin: 0 !important;
+  margin: 0 !important;          /* OS ThemeGrid may inject margins */
 }
 
 .feedback-message {
-  /* OS may set these inline or via their stylesheet — normalise */
-  border-radius: var(--radius-item) !important;
-  padding: 13px 16px !important;
+  border-radius: var(--radius-item) !important;  /* _Basic_ sets its own radius */
+  padding: 13px 16px !important;                 /* _Basic_ sets its own padding */
 }
