@@ -53,6 +53,7 @@
   font-weight: var(--fw-medium);
   gap: 10px;
   line-height: var(--lh-snug);
+  overflow: hidden;  /* clips ::before accent bar to follow border-radius at corners */
   padding: 13px 16px;
   pointer-events: auto;
   position: relative;
@@ -64,7 +65,6 @@
 /* Left accent bar — coloured per variant via the custom property set below */
 .feedback-message::before {
   background: var(--fb-color);
-  border-radius: 2px 0 0 2px;
   bottom: 0;
   content: '';
   left: 0;
