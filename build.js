@@ -49,6 +49,7 @@ const PARTIALS = [
   'src/styles/modules/forms.css',
   'src/styles/modules/drawers.css',
   'src/styles/modules/chat.css',
+  'src/styles/modules/adviser.css',
   'src/styles/modules/user-menu.css',
   'src/styles/modules/notifications.css',
   'src/styles/modules/add-investment.css',
