@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="outsystems">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OutSystems Integration — Aurelius Style Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">OutSystems Integration</h1>
+      <p class="sg-page-desc">Aurelius runs inside OutSystems, which injects markup and CSS that we cannot modify. This page documents every known OS behaviour that conflicts with our design system, the root cause of each, and the override pattern used to fix it. All override CSS lives in <code>src/styles/theme/osui-bridge.css</code> (token mappings and structural fixes) or within the relevant component module.</p>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         THE CORE PROBLEM: @layer
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="layer-cascade">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">The Core Problem: <code>@layer</code></h2>
+        <p class="sg-section-desc">Before looking at individual fixes, it helps to understand why OS overrides are tricky in the first place.</p>
+      </div>
+
+      <div class="sg-demo" style="padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div style="background: var(--red-dim); border: 1px solid color-mix(in srgb, var(--red) 25%, transparent); border-radius: var(--radius-item); padding: 16px 18px;">
+            <p style="color: var(--red); font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: var(--ls-widest); text-transform: uppercase; margin-bottom: 8px;">Problem</p>
+            <p style="color: var(--text-1); font-size: var(--fs-ui); line-height: var(--lh-snug);">OS wraps our entire <code>bundle.css</code> inside <code>@layer theme.theme</code> at runtime. OS's own <code>_Basic_</code> stylesheet is <strong>unlayered</strong>. In the normal cascade, unlayered CSS beats all layered CSS regardless of specificity.</p>
+          </div>
+          <div style="background: var(--green-dim); border: 1px solid color-mix(in srgb, var(--green) 25%, transparent); border-radius: var(--radius-item); padding: 16px 18px;">
+            <p style="color: var(--green); font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: var(--ls-widest); text-transform: uppercase; margin-bottom: 8px;">Solution</p>
+            <p style="color: var(--text-1); font-size: var(--fs-ui); line-height: var(--lh-snug);"><code>!important</code> reverses the layer order. A <code>!important</code> declaration inside a layer beats a regular unlayered declaration. Use it <strong>only</strong> on properties where <code>_Basic_</code> is known to set a competing value.</p>
+          </div>
+        </div>
+
+        <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-item); padding: 16px 18px;">
+          <p style="color: var(--text-2); font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: var(--ls-widest); text-transform: uppercase; margin-bottom: 10px;">Cascade priority — normal declarations (low → high)</p>
+          <div style="display: flex; align-items: center; gap: 0; font-size: var(--fs-ui);">
+            <div style="background: var(--bg-hover); border-radius: 6px 0 0 6px; padding: 8px 14px; color: var(--text-2);">Our layered CSS<br><span style="font-size: var(--fs-xs); color: var(--text-3);">@layer theme.theme</span></div>
+            <div style="color: var(--text-3); padding: 0 8px;">→</div>
+            <div style="background: var(--gold-dim); border: 1px solid var(--gold-glow); border-radius: 0 6px 6px 0; padding: 8px 14px; color: var(--text-1); font-weight: var(--fw-semibold);">OS _Basic_ CSS<br><span style="font-size: var(--fs-xs); color: var(--text-2); font-weight: var(--fw-regular);">unlayered — wins</span></div>
+          </div>
+          <p style="color: var(--text-2); font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: var(--ls-widest); text-transform: uppercase; margin-bottom: 10px; margin-top: 16px;">Cascade priority — <code>!important</code> declarations (reversed)</p>
+          <div style="display: flex; align-items: center; gap: 0; font-size: var(--fs-ui);">
+            <div style="background: var(--bg-hover); border-radius: 6px 0 0 6px; padding: 8px 14px; color: var(--text-2);">OS _Basic_ <code>!important</code><br><span style="font-size: var(--fs-xs); color: var(--text-3);">unlayered — loses</span></div>
+            <div style="color: var(--text-3); padding: 0 8px;">→</div>
+            <div style="background: var(--green-dim); border: 1px solid color-mix(in srgb, var(--green) 25%, transparent); border-radius: 0 6px 6px 0; padding: 8px 14px; color: var(--text-1); font-weight: var(--fw-semibold);">Our layered <code>!important</code><br><span style="font-size: var(--fs-xs); color: var(--green); font-weight: var(--fw-regular);">wins</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">/* Normal rule — OS _Basic_ (unlayered) will beat this */
+.my-element { border-radius: 12px; }
+
+/* !important rule — beats OS _Basic_'s regular declarations */
+.my-element { border-radius: 12px !important; }
+
+/* Rule of thumb: only use !important when _Basic_ is known
+   to set the same property. Keep the surface area minimal. */</code></pre>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         TOKEN BRIDGE
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="token-bridge">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Token Bridge</h2>
+        <p class="sg-section-desc">OS components reference their own CSS custom property vocabulary (<code>--color-primary</code>, <code>--font-size-base</code>, etc.). The token bridge in <code>src/styles/theme/osui-bridge.css</code> maps every OSUI variable to the nearest Aurelius token so OS components automatically adopt the Aurelius visual language without touching OS source files. The bridge is a one-way adapter — only OSUI variables are declared here, Aurelius tokens are never modified.</p>
+      </div>
+
+      <div class="sg-demo" style="padding: 0; overflow: hidden;">
+        <table class="table" style="margin: 0; border-radius: var(--radius-card);">
+          <thead>
+            <tr>
+              <th>OSUI variable</th>
+              <th>Aurelius token</th>
+              <th>Resolved value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><code>--color-primary</code></td><td><code>var(--gold)</code></td><td>#F5A623</td></tr>
+            <tr><td><code>--color-error</code></td><td><code>var(--red)</code></td><td>#EF4444</td></tr>
+            <tr><td><code>--color-success</code></td><td><code>var(--green)</code></td><td>#22C55E</td></tr>
+            <tr><td><code>--color-warning</code></td><td><code>var(--gold)</code></td><td>#F5A623</td></tr>
+            <tr><td><code>--color-info</code></td><td><code>var(--gold-soft)</code></td><td>No blue in palette — gold reads as info</td></tr>
+            <tr><td><code>--color-background-body</code></td><td><code>var(--bg)</code></td><td>Page canvas, adaptive</td></tr>
+            <tr><td><code>--font-family-base</code></td><td><code>var(--font-sans)</code></td><td>DM Sans</td></tr>
+            <tr><td><code>--font-family-heading</code></td><td><code>var(--font-serif)</code></td><td>DM Serif Display</td></tr>
+            <tr><td><code>--font-size-base</code></td><td><code>var(--fs-base)</code></td><td>14px (OSUI default: 16px)</td></tr>
+            <tr><td><code>--border-radius-soft</code></td><td><code>var(--radius-item)</code></td><td>12px</td></tr>
+            <tr><td><code>--border-radius-rounded</code></td><td><code>var(--radius-card)</code></td><td>16px</td></tr>
+            <tr><td><code>--space-l</code></td><td><code>var(--pad)</code></td><td>24px</td></tr>
+            <tr><td><code>--osui-notification-layer</code></td><td><code>var(--layer-global-instant-interaction)</code></td><td>20</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">/* src/styles/theme/osui-bridge.css — direction: OSUI ← Aurelius */
+:root {
+  --color-primary:    var(--gold);
+  --color-error:      var(--red);
+  --color-success:    var(--green);
+  --font-family-base: var(--font-sans);
+  /* … full map in osui-bridge.css */
+}</code></pre>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         PATTERN: display: contents
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="display-contents">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Pattern: <code>display: contents</code></h2>
+        <p class="sg-section-desc">OS frequently wraps elements in extra <code>&lt;div&gt;</code> or <code>&lt;span&gt;</code> containers that it cannot be told to remove. When these wrappers become flex or grid children they disrupt layout — they consume space and the intended child element is no longer a direct participant in the parent's layout context. <code>display: contents</code> removes the wrapper from the layout tree entirely while leaving its children in place, as if the wrapper element never existed.</p>
+      </div>
+
+      <div class="sg-demo" style="padding: 0; overflow: hidden;">
+        <table class="table" style="margin: 0; border-radius: var(--radius-card);">
+          <thead>
+            <tr>
+              <th>Location</th>
+              <th>OS wrapper</th>
+              <th>Problem</th>
+              <th>Fix</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Topbar — inline SVG icons</td>
+              <td><code>[data-block*="InlineSVG"]</code>, <code>.osui-inline-svg</code></td>
+              <td>Two wrapper divs become flex children instead of the SVG; <code>height: 100%</code> inline style on inner div causes misalignment</td>
+              <td><code>display: contents</code> on both wrappers — SVG participates in flex directly</td>
+            </tr>
+            <tr>
+              <td>Topbar — theme toggle</td>
+              <td><code>[data-block*="ThemeSwitcher"]</code>, <code>.theme-switcher &gt; span</code></td>
+              <td>Outer <code>OSBlockWidget</code> consumes full flex width; inner <code>&lt;span&gt;</code> wraps the checkbox and also becomes a flex child</td>
+              <td><code>display: contents !important</code> on both (needs <code>!important</code> — see <a href="#layer-cascade">@layer section</a>)</td>
+            </tr>
+            <tr>
+              <td>Footer</td>
+              <td><code>.site-footer .OSBlockWidget</code></td>
+              <td>Three footer children wrapped in one <code>OSBlockWidget</code>, collapsing the three-column flex row into one child</td>
+              <td><code>display: contents</code> — all three children reach <code>.footer-bottom</code>'s flex directly</td>
+            </tr>
+            <tr>
+              <td>Adviser input bar</td>
+              <td><code>.adv-input-bar &gt; span</code></td>
+              <td>OS wraps the <code>&lt;textarea&gt;</code> in a <code>&lt;span&gt;</code> — the span becomes the flex child and the textarea loses its <code>flex: 1</code> growth</td>
+              <td><code>display: contents</code> — textarea behaves as a direct flex child again</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">/* Removes the OS wrapper from the layout tree.
+   Children participate in the parent flex/grid directly. */
+.adv-input-bar > span {
+  display: contents;
+}
+
+/* Use !important when the wrapper also carries an OS class
+   that _Basic_ styles with display:block */
+[data-block*="ThemeSwitcher"],
+.theme-switcher > span {
+  display: contents !important;
+}</code></pre>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         PATTERN: THEMEGRID SUPPRESSION
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="themegrid">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Pattern: ThemeGrid Suppression</h2>
+        <p class="sg-section-desc">OutSystems automatically adds <code>ThemeGrid_*</code> utility classes to block-level elements. These classes add unwanted margins and padding that pollute custom layouts. A single global rule suppresses them all.</p>
+      </div>
+
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">/* src/styles/theme/osui-bridge.css */
+
+/* ThemeGrid is not used — suppress all injected utility classes globally */
+[class*="ThemeGrid_"] {
+  margin: 0;
+  padding: 0;
+}</code></pre>
+      </div>
+
+      <div class="sg-demo">
+        <p style="color: var(--text-2); font-size: var(--fs-ui);">OS injects classes like <code>ThemeGrid_MarginGutter</code>, <code>ThemeGrid_Row</code>, and similar siblings on block elements throughout the page. Without this reset they add inconsistent horizontal margins that interfere with the topbar pill, sidebar, and card layouts.</p>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         PATTERN: DROPDOWN ARROW
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="dropdown-arrow">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Pattern: Dropdown Arrow</h2>
+        <p class="sg-section-desc">OS wraps every <code>&lt;select&gt;</code> in a <code>&lt;div class="dropdown-container"&gt;</code> and renders a chevron arrow via a <code>::after</code> pseudo-element on that wrapper. Our <code>&lt;select&gt;</code> already has its own SVG arrow baked into the <code>background-image</code>, so the OS arrow creates a double-arrow. The fix is two rules: make the wrapper fill available space, and suppress the pseudo-element arrow.</p>
+      </div>
+
+      <div class="sg-demo" style="padding: 0; overflow: hidden;">
+        <table class="table" style="margin: 0; border-radius: var(--radius-card);">
+          <thead>
+            <tr>
+              <th>Root cause</th>
+              <th>Fix</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>.dropdown-container</code> has no width — it doesn't stretch to fill the parent flex column, so the <code>&lt;select&gt;</code> inside it collapses</td>
+              <td><code>flex: 1; min-width: 0</code> on <code>.chat-context-field .dropdown-container</code></td>
+            </tr>
+            <tr>
+              <td><code>.dropdown-container::after</code> renders an icon-font arrow via <code>content: var(--osui-icon-arrow-down)</code></td>
+              <td><code>content: none !important</code> — cleaner than <code>display: none</code> for pseudo-elements; doesn't disturb the box model or OS transition styles</td>
+            </tr>
+            <tr>
+              <td>Future OS widget versions may change the arrow pattern (sibling element instead of pseudo-element)</td>
+              <td>Fallback rule hides any sibling <code>&lt;svg&gt;</code>, <code>&lt;i&gt;</code>, or element with <code>arrow</code>/<code>chevron</code>/<code>caret</code> in its class name</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">/* src/styles/modules/adviser.css */
+
+/* 1. Make wrapper fill available space */
+.chat-context-field .dropdown-container {
+  flex: 1;
+  min-width: 0;
+  position: relative; /* preserve stacking context for OS transitions */
+}
+
+/* 2. Kill the icon-font arrow pseudo-element */
+.chat-context-field .dropdown-container::after {
+  content: none !important;
+}
+
+/* 3. Fallback for any sibling arrow nodes OS may inject */
+.chat-context-field select ~ svg,
+.chat-context-field select ~ i,
+.chat-context-field select ~ span[class],
+.chat-context-field [class*="arrow"],
+.chat-context-field [class*="chevron"],
+.chat-context-field [class*="caret"] {
+  display: none !important;
+}</code></pre>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         PATTERN: FEEDBACK MESSAGES
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="feedback-messages">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Pattern: Feedback Messages</h2>
+        <p class="sg-section-desc">OS generates system feedback messages (error, success, warning, info) with its own markup and colour scheme. We override the entire visual treatment while keeping the OS class names intact. See the <a href="feedback.html">Feedback Messages</a> style guide page for full variant documentation.</p>
+      </div>
+
+      <div class="sg-demo" style="display: flex; flex-direction: column; gap: 10px; padding: 24px;">
+        <div class="feedback-message feedback-message-error"   role="alert" style="position:relative;top:auto;left:auto;transform:none;"><span style="flex-shrink:0;font-size:15px;line-height:1.4;margin-left:6px;color:var(--red);">✕</span><div class="feedback-message-text">Error — action failed</div></div>
+        <div class="feedback-message feedback-message-success" role="alert" style="position:relative;top:auto;left:auto;transform:none;"><span style="flex-shrink:0;font-size:15px;line-height:1.4;margin-left:6px;color:var(--green);">✓</span><div class="feedback-message-text">Success — changes saved</div></div>
+        <div class="feedback-message feedback-message-warning" role="alert" style="position:relative;top:auto;left:auto;transform:none;"><span style="flex-shrink:0;font-size:15px;line-height:1.4;margin-left:6px;color:var(--gold);">⚠</span><div class="feedback-message-text">Warning — session expiring</div></div>
+        <div class="feedback-message feedback-message-info"    role="alert" style="position:relative;top:auto;left:auto;transform:none;"><span style="flex-shrink:0;font-size:15px;line-height:1.4;margin-left:6px;color:var(--gold-soft);">ℹ</span><div class="feedback-message-text">Info — prices are end of day</div></div>
+      </div>
+
+      <div class="sg-demo" style="padding: 0; overflow: hidden;">
+        <table class="table" style="margin: 0; border-radius: var(--radius-card);">
+          <thead>
+            <tr>
+              <th>Root cause</th>
+              <th>Fix</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>OS positions <code>.feedback-message-wrapper</code> at top of viewport, obscuring the topbar</td>
+              <td><code>top: calc(var(--topbar-h) + 12px)</code> — pushes it clear of the topbar</td>
+            </tr>
+            <tr>
+              <td>OS uses its own brand colours (solid red/green fills with white text)</td>
+              <td>Override background, border, and icon colour using Aurelius status tokens via variant classes</td>
+            </tr>
+            <tr>
+              <td>3px left accent bar against rounded corners looks sloppy</td>
+              <td><code>overflow: hidden</code> on <code>.feedback-message</code> clips the <code>::before</code> bar to the <code>border-radius</code> automatically</td>
+            </tr>
+            <tr>
+              <td><code>_Basic_</code> sets its own <code>border-radius</code> and <code>padding</code></td>
+              <td><code>border-radius !important</code> and <code>padding !important</code> — the only two properties that need it</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         PATTERN: OSFillParent
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="osfillparent">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Pattern: <code>OSFillParent</code></h2>
+        <p class="sg-section-desc">OS adds the <code>OSFillParent</code> class to elements it wants to stretch full-width. The class is defined in <code>_Basic_</code> as unlayered CSS: <code>.OSFillParent { display: block; width: 100%; }</code>. This is exactly the scenario where the <code>@layer</code> problem bites hardest — specificity is equal (one class each), but <code>_Basic_</code> is unlayered so it wins. The <code>!important</code> fix is unavoidable here.</p>
+      </div>
+
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">/* _Basic_ (unlayered, wins by default):
+   .OSFillParent { display: block; width: 100%; }
+
+   Our fix — in @layer theme.theme (would normally lose):
+   !important reverses the priority so we win */
+.theme-toggle.OSFillParent {
+  display: flex  !important;
+  flex: 0 0 auto !important;
+  width: auto    !important;
+}</code></pre>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         ADDING A NEW OVERRIDE
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="adding-overrides">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Adding a New Override</h2>
+        <p class="sg-section-desc">When a new OS conflict surfaces, follow this decision tree to choose the right approach and the right file.</p>
+      </div>
+
+      <div class="sg-demo" style="padding: 24px; display: flex; flex-direction: column; gap: 12px; font-size: var(--fs-ui); line-height: var(--lh-snug);">
+
+        <div style="display: flex; gap: 12px; align-items: flex-start;">
+          <div style="background: var(--gold-dim); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: var(--fw-bold); font-size: var(--fs-xs); color: var(--gold-text);">1</div>
+          <div><strong>Is it a token mapping?</strong> (OS variable → Aurelius value)<br><span style="color: var(--text-2);">→ Add to <code>:root</code> in <code>osui-bridge.css</code>. No <code>!important</code> needed.</span></div>
+        </div>
+
+        <div style="display: flex; gap: 12px; align-items: flex-start;">
+          <div style="background: var(--gold-dim); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: var(--fw-bold); font-size: var(--fs-xs); color: var(--gold-text);">2</div>
+          <div><strong>Is it a global structural fix?</strong> (ThemeGrid, InlineSVG, ThemeSwitcher, Footer)<br><span style="color: var(--text-2);">→ Add to <code>osui-bridge.css</code> below the token block. May need <code>!important</code>.</span></div>
+        </div>
+
+        <div style="display: flex; gap: 12px; align-items: flex-start;">
+          <div style="background: var(--gold-dim); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: var(--fw-bold); font-size: var(--fs-xs); color: var(--gold-text);">3</div>
+          <div><strong>Is it scoped to a specific component?</strong> (adviser chat selects, feedback messages)<br><span style="color: var(--text-2);">→ Add to the component's module file (e.g. <code>modules/adviser.css</code>, <code>modules/feedback.css</code>) in a clearly labelled OS compat block.</span></div>
+        </div>
+
+        <div style="display: flex; gap: 12px; align-items: flex-start;">
+          <div style="background: var(--gold-dim); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: var(--fw-bold); font-size: var(--fs-xs); color: var(--gold-text);">4</div>
+          <div><strong>Does it need <code>!important</code>?</strong><br><span style="color: var(--text-2);">Only if <code>_Basic_</code> sets the same property. Use DevTools to confirm: if OS is winning and our rule is being overridden, <code>!important</code> is the fix. Document why in a comment.</span></div>
+        </div>
+
+      </div>
+
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">/* Template for a new component-scoped OS override block */
+
+/* ─── OUTSYSTEMS COMPAT ──────────────────────────────────────
+ * [Describe what OS injects and why it conflicts]
+ *
+ * OS markup:
+ *   &lt;div class="os-wrapper"&gt;
+ *     &lt;our-element&gt;…&lt;/our-element&gt;
+ *   &lt;/div&gt;
+ */
+.our-scope .os-wrapper {
+  display: contents; /* remove from layout tree */
+}
+
+/* needs !important: _Basic_ sets display:block on this class */
+.our-scope .OSFillParent {
+  width: auto !important;
+}</code></pre>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         FILE REFERENCE
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="file-reference">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">File Reference</h2>
+        <p class="sg-section-desc">Where every OS override lives in the SMACSS architecture.</p>
+      </div>
+
+      <div class="sg-demo" style="padding: 0; overflow: hidden;">
+        <table class="table" style="margin: 0; border-radius: var(--radius-card);">
+          <thead>
+            <tr>
+              <th>File</th>
+              <th>Layer</th>
+              <th>Contains</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>src/styles/theme/osui-bridge.css</code></td>
+              <td>Theme</td>
+              <td>Token mappings (OSUI vars → Aurelius tokens), ThemeGrid reset, InlineSVG fix, ThemeSwitcher fix, Footer fix, OSFillParent fix</td>
+            </tr>
+            <tr>
+              <td><code>src/styles/modules/adviser.css</code></td>
+              <td>Modules</td>
+              <td>Textarea span wrapper fix (<code>display: contents</code>), dropdown-container arrow suppression, sibling arrow fallback</td>
+            </tr>
+            <tr>
+              <td><code>src/styles/modules/feedback.css</code></td>
+              <td>Modules</td>
+              <td>Full visual override for OS system feedback messages (error, success, warning, info)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+</div><!-- /shell -->
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+</body>
+</html>
