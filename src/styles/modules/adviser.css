@@ -177,9 +177,10 @@
   margin-top: 4px;
 }
 
-/* User messages: push to the right */
+/* User messages: push to the right.
+ * Avatar stays on the LEFT of the bubble (same DOM order as bot).
+ * margin-left: auto is what right-aligns the row — no row-reverse needed. */
 .adv-msg--user {
-  flex-direction: row-reverse;
   margin-left: auto;
 }
 
@@ -208,8 +209,15 @@
 }
 
 .adv-avatar--bot {
-  background: var(--gold-dim);
-  border: 1px solid var(--gold-glow);
+  /* Stepped up from --gold-dim (12%) — needs to read as a clear circle */
+  background: light-dark(
+    oklch(from var(--seed-primary) l c h / 0.20),
+    oklch(from var(--seed-primary) l c h / 0.28)
+  );
+  border: 1px solid light-dark(
+    oklch(from var(--seed-primary) l c h / 0.38),
+    oklch(from var(--seed-primary) l c h / 0.48)
+  );
   color: var(--gold-text);
   font-family: var(--font-serif);
   font-size: 14px;
@@ -217,9 +225,10 @@
 }
 
 .adv-avatar--user {
-  background: var(--bg-hover);
-  border: 1px solid var(--border);
-  color: var(--text-2);
+  /* --neutral-3 / --neutral-7 gives a clearly visible grey circle in both modes */
+  background: light-dark(var(--neutral-3), var(--neutral-7));
+  border: 1px solid light-dark(rgba(0,0,0,0.12), rgba(255,255,255,0.15));
+  color: light-dark(var(--neutral-7), var(--neutral-3));
   font-family: var(--font-sans);
   font-size: 10px;
   font-weight: var(--fw-bold);
@@ -241,19 +250,25 @@
   gap: 4px;
 }
 
-/* Bot bubble */
+/* Bot bubble — elevated one step above the page surface for clear contrast */
 .adv-msg--bot .adv-bubble-inner {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  background: light-dark(var(--neutral-0), var(--neutral-8));
+  border: 1px solid light-dark(rgba(0,0,0,0.11), rgba(255,255,255,0.11));
   border-radius: 4px 16px 16px 16px;
   padding: 12px 16px;
 }
 
-/* User bubble */
+/* User bubble — gold tint stepped up from 12% to read clearly in both modes */
 .adv-msg--user .adv-bubble-inner {
-  background: var(--gold-dim);
-  border: 1px solid var(--gold-glow);
-  border-radius: 16px 4px 16px 16px;
+  background: light-dark(
+    oklch(from var(--seed-primary) l c h / 0.14),
+    oklch(from var(--seed-primary) l c h / 0.24)
+  );
+  border: 1px solid light-dark(
+    oklch(from var(--seed-primary) l c h / 0.30),
+    oklch(from var(--seed-primary) l c h / 0.42)
+  );
+  border-radius: 4px 16px 16px 16px;
   padding: 12px 16px;
 }
 
@@ -288,7 +303,7 @@
 }
 
 .adv-msg--user .adv-time {
-  text-align: right;
+  text-align: left;
 }
 
 /* Bot sender name (shown only on first in a group) */
