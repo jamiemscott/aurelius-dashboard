@@ -177,9 +177,10 @@
   margin-top: 4px;
 }
 
-/* User messages: push to the right */
+/* User messages: push to the right.
+ * Avatar stays on the LEFT of the bubble (same DOM order as bot).
+ * margin-left: auto is what right-aligns the row — no row-reverse needed. */
 .adv-msg--user {
-  flex-direction: row-reverse;
   margin-left: auto;
 }
 
@@ -249,11 +250,11 @@
   padding: 12px 16px;
 }
 
-/* User bubble */
+/* User bubble — tail on top-left, pointing toward avatar on the left */
 .adv-msg--user .adv-bubble-inner {
   background: var(--gold-dim);
   border: 1px solid var(--gold-glow);
-  border-radius: 16px 4px 16px 16px;
+  border-radius: 4px 16px 16px 16px;
   padding: 12px 16px;
 }
 
@@ -288,7 +289,7 @@
 }
 
 .adv-msg--user .adv-time {
-  text-align: right;
+  text-align: left;
 }
 
 /* Bot sender name (shown only on first in a group) */
