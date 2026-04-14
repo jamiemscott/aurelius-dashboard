@@ -22,6 +22,7 @@ const PAGES = [
   { id: 'onboarding',   label: 'Onboarding',   href: 'onboarding.html',   icon: '<circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>' },
   { id: 'adviser',      label: 'Adviser Chat', href: 'adviser.html',      icon: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>' },
   { id: 'feedback',     label: 'Feedback',     href: 'feedback.html',     icon: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>' },
+  { id: 'outsystems',   label: 'OutSystems',   href: 'outsystems.html',   icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>' },
 ];
 
 function svgIcon(paths) {
