@@ -1438,13 +1438,19 @@
     border: 1px solid var(--border);
     border-radius: 28px;
     box-shadow: var(--shadow-card);
+    /* Fill viewport minus body padding; cap at 860px for tall displays.
+       min-height floor prevents the card collapsing too small on landscape
+       phones — clamp ensures it never exceeds the available space. */
+    height: clamp(520px, calc(100dvh - 64px), 860px);
     max-width: 480px;
-    min-height: 700px;
+    min-height: unset;
     width: 100%;
   }
 
+  /* Screen must fill its .ob-app card, not the full viewport */
   .ob-screen {
-    min-height: unset;
+    height: 100%;
+    min-height: 0;
   }
 
   .ob-foot {
