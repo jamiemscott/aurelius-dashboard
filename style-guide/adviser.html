@@ -265,7 +265,7 @@
     <section class="sg-section" id="message-rows">
       <div class="sg-section-header">
         <h2 class="sg-section-title">Message Rows — <code>.adv-msg</code></h2>
-        <p class="sg-section-desc">Each message is an <code>.adv-msg</code> flex row containing an avatar and a bubble column. The modifier <code>.adv-msg--bot</code> aligns the row to the left; <code>.adv-msg--user</code> reverses direction (<code>flex-direction: row-reverse</code>) and pushes the row to the right with <code>margin-left: auto</code>. Consecutive same-sender messages collapse their spacing from <code>12px</code> to <code>4px</code>.</p>
+        <p class="sg-section-desc">Each message is an <code>.adv-msg</code> flex row containing an avatar and a bubble column. DOM order is always <code>[avatar][bubble]</code> for both senders. <code>.adv-msg--bot</code> aligns the row to the left; <code>.adv-msg--user</code> pushes the row to the right with <code>margin-left: auto</code> — the avatar stays on the left of the bubble in both cases. Consecutive same-sender messages collapse their spacing from <code>12px</code> to <code>4px</code>.</p>
       </div>
       <div class="sg-demo sg-demo--col">
         <!-- Bot message -->
@@ -294,7 +294,7 @@
           <div class="adv-avatar adv-avatar--user" aria-hidden="true">SK</div>
           <div class="adv-bubble">
             <div class="adv-bubble-inner">
-              <p class="adv-text">This is a user message. It aligns right via flex-direction: row-reverse.</p>
+              <p class="adv-text">This is a user message. Avatar stays left; the row is right-aligned via margin-left: auto.</p>
             </div>
             <span class="adv-time">09:15</span>
           </div>
@@ -334,7 +334,7 @@
     <section class="sg-section" id="bubbles">
       <div class="sg-section-header">
         <h2 class="sg-section-title">Bubbles — <code>.adv-bubble-inner</code></h2>
-        <p class="sg-section-desc">Bubble shape is controlled by <code>border-radius</code> — the "pinched" corner (4px) points toward the avatar, all other corners are 16px. Bot bubbles use <code>--bg-card</code> with a border; user bubbles use <code>--gold-dim</code> with a gold glow border to indicate client input. Both use the same padding. Never apply colours to <code>.adv-bubble-inner</code> directly — colours are inherited from the <code>.adv-msg--bot</code> / <code>.adv-msg--user</code> parent selector.</p>
+        <p class="sg-section-desc">Bubble shape is controlled by <code>border-radius</code> — the "pinched" corner (4px) is always top-left, pointing toward the avatar on the left. Bot bubbles use <code>--bg-card</code> with a neutral border; user bubbles use <code>--gold-dim</code> with a gold glow border. Both use the same padding and the same <code>border-radius: 4px 16px 16px 16px</code>. Never apply colours to <code>.adv-bubble-inner</code> directly — colours are inherited from the <code>.adv-msg--bot</code> / <code>.adv-msg--user</code> parent selector.</p>
       </div>
       <div class="sg-demo sg-demo--grid" style="align-items:flex-start">
         <div class="sg-variant-group" style="align-items:flex-start">
@@ -351,11 +351,11 @@
           <div class="adv-msg adv-msg--user" style="max-width:260px">
             <div class="adv-bubble">
               <div class="adv-bubble-inner">
-                <p class="adv-text">User bubble — <code>border-radius: 16px 4px 16px 16px</code></p>
+                <p class="adv-text">User bubble — <code>border-radius: 4px 16px 16px 16px</code></p>
               </div>
             </div>
           </div>
-          <span class="sg-demo-label" style="text-align:right">User — <code>.adv-msg--user</code></span>
+          <span class="sg-demo-label" style="text-align:left">User — <code>.adv-msg--user</code></span>
         </div>
       </div>
       <div class="sg-code">
@@ -728,7 +728,7 @@
             <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-divider</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Session/date divider with flanking hairlines</td></tr>
             <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-msg</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Message row — avatar + bubble, flex row</td></tr>
             <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-msg--bot</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Left-aligned bot message, margin-right: auto</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-msg--user</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Right-aligned user message, row-reverse + margin-left: auto</td></tr>
+            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-msg--user</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Right-aligned user message row — margin-left: auto, avatar stays left of bubble</td></tr>
             <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-avatar</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">32×32 circular avatar base</td></tr>
             <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-avatar--bot</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Gold-dim serif "A" — Aurelius brand mark</td></tr>
             <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-avatar--user</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Neutral uppercase initials</td></tr>

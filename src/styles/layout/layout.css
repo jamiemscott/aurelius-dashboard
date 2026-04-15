@@ -122,6 +122,34 @@
   .three-col { grid-template-columns: 1fr 1fr; }
 }
 
+/* ─── CHAT PAGE LAYOUT ───────────────────────────────── */
+/* .chat-main: removes default .main padding so the chat
+   interface fills edge-to-edge within the shell grid area. */
+.chat-main {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+/* .chat-wrap: constrains and centres chat content on wide
+   viewports; full-width on mobile. */
+.chat-wrap {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .chat-wrap {
+    margin-inline: auto;
+    max-width: 760px;
+    width: 100%;
+  }
+}
+
+
 @media (max-width: 900px) {
   :root { --sidebar-w: 60px; }
   .topbar-nav { display: none; }

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="feedback">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feedback Messages — Aurelius Style Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Feedback Messages</h1>
+      <p class="sg-page-desc">OutSystems system feedback messages — OS generates this markup automatically and it cannot be modified. All styles in <code>modules/feedback.css</code> are pure CSS overrides targeting the OS-injected class names. Four semantic variants are supported: <strong>error</strong>, <strong>success</strong>, <strong>warning</strong>, and <strong>info</strong>. Each maps to the corresponding Aurelius status tokens.</p>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         OS MARKUP CONTEXT
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="os-markup">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">OutSystems Markup</h2>
+        <p class="sg-section-desc">This is the exact HTML that OutSystems injects — we have no control over it. Every class name in the structure below is an OS-owned identifier. Our CSS must target these names directly.</p>
+      </div>
+
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;!-- OutSystems injects this — cannot be modified --&gt;
+&lt;div id="feedbackMessageContainer" class="feedback-message-wrapper"&gt;
+  &lt;div class="feedback-message feedback-message-error"
+       tabindex="0" role="alert"&gt;
+    &lt;i class="fa fa-times-circle" aria-hidden="true"&gt;&lt;/i&gt;
+    &lt;div class="feedback-message-text"&gt;
+      There was a problem. Please contact the administrator.
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         ERROR
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="error">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Error</h2>
+        <p class="sg-section-desc">Used when an action fails or a system error occurs. Uses <code>--red</code> and <code>--red-dim</code>. OS typically pairs this with the <code>fa-times-circle</code> icon.</p>
+      </div>
+
+      <div class="sg-demo">
+        <!-- Simulate in-page — wrapper is normally position:fixed in production -->
+        <div style="position:relative; min-height: 60px;">
+          <div class="feedback-message feedback-message-error" role="alert" style="position:relative; top:auto; left:auto; transform:none; max-width:480px;">
+            <i class="fa fa-times-circle" aria-hidden="true" style="font-style:normal; font-size:15px; line-height:1.4; margin-left:6px; color:var(--red);">✕</i>
+            <div class="feedback-message-text">There was a problem. Please contact the administrator.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="feedback-message feedback-message-error" role="alert"&gt;
+  &lt;i class="fa fa-times-circle" aria-hidden="true"&gt;&lt;/i&gt;
+  &lt;div class="feedback-message-text"&gt;There was a problem. Please contact the administrator.&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SUCCESS
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="success">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Success</h2>
+        <p class="sg-section-desc">Confirms that an action completed successfully. Uses <code>--green</code> and <code>--green-dim</code>. OS typically pairs this with the <code>fa-check-circle</code> icon.</p>
+      </div>
+
+      <div class="sg-demo">
+        <div class="feedback-message feedback-message-success" role="alert" style="position:relative; top:auto; left:auto; transform:none; max-width:480px;">
+          <i class="fa fa-check-circle" aria-hidden="true" style="font-style:normal; font-size:15px; line-height:1.4; margin-left:6px; color:var(--green);">✓</i>
+          <div class="feedback-message-text">Your changes have been saved successfully.</div>
+        </div>
+      </div>
+
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="feedback-message feedback-message-success" role="alert"&gt;
+  &lt;i class="fa fa-check-circle" aria-hidden="true"&gt;&lt;/i&gt;
+  &lt;div class="feedback-message-text"&gt;Your changes have been saved successfully.&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         WARNING
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="warning">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Warning</h2>
+        <p class="sg-section-desc">Alerts the user to a potential issue that requires attention but has not caused a failure. Uses <code>--gold</code> and <code>--gold-dim</code> — the natural warning hue in the Aurelius palette. OS typically pairs this with the <code>fa-exclamation-triangle</code> icon.</p>
+      </div>
+
+      <div class="sg-demo">
+        <div class="feedback-message feedback-message-warning" role="alert" style="position:relative; top:auto; left:auto; transform:none; max-width:480px;">
+          <i class="fa fa-exclamation-triangle" aria-hidden="true" style="font-style:normal; font-size:15px; line-height:1.4; margin-left:6px; color:var(--gold);">⚠</i>
+          <div class="feedback-message-text">Your session will expire in 5 minutes. Please save your work.</div>
+        </div>
+      </div>
+
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="feedback-message feedback-message-warning" role="alert"&gt;
+  &lt;i class="fa fa-exclamation-triangle" aria-hidden="true"&gt;&lt;/i&gt;
+  &lt;div class="feedback-message-text"&gt;Your session will expire in 5 minutes. Please save your work.&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         INFO
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="info">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Info</h2>
+        <p class="sg-section-desc">Provides neutral informational context — no action required. Uses <code>--gold-soft</code> and <code>--gold-dim</code>. The Aurelius palette has no blue; gold-soft is the designated info hue. OS typically pairs this with the <code>fa-info-circle</code> icon.</p>
+      </div>
+
+      <div class="sg-demo">
+        <div class="feedback-message feedback-message-info" role="alert" style="position:relative; top:auto; left:auto; transform:none; max-width:480px;">
+          <i class="fa fa-info-circle" aria-hidden="true" style="font-style:normal; font-size:15px; line-height:1.4; margin-left:6px; color:var(--gold-soft);">ℹ</i>
+          <div class="feedback-message-text">Prices shown are as at previous business day close.</div>
+        </div>
+      </div>
+
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="feedback-message feedback-message-info" role="alert"&gt;
+  &lt;i class="fa fa-info-circle" aria-hidden="true"&gt;&lt;/i&gt;
+  &lt;div class="feedback-message-text"&gt;Prices shown are as at previous business day close.&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         ALL VARIANTS TOGETHER
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="all-variants">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">All Variants</h2>
+        <p class="sg-section-desc">All four variants side by side for comparison. In production each message appears as a single fixed banner — only one is shown at a time by OutSystems.</p>
+      </div>
+
+      <div class="sg-demo sg-demo--grid" style="flex-direction:column; gap:10px; align-items:stretch;">
+        <div class="feedback-message feedback-message-error" role="alert" style="position:relative; top:auto; left:auto; transform:none;">
+          <i aria-hidden="true" style="font-style:normal; font-size:15px; line-height:1.4; margin-left:6px; color:var(--red);">✕</i>
+          <div class="feedback-message-text"><strong>Error</strong> — There was a problem. Please contact the administrator.</div>
+        </div>
+        <div class="feedback-message feedback-message-success" role="alert" style="position:relative; top:auto; left:auto; transform:none;">
+          <i aria-hidden="true" style="font-style:normal; font-size:15px; line-height:1.4; margin-left:6px; color:var(--green);">✓</i>
+          <div class="feedback-message-text"><strong>Success</strong> — Your changes have been saved successfully.</div>
+        </div>
+        <div class="feedback-message feedback-message-warning" role="alert" style="position:relative; top:auto; left:auto; transform:none;">
+          <i aria-hidden="true" style="font-style:normal; font-size:15px; line-height:1.4; margin-left:6px; color:var(--gold);">⚠</i>
+          <div class="feedback-message-text"><strong>Warning</strong> — Your session will expire in 5 minutes. Please save your work.</div>
+        </div>
+        <div class="feedback-message feedback-message-info" role="alert" style="position:relative; top:auto; left:auto; transform:none;">
+          <i aria-hidden="true" style="font-style:normal; font-size:15px; line-height:1.4; margin-left:6px; color:var(--gold-soft);">ℹ</i>
+          <div class="feedback-message-text"><strong>Info</strong> — Prices shown are as at previous business day close.</div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         POSITIONING BEHAVIOUR
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="positioning">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Positioning</h2>
+        <p class="sg-section-desc">The <code>.feedback-message-wrapper</code> is rendered <code>position: fixed</code>, centred horizontally, and offset below the topbar. The inner <code>.feedback-message</code> is constrained to <code>min(480px, calc(100vw - 32px))</code> and enters with a short slide-down animation. On mobile the banner fills the available width with 16px gutters on each side.</p>
+      </div>
+
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">/* Wrapper — OS generates position:fixed; we reposition it */
+.feedback-message-wrapper {
+  left: 50%;
+  max-width: min(480px, calc(100vw - 32px));
+  position: fixed;
+  top: calc(var(--topbar-h, 68px) + 12px);
+  transform: translateX(-50%);
+  z-index: var(--layer-global-instant-interaction, 20);
+}
+
+/* Entrance animation */
+@keyframes feedback-slide-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}</code></pre>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         TOKEN MAP
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="token-map">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Token Map</h2>
+        <p class="sg-section-desc">Each variant sets three local custom properties (<code>--fb-color</code>, <code>--fb-bg</code>, <code>--fb-border</code>) that feed the shared base rules. Changing a status colour at the theme level automatically propagates to these messages.</p>
+      </div>
+
+      <div class="sg-demo" style="padding:0; overflow:hidden;">
+        <table class="table" style="margin:0; border-radius:var(--radius-card);">
+          <thead>
+            <tr>
+              <th>Variant class</th>
+              <th><code>--fb-color</code></th>
+              <th><code>--fb-bg</code></th>
+              <th><code>--fb-border</code></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>.feedback-message-error</code></td>
+              <td><code>--red</code></td>
+              <td><code>--red-dim</code></td>
+              <td><code>color-mix(--red 30%)</code></td>
+            </tr>
+            <tr>
+              <td><code>.feedback-message-success</code></td>
+              <td><code>--green</code></td>
+              <td><code>--green-dim</code></td>
+              <td><code>color-mix(--green 30%)</code></td>
+            </tr>
+            <tr>
+              <td><code>.feedback-message-warning</code></td>
+              <td><code>--gold</code></td>
+              <td><code>--gold-dim</code></td>
+              <td><code>--gold-glow</code></td>
+            </tr>
+            <tr>
+              <td><code>.feedback-message-info</code></td>
+              <td><code>--gold-soft</code></td>
+              <td><code>--gold-dim</code></td>
+              <td><code>--gold-glow</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         OS COMPATIBILITY NOTES
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="os-compat">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">OutSystems Compatibility</h2>
+        <p class="sg-section-desc">OS ships its own stylesheet for <code>.feedback-message</code>. These override patterns ensure our rules take precedence.</p>
+      </div>
+
+      <div class="sg-demo" style="padding:0; overflow:hidden;">
+        <table class="table" style="margin:0; border-radius:var(--radius-card);">
+          <thead>
+            <tr>
+              <th>OS behaviour</th>
+              <th>Our fix</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>OS positions <code>.feedback-message-wrapper</code> at top of viewport, obscuring topbar</td>
+              <td><code>top: calc(var(--topbar-h) + 12px)</code> pushes it below the topbar</td>
+            </tr>
+            <tr>
+              <td>OS sets its own <code>border-radius</code> and <code>padding</code> on <code>.feedback-message</code></td>
+              <td><code>!important</code> on <code>border-radius</code> and <code>padding</code> to ensure Aurelius values win</td>
+            </tr>
+            <tr>
+              <td>OS injects a FontAwesome <code>.fa</code> icon — we cannot change the element or class</td>
+              <td>Target <code>.feedback-message .fa</code> to set <code>color: var(--fb-color)</code> and correct sizing</td>
+            </tr>
+            <tr>
+              <td>OS may add <code>margin</code> via ThemeGrid or component defaults</td>
+              <td><code>margin: 0 !important</code> on both wrapper and message elements</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         CLASS REFERENCE
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="class-reference">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Class Reference</h2>
+        <p class="sg-section-desc">All classes are OS-owned — they appear in the generated markup and cannot be renamed. Source: <code>src/styles/modules/feedback.css</code>.</p>
+      </div>
+
+      <div class="sg-demo" style="padding:0; overflow:hidden;">
+        <table class="table" style="margin:0; border-radius:var(--radius-card);">
+          <thead>
+            <tr>
+              <th>Class</th>
+              <th>Owner</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>.feedback-message-wrapper</code></td>
+              <td>OutSystems</td>
+              <td>Fixed-position container; repositioned below topbar</td>
+            </tr>
+            <tr>
+              <td><code>.feedback-message</code></td>
+              <td>OutSystems</td>
+              <td>Inner banner; shared layout, typography, animation, accent bar</td>
+            </tr>
+            <tr>
+              <td><code>.feedback-message-error</code></td>
+              <td>OutSystems</td>
+              <td>Error variant — red tokens</td>
+            </tr>
+            <tr>
+              <td><code>.feedback-message-success</code></td>
+              <td>OutSystems</td>
+              <td>Success variant — green tokens</td>
+            </tr>
+            <tr>
+              <td><code>.feedback-message-warning</code></td>
+              <td>OutSystems</td>
+              <td>Warning variant — gold tokens</td>
+            </tr>
+            <tr>
+              <td><code>.feedback-message-info</code></td>
+              <td>OutSystems</td>
+              <td>Info variant — gold-soft tokens</td>
+            </tr>
+            <tr>
+              <td><code>.feedback-message-text</code></td>
+              <td>OutSystems</td>
+              <td>Message body text; <code>flex: 1</code></td>
+            </tr>
+            <tr>
+              <td><code>.fa</code> (inside message)</td>
+              <td>OutSystems / FontAwesome</td>
+              <td>Icon; coloured via <code>--fb-color</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+</div><!-- /shell -->
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+</body>
+</html>
