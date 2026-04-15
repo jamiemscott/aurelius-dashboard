@@ -5,7 +5,7 @@
  * Also marks the correct topbar tab and sidebar nav item as .is-active.
  *
  * data-sg-page values: colours | typography | spacing | buttons | cards |
- *                      forms | tables | navigation | layout | data-display | onboarding | adviser
+ *                      forms | tables | navigation | layout | data-display | onboarding | adviser | feedback | outsystems
  */
 
 const PAGES = [
