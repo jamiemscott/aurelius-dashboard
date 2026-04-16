@@ -21,7 +21,8 @@
   grid-template-columns: 1fr;
 }
 
-.shell--no-sidebar .sidebar {
+.shell--no-sidebar .sidebar,
+.shell--no-sidebar .site-sidebar {
   display: none;
 }
 
@@ -72,14 +73,17 @@
 }
 
 /* ─── SIDEBAR ────────────────────────────────────────── */
-.sidebar {
+/* .site-sidebar is the class used in HTML; .sidebar is the OutSystems alias.
+   Both selectors must be kept in sync. */
+.sidebar,
+.site-sidebar {
   background: var(--bg-sidebar);
   border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   grid-area: sidebar;
   overflow-y: auto;
-  padding: 20px 12px;
+  padding: 20px 14px;
   transition: background 0.3s ease;
 }
 
@@ -150,6 +154,41 @@
 }
 
 
+/* ── Compact sidebar: 901–1280px (laptops) ────────────────
+   Sidebar narrows to 176px. Section group labels are hidden
+   to save vertical space, but icon + label stay on one line
+   at a slightly smaller size. The advisor card gets tighter
+   padding so text doesn't hit the sidebar border. The topbar
+   nav is hidden (the sidebar handles all navigation at this
+   size). Brand sub-text is hidden to keep the topbar tidy. */
+@media (max-width: 1280px) {
+  :root { --sidebar-w: 176px; }
+
+  .topbar-nav { display: none; }
+  .brand-sub  { display: none; }
+
+  /* Sidebar itself — tighter vertical padding */
+  .sidebar,
+  .site-sidebar { padding: 16px 10px; }
+
+  /* Section headings take up too much vertical space; remove them */
+  .sidebar-section-label { display: none; }
+
+  /* First nav group loses its top margin without the label */
+  .sidebar nav [role="group"]:first-child { margin-top: 4px; }
+
+  /* Nav items — tighter padding, slightly smaller text */
+  .nav-item {
+    font-size: var(--fs-md);    /* 12px — down from 13px */
+    gap: 8px;
+    padding: 8px 10px;
+  }
+
+  /* Advisor card — internal padding only, no margin changes */
+  .advisor-card { padding: 10px; }
+}
+
+/* ── Icon-only rail: ≤ 900px ──────────────────────────── */
 @media (max-width: 900px) {
   :root { --sidebar-w: 60px; }
   .topbar-nav { display: none; }

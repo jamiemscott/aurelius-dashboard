@@ -6,6 +6,10 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+  /* Small inset so the card never touches the sidebar border regardless
+     of sidebar width. The sidebar padding handles most of the gap but
+     2px here gives a visual margin on the card's own border-radius. */
+  margin: 0 2px;
   padding: 12px;
 }
 
