@@ -95,7 +95,7 @@
 }
 
 .det-input:focus { border-color: var(--gold); }
-.det-input::placeholder { color: var(--text-3); }
+.det-input::placeholder { color: var(--text-2); }
 
 .det-select {
   appearance: none;

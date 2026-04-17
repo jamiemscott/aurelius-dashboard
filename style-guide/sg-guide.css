@@ -896,7 +896,9 @@
   grid-template-columns: 1fr;
 }
 
-/* A single labelled field wrapper */
+/* A single labelled field wrapper
+   .sg-field aliases the production .field class — inputs inside
+   inherit all base styles from forms.css automatically. */
 .sg-field {
   display: flex;
   flex-direction: column;
@@ -905,7 +907,7 @@
 
 .sg-field label {
   color: var(--text-2);
-  font-size: var(--fs-ui);
+  font-size: var(--fs-input-label);   /* 12px — matches production .field label */
   font-weight: var(--fw-medium);
 }
 
