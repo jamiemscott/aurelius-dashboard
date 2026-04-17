@@ -41,6 +41,23 @@
   </header>
 
   <aside class="site-sidebar" aria-label="Site navigation">
+  <!-- ─── Know Your Element / Retake Assessment CTA ─────────────── -->
+  <div class="ob-cta" id="ob-cta" hidden>
+    <button class="ob-cta__dismiss" id="ob-cta-dismiss" aria-label="Dismiss profile prompt">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="10" height="10"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="ob-cta__top">
+      <span class="ob-cta__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" width="20" height="20"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12"/></svg>
+      </span>
+      <div class="ob-cta__copy">
+        <div class="ob-cta__eyebrow">Investment Profile</div>
+        <div class="ob-cta__title" id="ob-cta-title">Know Your Element</div>
+        <div class="ob-cta__sub" id="ob-cta-sub">Personalise your investment profile</div>
+      </div>
+    </div>
+    <a class="ob-cta__btn" href="/onboarding/" id="ob-cta-btn">Begin Assessment</a>
+  </div>
   <nav aria-label="Main navigation">
     <div role="group" aria-labelledby="nav-portfolio">
     <h2 id="nav-portfolio" class="sidebar-section-label">Portfolio</h2>
@@ -393,5 +410,6 @@
   </div>
 </div>
 
+  <script src="../src/js/ob-cta.js"></script>
 </body>
 </html>
