@@ -1,0 +1,94 @@
+/* ─── VIEW TRANSITIONS ──────────────────────────────────────────────
+   Cross-document page transitions using the CSS View Transition API.
+
+   HOW IT WORKS
+   ────────────
+   @view-transition { navigation: auto } must be present in both the
+   old and new document — including this file in bundle.css covers
+   all pages globally.
+
+   view-transition-name assigns a named "snapshot slot" to an element:
+     • Elements with the SAME name on both pages are treated as the
+       same element — the browser composites them as a persistent
+       surface (appears frozen / static).
+     • Elements with a UNIQUE name only on one page are animated in
+       or out.
+     • The custom keyframes below ONLY apply to vt-main — topbar and
+       sidebar have names but no keyframes, so they paint into position
+       without any visible animation.
+
+   OPT-IN
+   ──────
+   Add class="vt-page" to a page's <html> element. That's it.
+   Pages without the class: @view-transition still runs but no elements
+   have view-transition-name, so the browser does its default crossfade.
+   Add html { view-transition-name: none } below to suppress that too.
+
+   BROWSER SUPPORT (2026)
+   ──────────────────────
+   Chrome 126+  ·  Edge 126+   — fully supported
+   Firefox      ·  Safari      — graceful no-op (normal navigation)
+
+   ADDING NEW NAMED REGIONS
+   ────────────────────────
+   Give an element a unique view-transition-name, then optionally add
+   ::view-transition-old(name) / ::view-transition-new(name) keyframe
+   rules below. No JS required.
+                                                                       */
+
+/* ── Enable cross-document transitions ─────────────────────────── */
+@view-transition {
+  navigation: auto;
+}
+
+
+/* ── Named snapshot regions ─────────────────────────────────────── */
+
+/* Static chrome — named but NO keyframes → visually frozen while
+   main content animates. Browser composites them as persistent
+   surfaces, giving the "app shell" feel.                            */
+.vt-page [role="banner"] { view-transition-name: vt-topbar;  }
+.vt-page .site-sidebar,
+.vt-page .sidebar        { view-transition-name: vt-sidebar; }
+
+/* Main content — the only region that visibly animates             */
+.vt-page .main           { view-transition-name: vt-main;    }
+
+
+/* ── Suppress default crossfade on static chrome ────────────────── */
+/* Without this the browser applies its own fade to the snapshots.  */
+::view-transition-old(vt-topbar),
+::view-transition-new(vt-topbar),
+::view-transition-old(vt-sidebar),
+::view-transition-new(vt-sidebar) {
+  animation: none;
+}
+
+
+/* ── Main content animation keyframes ───────────────────────────── */
+@keyframes vt-out {
+  from { opacity: 1; transform: translateY(0);     }
+  to   { opacity: 0; transform: translateY(-10px); }
+}
+
+@keyframes vt-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+::view-transition-old(vt-main) {
+  animation: vt-out 0.16s ease-in  forwards;
+}
+
+::view-transition-new(vt-main) {
+  animation: vt-in  0.26s ease-out forwards;
+}
+
+
+/* ── Accessibility: respect reduced-motion preference ───────────── */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(vt-main),
+  ::view-transition-new(vt-main) {
+    animation: none;
+  }
+}
