@@ -131,12 +131,10 @@
 
 
   /* ─── SHADOW ────────────────────────────────────────────────── */
-  --shadow-none: none;
-  --shadow-xs:   0 1px  4px  rgba(0, 0, 0, 0.06);
-  --shadow-s:    0 2px  8px  rgba(0, 0, 0, 0.10);
-  --shadow-m:    var(--shadow-card);             /* adaptive: dark 0 20px 40px / light 0 4px 24px */
-  --shadow-l:    0 24px 48px rgba(0, 0, 0, 0.50);
-  --shadow-xl:   0 32px 64px rgba(0, 0, 0, 0.60);
+  /* Full adaptive scale (--shadow-none → --shadow-xl + --shadow-inner + --shadow-card)
+     is defined in theme/colours.css.  Listed here for OSUI mapping reference only.
+     Do NOT redeclare values in this file — colours.css loads first and osui-bridge
+     would silently overwrite the light-dark() adaptive values with fixed RGBA. */
 
 
   /* ─── Z-INDEX (LAYER) ───────────────────────────────────────── */

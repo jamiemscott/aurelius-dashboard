@@ -149,27 +149,139 @@ border-radius: 50%;                  /* avatars, circular indicators */</code></
     <section class="sg-section" id="shadow-tokens">
       <div class="sg-section-header">
         <h2 class="sg-section-title">Shadow Tokens</h2>
-        <p class="sg-section-desc">Two shadow tokens establish elevation. <code>--shadow-card</code> lifts floating surfaces (cards, dropdowns). <code>--shadow-inner</code> is used for sunken inputs and inset panels. Both resolve to appropriate levels in light and dark modes via <code>light-dark()</code>.</p>
+        <p class="sg-section-desc">Six elevation steps plus an inset token, all defined in <code>theme/colours.css</code> using <code>light-dark()</code>. Shadows are deliberately subtle in light mode and register slightly more on dark surfaces where opacity is needed to be visible. <code>--shadow-card</code> is a semantic alias for <code>--shadow-m</code>, kept for backwards compatibility with existing module CSS.</p>
       </div>
-      <div class="sg-demo sg-demo--grid">
-        <div class="sg-shadow-sample">
-          <div class="sg-shadow-box" style="box-shadow:var(--shadow-card);border-radius:var(--radius-card);background:var(--bg-card)">
-            <span style="color:var(--text-2);font-size:var(--fs-sm)">Card shadow</span>
+
+      <!-- Scale swatches -->
+      <div class="sg-demo" style="overflow-x:auto">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:24px;padding:8px 4px">
+
+          <div class="sg-shadow-sample">
+            <div class="sg-shadow-box" style="box-shadow:var(--shadow-xs);border-radius:var(--radius-item);background:var(--bg-card)">
+              <span style="color:var(--text-3);font-size:var(--fs-xs)">xs</span>
+            </div>
+            <div class="sg-radius-label" style="margin-top:14px">
+              <code>--shadow-xs</code>
+              <span>Inputs, chips</span>
+            </div>
           </div>
-          <div class="sg-radius-label" style="margin-top:16px"><code>--shadow-card</code><span>Cards, panels, dropdowns</span></div>
-        </div>
-        <div class="sg-shadow-sample">
-          <div class="sg-shadow-box" style="box-shadow:var(--shadow-inner);border-radius:var(--radius-item);background:var(--bg-input)">
-            <span style="color:var(--text-2);font-size:var(--fs-sm)">Inner shadow</span>
+
+          <div class="sg-shadow-sample">
+            <div class="sg-shadow-box" style="box-shadow:var(--shadow-s);border-radius:var(--radius-item);background:var(--bg-card)">
+              <span style="color:var(--text-3);font-size:var(--fs-xs)">s</span>
+            </div>
+            <div class="sg-radius-label" style="margin-top:14px">
+              <code>--shadow-s</code>
+              <span>Tab pills, badges</span>
+            </div>
           </div>
-          <div class="sg-radius-label" style="margin-top:16px"><code>--shadow-inner</code><span>Inputs, sunken panels</span></div>
+
+          <div class="sg-shadow-sample">
+            <div class="sg-shadow-box" style="box-shadow:var(--shadow-m);border-radius:var(--radius-card);background:var(--bg-card)">
+              <span style="color:var(--text-3);font-size:var(--fs-xs)">m</span>
+            </div>
+            <div class="sg-radius-label" style="margin-top:14px">
+              <code>--shadow-m</code>
+              <span>Cards, panels <em style="color:var(--gold);font-style:normal">← --shadow-card</em></span>
+            </div>
+          </div>
+
+          <div class="sg-shadow-sample">
+            <div class="sg-shadow-box" style="box-shadow:var(--shadow-l);border-radius:var(--radius-card);background:var(--bg-card)">
+              <span style="color:var(--text-3);font-size:var(--fs-xs)">l</span>
+            </div>
+            <div class="sg-radius-label" style="margin-top:14px">
+              <code>--shadow-l</code>
+              <span>Drawers, popovers</span>
+            </div>
+          </div>
+
+          <div class="sg-shadow-sample">
+            <div class="sg-shadow-box" style="box-shadow:var(--shadow-xl);border-radius:var(--radius-card);background:var(--bg-card)">
+              <span style="color:var(--text-3);font-size:var(--fs-xs)">xl</span>
+            </div>
+            <div class="sg-radius-label" style="margin-top:14px">
+              <code>--shadow-xl</code>
+              <span>Modals, overlays</span>
+            </div>
+          </div>
+
+          <div class="sg-shadow-sample">
+            <div class="sg-shadow-box" style="box-shadow:var(--shadow-inner);border-radius:var(--radius-item);background:var(--bg-input)">
+              <span style="color:var(--text-3);font-size:var(--fs-xs)">inner</span>
+            </div>
+            <div class="sg-radius-label" style="margin-top:14px">
+              <code>--shadow-inner</code>
+              <span>Sunken inputs</span>
+            </div>
+          </div>
+
         </div>
       </div>
+
+      <!-- Token reference table -->
+      <div class="sg-demo" style="padding:0;overflow:hidden;margin-top:0">
+        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-sm)">
+          <thead>
+            <tr style="border-bottom:1px solid var(--divider)">
+              <th style="text-align:left;padding:10px 16px;color:var(--text-2);font-weight:600;white-space:nowrap">Token</th>
+              <th style="text-align:left;padding:10px 16px;color:var(--text-2);font-weight:600">Light value</th>
+              <th style="text-align:left;padding:10px 16px;color:var(--text-2);font-weight:600">Dark value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--divider)">
+              <td style="padding:10px 16px;white-space:nowrap"><code>--shadow-xs</code></td>
+              <td style="padding:10px 16px;color:var(--text-2)">0 1px 3px rgba(0,0,0,0.07)</td>
+              <td style="padding:10px 16px;color:var(--text-2)">0 1px 3px rgba(0,0,0,0.22)</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--divider)">
+              <td style="padding:10px 16px;white-space:nowrap"><code>--shadow-s</code></td>
+              <td style="padding:10px 16px;color:var(--text-2)">0 2px 8px rgba(0,0,0,0.08)</td>
+              <td style="padding:10px 16px;color:var(--text-2)">0 2px 8px rgba(0,0,0,0.26)</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--divider)">
+              <td style="padding:10px 16px;white-space:nowrap"><code>--shadow-m</code> <span style="color:var(--gold);font-size:var(--fs-xs)">← --shadow-card</span></td>
+              <td style="padding:10px 16px;color:var(--text-2)">0 4px 16px rgba(0,0,0,0.10)</td>
+              <td style="padding:10px 16px;color:var(--text-2)">0 4px 18px rgba(0,0,0,0.30)</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--divider)">
+              <td style="padding:10px 16px;white-space:nowrap"><code>--shadow-l</code></td>
+              <td style="padding:10px 16px;color:var(--text-2)">0 8px 28px rgba(0,0,0,0.12)</td>
+              <td style="padding:10px 16px;color:var(--text-2)">0 8px 28px rgba(0,0,0,0.36)</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--divider)">
+              <td style="padding:10px 16px;white-space:nowrap"><code>--shadow-xl</code></td>
+              <td style="padding:10px 16px;color:var(--text-2)">0 16px 40px rgba(0,0,0,0.14)</td>
+              <td style="padding:10px 16px;color:var(--text-2)">0 16px 40px rgba(0,0,0,0.44)</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--divider)">
+              <td style="padding:10px 16px;white-space:nowrap"><code>--shadow-inner</code></td>
+              <td style="padding:10px 16px;color:var(--text-2)">inset 0 1px 0 rgba(255,255,255,0.80)</td>
+              <td style="padding:10px 16px;color:var(--text-2)">inset 0 1px 0 rgba(255,255,255,0.04)</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 16px;white-space:nowrap"><code>--shadow-none</code></td>
+              <td style="padding:10px 16px;color:var(--text-2)" colspan="2">none — explicit shadow reset</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- OutSystems note -->
+      <div class="sg-callout sg-callout--warn" style="margin-top:12px">
+        <strong>OutSystems</strong> — OSUI uses <code>--shadow-none</code> through <code>--shadow-xl</code> natively. These tokens map directly so OS components inherit the Aurelius scale automatically. Do <em>not</em> redefine shadow values inside <code>osui-bridge.css</code> — the bridge loads after <code>colours.css</code> and would silently overwrite the adaptive <code>light-dark()</code> values with flat RGBA.
+      </div>
+
       <div class="sg-code">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
-        <pre><code class="language-css">box-shadow: var(--shadow-card);    /* cards, floating panels */
-box-shadow: var(--shadow-inner);   /* inputs, inset areas */
-box-shadow: none;                  /* reset — e.g. table rows */</code></pre>
+        <pre><code class="language-css">box-shadow: var(--shadow-xs);      /* inputs, chips, small interactive elements */
+box-shadow: var(--shadow-s);       /* tab pills, active badges */
+box-shadow: var(--shadow-m);       /* cards, floating panels (= --shadow-card) */
+box-shadow: var(--shadow-l);       /* drawers, right-panel overlays */
+box-shadow: var(--shadow-xl);      /* modals, full overlays */
+box-shadow: var(--shadow-inner);   /* sunken inputs, inset panels */
+box-shadow: var(--shadow-none);    /* explicit shadow reset */</code></pre>
       </div>
     </section>
 

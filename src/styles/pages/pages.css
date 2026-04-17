@@ -61,8 +61,7 @@
 }
 
 .details-tab:hover { background: var(--bg-hover); color: var(--text-1); }
-.details-tab.is-active { background: var(--bg-card); box-shadow: 0 1px 6px rgba(0,0,0,0.4); color: var(--text-1); }
-html:has(.theme-checkbox:checked) .details-tab.is-active { box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
+.details-tab.is-active { background: var(--bg-card); box-shadow: var(--shadow-s); color: var(--text-1); }
 
 /* Hero card */
 .details-hero {
