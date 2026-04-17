@@ -68,20 +68,20 @@
 /* ── Main content animation keyframes ───────────────────────────── */
 @keyframes vt-out {
   from { opacity: 1; transform: translateY(0);     }
-  to   { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 0; transform: translateY(-24px); }
 }
 
 @keyframes vt-in {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0);    }
+  from { opacity: 0; transform: translateY(28px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
 }
 
 ::view-transition-old(vt-main) {
-  animation: vt-out 0.16s ease-in  forwards;
+  animation: vt-out 0.2s  ease-in  forwards;
 }
 
 ::view-transition-new(vt-main) {
-  animation: vt-in  0.26s ease-out forwards;
+  animation: vt-in  0.35s ease-out forwards;
 }
 
 
