@@ -92,14 +92,38 @@ html:has(.theme-checkbox:checked) { color-scheme: light; }
   --radius-btn:  999px;
   --radius-card: 16px;
   --radius-item: 12px;
-  --shadow-inner: inset 0 1px 0 light-dark(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.04));
   --sidebar-w:   240px;
   --tag-bg:      light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.05));
   --topbar-h:    68px;
 }
 
-/* shadow-card: dark is the :root default; light overrides via :has() */
-:root { --shadow-card: 0 20px 40px rgba(0, 0, 0, 0.45); }
-html:has(.theme-checkbox:checked) {
-  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
+
+/* ─── SHADOW SCALE ──────────────────────────────────────────────
+   Six elevation steps + an inset token.  All values use
+   light-dark() so they shift automatically with color-scheme.
+
+   Light mode uses lower opacity for a clean, airy feel.
+   Dark mode uses slightly higher opacity so shadows register
+   against dark surfaces without being heavy.
+
+   Step    Light                            Dark
+   ──────  ───────────────────────────────  ─────────────────────────────
+   xs      0 1px  3px rgba(0,0,0,0.07)     0 1px  3px rgba(0,0,0,0.22)   inputs, chips
+   s       0 2px  8px rgba(0,0,0,0.08)     0 2px  8px rgba(0,0,0,0.26)   tab pills, badges
+   m       0 4px 16px rgba(0,0,0,0.10)     0 4px 18px rgba(0,0,0,0.30)   cards, panels
+   l       0 8px 28px rgba(0,0,0,0.12)     0 8px 28px rgba(0,0,0,0.36)   drawers, popovers
+   xl      0 16px 40px rgba(0,0,0,0.14)    0 16px 40px rgba(0,0,0,0.44)  modals, overlays
+   inner   inset top highlight                                             sunken surfaces
+                                                                                          */
+:root {
+  --shadow-none:  none;
+  --shadow-xs:    light-dark(0 1px  3px rgba(0, 0, 0, 0.07), 0 1px  3px rgba(0, 0, 0, 0.22));
+  --shadow-s:     light-dark(0 2px  8px rgba(0, 0, 0, 0.08), 0 2px  8px rgba(0, 0, 0, 0.26));
+  --shadow-m:     light-dark(0 4px 16px rgba(0, 0, 0, 0.10), 0 4px 18px rgba(0, 0, 0, 0.30));
+  --shadow-l:     light-dark(0 8px 28px rgba(0, 0, 0, 0.12), 0 8px 28px rgba(0, 0, 0, 0.36));
+  --shadow-xl:    light-dark(0 16px 40px rgba(0, 0, 0, 0.14), 0 16px 40px rgba(0, 0, 0, 0.44));
+  --shadow-inner: inset 0 1px 0 light-dark(rgba(255, 255, 255, 0.80), rgba(255, 255, 255, 0.04));
+
+  /* Semantic alias — backwards compat for existing module CSS */
+  --shadow-card:  var(--shadow-m);
 }
