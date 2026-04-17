@@ -17,7 +17,7 @@
 }
 
 .contact-textarea:focus { border-color: var(--gold); }
-.contact-textarea::placeholder { color: var(--text-3); }
+.contact-textarea::placeholder { color: var(--text-2); }
 
 .contact-seg {
   background: var(--bg-input);
@@ -615,7 +615,7 @@
   outline: none; transition: border-color 0.2s;
 }
 .chat-input:focus { border-color: var(--gold); }
-.chat-input::placeholder { color: var(--text-3); }
+.chat-input::placeholder { color: var(--text-2); }
 .chat-send-btn {
   border: none; cursor: pointer; display: flex; align-items: center;
   justify-content: center; color: #0B0D10; flex-shrink: 0; transition: opacity 0.2s;

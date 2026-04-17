@@ -333,7 +333,7 @@
   width: 200px;
 }
 
-.doc-search-input::placeholder { color: var(--text-3); }
+.doc-search-input::placeholder { color: var(--text-2); }
 
 .doc-group { margin-bottom: 20px; }
 
