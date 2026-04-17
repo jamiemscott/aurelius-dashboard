@@ -42,6 +42,7 @@ const PARTIALS = [
   'src/styles/modules/documents.css',
   'src/styles/modules/footer.css',
   'src/styles/modules/advisor-card.css',
+  'src/styles/modules/ob-cta.css',
   'src/styles/modules/breadcrumb.css',
   'src/styles/modules/page-header.css',
   'src/styles/modules/contact.css',

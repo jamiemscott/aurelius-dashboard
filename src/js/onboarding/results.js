@@ -138,6 +138,9 @@ export function buildAndComplete() {
     grid.appendChild(card);
   });
 
+  // Mark assessment as complete — sidebar CTA will switch to "Retake" phrasing
+  localStorage.setItem('aurelius-ob-complete', '1');
+
   personaliseResults();
   completeStep('s-amount', 's-complete', 'Assessment complete', 'Generating your profile');
 }
