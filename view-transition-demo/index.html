@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="vt-page">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,11 @@
 <style>
   /* Inline opt-in — belt-and-suspenders alongside bundle.css */
   @view-transition { navigation: auto; }
+
+  /* Freeze the demo banner — it's the same on every page */
+  .vt-demo-bar { view-transition-name: vt-demo-bar; }
+  ::view-transition-old(vt-demo-bar),
+  ::view-transition-new(vt-demo-bar) { animation: none; }
 
   /* Demo-only annotation bar */
   .vt-demo-bar {
@@ -46,7 +51,7 @@
   <a href="../index.html">← Back to dashboard</a>
 </div>
 
-<div class="shell">
+<div class="shell vt-page">
 
   <!-- ── TOPBAR ─────────────────────────── -->
   <header role="banner">
