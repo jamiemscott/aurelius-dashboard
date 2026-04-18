@@ -106,26 +106,38 @@ background: var(--gold);          /* solid gold — buttons only */</code></pre>
     <section class="sg-section" id="status-tokens">
       <div class="sg-section-header">
         <h2 class="sg-section-title">Status Colours</h2>
-        <p class="sg-section-desc">Semantic colours with a fixed meaning that must not change across re-themes. Dark variants are vivid for visibility; light variants pass WCAG AA on white. Always pair the alpha variant for backgrounds.</p>
+        <p class="sg-section-desc">Semantic colours with a fixed meaning that must not change across re-themes. Dark variants are vivid for visibility; light variants pass WCAG AA on white. Always pair the solid token with its <code>-dim</code> variant for backgrounds. New modules should use the <code>--status-*</code> names; <code>--green</code> and <code>--red</code> are legacy aliases kept for backwards compatibility.</p>
       </div>
       <div class="sg-demo">
         <div class="sg-token-grid">
-          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--green)"></div><div class="sg-token-info"><div class="sg-token-name">--green</div><div class="sg-token-value">Success / gain</div></div></div>
-          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--green-dim)"></div><div class="sg-token-info"><div class="sg-token-name">--green-dim</div><div class="sg-token-value">Success background</div></div></div>
-          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--red)"></div><div class="sg-token-info"><div class="sg-token-name">--red</div><div class="sg-token-value">Error / loss</div></div></div>
-          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--red-dim)"></div><div class="sg-token-info"><div class="sg-token-name">--red-dim</div><div class="sg-token-value">Error background</div></div></div>
-          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--status-warning)"></div><div class="sg-token-info"><div class="sg-token-name">--status-warning</div><div class="sg-token-value">Warning</div></div></div>
-          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--status-info)"></div><div class="sg-token-info"><div class="sg-token-name">--status-info</div><div class="sg-token-value">Informational</div></div></div>
+          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--status-success)"></div><div class="sg-token-info"><div class="sg-token-name">--status-success</div><div class="sg-token-value">Success · gain · alias: --green</div></div></div>
+          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--status-success-dim)"></div><div class="sg-token-info"><div class="sg-token-name">--status-success-dim</div><div class="sg-token-value">Success background · alias: --green-dim</div></div></div>
+          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--status-error)"></div><div class="sg-token-info"><div class="sg-token-name">--status-error</div><div class="sg-token-value">Error · loss · alias: --red</div></div></div>
+          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--status-error-dim)"></div><div class="sg-token-info"><div class="sg-token-name">--status-error-dim</div><div class="sg-token-value">Error background · alias: --red-dim</div></div></div>
+          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--status-warning)"></div><div class="sg-token-info"><div class="sg-token-name">--status-warning</div><div class="sg-token-value">Warning · attention required</div></div></div>
+          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--status-warning-dim)"></div><div class="sg-token-info"><div class="sg-token-name">--status-warning-dim</div><div class="sg-token-value">Warning background</div></div></div>
+          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--status-info)"></div><div class="sg-token-info"><div class="sg-token-name">--status-info</div><div class="sg-token-value">Informational · neutral notice</div></div></div>
+          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--status-info-dim)"></div><div class="sg-token-info"><div class="sg-token-name">--status-info-dim</div><div class="sg-token-value">Info background</div></div></div>
         </div>
       </div>
       <div class="sg-code">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
-        <pre><code class="language-css">/* Always pair solid + alpha for status indicators */
-color: var(--green);
-background: var(--green-dim);
+        <pre><code class="language-css">/* New modules — use --status-* names */
+color:      var(--status-success);
+background: var(--status-success-dim);
 
-color: var(--red);
-background: var(--red-dim);</code></pre>
+color:      var(--status-error);
+background: var(--status-error-dim);
+
+color:      var(--status-warning);
+background: var(--status-warning-dim);
+
+color:      var(--status-info);
+background: var(--status-info-dim);
+
+/* Legacy aliases (existing modules only) */
+color: var(--green);   background: var(--green-dim);
+color: var(--red);     background: var(--red-dim);</code></pre>
       </div>
     </section>
 
