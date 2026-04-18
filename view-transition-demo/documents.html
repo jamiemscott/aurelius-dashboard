@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="vt-page">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +8,10 @@
 <link rel="stylesheet" href="../src/styles/bundle.css">
 <style>
   @view-transition { navigation: auto; }
+
+  .vt-demo-bar { view-transition-name: vt-demo-bar; }
+  ::view-transition-old(vt-demo-bar),
+  ::view-transition-new(vt-demo-bar) { animation: none; }
 
   .vt-demo-bar {
     align-items: center;
@@ -44,7 +48,7 @@
   <a href="../index.html">← Back to dashboard</a>
 </div>
 
-<div class="shell">
+<div class="shell vt-page">
 
   <!-- ── TOPBAR ─────────────────────────── -->
   <header role="banner">
