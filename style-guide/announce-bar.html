@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="announce-bar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Announce Bar — Aurelius Style Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Announce Bar</h1>
+      <p class="sg-page-desc">A full-width notification strip that sits above the <code>.shell</code> grid. Used for system announcements, scheduled maintenance, and global alerts. Four semantic variants are supported, all driven by a single <code>--ab-color</code> / <code>--ab-bg</code> / <code>--ab-border</code> token set. Styles live in <code>modules/announce-bar.css</code>.</p>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         WARNING
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="warning">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Warning</h2>
+        <p class="sg-section-desc">Use for scheduled maintenance, degraded performance, or anything that requires user attention before acting. Uses <code>--status-warning</code> and <code>--status-warning-alpha</code>.</p>
+      </div>
+
+      <div class="sg-demo" style="padding:0;overflow:hidden">
+        <div class="announce-bar announce-bar--warning">
+          <div class="announce-bar__inner">
+            <span class="announce-bar__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </span>
+            <span class="announce-bar__tag">Maintenance</span>
+            <p class="announce-bar__msg">Scheduled maintenance on <strong>Saturday 20 April 2026, 02:00–04:00 GMT</strong>. Some features may be temporarily unavailable.</p>
+            <a class="announce-bar__action" href="#">Status page</a>
+            <button class="announce-bar__dismiss" aria-label="Dismiss announcement" data-dismiss-bar>
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="announce-bar announce-bar--warning" role="status"&gt;
+  &lt;div class="announce-bar__inner"&gt;
+    &lt;span class="announce-bar__icon" aria-hidden="true"&gt;
+      &lt;!-- warning SVG --&gt;
+    &lt;/span&gt;
+    &lt;span class="announce-bar__tag"&gt;Maintenance&lt;/span&gt;
+    &lt;p class="announce-bar__msg"&gt;
+      Scheduled maintenance on &lt;strong&gt;Saturday 20 April 2026, 02:00–04:00 GMT&lt;/strong&gt;.
+      Some features may be temporarily unavailable.
+    &lt;/p&gt;
+    &lt;a class="announce-bar__action" href="#"&gt;Status page&lt;/a&gt;
+    &lt;button class="announce-bar__dismiss" aria-label="Dismiss announcement"
+            data-dismiss-bar&gt;
+      &lt;!-- × SVG --&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         INFO
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="info">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Info</h2>
+        <p class="sg-section-desc">General announcements, new feature notices, or contextual guidance. Uses <code>--status-info</code> and <code>--status-info-alpha</code>.</p>
+      </div>
+
+      <div class="sg-demo" style="padding:0;overflow:hidden">
+        <div class="announce-bar announce-bar--info">
+          <div class="announce-bar__inner">
+            <span class="announce-bar__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </span>
+            <span class="announce-bar__tag">New</span>
+            <p class="announce-bar__msg">Your quarterly report for Q1 2026 is now available to <a href="#">download</a>.</p>
+            <button class="announce-bar__dismiss" aria-label="Dismiss announcement" data-dismiss-bar>
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="announce-bar announce-bar--info" role="status"&gt;
+  &lt;div class="announce-bar__inner"&gt;
+    &lt;span class="announce-bar__icon" aria-hidden="true"&gt;&lt;!-- info SVG --&gt;&lt;/span&gt;
+    &lt;span class="announce-bar__tag"&gt;New&lt;/span&gt;
+    &lt;p class="announce-bar__msg"&gt;
+      Your quarterly report is now available to &lt;a href="#"&gt;download&lt;/a&gt;.
+    &lt;/p&gt;
+    &lt;button class="announce-bar__dismiss" aria-label="Dismiss announcement"
+            data-dismiss-bar&gt;&lt;!-- × SVG --&gt;&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SUCCESS
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="success">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Success</h2>
+        <p class="sg-section-desc">Confirmation of a completed system action — e.g. a migration completed, a bulk upload succeeded. Uses <code>--status-success</code> and <code>--status-success-alpha</code>.</p>
+      </div>
+
+      <div class="sg-demo" style="padding:0;overflow:hidden">
+        <div class="announce-bar announce-bar--success">
+          <div class="announce-bar__inner">
+            <span class="announce-bar__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </span>
+            <span class="announce-bar__tag">Complete</span>
+            <p class="announce-bar__msg">Platform migration completed successfully. All accounts and data have been transferred.</p>
+            <button class="announce-bar__dismiss" aria-label="Dismiss announcement" data-dismiss-bar>
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="announce-bar announce-bar--success" role="status"&gt;
+  &lt;div class="announce-bar__inner"&gt;
+    &lt;span class="announce-bar__icon" aria-hidden="true"&gt;&lt;!-- check SVG --&gt;&lt;/span&gt;
+    &lt;span class="announce-bar__tag"&gt;Complete&lt;/span&gt;
+    &lt;p class="announce-bar__msg"&gt;Platform migration completed successfully.&lt;/p&gt;
+    &lt;button class="announce-bar__dismiss" aria-label="Dismiss announcement"
+            data-dismiss-bar&gt;&lt;!-- × SVG --&gt;&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         ERROR
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="error">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Error</h2>
+        <p class="sg-section-desc">Active incidents or outages that are currently affecting users. Use sparingly — only for critical system-level problems. Uses <code>--status-error</code> and <code>--status-error-alpha</code>.</p>
+      </div>
+
+      <div class="sg-demo" style="padding:0;overflow:hidden">
+        <div class="announce-bar announce-bar--error">
+          <div class="announce-bar__inner">
+            <span class="announce-bar__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </span>
+            <span class="announce-bar__tag">Incident</span>
+            <p class="announce-bar__msg">We are investigating an issue affecting valuations. Trade execution is unaffected. <a href="#">Incident report</a></p>
+            <a class="announce-bar__action" href="#">Subscribe to updates</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;!-- No dismiss on active incidents — user should be aware until resolved --&gt;
+&lt;div class="announce-bar announce-bar--error" role="alert"&gt;
+  &lt;div class="announce-bar__inner"&gt;
+    &lt;span class="announce-bar__icon" aria-hidden="true"&gt;&lt;!-- alert SVG --&gt;&lt;/span&gt;
+    &lt;span class="announce-bar__tag"&gt;Incident&lt;/span&gt;
+    &lt;p class="announce-bar__msg"&gt;
+      We are investigating an issue affecting valuations.
+      &lt;a href="#"&gt;Incident report&lt;/a&gt;
+    &lt;/p&gt;
+    &lt;a class="announce-bar__action" href="#"&gt;Subscribe to updates&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         ANATOMY
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="anatomy">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Anatomy</h2>
+        <p class="sg-section-desc">All inner elements are optional except <code>.announce-bar__msg</code>. The <code>.announce-bar__dismiss</code> button should be omitted on active error incidents where you don't want users to hide the notice.</p>
+      </div>
+
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="announce-bar announce-bar--{variant}"
+     role="status|alert"&gt;           &lt;!-- status = polite, alert = assertive --&gt;
+
+  &lt;div class="announce-bar__inner"&gt;
+
+    &lt;span class="announce-bar__icon" aria-hidden="true"&gt; &lt;!-- optional --&gt;
+      &lt;svg&gt;...&lt;/svg&gt;
+    &lt;/span&gt;
+
+    &lt;span class="announce-bar__tag"&gt;Label&lt;/span&gt;       &lt;!-- optional --&gt;
+
+    &lt;p class="announce-bar__msg"&gt;                      &lt;!-- required --&gt;
+      Message text. Links and &lt;strong&gt; inline.
+    &lt;/p&gt;
+
+    &lt;a class="announce-bar__action" href="#"&gt;           &lt;!-- optional --&gt;
+      CTA text
+    &lt;/a&gt;
+
+    &lt;button class="announce-bar__dismiss"               &lt;!-- optional --&gt;
+            aria-label="Dismiss announcement"
+            data-dismiss-bar&gt;
+      &lt;!-- × SVG --&gt;
+    &lt;/button&gt;
+
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         DISMISS BEHAVIOUR
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="dismiss">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Dismiss Behaviour</h2>
+        <p class="sg-section-desc">Buttons with <code>data-dismiss-bar</code> are wired by a small inline script or by the application JS. The pattern below sets <code>hidden</code> on the parent <code>.announce-bar</code> and persists the dismissed state to <code>localStorage</code> so it stays hidden on next page load.</p>
+      </div>
+
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;!-- Add a data-bar-id to support per-bar localStorage keys --&gt;
+&lt;div class="announce-bar announce-bar--warning"
+     id="sys-announce"
+     data-bar-id="maintenance-2026-04"
+     role="status"&gt;
+  ...
+&lt;/div&gt;
+
+&lt;script&gt;
+(function () {
+  document.querySelectorAll('[data-dismiss-bar]').forEach(function (btn) {
+    var bar   = btn.closest('.announce-bar');
+    var barId = bar && bar.dataset.barId;
+
+    // Restore dismissed state on load
+    if (barId && localStorage.getItem('ab-dismissed-' + barId)) {
+      bar.hidden = true;
+      return;
+    }
+    if (bar) bar.removeAttribute('hidden');
+
+    btn.addEventListener('click', function () {
+      bar.hidden = true;
+      if (barId) localStorage.setItem('ab-dismissed-' + barId, '1');
+    });
+  });
+}());
+&lt;/script&gt;</code></pre>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         PLACEMENT
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="placement">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Placement &amp; OutSystems</h2>
+        <p class="sg-section-desc">Place the <code>.announce-bar</code> <strong>before</strong> the <code>.shell</code> div so it sits outside and above the CSS grid. In OutSystems, bind visibility to a boolean variable driven by a Server Action that reads an announcement record from the database.</p>
+      </div>
+
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;body&gt;
+
+  &lt;!-- Announce bar BEFORE shell ──────────────────────────────── --&gt;
+  &lt;div class="announce-bar announce-bar--warning" role="status"&gt;
+    ...
+  &lt;/div&gt;
+
+  &lt;!-- Shell grid ─────────────────────────────────────────────── --&gt;
+  &lt;div class="shell vt-page"&gt;
+    &lt;header role="banner"&gt;...&lt;/header&gt;
+    &lt;aside class="site-sidebar"&gt;...&lt;/aside&gt;
+    &lt;main class="main"&gt;...&lt;/main&gt;
+  &lt;/div&gt;
+
+&lt;/body&gt;</code></pre>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+</body>
+</html>

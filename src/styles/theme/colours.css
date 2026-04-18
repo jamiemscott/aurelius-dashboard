@@ -53,12 +53,21 @@ html:has(.theme-checkbox:checked) { color-scheme: light; }
 
 
 /* ─── STATUS ───────────────────────────────────────────────────
-   Semantic aliases keep module CSS decoupled from the scale.  */
+   Semantic aliases keep module CSS decoupled from the scale.
+   -dim tokens are the tinted fill / background variant for each
+   status colour. New modules should use the --status-* names;
+   --green / --red are kept for backwards compatibility only.  */
 :root {
+  --status-success-dim: var(--status-success-alpha);
+  --status-error-dim:   var(--status-error-alpha);
+  --status-warning-dim: var(--status-warning-alpha);
+  --status-info-dim:    var(--status-info-alpha);
+
+  /* Backwards-compat colour-name aliases */
   --green:     var(--status-success);
-  --green-dim: var(--status-success-alpha);
+  --green-dim: var(--status-success-dim);
   --red:       var(--status-error);
-  --red-dim:   var(--status-error-alpha);
+  --red-dim:   var(--status-error-dim);
 }
 
 
