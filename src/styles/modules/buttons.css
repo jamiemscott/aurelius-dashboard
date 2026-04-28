@@ -13,7 +13,10 @@
   transition: opacity 0.2s, transform 0.1s;
 }
 
-.btn-primary:hover  { opacity: 0.88; }
+.btn-primary:hover  {
+  color: currentColor; 
+  opacity: 0.88; 
+}
 .btn-primary:active { transform: scale(0.98); }
 
 .btn-secondary {
