@@ -1,0 +1,447 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;user-select:none}
+:root{
+  --void:#08090d;--surface:#0e1018;--surface2:#131720;--surface3:#1c2130;
+  --rim:#ffffff0f;--rim2:#ffffff16;--rim3:#ffffff28;
+  --gold:#d4a843;--gold-dim:#a07828;--gold-pale:#d4a84318;--gold-text:#f5cc6e;
+  --text:#ede9de;--text2:#8e8c86;--text3:#4e4c48;
+  --c-water:#4a8fe8;--c-water-bg:#4a8fe818;
+  --c-wood:#3daa6a;--c-wood-bg:#3daa6a18;
+  --c-fire:#d4562e;--c-fire-bg:#d4562e18;
+  --c-earth:#c49a38;--c-earth-bg:#c49a3818;
+  --c-metal:#6e8aaa;--c-metal-bg:#6e8aaa18;
+}
+body{background:#04050a;display:flex;justify-content:center;padding:32px 16px 64px;font-family:'DM Sans',sans-serif;min-height:100vh}
+.device{width:390px;background:var(--void);border-radius:28px;overflow:hidden;border:1px solid var(--rim2)}
+.screen{width:100%;display:none;flex-direction:column;min-height:700px}
+.screen.active{display:flex}
+.screen.in{animation:sIn .38s cubic-bezier(.22,1,.36,1) both}
+.screen.out{animation:sOut .28s cubic-bezier(.4,0,1,1) both}
+@keyframes sIn{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+@keyframes sOut{from{opacity:1;transform:none}to{opacity:0;transform:translateX(-12px)}}
+.sol{position:absolute;inset:0;background:var(--void);z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;animation:fIn .15s ease both}
+@keyframes fIn{from{opacity:0}to{opacity:1}}
+.sol-title{font-family:'EB Garamond',serif;font-size:21px;color:var(--text);letter-spacing:.4px}
+.sol-sub{font-size:11px;color:var(--text2);letter-spacing:2px;text-transform:uppercase}
+.nav{height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;border-bottom:1px solid var(--rim);flex-shrink:0}
+.nav-back{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text2);cursor:pointer;letter-spacing:.3px;padding:8px 0;transition:color .15s}
+.nav-back:hover{color:var(--text)}
+.nav-back svg{width:14px;height:14px;flex-shrink:0}
+.nav-title{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--text2);font-weight:500}
+.nav-ct{font-size:11px;color:var(--text3);letter-spacing:.3px}
+.prog{height:1px;background:var(--rim);flex-shrink:0}
+.prog-f{height:1px;transition:width .55s cubic-bezier(.4,0,.2,1)}
+.qb{flex:1;padding:26px 22px 0;overflow-y:auto}
+.qb::-webkit-scrollbar{width:0}
+.q-ew{font-size:10px;letter-spacing:3px;text-transform:uppercase;font-weight:500;margin-bottom:11px}
+.q-h{font-family:'EB Garamond',serif;font-size:30px;font-weight:400;color:var(--text);line-height:1.2;margin-bottom:7px}
+.q-s{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:26px;font-weight:300}
+.foot{padding:14px 22px 32px;background:var(--void);flex-shrink:0}
+.pips{display:flex;gap:5px;justify-content:center;padding:10px 0 4px}
+.pip{width:5px;height:5px;border-radius:50%;background:var(--rim2);transition:all .28s}
+.pip.done{background:var(--text3)}
+.pip.curr{width:18px;border-radius:3px}
+.dial-wrap{width:252px;height:252px;position:relative;margin:0 auto 10px}
+.dial-svg{width:100%;height:100%;overflow:visible}
+.dial-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;text-align:center;padding:0 30px}
+.di-name{font-family:'EB Garamond',serif;font-size:19px;color:var(--text);line-height:1.3}
+.di-sub{font-size:11px;color:var(--text2);margin-top:3px}
+.dial-hint{text-align:center;font-size:11px;color:var(--text3);letter-spacing:.8px;padding-bottom:6px}
+.spec-wrap{position:relative;height:66px;margin:4px 0 12px;cursor:pointer}
+.spec-track{position:absolute;top:19px;left:0;right:0;height:28px;border-radius:3px;overflow:hidden;display:flex}
+.spec-seg{flex:1}
+.spec-thumb{position:absolute;top:7px;width:52px;height:52px;border-radius:50%;background:var(--surface2);border:1px solid var(--rim3);display:flex;align-items:center;justify-content:center;cursor:grab;margin-left:-26px;z-index:2;transition:left .06s}
+.spec-thumb:active{cursor:grabbing}
+.spec-labs{display:flex;justify-content:space-between;font-size:10px;color:var(--text3);letter-spacing:.3px;margin-top:2px;padding:0 2px}
+.risk-card{background:var(--surface2);border:1px solid var(--rim);border-radius:6px;padding:16px 18px;margin-top:16px}
+.rc-name{font-family:'EB Garamond',serif;font-size:18px;color:var(--text);margin-bottom:5px}
+.rc-desc{font-size:13px;color:var(--text2);line-height:1.6;font-weight:300}
+.sw-arena{height:208px;position:relative;touch-action:none}
+.sc{position:absolute;inset:0;border-radius:8px;padding:22px 20px;border:1px solid var(--rim)}
+.sc.b2{transform:translateY(6px) scale(.97);background:var(--surface);z-index:1}
+.sc.b3{transform:translateY(12px) scale(.94);background:var(--void);z-index:0}
+.sc.top{z-index:3;cursor:grab;background:var(--surface2)}
+.sc-k{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
+.sc-t{font-family:'EB Garamond',serif;font-size:19px;color:var(--text);line-height:1.4;margin-bottom:8px}
+.sc-b{font-size:13px;color:var(--text2);line-height:1.55;font-weight:300}
+.vote{position:absolute;top:16px;padding:5px 11px;border-radius:3px;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;opacity:0;transition:opacity .1s;z-index:6}
+.v-y{right:14px;background:var(--c-wood-bg);color:var(--c-wood);border:1px solid var(--c-wood)}
+.v-n{left:14px;background:var(--c-fire-bg);color:var(--c-fire);border:1px solid var(--c-fire)}
+.sa-row{display:flex;justify-content:center;gap:18px;margin-top:14px}
+.sa{width:50px;height:50px;border-radius:50%;background:var(--surface2);border:1px solid var(--rim);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.sa:active{transform:scale(.88)}
+.sa svg{width:17px;height:17px}
+.rank-list{display:flex;flex-direction:column;gap:6px}
+.ri{background:var(--surface2);border:1px solid var(--rim);border-radius:6px;padding:13px 16px;display:flex;align-items:center;gap:13px;cursor:grab;transition:border-color .15s,background .15s}
+.ri.drag-on{border-color:var(--gold-dim);background:var(--surface3)}
+.ri.dt{border-top:1px solid var(--gold)}
+.ri.db{border-bottom:1px solid var(--gold)}
+.rn{width:20px;height:20px;border-radius:50%;background:var(--rim2);color:var(--text2);font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rt{font-size:13px;color:var(--text);flex:1;font-weight:300;letter-spacing:.2px;line-height:1.4}
+.rh{color:var(--text3);font-size:11px;flex-shrink:0}
+.kg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.kc{background:var(--surface2);border:1.5px solid var(--rim);border-radius:6px;padding:14px 12px;cursor:pointer;transition:border-color .15s}
+.kc-name{font-size:12px;color:var(--text);margin-bottom:9px;line-height:1.4}
+.kpips{display:flex;gap:3px;margin-bottom:5px}
+.kpip{height:3px;border-radius:2px;flex:1;background:var(--rim2);transition:background .1s}
+.klbl{font-size:10px;color:var(--text3);letter-spacing:.5px;height:13px}
+.kleg{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:14px 0 4px}
+.kleg-i{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text3);letter-spacing:.3px}
+.kleg-d{width:7px;height:7px;border-radius:2px;flex-shrink:0}
+.amt-big{text-align:center;margin:4px 0 22px}
+.amt-num{font-family:'EB Garamond',serif;font-size:46px;color:var(--text);line-height:1;white-space:nowrap}
+.amt-desc{font-size:12px;color:var(--text2);margin-top:6px;letter-spacing:.3px}
+.amt-ticks{display:flex;justify-content:space-between;font-size:10px;color:var(--text3);letter-spacing:.2px;margin-bottom:18px}
+.amt-ticks span{white-space:nowrap}
+.achips{display:flex;flex-wrap:wrap;gap:7px;justify-content:center}
+.achip{padding:8px 13px;border-radius:4px;border:1px solid var(--rim);background:transparent;font-size:11px;color:var(--text2);cursor:pointer;transition:all .15s;letter-spacing:.3px;white-space:nowrap;font-family:'DM Sans',sans-serif}
+.achip:hover:not(.on){border-color:var(--rim2);color:var(--text)}
+.achip.on{border-color:var(--gold-dim);color:var(--gold-text);background:var(--gold-pale)}
+#s-complete{background:var(--void);justify-content:flex-start}
+.comp-nav{height:54px;display:flex;align-items:center;padding:0 22px;border-bottom:1px solid var(--rim)}
+.comp-body{padding:26px 22px 32px;flex:1;overflow-y:auto}
+.comp-body::-webkit-scrollbar{width:0}
+.comp-kicker{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;font-weight:500}
+.comp-h{font-family:'EB Garamond',serif;font-size:32px;color:var(--text);line-height:1.15;margin-bottom:6px}
+.comp-rule{width:32px;height:1px;background:var(--gold-dim);margin:18px 0}
+.dom-banner{background:var(--surface2);border:1px solid var(--rim2);border-radius:6px;padding:18px 20px;margin-bottom:14px;display:flex;align-items:flex-start;gap:16px}
+.dom-accent{width:3px;border-radius:2px;align-self:stretch;flex-shrink:0}
+.dom-el-label{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;font-weight:500;margin-bottom:6px}
+.dom-name{font-family:'EB Garamond',serif;font-size:22px;color:var(--text);margin-bottom:4px}
+.dom-desc{font-size:12px;color:var(--text2);line-height:1.6;font-weight:300}
+.el-bars{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+.elbar-row{display:flex;align-items:center;gap:10px}
+.elbar-name{font-size:10px;color:var(--text2);width:52px;letter-spacing:.5px;flex-shrink:0;text-transform:uppercase}
+.elbar-outer{flex:1;height:3px;background:var(--rim2);border-radius:2px;overflow:hidden}
+.elbar-fill{height:100%;border-radius:2px;transition:width 1s cubic-bezier(.4,0,.2,1)}
+.elbar-pct{font-size:11px;color:var(--text2);width:32px;text-align:right;flex-shrink:0;font-variant-numeric:tabular-nums}
+.sum-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}
+.sum-card{background:var(--surface2);border:1px solid var(--rim);border-radius:6px;padding:14px}
+.sum-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.sum-val{font-family:'EB Garamond',serif;font-size:16px;color:var(--text);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sum-sub{font-size:11px;color:var(--text2);margin-top:3px;font-weight:300}
+.adv-note{background:var(--surface2);border:1px solid var(--rim);border-radius:6px;padding:16px 18px;margin-bottom:18px;display:flex;align-items:flex-start;gap:12px}
+.adv-avatar{width:32px;height:32px;border-radius:50%;background:var(--surface3);border:1px solid var(--rim2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--text2);flex-shrink:0}
+.adv-name{font-size:12px;color:var(--text);font-weight:500;margin-bottom:3px}
+.adv-msg{font-size:12px;color:var(--text2);line-height:1.55;font-weight:300}
+.fca-note{font-size:10px;color:var(--text3);line-height:1.6;margin-bottom:20px;letter-spacing:.2px}
+</style>
+
+<div class="device" id="app">
+
+<!-- LANDING -->
+<div class="screen active" id="s-landing" style="justify-content:space-between">
+  <div style="padding:44px 28px 0">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:52px">
+      <div style="width:34px;height:34px;border-radius:50%;background:#d4a843;display:flex;align-items:center;justify-content:center;font-family:'EB Garamond',serif;font-size:18px;color:#08090d;flex-shrink:0">A</div>
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <span style="font-size:13px;color:#ede9de;letter-spacing:.4px">Aurelius</span>
+        <span style="font-size:10px;color:#4e4c48;letter-spacing:1.5px;text-transform:uppercase">Wealth Management</span>
+      </div>
+    </div>
+    <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#d4a843;font-weight:500;margin-bottom:16px">Investment Personality</div>
+    <div style="font-family:'EB Garamond',serif;font-size:48px;color:#ede9de;line-height:1.05;margin-bottom:4px">Know your<br><em style="font-style:italic;color:#8e8c86">element</em></div>
+    <div style="width:36px;height:1px;background:#a07828;margin:20px 0"></div>
+    <div style="font-size:13px;color:#8e8c86;line-height:1.85;font-weight:300;margin-bottom:32px;max-width:310px">Six bespoke interactions that reveal your true relationship with wealth — your appetite, instincts, and long-term financial character.</div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px">
+      <div style="display:flex;align-items:center;justify-content:center;gap:6px;padding:6px 4px;border:1px solid #ffffff0f;border-radius:3px"><div style="width:5px;height:5px;border-radius:50%;background:#4a8fe8;flex-shrink:0"></div><span style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#4e4c48;font-weight:500">Water</span></div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:6px;padding:6px 4px;border:1px solid #ffffff0f;border-radius:3px"><div style="width:5px;height:5px;border-radius:50%;background:#3daa6a;flex-shrink:0"></div><span style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#4e4c48;font-weight:500">Wood</span></div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:6px;padding:6px 4px;border:1px solid #ffffff0f;border-radius:3px"><div style="width:5px;height:5px;border-radius:50%;background:#d4562e;flex-shrink:0"></div><span style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#4e4c48;font-weight:500">Fire</span></div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:6px;padding:6px 4px;border:1px solid #ffffff0f;border-radius:3px"><div style="width:5px;height:5px;border-radius:50%;background:#c49a38;flex-shrink:0"></div><span style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#4e4c48;font-weight:500">Earth</span></div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:6px;padding:6px 4px;border:1px solid #ffffff0f;border-radius:3px"><div style="width:5px;height:5px;border-radius:50%;background:#6e8aaa;flex-shrink:0"></div><span style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#4e4c48;font-weight:500">Metal</span></div>
+    </div>
+  </div>
+  <div style="padding:28px 28px 36px">
+    <button onclick="goTo('s-dial')" style="width:100%;padding:15px 24px;background:#d4a843;border:none;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#08090d;cursor:pointer">Begin Assessment</button>
+    <div style="text-align:center;font-size:11px;color:#4e4c48;margin-top:11px;letter-spacing:.3px">4 minutes · Confidential · FCA Regulated</div>
+  </div>
+</div>
+
+<!-- S1 DIAL -->
+<div class="screen" id="s-dial">
+  <div class="nav"><span class="nav-back" onclick="goTo('s-landing')"><svg viewBox="0 0 14 14" fill="none"><path d="M9 11L5 7l4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Back</span><span class="nav-title">Life Stage</span><span class="nav-ct">1 / 6</span></div>
+  <div class="prog"><div class="prog-f" id="pf1" style="width:0;background:#4a8fe8"></div></div>
+  <div class="qb">
+    <div class="q-ew" style="color:#4a8fe8">Water · Foundation</div>
+    <div class="q-h">Where are you in life?</div>
+    <div class="q-s">Turn the dial to your current stage</div>
+    <div class="dial-wrap">
+      <svg class="dial-svg" id="dsv" viewBox="0 0 252 252"><circle cx="126" cy="126" r="94" fill="none" stroke="#ffffff08" stroke-width="22"/><path id="darc" fill="none" stroke-width="22" stroke-linecap="round"/><circle cx="126" cy="126" r="70" fill="#08090d"/><circle cx="126" cy="126" r="67" fill="none" stroke="#ffffff05" stroke-width="1"/><g id="dticks"></g><circle id="dthumb" r="13" fill="#1c2130" stroke="#ffffff16" stroke-width="1"/><text id="dtlbl" text-anchor="middle" dominant-baseline="central" font-size="10" font-family="DM Sans,sans-serif" font-weight="500" fill="#d4a843" style="pointer-events:none"></text></svg>
+      <div class="dial-inner"><div class="di-name" id="diname">Starting out</div><div class="di-sub" id="disub">Student or early career</div></div>
+    </div>
+    <div class="dial-hint" id="dhint">Stage 1 of 6</div>
+    <div class="pips" id="dpips"></div>
+  </div>
+  <div class="foot"><button onclick="completeStep('s-dial','s-risk','Life stage recorded','Water · foundation mapped')" style="width:100%;padding:15px 24px;background:#d4a843;border:none;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#08090d;cursor:pointer">Confirm Stage</button></div>
+</div>
+
+<!-- S2 RISK -->
+<div class="screen" id="s-risk">
+  <div class="nav"><span class="nav-back" onclick="goTo('s-dial')"><svg viewBox="0 0 14 14" fill="none"><path d="M9 11L5 7l4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Back</span><span class="nav-title">Risk Profile</span><span class="nav-ct">2 / 6</span></div>
+  <div class="prog"><div class="prog-f" id="pf2" style="width:0;background:#4a8fe8"></div></div>
+  <div class="qb">
+    <div class="q-ew" style="color:#4a8fe8">Water · Temperament</div>
+    <div class="q-h">Your relationship with risk</div>
+    <div class="q-s">Slide to position — the scenario updates in real time</div>
+    <div class="spec-wrap" id="spwrap">
+      <div class="spec-track"><div class="spec-seg" style="background:#1a2d4a"></div><div class="spec-seg" style="background:#1a3040"></div><div class="spec-seg" style="background:#1e2e1e"></div><div class="spec-seg" style="background:#3a2008"></div><div class="spec-seg" style="background:#3a1408"></div></div>
+      <div class="spec-thumb" id="spthumb" style="left:50%"><svg viewBox="0 0 20 20" fill="none" style="width:20px;height:20px"><circle cx="10" cy="10" r="7" stroke="#8e8c86" stroke-width="1.2"/><circle cx="10" cy="10" r="2.5" fill="#d4a843"/></svg></div>
+    </div>
+    <div class="spec-labs"><span>Preserve</span><span>Cautious</span><span>Balanced</span><span>Growth</span><span>Aggressive</span></div>
+    <div class="risk-card"><div class="rc-name" id="rcname">Balanced Investor</div><div class="rc-desc" id="rcdesc">Markets fall 20%. You hold your position and rebalance methodically — volatility is an accepted condition of long-term growth.</div></div>
+  </div>
+  <div class="foot"><button onclick="completeStep('s-risk','s-swipe','Risk tolerance captured','Water · temperament mapped')" style="width:100%;padding:15px 24px;background:#d4a843;border:none;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#08090d;cursor:pointer">Confirm Profile</button></div>
+</div>
+
+<!-- S3 SWIPE -->
+<div class="screen" id="s-swipe">
+  <div class="nav"><span class="nav-back" onclick="goTo('s-risk')"><svg viewBox="0 0 14 14" fill="none"><path d="M9 11L5 7l4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Back</span><span class="nav-title">Decision Style</span><span class="nav-ct">3 / 6</span></div>
+  <div class="prog"><div class="prog-f" id="pf3" style="width:0;background:#d4562e"></div></div>
+  <div class="qb">
+    <div class="q-ew" style="color:#d4562e">Fire · Intelligence</div>
+    <div class="q-h">How do you decide?</div>
+    <div class="q-s">Swipe right to affirm, left to decline</div>
+    <div class="sw-arena" id="swarena">
+      <div class="sc b3" id="sc2"></div><div class="sc b2" id="sc1"></div>
+      <div class="sc top" id="sc0">
+        <div class="vote v-y" id="svy">Affirm</div><div class="vote v-n" id="svn">Decline</div>
+        <div class="sc-k" id="swk">Approach</div>
+        <div class="sc-t" id="swt">I conduct thorough research before committing capital</div>
+        <div class="sc-b" id="swb">Before any financial decision I study the landscape extensively, weighing evidence until I have genuine conviction.</div>
+      </div>
+    </div>
+    <div class="pips" id="swpips" style="margin-top:10px"></div>
+    <div class="sa-row">
+      <button class="sa" onclick="doSwipe(false)"><svg viewBox="0 0 17 17" fill="none" style="width:17px;height:17px"><path d="M3.5 3.5l10 10M13.5 3.5l-10 10" stroke="#d4562e" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      <button class="sa" onclick="doSwipe(true)"><svg viewBox="0 0 17 17" fill="none" style="width:17px;height:17px"><path d="M2.5 8.5l4.5 4.5 7.5-8" stroke="#3daa6a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </div>
+  <div class="foot" id="swfoot" style="display:none"><button onclick="completeStep('s-swipe','s-rank','Decision style recorded','Fire · intelligence mapped')" style="width:100%;padding:15px 24px;background:#d4a843;border:none;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#08090d;cursor:pointer">Continue</button></div>
+</div>
+
+<!-- S4 RANK -->
+<div class="screen" id="s-rank">
+  <div class="nav"><span class="nav-back" onclick="goTo('s-swipe')"><svg viewBox="0 0 14 14" fill="none"><path d="M9 11L5 7l4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Back</span><span class="nav-title">Priorities</span><span class="nav-ct">4 / 6</span></div>
+  <div class="prog"><div class="prog-f" id="pf4" style="width:0;background:#c49a38"></div></div>
+  <div class="qb">
+    <div class="q-ew" style="color:#c49a38">Earth · Values</div>
+    <div class="q-h">Order your wealth objectives</div>
+    <div class="q-s">Drag to rank — primary objective at the top</div>
+    <div class="rank-list" id="ranklist">
+      <div class="ri" draggable="true"><div class="rn">1</div><div class="rt">Capital preservation &amp; security</div><div class="rh">⠿</div></div>
+      <div class="ri" draggable="true"><div class="rn">2</div><div class="rt">Long-term wealth accumulation</div><div class="rh">⠿</div></div>
+      <div class="ri" draggable="true"><div class="rn">3</div><div class="rt">Financial independence &amp; freedom</div><div class="rh">⠿</div></div>
+      <div class="ri" draggable="true"><div class="rn">4</div><div class="rt">Values-aligned &amp; ethical investing</div><div class="rh">⠿</div></div>
+      <div class="ri" draggable="true"><div class="rn">5</div><div class="rt">Income generation &amp; yield</div><div class="rh">⠿</div></div>
+    </div>
+  </div>
+  <div class="foot"><button onclick="completeStep('s-rank','s-know','Priorities confirmed','Earth · values mapped')" style="width:100%;padding:15px 24px;background:#d4a843;border:none;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#08090d;cursor:pointer">Confirm Order</button></div>
+</div>
+
+<!-- S5 KNOWLEDGE -->
+<div class="screen" id="s-know">
+  <div class="nav"><span class="nav-back" onclick="goTo('s-rank')"><svg viewBox="0 0 14 14" fill="none"><path d="M9 11L5 7l4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Back</span><span class="nav-title">Knowledge</span><span class="nav-ct">5 / 6</span></div>
+  <div class="prog"><div class="prog-f" id="pf5" style="width:0;background:#6e8aaa"></div></div>
+  <div class="qb">
+    <div class="q-ew" style="color:#6e8aaa">Metal · Refinement</div>
+    <div class="q-h">Your investment knowledge</div>
+    <div class="q-s">Tap each concept to cycle your confidence level</div>
+    <div class="kg" id="kg"></div>
+    <div class="kleg" id="kleg"></div>
+  </div>
+  <div class="foot"><button onclick="completeStep('s-know','s-amount','Knowledge baseline set','Metal · refinement mapped')" style="width:100%;padding:15px 24px;background:#d4a843;border:none;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#08090d;cursor:pointer">Confirm Knowledge</button></div>
+</div>
+
+<!-- S6 AMOUNT -->
+<div class="screen" id="s-amount">
+  <div class="nav"><span class="nav-back" onclick="goTo('s-know')"><svg viewBox="0 0 14 14" fill="none"><path d="M9 11L5 7l4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Back</span><span class="nav-title">Capacity</span><span class="nav-ct">6 / 6</span></div>
+  <div class="prog"><div class="prog-f" id="pf6" style="width:0;background:#4a8fe8"></div></div>
+  <div class="qb">
+    <div class="q-ew" style="color:#4a8fe8">Water · Flow</div>
+    <div class="q-h">Your investable capital</div>
+    <div class="q-s">Indicate your available capital today</div>
+    <div class="amt-big"><div class="amt-num" id="avn">£10,000 – £50,000</div><div class="amt-desc" id="avd">A substantive investment mandate</div></div>
+    <input type="range" id="arange" min="0" max="5" step="1" value="3" style="width:100%;margin-bottom:6px;accent-color:#d4a843">
+    <div class="amt-ticks"><span>£0</span><span>&lt;£500</span><span>£2k</span><span>£10k</span><span>£50k</span><span>£50k+</span></div>
+    <div class="achips" id="achips"></div>
+  </div>
+  <div class="foot"><button onclick="buildAndComplete()" style="width:100%;padding:15px 24px;background:#d4a843;border:none;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#08090d;cursor:pointer">Complete Assessment</button></div>
+</div>
+
+<!-- COMPLETE -->
+<div class="screen" id="s-complete">
+  <div class="comp-nav">
+    <div style="display:flex;align-items:center;gap:9px">
+      <div style="width:30px;height:30px;border-radius:50%;background:#d4a843;display:flex;align-items:center;justify-content:center;font-family:'EB Garamond',serif;font-size:16px;color:#08090d;flex-shrink:0">A</div>
+      <span style="font-size:12px;color:#8e8c86;letter-spacing:.3px">Aurelius Wealth Management</span>
+    </div>
+  </div>
+  <div class="comp-body" id="comp-body">
+    <div class="comp-kicker">Assessment Complete</div>
+    <div class="comp-h" id="comp-h">Your Investment<br>Profile</div>
+    <div class="comp-rule"></div>
+    <div class="dom-banner" id="dom-banner">
+      <div class="dom-accent" id="dom-accent"></div>
+      <div><div class="dom-el-label" id="dom-el-label">Dominant Element</div><div class="dom-name" id="dom-name">—</div><div class="dom-desc" id="dom-desc">—</div></div>
+    </div>
+    <div class="el-bars" id="elbars"></div>
+    <div class="sum-grid" id="sumgrid"></div>
+    <div class="adv-note">
+      <div class="adv-avatar">JW</div>
+      <div><div class="adv-name">James Whitmore · Senior Wealth Manager</div><div class="adv-msg">Your profile has been shared with your adviser. A personalised investment strategy will be prepared ahead of your review.</div></div>
+    </div>
+    <div class="fca-note">This assessment is for profiling purposes only and does not constitute financial advice. Aurelius Wealth Management is authorised and regulated by the Financial Conduct Authority.</div>
+    <button onclick="goTo('s-landing')" style="width:100%;padding:14px 24px;background:transparent;border:1px solid rgba(255,255,255,0.22);border-radius:6px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:#8e8c86;cursor:pointer">Retake Assessment</button>
+  </div>
+</div>
+
+</div>
+
+<script>
+const S={lifeStage:0,risk:2,swipe:[],rank:[],knowledge:[],amount:3};
+const STAGES=[{n:'Starting out',s:'Student or early career'},{n:'Early career',s:'Building career & life'},{n:'Established',s:'Stable income, forming commitments'},{n:'Peak obligations',s:'Maximum financial responsibilities'},{n:'Pre-retirement',s:'Consolidating ahead of retirement'},{n:'Retired',s:'Post-career, drawing on wealth'}];
+const RISK=[{n:'Capital Preserver',d:'Safety above all returns. You require certainty that invested capital will be protected, even at the cost of growth.'},{n:'Cautious Investor',d:'Modest, reliable returns with low volatility. A 10% drawdown causes genuine concern and prompts defensive repositioning.'},{n:'Balanced Investor',d:'Markets fall 20%. You hold your position and rebalance methodically — volatility is an accepted condition of long-term growth.'},{n:'Growth Investor',d:'A market correction is a buying opportunity. Long-term capital appreciation outweighs short-term fluctuation.'},{n:'Aggressive Investor',d:'Maximum long-term growth. You seek high-conviction, high-volatility positions with a multi-decade investment horizon.'}];
+const AMOUNTS=[{v:'£0',d:'No capital available at this time'},{v:'Under £500',d:'An initial exploratory position'},{v:'£500 – £2,000',d:'A considered starting allocation'},{v:'£2,000 – £10,000',d:'A meaningful initial allocation'},{v:'£10,000 – £50,000',d:'A substantive investment mandate'},{v:'Over £50,000',d:'Significant capital to deploy'}];
+const ELDATA={water:{name:'Water',color:'#4a8fe8',desc:'Adaptive and flow-driven. You move capital decisively when conditions align, guided by instinct calibrated through experience.'},wood:{name:'Wood',color:'#3daa6a',desc:'Growth-oriented and relational. You invest with patience, building positions over time and valuing trusted guidance alongside your own research.'},fire:{name:'Fire',color:'#d4562e',desc:'Data-driven and conviction-led. You study markets deeply before acting, then commit fully when your thesis is established.'},earth:{name:'Earth',color:'#c49a38',desc:'Values-anchored and long-horizon. Stability, ethical alignment, and generational wealth preservation define your investment character.'},metal:{name:'Metal',color:'#6e8aaa',desc:'Rigorous and governance-focused. You trust regulated frameworks, prefer structured mandates, and prioritise risk-adjusted precision over speculation.'}};
+
+function goTo(id){
+  const cur=document.querySelector('.screen.active');
+  const nxt=document.getElementById(id);
+  if(!nxt||cur===nxt)return;
+  cur.classList.add('out');
+  setTimeout(()=>{cur.classList.remove('active','out');nxt.classList.add('active','in');setTimeout(()=>nxt.classList.remove('in'),420);tickProg(id);},260);
+}
+function tickProg(id){
+  const m={'s-dial':['pf1',16],'s-risk':['pf2',33],'s-swipe':['pf3',50],'s-rank':['pf4',66],'s-know':['pf5',83],'s-amount':['pf6',100]};
+  if(!m[id])return;const[pid,pct]=m[id];
+  setTimeout(()=>{const e=document.getElementById(pid);if(e)e.style.width=pct+'%';},100);
+}
+function completeStep(from,to,title,sub){
+  const scr=document.getElementById(from);
+  const ew=scr.querySelector('.q-ew');
+  const ac=ew?ew.style.color:'#d4a843';
+  const sol=document.createElement('div');
+  sol.className='sol';
+  sol.innerHTML=`<div style="width:64px;height:64px;border-radius:50%;border:1px solid ${ac}55;display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="11" stroke="${ac}" stroke-width="1"/><path d="M8 14l4 4 8-8" stroke="${ac}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><animate attributeName="stroke-dasharray" from="0 24" to="24 0" dur=".4s" fill="freeze"/></path></svg></div><div class="sol-title">${title}</div><div class="sol-sub">${sub}</div>`;
+  scr.style.position='relative';scr.appendChild(sol);
+  setTimeout(()=>{sol.remove();goTo(to);},1350);
+}
+function buildAndComplete(){
+  const scores={water:Math.random()*.3+.55,wood:Math.random()*.25+.35,fire:Math.random()*.25+.3,earth:Math.random()*.25+.25,metal:Math.random()*.2+.2};
+  const sorted=Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+  const dom=sorted[0][0];const el=ELDATA[dom];
+  document.getElementById('dom-accent').style.background=el.color;
+  document.getElementById('dom-el-label').style.color=el.color;
+  document.getElementById('dom-name').textContent=RISK[S.risk]?.n+' · '+el.name+' Type';
+  document.getElementById('dom-desc').textContent=el.desc;
+  const bars=document.getElementById('elbars');bars.innerHTML='';
+  sorted.forEach(([k,v])=>{
+    const ed=ELDATA[k];const pct=Math.round(v*100);
+    const row=document.createElement('div');row.className='elbar-row';
+    row.innerHTML=`<span class="elbar-name">${ed.name}</span><div class="elbar-outer"><div class="elbar-fill" style="width:0%;background:${ed.color}" data-w="${pct}"></div></div><span class="elbar-pct" style="color:${ed.color}">${pct}%</span>`;
+    bars.appendChild(row);
+  });
+  setTimeout(()=>bars.querySelectorAll('.elbar-fill').forEach(f=>f.style.width=f.dataset.w+'%'),80);
+  const grid=document.getElementById('sumgrid');grid.innerHTML='';
+  [{l:'Life Stage',v:STAGES[S.lifeStage]?.n,s:STAGES[S.lifeStage]?.s},{l:'Risk Profile',v:RISK[S.risk]?.n,s:'Investor classification'},{l:'Capital',v:AMOUNTS[S.amount]?.v,s:AMOUNTS[S.amount]?.d},{l:'Objectives',v:'5 ranked',s:'Priorities confirmed'}].forEach(c=>{
+    const d=document.createElement('div');d.className='sum-card';
+    d.innerHTML=`<div class="sum-label">${c.l}</div><div class="sum-val">${c.v}</div><div class="sum-sub">${c.s}</div>`;
+    grid.appendChild(d);
+  });
+  completeStep('s-amount','s-complete','Assessment complete','Generating your profile');
+}
+
+(function(){
+  const svg=document.getElementById('dsv');const arc=document.getElementById('darc');const thumb=document.getElementById('dthumb');const tlbl=document.getElementById('dtlbl');const tg=document.getElementById('dticks');
+  const cx=126,cy=126,r=94;let si=0,drag=false;
+  function ang(i){return -90+(i/(STAGES.length-1))*300;}
+  function pt(d){const a=d*Math.PI/180;return[cx+r*Math.cos(a),cy+r*Math.sin(a)];}
+  function arcD(a0,a1){const s=pt(a0),e=pt(a1);const lg=a1-a0>180?1:0;return`M${s[0].toFixed(1)},${s[1].toFixed(1)} A${r},${r},0,${lg},1,${e[0].toFixed(1)},${e[1].toFixed(1)}`;}
+  STAGES.forEach((_,i)=>{const[x,y]=pt(ang(i));const c=document.createElementNS('http://www.w3.org/2000/svg','circle');c.setAttribute('cx',x.toFixed(1));c.setAttribute('cy',y.toFixed(1));c.setAttribute('r','4.5');c.setAttribute('fill','#ffffff12');c.style.cursor='pointer';c.addEventListener('click',()=>setDial(i));tg.appendChild(c);});
+  const pipsEl=document.getElementById('dpips');STAGES.forEach(()=>{const d=document.createElement('div');d.className='pip';pipsEl.appendChild(d);});
+  function setDial(i){
+    si=Math.max(0,Math.min(STAGES.length-1,i));S.lifeStage=si;
+    const a=ang(si);const[x,y]=pt(a);
+    thumb.setAttribute('cx',x.toFixed(1));thumb.setAttribute('cy',y.toFixed(1));
+    thumb.setAttribute('stroke',si>0?'#a07828':'#ffffff16');
+    tlbl.setAttribute('x',x.toFixed(1));tlbl.setAttribute('y',y.toFixed(1));tlbl.textContent=si+1;
+    arc.setAttribute('d',si>0?arcD(-90,a):'');arc.setAttribute('stroke','#4a8fe8');
+    document.getElementById('diname').textContent=STAGES[si].n;document.getElementById('disub').textContent=STAGES[si].s;
+    document.getElementById('dhint').textContent=`Stage ${si+1} of ${STAGES.length}`;
+    tg.querySelectorAll('circle').forEach((c,j)=>c.setAttribute('fill',j<=si?'#4a8fe8':'#ffffff12'));
+    pipsEl.querySelectorAll('.pip').forEach((p,j)=>{p.className='pip'+(j<si?' done':j===si?' curr':'');p.style.background=j===si?'#4a8fe8':j<si?'#4a8fe844':'';});
+  }
+  setDial(0);
+  function svgXY(e){const r=svg.getBoundingClientRect();const cl=e.touches?e.touches[0]:e;return[(cl.clientX-r.left)/r.width*252,(cl.clientY-r.top)/r.height*252];}
+  function stgFrom(x,y){let a=Math.atan2(y-cy,x-cx)*180/Math.PI;let n=a+90;if(n<0)n+=360;if(n>300)n=n>330?0:300;return Math.round((n/300)*(STAGES.length-1));}
+  thumb.addEventListener('mousedown',()=>drag=true);thumb.addEventListener('touchstart',e=>{drag=true;e.preventDefault();},{passive:false});
+  document.addEventListener('mouseup',()=>drag=false);document.addEventListener('touchend',()=>drag=false);
+  document.addEventListener('mousemove',e=>{if(!drag)return;const[x,y]=svgXY(e);setDial(stgFrom(x,y));});
+  document.addEventListener('touchmove',e=>{if(!drag)return;e.preventDefault();const[x,y]=svgXY(e);setDial(stgFrom(x,y));},{passive:false});
+})();
+
+(function(){
+  const outer=document.getElementById('spwrap');const thumb=document.getElementById('spthumb');let pct=0.5,drag=false;
+  function set(p){pct=Math.max(0,Math.min(1,p));const w=outer.clientWidth||346;thumb.style.left=(pct*(w-52)+26)+'px';const i=Math.min(4,Math.floor(pct*5));S.risk=i;document.getElementById('rcname').textContent=RISK[i].n;document.getElementById('rcdesc').textContent=RISK[i].d;}
+  set(0.5);
+  const gx=e=>e.touches?e.touches[0].clientX:e.clientX;
+  thumb.addEventListener('mousedown',()=>drag=true);thumb.addEventListener('touchstart',e=>{drag=true;e.preventDefault();},{passive:false});
+  document.addEventListener('mouseup',()=>drag=false);document.addEventListener('touchend',()=>drag=false);
+  document.addEventListener('mousemove',e=>{if(!drag)return;const r=outer.getBoundingClientRect();set((gx(e)-r.left-26)/(r.width-52));});
+  document.addEventListener('touchmove',e=>{if(!drag)return;e.preventDefault();const r=outer.getBoundingClientRect();set((gx(e)-r.left-26)/(r.width-52));},{passive:false});
+  outer.addEventListener('click',e=>{const r=outer.getBoundingClientRect();set((e.clientX-r.left)/r.width);});
+})();
+
+(function(){
+  const cards=[{k:'Approach',t:'I conduct thorough research before committing capital',b:'Before any financial decision I study the landscape extensively, weighing evidence until I have genuine conviction.'},{k:'Consultation',t:'I value expert counsel before significant decisions',b:'A trusted adviser or informed peer perspective is important before I commit to a material financial position.'},{k:'Tempo',t:'I move decisively once an opportunity is identified',b:'When conviction is established, I act with purpose. Prolonged deliberation introduces unnecessary opportunity cost.'},{k:'Trust',t:'I trust regulated institutions to act in my long-term interest',b:'FCA oversight and regulatory frameworks give me confidence that the system broadly operates for investors.'},{k:'Learning',t:'I prefer learning through direct market participation',b:'Practical exposure with a considered position teaches me more than theoretical study of market dynamics.'}];
+  let idx=0;const scores=[];const top=document.getElementById('sc0');let sx=0,cx=0,drag=false;
+  function buildPips(){const el=document.getElementById('swpips');el.innerHTML='';cards.forEach((_,i)=>{const d=document.createElement('div');d.className='pip'+(i<idx?' done':i===idx?' curr':'');d.style.background=i===idx?'#d4562e':i<idx?'#d4562e44':'';el.appendChild(d);});}
+  function setCard(){
+    if(idx>=cards.length){top.querySelector('.sc-t').textContent='All statements reviewed';top.querySelector('.sc-b').textContent='Your decision intelligence has been captured across five dimensions.';top.querySelector('.sc-k').textContent='Complete';document.getElementById('swfoot').style.display='';buildPips();return;}
+    const c=cards[idx];top.querySelector('.sc-k').textContent=c.k;top.querySelector('.sc-t').textContent=c.t;top.querySelector('.sc-b').textContent=c.b;top.style.transition='';top.style.transform='';top.style.opacity='1';document.getElementById('svy').style.opacity='0';document.getElementById('svn').style.opacity='0';buildPips();
+  }
+  setCard();
+  function out(yes){top.style.transition='transform .3s ease,opacity .3s ease';top.style.transform=`translateX(${yes?360:-360}px) rotate(${yes?7:-7}deg)`;top.style.opacity='0';scores.push(yes);S.swipe=scores.slice();setTimeout(()=>{idx++;setCard();},300);}
+  window.doSwipe=out;
+  top.addEventListener('mousedown',e=>{drag=true;sx=cx=e.clientX;top.style.transition='none';});
+  top.addEventListener('touchstart',e=>{drag=true;sx=cx=e.touches[0].clientX;top.style.transition='none';},{passive:true});
+  document.addEventListener('mousemove',e=>{if(!drag)return;cx=e.clientX;const dx=cx-sx;top.style.transform=`translateX(${dx}px) rotate(${dx*.03}deg)`;document.getElementById('svy').style.opacity=dx>35?Math.min(1,(dx-35)/55):'0';document.getElementById('svn').style.opacity=dx<-35?Math.min(1,(-dx-35)/55):'0';});
+  document.addEventListener('touchmove',e=>{if(!drag)return;cx=e.touches[0].clientX;const dx=cx-sx;top.style.transform=`translateX(${dx}px) rotate(${dx*.03}deg)`;document.getElementById('svy').style.opacity=dx>35?Math.min(1,(dx-35)/55):'0';document.getElementById('svn').style.opacity=dx<-35?Math.min(1,(-dx-35)/55):'0';},{passive:true});
+  function end(){if(!drag)return;drag=false;const dx=cx-sx;if(Math.abs(dx)>88)out(dx>0);else{top.style.transition='transform .25s ease';top.style.transform='';document.getElementById('svy').style.opacity='0';document.getElementById('svn').style.opacity='0';}}
+  document.addEventListener('mouseup',end);document.addEventListener('touchend',end);
+})();
+
+(function(){
+  const list=document.getElementById('ranklist');let dragging=null,tgt=null;
+  list.querySelectorAll('.ri').forEach(item=>{
+    item.addEventListener('dragstart',e=>{dragging=item;item.classList.add('drag-on');e.dataTransfer.effectAllowed='move';});
+    item.addEventListener('dragend',()=>{dragging=null;list.querySelectorAll('.ri').forEach(i=>i.classList.remove('drag-on','dt','db'));list.querySelectorAll('.rn').forEach((n,i)=>n.textContent=i+1);S.rank=[...list.querySelectorAll('.rt')].map(e=>e.textContent);});
+    item.addEventListener('dragover',e=>{e.preventDefault();if(item===dragging)return;list.querySelectorAll('.ri').forEach(i=>i.classList.remove('dt','db'));const mid=item.getBoundingClientRect().top+item.offsetHeight/2;item.classList.add(e.clientY<mid?'dt':'db');tgt=item;});
+    item.addEventListener('drop',e=>{e.preventDefault();if(!dragging||!tgt||dragging===tgt)return;const mid=tgt.getBoundingClientRect().top+tgt.offsetHeight/2;list.insertBefore(dragging,e.clientY<mid?tgt:tgt.nextSibling);});
+  });
+})();
+
+(function(){
+  const concepts=['Equities & Shares','Fixed Income / Bonds','ETFs & Index Funds','Portfolio Diversification','Risk vs Return','Compound Growth','Asset Allocation','Inflation & Real Returns'];
+  const levels=['—','Awareness','Understanding','Proficiency','Expertise'];
+  const cols=['#ffffff16','#c49a38','#3daa6a','#4a8fe8','#d4a843'];
+  const kg=document.getElementById('kg');const ks=new Array(concepts.length).fill(0);
+  [['—','#ffffff16'],['Aware','#c49a38'],['Understand','#3daa6a'],['Proficient','#4a8fe8'],['Expert','#d4a843']].forEach(([l,c])=>{const d=document.createElement('div');d.className='kleg-i';d.innerHTML=`<div class="kleg-d" style="background:${c}"></div><span>${l}</span>`;document.getElementById('kleg').appendChild(d);});
+  concepts.forEach((c,i)=>{
+    const card=document.createElement('div');card.className='kc';
+    card.innerHTML=`<div class="kc-name">${c}</div><div class="kpips">${[0,1,2,3,4].map(()=>'<div class="kpip"></div>').join('')}</div><div class="klbl">—</div>`;
+    card.addEventListener('click',()=>{ks[i]=(ks[i]+1)%5;card.style.borderColor=ks[i]?cols[ks[i]]:'#ffffff16';card.querySelectorAll('.kpip').forEach((p,j)=>p.style.background=j<ks[i]?cols[ks[i]]:'#ffffff16');card.querySelector('.klbl').textContent=levels[ks[i]];S.knowledge=ks.slice();});
+    kg.appendChild(card);
+  });
+})();
+
+(function(){
+  const labels=['£0','Under £500','£500–£2k','£2k–£10k','£10k–£50k','Over £50k'];
+  const rng=document.getElementById('arange');const chips=document.getElementById('achips');
+  labels.forEach((l,i)=>{const c=document.createElement('div');c.className='achip'+(i===3?' on':'');c.textContent=l;c.onclick=()=>{rng.value=i;upd(i);};chips.appendChild(c);});
+  function upd(i){document.getElementById('avn').textContent=AMOUNTS[i].v;document.getElementById('avd').textContent=AMOUNTS[i].d;chips.querySelectorAll('.achip').forEach((c,j)=>c.classList.toggle('on',j===i));S.amount=i;}
+  rng.addEventListener('input',()=>upd(+rng.value));upd(3);
+})();
+</script>
