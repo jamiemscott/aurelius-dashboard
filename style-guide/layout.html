@@ -184,6 +184,94 @@
       </div>
     </section>
 
+    <!-- ── Centred Main ──────────────────────────────────── -->
+    <section class="sg-section" id="main-centred">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Centred Column — <code>.main--centred</code></h2>
+        <p class="sg-section-desc">Add <code>.main--centred</code> alongside <code>.main</code> on any <code>.shell--no-sidebar</code> page where the content should sit in a constrained, readable column rather than stretching edge-to-edge. The modifier uses progressive inline padding — the column is clamped to <strong>960px</strong> and auto-centred as the viewport grows. No extra wrapper div is required; the existing <code>.main</code> padding still applies at narrower viewports.</p>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <!-- Diagram: wide container with a centred inset column -->
+        <div style="border:2px dashed var(--border);border-radius:var(--radius-card);overflow:hidden;background:var(--bg)">
+          <div style="background:var(--bg-card);border-bottom:1px solid var(--border);padding:6px 12px">
+            <span style="color:var(--text-3);font-size:var(--fs-xs);font-family:monospace">.shell--no-sidebar → .main.main--centred (full viewport width)</span>
+          </div>
+          <div style="padding:16px 0;display:flex;align-items:stretch;gap:0">
+            <!-- left gutter -->
+            <div style="flex:1;min-width:0;background:repeating-linear-gradient(-45deg,transparent,transparent 4px,color-mix(in srgb,var(--border) 40%,transparent) 4px,color-mix(in srgb,var(--border) 40%,transparent) 8px);opacity:0.5"></div>
+            <!-- centred content column -->
+            <div style="flex:0 0 60%;background:var(--bg-input);border-left:2px solid var(--gold);border-right:2px solid var(--gold);padding:16px 20px;display:flex;flex-direction:column;gap:8px">
+              <div class="sg-layout-block" style="margin:0">
+                <span style="color:var(--text-3);font-size:var(--fs-xs);font-family:monospace">page content — max 960px</span>
+              </div>
+              <div class="sg-layout-block" style="margin:0">
+                <span style="color:var(--text-3);font-size:var(--fs-xs);font-family:monospace">page content</span>
+              </div>
+            </div>
+            <!-- right gutter -->
+            <div style="flex:1;min-width:0;background:repeating-linear-gradient(-45deg,transparent,transparent 4px,color-mix(in srgb,var(--border) 40%,transparent) 4px,color-mix(in srgb,var(--border) 40%,transparent) 8px);opacity:0.5"></div>
+          </div>
+          <div style="text-align:center;padding:4px 12px 8px;color:var(--text-3);font-size:var(--fs-xs);font-family:monospace">← auto gutter →&nbsp;&nbsp;&nbsp;&nbsp;content col&nbsp;&nbsp;&nbsp;&nbsp;← auto gutter →</div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;!-- No sidebar + centred content column --&gt;
+&lt;div class="shell shell--no-sidebar"&gt;
+  &lt;header role="banner"&gt;&lt;!-- topbar --&gt;&lt;/header&gt;
+  &lt;main class="main main--centred" role="main"&gt;
+    &lt;!-- All direct children sit in a max-960px centred column --&gt;
+    &lt;div class="page-header page-header--standalone"&gt;...&lt;/div&gt;
+    &lt;div class="card card-pad"&gt;...&lt;/div&gt;
+  &lt;/main&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Page Header — Standalone ──────────────────────── -->
+    <section class="sg-section" id="page-header-standalone">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Page Header — Standalone — <code>.page-header--standalone</code></h2>
+        <p class="sg-section-desc">Use <code>.page-header--standalone</code> alongside <code>.page-header</code> on no-sidebar pages. It adds a bottom border and extra vertical spacing to visually separate the title block from the page body. The header supports an optional <code>.header-actions</code> slot on the right for buttons or controls. For the title use <code>.page-title</code>; for a subtitle or context line use <code>.page-date</code>.</p>
+      </div>
+      <div class="sg-demo">
+        <!-- Live rendered example -->
+        <div class="page-header page-header--standalone" style="max-width:600px">
+          <div>
+            <h1 class="page-title">Account Settings</h1>
+            <p class="page-date">Manage your personal details and preferences</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn-secondary">Cancel</button>
+            <button class="btn-primary">Save Changes</button>
+          </div>
+        </div>
+        <p style="color:var(--text-3);font-size:var(--fs-xs);margin-top:12px;margin-bottom:0">↑ Rendered at max-width:600px for demo clarity. In production it fills the full content column.</p>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;!-- Title only --&gt;
+&lt;div class="page-header page-header--standalone"&gt;
+  &lt;div&gt;
+    &lt;h1 class="page-title"&gt;Page Title&lt;/h1&gt;
+    &lt;p class="page-date"&gt;Supporting subtitle or context&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- With action buttons (right-aligned) --&gt;
+&lt;div class="page-header page-header--standalone"&gt;
+  &lt;div&gt;
+    &lt;h1 class="page-title"&gt;Account Settings&lt;/h1&gt;
+    &lt;p class="page-date"&gt;Manage your personal details and preferences&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="header-actions"&gt;
+    &lt;button class="btn-secondary"&gt;Cancel&lt;/button&gt;
+    &lt;button class="btn-primary"&gt;Save Changes&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
     <!-- ── Layout Principles ──────────────────────────────── -->
     <section class="sg-section" id="layout-principles">
       <div class="sg-section-header">
@@ -196,7 +284,8 @@
           <li style="margin-bottom:10px"><strong style="color:var(--text-1)">Card as layout block.</strong> Cards (<code>.card</code>) are the atomic layout unit for column content. Do not place raw content directly inside <code>.two-col</code> — wrap it in a card first.</li>
           <li style="margin-bottom:10px"><strong style="color:var(--text-1)">Scroll region.</strong> The <code>.main</code> region is the only scrolling region. The topbar and sidebar are position-fixed. Never add overflow scroll to <code>.page-section</code> or column wrappers.</li>
           <li style="margin-bottom:10px"><strong style="color:var(--text-1)">Spacing.</strong> Use <code>gap: var(--pad)</code> between column children. Vertical spacing between <code>.page-section</code> blocks is handled by the layout CSS — do not add extra <code>margin-bottom</code> to sections.</li>
-          <li><strong style="color:var(--text-1)">No sidebar pages.</strong> Use <code>.shell--no-sidebar</code> only for full-immersion experiences (onboarding). Never remove the sidebar from authenticated data pages — it disorients users who rely on it for navigation.</li>
+          <li style="margin-bottom:10px"><strong style="color:var(--text-1)">No-sidebar pages.</strong> Use <code>.shell--no-sidebar</code> for full-immersion experiences (onboarding, chat) and for utility pages (settings, forms) where the sidebar navigation would be a distraction. Add <code>.main--centred</code> to constrain content to a readable column width on wider screens.</li>
+          <li><strong style="color:var(--text-1)">Page header on no-sidebar pages.</strong> Always pair <code>.page-header--standalone</code> with <code>.page-header</code> on no-sidebar pages. The bottom border provides essential visual separation between the title and the page body that the sidebar's presence normally implies.</li>
         </ul>
       </div>
     </section>
