@@ -130,6 +130,36 @@
   .three-col { grid-template-columns: 1fr 1fr; }
 }
 
+/* ─── CENTRED MAIN — NO SIDEBAR ─────────────────────── */
+/* Add .main--centred alongside .main on full-width (no-sidebar)
+   pages where content should sit in a constrained, readable column.
+   Uses progressive inline padding so the column self-centres as the
+   viewport grows — no extra wrapper element required.
+   Usage:  <main class="main main--centred"> */
+.main--centred {
+  padding-inline: max(var(--pad), calc((100% - 960px) / 2));
+}
+
+/* ─── PAGE HEADER — STANDALONE VARIANT ──────────────── */
+/* Use .page-header--standalone on full-width / no-sidebar pages.
+   Adds a bottom border + extra bottom spacing to visually separate
+   the header from the page body.
+   Usage:
+     <div class="page-header page-header--standalone">
+       <div>
+         <h1 class="page-title">Page Title</h1>
+         <p class="page-date">Supporting text or subtitle</p>
+       </div>
+       <div class="header-actions">
+         <!-- optional action buttons -->
+       </div>
+     </div>                                                   */
+.page-header--standalone {
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+}
+
 /* ─── CHAT PAGE LAYOUT ───────────────────────────────── */
 /* .chat-main: removes default .main padding so the chat
    interface fills edge-to-edge within the shell grid area. */
