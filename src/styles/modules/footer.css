@@ -14,6 +14,16 @@
   padding: 40px 0 32px;
 }
 
+/* OutSystems injects data-container / data-block / OSBlockWidget wrappers
+   between .footer-upper and the direct .footer-col children, collapsing the
+   three link columns into a single grid cell. display:contents removes those
+   wrappers from the layout tree so every .footer-col is a direct grid child.
+   Mirrors the same fix applied to [role="banner"] in layout.css.            */
+.footer-upper [data-block],
+.footer-upper [data-container] {
+  display: contents;
+}
+
 
 .footer-tagline {
   color: var(--text-3);
