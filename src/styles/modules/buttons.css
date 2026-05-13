@@ -11,6 +11,7 @@
   font-weight: var(--fw-semibold);
   padding: 9px 20px;
   transition: opacity 0.2s, transform 0.1s;
+  white-space: nowrap;
 }
 
 .btn-primary:hover  {
@@ -31,6 +32,58 @@
   font-weight: var(--fw-semibold);
   padding: 9px 20px;
   transition: all 0.2s;
+  white-space: nowrap;
 }
 
 .btn-secondary:hover { background: light-dark(rgba(160,86,7,0.06), var(--gold-dim)); }
+
+/* ─── AI AGENT BUTTON ──────────────────────────────────── */
+/* .btn-ai: Entry point for the Aurelius AI agent page.
+   A blue → violet animated gradient — visually distinct from
+   .btn-primary (gold fill) and .btn-secondary (ghost gold).
+   The icon is an 8-point radial node: a filled centre circle
+   with 8 radiating lines, evoking intelligence / awareness.
+   A slow background-position shimmer (ai-gradient-shift) adds
+   a subtle sense of "live" activity without being distracting.
+   Responsive: the text label is hidden at ≤ 1100px so only
+   the icon shows, preventing the header-actions from crowding
+   at laptop widths.                                           */
+.btn-ai {
+  align-items: center;
+  animation: ai-gradient-shift 5s ease-in-out infinite;
+  background: linear-gradient(
+    120deg,
+    light-dark(#1567c8, #1c7de8) 0%,
+    light-dark(#7422d4, #9333ea) 100%
+  );
+  background-size: 200% 200%;
+  border: none;
+  border-radius: var(--radius-btn);
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--font-sans);
+  font-size: var(--fs-btn);           /* 13px */
+  font-weight: var(--fw-semibold);
+  gap: 7px;
+  padding: 9px 18px;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.1s, box-shadow 0.2s;
+  white-space: nowrap;
+}
+
+.btn-ai:hover {
+  box-shadow: 0 0 20px light-dark(rgba(21,103,200,0.30), rgba(28,125,232,0.45));
+  color: #ffffff;
+  opacity: 0.9;
+}
+
+.btn-ai:active { transform: scale(0.98); }
+
+.btn-ai svg { flex-shrink: 0; }
+
+/* Collapse to icon-only below 1100px to save header-actions space */
+@media (max-width: 1100px) {
+  .btn-ai .btn-ai-label { display: none; }
+  .btn-ai { padding: 9px 11px; }
+}
