@@ -72,15 +72,23 @@
 
 /* Regulatory notice */
 .footer-regulatory {
+  align-items: flex-start;
   border-bottom: 1px solid var(--divider);
-  padding: 20px 0;
+  display: flex;
+  gap: 48px;
+  padding: 24px 0;
+}
+
+/* Wrapper so the text block flexes independently of .footer-sponsors */
+.footer-reg-texts {
+  flex: 1;
+  min-width: 0;
 }
 
 .footer-reg-text {
   color: var(--text-3);
   font-size: var(--fs-md);           /* 12px */
   line-height: var(--lh-loose);
-  max-width: 900px;
 }
 
 .footer-reg-text + .footer-reg-text { margin-top: 12px; }
@@ -95,6 +103,99 @@
 }
 
 .footer-reg-text a:hover { border-color: var(--gold); }
+
+/* ─── SPONSOR LOGOS ──────────────────────────────────── */
+/* Partner/sponsor strip that sits alongside the regulatory
+   text block in .footer-regulatory. Three logos are displayed
+   in a row with pipe separators: OutSystems | NTT Data | U Impact.
+   The OS/NTT lockup image is split in two via CSS overflow crop. */
+
+.footer-sponsors {
+  flex-shrink: 0;
+}
+
+.footer-sponsors-label {
+  color: var(--text-3);
+  font-size: var(--fs-badge);       /* 10px */
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-widest);
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+
+.footer-sponsor-logos {
+  align-items: center;
+  display: flex;
+  gap: 0;
+}
+
+/* Thin pipe divider between logos — matches the lockup image style */
+.footer-sponsor-sep {
+  background: var(--divider);
+  flex-shrink: 0;
+  height: 20px;
+  margin: 0 14px;
+  width: 1px;
+}
+
+/* Each linked logo */
+.footer-sponsor-link {
+  align-items: center;
+  display: inline-flex;
+  opacity: 0.75;
+  transition: opacity 0.2s;
+}
+
+.footer-sponsor-link:hover { opacity: 1; }
+
+/* White-tinted pill wraps each logo so PNG white backgrounds
+   look intentional in both light and dark modes               */
+.footer-sponsor-logo-wrap {
+  background: light-dark(transparent, rgba(255, 255, 255, 0.88));
+  border-radius: 5px;
+  overflow: hidden;
+  padding: 3px 8px;
+}
+
+/* ── Image: OS/NTT lockup split ──────────────────────────
+   Original: 500 × 45px.  Rendered at height 28px (scale 0.6222).
+   Full rendered width ≈ 311px.
+   OS ends at ~153px; NTT starts at ~165px (after pipe).       */
+
+/* Clip container for OutSystems (left portion) */
+.footer-sponsor-crop--os {
+  display: block;
+  height: 28px;
+  overflow: hidden;
+  width: 153px;
+}
+
+/* Clip container for NTT Data (right portion) */
+.footer-sponsor-crop--ntt {
+  display: block;
+  height: 28px;
+  overflow: hidden;
+  width: 145px;
+}
+
+/* Shared rendered image — same file, different crops */
+.footer-sponsor-img--lockup {
+  display: block;
+  height: 28px;
+  width: auto;
+}
+
+/* Shift left so only the NTT Data half is visible */
+.footer-sponsor-crop--ntt .footer-sponsor-img--lockup {
+  transform: translateX(-165px);
+}
+
+/* U Impact standalone image */
+.footer-sponsor-img--uimpact {
+  display: block;
+  height: 28px;
+  width: auto;
+}
 
 /* Bottom bar */
 .footer-bottom {
