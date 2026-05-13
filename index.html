@@ -168,6 +168,29 @@
       </div>
     </div>
 
+    <!-- ── AI Agent Promotional Banner ──────────────────── -->
+    <div class="ai-banner" id="ai-banner" role="complementary" aria-label="Aurelius AI assistant">
+      <div class="ai-banner__icon" aria-hidden="true">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/>
+          <line x1="12" y1="3"  x2="12" y2="7"/><line x1="12" y1="17" x2="12" y2="21"/>
+          <line x1="3"  y1="12" x2="7"  y2="12"/><line x1="17" y1="12" x2="21" y2="12"/>
+          <line x1="5.64"  y1="5.64"  x2="8.46"  y2="8.46"/>
+          <line x1="15.54" y1="15.54" x2="18.36" y2="18.36"/>
+          <line x1="18.36" y1="5.64"  x2="15.54" y2="8.46"/>
+          <line x1="8.46"  y1="15.54" x2="5.64"  y2="18.36"/>
+        </svg>
+      </div>
+      <div class="ai-banner__body">
+        <div class="ai-banner__heading">Meet your AI wealth assistant</div>
+        <p class="ai-banner__text">Ask questions about your portfolio, get instant insights on performance, tax positions and investment opportunities — available 24/7.</p>
+      </div>
+      <a class="ai-banner__cta" href="/chat/">Try Aurelius AI</a>
+      <button class="ai-banner__dismiss" id="ai-banner-dismiss" aria-label="Dismiss AI assistant banner">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
     <!-- KPI Strip -->
     <div class="kpi-grid">
       <div class="kpi-group">
@@ -696,5 +719,32 @@
 </div>
 
   <script src="src/js/ob-cta.js"></script>
+  <script>
+    /* AI banner — dismiss for the session.
+       While the banner is visible the header .btn-ai is hidden
+       (redundant). Dismissing the banner reveals it again.    */
+    (function () {
+      var banner    = document.getElementById('ai-banner');
+      var dismiss   = document.getElementById('ai-banner-dismiss');
+      var headerBtn = document.querySelector('.header-actions .btn-ai');
+      if (!banner || !dismiss) return;
+
+      function showButton()  { if (headerBtn) headerBtn.hidden = false; }
+      function hideButton()  { if (headerBtn) headerBtn.hidden = true;  }
+
+      if (sessionStorage.getItem('ai-banner-dismissed')) {
+        banner.hidden = true;
+        showButton();
+      } else {
+        hideButton();
+      }
+
+      dismiss.addEventListener('click', function () {
+        banner.hidden = true;
+        showButton();
+        sessionStorage.setItem('ai-banner-dismissed', '1');
+      });
+    }());
+  </script>
 </body>
 </html>
