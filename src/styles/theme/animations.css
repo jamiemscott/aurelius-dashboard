@@ -26,6 +26,13 @@
   100% { opacity: 0; transform: scale(2.2); }
 }
 
+/* AI button gradient pulse — shifts background-position on a
+   200% wide gradient to create a slow breathing shimmer        */
+@keyframes ai-gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+
 /* ── Onboarding screen transitions ───────────────────────── */
 @keyframes ob-screen-in {
   from { opacity: 0; transform: translateX(24px); }
