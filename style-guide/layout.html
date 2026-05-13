@@ -272,6 +272,46 @@
       </div>
     </section>
 
+    <!-- ── Chat Layout ───────────────────────────────────── -->
+    <section class="sg-section" id="chat-layout">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Chat Page Layout — <code>.chat-main</code> / <code>.chat-wrap</code></h2>
+        <p class="sg-section-desc">Two classes work together to give the AI chat page its viewport-filling layout while keeping the site footer scrollable below. Apply <code>.chat-main</code> alongside <code>.main</code> on the <code>&lt;main&gt;</code> element; wrap chat UI content in <code>.chat-wrap</code>.</p>
+      </div>
+      <div class="sg-demo sg-demo--col">
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-item);padding:20px;font-size:var(--fs-sm);color:var(--text-2);line-height:var(--lh-relaxed)">
+          <p style="margin:0 0 12px"><code style="color:var(--text-1)">.chat-main</code> — replaces the standard <code>.main</code> padding with <code>var(--pad) var(--pad) 0</code> (no bottom padding — the footer provides its own spacing) and sets <code>overflow-y: auto</code> so the full page is scrollable.</p>
+          <p style="margin:0"><code style="color:var(--text-1)">.chat-wrap</code> — the container for the chat interface itself. Uses a <code>clamp()</code> min-height so it fills the visible viewport on first load, then allows the footer to scroll into view below. Constrained to <code>max-width: 760px</code> and centred at ≥ 768px.</p>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;!-- Shell: no sidebar for the chat page --&gt;
+&lt;div class="shell shell--no-sidebar"&gt;
+  &lt;!-- topbar --&gt;
+
+  &lt;main class="main chat-main" role="main"&gt;
+
+    &lt;!-- Page header (breadcrumb + title + date + actions) --&gt;
+    &lt;div class="page-header page-header--standalone"&gt;
+      &lt;!-- ... --&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Chat interface fills the viewport on first load --&gt;
+    &lt;div class="chat-wrap"&gt;
+      &lt;!-- message list, input, etc. --&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Full site footer — scrollable below the chat on first load --&gt;
+    &lt;footer class="site-footer"&gt;
+      &lt;!-- ... --&gt;
+    &lt;/footer&gt;
+
+  &lt;/main&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
     <!-- ── Layout Principles ──────────────────────────────── -->
     <section class="sg-section" id="layout-principles">
       <div class="sg-section-header">

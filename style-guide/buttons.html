@@ -187,6 +187,133 @@
       </div>
     </section>
 
+    <!-- ── AI Agent Button ──────────────────────────────── -->
+    <section class="sg-section" id="btn-ai">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">AI Agent Button — <code>.btn-ai</code></h2>
+        <p class="sg-section-desc">The entry point to the Aurelius AI agent chat. Visually distinct from <code>.btn-primary</code> and <code>.btn-secondary</code> — uses a blue→violet animated gradient to signal AI rather than a standard action. The icon is an 8-point radial node evoking intelligence. Below 1100px the text label collapses and only the icon shows, preserving header space at laptop widths. Typically rendered as an <code>&lt;a&gt;</code> linking to <code>/chat/</code>.</p>
+      </div>
+      <div class="sg-demo sg-demo--center">
+        <a class="btn-ai" href="#" aria-label="Ask Aurelius AI">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/>
+            <line x1="12" y1="3"  x2="12" y2="7"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+            <line x1="3"  y1="12" x2="7"  y2="12"/>
+            <line x1="17" y1="12" x2="21" y2="12"/>
+            <line x1="5.64" y1="5.64"  x2="8.46"  y2="8.46"/>
+            <line x1="15.54" y1="15.54" x2="18.36" y2="18.36"/>
+            <line x1="18.36" y1="5.64"  x2="15.54" y2="8.46"/>
+            <line x1="8.46"  y1="15.54" x2="5.64"  y2="18.36"/>
+          </svg>
+          <span class="btn-ai-label">Ask Aurelius AI</span>
+        </a>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;!-- Rendered as an anchor so it's a navigation action, not a form action --&gt;
+&lt;a class="btn-ai" href="/chat/" aria-label="Ask Aurelius AI"&gt;
+  &lt;svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8"
+    stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true" focusable="false"&gt;
+    &lt;circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/&gt;
+    &lt;line x1="12" y1="3"  x2="12" y2="7"/&gt;
+    &lt;line x1="12" y1="17" x2="12" y2="21"/&gt;
+    &lt;line x1="3"  y1="12" x2="7"  y2="12"/&gt;
+    &lt;line x1="17" y1="12" x2="21" y2="12"/&gt;
+    &lt;line x1="5.64" y1="5.64"  x2="8.46"  y2="8.46"/&gt;
+    &lt;line x1="15.54" y1="15.54" x2="18.36" y2="18.36"/&gt;
+    &lt;line x1="18.36" y1="5.64"  x2="15.54" y2="8.46"/&gt;
+    &lt;line x1="8.46"  y1="15.54" x2="5.64"  y2="18.36"/&gt;
+  &lt;/svg&gt;
+  &lt;span class="btn-ai-label"&gt;Ask Aurelius AI&lt;/span&gt;
+&lt;/a&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── AI Banner ─────────────────────────────────────── -->
+    <section class="sg-section" id="ai-banner">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">AI Promotional Banner — <code>.ai-banner</code></h2>
+        <p class="sg-section-desc">A full-width gradient card promoting the Aurelius AI agent. Sits between the page header and the KPI strip on My Overview. Shares the same blue→violet gradient as <code>.btn-ai</code>. Dismissable for the session via JS — on dismiss the banner hides and the <code>.btn-ai</code> in <code>.header-actions</code> is revealed. The description text (<code>.ai-banner__text</code>) collapses below 900px to keep the banner compact on smaller viewports.</p>
+        <p class="sg-section-desc" style="margin-top:8px"><strong>Button visibility rule:</strong> when the banner is shown the header <code>.btn-ai</code> must be hidden (<code>style="display:none"</code>), since both serve the same purpose. They are mutually exclusive — never display both simultaneously.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="ai-banner" id="sg-ai-banner">
+          <div class="ai-banner__icon" aria-hidden="true">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/>
+              <line x1="12" y1="3"  x2="12" y2="7"/>
+              <line x1="12" y1="17" x2="12" y2="21"/>
+              <line x1="3"  y1="12" x2="7"  y2="12"/>
+              <line x1="17" y1="12" x2="21" y2="12"/>
+              <line x1="5.64" y1="5.64"  x2="8.46"  y2="8.46"/>
+              <line x1="15.54" y1="15.54" x2="18.36" y2="18.36"/>
+              <line x1="18.36" y1="5.64"  x2="15.54" y2="8.46"/>
+              <line x1="8.46"  y1="15.54" x2="5.64"  y2="18.36"/>
+            </svg>
+          </div>
+          <div class="ai-banner__body">
+            <div class="ai-banner__heading">Meet Aurelius AI — your personal wealth analyst</div>
+            <p class="ai-banner__text">Ask plain-English questions about your portfolio, tax position, and investment performance. Instant answers, grounded in your actual data.</p>
+          </div>
+          <a class="ai-banner__cta" href="#">Try it now</a>
+          <button class="ai-banner__dismiss" id="sg-ai-banner-dismiss" aria-label="Dismiss">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;!-- Place before .page-header. The .btn-ai in .header-actions must start hidden. --&gt;
+&lt;div class="ai-banner" id="ai-banner"&gt;
+  &lt;div class="ai-banner__icon" aria-hidden="true"&gt;
+    &lt;!-- 8-point radial node SVG --&gt;
+  &lt;/div&gt;
+  &lt;div class="ai-banner__body"&gt;
+    &lt;div class="ai-banner__heading"&gt;Meet Aurelius AI — your personal wealth analyst&lt;/div&gt;
+    &lt;p class="ai-banner__text"&gt;Ask plain-English questions about your portfolio, tax position,
+      and investment performance. Instant answers, grounded in your actual data.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;a class="ai-banner__cta" href="/chat/"&gt;Try it now&lt;/a&gt;
+  &lt;button class="ai-banner__dismiss" id="ai-banner-dismiss" aria-label="Dismiss"&gt;
+    &lt;svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+      viewBox="0 0 24 24" aria-hidden="true"&gt;
+      &lt;line x1="18" y1="6" x2="6" y2="18"/&gt;&lt;line x1="6" y1="6" x2="18" y2="18"/&gt;
+    &lt;/svg&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- .btn-ai in header-actions: hidden while banner is visible --&gt;
+&lt;a class="btn-ai" href="/chat/" aria-label="Ask Aurelius AI" style="display:none"&gt;
+  &lt;!-- icon --&gt;
+  &lt;span class="btn-ai-label"&gt;Ask Aurelius AI&lt;/span&gt;
+&lt;/a&gt;
+
+&lt;!-- Dismiss script: toggles banner/button; persists for the session --&gt;
+&lt;script&gt;
+(function () {
+  var banner    = document.getElementById('ai-banner');
+  var dismiss   = document.getElementById('ai-banner-dismiss');
+  var headerBtn = document.querySelector('.header-actions .btn-ai');
+  if (!banner || !dismiss) return;
+  function showButton() { if (headerBtn) headerBtn.style.display = 'inline-flex'; }
+  function hideButton() { if (headerBtn) headerBtn.style.display = 'none'; }
+  if (sessionStorage.getItem('ai-banner-dismissed')) {
+    banner.hidden = true;
+    showButton();
+  } else {
+    hideButton();
+  }
+  dismiss.addEventListener('click', function () {
+    banner.hidden = true;
+    showButton();
+    sessionStorage.setItem('ai-banner-dismissed', '1');
+  });
+}());
+&lt;/script&gt;</code></pre>
+      </div>
+    </section>
+
     <!-- ── Do & Don't ─────────────────────────────────────── -->
     <section class="sg-section" id="btn-do-dont">
       <div class="sg-section-header">
