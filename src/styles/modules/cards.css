@@ -67,8 +67,9 @@
   gap: 4px;
 }
 
-.kpi-change.is-up   { color: var(--green); }
-.kpi-change.is-down { color: var(--red); }
+.kpi-change.is-up      { color: var(--green); }
+.kpi-change.is-down    { color: var(--red); }
+.kpi-change--muted     { color: var(--text-3); }
 
 .kpi-change-period {
   color: var(--text-3);
@@ -88,6 +89,9 @@
 /* ─── CARD PAD MODIFIER ──────────────────────────────── */
 /* Flush the top padding when a table immediately follows a card header */
 .card-pad--flush-top { padding-top: 0; }
+
+/* Bottom margin when a card needs separation from the next element */
+.card--spaced { margin-bottom: 20px; }
 
 /* ─── CARD GROUP HEADER ──────────────────────────────── */
 /* Section divider inside a card — e.g. "GBP Mutual Funds".

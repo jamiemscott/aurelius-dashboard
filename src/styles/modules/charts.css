@@ -1,4 +1,43 @@
 /* ─── CHART CARD ─────────────────────────────────────── */
+
+/* Centred column layout — used by donut/pie chart cards */
+.chart-card {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.chart-card .chart-title    { text-align: center; }
+.chart-card .chart-subtitle { margin-top: 4px; text-align: center; }
+
+/* Total value display inside a centred chart card */
+.chart-total-value {
+  color: var(--text-1);
+  font-family: var(--font-serif);
+  font-size: 24px;
+  letter-spacing: -0.5px;
+  text-align: center;
+}
+
+.chart-total-unit {
+  color: var(--text-3);
+  font-family: var(--font-sans);
+  font-size: var(--fs-ui);          /* 13px */
+}
+
+/* Axis date/value labels below a chart SVG */
+.chart-axis-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.chart-axis-label {
+  color: var(--text-3);
+  font-size: var(--fs-sm);          /* 11px */
+}
+
 .chart-header {
   align-items: center;
   display: flex;

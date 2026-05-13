@@ -40,6 +40,9 @@
 /* When .btn-secondary is rendered as an <a>, suppress browser underline */
 a.btn-secondary { text-decoration: none; }
 
+/* Compact variant — used in card headers alongside chart titles */
+.btn-secondary--sm { font-size: var(--fs-md); padding: 6px 14px; }
+
 /* ─── AI AGENT BUTTON ──────────────────────────────────── */
 /* .btn-ai: Entry point for the Aurelius AI agent page.
    A blue → violet animated gradient — visually distinct from

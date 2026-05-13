@@ -353,6 +353,9 @@
   margin-bottom: 4px;
 }
 
+/* Extra breathing room when a section follows another in the same column */
+.ai-form-section + .ai-form-section { margin-top: 24px; }
+
 .ai-field-label {
   color: var(--text-2);
   font-size: var(--fs-md);

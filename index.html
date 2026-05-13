@@ -223,7 +223,7 @@
         <div class="card kpi-card">
           <div class="kpi-label">Cash Balance</div>
           <div class="kpi-value">£31,800</div>
-          <div class="kpi-change" style="color:var(--text-3)">3.77% of portfolio</div>
+          <div class="kpi-change kpi-change--muted">3.77% of portfolio</div>
         </div>
       </div>
     </div>
@@ -248,9 +248,9 @@
           <svg class="chart-svg" id="perf-chart" height="200" viewBox="0 0 600 200" preserveAspectRatio="none"></svg>
           <div class="chart-tooltip" id="chart-tooltip"></div>
         </div>
-        <div style="display:flex;justify-content:space-between;margin-top:8px;">
-          <span style="font-size:11px;color:var(--text-3)">Sep 2025</span>
-          <span style="font-size:11px;color:var(--text-3)">Mar 2026</span>
+        <div class="chart-axis-labels">
+          <span class="chart-axis-label">Sep 2025</span>
+          <span class="chart-axis-label">Mar 2026</span>
         </div>
       </div>
 
@@ -276,7 +276,7 @@
             <h2 class="chart-title">Top Holdings</h2>
             <div class="chart-subtitle">By market value</div>
           </div>
-          <a class="btn-secondary" style="font-size:12px;padding:6px 14px;text-decoration:none" href="/my-investments/">View All</a>
+          <a class="btn-secondary btn-secondary--sm" href="/my-investments/">View All</a>
         </div>
         <div class="table-wrap">
           <table id="top-holdings-table" aria-label="Top holdings">
