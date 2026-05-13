@@ -161,21 +161,25 @@
 }
 
 /* ─── CHAT PAGE LAYOUT ───────────────────────────────── */
-/* .chat-main: removes default .main padding so the chat
-   interface fills edge-to-edge within the shell grid area. */
+/* .chat-main: allows vertical scroll so the page header and
+   legal footer are reachable while the chat interface fills
+   the viewport on first load. Padding matches --pad on all
+   sides except bottom (footer provides its own spacing).    */
 .chat-main {
   display: flex;
   flex-direction: column;
-  padding: 0;
+  overflow-y: auto;
+  padding: var(--pad) var(--pad) 0;
 }
 
-/* .chat-wrap: constrains and centres chat content on wide
-   viewports; full-width on mobile. */
+/* .chat-wrap: constrained height so the chat fills the
+   visible viewport on arrival; min-height ensures it remains
+   usable at narrow/short windows. Flex: 1 removed in favour
+   of an explicit clamp so the footer is scrollable below.   */
 .chat-wrap {
   display: flex;
   flex-direction: column;
-  flex: 1;
-  min-height: 0;
+  min-height: clamp(480px, calc(100svh - var(--topbar-h) - 160px), 900px);
   width: 100%;
 }
 
