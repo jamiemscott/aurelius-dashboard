@@ -151,16 +151,21 @@
 /* White-tinted pill wraps each logo so PNG white backgrounds
    look intentional in both light and dark modes               */
 .footer-sponsor-logo-wrap {
+  align-items: center;
   background: light-dark(transparent, rgba(255, 255, 255, 0.88));
   border-radius: 5px;
+  display: flex;
+  justify-content: center;
   overflow: hidden;
-  padding: 3px 8px;
+  padding: 5px 8px;
 }
 
 /* ── Image: OS/NTT lockup split ──────────────────────────
    Original: 500 × 45px.  Rendered at height 28px (scale 0.6222).
    Full rendered width ≈ 311px.
-   OS ends at ~153px; NTT starts at ~165px (after pipe).       */
+   OS ends at ~153px; NTT starts at ~165px (after pipe).
+   NTT crop extended to 152px so the trailing "a" of DATA
+   is fully visible (was 145px — 1px short of the image edge). */
 
 /* Clip container for OutSystems (left portion) */
 .footer-sponsor-crop--os {
@@ -175,7 +180,7 @@
   display: block;
   height: 28px;
   overflow: hidden;
-  width: 145px;
+  width: 152px;
 }
 
 /* Shared rendered image — same file, different crops */
