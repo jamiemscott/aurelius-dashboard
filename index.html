@@ -165,7 +165,7 @@
         <div class="page-date">As at Friday, 6 March 2026</div>
       </div>
       <div class="header-actions">
-        <a class="btn-ai" href="/chat/" aria-label="Ask Aurelius AI" hidden>
+        <a class="btn-ai" href="/chat/" aria-label="Ask Aurelius AI" style="display:none">
           <!-- 8-point radial node icon — centre circle + 8 radiating lines -->
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/>
@@ -729,8 +729,8 @@
       var headerBtn = document.querySelector('.header-actions .btn-ai');
       if (!banner || !dismiss) return;
 
-      function showButton()  { if (headerBtn) headerBtn.hidden = false; }
-      function hideButton()  { if (headerBtn) headerBtn.hidden = true;  }
+      function showButton()  { if (headerBtn) headerBtn.style.display = 'inline-flex'; }
+      function hideButton()  { if (headerBtn) headerBtn.style.display = 'none'; }
 
       if (sessionStorage.getItem('ai-banner-dismissed')) {
         banner.hidden = true;
