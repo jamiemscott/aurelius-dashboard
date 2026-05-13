@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="login">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login — Aurelius Style Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+<style>
+  /* ── Login demo components (scoped to style guide) ── */
+
+  /* Brand panel demo */
+  .sg-login-brand {
+    background: #0B0D10;
+    border-radius: var(--radius-card);
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    overflow: hidden;
+    padding: 36px;
+    position: relative;
+  }
+  .sg-login-brand::before {
+    background: radial-gradient(ellipse at 10% 90%, rgba(245,166,35,0.14) 0%, transparent 60%);
+    content: '';
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+  }
+  .sg-login-brand::after {
+    background-image: repeating-linear-gradient(-45deg, rgba(255,255,255,0.018) 0px, rgba(255,255,255,0.018) 1px, transparent 1px, transparent 14px);
+    content: '';
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+  }
+  .sg-login-brand > * { position: relative; z-index: 1; }
+
+  .sg-login-brand-logo {
+    color: var(--gold);
+    font-family: var(--font-serif);
+    font-size: 24px;
+    font-style: italic;
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+  .sg-login-brand-headline {
+    color: #ffffff;
+    font-family: var(--font-serif);
+    font-size: 38px;
+    font-style: italic;
+    letter-spacing: -0.025em;
+    line-height: 1.13;
+    margin: 0;
+  }
+  .sg-login-brand-headline em { color: var(--gold); font-style: italic; }
+
+  .sg-login-brand-rule {
+    background: linear-gradient(to right, rgba(245,166,35,0.7), transparent);
+    height: 1px;
+    width: 80px;
+  }
+  .sg-login-brand-quote {
+    border: none;
+    color: rgba(255,255,255,0.38);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.65;
+    margin: 0;
+    padding: 0;
+  }
+  .sg-login-brand-quote cite {
+    color: rgba(255,255,255,0.22);
+    display: block;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    margin-top: 10px;
+    text-transform: uppercase;
+  }
+  .sg-login-brand-badges {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .sg-login-brand-badge {
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 5px;
+    color: rgba(255,255,255,0.28);
+    font-family: var(--font-sans);
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    padding: 5px 9px;
+    text-transform: uppercase;
+  }
+
+  /* Risk warning callout */
+  .sg-login-risk {
+    align-items: flex-start;
+    background: light-dark(rgba(245,166,35,0.06), rgba(245,166,35,0.08));
+    border: 1px solid light-dark(rgba(245,166,35,0.18), rgba(245,166,35,0.20));
+    border-radius: 8px;
+    display: flex;
+    gap: 9px;
+    padding: 10px 12px;
+  }
+  .sg-login-risk svg { color: var(--gold-text); flex-shrink: 0; margin-top: 1px; }
+  .sg-login-risk p { color: var(--text-2); font-size: 11px; line-height: 1.5; margin: 0; }
+
+  /* FCA footer demo */
+  .sg-login-fca { border-top: 1px solid var(--border); padding-top: 18px; }
+  .sg-login-fca-auth { align-items: flex-start; display: flex; gap: 10px; margin-bottom: 10px; }
+  .sg-login-fca-badge {
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-3);
+    flex-shrink: 0;
+    font-family: var(--font-sans);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    margin-top: 1px;
+    padding: 3px 6px;
+    text-transform: uppercase;
+  }
+  .sg-login-fca p { color: var(--text-3); font-size: 11px; line-height: 1.55; margin: 0 0 7px; }
+  .sg-login-fca p:last-child { margin-bottom: 0; }
+  .sg-login-fca a { color: var(--text-3); text-decoration: underline; text-underline-offset: 2px; }
+
+  /* Live page link card */
+  .sg-login-preview-link {
+    align-items: center;
+    background: light-dark(#0B0D10, #0B0D10);
+    border-radius: var(--radius-card);
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    padding: 24px 28px;
+  }
+  .sg-login-preview-link__text {
+    color: rgba(255,255,255,0.7);
+    font-family: var(--font-sans);
+    font-size: var(--fs-body);
+    line-height: 1.5;
+  }
+  .sg-login-preview-link__title {
+    color: var(--gold);
+    font-family: var(--font-serif);
+    font-size: 20px;
+    font-style: italic;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .sg-login-preview-link__cta {
+    align-items: center;
+    background: var(--gold);
+    border: none;
+    border-radius: var(--radius-btn);
+    color: #0B0D10;
+    cursor: pointer;
+    display: inline-flex;
+    flex-shrink: 0;
+    font-family: var(--font-sans);
+    font-size: var(--fs-btn);
+    font-weight: var(--fw-semibold);
+    gap: 7px;
+    padding: 10px 20px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Login</h1>
+      <p class="sg-page-desc">The Aurelius sign-in screen replaces the OutSystems default login page. It is a standalone full-page layout at <code>/login/</code> — it does not use the main app shell. The page uses a premium split-column design: a dark brand panel on the left and a themed form panel on the right. Both panels collapse to a single form-only column at ≤ 960px.</p>
+    </div>
+
+    <!-- ── Live page link ─────────────────────────────────────── -->
+    <section class="sg-section" id="live-preview">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Live Page</h2>
+        <p class="sg-section-desc">The login page lives at <code>/login/</code> and operates as a fully standalone HTML file — no app shell, no sidebar. Open it directly to see the full split-layout experience including light/dark toggle and form interactions.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="sg-login-preview-link">
+          <div>
+            <div class="sg-login-preview-link__title">aurelius.front-end-ninja.co.uk/login/</div>
+            <p class="sg-login-preview-link__text">Full split-layout with brand panel, form, theme toggle and FCA footer.</p>
+          </div>
+          <a class="sg-login-preview-link__cta" href="../login/" target="_blank" rel="noopener">
+            Open login page
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Layout Architecture ────────────────────────────────── -->
+    <section class="sg-section" id="architecture">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Layout Architecture</h2>
+        <p class="sg-section-desc">The outer wrapper <code>.login-shell</code> is a two-column CSS grid. The left column holds <code>.login-brand</code> (the dark brand panel); the right column holds <code>.login-form-panel</code> (the scrollable form). At ≤ 960px the brand panel is hidden and the form panel becomes full-width.</p>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;!-- Hidden theme checkbox — same pattern as main app shell --&gt;
+&lt;input type="checkbox" class="theme-checkbox" id="theme-checkbox"
+  aria-hidden="true" style="display:none"&gt;
+
+&lt;div class="login-shell"&gt;
+
+  &lt;!-- Left: dark brand panel (aria-hidden — decorative) --&gt;
+  &lt;div class="login-brand" role="presentation" aria-hidden="true"&gt;
+    &lt;!-- .login-brand-top, .login-brand-mid, .login-brand-bottom --&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Right: themed form panel --&gt;
+  &lt;main class="login-form-panel" id="main-content"&gt;
+    &lt;div class="login-form-top"&gt;    &lt;!-- wordmark + theme toggle --&gt;&lt;/div&gt;
+    &lt;div class="login-form-body"&gt;   &lt;!-- heading + form --&gt;&lt;/div&gt;
+    &lt;footer class="login-footer"&gt;   &lt;!-- FCA / regulatory --&gt;&lt;/footer&gt;
+  &lt;/main&gt;
+
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Brand Panel ────────────────────────────────────────── -->
+    <section class="sg-section" id="brand-panel">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Brand Panel — <code>.login-brand</code></h2>
+        <p class="sg-section-desc">Deep charcoal background (<code>#0B0D10</code>) with two layered pseudo-elements: a radial gold glow from the bottom-left corner and a very subtle diagonal hatching texture. Three stacked child regions — <code>.login-brand-top</code> (logo), <code>.login-brand-mid</code> (headline + quote), <code>.login-brand-bottom</code> (badges) — sit above the pseudo-elements via <code>z-index: 1</code>.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="sg-login-brand">
+          <div class="sg-login-brand-logo">Aurelius</div>
+          <div>
+            <h3 class="sg-login-brand-headline">Clarity in every<br><em>decision.</em></h3>
+          </div>
+          <div class="sg-login-brand-rule"></div>
+          <blockquote class="sg-login-brand-quote">
+            "The happiness of your life depends upon the quality of your thoughts."
+            <cite>— Marcus Aurelius, Meditations</cite>
+          </blockquote>
+          <div class="sg-login-brand-badges">
+            <span class="sg-login-brand-badge">FCA Regulated</span>
+            <span class="sg-login-brand-badge">ISO 27001</span>
+            <span class="sg-login-brand-badge">GDPR Compliant</span>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="login-brand" role="presentation" aria-hidden="true"&gt;
+
+  &lt;div class="login-brand-top"&gt;
+    &lt;div class="login-brand-logo"&gt;Aurelius&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="login-brand-mid"&gt;
+    &lt;h2 class="login-brand-headline"&gt;
+      Clarity in every&lt;br&gt;&lt;em&gt;decision.&lt;/em&gt;
+    &lt;/h2&gt;
+    &lt;div class="login-brand-rule"&gt;&lt;/div&gt;
+    &lt;blockquote class="login-brand-quote"&gt;
+      "The happiness of your life depends upon the quality of your thoughts."
+      &lt;cite&gt;— Marcus Aurelius, Meditations&lt;/cite&gt;
+    &lt;/blockquote&gt;
+  &lt;/div&gt;
+
+  &lt;div class="login-brand-bottom"&gt;
+    &lt;div class="login-brand-badges"&gt;
+      &lt;span class="login-brand-badge"&gt;FCA Regulated&lt;/span&gt;
+      &lt;span class="login-brand-badge"&gt;ISO 27001&lt;/span&gt;
+      &lt;span class="login-brand-badge"&gt;GDPR Compliant&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Form Panel ─────────────────────────────────────────── -->
+    <section class="sg-section" id="form-panel">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Form Panel — <code>.login-form-panel</code></h2>
+        <p class="sg-section-desc">A flex column using <code>justify-content: space-between</code> to pin the topbar row to the top, the form body to the centre, and the FCA footer to the bottom. Adapts automatically to the active <code>color-scheme</code> via <code>background: var(--bg)</code>. The form itself uses standard <code>.field</code> + <code>input</code> tokens from <code>bundle.css</code>.</p>
+      </div>
+      <div class="sg-demo sg-demo--col">
+        <div class="field">
+          <label for="sg-email">Email address <span style="color:var(--red)" aria-hidden="true">*</span></label>
+          <input type="email" id="sg-email" placeholder="your@email.com" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="sg-password">Password <span style="color:var(--red)" aria-hidden="true">*</span></label>
+          <input type="password" id="sg-password" placeholder="••••••••••••" autocomplete="off">
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+          <label style="display:flex;align-items:center;gap:8px;color:var(--text-2);font-size:var(--fs-body-sm);cursor:pointer">
+            <input type="checkbox" style="accent-color:var(--gold);width:14px;height:14px">
+            Remember this device
+          </label>
+          <a href="#" style="color:var(--gold-text);font-size:var(--fs-body-sm);font-weight:var(--fw-medium);text-decoration:none">Forgot password?</a>
+        </div>
+        <button class="btn-primary" style="width:100%;height:48px;justify-content:center">Sign in to Aurelius</button>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;main class="login-form-panel" id="main-content"&gt;
+
+  &lt;!-- Topbar row --&gt;
+  &lt;div class="login-form-top"&gt;
+    &lt;span class="login-form-wordmark" aria-hidden="true"&gt;Aurelius&lt;/span&gt;
+    &lt;label class="login-theme-btn" for="theme-checkbox"
+      aria-label="Toggle light and dark mode"&gt;
+      &lt;!-- sun icon --&gt;
+      &lt;span id="theme-label"&gt;Light mode&lt;/span&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Form body --&gt;
+  &lt;div class="login-form-body"&gt;
+    &lt;h1 class="login-heading"&gt;Welcome back.&lt;/h1&gt;
+    &lt;p class="login-sub" id="form-desc"&gt;Sign in to your wealth dashboard&lt;/p&gt;
+
+    &lt;form class="login-form" action="/" method="post" novalidate
+      aria-labelledby="form-desc"&gt;
+
+      &lt;div class="field"&gt;
+        &lt;label for="email"&gt;Email address
+          &lt;span class="field-required" aria-hidden="true"&gt;*&lt;/span&gt;
+        &lt;/label&gt;
+        &lt;input type="email" id="email" name="email"
+          autocomplete="email" required aria-required="true"
+          placeholder="your@email.com"&gt;
+      &lt;/div&gt;
+
+      &lt;div class="field"&gt;
+        &lt;label for="password"&gt;Password
+          &lt;span class="field-required" aria-hidden="true"&gt;*&lt;/span&gt;
+        &lt;/label&gt;
+        &lt;div class="login-pw-wrap"&gt;
+          &lt;input type="password" id="password" name="password"
+            autocomplete="current-password" required aria-required="true"
+            aria-describedby="pw-hint" placeholder="••••••••••••"&gt;
+          &lt;button type="button" class="login-pw-toggle" id="pw-toggle"
+            aria-label="Show password" aria-pressed="false"
+            aria-controls="password"&gt;
+            &lt;!-- eye SVG — id="pw-icon" for JS swap --&gt;
+          &lt;/button&gt;
+        &lt;/div&gt;
+        &lt;span id="pw-hint" class="sr-only"&gt;Press the button to show or hide your password&lt;/span&gt;
+      &lt;/div&gt;
+
+      &lt;div class="login-meta-row"&gt;
+        &lt;label class="login-remember"&gt;
+          &lt;input type="checkbox" name="remember" id="remember"&gt;
+          Remember this device
+        &lt;/label&gt;
+        &lt;a href="#" class="login-forgot"&gt;Forgot password?&lt;/a&gt;
+      &lt;/div&gt;
+
+      &lt;button type="submit" class="login-submit"&gt;Sign in to Aurelius&lt;/button&gt;
+
+    &lt;/form&gt;
+  &lt;/div&gt;
+
+  &lt;!-- FCA footer --&gt;
+  &lt;footer class="login-footer" role="contentinfo"&gt; ... &lt;/footer&gt;
+
+&lt;/main&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Password Toggle ────────────────────────────────────── -->
+    <section class="sg-section" id="pw-toggle">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Password Show / Hide — <code>.login-pw-toggle</code></h2>
+        <p class="sg-section-desc">A <code>position: absolute</code> button inside <code>.login-pw-wrap</code> that sits flush to the right edge of the password input. Toggling it flips <code>input.type</code> between <code>"password"</code> and <code>"text"</code>, swaps the SVG icon between eye and eye-off, and updates <code>aria-label</code> and <code>aria-pressed</code> to keep screen readers informed.</p>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-javascript">// Password show / hide
+(function () {
+  var input = document.getElementById('password');
+  var btn   = document.getElementById('pw-toggle');
+  var icon  = document.getElementById('pw-icon');
+  if (!input || !btn) return;
+
+  btn.addEventListener('click', function () {
+    var show = input.type === 'password';
+    input.type = show ? 'text' : 'password';
+    btn.setAttribute('aria-label',   show ? 'Hide password' : 'Show password');
+    btn.setAttribute('aria-pressed', show ? 'true'          : 'false');
+    // Eye → Eye-off SVG swap
+    icon.innerHTML = show
+      ? '&lt;path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/&gt;&lt;line x1="1" y1="1" x2="23" y2="23"/&gt;'
+      : '&lt;path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/&gt;&lt;circle cx="12" cy="12" r="3"/&gt;';
+  });
+}());</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Theme Toggle ───────────────────────────────────────── -->
+    <section class="sg-section" id="theme-toggle">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Theme Toggle</h2>
+        <p class="sg-section-desc">The login page uses the same hidden <code>.theme-checkbox</code> pattern as the main app — checking it switches <code>color-scheme</code> to <code>light</code>; unchecked is <code>dark</code>. The login page adds <code>localStorage</code> persistence so the user's preference carries across to the main dashboard after sign-in. The toggle is rendered as a <code>&lt;label&gt;</code> so keyboard focus and click both work without extra JS.</p>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-javascript">// Theme toggle (login page — persists to localStorage)
+(function () {
+  var cb    = document.getElementById('theme-checkbox');
+  var label = document.getElementById('theme-label');
+  if (!cb) return;
+
+  var stored  = localStorage.getItem('aurelius-theme');
+  var isLight = stored
+    ? stored === 'light'
+    : window.matchMedia('(prefers-color-scheme: light)').matches;
+
+  cb.checked        = isLight;
+  label.textContent = isLight ? 'Dark mode' : 'Light mode';
+
+  cb.addEventListener('change', function () {
+    var light = cb.checked;
+    label.textContent = light ? 'Dark mode' : 'Light mode';
+    localStorage.setItem('aurelius-theme', light ? 'light' : 'dark');
+  });
+}());</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Risk Warning ───────────────────────────────────────── -->
+    <section class="sg-section" id="risk-warning">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Investment Risk Warning</h2>
+        <p class="sg-section-desc">A gold-tinted callout using <code>role="note"</code> and <code>aria-label</code> to ensure it is surfaced by assistive technology. The amber border and background are achieved with <code>light-dark()</code> alpha values against the brand gold so they adapt to both themes. <strong>This callout is mandatory on any page accessible to retail clients per FCA COBS 14.3 disclosure requirements.</strong></p>
+      </div>
+      <div class="sg-demo sg-demo--col">
+        <div class="sg-login-risk" role="note" aria-label="Investment risk warning">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <p><strong>Capital at risk.</strong> The value of investments and any income from them can fall as well as rise. You may not get back the amount you originally invested. Past performance is not a guide to future performance.</p>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="login-risk-warning" role="note" aria-label="Investment risk warning"&gt;
+  &lt;svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"
+    viewBox="0 0 24 24" aria-hidden="true"&gt;
+    &lt;path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/&gt;
+    &lt;line x1="12" y1="9" x2="12" y2="13"/&gt;
+    &lt;line x1="12" y1="17" x2="12.01" y2="17"/&gt;
+  &lt;/svg&gt;
+  &lt;p&gt;&lt;strong&gt;Capital at risk.&lt;/strong&gt; The value of investments and any income
+    from them can fall as well as rise. You may not get back the amount you
+    originally invested. Past performance is not a guide to future performance.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── FCA Footer ─────────────────────────────────────────── -->
+    <section class="sg-section" id="fca-footer">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">FCA Regulatory Footer</h2>
+        <p class="sg-section-desc">The <code>.login-fca</code> footer contains three required elements: the investment risk warning callout (above), the FCA authorisation statement with a live link to <a href="https://register.fca.org.uk" target="_blank" rel="noopener">register.fca.org.uk</a>, and the Terms / Privacy Policy acknowledgement. The <code>.login-fca-badge</code> pill is a visual anchor; ensure the <code>aria-label</code> on it reads the full label, not just the abbreviation.</p>
+      </div>
+      <div class="sg-demo sg-demo--col">
+        <div class="sg-login-fca">
+          <div class="sg-login-fca-auth">
+            <span class="sg-login-fca-badge" aria-label="FCA regulated">FCA</span>
+            <p>Aurelius Wealth Management Limited is authorised and regulated by the Financial Conduct Authority. Registered in England and Wales No. 01234567. FCA Reference No. 123456. You can verify our registration at <a href="https://register.fca.org.uk" target="_blank" rel="noopener noreferrer">register.fca.org.uk</a>.</p>
+          </div>
+          <p>By signing in you agree to our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>. This portal is for existing clients only.</p>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;footer class="login-footer" role="contentinfo"&gt;
+  &lt;div class="login-fca"&gt;
+
+    &lt;!-- Risk warning (mandatory — see risk-warning section above) --&gt;
+    &lt;div class="login-risk-warning" role="note" aria-label="Investment risk warning"&gt;
+      ...
+    &lt;/div&gt;
+
+    &lt;!-- FCA authorisation --&gt;
+    &lt;div class="login-fca-auth"&gt;
+      &lt;span class="login-fca-badge" aria-label="FCA regulated"&gt;FCA&lt;/span&gt;
+      &lt;p&gt;Aurelius Wealth Management Limited is authorised and regulated by the
+        Financial Conduct Authority. Registered in England and Wales No. 01234567.
+        FCA Reference No. 123456. You can verify our registration at
+        &lt;a href="https://register.fca.org.uk" target="_blank"
+          rel="noopener noreferrer"&gt;register.fca.org.uk&lt;/a&gt;.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;By signing in you agree to our &lt;a href="#"&gt;Terms of Use&lt;/a&gt; and
+      &lt;a href="#"&gt;Privacy Policy&lt;/a&gt;. This portal is for existing clients only.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/footer&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Accessibility ──────────────────────────────────────── -->
+    <section class="sg-section" id="accessibility">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Accessibility Checklist</h2>
+        <p class="sg-section-desc">Requirements for the login page to meet WCAG 2.1 AA and FCA accessibility guidance.</p>
+      </div>
+      <div class="sg-demo">
+        <ul style="color:var(--text-2);font-size:var(--fs-body);line-height:var(--lh-relaxed);padding-left:20px;margin:0">
+          <li style="margin-bottom:10px"><strong style="color:var(--text-1)">Labelled inputs.</strong> Every input has a visible <code>&lt;label&gt;</code> associated via <code>for</code>/<code>id</code>. Required fields carry <code>aria-required="true"</code> and a visual asterisk (<code>aria-hidden="true"</code> so it is not double-announced).</li>
+          <li style="margin-bottom:10px"><strong style="color:var(--text-1)">Password toggle.</strong> Uses <code>aria-label</code> ("Show password" / "Hide password"), <code>aria-pressed</code>, and <code>aria-controls</code> pointing to the input. An <code>.sr-only</code> hint describes the toggle to assistive technology.</li>
+          <li style="margin-bottom:10px"><strong style="color:var(--text-1)">Focus indicators.</strong> All interactive elements have <code>:focus-visible</code> outlines keyed to <code>var(--gold)</code>. The outline is never suppressed.</li>
+          <li style="margin-bottom:10px"><strong style="color:var(--text-1)">Decorative panel.</strong> <code>.login-brand</code> carries <code>aria-hidden="true"</code> and <code>role="presentation"</code> so screen readers skip it entirely.</li>
+          <li style="margin-bottom:10px"><strong style="color:var(--text-1)">Risk warning.</strong> Marked with <code>role="note"</code> and a descriptive <code>aria-label</code> so AT users hear it in the document structure.</li>
+          <li style="margin-bottom:10px"><strong style="color:var(--text-1)">No colour-only information.</strong> The asterisk on required fields, the risk icon, and the FCA badge all have text or ARIA equivalents.</li>
+          <li><strong style="color:var(--text-1)">Keyboard navigation.</strong> Tab order: email → password → show/hide → remember → forgot → submit → contact. No focus traps.</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+</body>
+</html>
