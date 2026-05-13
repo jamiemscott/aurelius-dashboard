@@ -37,6 +37,9 @@
 
 .btn-secondary:hover { background: light-dark(rgba(160,86,7,0.06), var(--gold-dim)); }
 
+/* When .btn-secondary is rendered as an <a>, suppress browser underline */
+a.btn-secondary { text-decoration: none; }
+
 /* ─── AI AGENT BUTTON ──────────────────────────────────── */
 /* .btn-ai: Entry point for the Aurelius AI agent page.
    A blue → violet animated gradient — visually distinct from

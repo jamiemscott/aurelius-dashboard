@@ -85,6 +85,65 @@
 
 .kpi-card.is-featured .kpi-value { color: var(--gold-text); }
 
+/* ─── CARD PAD MODIFIER ──────────────────────────────── */
+/* Flush the top padding when a table immediately follows a card header */
+.card-pad--flush-top { padding-top: 0; }
+
+/* ─── CARD GROUP HEADER ──────────────────────────────── */
+/* Section divider inside a card — e.g. "GBP Mutual Funds".
+   Sits above a .table-wrap and below any preceding content.   */
+.card-group-hd {
+  align-items: center;
+  border-bottom: 1px solid var(--divider);
+  color: var(--text-1);
+  display: flex;
+  font-size: var(--fs-body);            /* 14px */
+  font-weight: var(--fw-semibold);
+  gap: 8px;
+  padding: 16px 24px;
+}
+
+/* ─── CARD TOTALS ────────────────────────────────────── */
+/* Footer row inside a card showing summary figures.
+   Label on the left, one or more stat cells on the right.    */
+.card-totals {
+  align-items: center;
+  border-top: 1px solid var(--divider);
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 24px;
+}
+
+.card-totals__label {
+  color: var(--text-2);
+  font-size: var(--fs-md);              /* 12px */
+  font-weight: var(--fw-semibold);
+}
+
+.card-totals__stats {
+  display: flex;
+  gap: 32px;
+}
+
+.card-totals__stat         { text-align: right; }
+.card-totals__stat-label   { color: var(--text-3); font-size: var(--fs-sm); }
+.card-totals__stat-value   { color: var(--text-1); font-size: var(--fs-body); font-weight: var(--fw-semibold); }
+.card-totals__stat-value.green { color: var(--green); }
+.card-totals__stat-value.red   { color: var(--red); }
+
+/* ─── DATA NOTICE ────────────────────────────────────── */
+/* Gold-tinted disclaimer strip — indicative value warnings,
+   FX rate caveats, etc.                                      */
+.data-notice {
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-glow);
+  border-radius: 10px;
+  color: var(--text-2);
+  font-size: var(--fs-md);              /* 12px */
+  margin-top: 16px;
+  padding: 12px;
+}
+
 /* ─── RESPONSIVE ─────────────────────────────────────── */
 @media (max-width: 1200px) {
   .kpi-grid  { grid-template-columns: 1fr; }

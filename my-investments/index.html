@@ -92,7 +92,7 @@
         </a>
         <select class="filter-select" aria-label="Account filter"><option>All Accounts</option><option>Advised SIPP</option></select>
         <button class="btn-secondary">Generate Report</button>
-        <a href="/my-investments/add-funds/" class="btn-secondary" style="text-decoration:none">+ Add Funds</a>
+        <a href="/my-investments/add-funds/" class="btn-secondary">+ Add Funds</a>
         <a class="btn-primary" href="/my-investments/add-investment/">
           <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           Add Investment
@@ -100,7 +100,7 @@
       </div>
     </div>
 
-    <div class="stat-row" style="margin-bottom:20px">
+    <div class="stat-row">
       <div class="stat-chip"><div class="stat-chip-label">Total Market Value</div><div class="stat-chip-value gold">£842,340</div></div>
       <div class="stat-chip"><div class="stat-chip-label">Total Cost</div><div class="stat-chip-value">£694,210</div></div>
       <div class="stat-chip"><div class="stat-chip-label">Total Gain / Loss</div><div class="stat-chip-value green">+£148,130</div></div>
@@ -108,12 +108,12 @@
       <div class="stat-chip"><div class="stat-chip-label">Cash (GBP)</div><div class="stat-chip-value">£31,800</div></div>
     </div>
 
-    <div class="card" style="margin-bottom:16px">
-      <div style="padding:16px 24px;border-bottom:1px solid var(--divider);font-size:14px;font-weight:600;color:var(--text-1);display:flex;align-items:center;gap:8px">
+    <div class="card">
+      <div class="card-group-hd">
         <svg width="14" height="14" fill="none" stroke="var(--gold)" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
         GBP Mutual Funds
       </div>
-      <div class="table-wrap card-pad" style="padding-top:0">
+      <div class="table-wrap card-pad card-pad--flush-top">
         <table id="investments-table" aria-label="Investment holdings">
           <thead>
             <tr>
@@ -124,16 +124,16 @@
           <tbody id="investments-body"></tbody>
         </table>
       </div>
-      <div style="padding:16px 24px;border-top:1px solid var(--divider);display:flex;justify-content:space-between;align-items:center">
-        <span style="font-size:12px;font-weight:600;color:var(--text-2)">GBP Mutual Funds Total</span>
-        <div style="display:flex;gap:32px">
-          <div style="text-align:right"><div style="font-size:11px;color:var(--text-3)">Market Value</div><div style="font-size:14px;font-weight:600;color:var(--text-1)">£810,540</div></div>
-          <div style="text-align:right"><div style="font-size:11px;color:var(--text-3)">Total Gain</div><div style="font-size:14px;font-weight:600;color:var(--green)">+£148,130</div></div>
+      <div class="card-totals">
+        <span class="card-totals__label">GBP Mutual Funds Total</span>
+        <div class="card-totals__stats">
+          <div class="card-totals__stat"><div class="card-totals__stat-label">Market Value</div><div class="card-totals__stat-value">£810,540</div></div>
+          <div class="card-totals__stat"><div class="card-totals__stat-label">Total Gain</div><div class="card-totals__stat-value green">+£148,130</div></div>
         </div>
       </div>
     </div>
 
-    <div style="padding:12px;background:var(--gold-dim);border-radius:10px;font-size:12px;color:var(--text-2);border:1px solid var(--gold-glow)">
+    <div class="data-notice">
       ⚠️ Values are indicative estimates and subject to FX rates. Prices are as at close of previous business day.
     </div>
 
