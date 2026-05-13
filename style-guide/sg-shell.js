@@ -5,7 +5,7 @@
  * Also marks the correct topbar tab and sidebar nav item as .is-active.
  *
  * data-sg-page values: colours | typography | spacing | buttons | cards |
- *                      forms | tables | navigation | layout | data-display | onboarding | adviser | feedback | announce-bar | outsystems
+ *                      forms | tables | navigation | layout | data-display | onboarding | adviser | feedback | announce-bar | outsystems | footer
  */
 
 const PAGES = [
@@ -24,6 +24,7 @@ const PAGES = [
   { id: 'feedback',      label: 'Feedback',      href: 'feedback.html',      icon: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>' },
   { id: 'announce-bar', label: 'Announce Bar',  href: 'announce-bar.html',  icon: '<path d="M22 8.5V15a7 7 0 0 1-7 7H9"/><path d="M3 8.5V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3.5"/><path d="M3 8.5c0 9 6 13 9 13"/><path d="M3 8.5h18"/>' },
   { id: 'outsystems',   label: 'OutSystems',    href: 'outsystems.html',    icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>' },
+  { id: 'footer',       label: 'Footer',        href: 'footer.html',        icon: '<path d="M4 20h16"/><rect x="4" y="4" width="16" height="12" rx="2"/>' },
 ];
 
 function svgIcon(paths) {

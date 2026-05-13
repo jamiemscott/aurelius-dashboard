@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="footer">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Footer — Aurelius Style Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Footer</h1>
+      <p class="sg-page-desc">The site footer is a three-row component defined entirely in <code>modules/footer.css</code>. It is rendered inside <code>.main</code> at the bottom of every authenticated page. The three rows are: the link grid (<code>.footer-upper</code>), the regulatory + sponsor strip (<code>.footer-regulatory</code>), and the legal bottom bar (<code>.footer-bottom</code>).</p>
+    </div>
+
+    <!-- ── Footer Structure ──────────────────────────────── -->
+    <section class="sg-section" id="footer-structure">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Footer Structure — <code>.site-footer</code></h2>
+        <p class="sg-section-desc">The root element is <code>&lt;footer class="site-footer"&gt;</code>. It carries a top border, a <code>margin-top: 48px</code> gap from the page content above, and three direct children that each handle a distinct band of information.</p>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <!-- Structural diagram -->
+        <div style="border:1px solid var(--border);border-radius:var(--radius-card);overflow:hidden;font-size:var(--fs-xs);font-family:monospace">
+          <div style="background:light-dark(rgba(245,166,35,0.07),rgba(245,166,35,0.07));border-bottom:1px dashed var(--gold-glow);color:var(--gold-text);padding:10px 16px;letter-spacing:var(--ls-wide);text-transform:uppercase">
+            .site-footer
+          </div>
+          <div style="padding:12px;display:flex;flex-direction:column;gap:8px">
+            <div class="sg-layout-block" style="min-height:56px">
+              <div style="text-align:center">
+                <div style="color:var(--text-2);font-weight:var(--fw-semibold)">.footer-upper</div>
+                <div style="color:var(--text-3);margin-top:2px">Brand + Services + Support + Legal — 4-column grid</div>
+              </div>
+            </div>
+            <div class="sg-layout-block" style="min-height:56px">
+              <div style="text-align:center">
+                <div style="color:var(--text-2);font-weight:var(--fw-semibold)">.footer-regulatory</div>
+                <div style="color:var(--text-3);margin-top:2px">Reg text (flex: 1) + Sponsor logo strip — flex row</div>
+              </div>
+            </div>
+            <div class="sg-layout-block" style="min-height:44px">
+              <div style="text-align:center">
+                <div style="color:var(--text-2);font-weight:var(--fw-semibold)">.footer-bottom</div>
+                <div style="color:var(--text-3);margin-top:2px">Copyright · FCA reg · Legal links — space-between flex</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;footer class="site-footer" aria-label="Site footer"&gt;
+
+  &lt;div class="footer-upper"&gt;
+    &lt;!-- brand col + 3 link cols --&gt;
+  &lt;/div&gt;
+
+  &lt;div class="footer-regulatory"&gt;
+    &lt;div class="footer-reg-texts"&gt;&lt;!-- regulatory text --&gt;&lt;/div&gt;
+    &lt;div class="footer-sponsors"&gt;&lt;!-- sponsor logos --&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="footer-bottom"&gt;
+    &lt;!-- copyright · FCA reg · legal links --&gt;
+  &lt;/div&gt;
+
+&lt;/footer&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Footer Upper ───────────────────────────────────── -->
+    <section class="sg-section" id="footer-upper">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Link Grid — <code>.footer-upper</code></h2>
+        <p class="sg-section-desc">A four-column CSS grid: a 220px brand column followed by three equal <code>1fr</code> link columns. The brand column (<code>.footer-brand-col</code>) contains the Aurelius mark, tagline, and FCA regulation badge. Each of the three link columns uses <code>.footer-col</code>, a <code>.footer-col-title</code> heading, and a <code>.footer-links</code> list.</p>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <div style="display:grid;grid-template-columns:220px 1fr 1fr 1fr;gap:32px;align-items:start">
+          <!-- Brand col -->
+          <div>
+            <a class="brand" href="#" style="pointer-events:none;margin-bottom:12px;display:inline-flex">
+              <span class="brand-mark" aria-hidden="true">A</span>
+              <span class="brand-text">
+                <span class="brand-name">Aurelius</span>
+                <span class="brand-sub">Wealth Management</span>
+              </span>
+            </a>
+            <p class="footer-tagline">Private wealth management for discerning investors.</p>
+            <div class="footer-reg-badge">
+              <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              FCA Regulated
+            </div>
+          </div>
+          <!-- Link col -->
+          <div>
+            <h2 class="footer-col-title">Services</h2>
+            <ul class="footer-links">
+              <li><a href="#">Portfolio Management</a></li>
+              <li><a href="#">Retirement Planning</a></li>
+              <li><a href="#">Tax &amp; Estate Planning</a></li>
+            </ul>
+          </div>
+          <div>
+            <h2 class="footer-col-title">Support</h2>
+            <ul class="footer-links">
+              <li><a href="#">Help Centre</a></li>
+              <li><a href="#">Contact Your Adviser</a></li>
+              <li><a href="#">Document Library</a></li>
+            </ul>
+          </div>
+          <div>
+            <h2 class="footer-col-title">Legal &amp; Regulatory</h2>
+            <ul class="footer-links">
+              <li><a href="#">Terms &amp; Conditions</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">MiFID II Disclosure</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="footer-upper"&gt;
+
+  &lt;!-- Brand column --&gt;
+  &lt;div class="footer-brand-col"&gt;
+    &lt;a class="brand" href="/" aria-label="Aurelius Wealth Management — home"&gt;
+      &lt;span class="brand-mark" aria-hidden="true"&gt;A&lt;/span&gt;
+      &lt;span class="brand-text"&gt;
+        &lt;span class="brand-name"&gt;Aurelius&lt;/span&gt;
+        &lt;span class="brand-sub"&gt;Wealth Management&lt;/span&gt;
+      &lt;/span&gt;
+    &lt;/a&gt;
+    &lt;p class="footer-tagline"&gt;Private wealth management for discerning investors.&lt;/p&gt;
+    &lt;div class="footer-reg-badge"&gt;
+      &lt;svg ...&gt;&lt;/svg&gt;
+      FCA Regulated
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Link columns (repeat for each) --&gt;
+  &lt;div class="footer-col"&gt;
+    &lt;h2 class="footer-col-title"&gt;Services&lt;/h2&gt;
+    &lt;ul class="footer-links"&gt;
+      &lt;li&gt;&lt;a href="#"&gt;Portfolio Management&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#"&gt;Retirement Planning&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Footer Regulatory ──────────────────────────────── -->
+    <section class="sg-section" id="footer-regulatory">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Regulatory Row — <code>.footer-regulatory</code></h2>
+        <p class="sg-section-desc">A flex row with <code>align-items: flex-start</code> and a <code>48px</code> gap. The left child, <code>.footer-reg-texts</code>, takes <code>flex: 1</code> and holds the regulatory disclaimer paragraphs. The right child, <code>.footer-sponsors</code>, is <code>flex-shrink: 0</code> and holds the partner logo strip. This two-column flex arrangement fills what was previously empty space to the right of the reg text.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="footer-regulatory" style="border-bottom:none;padding:0">
+          <div class="footer-reg-texts">
+            <p class="footer-reg-text">
+              <strong>Important information.</strong> Aurelius Wealth Management Limited is authorised and regulated by the
+              <a href="#">Financial Conduct Authority</a> (FCA). Registered number 987654.
+              Registered in England &amp; Wales. Company number 12345678.
+            </p>
+            <p class="footer-reg-text" style="margin-top:12px">
+              The value of investments and the income from them can fall as well as rise and you may get back less than you invest.
+              Past performance is not a reliable indicator of future results.
+            </p>
+          </div>
+          <div class="footer-sponsors">
+            <p class="footer-sponsors-label">Powered by</p>
+            <div class="footer-sponsor-logos">
+              <a href="https://www.outsystems.com" target="_blank" rel="noopener noreferrer"
+                 class="footer-sponsor-link" aria-label="OutSystems (opens in new tab)">
+                <span class="footer-sponsor-logo-wrap">
+                  <span class="footer-sponsor-crop--os">
+                    <img src="../src/images/os_logo_lockup_nttdata_color_main_hires.png"
+                         class="footer-sponsor-img--lockup" alt="" aria-hidden="true">
+                  </span>
+                </span>
+              </a>
+              <span class="footer-sponsor-sep" aria-hidden="true"></span>
+              <a href="https://www.nttdata.com" target="_blank" rel="noopener noreferrer"
+                 class="footer-sponsor-link" aria-label="NTT Data (opens in new tab)">
+                <span class="footer-sponsor-logo-wrap">
+                  <span class="footer-sponsor-crop--ntt">
+                    <img src="../src/images/os_logo_lockup_nttdata_color_main_hires.png"
+                         class="footer-sponsor-img--lockup" alt="" aria-hidden="true">
+                  </span>
+                </span>
+              </a>
+              <span class="footer-sponsor-sep" aria-hidden="true"></span>
+              <a href="#" class="footer-sponsor-link" aria-label="U Impact">
+                <span class="footer-sponsor-logo-wrap">
+                  <img src="../src/images/u-impact.png"
+                       class="footer-sponsor-img--uimpact" alt="" aria-hidden="true">
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="footer-regulatory"&gt;
+
+  &lt;div class="footer-reg-texts"&gt;
+    &lt;p class="footer-reg-text"&gt;
+      &lt;strong&gt;Important information.&lt;/strong&gt; ...regulatory disclaimer...
+    &lt;/p&gt;
+    &lt;p class="footer-reg-text"&gt;...risk warnings...&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div class="footer-sponsors"&gt;
+    &lt;!-- see Sponsor Logo Strip section below --&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Sponsor Logo Strip ─────────────────────────────── -->
+    <section class="sg-section" id="footer-sponsors">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Sponsor Logo Strip — <code>.footer-sponsors</code></h2>
+        <p class="sg-section-desc">Three partner logos displayed in a row with thin pipe separators: <strong>OutSystems</strong>, <strong>NTT Data</strong>, and <strong>U Impact</strong>. The OutSystems and NTT Data logos come from a single combined lockup PNG (<code>os_logo_lockup_nttdata_color_main_hires.png</code>, 500×45px) which is split into two separate visual logos entirely via CSS — no image editing required. Each logo is wrapped in a <code>.footer-sponsor-logo-wrap</code> pill that uses <code>light-dark()</code> to stay invisible in light mode and show a white-tinted background in dark mode, preventing the PNG white backgrounds from clashing with the dark footer.</p>
+      </div>
+
+      <!-- Live demo -->
+      <div class="sg-demo sg-demo--col">
+        <div>
+          <p class="sg-label" style="margin-bottom:12px">Live render — dark mode</p>
+          <div class="sg-demo sg-demo--dark" style="margin-bottom:0;padding:20px 24px">
+            <div class="footer-sponsors">
+              <p class="footer-sponsors-label">Powered by</p>
+              <div class="footer-sponsor-logos">
+                <a href="https://www.outsystems.com" target="_blank" rel="noopener noreferrer"
+                   class="footer-sponsor-link" aria-label="OutSystems (opens in new tab)">
+                  <span class="footer-sponsor-logo-wrap">
+                    <span class="footer-sponsor-crop--os">
+                      <img src="../src/images/os_logo_lockup_nttdata_color_main_hires.png"
+                           class="footer-sponsor-img--lockup" alt="" aria-hidden="true">
+                    </span>
+                  </span>
+                </a>
+                <span class="footer-sponsor-sep" aria-hidden="true"></span>
+                <a href="https://www.nttdata.com" target="_blank" rel="noopener noreferrer"
+                   class="footer-sponsor-link" aria-label="NTT Data (opens in new tab)">
+                  <span class="footer-sponsor-logo-wrap">
+                    <span class="footer-sponsor-crop--ntt">
+                      <img src="../src/images/os_logo_lockup_nttdata_color_main_hires.png"
+                           class="footer-sponsor-img--lockup" alt="" aria-hidden="true">
+                    </span>
+                  </span>
+                </a>
+                <span class="footer-sponsor-sep" aria-hidden="true"></span>
+                <a href="#" class="footer-sponsor-link" aria-label="U Impact">
+                  <span class="footer-sponsor-logo-wrap">
+                    <img src="../src/images/u-impact.png"
+                         class="footer-sponsor-img--uimpact" alt="" aria-hidden="true">
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CSS crop technique explanation -->
+      <div class="sg-demo" style="margin-top:12px">
+        <p class="sg-label" style="margin-bottom:12px">How the lockup image is split</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start">
+          <div>
+            <p style="color:var(--text-2);font-size:var(--fs-body);line-height:var(--lh-relaxed);margin-bottom:12px">The combined lockup PNG is 500×45px. At the rendered height of 28px (scale factor ≈ 0.622) it displays at 311px wide. A vertical pipe divider in the image sits at roughly x=255 in original coordinates (≈159px rendered).</p>
+            <p style="color:var(--text-2);font-size:var(--fs-body);line-height:var(--lh-relaxed)">Each crop container clips a different horizontal slice using <code>overflow:hidden</code> on a fixed-width <code>&lt;span&gt;</code>. The NTT container also applies <code>transform: translateX(-165px)</code> to its <code>&lt;img&gt;</code> to shift the image left until only the NTT Data half is visible.</p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="border:1px solid var(--border);border-radius:var(--radius-item);overflow:hidden">
+              <div style="padding:6px 10px;background:var(--bg-input);border-bottom:1px solid var(--border);font-size:var(--fs-xs);font-family:monospace;color:var(--gold-text)">.footer-sponsor-crop--os</div>
+              <div style="padding:10px;font-size:var(--fs-xs);color:var(--text-2);font-family:monospace;line-height:1.7">width: 153px<br>overflow: hidden<br><span style="color:var(--text-3)">/* shows px 0–153 of the 311px image */</span></div>
+            </div>
+            <div style="border:1px solid var(--border);border-radius:var(--radius-item);overflow:hidden">
+              <div style="padding:6px 10px;background:var(--bg-input);border-bottom:1px solid var(--border);font-size:var(--fs-xs);font-family:monospace;color:var(--gold-text)">.footer-sponsor-crop--ntt img</div>
+              <div style="padding:10px;font-size:var(--fs-xs);color:var(--text-2);font-family:monospace;line-height:1.7">width: 152px<br>overflow: hidden<br>transform: translateX(-165px)<br><span style="color:var(--text-3)">/* shows px 165–311 of the image */</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="footer-sponsors"&gt;
+  &lt;p class="footer-sponsors-label"&gt;Powered by&lt;/p&gt;
+  &lt;div class="footer-sponsor-logos"&gt;
+
+    &lt;!-- OutSystems — left crop of the lockup image --&gt;
+    &lt;a href="https://www.outsystems.com" target="_blank" rel="noopener noreferrer"
+       class="footer-sponsor-link"
+       aria-label="OutSystems (opens in new tab)"&gt;
+      &lt;span class="footer-sponsor-logo-wrap"&gt;
+        &lt;span class="footer-sponsor-crop--os"&gt;
+          &lt;img src="src/images/os_logo_lockup_nttdata_color_main_hires.png"
+               class="footer-sponsor-img--lockup"
+               alt="" aria-hidden="true"&gt;
+        &lt;/span&gt;
+      &lt;/span&gt;
+    &lt;/a&gt;
+
+    &lt;span class="footer-sponsor-sep" aria-hidden="true"&gt;&lt;/span&gt;
+
+    &lt;!-- NTT Data — right crop of the same lockup image --&gt;
+    &lt;a href="https://www.nttdata.com" target="_blank" rel="noopener noreferrer"
+       class="footer-sponsor-link"
+       aria-label="NTT Data (opens in new tab)"&gt;
+      &lt;span class="footer-sponsor-logo-wrap"&gt;
+        &lt;span class="footer-sponsor-crop--ntt"&gt;
+          &lt;img src="src/images/os_logo_lockup_nttdata_color_main_hires.png"
+               class="footer-sponsor-img--lockup"
+               alt="" aria-hidden="true"&gt;
+        &lt;/span&gt;
+      &lt;/span&gt;
+    &lt;/a&gt;
+
+    &lt;span class="footer-sponsor-sep" aria-hidden="true"&gt;&lt;/span&gt;
+
+    &lt;!-- U Impact --&gt;
+    &lt;a href="#" class="footer-sponsor-link" aria-label="U Impact"&gt;
+      &lt;span class="footer-sponsor-logo-wrap"&gt;
+        &lt;img src="src/images/u-impact.png"
+             class="footer-sponsor-img--uimpact"
+             alt="" aria-hidden="true"&gt;
+      &lt;/span&gt;
+    &lt;/a&gt;
+
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Footer Bottom Bar ──────────────────────────────── -->
+    <section class="sg-section" id="footer-bottom">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Bottom Bar — <code>.footer-bottom</code></h2>
+        <p class="sg-section-desc">A <code>flex-wrap</code> row with <code>justify-content: space-between</code> containing three items: the copyright notice (<code>.footer-copyright</code>), the FCA/ICO registration numbers (<code>.footer-fca</code>), and a pipe-separated list of legal links (<code>.footer-bottom-links</code>). The <code>.footer-fca</code> element renders a pulsing green dot via its <code>::before</code> pseudo-element to signal live FCA authorisation status.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="footer-bottom" style="border-top:1px solid var(--divider);padding-top:16px">
+          <div class="footer-copyright">&#xa9; 2026 Aurelius Wealth Management Limited. All rights reserved.</div>
+          <div class="footer-fca">FCA Reg. No. 987654 &#xb7; ICO Reg. ZA123456</div>
+          <ul class="footer-bottom-links">
+            <li><a href="#">Accessibility</a></li>
+            <li><a href="#">Sitemap</a></li>
+            <li><a href="#">Cookie Settings</a></li>
+            <li><a href="#">Modern Slavery</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="footer-bottom"&gt;
+  &lt;div class="footer-copyright"&gt;&amp;copy; 2026 Aurelius Wealth Management Limited. All rights reserved.&lt;/div&gt;
+  &lt;div class="footer-fca"&gt;FCA Reg. No. 987654 &amp;middot; ICO Reg. ZA123456&lt;/div&gt;
+  &lt;ul class="footer-bottom-links"&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Accessibility&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Sitemap&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Cookie Settings&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Modern Slavery&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Usage Notes ────────────────────────────────────── -->
+    <section class="sg-section" id="footer-notes">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Usage Notes</h2>
+        <p class="sg-section-desc">Rules for using and extending the footer.</p>
+      </div>
+      <div class="sg-demo">
+        <ul style="color:var(--text-2);font-size:var(--fs-body);line-height:var(--lh-relaxed);padding-left:20px;margin:0">
+          <li style="margin-bottom:10px"><strong style="color:var(--text-1)">Placement.</strong> The footer lives inside <code>.main</code>, after all page content. It should be the last child of the scrolling region. Never place it inside <code>.shell</code> directly.</li>
+          <li style="margin-bottom:10px"><strong style="color:var(--text-1)">Sponsor logo links.</strong> The <code>href</code> values on OutSystems and NTT Data use real URLs. The U Impact link is currently a placeholder (<code>#</code>) — replace with the live URL when available.</li>
+          <li style="margin-bottom:10px"><strong style="color:var(--text-1)">Adding a sponsor logo.</strong> Add a new <code>.footer-sponsor-link</code> + <code>.footer-sponsor-logo-wrap</code> block and a <code>.footer-sponsor-sep</code> divider. If the logo PNG has a white background, the wrap's <code>light-dark()</code> pill will handle dark-mode presentation automatically. If the PNG has a transparent background, set <code>background: transparent</code> on that specific wrap.</li>
+          <li style="margin-bottom:10px"><strong style="color:var(--text-1)">Lockup image crop values.</strong> The OS/NTT split is tuned to the specific 500×45px source image at a rendered height of 28px. If the source image is ever replaced, recalculate: scale = <code>28 / naturalHeight</code>; OS crop width = pipe x-position × scale; NTT translateX = NTT start x-position × scale.</li>
+          <li><strong style="color:var(--text-1)">CSS file.</strong> All footer styles live exclusively in <code>modules/footer.css</code> and are included in <code>bundle.css</code>. Never add footer-specific overrides to page-level stylesheets.</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+</body>
+</html>
