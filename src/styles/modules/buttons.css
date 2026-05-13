@@ -50,9 +50,9 @@
   align-items: center;
   animation: ai-gradient-shift 5s ease-in-out infinite;
   background: linear-gradient(
-    135deg,
-    light-dark(#1a5fb4, #2a5faa) 0%,
-    light-dark(#5b21b6, #7c3aed) 100%
+    120deg,
+    light-dark(#1567c8, #1c7de8) 0%,
+    light-dark(#7422d4, #9333ea) 100%
   );
   background-size: 200% 200%;
   border: none;
@@ -71,7 +71,7 @@
 }
 
 .btn-ai:hover {
-  box-shadow: 0 0 20px light-dark(rgba(26,95,180,0.28), rgba(80,120,220,0.40));
+  box-shadow: 0 0 20px light-dark(rgba(21,103,200,0.30), rgba(28,125,232,0.45));
   color: #ffffff;
   opacity: 0.9;
 }
