@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In — Aurelius Wealth Management</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../src/styles/bundle.css">
+
+  <style>
+    /* ── Reset / Shell ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    .login-shell {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100vh;
+    }
+
+    /* ── Brand Panel ─────────────────────────────────────────────── */
+    .login-brand {
+      background: #0B0D10;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      padding: 48px;
+      position: relative;
+    }
+
+    /* Warm gold glow — bottom left */
+    .login-brand::before {
+      background: radial-gradient(ellipse at 10% 90%, rgba(245,166,35,0.14) 0%, transparent 60%);
+      content: '';
+      inset: 0;
+      pointer-events: none;
+      position: absolute;
+    }
+
+    /* Very subtle diagonal hatching — adds textile depth */
+    .login-brand::after {
+      background-image: repeating-linear-gradient(
+        -45deg,
+        rgba(255,255,255,0.018) 0px,
+        rgba(255,255,255,0.018) 1px,
+        transparent 1px,
+        transparent 14px
+      );
+      content: '';
+      inset: 0;
+      pointer-events: none;
+      position: absolute;
+    }
+
+    .login-brand-top,
+    .login-brand-mid,
+    .login-brand-bottom {
+      position: relative;
+      z-index: 1;
+    }
+
+    .login-brand-logo {
+      color: var(--gold);
+      font-family: var(--font-serif);
+      font-size: 26px;
+      font-style: italic;
+      letter-spacing: -0.01em;
+      line-height: 1;
+    }
+
+    .login-brand-mid {
+      padding: 32px 0;
+    }
+
+    .login-brand-headline {
+      color: #ffffff;
+      font-family: var(--font-serif);
+      font-size: clamp(30px, 3.2vw, 50px);
+      font-style: italic;
+      letter-spacing: -0.025em;
+      line-height: 1.13;
+      margin: 0 0 28px;
+      max-width: 440px;
+    }
+
+    .login-brand-headline em {
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .login-brand-rule {
+      background: linear-gradient(to right, rgba(245,166,35,0.7), transparent);
+      height: 1px;
+      margin-bottom: 28px;
+      width: 80px;
+    }
+
+    .login-brand-quote {
+      border: none;
+      color: rgba(255,255,255,0.38);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.65;
+      margin: 0;
+      max-width: 340px;
+      padding: 0;
+    }
+
+    .login-brand-quote cite {
+      color: rgba(255,255,255,0.22);
+      display: block;
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      margin-top: 10px;
+      text-transform: uppercase;
+    }
+
+    .login-brand-badges {
+      align-items: center;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .login-brand-badge {
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 5px;
+      color: rgba(255,255,255,0.28);
+      font-family: var(--font-sans);
+      font-size: 9.5px;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      padding: 5px 9px;
+      text-transform: uppercase;
+    }
+
+    /* ── Form Panel ──────────────────────────────────────────────── */
+    .login-form-panel {
+      align-items: center;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100vh;
+      padding: 44px 48px;
+      transition: background 0.3s ease;
+    }
+
+    .login-form-top {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .login-form-wordmark {
+      color: var(--text-1);
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-style: italic;
+      letter-spacing: -0.01em;
+      line-height: 1;
+    }
+
+    /* Theme toggle — reuses the same hidden-checkbox pattern as the main app */
+    .login-theme-btn {
+      align-items: center;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-btn);
+      color: var(--text-2);
+      cursor: pointer;
+      display: flex;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: var(--fw-medium);
+      gap: 6px;
+      padding: 7px 13px;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+
+    .login-theme-btn:hover {
+      background: var(--bg-hover);
+      border-color: var(--text-3);
+      color: var(--text-1);
+    }
+
+    /* ── Form Body ───────────────────────────────────────────────── */
+    .login-form-body {
+      max-width: 380px;
+      width: 100%;
+    }
+
+    .login-heading {
+      color: var(--text-1);
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 3vw, 40px);
+      font-style: italic;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      margin: 0 0 6px;
+    }
+
+    .login-sub {
+      color: var(--text-2);
+      font-size: var(--fs-body);
+      margin: 0 0 36px;
+    }
+
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* Password wrapper — positions show/hide toggle inside input */
+    .login-pw-wrap {
+      position: relative;
+    }
+
+    .login-pw-wrap input {
+      padding-right: 46px;
+    }
+
+    .login-pw-toggle {
+      align-items: center;
+      background: none;
+      border: none;
+      bottom: 0;
+      color: var(--text-3);
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      padding: 0 13px;
+      position: absolute;
+      right: 0;
+      top: 0;
+      transition: color 0.15s;
+    }
+
+    .login-pw-toggle:hover          { color: var(--text-1); }
+    .login-pw-toggle:focus-visible  {
+      border-radius: var(--radius-item);
+      outline: 2px solid var(--gold);
+      outline-offset: -3px;
+    }
+
+    /* Row: remember me + forgot */
+    .login-meta-row {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .login-remember {
+      align-items: center;
+      color: var(--text-2);
+      cursor: pointer;
+      display: flex;
+      font-size: var(--fs-body-sm);
+      gap: 8px;
+      user-select: none;
+    }
+
+    .login-remember input[type="checkbox"] {
+      accent-color: var(--gold);
+      cursor: pointer;
+      flex-shrink: 0;
+      height: 14px;
+      width: 14px;
+    }
+
+    .login-forgot {
+      color: var(--gold-text);
+      font-size: var(--fs-body-sm);
+      font-weight: var(--fw-medium);
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+
+    .login-forgot:hover  { opacity: 0.75; }
+    .login-forgot:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+
+    .login-submit {
+      background: var(--gold);
+      border: none;
+      border-radius: var(--radius-btn);
+      color: #0B0D10;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: var(--fw-semibold);
+      height: 48px;
+      letter-spacing: 0.01em;
+      margin-top: 4px;
+      transition: opacity 0.2s, transform 0.1s, box-shadow 0.2s;
+      width: 100%;
+    }
+
+    .login-submit:hover  {
+      box-shadow: 0 4px 20px rgba(245,166,35,0.30);
+      opacity: 0.9;
+    }
+
+    .login-submit:active { transform: scale(0.99); }
+
+    .login-submit:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    /* Divider */
+    .login-divider {
+      align-items: center;
+      color: var(--text-3);
+      display: flex;
+      font-size: 11px;
+      gap: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .login-divider::before,
+    .login-divider::after {
+      background: var(--border);
+      content: '';
+      flex: 1;
+      height: 1px;
+    }
+
+    /* Support link */
+    .login-support {
+      align-items: center;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-btn);
+      color: var(--text-2);
+      cursor: pointer;
+      display: flex;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: var(--fw-medium);
+      gap: 7px;
+      height: 44px;
+      justify-content: center;
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      width: 100%;
+    }
+
+    .login-support:hover {
+      background: var(--bg-hover);
+      border-color: var(--text-3);
+      color: var(--text-1);
+    }
+
+    .login-support:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    /* ── FCA Footer ──────────────────────────────────────────────── */
+    .login-footer {
+      max-width: 380px;
+      width: 100%;
+    }
+
+    .login-fca {
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+    }
+
+    .login-fca-auth {
+      align-items: flex-start;
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .login-fca-badge {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-3);
+      flex-shrink: 0;
+      font-family: var(--font-sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      margin-top: 1px;
+      padding: 3px 6px;
+      text-transform: uppercase;
+    }
+
+    .login-fca p {
+      color: var(--text-3);
+      font-size: 11px;
+      line-height: 1.55;
+      margin: 0 0 7px;
+    }
+
+    .login-fca p:last-child { margin-bottom: 0; }
+
+    .login-fca a {
+      color: var(--text-3);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .login-fca a:hover { color: var(--text-2); }
+
+    .login-risk-warning {
+      align-items: flex-start;
+      background: light-dark(rgba(245,166,35,0.06), rgba(245,166,35,0.08));
+      border: 1px solid light-dark(rgba(245,166,35,0.18), rgba(245,166,35,0.20));
+      border-radius: 8px;
+      display: flex;
+      gap: 9px;
+      margin-bottom: 14px;
+      padding: 10px 12px;
+    }
+
+    .login-risk-warning svg {
+      color: var(--gold-text);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .login-risk-warning p {
+      color: var(--text-2);
+      font-size: 11px;
+      line-height: 1.5;
+      margin: 0 !important;
+    }
+
+    /* ── Responsive ──────────────────────────────────────────────── */
+    @media (max-width: 960px) {
+      .login-shell  { grid-template-columns: 1fr; }
+      .login-brand  { display: none; }
+      .login-form-panel { padding: 36px 32px; }
+    }
+
+    @media (max-width: 480px) {
+      .login-form-panel { padding: 24px 20px; }
+      .login-meta-row   { flex-direction: column; align-items: flex-start; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<!--  Hidden theme checkbox — same pattern as the main app shell.
+      Checking it switches color-scheme to light; unchecked = dark (app default). -->
+<input type="checkbox" class="theme-checkbox" id="theme-checkbox" aria-hidden="true" style="display:none">
+
+<div class="login-shell">
+
+  <!-- ── Left: Brand Panel ─────────────────────────────────────── -->
+  <div class="login-brand" role="presentation" aria-hidden="true">
+    <div class="login-brand-top">
+      <div class="login-brand-logo">Aurelius</div>
+    </div>
+
+    <div class="login-brand-mid">
+      <h2 class="login-brand-headline">
+        Clarity in every<br><em>decision.</em>
+      </h2>
+      <div class="login-brand-rule"></div>
+      <blockquote class="login-brand-quote">
+        "The happiness of your life depends upon the quality of your thoughts."
+        <cite>— Marcus Aurelius, Meditations</cite>
+      </blockquote>
+    </div>
+
+    <div class="login-brand-bottom">
+      <div class="login-brand-badges">
+        <span class="login-brand-badge">FCA Regulated</span>
+        <span class="login-brand-badge">ISO 27001</span>
+        <span class="login-brand-badge">GDPR Compliant</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Right: Form Panel ─────────────────────────────────────── -->
+  <main class="login-form-panel" id="main-content">
+
+    <!-- Topbar row: wordmark + theme toggle -->
+    <div class="login-form-top">
+      <span class="login-form-wordmark" aria-hidden="true">Aurelius</span>
+      <label class="login-theme-btn" for="theme-checkbox" aria-label="Toggle light and dark mode">
+        <!-- Sun icon (light mode) -->
+        <svg id="theme-icon" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <span id="theme-label">Light mode</span>
+      </label>
+    </div>
+
+    <!-- Form body -->
+    <div class="login-form-body">
+      <h1 class="login-heading">Welcome back.</h1>
+      <p class="login-sub" id="form-desc">Sign in to your wealth dashboard</p>
+
+      <form
+        class="login-form"
+        action="/"
+        method="post"
+        novalidate
+        aria-labelledby="form-desc"
+      >
+
+        <!-- Email -->
+        <div class="field">
+          <label for="email">Email address <span class="field-required" aria-hidden="true">*</span></label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            autocomplete="email"
+            required
+            placeholder="your@email.com"
+            aria-required="true"
+          >
+        </div>
+
+        <!-- Password -->
+        <div class="field">
+          <label for="password">Password <span class="field-required" aria-hidden="true">*</span></label>
+          <div class="login-pw-wrap">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              autocomplete="current-password"
+              required
+              placeholder="••••••••••••"
+              aria-required="true"
+              aria-describedby="pw-hint"
+            >
+            <button
+              type="button"
+              class="login-pw-toggle"
+              id="pw-toggle"
+              aria-label="Show password"
+              aria-pressed="false"
+              aria-controls="password"
+            >
+              <!-- Eye icon — swapped to eye-off when password is revealed -->
+              <svg id="pw-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+          <span id="pw-hint" class="sr-only">Press the button to the right of the password field to show or hide your password</span>
+        </div>
+
+        <!-- Remember / Forgot -->
+        <div class="login-meta-row">
+          <label class="login-remember">
+            <input type="checkbox" name="remember" id="remember" autocomplete="off">
+            Remember this device
+          </label>
+          <a href="#" class="login-forgot">Forgot password?</a>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="login-submit">Sign in to Aurelius</button>
+
+        <div class="login-divider" role="separator" aria-hidden="true">or</div>
+
+        <!-- Support -->
+        <a href="mailto:clientservices@aureliuswm.co.uk" class="login-support">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          Contact client services
+        </a>
+
+      </form>
+    </div>
+
+    <!-- FCA / Regulatory Footer -->
+    <footer class="login-footer" role="contentinfo">
+      <div class="login-fca">
+
+        <!-- Risk warning callout -->
+        <div class="login-risk-warning" role="note" aria-label="Investment risk warning">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <p><strong>Capital at risk.</strong> The value of investments and any income from them can fall as well as rise. You may not get back the amount you originally invested. Past performance is not a guide to future performance.</p>
+        </div>
+
+        <!-- FCA authorisation -->
+        <div class="login-fca-auth">
+          <span class="login-fca-badge" aria-label="FCA regulated">FCA</span>
+          <p>Aurelius Wealth Management Limited is authorised and regulated by the Financial Conduct Authority. Registered in England and Wales No. 01234567. FCA Reference No. 123456. You can verify our registration at <a href="https://register.fca.org.uk" target="_blank" rel="noopener noreferrer">register.fca.org.uk</a>.</p>
+        </div>
+
+        <p>By signing in you agree to our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>. This portal is for existing clients only.</p>
+
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  // ── Theme toggle (login page) ─────────────────────────────────
+  // Mirrors the main app: checking .theme-checkbox → color-scheme: light.
+  // We persist the preference in localStorage so it survives navigation.
+  (function () {
+    var cb    = document.getElementById('theme-checkbox');
+    var label = document.getElementById('theme-label');
+    if (!cb) return;
+
+    // On load: respect localStorage, falling back to system preference
+    var stored  = localStorage.getItem('aurelius-theme');
+    var isLight = stored
+      ? stored === 'light'
+      : window.matchMedia('(prefers-color-scheme: light)').matches;
+
+    cb.checked = isLight;
+    label.textContent = isLight ? 'Dark mode' : 'Light mode';
+
+    cb.addEventListener('change', function () {
+      var light = cb.checked;
+      label.textContent = light ? 'Dark mode' : 'Light mode';
+      localStorage.setItem('aurelius-theme', light ? 'light' : 'dark');
+    });
+  }());
+
+  // ── Password show / hide ─────────────────────────────────────
+  (function () {
+    var input  = document.getElementById('password');
+    var btn    = document.getElementById('pw-toggle');
+    var icon   = document.getElementById('pw-icon');
+    if (!input || !btn) return;
+
+    btn.addEventListener('click', function () {
+      var show = input.type === 'password';
+      input.type = show ? 'text' : 'password';
+      btn.setAttribute('aria-label',   show ? 'Hide password' : 'Show password');
+      btn.setAttribute('aria-pressed', show ? 'true'          : 'false');
+      // Swap icon: eye → eye-off
+      icon.innerHTML = show
+        ? '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>'
+        : '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+    });
+  }());
+</script>
+</body>
+</html>
