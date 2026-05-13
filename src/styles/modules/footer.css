@@ -14,13 +14,16 @@
   padding: 40px 0 32px;
 }
 
-/* OutSystems injects data-container / data-block / OSBlockWidget wrappers
-   between .footer-upper and the direct .footer-col children, collapsing the
-   three link columns into a single grid cell. display:contents removes those
-   wrappers from the layout tree so every .footer-col is a direct grid child.
-   Mirrors the same fix applied to [role="banner"] in layout.css.            */
-.footer-upper [data-block],
-.footer-upper [data-container] {
+/* OutSystems injects a data-container wrapper around the three link-column
+   blocks, collapsing them into a single grid cell. display:contents on the
+   specific wrapper removes it from the layout tree so each of the three
+   data-block children becomes a direct grid item (filling the three 1fr
+   columns). The data-blocks themselves keep normal box layout so their
+   .footer-col content renders correctly.
+   .footer-upper--link-wrapper is the class added in OutSystems to the
+   data-container that wraps Footer_Services / Footer_Support /
+   Footer_Legal_Regulatory.                                                  */
+.footer-upper--link-wrapper {
   display: contents;
 }
 
