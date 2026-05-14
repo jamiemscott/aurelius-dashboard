@@ -318,56 +318,83 @@
     <!-- ── Toggle / Switch ────────────────────────────────── -->
     <section class="sg-section" id="toggle">
       <div class="sg-section-header">
-        <h2 class="sg-section-title">Toggle Switch — <code>role="switch"</code></h2>
-        <p class="sg-section-desc">A checkbox styled as an on/off toggle for boolean settings. Always use <code>role="switch"</code> on the <code>&lt;input&gt;</code> so screen readers announce "on" and "off" states correctly. The dashboard uses this pattern for the light/dark theme toggle in the topbar.</p>
+        <h2 class="sg-section-title">Toggle Switch — <code>.switch</code></h2>
+        <p class="sg-section-desc">A checkbox styled as an on/off toggle for boolean form settings. Always add <code>role="switch"</code> on the <code>&lt;input&gt;</code> so screen readers announce "on" / "off" rather than "checked" / "unchecked". The <code>.switch-track</code> sibling is purely decorative — keep it <code>aria-hidden="true"</code>. Defined in <code>modules/forms.css</code>. Not to be confused with <code>.theme-toggle</code>, which is a separate component that controls the global color-scheme.</p>
       </div>
       <div class="sg-demo">
-        <div style="display:flex;flex-direction:column;gap:16px;max-width:400px">
+        <div style="display:flex;flex-direction:column;gap:16px;max-width:440px">
+
+          <!-- On -->
           <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
             <div>
               <p style="margin:0;color:var(--text-1);font-size:var(--fs-body);font-weight:var(--fw-medium)">Auto-rebalancing</p>
               <p style="margin:0;color:var(--text-3);font-size:var(--fs-sm)">Automatically rebalance portfolio quarterly</p>
             </div>
-            <div class="theme-switcher" style="flex-shrink:0">
-              <input type="checkbox" role="switch" id="f-toggle-1" aria-label="Auto-rebalancing" checked>
-              <label class="theme-toggle" for="f-toggle-1" aria-hidden="true">
-                <span class="theme-label-dark">Off</span>
-                <span class="theme-label-light">On</span>
-              </label>
-            </div>
+            <label class="switch" for="f-switch-1" style="flex-shrink:0">
+              <input type="checkbox" id="f-switch-1" role="switch" aria-label="Auto-rebalancing" checked>
+              <span class="switch-track" aria-hidden="true"></span>
+            </label>
           </div>
+
           <div style="height:1px;background:var(--divider)"></div>
+
+          <!-- Off -->
           <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
             <div>
               <p style="margin:0;color:var(--text-1);font-size:var(--fs-body);font-weight:var(--fw-medium)">Dividend reinvestment</p>
               <p style="margin:0;color:var(--text-3);font-size:var(--fs-sm)">Automatically reinvest dividend income</p>
             </div>
-            <div class="theme-switcher" style="flex-shrink:0">
-              <input type="checkbox" role="switch" id="f-toggle-2" aria-label="Dividend reinvestment">
-              <label class="theme-toggle" for="f-toggle-2" aria-hidden="true">
-                <span class="theme-label-dark">Off</span>
-                <span class="theme-label-light">On</span>
-              </label>
-            </div>
+            <label class="switch" for="f-switch-2" style="flex-shrink:0">
+              <input type="checkbox" id="f-switch-2" role="switch" aria-label="Dividend reinvestment">
+              <span class="switch-track" aria-hidden="true"></span>
+            </label>
           </div>
+
+          <div style="height:1px;background:var(--divider)"></div>
+
+          <!-- Disabled -->
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+            <div>
+              <p style="margin:0;color:var(--text-1);font-size:var(--fs-body);font-weight:var(--fw-medium)">Regulatory notices</p>
+              <p style="margin:0;color:var(--text-3);font-size:var(--fs-sm)">Mandatory compliance notifications — cannot be disabled</p>
+            </div>
+            <label class="switch" for="f-switch-3" style="flex-shrink:0">
+              <input type="checkbox" id="f-switch-3" role="switch" aria-label="Regulatory notices" checked disabled>
+              <span class="switch-track" aria-hidden="true"></span>
+            </label>
+          </div>
+
         </div>
       </div>
       <div class="sg-code">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
-        <pre><code class="language-html">&lt;div class="theme-switcher"&gt;
-  &lt;input
-    type="checkbox"
-    role="switch"
-    id="rebalancing"
-    class="theme-checkbox"
-    aria-label="Auto-rebalancing"
-    checked
-  &gt;
-  &lt;label class="theme-toggle" for="rebalancing" aria-hidden="true"&gt;
-    &lt;span class="theme-label-dark"&gt;Off&lt;/span&gt;
-    &lt;span class="theme-label-light"&gt;On&lt;/span&gt;
-  &lt;/label&gt;
-&lt;/div&gt;</code></pre>
+        <pre><code class="language-html">&lt;!-- Simplest: label wraps input + track + text --&gt;
+&lt;label class="switch"&gt;
+  &lt;input type="checkbox" role="switch"&gt;
+  &lt;span class="switch-track" aria-hidden="true"&gt;&lt;/span&gt;
+  Enable feature
+&lt;/label&gt;
+
+&lt;!-- Pre-checked --&gt;
+&lt;label class="switch"&gt;
+  &lt;input type="checkbox" role="switch" checked&gt;
+  &lt;span class="switch-track" aria-hidden="true"&gt;&lt;/span&gt;
+  Auto-rebalancing
+&lt;/label&gt;
+
+&lt;!-- Disabled --&gt;
+&lt;label class="switch"&gt;
+  &lt;input type="checkbox" role="switch" checked disabled&gt;
+  &lt;span class="switch-track" aria-hidden="true"&gt;&lt;/span&gt;
+  Regulatory notices
+&lt;/label&gt;
+
+&lt;!-- Separated label (for row layouts with description text) --&gt;
+&lt;label class="switch" for="my-switch"&gt;
+  &lt;input type="checkbox" id="my-switch" role="switch"
+    aria-label="Auto-rebalancing"&gt;
+  &lt;span class="switch-track" aria-hidden="true"&gt;&lt;/span&gt;
+&lt;/label&gt;</code></pre>
       </div>
     </section>
 
