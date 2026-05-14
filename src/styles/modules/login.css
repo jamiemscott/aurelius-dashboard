@@ -1,11 +1,14 @@
-/* ─── LOGIN PAGE ─────────────────────────────────────────────────────────────
-   Standalone split-layout sign-in screen at /login/.
+/* ─── UTILITY PAGE LAYOUT ────────────────────────────────────────────────────
+   Reusable split-layout for standalone full-page screens (login, 404, etc.).
    Does not use the main app shell — no sidebar, no topbar.
+
+   utility-*  →  layout / shell / structural — reuse across any standalone page
+   login-*    →  sign-in form content only
    ─────────────────────────────────────────────────────────────────────────── */
 
 /* ── Shell ────────────────────────────────────────────────────────────────── */
 
-.login-shell {
+.utility-shell {
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-height: 100vh;
@@ -13,7 +16,7 @@
 
 /* ── Brand Panel ──────────────────────────────────────────────────────────── */
 
-.login-brand {
+.utility-brand {
   background: #0B0D10;
   display: flex;
   flex-direction: column;
@@ -24,7 +27,7 @@
 }
 
 /* Warm gold glow — bottom left */
-.login-brand::before {
+.utility-brand::before {
   background: radial-gradient(ellipse at 10% 90%, rgba(245,166,35,0.14) 0%, transparent 60%);
   content: '';
   inset: 0;
@@ -33,7 +36,7 @@
 }
 
 /* Very subtle diagonal hatching — adds textile depth */
-.login-brand::after {
+.utility-brand::after {
   background-image: repeating-linear-gradient(
     -45deg,
     rgba(255,255,255,0.018) 0px,
@@ -47,14 +50,14 @@
   position: absolute;
 }
 
-.login-brand-top,
-.login-brand-mid,
-.login-brand-bottom {
+.utility-brand-top,
+.utility-brand-mid,
+.utility-brand-bottom {
   position: relative;
   z-index: 1;
 }
 
-.login-brand-logo {
+.utility-brand-logo {
   color: var(--gold);
   font-family: var(--font-serif);
   font-size: 26px;
@@ -63,11 +66,11 @@
   line-height: 1;
 }
 
-.login-brand-mid {
+.utility-brand-mid {
   padding: 32px 0;
 }
 
-.login-brand-headline {
+.utility-brand-headline {
   color: #ffffff;
   font-family: var(--font-serif);
   font-size: clamp(30px, 3.2vw, 50px);
@@ -78,19 +81,19 @@
   max-width: 440px;
 }
 
-.login-brand-headline em {
+.utility-brand-headline em {
   color: var(--gold);
   font-style: italic;
 }
 
-.login-brand-rule {
+.utility-brand-rule {
   background: linear-gradient(to right, rgba(245,166,35,0.7), transparent);
   height: 1px;
   margin-bottom: 28px;
   width: 80px;
 }
 
-.login-brand-quote {
+.utility-brand-quote {
   border: none;
   color: rgba(255,255,255,0.38);
   font-family: var(--font-sans);
@@ -103,7 +106,7 @@
   padding: 0;
 }
 
-.login-brand-quote cite {
+.utility-brand-quote cite {
   color: rgba(255,255,255,0.22);
   display: block;
   font-size: 10px;
@@ -114,14 +117,14 @@
   text-transform: uppercase;
 }
 
-.login-brand-badges {
+.utility-brand-badges {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.login-brand-badge {
+.utility-brand-badge {
   border: 1px solid rgba(255,255,255,0.10);
   border-radius: 5px;
   color: rgba(255,255,255,0.28);
@@ -133,9 +136,9 @@
   text-transform: uppercase;
 }
 
-/* ── Form Panel ───────────────────────────────────────────────────────────── */
+/* ── Right Panel ──────────────────────────────────────────────────────────── */
 
-.login-form-panel {
+.utility-panel {
   align-items: center;
   background: var(--bg);
   display: flex;
@@ -146,14 +149,14 @@
   transition: background 0.3s ease;
 }
 
-.login-form-top {
+.utility-panel-top {
   align-items: center;
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
 
-.login-form-wordmark {
+.utility-wordmark {
   color: var(--text-1);
   font-family: var(--font-serif);
   font-size: 20px;
@@ -163,7 +166,7 @@
 }
 
 /* Theme toggle — reuses the same hidden-checkbox pattern as the main app */
-.login-theme-btn {
+.utility-theme-btn {
   align-items: center;
   background: var(--bg-input);
   border: 1px solid var(--border);
@@ -180,20 +183,20 @@
   white-space: nowrap;
 }
 
-.login-theme-btn:hover {
+.utility-theme-btn:hover {
   background: var(--bg-hover);
   border-color: var(--text-3);
   color: var(--text-1);
 }
 
-/* ── Form Body ────────────────────────────────────────────────────────────── */
+/* ── Panel Body ───────────────────────────────────────────────────────────── */
 
-.login-form-body {
+.utility-panel-body {
   max-width: 380px;
   width: 100%;
 }
 
-.login-heading {
+.utility-heading {
   color: var(--text-1);
   font-family: var(--font-serif);
   font-size: clamp(28px, 3vw, 40px);
@@ -203,11 +206,13 @@
   margin: 0 0 6px;
 }
 
-.login-sub {
+.utility-sub {
   color: var(--text-2);
   font-size: var(--fs-body);
   margin: 0 0 36px;
 }
+
+/* ── Login Form ───────────────────────────────────────────────────────────── */
 
 .login-form {
   display: flex;
@@ -366,26 +371,26 @@
   outline-offset: 3px;
 }
 
-/* ── FCA Footer ───────────────────────────────────────────────────────────── */
+/* ── Utility Footer ───────────────────────────────────────────────────────── */
 
-.login-footer {
+.utility-footer {
   max-width: 380px;
   width: 100%;
 }
 
-.login-fca {
+.utility-fca {
   border-top: 1px solid var(--border);
   padding-top: 18px;
 }
 
-.login-fca-auth {
+.utility-fca-auth {
   align-items: flex-start;
   display: flex;
   gap: 10px;
   margin-bottom: 10px;
 }
 
-.login-fca-badge {
+.utility-fca-badge {
   background: var(--bg-input);
   border: 1px solid var(--border);
   border-radius: 4px;
@@ -400,24 +405,24 @@
   text-transform: uppercase;
 }
 
-.login-fca p {
+.utility-fca p {
   color: var(--text-3);
   font-size: 11px;
   line-height: 1.55;
   margin: 0 0 7px;
 }
 
-.login-fca p:last-child { margin-bottom: 0; }
+.utility-fca p:last-child { margin-bottom: 0; }
 
-.login-fca a {
+.utility-fca a {
   color: var(--text-3);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
-.login-fca a:hover { color: var(--text-2); }
+.utility-fca a:hover { color: var(--text-2); }
 
-.login-risk-warning {
+.utility-risk-warning {
   align-items: flex-start;
   background: light-dark(rgba(245,166,35,0.06), rgba(245,166,35,0.08));
   border: 1px solid light-dark(rgba(245,166,35,0.18), rgba(245,166,35,0.20));
@@ -428,13 +433,13 @@
   padding: 10px 12px;
 }
 
-.login-risk-warning svg {
+.utility-risk-warning svg {
   color: var(--gold-text);
   flex-shrink: 0;
   margin-top: 1px;
 }
 
-.login-risk-warning p {
+.utility-risk-warning p {
   color: var(--text-2);
   font-size: 11px;
   line-height: 1.5;
@@ -444,12 +449,12 @@
 /* ── Responsive ───────────────────────────────────────────────────────────── */
 
 @media (max-width: 960px) {
-  .login-shell       { grid-template-columns: 1fr; }
-  .login-brand       { display: none; }
-  .login-form-panel  { padding: 36px 32px; }
+  .utility-shell   { grid-template-columns: 1fr; }
+  .utility-brand   { display: none; }
+  .utility-panel   { padding: 36px 32px; }
 }
 
 @media (max-width: 480px) {
-  .login-form-panel  { padding: 24px 20px; }
-  .login-meta-row    { align-items: flex-start; flex-direction: column; gap: 12px; }
+  .utility-panel   { padding: 24px 20px; }
+  .login-meta-row  { align-items: flex-start; flex-direction: column; gap: 12px; }
 }
