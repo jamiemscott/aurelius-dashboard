@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Background: brand charcoal with rounded corners -->
+  <rect width="32" height="32" rx="6" fill="#0B0D10"/>
+  <!-- Subtle warm glow from bottom-left — mirrors brand panel -->
+  <radialGradient id="glow" cx="15%" cy="90%" r="55%">
+    <stop offset="0%" stop-color="#F5A623" stop-opacity="0.18"/>
+    <stop offset="100%" stop-color="#F5A623" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="32" height="32" rx="6" fill="url(#glow)"/>
+  <!-- Gold italic serif "A" lettermark -->
+  <text
+    x="16" y="25"
+    font-family="Georgia, 'DM Serif Display', serif"
+    font-size="22"
+    font-style="italic"
+    font-weight="400"
+    fill="#F5A623"
+    text-anchor="middle"
+  >A</text>
+</svg>
