@@ -446,6 +446,50 @@
   margin: 0 !important;
 }
 
+/* ── OutSystems Wrapper Suppression ──────────────────────────────────────────
+   OS injects [data-block] / .OSBlockWidget / [data-container] wrappers that
+   interrupt CSS grid and flex layouts. display:contents dissolves the box
+   while keeping its children as direct layout participants.               */
+
+/* Shell grid — utility-brand and utility-panel must be direct grid children */
+.utility-shell > [data-block],
+.utility-shell > .OSBlockWidget { display: contents; }
+
+/* Brand panel flex column */
+.utility-brand > [data-block],
+.utility-brand > .OSBlockWidget { display: contents; }
+
+/* Brand sub-sections */
+.utility-brand-top > [data-block],
+.utility-brand-top > .OSBlockWidget,
+.utility-brand-mid > [data-block],
+.utility-brand-mid > .OSBlockWidget,
+.utility-brand-bottom > [data-block],
+.utility-brand-bottom > .OSBlockWidget { display: contents; }
+
+/* Right panel flex column */
+.utility-panel > [data-block],
+.utility-panel > .OSBlockWidget { display: contents; }
+
+/* Panel-top flex row — wordmark + theme toggle must sit as direct children */
+.utility-panel-top > [data-block],
+.utility-panel-top > .OSBlockWidget { display: contents; }
+
+/* Risk warning flex row — SVG icon is commonly wrapped in OSBlockWidget */
+.utility-risk-warning > [data-block],
+.utility-risk-warning > .OSBlockWidget { display: contents; }
+
+/* FCA auth row */
+.utility-fca-auth > [data-block],
+.utility-fca-auth > .OSBlockWidget { display: contents; }
+
+/* Login form flex column — OS injects [data-container] / [data-list] wrappers
+   directly inside the form, breaking the gap: 18px field stack */
+.login-form > [data-container],
+.login-form > [data-list],
+.login-form > [data-block],
+.login-form > .OSBlockWidget { display: contents; }
+
 /* ── Responsive ───────────────────────────────────────────────────────────── */
 
 @media (max-width: 960px) {
