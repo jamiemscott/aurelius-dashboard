@@ -484,11 +484,19 @@
 .utility-fca-auth > .OSBlockWidget { display: contents; }
 
 /* Login form flex column — OS injects [data-container] / [data-list] wrappers
-   directly inside the form, breaking the gap: 18px field stack */
-.login-form > [data-container],
+   directly inside the form, breaking the gap: 18px field stack.
+   Only dissolve containers that carry an id (the real field wrappers).
+   The idless [data-container] is the "or" divider — it contains a
+   position:absolute span; dissolving its box breaks containment and
+   causes the span to float over the email label ("orgin*" glitch). */
+.login-form > [data-container][id],
 .login-form > [data-list],
 .login-form > [data-block],
 .login-form > .OSBlockWidget { display: contents; }
+
+/* OS injects a .login-form-top block after the form body containing only
+   the app name ("Aurelius") — not part of the design, suppress it. */
+.login-form-top { display: none; }
 
 /* ── Responsive ───────────────────────────────────────────────────────────── */
 
