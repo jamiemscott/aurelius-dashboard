@@ -483,6 +483,13 @@
 .utility-fca-auth > [data-block],
 .utility-fca-auth > .OSBlockWidget { display: contents; }
 
+/* Login form flex column — OS injects [data-container] / [data-list] wrappers
+   directly inside the form, breaking the gap: 18px field stack */
+.login-form > [data-container],
+.login-form > [data-list],
+.login-form > [data-block],
+.login-form > .OSBlockWidget { display: contents; }
+
 /* ── Responsive ───────────────────────────────────────────────────────────── */
 
 @media (max-width: 960px) {
