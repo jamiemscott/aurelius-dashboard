@@ -192,32 +192,22 @@
 }
 
 
-/* ── Full sidebar (> 1280px): hide portfolio nav group ────
-   Portfolio items (Overview → Capital Gains Tax) are already
-   in the topbar pill at this width — showing them again in
-   the sidebar is redundant and makes it feel cramped.
-   The Account group (Documents, My Details, Contact Us) and
-   the CTA / adviser cards remain visible.
-   At ≤ 1280px the topbar pill disappears, so the portfolio
-   group reappears automatically — the sidebar becomes the
-   primary nav again.                                        */
-@media (min-width: 1281px) {
-  .site-sidebar [aria-labelledby="nav-portfolio"],
-  .sidebar      [aria-labelledby="nav-portfolio"] { display: none; }
-}
+/* ── Portfolio nav group — always hidden from sidebar ──────
+   The topbar pill is the sole home for portfolio navigation
+   at every viewport width. The sidebar is reserved for
+   contextual sub-navigation (e.g. within My Investments)
+   and the Account group. No media query — never show it.   */
+.site-sidebar [aria-labelledby="nav-portfolio"],
+.sidebar      [aria-labelledby="nav-portfolio"] { display: none; }
 
 /* ── Compact sidebar: 901–1280px (laptops) ────────────────
-   Sidebar narrows to 176px. Section group labels are hidden
-   to save vertical space, but icon + label stay on one line
-   at a slightly smaller size. The advisor card gets tighter
-   padding so text doesn't hit the sidebar border. The topbar
-   nav is hidden (the sidebar handles all navigation at this
-   size). Brand sub-text is hidden to keep the topbar tidy. */
+   Sidebar narrows to 176px. Section labels are hidden to
+   save vertical space. Brand sub-text hides to reclaim
+   topbar width for the nav tabs, which remain visible.      */
 @media (max-width: 1280px) {
   :root { --sidebar-w: 176px; }
 
-  .topbar-nav { display: none; }
-  .brand-sub  { display: none; }
+  .brand-sub { display: none; }
 
   /* Sidebar itself — tighter vertical padding */
   .sidebar,
@@ -243,8 +233,33 @@
 /* ── Icon-only rail: ≤ 900px ──────────────────────────── */
 @media (max-width: 900px) {
   :root { --sidebar-w: 60px; }
-  .topbar-nav { display: none; }
   .nav-item { justify-content: center; padding: 10px; }
   .nav-item span, .sidebar-section-label, .sidebar-footer { display: none; }
-  .brand-name, .brand-sub { display: none; }
+  /* Brand name hides at this width — the mark alone is enough */
+  .brand-name { display: none; }
+}
+
+/* ── Topbar nav: progressive tab compression ──────────────
+   The topbar pill is primary navigation at every width.
+   Compress tabs progressively so they stay in the header
+   as long as possible before falling back to a scroll.      */
+@media (max-width: 1100px) {
+  .tab-btn { padding: 6px 10px; }
+}
+
+@media (max-width: 880px) {
+  .tab-btn   { font-size: var(--fs-md); padding: 5px 8px; }
+  .brand-sub { display: none; } /* catches no-sidebar pages; sidebar already hides at 1280px */
+}
+
+/* At very narrow viewports the pill scrolls rather than
+   overflowing — a proper mobile nav is a future milestone.  */
+@media (max-width: 760px) {
+  .topbar-nav {
+    margin-inline: 0;
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .topbar-nav::-webkit-scrollbar { display: none; }
 }
