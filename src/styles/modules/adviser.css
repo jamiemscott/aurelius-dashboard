@@ -115,6 +115,42 @@
 }
 
 
+/* ─── AI DISCLAIMER ──────────────────────────────────── */
+.chat-disclaimer {
+  align-items: flex-start;
+  background: light-dark(rgba(245,166,35,0.04), rgba(245,166,35,0.06));
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-shrink: 0;
+  gap: 10px;
+  padding: 10px 16px;
+}
+
+@media (min-width: 480px) {
+  .chat-disclaimer {
+    padding: 10px 20px;
+  }
+}
+
+.chat-disclaimer svg {
+  color: var(--text-3);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.chat-disclaimer p {
+  color: var(--text-3);
+  font-size: 11px;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.chat-disclaimer strong {
+  color: var(--text-2);
+  font-weight: var(--fw-semibold);
+}
+
+
 /* ─── MESSAGES AREA ──────────────────────────────────── */
 .adv-messages {
   display: flex;
