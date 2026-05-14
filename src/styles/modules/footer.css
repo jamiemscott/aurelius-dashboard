@@ -197,10 +197,14 @@
   width: 152px;
 }
 
-/* Shared rendered image — same file, different crops */
+/* Shared rendered image — same file, different crops.
+   max-width: none is required: the OS/OSUI stack injects max-width: 100%
+   on images which squishes the 500px-wide lockup sprite into the 153px
+   crop container, defeating the overflow-crop and translateX technique. */
 .footer-sponsor-img--lockup {
   display: block;
   height: 28px;
+  max-width: none;
   width: auto;
 }
 
