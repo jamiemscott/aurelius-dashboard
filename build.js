@@ -57,6 +57,7 @@ const PARTIALS = [
   'src/styles/modules/feedback.css',
   'src/styles/modules/add-investment.css',
   'src/styles/modules/onboarding.css',
+  'src/styles/modules/login.css',
   'src/styles/modules/transitions.css',
   // State — is-* classes
   'src/styles/state/state.css',
