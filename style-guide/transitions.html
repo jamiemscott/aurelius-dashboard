@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="transitions">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transitions — Aurelius Style Guide</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Transitions</h1>
+      <p class="sg-page-desc">Cross-document page transitions using the CSS View Transition API. When enabled, navigating between pages animates the main content area while the topbar and sidebar stay visually frozen — giving the product an app-like feel without any JavaScript routing. Defined in <code>modules/transitions.css</code>, compiled into <code>bundle.css</code>.</p>
+    </div>
+
+
+    <!-- ── How it works ──────────────────────────────────────── -->
+    <section class="sg-section" id="how-it-works">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">How It Works</h2>
+        <p class="sg-section-desc">The View Transition API is entirely CSS-driven. <code>@view-transition { navigation: auto }</code> in <code>bundle.css</code> tells the browser to intercept same-origin navigations and run a transition. No JavaScript required.</p>
+      </div>
+
+      <div class="sg-demo" style="display: flex; flex-direction: column; gap: 12px;">
+
+        <!-- Step diagram -->
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; text-align: center;">
+
+          <div style="background: var(--bg-hover); border: 1px solid var(--border); border-radius: var(--radius-item); padding: 16px 12px;">
+            <div style="color: var(--gold-text); font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: var(--ls-widest); text-transform: uppercase; margin-bottom: 8px;">1. Capture</div>
+            <p style="color: var(--text-2); font-size: var(--fs-sm); line-height: var(--lh-normal);">Browser snapshots the current page before navigation.</p>
+          </div>
+
+          <div style="background: var(--bg-hover); border: 1px solid var(--border); border-radius: var(--radius-item); padding: 16px 12px;">
+            <div style="color: var(--gold-text); font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: var(--ls-widest); text-transform: uppercase; margin-bottom: 8px;">2. Navigate</div>
+            <p style="color: var(--text-2); font-size: var(--fs-sm); line-height: var(--lh-normal);">Normal page fetch happens in the background.</p>
+          </div>
+
+          <div style="background: var(--bg-hover); border: 1px solid var(--border); border-radius: var(--radius-item); padding: 16px 12px;">
+            <div style="color: var(--gold-text); font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: var(--ls-widest); text-transform: uppercase; margin-bottom: 8px;">3. Render</div>
+            <p style="color: var(--text-2); font-size: var(--fs-sm); line-height: var(--lh-normal);">New page renders off-screen; named elements are paired.</p>
+          </div>
+
+          <div style="background: var(--bg-hover); border: 1px solid var(--border); border-radius: var(--radius-item); padding: 16px 12px;">
+            <div style="color: var(--gold-text); font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: var(--ls-widest); text-transform: uppercase; margin-bottom: 8px;">4. Animate</div>
+            <p style="color: var(--text-2); font-size: var(--fs-sm); line-height: var(--lh-normal);">Old and new snapshots cross-animate via <code>::view-transition-*</code> pseudo-elements.</p>
+          </div>
+
+        </div>
+
+        <!-- Key requirement callout -->
+        <div style="background: light-dark(rgba(245,166,35,0.06), rgba(245,166,35,0.08)); border: 1px solid light-dark(rgba(245,166,35,0.20), rgba(245,166,35,0.24)); border-radius: var(--radius-item); padding: 14px 16px; display: flex; gap: 10px; align-items: flex-start;">
+          <svg width="16" height="16" fill="none" stroke="var(--gold-text)" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <p style="color: var(--text-2); font-size: var(--fs-sm); line-height: var(--lh-relaxed); margin: 0;"><strong style="color: var(--text-1);">Both documents must opt in.</strong> <code>@view-transition { navigation: auto }</code> must be present in the old page <em>and</em> the new page for the transition to fire. Since it lives in <code>bundle.css</code>, which is included on every page, this is handled automatically.</p>
+        </div>
+
+      </div>
+
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">/* In bundle.css — applies to every page automatically */
+@view-transition {
+  navigation: auto;
+}</code></pre>
+      </div>
+    </section>
+
+
+    <!-- ── Opt-in ──────────────────────────────────────────── -->
+    <section class="sg-section" id="opt-in">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Opting In — <code>class="vt-page"</code></h2>
+        <p class="sg-section-desc">Transitions are gated behind the presence of a <code>.vt-page</code> element in the DOM. Add the class to the shell wrapper (or any element on the page) to enable named region tracking and the slide animation. Pages without the class still navigate normally — they just don't get the animated treatment.</p>
+      </div>
+
+      <div class="sg-demo sg-demo--col">
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+
+          <div class="sg-do">
+            <div class="sg-do-header">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Do — animated page
+            </div>
+            <div class="sg-do-body">
+              <pre style="font-size:12px;line-height:1.6;color:var(--text-1);white-space:pre-wrap;margin:0">&lt;div class="shell <strong>vt-page</strong>"&gt;
+  &lt;header role="banner"&gt;…&lt;/header&gt;
+  &lt;aside class="site-sidebar"&gt;…&lt;/aside&gt;
+  &lt;main class="main"&gt;…&lt;/main&gt;
+&lt;/div&gt;</pre>
+            </div>
+          </div>
+
+          <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-card); overflow: hidden;">
+            <div style="background: var(--bg-hover); padding: 8px 14px; font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: var(--ls-widest); text-transform: uppercase; color: var(--text-3);">Neutral — no transition</div>
+            <div class="sg-do-body">
+              <pre style="font-size:12px;line-height:1.6;color:var(--text-1);white-space:pre-wrap;margin:0">&lt;div class="shell"&gt;
+  &lt;header role="banner"&gt;…&lt;/header&gt;
+  &lt;aside class="site-sidebar"&gt;…&lt;/aside&gt;
+  &lt;main class="main"&gt;…&lt;/main&gt;
+&lt;/div&gt;</pre>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- OutSystems note -->
+        <div style="background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius-item); padding: 14px 16px; display: flex; gap: 10px; align-items: flex-start;">
+          <svg width="16" height="16" fill="none" stroke="var(--text-3)" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <p style="color: var(--text-2); font-size: var(--fs-sm); line-height: var(--lh-relaxed); margin: 0;"><strong style="color: var(--text-1);">OutSystems note.</strong> OS doesn't allow custom classes on <code>&lt;html&gt;</code>. Use <code>:has(.vt-page)</code> — the selector in <code>transitions.css</code> matches <em>any</em> document whose DOM contains a <code>.vt-page</code> element, so placing it on the outermost available div is sufficient.</p>
+        </div>
+
+      </div>
+
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">/* Named regions are only assigned when .vt-page exists in the DOM */
+body:has(.vt-page) [role="banner"] { view-transition-name: vt-topbar;  }
+body:has(.vt-page) .site-sidebar,
+body:has(.vt-page) .sidebar        { view-transition-name: vt-sidebar; }</code></pre>
+      </div>
+    </section>
+
+
+    <!-- ── Named regions ─────────────────────────────────────── -->
+    <section class="sg-section" id="named-regions">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Named Regions</h2>
+        <p class="sg-section-desc">A <code>view-transition-name</code> assigns an element to a named snapshot slot. Elements with the <strong>same name on both pages</strong> are treated as the same persistent surface — the browser composites them as frozen chrome. Elements with a name on <strong>only one page</strong> animate in or out. The root pseudo-element captures everything not claimed by a named element.</p>
+      </div>
+
+      <div class="sg-demo" style="padding: 24px;">
+
+        <!-- Annotated layout diagram -->
+        <div style="border: 1px solid var(--border); border-radius: var(--radius-card); overflow: hidden; max-width: 640px; margin: 0 auto;">
+
+          <!-- Topbar — frozen -->
+          <div style="background: light-dark(rgba(245,166,35,0.07), rgba(245,166,35,0.07)); border-bottom: 1px dashed var(--gold-glow); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; min-height: 44px;">
+            <span style="color: var(--gold-text); font-size: var(--fs-xs); font-weight: var(--fw-medium); letter-spacing: var(--ls-wide); text-transform: uppercase;">topbar</span>
+            <span style="background: light-dark(rgba(245,166,35,0.12), rgba(245,166,35,0.18)); border: 1px solid var(--gold-glow); border-radius: 4px; color: var(--gold-text); font-family: ui-monospace, monospace; font-size: 10px; padding: 2px 7px;">vt-topbar · frozen ❄</span>
+          </div>
+
+          <!-- Body row -->
+          <div style="display: flex; min-height: 120px;">
+
+            <!-- Sidebar — frozen -->
+            <div style="background: light-dark(rgba(74,143,232,0.06), rgba(74,143,232,0.06)); border-right: 1px dashed var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-width: 120px; padding: 16px;">
+              <span style="color: var(--el-water); font-size: var(--fs-xs); font-weight: var(--fw-medium); letter-spacing: var(--ls-wide); text-transform: uppercase;">sidebar</span>
+              <span style="background: light-dark(rgba(74,143,232,0.10), rgba(74,143,232,0.18)); border: 1px solid var(--el-water-bg); border-radius: 4px; color: var(--el-water); font-family: ui-monospace, monospace; font-size: 10px; padding: 2px 7px; text-align: center;">vt-sidebar · frozen ❄</span>
+            </div>
+
+            <!-- Main — animated -->
+            <div style="background: light-dark(rgba(100,200,100,0.04), rgba(100,200,100,0.06)); display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; gap: 6px; padding: 16px;">
+              <span style="color: var(--text-3); font-size: var(--fs-xs); font-weight: var(--fw-medium); letter-spacing: var(--ls-wide); text-transform: uppercase;">main (root)</span>
+              <span style="background: var(--green-dim); border: 1px solid color-mix(in srgb, var(--green) 30%, transparent); border-radius: 4px; color: var(--green); font-family: ui-monospace, monospace; font-size: 10px; padding: 2px 7px;">root · slides in ↑</span>
+              <span style="color: var(--text-3); font-size: var(--fs-xs); font-style: italic; margin-top: 4px;">not named — part of root snapshot</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Why .main is not named -->
+        <div style="margin-top: 16px; padding: 14px 16px; background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius-item); display: flex; gap: 10px; align-items: flex-start; max-width: 640px; margin-inline: auto; margin-top: 16px;">
+          <svg width="16" height="16" fill="none" stroke="var(--text-3)" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <p style="color: var(--text-2); font-size: var(--fs-sm); line-height: var(--lh-relaxed); margin: 0;"><strong style="color: var(--text-1);">Why <code>.main</code> has no name.</strong> Chrome's UA sheet sets <code>overflow: clip</code> on named element image pairs, which silently clips the <code>translateY</code> slide animation. Leaving <code>.main</code> unnamed means it falls into the root snapshot, where our keyframes run without any clipping.</p>
+        </div>
+
+      </div>
+
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">/* Static chrome — named but no keyframes → visually frozen */
+body:has(.vt-page) [role="banner"] { view-transition-name: vt-topbar;  }
+body:has(.vt-page) .site-sidebar,
+body:has(.vt-page) .sidebar        { view-transition-name: vt-sidebar; }
+
+/* Suppress the browser's default crossfade on frozen surfaces */
+::view-transition-old(vt-topbar),
+::view-transition-new(vt-topbar),
+::view-transition-old(vt-sidebar),
+::view-transition-new(vt-sidebar) {
+  animation: none;
+}
+
+/* .main is intentionally NOT named — animates via root instead */</code></pre>
+      </div>
+    </section>
+
+
+    <!-- ── Animation ─────────────────────────────────────────── -->
+    <section class="sg-section" id="animation">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Animation — Root Slide</h2>
+        <p class="sg-section-desc">The root snapshot (main content area) uses a two-phase staggered slide: the old page exits upward in 0.18s, then the new page enters from below after a 0.12s delay. The offset between exit and entry creates a brief overlap that feels fluid without being jarring.</p>
+      </div>
+
+      <div class="sg-demo">
+
+        <!-- Timing diagram -->
+        <div style="display: flex; flex-direction: column; gap: 8px; max-width: 560px;">
+
+          <p style="color: var(--text-3); font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: var(--ls-widest); text-transform: uppercase; margin-bottom: 4px;">Timeline (total ≈ 0.40s)</p>
+
+          <!-- Old page bar -->
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="color: var(--text-3); font-size: var(--fs-xs); min-width: 68px; text-align: right;">old page</span>
+            <div style="flex: 1; position: relative; height: 28px;">
+              <div style="position: absolute; left: 0; width: 45%; height: 100%; background: var(--red-dim); border: 1px solid color-mix(in srgb, var(--red) 30%, transparent); border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                <span style="color: var(--red); font-family: ui-monospace, monospace; font-size: 11px;">0 → 0.18s · ease-in</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- New page bar -->
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="color: var(--text-3); font-size: var(--fs-xs); min-width: 68px; text-align: right;">new page</span>
+            <div style="flex: 1; position: relative; height: 28px;">
+              <div style="position: absolute; left: 30%; width: 70%; height: 100%; background: var(--green-dim); border: 1px solid color-mix(in srgb, var(--green) 30%, transparent); border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                <span style="color: var(--green); font-family: ui-monospace, monospace; font-size: 11px;">0.12s delay → 0.40s · ease-out</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Scale indicator -->
+          <div style="display: flex; align-items: center; gap: 12px; margin-top: 4px;">
+            <span style="min-width: 68px;"></span>
+            <div style="flex: 1; display: flex; justify-content: space-between;">
+              <span style="color: var(--text-3); font-family: ui-monospace, monospace; font-size: 11px;">0s</span>
+              <span style="color: var(--text-3); font-family: ui-monospace, monospace; font-size: 11px;">0.12s</span>
+              <span style="color: var(--text-3); font-family: ui-monospace, monospace; font-size: 11px;">0.18s</span>
+              <span style="color: var(--text-3); font-family: ui-monospace, monospace; font-size: 11px;">0.40s</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Keyframe values table -->
+        <div style="margin-top: 24px;">
+          <table style="width:100%;border-collapse:collapse;">
+            <thead>
+              <tr>
+                <th style="border-bottom:1px solid var(--border);color:var(--text-3);font-size:var(--fs-xs);font-weight:var(--fw-semibold);letter-spacing:var(--ls-widest);padding:8px 12px;text-align:left;text-transform:uppercase;">Keyframe</th>
+                <th style="border-bottom:1px solid var(--border);color:var(--text-3);font-size:var(--fs-xs);font-weight:var(--fw-semibold);letter-spacing:var(--ls-widest);padding:8px 12px;text-align:left;text-transform:uppercase;">Duration</th>
+                <th style="border-bottom:1px solid var(--border);color:var(--text-3);font-size:var(--fs-xs);font-weight:var(--fw-semibold);letter-spacing:var(--ls-widest);padding:8px 12px;text-align:left;text-transform:uppercase;">Easing</th>
+                <th style="border-bottom:1px solid var(--border);color:var(--text-3);font-size:var(--fs-xs);font-weight:var(--fw-semibold);letter-spacing:var(--ls-widest);padding:8px 12px;text-align:left;text-transform:uppercase;">Transform</th>
+                <th style="border-bottom:1px solid var(--border);color:var(--text-3);font-size:var(--fs-xs);font-weight:var(--fw-semibold);letter-spacing:var(--ls-widest);padding:8px 12px;text-align:left;text-transform:uppercase;">Delay</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="border-bottom:1px solid var(--divider);color:var(--text-1);font-family:ui-monospace,monospace;font-size:var(--fs-sm);font-weight:var(--fw-medium);padding:12px 12px;">vt-slide-out (root)</td>
+                <td style="border-bottom:1px solid var(--divider);color:var(--text-2);font-size:var(--fs-body);padding:12px 12px;">0.18s</td>
+                <td style="border-bottom:1px solid var(--divider);color:var(--text-2);font-size:var(--fs-body);padding:12px 12px;">ease-in</td>
+                <td style="border-bottom:1px solid var(--divider);color:var(--text-2);font-size:var(--fs-body);padding:12px 12px;"><code>translateY(0 → -40px)</code></td>
+                <td style="border-bottom:1px solid var(--divider);color:var(--text-2);font-size:var(--fs-body);padding:12px 12px;">—</td>
+              </tr>
+              <tr>
+                <td style="border-bottom:none;color:var(--text-1);font-family:ui-monospace,monospace;font-size:var(--fs-sm);font-weight:var(--fw-medium);padding:12px 12px;">vt-slide-in (root)</td>
+                <td style="color:var(--text-2);font-size:var(--fs-body);padding:12px 12px;">0.28s</td>
+                <td style="color:var(--text-2);font-size:var(--fs-body);padding:12px 12px;">ease-out</td>
+                <td style="color:var(--text-2);font-size:var(--fs-body);padding:12px 12px;"><code>translateY(40px) scale(0.98) → normal</code></td>
+                <td style="color:var(--text-2);font-size:var(--fs-body);padding:12px 12px;">0.12s</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">@keyframes vt-slide-out {
+  from { opacity: 1; transform: translateY(0);     }
+  to   { opacity: 0; transform: translateY(-40px); }
+}
+
+@keyframes vt-slide-in {
+  from { opacity: 0; transform: translateY(40px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+::view-transition-old(root) {
+  animation-name:            vt-slide-out;
+  animation-duration:        0.18s;
+  animation-timing-function: ease-in;
+  animation-fill-mode:       both;
+}
+
+::view-transition-new(root) {
+  animation-name:            vt-slide-in;
+  animation-duration:        0.28s;
+  animation-timing-function: ease-out;
+  animation-fill-mode:       both;
+  animation-delay:           0.12s; /* let old finish before new enters */
+}</code></pre>
+      </div>
+    </section>
+
+
+    <!-- ── Adding new regions ─────────────────────────────────── -->
+    <section class="sg-section" id="new-regions">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Adding New Named Regions</h2>
+        <p class="sg-section-desc">Assign a unique <code>view-transition-name</code> to any element that should animate independently of the root. If the element exists on both pages (e.g. a persistent header card), the browser treats it as a morphing surface. If it only exists on one page, it fades in or out automatically.</p>
+      </div>
+
+      <div class="sg-demo sg-demo--col">
+
+        <div class="sg-do-dont">
+          <div>
+            <p style="color: var(--text-3); font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: var(--ls-widest); text-transform: uppercase; margin-bottom: 8px;">Persistent element (both pages)</p>
+            <div style="background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius-item); padding: 14px 16px;">
+              <p style="color: var(--text-2); font-size: var(--fs-sm); line-height: var(--lh-relaxed); margin: 0 0 8px;">Browser morphs the snapshot from old position to new position — creates a "shared element" effect.</p>
+              <pre style="font-size:12px;line-height:1.6;color:var(--text-1);white-space:pre-wrap;margin:0"><code>.page-header-card {
+  view-transition-name: vt-page-header;
+}</code></pre>
+            </div>
+          </div>
+          <div>
+            <p style="color: var(--text-3); font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: var(--ls-widest); text-transform: uppercase; margin-bottom: 8px;">Unique element (one page only)</p>
+            <div style="background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius-item); padding: 14px 16px;">
+              <p style="color: var(--text-2); font-size: var(--fs-sm); line-height: var(--lh-relaxed); margin: 0 0 8px;">Browser uses its default crossfade unless you supply <code>::view-transition-old/new</code> keyframes.</p>
+              <pre style="font-size:12px;line-height:1.6;color:var(--text-1);white-space:pre-wrap;margin:0"><code>.promo-banner {
+  view-transition-name: vt-promo;
+}
+/* then optionally: */
+::view-transition-new(vt-promo) {
+  animation: vt-slide-in 0.28s ease-out both;
+}</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Constraints callout -->
+        <div style="background: var(--red-dim); border: 1px solid color-mix(in srgb, var(--red) 25%, transparent); border-radius: var(--radius-item); padding: 14px 16px; display: flex; gap: 10px; align-items: flex-start;">
+          <svg width="16" height="16" fill="none" stroke="var(--red)" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          <p style="color: var(--text-2); font-size: var(--fs-sm); line-height: var(--lh-relaxed); margin: 0;"><strong style="color: var(--text-1);">Names must be unique per document.</strong> The browser throws if two elements on the same page share a <code>view-transition-name</code>. For list items use a dynamic name (e.g. <code>vt-holding-&lt;id&gt;</code>). Also avoid giving <code>view-transition-name</code> to elements inside <code>overflow: hidden</code> containers — Chrome will silently clip their animation.</p>
+        </div>
+
+      </div>
+
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">/* Give any element a unique name — no JS required */
+.my-element {
+  view-transition-name: vt-my-element; /* prefix with vt- by convention */
+}
+
+/* Optionally supply your own keyframes */
+::view-transition-old(vt-my-element) { animation: vt-slide-out 0.18s ease-in both; }
+::view-transition-new(vt-my-element) { animation: vt-slide-in  0.28s ease-out both 0.12s; }
+
+/* Or suppress animation entirely (freeze it like topbar/sidebar) */
+::view-transition-old(vt-my-element),
+::view-transition-new(vt-my-element) { animation: none; }</code></pre>
+      </div>
+    </section>
+
+
+    <!-- ── Browser support ───────────────────────────────────── -->
+    <section class="sg-section" id="browser-support">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Browser Support</h2>
+        <p class="sg-section-desc">The View Transition API for cross-document navigation is available in Chromium-based browsers from mid-2024 onward. Unsupported browsers fall back silently to a normal page load — the feature is a progressive enhancement and never breaks navigation.</p>
+      </div>
+
+      <div class="sg-demo">
+        <table style="width:100%;border-collapse:collapse;">
+          <thead>
+            <tr>
+              <th style="border-bottom:1px solid var(--border);color:var(--text-3);font-size:var(--fs-xs);font-weight:var(--fw-semibold);letter-spacing:var(--ls-widest);padding:8px 12px;text-align:left;text-transform:uppercase;">Browser</th>
+              <th style="border-bottom:1px solid var(--border);color:var(--text-3);font-size:var(--fs-xs);font-weight:var(--fw-semibold);letter-spacing:var(--ls-widest);padding:8px 12px;text-align:left;text-transform:uppercase;">Status</th>
+              <th style="border-bottom:1px solid var(--border);color:var(--text-3);font-size:var(--fs-xs);font-weight:var(--fw-semibold);letter-spacing:var(--ls-widest);padding:8px 12px;text-align:left;text-transform:uppercase;">Since</th>
+              <th style="border-bottom:1px solid var(--border);color:var(--text-3);font-size:var(--fs-xs);font-weight:var(--fw-semibold);letter-spacing:var(--ls-widest);padding:8px 12px;text-align:left;text-transform:uppercase;">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="border-bottom:1px solid var(--divider);color:var(--text-1);font-weight:var(--fw-medium);padding:12px 12px;">Chrome</td>
+              <td style="border-bottom:1px solid var(--divider);padding:12px 12px;"><span style="background:var(--green-dim);border:1px solid color-mix(in srgb, var(--green) 30%, transparent);border-radius:4px;color:var(--green);font-size:var(--fs-xs);font-weight:var(--fw-semibold);letter-spacing:var(--ls-wide);padding:3px 8px;text-transform:uppercase;">Supported</span></td>
+              <td style="border-bottom:1px solid var(--divider);color:var(--text-2);padding:12px 12px;">v126</td>
+              <td style="border-bottom:1px solid var(--divider);color:var(--text-2);font-size:var(--fs-sm);padding:12px 12px;">Full cross-document support</td>
+            </tr>
+            <tr>
+              <td style="border-bottom:1px solid var(--divider);color:var(--text-1);font-weight:var(--fw-medium);padding:12px 12px;">Edge</td>
+              <td style="border-bottom:1px solid var(--divider);padding:12px 12px;"><span style="background:var(--green-dim);border:1px solid color-mix(in srgb, var(--green) 30%, transparent);border-radius:4px;color:var(--green);font-size:var(--fs-xs);font-weight:var(--fw-semibold);letter-spacing:var(--ls-wide);padding:3px 8px;text-transform:uppercase;">Supported</span></td>
+              <td style="border-bottom:1px solid var(--divider);color:var(--text-2);padding:12px 12px;">v126</td>
+              <td style="border-bottom:1px solid var(--divider);color:var(--text-2);font-size:var(--fs-sm);padding:12px 12px;">Chromium-based — same support as Chrome</td>
+            </tr>
+            <tr>
+              <td style="border-bottom:1px solid var(--divider);color:var(--text-1);font-weight:var(--fw-medium);padding:12px 12px;">Firefox</td>
+              <td style="border-bottom:1px solid var(--divider);padding:12px 12px;"><span style="background:var(--bg-input);border:1px solid var(--border);border-radius:4px;color:var(--text-3);font-size:var(--fs-xs);font-weight:var(--fw-semibold);letter-spacing:var(--ls-wide);padding:3px 8px;text-transform:uppercase;">No-op</span></td>
+              <td style="border-bottom:1px solid var(--divider);color:var(--text-2);padding:12px 12px;">—</td>
+              <td style="border-bottom:1px solid var(--divider);color:var(--text-2);font-size:var(--fs-sm);padding:12px 12px;">Normal navigation, no animation</td>
+            </tr>
+            <tr>
+              <td style="border-bottom:none;color:var(--text-1);font-weight:var(--fw-medium);padding:12px 12px;">Safari</td>
+              <td style="padding:12px 12px;"><span style="background:var(--bg-input);border:1px solid var(--border);border-radius:4px;color:var(--text-3);font-size:var(--fs-xs);font-weight:var(--fw-semibold);letter-spacing:var(--ls-wide);padding:3px 8px;text-transform:uppercase;">No-op</span></td>
+              <td style="color:var(--text-2);padding:12px 12px;">—</td>
+              <td style="color:var(--text-2);font-size:var(--fs-sm);padding:12px 12px;">Normal navigation, no animation</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">/* Respect reduced-motion — always included in transitions.css */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}</code></pre>
+      </div>
+    </section>
+
+
+    <!-- ── Demo ───────────────────────────────────────────────── -->
+    <section class="sg-section" id="demo">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Standalone Demo</h2>
+        <p class="sg-section-desc">A self-contained prototype lives in <code>view-transition-demo/</code> at the repo root. Open it directly in Chrome 126+ to see the transitions in action across three pages (Overview, Investments, Documents) without needing a server.</p>
+      </div>
+
+      <div class="sg-demo" style="padding: 0; overflow: hidden;">
+        <div style="background: #0B0D10; border-radius: var(--radius-card); display: flex; gap: 20px; align-items: center; justify-content: space-between; padding: 24px 28px;">
+          <div>
+            <div style="color: var(--gold); font-family: var(--font-serif); font-size: 18px; font-style: italic; margin-bottom: 4px;">view-transition-demo/</div>
+            <p style="color: rgba(255,255,255,0.5); font-size: var(--fs-sm); line-height: 1.5; margin: 0;">index.html · investments.html · documents.html · demo.js</p>
+            <p style="color: rgba(255,255,255,0.35); font-size: var(--fs-xs); margin: 6px 0 0;">Requires Chrome 126+ · No build step · Open directly from disk</p>
+          </div>
+          <a href="../view-transition-demo/index.html" target="_blank" rel="noopener"
+             style="align-items:center;background:var(--gold);border:none;border-radius:var(--radius-btn);color:#0B0D10;cursor:pointer;display:inline-flex;flex-shrink:0;font-family:var(--font-sans);font-size:var(--fs-btn);font-weight:var(--fw-semibold);gap:7px;padding:10px 20px;text-decoration:none;white-space:nowrap;">
+            Open demo
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+</body>
+</html>
