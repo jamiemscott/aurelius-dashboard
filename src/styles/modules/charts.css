@@ -65,7 +65,10 @@
 .range-pill:hover     { background: var(--bg-hover); color: var(--text-1); }
 .range-pill.is-active { background: light-dark(rgba(160,86,7,0.08), var(--gold-dim)); color: var(--gold-text); }
 
-.chart-svg { display: block; width: 100%; }
+/* width !important — OutSystems wraps bundle.css in @layer theme.theme so
+   unlayered OS styles win at equal specificity. Layered !important beats
+   unlayered declarations, ensuring the SVG fills its container on OS. */
+.chart-svg { display: block; width: 100% !important; }
 
 /* ─── CHART TOOLTIP ──────────────────────────────────── */
 .chart-tooltip {
