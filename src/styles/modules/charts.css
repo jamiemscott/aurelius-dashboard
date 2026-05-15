@@ -65,10 +65,18 @@
 .range-pill:hover     { background: var(--bg-hover); color: var(--text-1); }
 .range-pill.is-active { background: light-dark(rgba(160,86,7,0.08), var(--gold-dim)); color: var(--gold-text); }
 
-/* width !important — OutSystems wraps bundle.css in @layer theme.theme so
-   unlayered OS styles win at equal specificity. Layered !important beats
-   unlayered declarations, ensuring the SVG fills its container on OS. */
+/* OutSystems InlineSVG strips class and id from the SVG element, so
+   .chart-svg and #perf-chart selectors never match on OS. Target by
+   structural selector instead. Two rules for belt-and-suspenders:
+   - .chart-svg        → local prototype (class preserved)
+   - .chart-container svg → OutSystems (class/id stripped)
+   width !important beats unlayered OS declarations (layered !important
+   wins over unlayered — same mechanism as .theme-toggle.OSFillParent).
+   height: auto on the container rule derives height from the SVG viewBox
+   aspect ratio, preventing xMidYMid meet letterboxing when OS also strips
+   the preserveAspectRatio="none" attribute. */
 .chart-svg { display: block; width: 100% !important; }
+.chart-container svg { display: block; width: 100% !important; height: auto; }
 
 /* ─── CHART TOOLTIP ──────────────────────────────────── */
 .chart-tooltip {
