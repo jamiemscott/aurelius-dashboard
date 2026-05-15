@@ -1,7 +1,16 @@
 /* ─── INIT / ENTRY POINT ────────────────────────────────────── */
 
 document.addEventListener('DOMContentLoaded', () => {
-  buildPerfChart('perf-chart', 600, 200);
+  // Responsive perf chart — measure the container at init time so the SVG
+  // fills its card rather than rendering at the hardcoded 600px fallback.
+  // ResizeObserver redraws whenever the card changes width (e.g. window resize).
+  (function () {
+    const svg       = document.getElementById('perf-chart');
+    const container = svg?.closest('.chart-container');
+    const draw      = () => buildPerfChart('perf-chart', Math.round(container?.clientWidth ?? 600), 200);
+    draw();
+    if (container && window.ResizeObserver) new ResizeObserver(draw).observe(container);
+  }());
   updateHistoryView('6M');
   buildDonut('small-donut', allocationData, 34, 12);
   buildLegend('small-legend', allocationData.slice(0, 6));

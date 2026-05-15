@@ -3,6 +3,11 @@
 function buildPerfChart(svgId, w, h) {
   const svg = document.getElementById(svgId);
   if (!svg) return;
+  // Override the hardcoded width/height attributes so the SVG fills its
+  // container. viewBox is set to the measured pixel width so coordinates
+  // drawn below always match the viewport exactly (no letterboxing).
+  svg.setAttribute('width', '100%');
+  svg.setAttribute('height', String(h));
   svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
 
   // Simulated portfolio performance curve
