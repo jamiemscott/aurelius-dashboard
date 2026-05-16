@@ -115,6 +115,100 @@
 }
 
 
+/* ─── OS AGENT SWITCH ────────────────────────────────────
+   OutSystems generates this fixed structure and the label
+   is text-only (OS editor does not allow child elements):
+
+     <div id="b4-AgentSource">
+       <label class="switch OSFillParent">Agent OS</label>
+       <span>
+         <input class="switch" type="checkbox">
+       </span>
+     </div>
+
+   Classic input:checked ~ label is unavailable because the
+   label precedes the input in the DOM. Instead:
+
+     • <span>          → visual track  (::before = thumb)
+     • :has(:checked)  → checked state without sibling hacks
+     • :focus-within   → keyboard focus ring on the track
+     • !important      → beats OSFillParent and OS layer rules
+   ──────────────────────────────────────────────────────── */
+
+/* Column layout matching the dropdown fields in the context bar */
+#b4-AgentSource {
+  align-items: flex-start;
+  display: flex !important;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 6px;
+}
+
+/* Label text: mirrors .chat-select-label caps style */
+#b4-AgentSource > label {
+  color: var(--text-3);
+  cursor: pointer;
+  display: block !important;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-widest);
+  margin-bottom: 0;
+  text-transform: uppercase;
+  width: auto !important;       /* override OSFillParent width:100% */
+}
+
+/* Hide the real checkbox — still keyboard-operable, just not visible */
+#b4-AgentSource input[type="checkbox"] {
+  height: 0;
+  opacity: 0;
+  position: absolute;
+  width: 0;
+}
+
+/* <span> is the visual track */
+#b4-AgentSource > span {
+  background: var(--progress-bg);
+  border: 1px solid transparent;
+  border-radius: 99px;
+  cursor: pointer;
+  display: block;
+  flex-shrink: 0;
+  height: 22px;
+  position: relative;
+  transition: background 0.2s, border-color 0.2s;
+  width: 40px;
+}
+
+/* Thumb */
+#b4-AgentSource > span::before {
+  background: var(--text-3);
+  border-radius: 50%;
+  content: '';
+  height: 16px;
+  left: 2px;
+  position: absolute;
+  top: 2px;
+  transition: transform 0.2s, background 0.2s;
+  width: 16px;
+}
+
+/* Checked state — :has() reaches the input even though it's inside <span> */
+#b4-AgentSource:has(input:checked) > span {
+  background: var(--gold-dim);
+  border-color: var(--gold-glow);
+}
+#b4-AgentSource:has(input:checked) > span::before {
+  background: var(--gold);
+  transform: translateX(18px);
+}
+
+/* Keyboard focus ring on the track */
+#b4-AgentSource:focus-within > span {
+  outline: 2px solid var(--gold-glow);
+  outline-offset: 2px;
+}
+
+
 /* ─── AI DISCLAIMER ──────────────────────────────────── */
 .chat-disclaimer {
   align-items: flex-start;
