@@ -372,6 +372,98 @@
 
 
     <!-- ═══════════════════════════════════════════════════════════
+         STATUS BUBBLES
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="status-bubbles">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Status Bubbles — <code>.adv-bubble-inner--{variant}</code></h2>
+        <p class="sg-section-desc">Modifier classes for <code>.adv-bubble-inner</code> that convey system status within the chat flow — errors, confirmations, warnings, and informational notices. The four variants use the same <code>--fb-color</code> / <code>--fb-bg</code> / <code>--fb-border</code> custom property tokens as <code>.feedback-message</code> variants in <code>modules/feedback.css</code>, keeping the status palette consistent across the product. Apply the modifier alongside the base class: <code>class="adv-bubble-inner adv-bubble-inner--error"</code>. Add <code>role="alert"</code> for error messages that need immediate screen-reader announcement.</p>
+      </div>
+      <div class="sg-demo sg-demo--col">
+
+        <!-- Error -->
+        <div>
+          <p class="sg-label">Error — <code>.adv-bubble-inner--error</code></p>
+          <div class="adv-msg adv-msg--bot" style="max-width:520px">
+            <div class="adv-avatar adv-avatar--bot" aria-hidden="true">A</div>
+            <div class="adv-bubble">
+              <div class="adv-bubble-inner adv-bubble-inner--error" role="alert">
+                <p class="adv-text">Unable to retrieve live fund data right now. Please try again in a moment, or contact your adviser if the issue persists.</p>
+              </div>
+              <span class="adv-time">09:44</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Warning -->
+        <div>
+          <p class="sg-label">Warning — <code>.adv-bubble-inner--warning</code></p>
+          <div class="adv-msg adv-msg--bot" style="max-width:520px">
+            <div class="adv-avatar adv-avatar--bot" aria-hidden="true">A</div>
+            <div class="adv-bubble">
+              <div class="adv-bubble-inner adv-bubble-inner--warning">
+                <p class="adv-text">This comparison uses the most recent available data, but two funds have not yet published their Q1 2026 factsheets. Figures may not reflect the latest period.</p>
+              </div>
+              <span class="adv-time">09:44</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Success -->
+        <div>
+          <p class="sg-label">Success — <code>.adv-bubble-inner--success</code></p>
+          <div class="adv-msg adv-msg--bot" style="max-width:520px">
+            <div class="adv-avatar adv-avatar--bot" aria-hidden="true">A</div>
+            <div class="adv-bubble">
+              <div class="adv-bubble-inner adv-bubble-inner--success">
+                <p class="adv-text">Your watchlist has been updated. All three funds have been added and you will receive alerts when their prices change by more than 5%.</p>
+              </div>
+              <span class="adv-time">09:44</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Info -->
+        <div>
+          <p class="sg-label">Info — <code>.adv-bubble-inner--info</code></p>
+          <div class="adv-msg adv-msg--bot" style="max-width:520px">
+            <div class="adv-avatar adv-avatar--bot" aria-hidden="true">A</div>
+            <div class="adv-bubble">
+              <div class="adv-bubble-inner adv-bubble-inner--info">
+                <p class="adv-text">This is a simulated demo environment. Connect Aurelius AI to a live data source for real-time portfolio figures and fund comparisons.</p>
+              </div>
+              <span class="adv-time">09:44</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;!-- Error — add role="alert" for immediate screen-reader announcement --&gt;
+&lt;div class="adv-bubble-inner adv-bubble-inner--error" role="alert"&gt;
+  &lt;p class="adv-text"&gt;Something went wrong. Please try again.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- Warning --&gt;
+&lt;div class="adv-bubble-inner adv-bubble-inner--warning"&gt;
+  &lt;p class="adv-text"&gt;Data may be incomplete — factsheets not yet published.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- Success --&gt;
+&lt;div class="adv-bubble-inner adv-bubble-inner--success"&gt;
+  &lt;p class="adv-text"&gt;Your watchlist has been updated successfully.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- Info --&gt;
+&lt;div class="adv-bubble-inner adv-bubble-inner--info"&gt;
+  &lt;p class="adv-text"&gt;This is a simulated demo environment.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
          MESSAGE TEXT & RICH CONTENT
          ═══════════════════════════════════════════════════════════ -->
     <section class="sg-section" id="message-text">
@@ -735,6 +827,10 @@
             <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-avatar--user</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Neutral uppercase initials</td></tr>
             <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-bubble</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Bubble column — inner + meta stack</td></tr>
             <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-bubble-inner</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Coloured surface with asymmetric border-radius</td></tr>
+            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-bubble-inner--error</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Status modifier — red tint; use <code>role="alert"</code></td></tr>
+            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-bubble-inner--warning</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Status modifier — gold tint; partial or cautionary data</td></tr>
+            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-bubble-inner--success</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Status modifier — green tint; confirmed action</td></tr>
+            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-bubble-inner--info</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Status modifier — gold-soft tint; neutral notice</td></tr>
             <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-text</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Prose wrapper — p, strong, code support</td></tr>
             <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-sender</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Bot sender name — first message in a group only</td></tr>
             <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-time</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Timestamp below bubble; right-aligned for user</td></tr>

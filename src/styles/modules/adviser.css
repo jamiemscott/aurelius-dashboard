@@ -473,6 +473,55 @@
 }
 
 
+/* ─── BUBBLE STATUS VARIANTS ─────────────────────────────
+   Modifier classes for .adv-bubble-inner that convey system
+   status within the chat flow — errors, confirmations,
+   warnings, and informational notices from the bot.
+
+   Shares the same --fb-color / --fb-bg / --fb-border token
+   vocabulary as .feedback-message variants (feedback.css)
+   for a consistent status palette across the product.
+
+   Usage: <div class="adv-bubble-inner adv-bubble-inner--error">
+
+   Double-class specificity (0,2,0) equals the base
+   .adv-msg--bot/user .adv-bubble-inner rules; cascade
+   order (later in file) ensures the modifier wins cleanly.
+   ──────────────────────────────────────────────────────── */
+
+.adv-bubble-inner.adv-bubble-inner--error {
+  --fb-color:  var(--red);
+  --fb-bg:     var(--red-dim);
+  --fb-border: color-mix(in srgb, var(--red) 30%, transparent);
+  background:   var(--fb-bg);
+  border-color: var(--fb-border);
+}
+
+.adv-bubble-inner.adv-bubble-inner--success {
+  --fb-color:  var(--green);
+  --fb-bg:     var(--green-dim);
+  --fb-border: color-mix(in srgb, var(--green) 30%, transparent);
+  background:   var(--fb-bg);
+  border-color: var(--fb-border);
+}
+
+.adv-bubble-inner.adv-bubble-inner--warning {
+  --fb-color:  var(--gold);
+  --fb-bg:     var(--gold-dim);
+  --fb-border: var(--gold-glow);
+  background:   var(--fb-bg);
+  border-color: var(--fb-border);
+}
+
+.adv-bubble-inner.adv-bubble-inner--info {
+  --fb-color:  var(--gold-soft);
+  --fb-bg:     var(--gold-dim);
+  --fb-border: var(--gold-glow);
+  background:   var(--fb-bg);
+  border-color: var(--fb-border);
+}
+
+
 /* ─── TYPING INDICATOR ───────────────────────────────── */
 /* @keyframes chat-bounce is defined in theme/animations.css */
 .adv-dots {

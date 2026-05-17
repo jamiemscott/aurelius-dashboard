@@ -199,6 +199,51 @@
           <div class="adv-avatar adv-avatar--user" aria-hidden="true">SK</div>
         </div>
 
+        <!-- ── Status bubble examples ─────────────────────────────────────── -->
+        <!-- Error -->
+        <div class="adv-msg adv-msg--bot">
+          <div class="adv-avatar adv-avatar--bot" aria-hidden="true">A</div>
+          <div class="adv-bubble">
+            <div class="adv-bubble-inner adv-bubble-inner--error" role="alert">
+              <p class="adv-text">Unable to retrieve live fund data right now. Please try again in a moment, or contact your adviser if the issue persists.</p>
+            </div>
+            <time class="adv-time" datetime="2026-04-13T09:44">09:44</time>
+          </div>
+        </div>
+
+        <!-- Warning -->
+        <div class="adv-msg adv-msg--bot">
+          <div class="adv-avatar adv-avatar--bot" aria-hidden="true">A</div>
+          <div class="adv-bubble">
+            <div class="adv-bubble-inner adv-bubble-inner--warning">
+              <p class="adv-text">This comparison uses the most recent available data, but two of the three funds have not yet published their Q1 2026 factsheets. Figures may not reflect the latest period.</p>
+            </div>
+            <time class="adv-time" datetime="2026-04-13T09:44">09:44</time>
+          </div>
+        </div>
+
+        <!-- Success -->
+        <div class="adv-msg adv-msg--bot">
+          <div class="adv-avatar adv-avatar--bot" aria-hidden="true">A</div>
+          <div class="adv-bubble">
+            <div class="adv-bubble-inner adv-bubble-inner--success">
+              <p class="adv-text">Your watchlist has been updated. All three funds have been added and you will receive alerts when their prices change by more than 5%.</p>
+            </div>
+            <time class="adv-time" datetime="2026-04-13T09:44">09:44</time>
+          </div>
+        </div>
+
+        <!-- Info -->
+        <div class="adv-msg adv-msg--bot">
+          <div class="adv-avatar adv-avatar--bot" aria-hidden="true">A</div>
+          <div class="adv-bubble">
+            <div class="adv-bubble-inner adv-bubble-inner--info">
+              <p class="adv-text">This is a simulated demo environment. Connect Aurelius AI to a live data source for real-time portfolio figures and fund comparisons.</p>
+            </div>
+            <time class="adv-time" datetime="2026-04-13T09:44">09:44</time>
+          </div>
+        </div>
+
         <!-- Bot: typing indicator -->
         <div class="adv-msg adv-msg--bot" id="adv-typing" aria-label="Adviser is typing">
           <div class="adv-avatar adv-avatar--bot" aria-hidden="true">A</div>
