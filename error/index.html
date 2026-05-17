@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found — Aurelius Wealth Management</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../src/styles/bundle.css">
+
+</head>
+<body>
+
+<!--  Hidden theme checkbox — same pattern as the main app shell.
+      Checking it switches color-scheme to light; unchecked = dark (app default). -->
+<input type="checkbox" class="theme-checkbox" id="theme-checkbox" aria-hidden="true" style="display:none">
+
+<div class="utility-shell">
+
+  <!-- ── Left: Brand Panel ─────────────────────────────────────── -->
+  <div class="utility-brand" role="presentation" aria-hidden="true">
+    <div class="utility-brand-top">
+      <div class="utility-brand-logo">Aurelius</div>
+    </div>
+
+    <div class="utility-brand-mid">
+      <h2 class="utility-brand-headline">
+        Clarity in every<br><em>decision.</em>
+      </h2>
+      <div class="utility-brand-rule"></div>
+      <blockquote class="utility-brand-quote">
+        "The happiness of your life depends upon the quality of your thoughts."
+        <cite>— Marcus Aurelius, Meditations</cite>
+      </blockquote>
+    </div>
+
+    <div class="utility-brand-bottom">
+      <div class="utility-brand-badges">
+        <span class="utility-brand-badge">FCA Regulated</span>
+        <span class="utility-brand-badge">ISO 27001</span>
+        <span class="utility-brand-badge">GDPR Compliant</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Right: Content Panel ──────────────────────────────────── -->
+  <main class="utility-panel" id="main-content">
+
+    <!-- Topbar row: wordmark + theme toggle -->
+    <div class="utility-panel-top">
+      <span class="utility-wordmark" aria-hidden="true">Aurelius</span>
+      <label class="utility-theme-btn" for="theme-checkbox" aria-label="Toggle light and dark mode">
+        <svg id="theme-icon" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <span id="theme-label">Light mode</span>
+      </label>
+    </div>
+
+    <!-- Panel body -->
+    <div class="utility-panel-body">
+      <p class="error-page-code" aria-hidden="true">404</p>
+      <h1 class="utility-heading">Page not found.</h1>
+      <p class="utility-sub">The page you're looking for doesn't exist or may have been moved. Check the address or return to your dashboard.</p>
+
+      <div class="error-page-actions">
+
+        <!-- Primary: back to dashboard -->
+        <a href="../index.html" class="login-submit">
+          Return to dashboard
+        </a>
+
+        <div class="login-divider" role="separator" aria-hidden="true">or</div>
+
+        <!-- Secondary: contact support -->
+        <a href="mailto:clientservices@aureliuswm.co.uk" class="login-support">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          Contact client services
+        </a>
+
+      </div>
+    </div>
+
+    <!-- FCA / Regulatory Footer -->
+    <footer class="utility-footer" role="contentinfo">
+      <div class="utility-fca">
+
+        <!-- Risk warning callout -->
+        <div class="utility-risk-warning" role="note" aria-label="Investment risk warning">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <p><strong>Capital at risk.</strong> The value of investments and any income from them can fall as well as rise. You may not get back the amount you originally invested. Past performance is not a guide to future performance.</p>
+        </div>
+
+        <!-- FCA authorisation -->
+        <div class="utility-fca-auth">
+          <span class="utility-fca-badge" aria-label="FCA regulated">FCA</span>
+          <p>Aurelius Wealth Management Limited is authorised and regulated by the Financial Conduct Authority. Registered in England and Wales No. 01234567. FCA Reference No. 123456. You can verify our registration at <a href="https://register.fca.org.uk" target="_blank" rel="noopener noreferrer">register.fca.org.uk</a>.</p>
+        </div>
+
+        <p>This portal is for existing clients only. <a href="#">Terms of Use</a> · <a href="#">Privacy Policy</a>.</p>
+
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  // ── Theme toggle ──────────────────────────────────────────────
+  (function () {
+    var cb    = document.getElementById('theme-checkbox');
+    var label = document.getElementById('theme-label');
+    if (!cb) return;
+
+    var stored  = localStorage.getItem('aurelius-theme');
+    var isLight = stored
+      ? stored === 'light'
+      : window.matchMedia('(prefers-color-scheme: light)').matches;
+
+    cb.checked = isLight;
+    label.textContent = isLight ? 'Dark mode' : 'Light mode';
+
+    cb.addEventListener('change', function () {
+      var light = cb.checked;
+      label.textContent = light ? 'Dark mode' : 'Light mode';
+      localStorage.setItem('aurelius-theme', light ? 'light' : 'dark');
+    });
+  }());
+</script>
+</body>
+</html>

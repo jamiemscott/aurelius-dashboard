@@ -506,6 +506,35 @@
    the app name ("Aurelius") — not part of the design, suppress it. */
 .login-form-top { display: none; }
 
+/* ── Error Page ───────────────────────────────────────────────────────────── */
+
+/* Large italic error code — gold serif number that anchors the layout */
+.error-page-code {
+  color: var(--gold);
+  font-family: var(--font-serif);
+  font-size: clamp(72px, 9vw, 112px);
+  font-style: italic;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0 0 16px;
+}
+
+/* Action stack below error message */
+.error-page-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+/* Allow <a> to carry .login-submit styling */
+a.login-submit {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+}
+
 /* ── Responsive ───────────────────────────────────────────────────────────── */
 
 @media (max-width: 960px) {
