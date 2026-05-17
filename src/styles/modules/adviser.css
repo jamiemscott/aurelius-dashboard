@@ -270,6 +270,7 @@
   display: flex;
   gap: 12px;
   margin: 16px 0 20px;
+  width: 100%;
 }
 
 .adv-divider::before,
@@ -289,6 +290,23 @@
   white-space: nowrap;
 }
 
+
+/* ─── OS WRAPPER ─────────────────────────────────────── */
+/* OutSystems AllChatContent List renders each block inside
+   a classless [data-container] div with no class attribute.
+   These become the actual flex items of .adv-messages, so
+   .adv-msg--user's margin-left:auto has nothing to push against.
+   Fix: stretch each wrapper to full column width and mirror
+   .adv-messages as a flex column with align-items:flex-start,
+   so child .adv-msg elements regain working margin alignment.
+   div:not([class]) never matches prototype elements (all have
+   classes) so there is zero collateral effect on local HTML.  */
+.adv-messages > div:not([class]) {
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+}
 
 /* ─── MESSAGE ROW ────────────────────────────────────── */
 .adv-msg {
