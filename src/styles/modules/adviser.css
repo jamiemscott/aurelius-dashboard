@@ -326,10 +326,12 @@
   margin-top: 4px;
 }
 
-/* User messages: push to the right.
- * Avatar stays on the LEFT of the bubble (same DOM order as bot).
- * margin-left: auto is what right-aligns the row — no row-reverse needed. */
+/* User messages: push to the right, avatar on the RIGHT of the bubble.
+ * flex-direction: row-reverse visually swaps [avatar, bubble] → [bubble, avatar].
+ * margin-left: auto right-aligns the whole row in the parent flex column —
+ * it is applied to the outer element and is unaffected by row-reverse. */
 .adv-msg--user {
+  flex-direction: row-reverse;
   margin-left: auto;
 }
 
@@ -452,7 +454,7 @@
 }
 
 .adv-msg--user .adv-time {
-  text-align: left;
+  text-align: right;
 }
 
 /* Bot sender name (shown only on first in a group) */
