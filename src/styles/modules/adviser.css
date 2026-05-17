@@ -514,9 +514,9 @@
 }
 
 .adv-bubble-inner.adv-bubble-inner--info {
-  --fb-color:  var(--gold-soft);
-  --fb-bg:     var(--gold-dim);
-  --fb-border: var(--gold-glow);
+  --fb-color:  var(--status-info);
+  --fb-bg:     var(--status-info-dim);
+  --fb-border: color-mix(in srgb, var(--status-info) 30%, transparent);
   background:   var(--fb-bg);
   border-color: var(--fb-border);
 }
