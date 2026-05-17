@@ -247,6 +247,7 @@
 
 /* ─── MESSAGES AREA ──────────────────────────────────── */
 .adv-messages {
+  align-items: flex-start;
   display: flex;
   flex: 1;
   flex-direction: column;
