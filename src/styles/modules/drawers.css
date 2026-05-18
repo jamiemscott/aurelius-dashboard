@@ -1,4 +1,9 @@
-/* ─── ADVISER MESSAGE DRAWER (Popover API) ───────────── */
+/* ─── ADVISER MESSAGE DRAWER ─────────────────────────────────
+   Prototype: uses native Popover API — open state driven by :popover-open.
+   OutSystems: add class "adv-drawer" to the panel element; open/close by
+   toggling .is-open on it. Pair with a .drawer-overlay sibling for the
+   backdrop (see shared overlay rule below).
+   ─────────────────────────────────────────────────────────── */
 
 .adv-drawer {
   /* Position: fixed to right edge, full height */
@@ -26,8 +31,9 @@
   width: 420px;
 }
 
-/* Open state */
-.adv-drawer:popover-open {
+/* Open state — :popover-open for prototype, .is-open for OutSystems */
+.adv-drawer:popover-open,
+.adv-drawer.is-open {
   transform: translateX(0);
 }
 
@@ -61,7 +67,7 @@
   }
 }
 
-/* ─── ADD FUND DRAWER (Popover API) ───────────────────────── */
+/* ─── ADD FUND DRAWER ─────────────────────────────────────── */
 
 .add-fund-drawer {
   background: var(--bg-card);
@@ -87,7 +93,9 @@
   width: 520px;
 }
 
-.add-fund-drawer:popover-open {
+/* Open state — :popover-open for prototype, .is-open for OutSystems */
+.add-fund-drawer:popover-open,
+.add-fund-drawer.is-open {
   transform: translateX(0);
 }
 
@@ -159,7 +167,7 @@
   padding: 10px 14px;
 }
 
-/* ─── ADD INVESTMENT DRAWER (Popover API) ─────────────────── */
+/* ─── ADD INVESTMENT DRAWER ───────────────────────────────── */
 
 .add-investment-drawer {
   background: var(--bg-card);
@@ -185,7 +193,9 @@
   width: 480px;
 }
 
-.add-investment-drawer:popover-open {
+/* Open state — :popover-open for prototype, .is-open for OutSystems */
+.add-investment-drawer:popover-open,
+.add-investment-drawer.is-open {
   transform: translateX(0);
 }
 
@@ -215,6 +225,24 @@
     backdrop-filter: blur(0px);
     background: rgba(0, 0, 0, 0);
   }
+}
+
+/* ─── SHARED DRAWER OVERLAY ───────────────────────────────────
+   OutSystems replacement for ::backdrop. Add a sibling element
+   with class "drawer-overlay" alongside any open drawer; remove
+   it (or toggle .is-open on it) when the drawer closes.
+   ─────────────────────────────────────────────────────────── */
+
+.drawer-overlay {
+  backdrop-filter: blur(2px);
+  background: light-dark(rgba(0,0,0,0.22), rgba(0,0,0,0.38));
+  inset: 0;
+  position: fixed;
+  transition:
+    background      0.36s ease,
+    backdrop-filter 0.36s ease,
+    opacity         0.36s ease;
+  z-index: 99;
 }
 
 /* ── Inner layout ── */

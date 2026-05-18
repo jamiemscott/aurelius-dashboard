@@ -1,4 +1,7 @@
-/* ─── USER MENU (Popover API) ────────────────────────────────── */
+/* ─── USER MENU ───────────────────────────────────────────────
+   Prototype: uses native Popover API — open state driven by :popover-open.
+   OutSystems: toggle .is-open on the element to show/hide it.
+   ─────────────────────────────────────────────────────────── */
 
 /* Avatar button — reset + hover ring */
 button.avatar {
@@ -19,6 +22,9 @@ button.avatar:hover { box-shadow: 0 0 0 3px var(--gold-dim); }
   margin: 0;
   opacity: 0;
   padding: 0;
+  /* pointer-events: none keeps the invisible menu from intercepting
+     clicks when OS renders it without the Popover API's display:none */
+  pointer-events: none;
   position: fixed;
   right: 14px;
   top: calc(var(--topbar-h) + 8px);
@@ -32,8 +38,11 @@ button.avatar:hover { box-shadow: 0 0 0 3px var(--gold-dim); }
   width: 264px;
 }
 
-.user-menu:popover-open {
+/* Open state — :popover-open for prototype, .is-open for OutSystems */
+.user-menu:popover-open,
+.user-menu.is-open {
   opacity: 1;
+  pointer-events: auto;
   transform: scale(1) translateY(0);
 }
 
