@@ -134,7 +134,7 @@
 
 /* ─── ADVISER MESSAGE DRAWER (Popover API) ───────────── */
 
-#adviser-drawer {
+.adv-drawer {
   /* Position: fixed to right edge, full height */
   background: var(--bg-card);
   border: none;
@@ -161,19 +161,19 @@
 }
 
 /* Open state */
-#adviser-drawer:popover-open {
+.adv-drawer:popover-open {
   transform: translateX(0);
 }
 
 /* Entry: start position for the opening animation */
 @starting-style {
-  #adviser-drawer:popover-open {
+  .adv-drawer:popover-open {
     transform: translateX(100%);
   }
 }
 
 /* Backdrop */
-#adviser-drawer::backdrop {
+.adv-drawer::backdrop {
   backdrop-filter: blur(0px);
   background: rgba(0, 0, 0, 0);
   transition:
@@ -183,13 +183,13 @@
     overlay          0.36s allow-discrete;
 }
 
-#adviser-drawer:popover-open::backdrop {
+.adv-drawer:popover-open::backdrop {
   backdrop-filter: blur(2px);
   background: light-dark(rgba(0,0,0,0.22), rgba(0,0,0,0.38));
 }
 
 @starting-style {
-  #adviser-drawer:popover-open::backdrop {
+  .adv-drawer:popover-open::backdrop {
     backdrop-filter: blur(0px);
     background: rgba(0, 0, 0, 0);
   }
@@ -197,7 +197,7 @@
 
 /* ─── ADD FUND DRAWER (Popover API) ───────────────────────── */
 
-#add-fund-drawer {
+.add-fund-drawer {
   background: var(--bg-card);
   border: none;
   border-left: 1px solid var(--border);
@@ -221,17 +221,17 @@
   width: 520px;
 }
 
-#add-fund-drawer:popover-open {
+.add-fund-drawer:popover-open {
   transform: translateX(0);
 }
 
 @starting-style {
-  #add-fund-drawer:popover-open {
+  .add-fund-drawer:popover-open {
     transform: translateX(100%);
   }
 }
 
-#add-fund-drawer::backdrop {
+.add-fund-drawer::backdrop {
   backdrop-filter: blur(0px);
   background: rgba(0, 0, 0, 0);
   transition:
@@ -241,13 +241,13 @@
     overlay         0.36s allow-discrete;
 }
 
-#add-fund-drawer:popover-open::backdrop {
+.add-fund-drawer:popover-open::backdrop {
   backdrop-filter: blur(2px);
   background: light-dark(rgba(0,0,0,0.22), rgba(0,0,0,0.38));
 }
 
 @starting-style {
-  #add-fund-drawer:popover-open::backdrop {
+  .add-fund-drawer:popover-open::backdrop {
     backdrop-filter: blur(0px);
     background: rgba(0, 0, 0, 0);
   }
@@ -295,7 +295,7 @@
 
 /* ─── ADD INVESTMENT DRAWER (Popover API) ─────────────────── */
 
-#add-investment-drawer {
+.add-investment-drawer {
   background: var(--bg-card);
   border: none;
   border-left: 1px solid var(--border);
@@ -319,17 +319,17 @@
   width: 480px;
 }
 
-#add-investment-drawer:popover-open {
+.add-investment-drawer:popover-open {
   transform: translateX(0);
 }
 
 @starting-style {
-  #add-investment-drawer:popover-open {
+  .add-investment-drawer:popover-open {
     transform: translateX(100%);
   }
 }
 
-#add-investment-drawer::backdrop {
+.add-investment-drawer::backdrop {
   backdrop-filter: blur(0px);
   background: rgba(0, 0, 0, 0);
   transition:
@@ -339,13 +339,13 @@
     overlay         0.36s allow-discrete;
 }
 
-#add-investment-drawer:popover-open::backdrop {
+.add-investment-drawer:popover-open::backdrop {
   backdrop-filter: blur(2px);
   background: light-dark(rgba(0,0,0,0.22), rgba(0,0,0,0.38));
 }
 
 @starting-style {
-  #add-investment-drawer:popover-open::backdrop {
+  .add-investment-drawer:popover-open::backdrop {
     backdrop-filter: blur(0px);
     background: rgba(0, 0, 0, 0);
   }

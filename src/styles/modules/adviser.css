@@ -119,7 +119,7 @@
    OutSystems generates this fixed structure and the label
    is text-only (OS editor does not allow child elements):
 
-     <div id="b4-AgentSource">
+     <div class="adv-agent-source">
        <label class="switch OSFillParent">Agent OS</label>
        <span>
          <input class="switch" type="checkbox">
@@ -136,7 +136,7 @@
    ──────────────────────────────────────────────────────── */
 
 /* Column layout matching the dropdown fields in the context bar */
-#b4-AgentSource {
+.adv-agent-source {
   align-items: flex-start;
   display: flex !important;
   flex-direction: column;
@@ -145,7 +145,7 @@
 }
 
 /* Label text: mirrors .chat-select-label caps style */
-#b4-AgentSource > label {
+.adv-agent-source > label {
   color: var(--text-3);
   cursor: pointer;
   display: block !important;
@@ -158,7 +158,7 @@
 }
 
 /* Hide the real checkbox — still keyboard-operable, just not visible */
-#b4-AgentSource input[type="checkbox"] {
+.adv-agent-source input[type="checkbox"] {
   height: 0;
   opacity: 0;
   position: absolute;
@@ -166,7 +166,7 @@
 }
 
 /* <span> is the visual track */
-#b4-AgentSource > span {
+.adv-agent-source > span {
   background: var(--progress-bg);
   border: 1px solid transparent;
   border-radius: 99px;
@@ -180,7 +180,7 @@
 }
 
 /* Thumb */
-#b4-AgentSource > span::before {
+.adv-agent-source > span::before {
   background: var(--text-3);
   border-radius: 50%;
   content: '';
@@ -193,17 +193,17 @@
 }
 
 /* Checked state — :has() reaches the input even though it's inside <span> */
-#b4-AgentSource:has(input:checked) > span {
+.adv-agent-source:has(input:checked) > span {
   background: var(--gold-dim);
   border-color: var(--gold-glow);
 }
-#b4-AgentSource:has(input:checked) > span::before {
+.adv-agent-source:has(input:checked) > span::before {
   background: var(--gold);
   transform: translateX(18px);
 }
 
 /* Keyboard focus ring on the track */
-#b4-AgentSource:focus-within > span {
+.adv-agent-source:focus-within > span {
   outline: 2px solid var(--gold-glow);
   outline-offset: 2px;
 }
