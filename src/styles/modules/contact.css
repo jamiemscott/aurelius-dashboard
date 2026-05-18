@@ -132,7 +132,7 @@
 
 .contact-lock-note svg { color: var(--text-3); flex-shrink: 0; }
 
-/* ─── ADVISER MESSAGE DRAWER (Popover API) ───────────── */
+/* ─── ADVISER MESSAGE DRAWER ─────────────────────────── */
 
 .adv-drawer {
   /* Position: fixed to right edge, full height */
@@ -160,8 +160,9 @@
   width: 420px;
 }
 
-/* Open state */
-.adv-drawer:popover-open {
+/* Open state — :popover-open for prototype, .is-open for OutSystems */
+.adv-drawer:popover-open,
+.adv-drawer.is-open {
   transform: translateX(0);
 }
 
@@ -195,7 +196,7 @@
   }
 }
 
-/* ─── ADD FUND DRAWER (Popover API) ───────────────────────── */
+/* ─── ADD FUND DRAWER ─────────────────────────────────────── */
 
 .add-fund-drawer {
   background: var(--bg-card);
@@ -221,7 +222,9 @@
   width: 520px;
 }
 
-.add-fund-drawer:popover-open {
+/* Open state — :popover-open for prototype, .is-open for OutSystems */
+.add-fund-drawer:popover-open,
+.add-fund-drawer.is-open {
   transform: translateX(0);
 }
 
@@ -293,7 +296,7 @@
   padding: 10px 14px;
 }
 
-/* ─── ADD INVESTMENT DRAWER (Popover API) ─────────────────── */
+/* ─── ADD INVESTMENT DRAWER ───────────────────────────────── */
 
 .add-investment-drawer {
   background: var(--bg-card);
@@ -319,7 +322,9 @@
   width: 480px;
 }
 
-.add-investment-drawer:popover-open {
+/* Open state — :popover-open for prototype, .is-open for OutSystems */
+.add-investment-drawer:popover-open,
+.add-investment-drawer.is-open {
   transform: translateX(0);
 }
 
