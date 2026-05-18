@@ -9,7 +9,7 @@ button.avatar {
 }
 button.avatar:hover { box-shadow: 0 0 0 3px var(--gold-dim); }
 
-#user-menu {
+.user-menu {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 16px;
@@ -32,13 +32,13 @@ button.avatar:hover { box-shadow: 0 0 0 3px var(--gold-dim); }
   width: 264px;
 }
 
-#user-menu:popover-open {
+.user-menu:popover-open {
   opacity: 1;
   transform: scale(1) translateY(0);
 }
 
 @starting-style {
-  #user-menu:popover-open {
+  .user-menu:popover-open {
     opacity: 0;
     transform: scale(0.95) translateY(-8px);
   }
