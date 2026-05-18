@@ -27,7 +27,8 @@ button.avatar:hover { box-shadow: 0 0 0 3px var(--gold-dim); }
   pointer-events: none;
   position: fixed;
   right: 14px;
-  top: calc(var(--topbar-h) + 8px);
+  top: calc(var(--topbar-h, 68px) + 8px);
+  z-index: 300;
   transform: scale(0.95) translateY(-8px);
   transform-origin: top right;
   transition:
