@@ -78,7 +78,8 @@ function minifyCSS(css) {
     // Collapse all whitespace runs to a single space
     .replace(/\s+/g, ' ')
     // Strip spaces around structural characters
-    .replace(/\s*([{}:;,>~+])\s*/g, '$1')
+    // Note: + is intentionally excluded — calc() requires whitespace around + and -
+    .replace(/\s*([{}:;,>~])\s*/g, '$1')
     // Remove trailing semicolons before closing brace
     .replace(/;}/g, '}')
     .trim();
