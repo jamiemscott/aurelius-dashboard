@@ -38,6 +38,17 @@ function setActiveNav(el) {
 }
 
 
+/* ─── SIGN OUT ───────────────────────────────────────────────── */
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.um-item--danger').forEach(btn => {
+    btn.addEventListener('click', () => {
+      window.location.href = '/login/';
+    });
+  });
+});
+
+
 /* ─── RANGE PILLS ────────────────────────────────────────────── */
 
 function setRange(el, range) {
