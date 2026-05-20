@@ -168,69 +168,6 @@
 
       </div><!-- /hs-left -->
 
-      <!-- Right: Ava embedded panel -->
-      <div class="hs-right" aria-label="AI support assistant">
-        <div class="hs-ava-panel" role="complementary">
-
-          <!-- Header -->
-          <div class="hs-ava-hd">
-            <div class="hs-ava-avatar" aria-hidden="true">
-              A
-              <span class="hs-ava-online" aria-hidden="true"></span>
-            </div>
-            <div class="hs-ava-info">
-              <div class="hs-ava-name">Ask Ava</div>
-              <div class="hs-ava-sub">
-                <span class="hs-ava-badge">AI Powered</span>
-                <span>&middot; Instant answers</span>
-              </div>
-            </div>
-            <div class="hs-ava-response-time" aria-label="Typically responds immediately">
-              <span class="hs-ava-response-dot" aria-hidden="true"></span>
-              Instant
-            </div>
-          </div>
-
-          <!-- Messages area — rendered by help.js -->
-          <div class="hs-ava-messages"
-               id="hs-ava-messages"
-               role="log"
-               aria-label="Chat messages"
-               aria-live="polite">
-          </div>
-
-          <!-- Topic suggestion chips -->
-          <div class="hs-ava-topics" id="hs-ava-topics" aria-label="Suggested topics">
-            <button class="hs-ava-topic" onclick="hsAvaSend('How do I withdraw funds?')">Withdrawals</button>
-            <button class="hs-ava-topic" onclick="hsAvaSend('How do I enable 2FA?')">Enable 2FA</button>
-            <button class="hs-ava-topic" onclick="hsAvaSend('ISA allowance rules')">ISA rules</button>
-            <button class="hs-ava-topic" onclick="hsAvaSend('Where is my annual statement?')">My statements</button>
-            <button class="hs-ava-topic" onclick="hsAvaSend('How do I add a new investment?')">Add investment</button>
-            <button class="hs-ava-topic" onclick="hsAvaSend('What are the charges?')">Charges &amp; fees</button>
-          </div>
-
-          <!-- Input row -->
-          <div class="hs-ava-input-row">
-            <input class="hs-ava-input"
-                   id="hs-ava-input"
-                   type="text"
-                   placeholder="Ask anything about your account&hellip;"
-                   autocomplete="off"
-                   aria-label="Ask Ava a question">
-            <button class="hs-ava-send"
-                    id="hs-ava-send"
-                    onclick="hsAvaSend()"
-                    aria-label="Send message">
-              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
-                <line x1="22" y1="2" x2="11" y2="13"/>
-                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-              </svg>
-            </button>
-          </div>
-
-        </div><!-- /hs-ava-panel -->
-      </div><!-- /hs-right -->
-
     </div><!-- /hs-layout -->
 
     <!-- Contact strip -->
@@ -318,6 +255,33 @@
 <script src="../src/js/chatbot.js"></script>
 <script src="../src/js/help.js"></script>
 <script src="../src/js/main.js"></script>
+
+<!-- ── AVA CHAT WIDGET ────────────────────────────────────────── -->
+<button class="chat-bubble-btn" id="chat-bubble-btn"
+        onclick="toggleChatbot()" aria-label="Open Ava chat assistant">
+  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+</button>
+<div class="chat-window" id="chat-window" role="dialog" aria-label="Ava chat assistant">
+  <div class="chat-hd">
+    <div class="chat-hd-left">
+      <div class="chat-avatar">A</div>
+      <div>
+        <div class="chat-hd-name">Ava</div>
+        <div class="chat-hd-status"><span class="chat-online-dot"></span>Online &middot; AI-powered</div>
+      </div>
+    </div>
+    <button class="chat-close-btn" onclick="closeChatbot()" aria-label="Close chat">&#x2715;</button>
+  </div>
+  <div class="chat-messages" id="chat-messages"></div>
+  <div class="chat-input-row">
+    <input class="chat-input" id="chat-input" type="text" placeholder="Type a message&hellip;" autocomplete="off" onkeydown="if(event.key==='Enter')handleChatSubmit()">
+    <button class="chat-send-btn" onclick="handleChatSubmit()" aria-label="Send message">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
 
 <!-- ── ADVISER MESSAGE DRAWER ──────────────────────────────── -->
 <div id="adviser-drawer" class="adv-drawer" popover>
