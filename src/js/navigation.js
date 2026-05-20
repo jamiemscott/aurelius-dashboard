@@ -41,11 +41,26 @@ function setActiveNav(el) {
 /* ─── SIGN OUT ───────────────────────────────────────────────── */
 
 document.addEventListener('DOMContentLoaded', () => {
+
+  // Sign Out → login page
   document.querySelectorAll('.um-item--danger').forEach(btn => {
     btn.addEventListener('click', () => {
       window.location.href = '/login/';
     });
   });
+
+  // Notifications button in user menu → close menu, open notifications panel
+  document.querySelectorAll('.um-item').forEach(btn => {
+    if (btn.querySelector('.um-badge')) {
+      btn.addEventListener('click', () => {
+        const userMenu = document.getElementById('user-menu');
+        if (userMenu?.hidePopover) userMenu.hidePopover();
+        const notifPanel = document.getElementById('notif-panel');
+        if (notifPanel?.showPopover) notifPanel.showPopover();
+      });
+    }
+  });
+
 });
 
 
