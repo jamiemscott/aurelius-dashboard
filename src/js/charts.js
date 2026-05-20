@@ -393,6 +393,10 @@ function detSetNested(obj, path, val) {
 
 function buildDetailsPage() {
   detailsState.data = JSON.parse(JSON.stringify(userData));
+  // Pre-select tab from URL hash (e.g. /my-details/#security)
+  const validTabs = ['personal', 'contact', 'security', 'preferences'];
+  const hash = window.location.hash.replace('#', '');
+  if (validTabs.includes(hash)) detailsState.activeTab = hash;
   renderDetailsHero();
   renderDetailsTabs();
   renderDetailsContent();

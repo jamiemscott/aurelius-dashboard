@@ -61,6 +61,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Security & 2FA — inject status pill and link to My Details security tab
+  document.querySelectorAll('.um-item').forEach(btn => {
+    if (btn.textContent.trim().startsWith('Security')) {
+      // Status comes from userData (My Details page) if available, else default to on
+      const enabled = (typeof userData !== 'undefined') ? userData.twoFA : true;
+      const pill = document.createElement('span');
+      pill.className = `um-2fa-pill um-2fa-pill--${enabled ? 'on' : 'off'}`;
+      pill.textContent = enabled ? '2FA On' : '2FA Off';
+      btn.appendChild(pill);
+
+      btn.addEventListener('click', () => {
+        const userMenu = document.getElementById('user-menu');
+        if (userMenu?.hidePopover) userMenu.hidePopover();
+        window.location.href = '/my-details/#security';
+      });
+    }
+  });
+
 });
 
 
