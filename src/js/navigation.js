@@ -61,6 +61,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Download Statements → /documents/
+  document.querySelectorAll('.um-item').forEach(btn => {
+    if (btn.textContent.trim().startsWith('Download Statements')) {
+      btn.addEventListener('click', () => {
+        const userMenu = document.getElementById('user-menu');
+        if (userMenu?.hidePopover) userMenu.hidePopover();
+        window.location.href = '/documents/';
+      });
+    }
+  });
+
   // Security & 2FA — inject status pill and link to My Details security tab
   document.querySelectorAll('.um-item').forEach(btn => {
     if (btn.textContent.trim().startsWith('Security')) {
