@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Help and support for Aurelius Wealth Management — FAQs, guides, and instant answers from Ava.">
+<title>Aurelius Wealth — Help &amp; Support</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+</head>
+<body class="page-help">
+<div class="shell">
+
+  <!-- ── TOP BAR ──────────────────────────────────────────────── -->
+  <header role="banner">
+    <a class="brand" href="/" aria-label="Aurelius Wealth Management &mdash; home">
+      <span class="brand-mark" aria-hidden="true">A</span>
+      <span class="brand-text">
+        <span class="brand-name">Aurelius</span>
+        <span class="brand-sub">Wealth Management</span>
+      </span>
+    </a>
+    <nav class="topbar-nav" aria-label="Primary">
+      <a class="tab-btn" href="/">My Overview</a>
+      <a class="tab-btn" href="/valuation-history/">Valuation History</a>
+      <a class="tab-btn" href="/asset-allocation/">Asset Allocation</a>
+      <a class="tab-btn" href="/my-investments/">My Investments</a>
+      <a class="tab-btn" href="/capital-gains-tax/">Capital Gains Tax</a>
+    </nav>
+    <div class="site-controls">
+      <div class="theme-switcher">
+        <input type="checkbox" role="switch" id="theme-checkbox" class="theme-checkbox" aria-label="Colour theme">
+        <label class="theme-toggle" for="theme-checkbox" aria-hidden="true">
+          <span class="theme-label-dark">Dark</span>
+          <span class="theme-label-light">Light</span>
+        </label>
+      </div>
+      <span class="theme-live" role="status" aria-live="polite" aria-atomic="true"></span>
+      <button class="icon-btn" id="notif-btn" popovertarget="notif-panel" aria-controls="notif-panel" aria-expanded="false" aria-haspopup="dialog" aria-label="Notifications, 3 unread"><span class="notif-dot" aria-hidden="true"></span><svg aria-hidden="true" focusable="false" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></button>
+      <button class="icon-btn" aria-label="Settings"><svg aria-hidden="true" focusable="false" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="8" cy="6" r="2" fill="var(--bg-card)" stroke="currentColor" stroke-width="1.7"/><circle cx="16" cy="12" r="2" fill="var(--bg-card)" stroke="currentColor" stroke-width="1.7"/><circle cx="10" cy="18" r="2" fill="var(--bg-card)" stroke="currentColor" stroke-width="1.7"/></svg></button>
+      <button class="avatar" popovertarget="user-menu" aria-label="Account menu" aria-haspopup="dialog" aria-expanded="false" aria-controls="user-menu">SK</button>
+    </div>
+  </header>
+
+  <!-- ── SIDEBAR ──────────────────────────────────────────────── -->
+  <aside class="site-sidebar" aria-label="Site navigation">
+    <div class="ob-cta" id="ob-cta" hidden>
+      <button class="ob-cta__dismiss" id="ob-cta-dismiss" aria-label="Dismiss profile prompt">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="10" height="10"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="ob-cta__top">
+        <span class="ob-cta__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" width="20" height="20"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12"/></svg>
+        </span>
+        <div class="ob-cta__copy">
+          <div class="ob-cta__eyebrow">Investment Profile</div>
+          <div class="ob-cta__title" id="ob-cta-title">Know Your Element</div>
+          <div class="ob-cta__sub" id="ob-cta-sub">Personalise your investment profile</div>
+        </div>
+      </div>
+      <a class="ob-cta__btn" href="/onboarding/" id="ob-cta-btn">Begin Assessment</a>
+    </div>
+    <nav aria-label="Main navigation">
+      <div role="group" aria-labelledby="nav-portfolio">
+        <h2 id="nav-portfolio" class="sidebar-section-label">Portfolio</h2>
+        <a class="nav-item" href="/" aria-label="Overview"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Overview</span></a>
+        <a class="nav-item" href="/valuation-history/" aria-label="Valuation History"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span>Valuation History</span></a>
+        <a class="nav-item" href="/asset-allocation/" aria-label="Asset Allocation"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg><span>Asset Allocation</span></a>
+        <a class="nav-item" href="/my-investments/" aria-label="My Investments"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>My Investments</span></a>
+        <a class="nav-item" href="/capital-gains-tax/" aria-label="Capital Gains Tax"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span>Capital Gains Tax</span></a>
+      </div>
+      <div role="group" aria-labelledby="nav-account">
+        <h2 id="nav-account" class="sidebar-section-label">Account</h2>
+        <a class="nav-item" href="/documents/" aria-label="Documents"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Documents</span><span class="nav-badge" id="docs-nav-badge">3</span></a>
+        <a class="nav-item" href="/my-details/" aria-label="My Details"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>My Details</span></a>
+        <a class="nav-item" href="/contact-us/" aria-label="Contact Us"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Contact Us</span></a>
+        <a class="nav-item is-active" href="/help/" aria-label="Help &amp; Support"><svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>Help &amp; Support</span></a>
+      </div>
+    </nav>
+    <footer class="sidebar-footer"><div class="advisor-card"><div class="advisor-label">Your Adviser</div><div class="advisor-name">James Whitmore</div><div class="advisor-contact">j.whitmore@aurelius.co.uk</div><button class="contact-btn" popovertarget="adviser-drawer">Message Adviser</button></div></footer>
+  </aside>
+
+  <!-- ── MAIN ─────────────────────────────────────────────────── -->
+  <main class="main" role="main">
+
+    <div class="page-header">
+      <div>
+        <div class="breadcrumb">
+          <span>Sumant Kumar</span>
+          <span class="breadcrumb-sep">/</span>
+          <span class="breadcrumb-current">Help &amp; Support</span>
+        </div>
+        <h1 class="page-title">Help &amp; Support</h1>
+        <div class="page-date">Everything you need, in one place</div>
+      </div>
+    </div>
+
+    <!-- Search hero -->
+    <section class="hs-search-hero" aria-label="Help search">
+      <div class="hs-search-eyebrow">AI-Powered Support</div>
+      <h2 class="hs-search-title">How can we help you today?</h2>
+      <div class="hs-search-wrap" role="search">
+        <svg class="hs-search-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input class="hs-search-input"
+               id="hs-search-input"
+               type="search"
+               placeholder="Search guides, articles and FAQs&hellip;"
+               autocomplete="off"
+               spellcheck="false"
+               aria-label="Search help articles">
+        <button class="hs-search-clear" id="hs-search-clear" aria-label="Clear search">&#x2715;</button>
+      </div>
+      <div class="hs-search-popular" aria-label="Popular searches">
+        <span class="hs-popular-label">Popular:</span>
+        <button class="hs-popular-pill" onclick="hsPopularSearch('2FA setup')">2FA setup</button>
+        <button class="hs-popular-pill" onclick="hsPopularSearch('withdrawal')">Withdrawals</button>
+        <button class="hs-popular-pill" onclick="hsPopularSearch('annual statement')">Annual statement</button>
+        <button class="hs-popular-pill" onclick="hsPopularSearch('ISA allowance')">ISA allowance</button>
+        <button class="hs-popular-pill" onclick="hsPopularSearch('add investment')">Add investment</button>
+      </div>
+    </section>
+
+    <!-- Two-column layout -->
+    <div class="hs-layout">
+
+      <!-- Left: categories + FAQ -->
+      <div class="hs-left">
+
+        <!-- Category cards -->
+        <div class="hs-categories"
+             id="hs-cat-grid"
+             role="group"
+             aria-label="Browse help categories">
+          <!-- Rendered by help.js -->
+        </div>
+
+        <!-- "All topics" reset link -->
+        <div style="margin: -12px 0 18px; display: flex; align-items: center; gap: 10px;">
+          <button onclick="selectAllTopics()"
+                  style="background:transparent;border:none;color:var(--text-3);font-family:var(--font-sans);font-size:var(--fs-sm);cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:2px;"
+                  aria-label="Show all help topics">
+            ← All topics
+          </button>
+        </div>
+
+        <!-- FAQ section -->
+        <section aria-label="Frequently asked questions">
+          <div class="hs-faq-hd">
+            <h2 class="hs-faq-section-title" id="hs-faq-title">All Topics</h2>
+            <span class="hs-faq-count" id="hs-faq-count" aria-live="polite" aria-atomic="true">24</span>
+          </div>
+
+          <!-- No-results state -->
+          <div id="hs-no-results" class="hs-no-results" role="status" aria-live="polite">
+            <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <span class="hs-no-results-text">No results found</span>
+            <span class="hs-no-results-sub">Try a different search term, or browse categories above</span>
+          </div>
+
+          <!-- FAQ list — rendered by help.js -->
+          <div id="hs-faq-list" aria-label="Help articles"></div>
+        </section>
+
+      </div><!-- /hs-left -->
+
+      <!-- Right: Ava embedded panel -->
+      <div class="hs-right" aria-label="AI support assistant">
+        <div class="hs-ava-panel" role="complementary">
+
+          <!-- Header -->
+          <div class="hs-ava-hd">
+            <div class="hs-ava-avatar" aria-hidden="true">
+              A
+              <span class="hs-ava-online" aria-hidden="true"></span>
+            </div>
+            <div class="hs-ava-info">
+              <div class="hs-ava-name">Ask Ava</div>
+              <div class="hs-ava-sub">
+                <span class="hs-ava-badge">AI Powered</span>
+                <span>&middot; Instant answers</span>
+              </div>
+            </div>
+            <div class="hs-ava-response-time" aria-label="Typically responds immediately">
+              <span class="hs-ava-response-dot" aria-hidden="true"></span>
+              Instant
+            </div>
+          </div>
+
+          <!-- Messages area — rendered by help.js -->
+          <div class="hs-ava-messages"
+               id="hs-ava-messages"
+               role="log"
+               aria-label="Chat messages"
+               aria-live="polite">
+          </div>
+
+          <!-- Topic suggestion chips -->
+          <div class="hs-ava-topics" id="hs-ava-topics" aria-label="Suggested topics">
+            <button class="hs-ava-topic" onclick="hsAvaSend('How do I withdraw funds?')">Withdrawals</button>
+            <button class="hs-ava-topic" onclick="hsAvaSend('How do I enable 2FA?')">Enable 2FA</button>
+            <button class="hs-ava-topic" onclick="hsAvaSend('ISA allowance rules')">ISA rules</button>
+            <button class="hs-ava-topic" onclick="hsAvaSend('Where is my annual statement?')">My statements</button>
+            <button class="hs-ava-topic" onclick="hsAvaSend('How do I add a new investment?')">Add investment</button>
+            <button class="hs-ava-topic" onclick="hsAvaSend('What are the charges?')">Charges &amp; fees</button>
+          </div>
+
+          <!-- Input row -->
+          <div class="hs-ava-input-row">
+            <input class="hs-ava-input"
+                   id="hs-ava-input"
+                   type="text"
+                   placeholder="Ask anything about your account&hellip;"
+                   autocomplete="off"
+                   aria-label="Ask Ava a question">
+            <button class="hs-ava-send"
+                    id="hs-ava-send"
+                    onclick="hsAvaSend()"
+                    aria-label="Send message">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+                <line x1="22" y1="2" x2="11" y2="13"/>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+              </svg>
+            </button>
+          </div>
+
+        </div><!-- /hs-ava-panel -->
+      </div><!-- /hs-right -->
+
+    </div><!-- /hs-layout -->
+
+    <!-- Contact strip -->
+    <section class="hs-contact-strip" aria-label="Direct contact options">
+
+      <!-- Phone -->
+      <div class="hs-contact-card">
+        <div class="hs-contact-icon-wrap" aria-hidden="true">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </div>
+        <div class="hs-contact-title">Call Us</div>
+        <div class="hs-contact-desc">Speak directly with our client services team. For security emergencies, we're available around the clock.</div>
+        <div class="hs-contact-avail">
+          <span class="hs-contact-avail-dot hs-contact-avail-dot--green" aria-hidden="true"></span>
+          <span class="hs-contact-avail-text">Mon–Fri 8am–6pm &middot; Emergency 24/7</span>
+        </div>
+        <a href="tel:08000000000" class="hs-contact-cta">0800 000 0000</a>
+      </div>
+
+      <!-- Message adviser -->
+      <div class="hs-contact-card">
+        <div class="hs-contact-icon-wrap" aria-hidden="true">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </div>
+        <div class="hs-contact-title">Message Your Adviser</div>
+        <div class="hs-contact-desc">Send a secure message directly to <strong>James Whitmore</strong>, your dedicated Senior Wealth Manager.</div>
+        <div class="hs-contact-avail">
+          <span class="hs-contact-avail-dot hs-contact-avail-dot--gold" aria-hidden="true"></span>
+          <span class="hs-contact-avail-text">Typical response under 2 hours</span>
+        </div>
+        <button class="hs-contact-cta hs-contact-cta--primary"
+                onclick="document.getElementById('adviser-drawer')?.showPopover()"
+                type="button">
+          Send Message
+        </button>
+      </div>
+
+      <!-- Schedule callback -->
+      <div class="hs-contact-card">
+        <div class="hs-contact-icon-wrap" aria-hidden="true">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+        </div>
+        <div class="hs-contact-title">Request a Callback</div>
+        <div class="hs-contact-desc">Book a convenient time for your adviser to call you — ideal for complex questions or annual reviews.</div>
+        <div class="hs-contact-avail">
+          <span class="hs-contact-avail-dot hs-contact-avail-dot--grey" aria-hidden="true"></span>
+          <span class="hs-contact-avail-text">Available next business day</span>
+        </div>
+        <a href="/contact-us/" class="hs-contact-cta">Schedule Callback</a>
+      </div>
+
+    </section><!-- /hs-contact-strip -->
+
+    <!-- Footer -->
+    <footer class="site-footer" aria-label="Site footer">
+      <div class="footer-upper">
+        <div class="footer-brand-col"><a class="brand" href="/" aria-label="Aurelius Wealth Management — home"><span class="brand-mark" aria-hidden="true">A</span><span class="brand-text"><span class="brand-name">Aurelius</span><span class="brand-sub">Wealth Management</span></span></a><p class="footer-tagline">Private wealth management for discerning investors. Authorised and regulated by the Financial Conduct Authority.</p><div class="footer-reg-badge"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> FCA Regulated</div></div>
+        <div class="footer-col"><h2 class="footer-col-title">Services</h2><ul class="footer-links"><li><a href="#">Portfolio Management</a></li><li><a href="#">Retirement Planning</a></li><li><a href="#">Tax &amp; Estate Planning</a></li><li><a href="#">ISA &amp; SIPP Accounts</a></li><li><a href="#">Discretionary Management</a></li></ul></div>
+        <div class="footer-col"><h2 class="footer-col-title">Support</h2><ul class="footer-links"><li><a href="/help/">Help Centre</a></li><li><a href="/contact-us/">Contact Your Adviser</a></li><li><a href="/documents/">Document Library</a></li><li><a href="#">Security &amp; Fraud</a></li><li><a href="#">Complaints Procedure</a></li></ul></div>
+        <div class="footer-col"><h2 class="footer-col-title">Legal &amp; Regulatory</h2><ul class="footer-links"><li><a href="#">Terms &amp; Conditions</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Cookie Policy</a></li><li><a href="#">MIFID II Disclosure</a></li><li><a href="#">Modern Slavery Act</a></li></ul></div>
+      </div>
+      <div class="footer-regulatory"><p class="footer-reg-text"><strong>Important information.</strong> Aurelius Wealth Management Limited is authorised and regulated by the <a href="#">Financial Conduct Authority</a> (FCA). Registered number 987654. Registered in England &amp; Wales. Company number 12345678. Registered office: One Cavendish Square, London, W1G 0LD.</p><p class="footer-reg-text">The value of investments and the income from them can fall as well as rise and you may get back less than you invest. Past performance is not a reliable indicator of future results. Tax treatment depends on individual circumstances and may be subject to change. This website is for information purposes only and does not constitute financial advice. Aurelius Wealth Management is covered by the <a href="#">Financial Services Compensation Scheme (FSCS)</a>. Eligible deposits are protected up to &#xa3;85,000 per person. Full details at <a href="#">www.fscs.org.uk</a>. All telephone and electronic communications may be recorded for regulatory and quality purposes.</p></div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">&#xa9; 2026 Aurelius Wealth Management Limited. All rights reserved.</div>
+        <div class="footer-fca">FCA Reg. No. 987654 &#xb7; ICO Reg. ZA123456</div>
+        <ul class="footer-bottom-links"><li><a href="#">Accessibility</a></li><li><a href="#">Sitemap</a></li><li><a href="#">Cookie Settings</a></li><li><a href="#">Modern Slavery</a></li></ul>
+      </div>
+    </footer>
+
+  </main>
+</div><!-- /shell -->
+
+<script src="../src/js/data.js"></script>
+<script src="../src/js/charts.js"></script>
+<script src="../src/js/navigation.js"></script>
+<script src="../src/js/chatbot.js"></script>
+<script src="../src/js/help.js"></script>
+<script src="../src/js/main.js"></script>
+
+<!-- ── ADVISER MESSAGE DRAWER ──────────────────────────────── -->
+<div id="adviser-drawer" class="adv-drawer" popover>
+  <div class="adv-drawer-inner">
+    <div class="adv-drawer-hd">
+      <div class="adv-drawer-hd-left">
+        <div class="adv-drawer-avatar">JW</div>
+        <div>
+          <div class="adv-drawer-name">James Whitmore</div>
+          <div class="adv-drawer-role">Senior Wealth Manager</div>
+        </div>
+      </div>
+      <button class="adv-drawer-close"
+              popovertarget="adviser-drawer"
+              popovertargetaction="hide"
+              aria-label="Close drawer">&#x2715;</button>
+    </div>
+    <div class="adv-drawer-secure">
+      <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+      Secure message &middot; 256-bit TLS encrypted
+    </div>
+    <div class="adv-drawer-body" id="adv-form-body"></div>
+  </div>
+</div>
+
+<!-- ── USER MENU ───────────────────────────────────────────── -->
+<div id="user-menu" class="user-menu" popover>
+  <div class="um-header">
+    <div class="um-avatar">SK</div>
+    <div>
+      <div class="um-name">Sumant Kumar</div>
+      <div class="um-meta">Platinum Client &middot; AW-20182-UK</div>
+    </div>
+  </div>
+  <div class="um-section">
+    <div class="um-section-label">Account</div>
+    <a class="um-item" href="/my-details/" onclick="document.getElementById('user-menu').hidePopover()">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
+      My Details
+    </a>
+    <button class="um-item">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      Notifications<span class="um-badge">3</span>
+    </button>
+    <button class="um-item">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Security &amp; 2FA
+    </button>
+    <button class="um-item">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download Statements
+    </button>
+  </div>
+  <div class="um-divider"></div>
+  <div class="um-section">
+    <div class="um-section-label">Preferences</div>
+    <label class="um-item" for="theme-checkbox">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      Appearance
+      <span class="um-hint theme-hint-dark">Dark</span>
+      <span class="um-hint theme-hint-light">Light</span>
+    </label>
+    <button class="um-item">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Help &amp; Support
+    </button>
+  </div>
+  <div class="um-divider"></div>
+  <div class="um-section">
+    <button class="um-item um-item--danger">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Sign Out
+    </button>
+  </div>
+</div>
+
+<!-- ── NOTIFICATIONS PANEL ─────────────────────────────────── -->
+<div id="notif-panel" popover="auto" role="dialog" aria-label="Notifications">
+  <div class="np-hd">
+    <div class="np-hd-left">
+      <svg aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="np-title">Notifications</span>
+      <span class="np-count" id="notif-count" aria-live="polite" aria-atomic="true">3 unread</span>
+    </div>
+    <div class="np-hd-right">
+      <button class="np-mark-all-btn" id="notif-mark-all" aria-label="Mark all notifications as read">Mark all read</button>
+      <button class="np-close" popovertarget="notif-panel" popovertargetaction="hide" aria-label="Close notifications">&#x2715;</button>
+    </div>
+  </div>
+  <div class="np-body">
+    <ul class="np-list" role="list" id="notif-list">
+      <li class="np-item" data-type="portfolio" data-unread style="--i:0">
+        <button class="np-item-btn" aria-label="Mark as read: Portfolio milestone reached">
+          <span class="np-icon" aria-hidden="true"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
+          <span class="np-content">
+            <span class="np-item-title">Portfolio milestone reached</span>
+            <span class="np-item-body">Your portfolio has crossed &#xA3;850,000 for the first time. Total return is now +21.4%.</span>
+            <time class="np-item-time" datetime="2026-03-18T10:30">Today, 10:30 am</time>
+          </span>
+          <span class="np-unread-dot" aria-hidden="true"></span>
+        </button>
+        <button class="np-dismiss" aria-label="Dismiss notification">&#x2715;</button>
+      </li>
+      <li class="np-item" data-type="adviser" data-unread style="--i:1">
+        <button class="np-item-btn" aria-label="Mark as read: Message from James Whitmore">
+          <span class="np-icon" aria-hidden="true"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+          <span class="np-content">
+            <span class="np-item-title">Message from James Whitmore</span>
+            <span class="np-item-body">Your adviser has sent a secure message regarding your annual review scheduled for April.</span>
+            <time class="np-item-time" datetime="2026-03-17T14:15">Yesterday, 2:15 pm</time>
+          </span>
+          <span class="np-unread-dot" aria-hidden="true"></span>
+        </button>
+        <button class="np-dismiss" aria-label="Dismiss notification">&#x2715;</button>
+      </li>
+      <li class="np-item" data-type="security" data-unread style="--i:2">
+        <button class="np-item-btn" aria-label="Mark as read: New sign-in detected">
+          <span class="np-icon" aria-hidden="true"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+          <span class="np-content">
+            <span class="np-item-title">New sign-in detected</span>
+            <span class="np-item-body">A sign-in from Chrome on macOS in London. Not you? Contact your adviser immediately.</span>
+            <time class="np-item-time" datetime="2026-03-16T09:02">16 Mar, 9:02 am</time>
+          </span>
+          <span class="np-unread-dot" aria-hidden="true"></span>
+        </button>
+        <button class="np-dismiss" aria-label="Dismiss notification">&#x2715;</button>
+      </li>
+    </ul>
+    <div class="np-empty">
+      <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span>You&#x2019;re all caught up</span>
+    </div>
+  </div>
+</div>
+
+<script src="../src/js/ob-cta.js"></script>
+</body>
+</html>

@@ -61,6 +61,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Help & Support → /help/
+  document.querySelectorAll('.um-item').forEach(btn => {
+    if (btn.textContent.trim().startsWith('Help')) {
+      btn.addEventListener('click', () => {
+        const userMenu = document.getElementById('user-menu');
+        if (userMenu?.hidePopover) userMenu.hidePopover();
+        window.location.href = '/help/';
+      });
+    }
+  });
+
   // Download Statements → /documents/
   document.querySelectorAll('.um-item').forEach(btn => {
     if (btn.textContent.trim().startsWith('Download Statements')) {
