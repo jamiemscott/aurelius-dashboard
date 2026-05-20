@@ -125,6 +125,22 @@
       <div class="ai-panel is-active" id="ai-panel-1" role="tabpanel" aria-labelledby="ai-step-1">
         <div class="ai-step-inner ai-step-centred">
 
+          <!-- ── MODE TOGGLE ─────────────────────────────────── -->
+          <div class="ais-mode-toggle" role="group" aria-label="Search mode">
+            <button class="ais-mode-btn is-active" id="ais-browse-btn" aria-pressed="true" onclick="setSearchMode('browse')">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              Browse
+            </button>
+            <button class="ais-mode-btn ais-mode-btn--smart" id="ais-smart-btn" aria-pressed="false" onclick="setSearchMode('smart')">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              Smart Search
+              <span class="ais-mode-dot" aria-hidden="true"></span>
+            </button>
+          </div>
+
+          <!-- ── BROWSE MODE ──────────────────────────────────── -->
+          <div id="ais-browse-panel" class="ais-browse-panel">
+
           <div class="ai-search-wrap">
             <svg class="ai-search-icon" aria-hidden="true" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             <input class="det-input ai-search-input" id="ai-search" type="search"
@@ -393,6 +409,44 @@
             </li>
 
           </ul>
+
+          </div><!-- end #ais-browse-panel -->
+
+          <!-- ── SMART SEARCH MODE ────────────────────────────── -->
+          <div id="ais-smart-panel" class="ais-smart-panel">
+
+            <div class="ais-prompt-wrap">
+              <input class="ais-prompt-input" id="ais-prompt" type="text"
+                     placeholder="e.g. 'British big pharma', 'low-cost global tracker', 'UK dividend income'&hellip;"
+                     autocomplete="off" aria-label="Describe the investment you are looking for">
+              <button class="ais-prompt-send" id="ais-prompt-send" aria-label="Search">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+            </div>
+
+            <div class="ais-suggestions" role="group" aria-label="Suggested searches">
+              <button class="ais-suggestion">British big pharma</button>
+              <button class="ais-suggestion">Low-cost global tracker</button>
+              <button class="ais-suggestion">UK dividend income</button>
+              <button class="ais-suggestion">Emerging markets growth</button>
+              <button class="ais-suggestion">Actively managed quality fund</button>
+            </div>
+
+            <div class="ais-thinking" id="ais-thinking" aria-live="polite" aria-atomic="true">
+              <div class="ais-thinking-dots" aria-hidden="true">
+                <span class="ais-thinking-dot"></span>
+                <span class="ais-thinking-dot"></span>
+                <span class="ais-thinking-dot"></span>
+              </div>
+              <span class="ais-thinking-text" id="ais-thinking-text">Searching investments&hellip;</span>
+            </div>
+
+            <div id="ais-results-wrap" hidden>
+              <p class="ais-results-label" id="ais-results-label"></p>
+              <ul class="ais-smart-results" id="ais-smart-results" role="list" aria-label="Smart search results"></ul>
+            </div>
+
+          </div><!-- end #ais-smart-panel -->
 
           <div class="ai-step-actions">
             <button class="btn-primary" id="ai-btn-1" disabled aria-disabled="true" onclick="goToStep(2)">
