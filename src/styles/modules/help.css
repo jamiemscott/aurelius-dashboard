@@ -5,7 +5,6 @@
 
 .hs-search-hero {
   background: linear-gradient(160deg, var(--gold-dim) 0%, transparent 65%);
-  border: 1px solid var(--border);
   border-radius: var(--radius-card);
   margin-bottom: 24px;
   overflow: hidden;
@@ -43,12 +42,12 @@
   align-items: center;
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: var(--radius-btn);
-  box-shadow: var(--shadow-s);
+  border-radius: 999px;
+  box-shadow: 0 4px 24px light-dark(rgba(0,0,0,0.10), rgba(0,0,0,0.35));
   display: flex;
   gap: 10px;
   max-width: 560px;
-  padding: 0 14px;
+  padding: 0 18px;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
