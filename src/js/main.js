@@ -65,6 +65,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Investor profile avatar — inject emoji + type label into header avatar button
+  (function () {
+    var pt = profileTypes && userData && profileTypes[userData.profileType];
+    if (!pt) return;
+    document.querySelectorAll('.avatar').forEach(function (btn) {
+      var initials = btn.textContent.trim();
+      btn.classList.add('avatar--profiled');
+      btn.innerHTML =
+        '<span class="avatar-emoji" role="img" aria-label="' + pt.label + '">' + pt.emoji + '</span>' +
+        initials;
+    });
+  }());
+
   // Theme live region — announces the outcome to screen readers
   document.querySelector('.theme-checkbox')?.addEventListener('change', e => {
     const live = document.querySelector('.theme-live');

@@ -364,6 +364,18 @@ function buildInvestmentsTable() {
 
 /* ─── MY DETAILS PAGE ──────────────────────────────────────── */
 
+const profileTypes = {
+  'love-bomber':          { emoji: '💘', label: 'Love Bomber',          desc: 'Jumps in fast without understanding. Enthusiastic but needs grounding before deciding.' },
+  'adrenaline-junkie':    { emoji: '🎢', label: 'Adrenaline Junkie',    desc: 'Loves the thrill, chases high returns. Needs to understand risk without killing the buzz.' },
+  'one-that-got-away':    { emoji: '⚡', label: 'One That Got Away',    desc: 'Experienced but burned by past decisions. Needs to see what\'s changed and why now is different.' },
+  'slow-burn':            { emoji: '🕯️', label: 'Slow Burn',            desc: 'Interested but keeps deferring. Needs a gentle push and a concrete first step.' },
+  'situationship':        { emoji: '🤷', label: 'Situationship',        desc: 'Casually engaged, no strong feelings either way. Needs something interesting to spark commitment.' },
+  'healthy-relationship': { emoji: '💍', label: 'Healthy Relationship', desc: 'Knows their stuff, comfortable with markets. Wants efficiency and advanced insights.' },
+  'ghoster':              { emoji: '👻', label: 'Ghoster',              desc: 'Avoids investing entirely. Feels overwhelmed before starting. Needs permission to just look.' },
+  'overthinker':          { emoji: '🔬', label: 'Overthinker',          desc: 'Researches endlessly but never pulls the trigger. Paralysed by too many options.' },
+  'commit-phobe':         { emoji: '📋', label: 'Commit-Phobe',         desc: 'Knows what to do but can\'t commit. Needs reassurance that nothing locks them in.' },
+};
+
 let detailsState = {
   activeTab: 'personal',
   editing: new Set(),
@@ -428,6 +440,19 @@ function renderDetailsHero() {
       <div class="det-hero-meta-row"><strong>Client since</strong> ${d.clientSince}</div>
       <div class="det-hero-meta-row"><strong>Adviser</strong> ${d.adviser}</div>
       <div class="det-hero-meta-row">Next review: <strong>${d.nextReview}</strong></div>
+    </div>`;
+
+  var pc = document.getElementById('details-profile-card');
+  if (!pc) return;
+  var pt = profileTypes[d.profileType];
+  if (!pt) { pc.innerHTML = ''; return; }
+  pc.innerHTML = `
+    <div class="det-profile-card">
+      <div class="det-profile-eyebrow">Investor Profile</div>
+      <div class="det-profile-emoji" aria-hidden="true">${pt.emoji}</div>
+      <div class="det-profile-label">${pt.label}</div>
+      <p class="det-profile-desc">${pt.desc}</p>
+      <a class="det-profile-link" href="/onboarding/">Retake assessment</a>
     </div>`;
 }
 

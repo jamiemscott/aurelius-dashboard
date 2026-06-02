@@ -100,6 +100,7 @@ const userData = {
   marketing: false,
   thirdParty: false,
   analytics: true,
+  profileType: 'healthy-relationship',
   passwordChangedDate: '12 Nov 2025',
   twoFA: true, twoFAMethod: 'Authenticator App', twoFALastUsed: '6 Mar 2026',
   sessions: [

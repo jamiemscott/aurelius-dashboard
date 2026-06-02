@@ -47,3 +47,25 @@
     });
   }
 }());
+
+/* ── Investment Profile CTA ─────────────────────────────────── */
+(function () {
+  'use strict';
+
+  const STORAGE_HIDDEN = 'aurelius-ip-cta-hidden';
+
+  const card      = document.getElementById('ip-cta');
+  if (!card) return;
+
+  if (localStorage.getItem(STORAGE_HIDDEN)) return;
+
+  card.removeAttribute('hidden');
+
+  const dismissEl = document.getElementById('ip-cta-dismiss');
+  if (dismissEl) {
+    dismissEl.addEventListener('click', () => {
+      localStorage.setItem(STORAGE_HIDDEN, '1');
+      card.setAttribute('hidden', '');
+    });
+  }
+}());
