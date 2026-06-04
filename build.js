@@ -60,6 +60,7 @@ const PARTIALS = [
   'src/styles/modules/onboarding.css',
   'src/styles/modules/login.css',
   'src/styles/modules/transitions.css',
+  'src/styles/modules/goals.css',
   // State — is-* classes
   'src/styles/state/state.css',
   // Pages — page-specific overrides
