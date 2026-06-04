@@ -379,3 +379,76 @@
 }
 
 .det-danger-link:hover { color: var(--red); }
+
+/* ── Hero row wrapper ─────────────────────────────────── */
+.details-hero-row {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr 360px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 1200px) {
+  .details-hero-row { grid-template-columns: 1fr; }
+}
+
+/* ── Investor profile type card ───────────────────────── */
+#details-profile-card { display: flex; }
+
+.det-profile-card {
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  border-top: 2px solid var(--gold);
+  box-shadow: var(--shadow-inner), var(--shadow-card);
+  box-sizing: border-box;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 28px 24px;
+  position: relative;
+  text-align: center;
+}
+
+.det-profile-eyebrow {
+  color: var(--gold);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.det-profile-emoji {
+  font-size: 2.6rem;
+  line-height: 1;
+  margin: 8px 0 4px;
+}
+
+.det-profile-label {
+  color: var(--text-1);
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+}
+
+.det-profile-desc {
+  color: var(--text-3);
+  font-size: var(--fs-md);
+  line-height: 1.55;
+  margin: 4px 0 12px;
+  max-width: 280px;
+}
+
+.det-profile-link {
+  color: var(--gold);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  opacity: 0.75;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.det-profile-link:hover { opacity: 1; }
