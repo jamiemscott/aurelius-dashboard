@@ -185,7 +185,7 @@ p {
   line-height: var(--lh-relaxed);
 }
 
-p + p { margin-top: 0.75em; }
+p + p { margin-block-start: 0.75em; }
 
 /* ── Inline elements ───────────────────────────────────────────── */
 strong, b { color: var(--text-1); font-weight: var(--fw-semibold); }
@@ -202,20 +202,20 @@ ul, ol {
   color: var(--text-2);
   font-size: var(--fs-body);         /* 14px */
   line-height: var(--lh-relaxed);
-  padding-left: 1.25em;
+  padding-inline-start: 1.25em;
 }
 
 ul { list-style: disc; }
 ol { list-style: decimal; }
 
-li { margin-bottom: 0.3em; }
-li:last-child { margin-bottom: 0; }
+li { margin-block-end: 0.3em; }
+li:last-child { margin-block-end: 0; }
 
 /* Nested lists — one step smaller to preserve hierarchy */
 li ul,
 li ol {
   font-size: 0.93em; /* ≈13px when parent is 14px */
-  margin-top: 0.3em;
+  margin-block-start: 0.3em;
 }
 
 /* ── Inline code ───────────────────────────────────────────────── */
@@ -249,18 +249,18 @@ pre code {
 
 /* ── Blockquote — advisory notes & disclaimers ─────────────────── */
 blockquote {
-  border-left: 3px solid var(--gold-glow);
+  border-inline-start: 3px solid var(--gold-glow);
   color: var(--text-3);
   font-size: var(--fs-body-sm);      /* 12px */
   font-style: italic;
   line-height: var(--lh-loose);
-  padding-left: 12px;
+  padding-inline-start: 12px;
 }
 
 /* ── Horizontal rule ───────────────────────────────────────────── */
 hr {
   border: none;
-  border-top: 1px solid var(--divider);
+  border-block-start: 1px solid var(--divider);
   margin: 16px 0;
 }
 

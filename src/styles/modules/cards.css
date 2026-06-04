@@ -15,7 +15,7 @@
   display: grid;
   gap: 16px;
   grid-template-columns: 1fr 380px;
-  margin-bottom: 20px;
+  margin-block-end: 20px;
 }
 
 .kpi-group {
@@ -37,15 +37,17 @@
   background: var(--gold-dim);
   border-radius: 50%;
   content: '';
+  height: 70px;
+  inset-block-start: 0;
+  inset-inline-end: 0;
   position: absolute;
-  top: 0; right: 0;
   transform: translate(30px, -30px);
-  width: 70px; height: 70px;
+  width: 70px;
 }
 
 .kpi-label {
   color: var(--text-3);
-  font-size: var(--fs-md);           /* 12px */
+  font-size: var(--fs-md);             /* 12px */
   font-weight: var(--fw-semibold);
   letter-spacing: var(--ls-widest);
   text-transform: uppercase;
@@ -54,7 +56,7 @@
 .kpi-value {
   color: var(--text-1);
   font-family: var(--font-serif);
-  font-size: var(--fs-kpi);          /* 26px */
+  font-size: var(--fs-kpi);            /* 26px */
   letter-spacing: var(--ls-display);
   line-height: var(--lh-none);
 }
@@ -62,7 +64,7 @@
 .kpi-change {
   align-items: center;
   display: flex;
-  font-size: var(--fs-md);           /* 12px */
+  font-size: var(--fs-md);             /* 12px */
   font-weight: var(--fw-medium);
   gap: 4px;
 }
@@ -88,17 +90,17 @@
 
 /* ─── CARD PAD MODIFIER ──────────────────────────────── */
 /* Flush the top padding when a table immediately follows a card header */
-.card-pad--flush-top { padding-top: 0; }
+.card-pad--flush-top { padding-block-start: 0; }
 
 /* Bottom margin when a card needs separation from the next element */
-.card--spaced { margin-bottom: 20px; }
+.card--spaced { margin-block-end: 20px; }
 
 /* ─── CARD GROUP HEADER ──────────────────────────────── */
 /* Section divider inside a card — e.g. "GBP Mutual Funds".
    Sits above a .table-wrap and below any preceding content.   */
 .card-group-hd {
   align-items: center;
-  border-bottom: 1px solid var(--divider);
+  border-block-end: 1px solid var(--divider);
   color: var(--text-1);
   display: flex;
   font-size: var(--fs-body);            /* 14px */
@@ -112,7 +114,7 @@
    Label on the left, one or more stat cells on the right.    */
 .card-totals {
   align-items: center;
-  border-top: 1px solid var(--divider);
+  border-block-start: 1px solid var(--divider);
   display: flex;
   justify-content: space-between;
   padding: 16px 24px;
@@ -129,7 +131,7 @@
   gap: 32px;
 }
 
-.card-totals__stat         { text-align: right; }
+.card-totals__stat         { text-align: end; }
 .card-totals__stat-label   { color: var(--text-3); font-size: var(--fs-sm); }
 .card-totals__stat-value   { color: var(--text-1); font-size: var(--fs-body); font-weight: var(--fw-semibold); }
 .card-totals__stat-value.green { color: var(--green); }
@@ -144,7 +146,7 @@
   border-radius: 10px;
   color: var(--text-2);
   font-size: var(--fs-md);              /* 12px */
-  margin-top: 16px;
+  margin-block-start: 16px;
   padding: 12px;
 }
 

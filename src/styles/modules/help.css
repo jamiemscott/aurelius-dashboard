@@ -6,7 +6,7 @@
 .hs-search-hero {
   background: linear-gradient(160deg, var(--gold-dim) 0%, transparent 65%);
   border-radius: var(--radius-card);
-  margin-bottom: 24px;
+  margin-block-end: 24px;
   overflow: hidden;
   padding: 32px 32px 28px;
   position: relative;
@@ -25,7 +25,7 @@
   font-size: var(--fs-badge);
   font-weight: var(--fw-semibold);
   letter-spacing: var(--ls-wider);
-  margin-bottom: 8px;
+  margin-block-end: 8px;
   text-transform: uppercase;
 }
 
@@ -35,7 +35,7 @@
   font-size: var(--fs-page-title);
   letter-spacing: var(--ls-snug);
   line-height: var(--lh-snug);
-  margin-bottom: 20px;
+  margin-block-end: 20px;
 }
 
 .hs-search-wrap {
@@ -62,8 +62,8 @@
 }
 
 .hs-search-input {
-  appearance: none;
   -webkit-appearance: none;
+  appearance: none;
   background: transparent;
   border: none;
   color: var(--text-1);
@@ -103,7 +103,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 14px;
+  margin-block-start: 14px;
 }
 
 .hs-popular-label {
@@ -143,7 +143,7 @@
   display: grid;
   gap: 10px;
   grid-template-columns: repeat(3, 1fr);
-  margin-bottom: 24px;
+  margin-block-end: 24px;
 }
 
 .hs-cat-card {
@@ -209,7 +209,7 @@
   display: flex;
   gap: 10px;
   justify-content: space-between;
-  margin-bottom: 14px;
+  margin-block-end: 14px;
 }
 
 .hs-faq-section-title {
@@ -255,7 +255,7 @@
 }
 
 /* Category group divider */
-.hs-faq-group { margin-bottom: 4px; }
+.hs-faq-group { margin-block-end: 4px; }
 
 .hs-faq-group-label {
   align-items: center;
@@ -278,10 +278,10 @@
 
 /* Accordion item */
 .hs-faq-item {
-  border-bottom: 1px solid var(--divider);
+  border-block-end: 1px solid var(--divider);
 }
 
-.hs-faq-item:last-child { border-bottom: none; }
+.hs-faq-item:last-child { border-block-end: none; }
 
 .hs-faq-q {
   align-items: center;
@@ -296,7 +296,7 @@
   gap: 12px;
   justify-content: space-between;
   padding: 14px 4px;
-  text-align: left;
+  text-align: start;
   transition: color 0.15s;
   width: 100%;
 }
@@ -308,7 +308,7 @@
 .hs-faq-chevron {
   color: var(--text-3);
   flex-shrink: 0;
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), color 0.15s;
+  transition: color 0.15s, transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hs-faq-item.is-open .hs-faq-chevron {
@@ -360,7 +360,7 @@ mark.hs-hl {
   display: grid;
   gap: 16px;
   grid-template-columns: repeat(3, 1fr);
-  margin-top: 28px;
+  margin-block-start: 28px;
 }
 
 .hs-contact-card {
@@ -439,7 +439,7 @@ mark.hs-hl {
   font-family: var(--font-sans);
   font-size: var(--fs-ui);
   font-weight: var(--fw-medium);
-  margin-top: 4px;
+  margin-block-start: 4px;
   padding: 9px 16px;
   text-align: center;
   text-decoration: none;

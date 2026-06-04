@@ -8,7 +8,7 @@
   cursor: pointer;
   display: flex;
   font-family: var(--font-sans);
-  font-size: var(--fs-md);           /* 12px */
+  font-size: var(--fs-md);             /* 12px */
   font-weight: var(--fw-medium);
   gap: 8px;
   padding: 6px 12px;
@@ -77,11 +77,13 @@ html:has(.theme-checkbox:checked) .theme-toggle::after {
 .theme-checkbox {
   border: 0;
   clip: rect(0,0,0,0);
+  height: 1px;
+  margin: -1px;
   overflow: hidden;
-  padding: 0; margin: -1px;
+  padding: 0;
   position: absolute;
   white-space: nowrap;
-  width: 1px; height: 1px;
+  width: 1px;
 }
 
 /* ─── LABEL TEXT ─────────────────────────────────────── */
@@ -96,11 +98,13 @@ html:has(.theme-checkbox:checked) .theme-label-light { display: inline; }
 /* announce outcome in plain language ("Light mode" etc) */
 .theme-live {
   clip: rect(0,0,0,0);
+  height: 1px;
+  margin: -1px;
   overflow: hidden;
-  padding: 0; margin: -1px;
+  padding: 0;
   position: absolute;
   white-space: nowrap;
-  width: 1px; height: 1px;
+  width: 1px;
 }
 
 /* ─── WRAPPER ────────────────────────────────────────── */

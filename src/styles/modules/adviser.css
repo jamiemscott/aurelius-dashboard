@@ -9,7 +9,7 @@
 .chat-context {
   align-items: stretch;
   background: var(--bg-card);
-  border-bottom: 1px solid var(--border);
+  border-block-end: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
@@ -32,9 +32,9 @@
  */
 .chat-select,
 .chat-context select {
-  appearance: none;
-  -webkit-appearance: none;
   -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
   background-color: var(--bg-input);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23888' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
   background-position: right 12px center;
@@ -103,7 +103,7 @@
   font-size: var(--fs-xs);
   font-weight: var(--fw-semibold);
   letter-spacing: var(--ls-widest);
-  margin-bottom: 4px;
+  margin-block-end: 4px;
   text-transform: uppercase;
 }
 
@@ -152,7 +152,7 @@
   font-size: var(--fs-xs);
   font-weight: var(--fw-semibold);
   letter-spacing: var(--ls-widest);
-  margin-bottom: 0;
+  margin-block-end: 0;
   text-transform: uppercase;
   width: auto !important;       /* override OSFillParent width:100% */
 }
@@ -185,10 +185,10 @@
   border-radius: 50%;
   content: '';
   height: 16px;
-  left: 2px;
+  inset-block-start: 2px;
+  inset-inline-start: 2px;
   position: absolute;
-  top: 2px;
-  transition: transform 0.2s, background 0.2s;
+  transition: background 0.2s, transform 0.2s;
   width: 16px;
 }
 
@@ -213,7 +213,7 @@
 .chat-disclaimer {
   align-items: flex-start;
   background: light-dark(rgba(245,166,35,0.04), rgba(245,166,35,0.06));
-  border-bottom: 1px solid var(--border);
+  border-block-end: 1px solid var(--border);
   display: flex;
   flex-shrink: 0;
   gap: 10px;
@@ -229,7 +229,7 @@
 .chat-disclaimer svg {
   color: var(--text-3);
   flex-shrink: 0;
-  margin-top: 1px;
+  margin-block-start: 1px;
 }
 
 .chat-disclaimer p {
@@ -295,7 +295,7 @@
 /* OutSystems AllChatContent List renders each block inside
    a classless [data-container] div with no class attribute.
    These become the actual flex items of .adv-messages, so
-   .adv-msg--user's margin-left:auto has nothing to push against.
+   .adv-msg--user's margin-inline-start:auto has nothing to push against.
    Fix: stretch each wrapper to full column width and mirror
    .adv-messages as a flex column with align-items:flex-start,
    so child .adv-msg elements regain working margin alignment.
@@ -317,27 +317,26 @@
 }
 
 .adv-msg + .adv-msg {
-  margin-top: 12px;
+  margin-block-start: 12px;
 }
 
 /* Collapse spacing between consecutive same-sender messages */
 .adv-msg--bot  + .adv-msg--bot,
 .adv-msg--user + .adv-msg--user {
-  margin-top: 4px;
+  margin-block-start: 4px;
 }
 
 /* User messages: push to the right, avatar on the RIGHT of the bubble.
  * flex-direction: row-reverse visually swaps [avatar, bubble] → [bubble, avatar].
- * margin-left: auto right-aligns the whole row in the parent flex column —
- * it is applied to the outer element and is unaffected by row-reverse. */
+ * margin-inline-start: auto right-aligns the whole row in the parent flex column. */
 .adv-msg--user {
   flex-direction: row-reverse;
-  margin-left: auto;
+  margin-inline-start: auto;
 }
 
 /* Bot messages: sit on the left */
 .adv-msg--bot {
-  margin-right: auto;
+  margin-inline-end: auto;
 }
 
 /* Constrain bubble width */
@@ -431,7 +430,7 @@
 }
 
 .adv-text p { margin: 0 0 8px; }
-.adv-text p:last-child { margin-bottom: 0; }
+.adv-text p:last-child { margin-block-end: 0; }
 
 .adv-text strong { color: var(--text-1); font-weight: var(--fw-semibold); }
 
@@ -454,7 +453,7 @@
 }
 
 .adv-msg--user .adv-time {
-  text-align: right;
+  text-align: end;
 }
 
 /* Bot sender name (shown only on first in a group) */
@@ -463,7 +462,7 @@
   font-size: var(--fs-xs);
   font-weight: var(--fw-semibold);
   letter-spacing: var(--ls-wide);
-  margin-bottom: 4px;
+  margin-block-end: 4px;
 }
 
 /* Card-style suggestion chips inside a bot message */
@@ -471,7 +470,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 10px;
+  margin-block-start: 10px;
 }
 
 .adv-chip {
@@ -570,7 +569,7 @@
 .adv-input-bar {
   align-items: flex-end;
   background: var(--bg-card);
-  border-top: 1px solid var(--border);
+  border-block-start: 1px solid var(--border);
   display: flex;
   flex-shrink: 0;
   gap: 10px;
@@ -695,7 +694,7 @@
   display: grid;
   gap: 10px;
   grid-template-columns: 1fr 1fr;
-  margin-top: 4px;
+  margin-block-start: 4px;
   max-width: 440px;
   width: 100%;
 }
@@ -716,7 +715,7 @@
   font-size: var(--fs-sm);
   line-height: var(--lh-relaxed);
   padding: 12px 14px;
-  text-align: left;
+  text-align: start;
   transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
 
@@ -730,7 +729,7 @@
   color: var(--gold-text);
   display: block;
   font-size: 16px;
-  margin-bottom: 6px;
+  margin-block-end: 6px;
 }
 
 
@@ -740,17 +739,17 @@
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 50%;
-  bottom: 80px;
   box-shadow: var(--shadow-card);
   color: var(--text-2);
   cursor: pointer;
   display: flex;
   height: 36px;
+  inset-block-end: 80px;
+  inset-inline-end: 20px;
   justify-content: center;
   opacity: 0;
   pointer-events: none;
   position: absolute;
-  right: 20px;
   transition: opacity 0.2s;
   width: 36px;
 }

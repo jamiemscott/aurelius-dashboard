@@ -9,7 +9,7 @@
 }
 
 .chart-card .chart-title    { text-align: center; }
-.chart-card .chart-subtitle { margin-top: 4px; text-align: center; }
+.chart-card .chart-subtitle { margin-block-start: 4px; text-align: center; }
 
 /* Total value display inside a centred chart card */
 .chart-total-value {
@@ -23,30 +23,30 @@
 .chart-total-unit {
   color: var(--text-3);
   font-family: var(--font-sans);
-  font-size: var(--fs-ui);          /* 13px */
+  font-size: var(--fs-ui);             /* 13px */
 }
 
 /* Axis date/value labels below a chart SVG */
 .chart-axis-labels {
   display: flex;
   justify-content: space-between;
-  margin-top: 8px;
+  margin-block-start: 8px;
 }
 
 .chart-axis-label {
   color: var(--text-3);
-  font-size: var(--fs-sm);          /* 11px */
+  font-size: var(--fs-sm);             /* 11px */
 }
 
 .chart-header {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-block-end: 20px;
 }
 
 .chart-title    { color: var(--text-1); font-size: var(--fs-panel-title); font-weight: var(--fw-semibold); }
-.chart-subtitle { color: var(--text-3); font-size: var(--fs-md); margin-top: 2px; }
+.chart-subtitle { color: var(--text-3); font-size: var(--fs-md); margin-block-start: 2px; }
 
 .range-pills { display: flex; gap: 4px; }
 .range-pill {
@@ -56,7 +56,7 @@
   color: var(--text-3);
   cursor: pointer;
   font-family: var(--font-sans);
-  font-size: var(--fs-sm);           /* 11px */
+  font-size: var(--fs-sm);             /* 11px */
   font-weight: var(--fw-semibold);
   padding: 4px 10px;
   transition: all 0.2s;
@@ -76,7 +76,7 @@
    aspect ratio, preventing xMidYMid meet letterboxing when OS also strips
    the preserveAspectRatio="none" attribute. */
 .chart-svg { display: block; width: 100% !important; }
-.chart-container svg { display: block; width: 100% !important; height: auto; }
+.chart-container svg { display: block; height: auto; width: 100% !important; }
 
 /* ─── CHART TOOLTIP ──────────────────────────────────── */
 .chart-tooltip {
@@ -86,7 +86,7 @@
   box-shadow: var(--shadow-card);
   color: var(--text-1);
   display: none;
-  font-size: var(--fs-caption);      /* 12px */
+  font-size: var(--fs-caption);        /* 12px */
   padding: 8px 12px;
   pointer-events: none;
   position: absolute;
@@ -116,7 +116,8 @@
 .legend-dot {
   border-radius: 50%;
   flex-shrink: 0;
-  width: 8px; height: 8px;
+  height: 8px;
+  width: 8px;
 }
 
 .legend-label { color: var(--text-2); flex: 1; font-size: var(--fs-caption); }

@@ -1,7 +1,7 @@
 /* ─── DOCUMENT ROW ───────────────────────────────────── */
 .doc-row {
   align-items: center;
-  border-bottom: 1px solid var(--divider);
+  border-block-end: 1px solid var(--divider);
   cursor: pointer;
   display: flex;
   gap: 12px;
@@ -9,22 +9,25 @@
   transition: background 0.15s;
 }
 
-.doc-row:last-child { border-bottom: none; }
-.doc-row:hover { background: var(--bg-hover); border-radius: 8px; margin: 0 -16px; padding: 14px 16px; }
+.doc-row:last-child { border-block-end: none; }
+.doc-row:hover { background: var(--bg-hover); border-radius: 8px; margin-inline: -16px; padding: 14px 16px; }
 
 .doc-icon {
+  align-items: center;
   background: var(--gold-dim);
   border-radius: 9px;
   color: var(--gold);
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
   flex-shrink: 0;
   font-size: var(--fs-lg);              /* 15px — icon glyph size */
-  width: 36px; height: 36px;
+  height: 36px;
+  justify-content: center;
+  width: 36px;
 }
 
 .doc-info { flex: 1; }
 .doc-name { color: var(--text-1); font-size: var(--fs-ui); font-weight: var(--fw-medium); }
-.doc-meta { color: var(--text-3); font-size: var(--fs-sm); margin-top: 2px; }
+.doc-meta { color: var(--text-3); font-size: var(--fs-sm); margin-block-start: 2px; }
 .doc-download { color: var(--text-3); transition: color 0.2s; }
 .doc-row:hover .doc-download { color: var(--gold-text); }
 
@@ -33,7 +36,7 @@
   align-items: center;
   display: flex;
   gap: 8px;
-  margin-bottom: 16px;
+  margin-block-end: 16px;
 }
 
 .filter-select {
@@ -49,8 +52,7 @@
   font-family: var(--font-sans);
   font-size: var(--fs-md);
   outline: none;
-  padding: 7px 12px;
-  padding-right: 28px;
+  padding: 7px 28px 7px 12px;
   transition: border-color 0.2s;
 }
 
@@ -61,14 +63,14 @@
   background: linear-gradient(90deg, var(--gold), transparent);
   border-radius: 1px;
   height: 2px;
-  margin-bottom: 16px;
+  margin-block-end: 16px;
   width: 48px;
 }
 
 /* ─── DOCUMENT LIST ENTRIES ─────────────────────────── */
 .doc-entry {
   align-items: center;
-  border-bottom: 1px solid var(--divider);
+  border-block-end: 1px solid var(--divider);
   cursor: pointer;
   display: flex;
   gap: 14px;
@@ -76,7 +78,7 @@
   transition: background 0.15s ease;
 }
 
-.doc-entry:last-child { border-bottom: none; }
+.doc-entry:last-child { border-block-end: none; }
 .doc-entry:hover { background: var(--bg-hover); }
 .doc-entry.is-unread { background: var(--gold-dim); }
 .doc-entry.is-unread:hover { background: rgba(245,166,35,0.18); }
@@ -142,7 +144,7 @@
   display: flex;
   font-size: var(--fs-sm);             /* 11px — normalised from 11.5px */
   gap: 5px;
-  margin-top: 3px;
+  margin-block-start: 3px;
 }
 
 .doc-cat-chip { font-weight: var(--fw-medium); }
@@ -160,7 +162,7 @@
   color: var(--text-3);
   font-size: var(--fs-md);
   min-width: 82px;
-  text-align: right;
+  text-align: end;
   white-space: nowrap;
 }
 
@@ -168,7 +170,7 @@
   color: var(--text-3);
   font-size: var(--fs-md);
   min-width: 55px;
-  text-align: right;
+  text-align: end;
 }
 
 .doc-entry-dl {
@@ -200,7 +202,7 @@
   font-size: var(--fs-ui);
   font-weight: var(--fw-semibold);
   gap: 8px;
-  margin-bottom: 14px;
+  margin-block-end: 14px;
 }
 
 .section-heading::after {
@@ -215,7 +217,7 @@
   display: grid;
   gap: 12px;
   grid-template-columns: repeat(5, 1fr);
-  margin-bottom: 20px;
+  margin-block-end: 20px;
 }
 
 .doc-stat {
@@ -224,7 +226,7 @@
   border-radius: var(--radius-item);
   cursor: pointer;
   padding: 16px 18px;
-  transition: border-color 0.2s, background 0.2s;
+  transition: background 0.2s, border-color 0.2s;
 }
 
 .doc-stat:hover { border-color: var(--gold-glow); }
@@ -248,7 +250,7 @@
   color: var(--text-3);
   font-size: var(--fs-sm);
   letter-spacing: var(--ls-wider);     /* 0.07em ≈ 0.8px at 11px */
-  margin-top: 5px;
+  margin-block-start: 5px;
   text-transform: uppercase;
 }
 
@@ -257,7 +259,7 @@
   display: flex;
   gap: 16px;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-block-end: 20px;
 }
 
 .doc-tabs {
@@ -335,13 +337,13 @@
 
 .doc-search-input::placeholder { color: var(--text-2); }
 
-.doc-group { margin-bottom: 20px; }
+.doc-group { margin-block-end: 20px; }
 
 .doc-group-hd {
   align-items: center;
   display: flex;
   gap: 8px;
-  margin-bottom: 8px;
+  margin-block-end: 8px;
   padding: 0 2px;
 }
 
@@ -373,7 +375,7 @@
   cursor: pointer;
   font-family: var(--font-sans);
   font-size: var(--fs-sm);
-  margin-left: auto;
+  margin-inline-start: auto;
   padding: 0;
   transition: color 0.2s;
 }

@@ -1,4 +1,4 @@
-/* ─── TOPBAR TABS ────────────────────────────────────── */
+/* ─── TOPBAR TABS ────────────────────────────────────────────── */
 .tab-btn {
   background: transparent;
   border: none;
@@ -6,7 +6,7 @@
   color: var(--text-2);
   cursor: pointer;
   font-family: var(--font-sans);
-  font-size: var(--fs-nav);          /* 13px */
+  font-size: var(--fs-nav);            /* 13px */
   font-weight: var(--fw-medium);
   padding: 6px 16px;
   text-decoration: none;
@@ -21,19 +21,22 @@
   color: var(--text-1);
 }
 
-/* ─── ICON BUTTONS ───────────────────────────────────── */
+/* ─── ICON BUTTONS ───────────────────────────────────────────── */
 .icon-btn {
+  align-items: center;
   aspect-ratio: 1;
   background: var(--bg-input);
   border: none;
   border-radius: 10px;
   color: var(--text-2);
   cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
   flex-shrink: 0;
+  height: 36px;
+  justify-content: center;
   position: relative;
   transition: all 0.2s ease;
-  width: 36px; height: 36px;
+  width: 36px;
 }
 
 .icon-btn:hover { background: var(--bg-hover); color: var(--text-1); }
@@ -47,31 +50,36 @@
   background: var(--gold);
   border: 2px solid var(--bg-card);
   border-radius: 50%;
+  height: 7px;
+  inset-block-start: 7px;
+  inset-inline-end: 7px;
   position: absolute;
-  top: 7px; right: 7px;
-  width: 7px; height: 7px;
+  width: 7px;
 }
 
-/* ─── AVATAR ─────────────────────────────────────────── */
+/* ─── AVATAR ──────────────────────────────────────────────────── */
 .avatar {
+  align-items: center;
   aspect-ratio: 1;
   background: linear-gradient(135deg, var(--gold-dim), var(--gold-glow));
   border: 1.5px solid var(--gold);
   border-radius: 10px;
   color: var(--gold-text);
   cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
   flex-shrink: 0;
-  font-size: var(--fs-md);           /* 12px */
+  font-size: var(--fs-md);             /* 12px */
   font-weight: var(--fw-semibold);
+  height: 36px;
+  justify-content: center;
   letter-spacing: var(--ls-wide);
-  width: 36px; height: 36px;
+  width: 36px;
 }
 
-/* ─── SIDEBAR NAVIGATION ─────────────────────────────── */
+/* ─── SIDEBAR NAVIGATION ──────────────────────────────────────── */
 .sidebar-section-label {
   color: var(--text-3);
-  font-size: var(--fs-badge);        /* 10px */
+  font-size: var(--fs-badge);          /* 10px */
   font-weight: var(--fw-semibold);
   letter-spacing: var(--ls-widest);
   margin: 16px 0 6px;
@@ -88,12 +96,12 @@
   cursor: pointer;
   display: flex;
   font-family: var(--font-sans);
-  font-size: var(--fs-nav);          /* 13px */
+  font-size: var(--fs-nav);            /* 13px */
   font-weight: var(--fw-medium);
   gap: 10px;
   padding: 10px 12px;
   position: relative;
-  text-align: left;
+  text-align: start;
   text-decoration: none;
   transition: all 0.2s ease;
   width: 100%;
@@ -109,8 +117,9 @@
 .nav-icon {
   color: var(--text-3);
   flex-shrink: 0;
+  height: 18px;
   transition: color 0.2s ease;
-  width: 18px; height: 18px;
+  width: 18px;
 }
 
 /* OutSystems InlineSVG renders .nav-icon as a div wrapper. display:contents on
@@ -121,16 +130,16 @@
   width: 18px;
 }
 
-.nav-item:hover .nav-icon  { color: var(--text-1); }
-.nav-item.is-active .nav-icon { color: var(--gold); }
+.nav-item:hover .nav-icon      { color: var(--text-1); }
+.nav-item.is-active .nav-icon  { color: var(--gold); }
 
 .nav-badge {
   background: var(--gold);
   border-radius: 99px;
   color: #0B0D10;
-  font-size: var(--fs-micro);        /* 9px */
+  font-size: var(--fs-micro);          /* 9px */
   font-weight: var(--fw-bold);
   line-height: var(--lh-snug);
-  margin-left: auto;
+  margin-inline-start: auto;
   padding: 2px 6px;
 }
