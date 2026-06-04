@@ -382,18 +382,27 @@
 
 /* ── Hero row wrapper ─────────────────────────────────── */
 .details-hero-row {
-  display: grid;
+  align-items: stretch;
+  display: flex;
   gap: 16px;
-  grid-template-columns: 1fr 360px;
   margin-bottom: 20px;
 }
 
+.details-hero {
+  flex: 1;
+  min-width: 0;
+}
+
 @media (max-width: 1200px) {
-  .details-hero-row { grid-template-columns: 1fr; }
+  .details-hero-row { flex-direction: column; }
 }
 
 /* ── Investor profile type card ───────────────────────── */
-#details-profile-card { display: flex; }
+#details-profile-card {
+  display: flex;
+  flex-shrink: 0;
+  width: 360px;
+}
 
 .det-profile-card {
   align-items: center;
