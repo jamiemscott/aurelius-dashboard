@@ -72,7 +72,6 @@
   box-shadow: var(--shadow-inner), var(--shadow-card);
   display: flex;
   gap: 22px;
-  margin-bottom: 20px;
   overflow: hidden;
   padding: 24px 28px;
   position: relative;
