@@ -8,6 +8,19 @@
   transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* ── Glassmorphism — dark mode only ──────────────────────
+   Progressive enhancement: only applied when backdrop-filter
+   is supported. Light mode keeps solid cards (no background
+   image to blur through). Dark mode cards become frosted
+   glass, letting the wave background subtly show through.  */
+@supports (backdrop-filter: blur(1px)) {
+  html:not(:has(.theme-checkbox:checked)) .card {
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    background: oklch(from var(--seed-neutral) 0.22 calc(c * 0.85) h / 0.72);
+  }
+}
+
 .card-pad { padding: var(--pad); }
 
 /* ─── KPI GRID ───────────────────────────────────────── */
