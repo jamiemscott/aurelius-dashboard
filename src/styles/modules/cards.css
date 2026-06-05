@@ -79,7 +79,7 @@
 }
 
 .kpi-card::after {
-  background: var(--gold-dim);
+  background: var(--gold-glow);
   border-radius: 50%;
   content: '';
   height: 70px;
