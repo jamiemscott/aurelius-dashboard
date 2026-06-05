@@ -21,7 +21,7 @@
 
 .btn-secondary {
   align-items: center;
-  background: transparent;
+  background: light-dark(transparent, var(--bg-card));
   border: 1px solid light-dark(rgba(160,86,7,0.3), var(--gold-glow));
   border-radius: var(--radius-btn);
   color: var(--gold-text);
