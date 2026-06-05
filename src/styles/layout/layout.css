@@ -252,12 +252,15 @@
   .brand-sub { display: none; } /* catches no-sidebar pages; sidebar already hides at 1280px */
 }
 
-/* At very narrow viewports the pill scrolls rather than
-   overflowing — a proper mobile nav is a future milestone.  */
-@media (max-width: 760px) {
+/* Topbar nav grid item: allow it to shrink below content minimum
+   so it never forces the shell wider than the viewport.          */
+.topbar-nav { min-width: 0; }
+
+/* At ≤1100px the nav pill scrolls its tabs rather than overflowing.
+   scrollbar-width:none keeps it visually clean — tabs are still
+   accessible by swiping/scrolling.                               */
+@media (max-width: 1100px) {
   .topbar-nav {
-    margin-inline: 0;
-    max-width: 100%;
     overflow-x: auto;
     scrollbar-width: none;
   }

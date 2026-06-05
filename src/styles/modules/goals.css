@@ -103,8 +103,12 @@
   .gl-stat { flex: 1; }
 }
 
+@media (max-width: 1024px) {
+  .gl-hero { padding: 40px var(--pad) 32px; }
+}
+
 @media (max-width: 640px) {
-  .gl-hero { padding: 48px var(--pad) 40px; }
+  .gl-hero { padding: 28px var(--pad) 24px; }
   .gl-hero-stats { flex-wrap: wrap; }
   .gl-stat { min-width: 40%; }
 }

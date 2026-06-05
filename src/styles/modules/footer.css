@@ -52,6 +52,13 @@
 
 .footer-reg-badge svg { color: var(--gold-text); flex-shrink: 0; }
 
+/* min-width: 0 lets 1fr grid items shrink below their content
+   minimum — without it, long link text (e.g. "Discretionary
+   Management") forces the column wider and overflows the grid. */
+.footer-col {
+  min-width: 0;
+}
+
 .footer-col-title {
   color: var(--text-3);
   font-size: var(--fs-badge);         /* 10px */
@@ -103,6 +110,7 @@
   color: var(--text-3);
   font-size: var(--fs-md);            /* 12px */
   line-height: var(--lh-loose);
+  overflow-wrap: break-word;
 }
 
 .footer-reg-text + .footer-reg-text { margin-block-start: 12px; }
@@ -220,46 +228,25 @@
   width: auto;
 }
 
-/* ─── RESPONSIVE — IPAD ──────────────────────────────────
-   ≤1024px (landscape): tighten padding throughout.
-   ≤768px  (portrait):  collapse link columns to horizontal
-   wrapping lists — biggest height saving; eliminates the
-   tall vertical stacks of links in favour of a compact row. */
+/* ─── RESPONSIVE — TABLET / IPAD ─────────────────────────
+   iPad Pro portrait = 1024px CSS width.
+   ≤1024px: compact layout — horizontal link rows replace the
+   tall vertical stacks; the biggest height saving.
+   ≤768px:  stacked single-column for standard iPad portrait
+   and smaller devices.                                       */
 
 @media (max-width: 1024px) {
+  /* Brand spans full width; three link columns sit in a row beneath */
   .footer-upper {
-    gap: 24px;
-    padding: 28px 0 20px;
-  }
-
-  .footer-regulatory {
-    gap: 28px;
-    padding: 18px 0;
-  }
-
-  .footer-links { gap: 7px; }
-
-  .footer-bottom { padding: 12px 0; }
-}
-
-@media (max-width: 768px) {
-  .footer-upper {
-    gap: 16px;
-    grid-template-columns: 1fr;
+    gap: 16px 24px;
+    grid-template-columns: 1fr 1fr 1fr;
     padding: 24px 0 16px;
   }
 
-  /* Brand block sits above the link columns */
-  .footer-brand { margin-block-end: 4px; }
+  .footer-brand-col { grid-column: 1 / -1; }
 
-  /* Link columns flow side-by-side rather than stacking */
-  .footer-upper--link-wrapper {
-    display: grid;
-    gap: 16px;
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  /* Within each column, links run horizontally and wrap */
+  /* Within each column, links run horizontally and wrap —
+     eliminates the tall vertical stacks                     */
   .footer-links {
     flex-direction: row;
     flex-wrap: wrap;
@@ -268,7 +255,7 @@
 
   .footer-col-title { margin-block-end: 8px; }
 
-  /* Regulatory — stack sponsors below text */
+  /* Regulatory — stack sponsors below reg text */
   .footer-regulatory {
     flex-direction: column;
     gap: 16px;
@@ -284,6 +271,19 @@
   }
 
   .footer-sponsors-label { margin-block-end: 0; margin-inline-end: 14px; }
+
+  .footer-bottom { padding: 12px 0; }
+}
+
+@media (max-width: 768px) {
+  /* Collapse to single column on phones */
+  .footer-upper { grid-template-columns: 1fr; }
+
+  /* Restore vertical links at phone width — more readable */
+  .footer-links {
+    flex-direction: column;
+    gap: 8px;
+  }
 }
 
 /* Bottom bar */
@@ -302,35 +302,35 @@
 }
 
 .footer-bottom-links {
-  align-items: center;
   display: flex;
-  gap: 20px;
+  font-size: var(--fs-md);            /* kills inherited 23px line-height strut */
+  gap: 0;
+  line-height: 1;
   list-style: none;
+  padding: 0;
 }
 
 .footer-bottom-links li {
-  position: relative;
+  line-height: 1;
+}
+
+/* Pipe separator via border — no pseudo-element, no height side-effects */
+.footer-bottom-links li + li {
+  border-inline-start: 1px solid var(--divider);
+  margin-inline-start: 10px;
+  padding-inline-start: 10px;
 }
 
 .footer-bottom-links a {
   color: var(--text-3);
+  display: block;
   font-size: var(--fs-md);            /* 12px */
+  line-height: 1;
   text-decoration: none;
   transition: color 0.2s;
 }
 
 .footer-bottom-links a:hover { color: var(--text-2); }
-
-.footer-bottom-links li + li::before {
-  background: var(--divider);
-  content: '';
-  height: 12px;
-  inset-block-start: 50%;
-  inset-inline-start: -10px;
-  position: absolute;
-  transform: translateY(-50%);
-  width: 1px;
-}
 
 .footer-fca {
   align-items: center;
