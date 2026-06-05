@@ -26,7 +26,7 @@
 .btn-primary:hover {
   box-shadow: 0 4px 18px oklch(from var(--gold) l c h / 0.50);
   color: #0B0D10;
-  text-decoration-color: rgba(124, 58, 237, 0.80);
+  text-decoration-color: currentColor;
   text-decoration-thickness: 2px;
   text-underline-offset: 3px;
   transform: translateY(-1px);
