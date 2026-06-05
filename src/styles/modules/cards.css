@@ -1,23 +1,66 @@
+/* ─── GRADIENT BORDER — @property + animation ────────────
+   @property registers --border-angle as an interpolatable
+   <angle> so CSS can tween it inside conic-gradient().
+   Without this declaration the rotation animation would
+   jump rather than spin.                                  */
+@property --border-angle {
+  inherits: false;
+  initial-value: 135deg;
+  syntax: '<angle>';
+}
+
+@keyframes border-spin {
+  from { --border-angle: 135deg; }
+  to   { --border-angle: 495deg; }
+}
+
 /* ─── CARD ───────────────────────────────────────────── */
+/* Two-layer background:
+   1. padding-box  — solid card fill (clips to inside border)
+   2. border-box   — conic gradient visible only in the 1px
+      border strip. Gold dominant from top-right; purple
+      bleeds in at bottom-left as if light source is TR.  */
 .card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-card);
+  background:
+    linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+    conic-gradient(from var(--border-angle),
+      var(--gold)  0%,
+      var(--gold) 52%,
+      #7C3AED     70%,
+      #7C3AED     83%,
+      var(--gold) 100%
+    ) border-box;
+  border: 1px solid transparent;
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-inner), var(--shadow-card);
   overflow: hidden;
-  transition: background 0.3s ease, box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  animation: border-spin 2.5s linear infinite;
 }
 
 /* ── Glassmorphism — dark mode only ──────────────────────
-   Progressive enhancement: only applied when backdrop-filter
-   is supported. Light mode keeps solid cards (no background
-   image to blur through). Dark mode cards become frosted
-   glass, letting the wave background subtly show through.  */
+   Replaces the solid padding-box fill with the semi-
+   transparent glass colour. Gradient border is preserved
+   on the border-box layer.                               */
 @supports (backdrop-filter: blur(1px)) {
   html:not(:has(.theme-checkbox:checked)) .card {
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
-    background: oklch(from var(--seed-neutral) 0.22 calc(c * 0.85) h / 0.60);
+    background:
+      linear-gradient(
+        oklch(from var(--seed-neutral) 0.22 calc(c * 0.85) h / 0.60),
+        oklch(from var(--seed-neutral) 0.22 calc(c * 0.85) h / 0.60)
+      ) padding-box,
+      conic-gradient(from var(--border-angle),
+        var(--gold)  0%,
+        var(--gold) 52%,
+        #7C3AED     70%,
+        #7C3AED     83%,
+        var(--gold) 100%
+      ) border-box;
   }
 }
 
