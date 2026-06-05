@@ -17,7 +17,7 @@
   html:not(:has(.theme-checkbox:checked)) .card {
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
-    background: oklch(from var(--seed-neutral) 0.22 calc(c * 0.85) h / 0.72);
+    background: oklch(from var(--seed-neutral) 0.22 calc(c * 0.85) h / 0.60);
   }
 }
 
