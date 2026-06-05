@@ -98,12 +98,34 @@
 }
 
 /* ─── MAIN ───────────────────────────────────────────── */
+/* isolation:isolate creates a stacking context so ::before
+   (z-index:-1) sits above .main's background but below all
+   in-flow card/content children.                          */
 .main {
   background: var(--bg);
   grid-area: main;
+  isolation: isolate;
   overflow-y: auto;
   padding: var(--pad);
+  position: relative;
   transition: background 0.3s ease;
+}
+
+/* Dark-mode background image — subtle wave graphic.
+   Opacity is set on the pseudo-element so cards above are
+   completely unaffected. Suppressed in light mode.        */
+.main::before {
+  background: url('../images/background.png') center / cover no-repeat;
+  content: '';
+  inset: 0;
+  opacity: 0.15;
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+}
+
+html:has(.theme-checkbox:checked) .main::before {
+  display: none;
 }
 
 /* ─── PAGE REGIONS ───────────────────────────────────── */
