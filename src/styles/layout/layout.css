@@ -115,7 +115,7 @@
    Opacity is set on the pseudo-element so cards above are
    completely unaffected. Suppressed in light mode.        */
 .main::before {
-  background: url('../images/background.png') center / cover no-repeat;
+  background: url('../images/background.png') center / cover no-repeat fixed;
   content: '';
   inset: 0;
   opacity: 0.15;
