@@ -52,6 +52,13 @@
 
 .footer-reg-badge svg { color: var(--gold-text); flex-shrink: 0; }
 
+/* min-width: 0 lets 1fr grid items shrink below their content
+   minimum — without it, long link text (e.g. "Discretionary
+   Management") forces the column wider and overflows the grid. */
+.footer-col {
+  min-width: 0;
+}
+
 .footer-col-title {
   color: var(--text-3);
   font-size: var(--fs-badge);         /* 10px */
@@ -103,6 +110,7 @@
   color: var(--text-3);
   font-size: var(--fs-md);            /* 12px */
   line-height: var(--lh-loose);
+  overflow-wrap: break-word;
 }
 
 .footer-reg-text + .footer-reg-text { margin-block-start: 12px; }
