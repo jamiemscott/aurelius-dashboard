@@ -12,16 +12,30 @@
   font-weight: var(--fw-semibold);
   gap: 6px;
   padding: 9px 20px;
-  transition: opacity 0.2s, transform 0.1s;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 1px;
+  transition: box-shadow 0.2s, text-decoration-color 0.25s, text-decoration-thickness 0.25s, text-underline-offset 0.25s, transform 0.15s;
   white-space: nowrap;
 }
 
-.btn-primary:hover  { color: currentColor; opacity: 0.88; }
-.btn-primary:active { transform: scale(0.98); }
+/* Lift + gold glow + animated purple underline on hover.
+   Underline grows from 1→2px thick and drops 1→3px below
+   the text. Color kept explicit to beat global a:hover rule. */
+.btn-primary:hover {
+  box-shadow: 0 4px 18px oklch(from var(--gold) l c h / 0.50);
+  color: #0B0D10;
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  transform: translateY(-1px);
+}
+.btn-primary:active { box-shadow: none; transform: scale(0.98); }
 
 .btn-secondary {
   align-items: center;
-  background: transparent;
+  background: light-dark(transparent, var(--bg-card));
   border: 1px solid light-dark(rgba(160,86,7,0.3), var(--gold-glow));
   border-radius: var(--radius-btn);
   color: var(--gold-text);
@@ -32,14 +46,29 @@
   font-weight: var(--fw-semibold);
   gap: 6px;
   padding: 9px 20px;
-  transition: all 0.2s;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 1px;
+  transition: background 0.2s, text-decoration-color 0.25s, text-decoration-thickness 0.25s, text-underline-offset 0.25s;
   white-space: nowrap;
 }
 
-.btn-secondary:hover { background: light-dark(rgba(160,86,7,0.06), var(--gold-dim)); }
+/* Hover: gold-dim tint layered over the solid card bg in dark mode
+   so the wave background never bleeds through on hover.
+   Gold underline drops and thickens — mirrors btn-primary purple. */
+.btn-secondary:hover {
+  background:
+    light-dark(rgba(160,86,7,0.06), var(--gold-dim)),
+    light-dark(transparent,         var(--bg-card));
+  text-decoration-color: oklch(from var(--gold) l c h / 0.80);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
 
-/* When .btn-secondary is rendered as an <a>, suppress browser underline */
-a.btn-secondary { text-decoration: none; }
+/* When .btn-secondary is rendered as an <a>, base state is already
+   handled above — no extra rule needed. */
+a.btn-secondary { text-decoration: underline; text-decoration-color: transparent; }
 
 /* Compact variant — used in card headers alongside chart titles */
 .btn-secondary--sm { font-size: var(--fs-md); padding: 6px 14px; }

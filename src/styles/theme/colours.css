@@ -29,6 +29,18 @@ html:has(.theme-checkbox:checked) { color-scheme: light; }
   --bg-hover:   light-dark(var(--neutral-2),  var(--neutral-7));    /* hover state            */
   --bg-input:   light-dark(var(--neutral-2),  var(--neutral-8));    /* form input background  */
   --bg-sidebar: light-dark(var(--neutral-0),  var(--neutral-9));    /* sidebar rail           */
+
+  /* Gradient-safe card fill — no light-dark() wrapper so these
+     can be used as stops inside linear-gradient() / conic-gradient()
+     without browser parsing issues. Mirrors --bg-card per mode.
+     --card-fill-glass is the semi-transparent dark version used
+     when backdrop-filter glassmorphism is active.               */
+  --card-fill:       var(--neutral-8);                                         /* dark default */
+  --card-fill-glass: oklch(from var(--seed-neutral) 0.22 calc(c * 0.85) h / 0.60);
+}
+
+html:has(.theme-checkbox:checked) {
+  --card-fill: var(--neutral-0);                                               /* light mode   */
 }
 
 

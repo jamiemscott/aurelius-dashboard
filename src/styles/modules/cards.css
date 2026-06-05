@@ -1,12 +1,57 @@
+/* ─── GRADIENT BORDER — @property + animation ────────────
+   @property registers --border-angle as an interpolatable
+   <angle> so CSS can tween it inside conic-gradient().
+   Without this declaration the rotation animation would
+   jump rather than spin.                                  */
+@property --border-angle {
+  inherits: false;
+  initial-value: 45deg;
+  syntax: '<angle>';
+}
+
+@keyframes border-spin {
+  from { --border-angle: 45deg; }
+  to   { --border-angle: 405deg; }
+}
+
 /* ─── CARD ───────────────────────────────────────────── */
+/* Two-layer background:
+   1. padding-box  — solid card fill via --card-fill.
+      Uses a plain token (no light-dark() wrapper) so it
+      resolves correctly inside linear-gradient().
+   2. border-box   — conic gradient visible only in the 1px
+      border strip. Starts at 45deg (top-right) so gold
+      sits at TR and purple at BL — matching the site's
+      stylised top-right light source.                    */
 .card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-card);
+  background:
+    linear-gradient(var(--card-fill), var(--card-fill)) padding-box,
+    conic-gradient(from var(--border-angle),
+      oklch(from var(--gold) l c h / 0.30)   0%,
+      oklch(from var(--gold) l c h / 0.30)  40%,
+      rgba(124, 58, 237, 0.22)               52%,
+      rgba(124, 58, 237, 0.22)               62%,
+      oklch(from var(--gold) l c h / 0.30)  75%,
+      oklch(from var(--gold) l c h / 0.30) 100%
+    ) border-box;
+  border: 1px solid transparent;
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-inner), var(--shadow-card);
   overflow: hidden;
-  transition: background 0.3s ease, box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease;
 }
+
+.card:hover {
+  animation: border-spin 2.5s linear infinite;
+}
+
+/* ── Reduced motion ──────────────────────────────────────
+   Honour the OS preference — keep the gradient border but
+   disable the rotation animation entirely.               */
+@media (prefers-reduced-motion: reduce) {
+  .card:hover { animation: none; }
+}
+
 
 .card-pad { padding: var(--pad); }
 
@@ -34,7 +79,7 @@
 }
 
 .kpi-card::after {
-  background: var(--gold-dim);
+  background: var(--gold-glow);
   border-radius: 50%;
   content: '';
   height: 70px;
