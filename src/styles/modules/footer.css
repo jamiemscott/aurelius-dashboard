@@ -220,46 +220,32 @@
   width: auto;
 }
 
-/* ─── RESPONSIVE — IPAD ──────────────────────────────────
-   ≤1024px (landscape): tighten padding throughout.
-   ≤768px  (portrait):  collapse link columns to horizontal
-   wrapping lists — biggest height saving; eliminates the
-   tall vertical stacks of links in favour of a compact row. */
+/* ─── RESPONSIVE — TABLET / IPAD ─────────────────────────
+   iPad Pro portrait = 1024px CSS width.
+   ≤1024px: compact layout — horizontal link rows replace the
+   tall vertical stacks; the biggest height saving.
+   ≤768px:  stacked single-column for standard iPad portrait
+   and smaller devices.                                       */
 
 @media (max-width: 1024px) {
-  .footer-upper {
-    gap: 24px;
-    padding: 28px 0 20px;
-  }
-
-  .footer-regulatory {
-    gap: 28px;
-    padding: 18px 0;
-  }
-
-  .footer-links { gap: 7px; }
-
-  .footer-bottom { padding: 12px 0; }
-}
-
-@media (max-width: 768px) {
   .footer-upper {
     gap: 16px;
     grid-template-columns: 1fr;
     padding: 24px 0 16px;
   }
 
-  /* Brand block sits above the link columns */
+  /* Brand block sits above the three link columns */
   .footer-brand { margin-block-end: 4px; }
 
-  /* Link columns flow side-by-side rather than stacking */
+  /* Link columns sit side-by-side in three equal columns */
   .footer-upper--link-wrapper {
     display: grid;
     gap: 16px;
     grid-template-columns: repeat(3, 1fr);
   }
 
-  /* Within each column, links run horizontally and wrap */
+  /* Within each column, links run horizontally and wrap —
+     eliminates the tall vertical stacks                     */
   .footer-links {
     flex-direction: row;
     flex-wrap: wrap;
@@ -268,7 +254,7 @@
 
   .footer-col-title { margin-block-end: 8px; }
 
-  /* Regulatory — stack sponsors below text */
+  /* Regulatory — stack sponsors below reg text */
   .footer-regulatory {
     flex-direction: column;
     gap: 16px;
@@ -284,6 +270,21 @@
   }
 
   .footer-sponsors-label { margin-block-end: 0; margin-inline-end: 14px; }
+
+  .footer-bottom { padding: 12px 0; }
+}
+
+@media (max-width: 768px) {
+  /* Link columns stack to single column on phones */
+  .footer-upper--link-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  /* Restore vertical links at phone width — more readable */
+  .footer-links {
+    flex-direction: column;
+    gap: 8px;
+  }
 }
 
 /* Bottom bar */
