@@ -247,6 +247,13 @@
   .tab-btn { padding: 6px 10px; }
 }
 
+@media (max-width: 1024px) {
+  /* Tighter tabs + column gap so brand and controls don't
+     run flush against the nav pill on iPad.                 */
+  [role="banner"] { column-gap: 12px; }
+  .tab-btn         { padding: 5px 9px; }
+}
+
 @media (max-width: 880px) {
   .tab-btn   { font-size: var(--fs-md); padding: 5px 8px; }
   .brand-sub { display: none; } /* catches no-sidebar pages; sidebar already hides at 1280px */
