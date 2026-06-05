@@ -57,6 +57,20 @@ const documents = [
   { id: 14, name: 'Investment Management Agreement',          category: 'form',           date: '12 Jan 2024', ts: 20240112, size: '328 KB', account: 'All Accounts',  unread: false },
 ];
 
+// ── Investor profile types ───────────────────────────────────────────────────
+// Lives in data.js so it's available on every page (not just chart pages).
+const profileTypes = {
+  'love-bomber':          { emoji: '💘', label: 'Love Bomber',          desc: 'Jumps in fast without understanding. Enthusiastic but needs grounding before deciding.' },
+  'adrenaline-junkie':    { emoji: '🎢', label: 'Adrenaline Junkie',    desc: 'Loves the thrill, chases high returns. Needs to understand risk without killing the buzz.' },
+  'one-that-got-away':    { emoji: '⚡', label: 'One That Got Away',    desc: 'Experienced but burned by past decisions. Needs to see what\'s changed and why now is different.' },
+  'slow-burn':            { emoji: '🕯️', label: 'Slow Burn',            desc: 'Interested but keeps deferring. Needs a gentle push and a concrete first step.' },
+  'situationship':        { emoji: '🤷', label: 'Situationship',        desc: 'Casually engaged, no strong feelings either way. Needs something interesting to spark commitment.' },
+  'healthy-relationship': { emoji: '💍', label: 'Healthy Relationship', desc: 'Knows their stuff, comfortable with markets. Wants efficiency and advanced insights.' },
+  'ghoster':              { emoji: '👻', label: 'Ghoster',              desc: 'Avoids investing entirely. Feels overwhelmed before starting. Needs permission to just look.' },
+  'overthinker':          { emoji: '🔬', label: 'Overthinker',          desc: 'Researches endlessly but never pulls the trigger. Paralysed by too many options.' },
+  'commit-phobe':         { emoji: '📋', label: 'Commit-Phobe',         desc: 'Knows what to do but can\'t commit. Needs reassurance that nothing locks them in.' },
+};
+
 const userData = {
   title: 'Mr', firstName: 'Sumant', lastName: 'Kumar',
   preferredName: 'Sumant', dob: '14/07/1978',

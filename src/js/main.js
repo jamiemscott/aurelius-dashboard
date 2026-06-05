@@ -65,17 +65,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Investor profile avatar — inject emoji + type label into header avatar button
+  // Investor profile type — inject into user menu header (not topbar avatar).
+  // Keeps the topbar compact; the full profile label lives in the dropdown.
   (function () {
     var pt = profileTypes && userData && profileTypes[userData.profileType];
     if (!pt) return;
-    document.querySelectorAll('.avatar').forEach(function (btn) {
-      var initials = btn.textContent.trim();
-      btn.classList.add('avatar--profiled');
-      btn.innerHTML =
-        '<span class="avatar-emoji" role="img" aria-label="' + pt.label + '">' + pt.emoji + '</span>' +
-        initials;
-    });
+    var umMeta = document.querySelector('.um-header .um-meta');
+    if (!umMeta) return;
+    var pill = document.createElement('div');
+    pill.className = 'um-profile-pill';
+    pill.setAttribute('aria-label', 'Investor profile: ' + pt.label);
+    pill.innerHTML =
+      '<span class="um-profile-pill-emoji" aria-hidden="true">' + pt.emoji + '</span>' +
+      '<span>' + pt.label + '</span>';
+    umMeta.insertAdjacentElement('afterend', pill);
   }());
 
   // Theme live region — announces the outcome to screen readers
