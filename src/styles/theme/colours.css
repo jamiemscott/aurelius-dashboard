@@ -25,10 +25,10 @@ html:has(.theme-checkbox:checked) { color-scheme: light; }
    Dark mode picks high neutral steps (dark navy).              */
 :root {
   --bg:         light-dark(var(--neutral-1),  var(--neutral-10));   /* page canvas            */
-  --bg-card:    light-dark(var(--neutral-0),  var(--neutral-9));    /* card / panel surface   */
-  --bg-hover:   light-dark(var(--neutral-2),  var(--neutral-8));    /* hover state            */
+  --bg-card:    light-dark(var(--neutral-0),  var(--neutral-8));    /* card / panel surface   */
+  --bg-hover:   light-dark(var(--neutral-2),  var(--neutral-7));    /* hover state            */
   --bg-input:   light-dark(var(--neutral-2),  var(--neutral-8));    /* form input background  */
-  --bg-sidebar: light-dark(var(--neutral-0),  var(--neutral-10));   /* sidebar rail           */
+  --bg-sidebar: light-dark(var(--neutral-0),  var(--neutral-9));    /* sidebar rail           */
 }
 
 
@@ -131,7 +131,7 @@ html:has(.theme-checkbox:checked) { color-scheme: light; }
   --shadow-m:     light-dark(0 4px 16px rgba(0, 0, 0, 0.10), 0 4px 18px rgba(0, 0, 0, 0.30));
   --shadow-l:     light-dark(0 8px 28px rgba(0, 0, 0, 0.12), 0 8px 28px rgba(0, 0, 0, 0.36));
   --shadow-xl:    light-dark(0 16px 40px rgba(0, 0, 0, 0.14), 0 16px 40px rgba(0, 0, 0, 0.44));
-  --shadow-inner: inset 0 1px 0 light-dark(rgba(255, 255, 255, 0.80), rgba(255, 255, 255, 0.04));
+  --shadow-inner: inset 0 1px 0 light-dark(rgba(255, 255, 255, 0.80), rgba(255, 255, 255, 0.08));
 
   /* Semantic alias — backwards compat for existing module CSS */
   --shadow-card:  var(--shadow-m);
