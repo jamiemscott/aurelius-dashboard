@@ -117,3 +117,12 @@ html:has(.theme-checkbox:checked) .theme-label-light { display: inline; }
 
 html:has(.theme-checkbox:checked) .theme-hint-dark  { display: none; }
 html:has(.theme-checkbox:checked) .theme-hint-light { display: inline; }
+
+/* ─── COMPACT — IPAD / TABLET ────────────────────────── */
+/* At ≤1100px hide the Dark/Light label text — the emoji
+   + track convey the toggle state and the label was
+   eating ~33px of topbar width at 1024px.               */
+@media (max-width: 1100px) {
+  .theme-label-dark,
+  .theme-label-light { display: none !important; }
+}
