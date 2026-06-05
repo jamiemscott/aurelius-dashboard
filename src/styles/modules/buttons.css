@@ -36,7 +36,13 @@
   white-space: nowrap;
 }
 
-.btn-secondary:hover { background: light-dark(rgba(160,86,7,0.06), var(--gold-dim)); }
+/* Hover: gold-dim tint layered over the solid card bg in dark mode
+   so the wave background never bleeds through on hover.          */
+.btn-secondary:hover {
+  background:
+    light-dark(rgba(160,86,7,0.06), var(--gold-dim)),
+    light-dark(transparent,         var(--bg-card));
+}
 
 /* When .btn-secondary is rendered as an <a>, suppress browser underline */
 a.btn-secondary { text-decoration: none; }
