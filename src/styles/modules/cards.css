@@ -45,6 +45,13 @@
   animation: border-spin 2.5s linear infinite;
 }
 
+/* ── Reduced motion ──────────────────────────────────────
+   Honour the OS preference — keep the gradient border but
+   disable the rotation animation entirely.               */
+@media (prefers-reduced-motion: reduce) {
+  .card:hover { animation: none; }
+}
+
 
 .card-pad { padding: var(--pad); }
 
