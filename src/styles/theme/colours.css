@@ -33,11 +33,14 @@ html:has(.theme-checkbox:checked) { color-scheme: light; }
 
 
 /* ─── BORDERS & DIVIDERS ───────────────────────────────────────
-   Pure black/white alpha — intentionally not hue-tinted so
-   they remain neutral against any brand colour.               */
+   --border      neutral alpha — used for structural chrome,
+                 inputs, nav, etc. Not hue-tinted.
+   --border-card gold-tinted in dark mode — gives cards a warm,
+                 premium edge against the dark canvas.         */
 :root {
-  --border:  light-dark(rgba(0, 0, 0, 0.06),  rgba(255, 255, 255, 0.06));
-  --divider: light-dark(rgba(0, 0, 0, 0.05),  rgba(255, 255, 255, 0.05));
+  --border:      light-dark(rgba(0, 0, 0, 0.06), rgba(255, 255, 255, 0.06));
+  --border-card: light-dark(rgba(0, 0, 0, 0.06), oklch(from var(--seed-primary) l c h / 0.14));
+  --divider:     light-dark(rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.05));
 }
 
 

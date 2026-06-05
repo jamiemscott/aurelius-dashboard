@@ -1,7 +1,7 @@
 /* ─── CARD ───────────────────────────────────────────── */
 .card {
   background: var(--bg-card);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-card);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-inner), var(--shadow-card);
   overflow: hidden;
@@ -80,9 +80,16 @@
 
 /* Featured KPI */
 .kpi-card.is-featured {
-  background: linear-gradient(135deg,
-    light-dark(#FFFDF7, #1A1E25),
-    light-dark(#FFF8EC, #14171C));
+  background:
+    radial-gradient(ellipse at 85% 10%,
+      light-dark(
+        oklch(from var(--seed-primary) 0.92 calc(c * 0.20) h / 0.35),
+        oklch(from var(--seed-primary) 0.22 calc(c * 0.45) h / 0.55)
+      ),
+      transparent 55%),
+    linear-gradient(135deg,
+      light-dark(#FFFDF7, #1A1E25),
+      light-dark(#FFF8EC, #14171C));
   border-color: light-dark(rgba(160,86,7,0.25), var(--gold-glow));
 }
 
