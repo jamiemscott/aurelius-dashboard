@@ -302,34 +302,40 @@
 }
 
 .footer-bottom-links {
-  align-items: center;
   display: flex;
-  gap: 20px;
+  font-size: var(--fs-md);            /* kills inherited 23px line-height strut */
+  gap: 0;
+  line-height: 1;
   list-style: none;
+  padding: 0;
 }
 
+/* Each link item is a flex row — pipe (if present) + anchor side by side */
 .footer-bottom-links li {
-  position: relative;
+  align-items: center;
+  display: flex;
 }
 
 .footer-bottom-links a {
   color: var(--text-3);
+  display: block;
   font-size: var(--fs-md);            /* 12px */
+  line-height: 1;
   text-decoration: none;
   transition: color 0.2s;
 }
 
 .footer-bottom-links a:hover { color: var(--text-2); }
 
+/* Pipe separator as an in-flow flex item — no absolute positioning,
+   no inset math, no vertical alignment edge-cases.                  */
 .footer-bottom-links li + li::before {
   background: var(--divider);
+  block-size: 12px;
   content: '';
-  height: 12px;
-  inset-block-start: 50%;
-  inset-inline-start: -10px;
-  position: absolute;
-  transform: translateY(-50%);
-  width: 1px;
+  flex-shrink: 0;
+  inline-size: 1px;
+  margin-inline: 10px;
 }
 
 .footer-fca {
