@@ -45,26 +45,6 @@
   animation: border-spin 2.5s linear infinite;
 }
 
-/* ── Glassmorphism — dark mode only ──────────────────────
-   Replaces the solid padding-box fill with the semi-
-   transparent glass colour via --card-fill-glass.
-   Gradient border is preserved on the border-box layer.  */
-@supports (backdrop-filter: blur(1px)) {
-  html:not(:has(.theme-checkbox:checked)) .card {
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-    background:
-      linear-gradient(var(--card-fill-glass), var(--card-fill-glass)) padding-box,
-      conic-gradient(from var(--border-angle),
-        var(--gold)  0%,
-        var(--gold) 40%,
-        #7C3AED     52%,
-        #7C3AED     62%,
-        var(--gold) 75%,
-        var(--gold) 100%
-      ) border-box;
-  }
-}
 
 .card-pad { padding: var(--pad); }
 
