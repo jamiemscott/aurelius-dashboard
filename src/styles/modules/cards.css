@@ -5,29 +5,33 @@
    jump rather than spin.                                  */
 @property --border-angle {
   inherits: false;
-  initial-value: 135deg;
+  initial-value: 45deg;
   syntax: '<angle>';
 }
 
 @keyframes border-spin {
-  from { --border-angle: 135deg; }
-  to   { --border-angle: 495deg; }
+  from { --border-angle: 45deg; }
+  to   { --border-angle: 405deg; }
 }
 
 /* ─── CARD ───────────────────────────────────────────── */
 /* Two-layer background:
-   1. padding-box  — solid card fill (clips to inside border)
+   1. padding-box  — solid card fill via --card-fill.
+      Uses a plain token (no light-dark() wrapper) so it
+      resolves correctly inside linear-gradient().
    2. border-box   — conic gradient visible only in the 1px
-      border strip. Gold dominant from top-right; purple
-      bleeds in at bottom-left as if light source is TR.  */
+      border strip. Starts at 45deg (top-right) so gold
+      sits at TR and purple at BL — matching the site's
+      stylised top-right light source.                    */
 .card {
   background:
-    linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+    linear-gradient(var(--card-fill), var(--card-fill)) padding-box,
     conic-gradient(from var(--border-angle),
       var(--gold)  0%,
-      var(--gold) 52%,
-      #7C3AED     70%,
-      #7C3AED     83%,
+      var(--gold) 40%,
+      #7C3AED     52%,
+      #7C3AED     62%,
+      var(--gold) 75%,
       var(--gold) 100%
     ) border-box;
   border: 1px solid transparent;
@@ -43,22 +47,20 @@
 
 /* ── Glassmorphism — dark mode only ──────────────────────
    Replaces the solid padding-box fill with the semi-
-   transparent glass colour. Gradient border is preserved
-   on the border-box layer.                               */
+   transparent glass colour via --card-fill-glass.
+   Gradient border is preserved on the border-box layer.  */
 @supports (backdrop-filter: blur(1px)) {
   html:not(:has(.theme-checkbox:checked)) .card {
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
     background:
-      linear-gradient(
-        oklch(from var(--seed-neutral) 0.22 calc(c * 0.85) h / 0.60),
-        oklch(from var(--seed-neutral) 0.22 calc(c * 0.85) h / 0.60)
-      ) padding-box,
+      linear-gradient(var(--card-fill-glass), var(--card-fill-glass)) padding-box,
       conic-gradient(from var(--border-angle),
         var(--gold)  0%,
-        var(--gold) 52%,
-        #7C3AED     70%,
-        #7C3AED     83%,
+        var(--gold) 40%,
+        #7C3AED     52%,
+        #7C3AED     62%,
+        var(--gold) 75%,
         var(--gold) 100%
       ) border-box;
   }
