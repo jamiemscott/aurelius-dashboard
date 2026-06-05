@@ -287,27 +287,7 @@
 .gl-status--bad      { background: var(--red-dim); color: var(--red); }
 .gl-status--complete { background: var(--gold-dim); color: var(--gold); }
 
-/* Adjust button */
-.gl-adjust-btn {
-  align-items: center;
-  background: none;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: var(--text-2);
-  cursor: pointer;
-  display: flex;
-  font-family: var(--font-sans);
-  font-size: var(--fs-sm);
-  font-weight: var(--fw-medium);
-  gap: 4px;
-  padding: 5px 10px;
-  transition: all 0.15s;
-}
-
-.gl-adjust-btn:hover {
-  border-color: var(--gold);
-  color: var(--gold);
-}
+/* Adjust button — uses shared .btn-secondary--sm */
 
 /* ── Inline adjust panel ─────────────────────────────────────── */
 .gl-adjust-panel {
@@ -400,35 +380,8 @@
   gap: 8px;
 }
 
-.gl-adjust-save {
-  background: var(--gold);
-  border: none;
-  border-radius: 8px;
-  color: var(--gold-text);
-  cursor: pointer;
-  flex: 1;
-  font-family: var(--font-sans);
-  font-size: var(--fs-sm);
-  font-weight: var(--fw-semibold);
-  padding: 8px;
-  transition: opacity 0.15s;
-}
-
-.gl-adjust-save:hover { opacity: 0.85; }
-
-.gl-adjust-cancel {
-  background: none;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: var(--text-3);
-  cursor: pointer;
-  font-family: var(--font-sans);
-  font-size: var(--fs-sm);
-  padding: 8px 14px;
-  transition: all 0.15s;
-}
-
-.gl-adjust-cancel:hover { border-color: var(--text-3); color: var(--text-2); }
+/* Save fills remaining width — secondary takes natural size */
+.gl-adjust-btns .btn-primary { flex: 1; justify-content: center; }
 
 /* ── Add goal card ───────────────────────────────────────────── */
 .gl-add-card {
@@ -670,34 +623,4 @@
   padding-block-start: 4px;
 }
 
-.gl-form-back {
-  align-items: center;
-  background: none;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  color: var(--text-3);
-  cursor: pointer;
-  display: flex;
-  font-family: var(--font-sans);
-  font-size: var(--fs-ui);
-  gap: 4px;
-  padding: 10px 16px;
-  transition: all 0.15s;
-}
-
-.gl-form-back:hover { border-color: var(--text-3); color: var(--text-2); }
-
-.gl-form-submit {
-  background: var(--gold);
-  border: none;
-  border-radius: 10px;
-  color: var(--gold-text);
-  cursor: pointer;
-  font-family: var(--font-sans);
-  font-size: var(--fs-ui);
-  font-weight: var(--fw-semibold);
-  padding: 10px 28px;
-  transition: opacity 0.15s;
-}
-
-.gl-form-submit:hover { opacity: 0.85; }
+/* .gl-form-actions uses shared .btn-primary / .btn-secondary */
