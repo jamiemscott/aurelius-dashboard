@@ -428,6 +428,8 @@ mark.hs-hl {
   font-size: var(--fs-sm);
 }
 
+/* Ghost variant — transparent at rest, fills gold on hover.
+   Used for phone / callback options on the help page.      */
 .hs-contact-cta {
   align-self: stretch;
   background: transparent;
@@ -452,10 +454,5 @@ mark.hs-hl {
   color: #0B0D10;
 }
 
-.hs-contact-cta--primary {
-  background: var(--gold);
-  border-color: var(--gold);
-  color: #0B0D10;
-}
-
-.hs-contact-cta--primary:hover { opacity: 0.88; }
+/* Modifier — when used alongside .btn-primary, keeps layout only.
+   .hs-contact-cta--primary has been removed; use btn-primary instead. */

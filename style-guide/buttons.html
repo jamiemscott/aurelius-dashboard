@@ -22,7 +22,7 @@
     <div class="sg-page-header">
       <p class="sg-page-kicker">Style Guide</p>
       <h1 class="sg-page-title">Buttons</h1>
-      <p class="sg-page-desc">Two button variants cover all interactive needs in the dashboard. Buttons are defined in <code>modules/buttons.css</code>. Icon buttons and avatars live in <code>modules/navigation.css</code>. Never create custom button styles — extend from these patterns.</p>
+      <p class="sg-page-desc">Two button variants cover all interactive needs in the dashboard. Buttons are defined in <code>modules/buttons.css</code>. Icon buttons and avatars live in <code>modules/navigation.css</code>. Never create custom gold button styles — all gold buttons must use <code>.btn-primary</code> as their base, with a context modifier class for sizing or layout overrides only.</p>
     </div>
 
     <!-- ── Primary Button ─────────────────────────────────── -->
@@ -30,6 +30,7 @@
       <div class="sg-section-header">
         <h2 class="sg-section-title">Primary Button</h2>
         <p class="sg-section-desc">The highest-emphasis action on a page. Use for the single most important CTA — e.g. "Save Changes", "Continue", "Add Funds". Never place more than one <code>.btn-primary</code> in the same visible context. The gold fill communicates the brand's primary action colour.</p>
+        <p class="sg-section-desc" style="margin-top:8px"><strong>Hover:</strong> lifts 1px with a gold glow shadow, and an animated underline drops in (1px → 2px thick, 1px → 3px offset) matching the text colour. Respects <code>prefers-reduced-motion</code> — underline still appears but without the animated offset transition.</p>
       </div>
       <div class="sg-demo sg-demo--center">
         <button class="btn-primary">Save Changes</button>
@@ -44,7 +45,8 @@
     <section class="sg-section" id="btn-secondary">
       <div class="sg-section-header">
         <h2 class="sg-section-title">Secondary Button</h2>
-        <p class="sg-section-desc">A lower-emphasis alternative. Use alongside a primary button for cancel/back actions, or as the sole action when no primary CTA is needed. The outlined or muted treatment signals secondary intent without visual competition.</p>
+        <p class="sg-section-desc">A lower-emphasis alternative. Use alongside a primary button for cancel/back actions, or as the sole action when no primary CTA is needed. The outlined treatment signals secondary intent without visual competition.</p>
+        <p class="sg-section-desc" style="margin-top:8px"><strong>Hover:</strong> background fills with a gold tint layered over the solid card surface (so the background image never bleeds through), and an animated gold underline drops in matching the primary button pattern.</p>
       </div>
       <div class="sg-demo sg-demo--center">
         <button class="btn-secondary">Cancel</button>
@@ -83,23 +85,23 @@
         <p class="sg-section-desc">Add a leading or trailing SVG icon inside any button variant. Keep icons at 16×16 or 18×18. The icon should be <code>aria-hidden="true"</code> and <code>focusable="false"</code>. The button's text label provides the accessible name — never rely on icon alone.</p>
       </div>
       <div class="sg-demo sg-demo--grid">
-        <button class="btn-primary" style="display:inline-flex;align-items:center;gap:8px">
+        <button class="btn-primary">
           <svg aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
           Add Funds
         </button>
-        <button class="btn-secondary" style="display:inline-flex;align-items:center;gap:8px">
+        <button class="btn-secondary">
           <svg aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h12"/></svg>
           View Report
         </button>
-        <button class="btn-primary" style="display:inline-flex;align-items:center;gap:8px">
+        <button class="btn-primary">
           Continue
           <svg aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
         </button>
       </div>
       <div class="sg-code">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
-        <pre><code class="language-html">&lt;!-- Leading icon --&gt;
-&lt;button class="btn-primary" style="display:inline-flex;align-items:center;gap:8px"&gt;
+        <pre><code class="language-html">&lt;!-- Leading icon — no extra inline styles needed; btn-primary is already flex --&gt;
+&lt;button class="btn-primary"&gt;
   &lt;svg aria-hidden="true" focusable="false" width="16" height="16"
     fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"&gt;
     &lt;path d="M12 5v14M5 12l7 7 7-7"/&gt;
@@ -108,7 +110,7 @@
 &lt;/button&gt;
 
 &lt;!-- Trailing icon --&gt;
-&lt;button class="btn-primary" style="display:inline-flex;align-items:center;gap:8px"&gt;
+&lt;button class="btn-primary"&gt;
   Continue
   &lt;svg aria-hidden="true" focusable="false" width="16" height="16"
     fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"&gt;
@@ -312,6 +314,72 @@
   });
 }());
 &lt;/script&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Context Modifiers ────────────────────────────────── -->
+    <section class="sg-section" id="btn-modifiers">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Context Modifiers</h2>
+        <p class="sg-section-desc">When a gold button needs context-specific sizing or layout (e.g. full-width in a sidebar panel, smaller padding in a compact card), add a modifier class alongside <code>.btn-primary</code>. The modifier class must <strong>only</strong> contain layout/sizing overrides — never re-declare colour, font-family, cursor, or hover states. Gold styling always comes from <code>.btn-primary</code>.</p>
+      </div>
+      <div class="sg-demo sg-demo--grid">
+        <div style="width:180px">
+          <button class="btn-primary ob-cta__btn">Begin Assessment</button>
+        </div>
+        <button class="btn-primary contact-btn">Message Adviser</button>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;!-- Full-width CTA panel button --&gt;
+&lt;a class="btn-primary ob-cta__btn" href="/onboarding/"&gt;Begin Assessment&lt;/a&gt;
+
+&lt;!-- Compact sidebar button --&gt;
+&lt;button class="btn-primary contact-btn" popovertarget="adviser-drawer"&gt;Message Adviser&lt;/button&gt;</code></pre>
+      </div>
+      <div class="sg-section-header" style="margin-top:24px">
+        <p class="sg-section-desc"><strong>Registered modifiers:</strong></p>
+        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md);margin-top:8px">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);text-align:left;color:var(--text-3)">
+              <th style="padding:6px 12px 6px 0">Class</th>
+              <th style="padding:6px 12px">Overrides</th>
+              <th style="padding:6px 0">Used in</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--text-2)">
+            <tr style="border-bottom:1px solid var(--divider)">
+              <td style="padding:8px 12px 8px 0"><code>.contact-btn</code></td>
+              <td style="padding:8px 12px">Smaller font + padding, top margin</td>
+              <td style="padding:8px 0">Sidebar adviser card</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--divider)">
+              <td style="padding:8px 12px 8px 0"><code>.ob-cta__btn</code></td>
+              <td style="padding:8px 12px">Full-width block, smaller padding</td>
+              <td style="padding:8px 0">Sidebar CTA panel</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--divider)">
+              <td style="padding:8px 12px 8px 0"><code>.chat-bubble-btn</code></td>
+              <td style="padding:8px 12px">Fixed position, circular, z-index</td>
+              <td style="padding:8px 0">Floating chat FAB</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--divider)">
+              <td style="padding:8px 12px 8px 0"><code>.chat-send-btn</code></td>
+              <td style="padding:8px 12px">Circular, fixed 36px dimensions</td>
+              <td style="padding:8px 0">Chat input send button</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--divider)">
+              <td style="padding:8px 12px 8px 0"><code>.ob-btn</code></td>
+              <td style="padding:8px 12px">Uppercase, wide tracking, full-width, larger padding</td>
+              <td style="padding:8px 0">Onboarding flow</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 12px 8px 0"><code>.hs-contact-cta</code></td>
+              <td style="padding:8px 12px">Block display, stretch alignment, text-align centre</td>
+              <td style="padding:8px 0">Help page contact CTAs</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
 

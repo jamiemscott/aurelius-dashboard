@@ -1,19 +1,14 @@
 /* ─── AVA CHAT WIDGET ──────────────────────────────────────── */
 
-/* Floating bubble */
+/* Floating bubble — modifier only, gold from .btn-primary */
 .chat-bubble-btn {
-  align-items: center;
-  background: var(--gold);
-  border: none;
   border-radius: 50%;
   box-shadow: 0 4px 20px rgba(245,166,35,0.4);
-  color: #0B0D10;
-  cursor: pointer;
-  display: flex;
   height: 56px;
   inset-block-end: 24px;
   inset-inline-end: 24px;
   justify-content: center;
+  padding: 0;
   position: fixed;
   transition: box-shadow 0.2s, transform 0.2s;
   width: 56px;
@@ -212,18 +207,12 @@
 }
 .chat-input:focus { border-color: var(--gold); }
 .chat-input::placeholder { color: var(--text-2); }
+/* Modifier only — gold from .btn-primary */
 .chat-send-btn {
-  align-items: center;
-  background: var(--gold);
-  border: none;
   border-radius: 50%;
-  color: #0B0D10;
-  cursor: pointer;
-  display: flex;
   flex-shrink: 0;
   height: 36px;
   justify-content: center;
-  transition: opacity 0.2s;
+  padding: 0;
   width: 36px;
 }
-.chat-send-btn:hover { opacity: 0.85; }

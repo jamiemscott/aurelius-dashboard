@@ -32,18 +32,10 @@
   font-size: var(--fs-sm);             /* 11px */
 }
 
+/* Modifier — gold styling comes from .btn-primary.
+   Only context-specific overrides live here.         */
 .contact-btn {
-  background: var(--gold);
-  border: none;
-  border-radius: var(--radius-btn);
-  color: #0B0D10;
-  cursor: pointer;
-  font-family: var(--font-sans);
-  font-size: var(--fs-md);             /* 12px */
-  font-weight: var(--fw-semibold);
+  font-size: var(--fs-md);             /* 12px — smaller than default btn */
   margin-block-start: 4px;
   padding: 7px 12px;
-  transition: opacity 0.2s;
 }
-
-.contact-btn:hover { opacity: 0.85; }

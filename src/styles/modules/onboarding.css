@@ -242,22 +242,19 @@
 
 /* ─── 7. CTA BUTTON ──────────────────────────────────────────────────────────── */
 
+/* Modifier only — gold from .btn-primary.
+   Onboarding-specific: uppercase, wide tracking, full-width. */
 .ob-btn {
-  background: var(--gold);
-  border: none;
   border-radius: 6px;
-  color: #08090d;
-  cursor: pointer;
-  font-family: var(--font-sans);
   font-size: var(--fs-xs);
   font-weight: var(--fw-bold);
+  justify-content: center;
   letter-spacing: 0.14em;
   padding: 15px 24px;
   text-transform: uppercase;
   width: 100%;
 }
 
-.ob-btn:hover        { opacity: 0.88; }
 .ob-btn:active       { transform: scale(0.99); }
 .ob-btn:focus-visible {
   outline: 2px solid var(--gold);
