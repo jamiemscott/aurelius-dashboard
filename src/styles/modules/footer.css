@@ -310,10 +310,15 @@
   padding: 0;
 }
 
-/* Each link item is a flex row — pipe (if present) + anchor side by side */
 .footer-bottom-links li {
-  align-items: center;
-  display: flex;
+  line-height: 1;
+}
+
+/* Pipe separator via border — no pseudo-element, no height side-effects */
+.footer-bottom-links li + li {
+  border-inline-start: 1px solid var(--divider);
+  margin-inline-start: 10px;
+  padding-inline-start: 10px;
 }
 
 .footer-bottom-links a {
@@ -326,17 +331,6 @@
 }
 
 .footer-bottom-links a:hover { color: var(--text-2); }
-
-/* Pipe separator as an in-flow flex item — no absolute positioning,
-   no inset math, no vertical alignment edge-cases.                  */
-.footer-bottom-links li + li::before {
-  background: var(--divider);
-  block-size: 12px;
-  content: '';
-  flex-shrink: 0;
-  inline-size: 1px;
-  margin-inline: 10px;
-}
 
 .footer-fca {
   align-items: center;
