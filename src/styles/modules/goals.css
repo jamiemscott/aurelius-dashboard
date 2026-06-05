@@ -1,5 +1,14 @@
 /* ─── MY GOALS PAGE ─────────────────────────────────────────── */
 
+/* ── Animatable custom property for the progress ring ────────── */
+/* @property makes --gl-pct interpolatable so the CSS transition
+   in .gl-progress-ring plays on first paint and on save.        */
+@property --gl-pct {
+  inherits: false;
+  initial-value: 0;
+  syntax: '<number>';
+}
+
 /* ── Hero ───────────────────────────────────────────────────── */
 .gl-hero {
   background:
@@ -145,7 +154,10 @@
   }
 }
 
-/* Arc area */
+/* ── Progress ring (CSS conic-gradient — no SVG) ──────────────
+   --gl-pct is registered via @property above, making it
+   animatable via transition. Fill = goal colour; track = border.
+   The radial-gradient mask punches a hole to form the donut.   */
 .gl-card-arc-wrap {
   align-items: center;
   display: flex;
@@ -154,53 +166,50 @@
   position: relative;
 }
 
-.gl-arc {
-  height: 160px;
-  width: 160px;
+.gl-ring-wrap {
+  flex-shrink: 0;
+  position: relative;
 }
 
-.gl-arc-track {
-  fill: none;
-  stroke: var(--border);
-  stroke-width: 8;
-}
-
-.gl-arc-fill {
-  fill: none;
-  stroke-linecap: round;
-  stroke-width: 8;
-  transform: rotate(-90deg);
-  transform-origin: center;
+.gl-progress-ring {
+  background: conic-gradient(
+    var(--gl-color, var(--gold)) calc(var(--gl-pct) * 1%),
+    var(--border) 0
+  );
+  block-size: 140px;
+  border-radius: 50%;
+  inline-size: 140px;
+  mask: radial-gradient(transparent 51px, #000 52px);
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .gl-arc-fill {
-    animation: gl-arc-draw 1s cubic-bezier(0.22, 1, 0.36, 1) both;
-    animation-delay: 0.1s;
-  }
-
-  @keyframes gl-arc-draw {
-    from { stroke-dashoffset: var(--gl-circ); }
-    to   { stroke-dashoffset: var(--gl-offset); }
+  .gl-progress-ring {
+    transition: --gl-pct 0.9s cubic-bezier(0.22, 1, 0.36, 1);
   }
 }
 
-.gl-arc-pct {
-  dominant-baseline: middle;
-  fill: var(--text-1);
-  font-family: var(--font-serif);
-  font-size: 22px;
-  text-anchor: middle;
-}
-
-.gl-card-emoji {
-  font-size: 2rem;
-  inset-block-start: 32px;
-  inset-inline-start: 50%;
-  line-height: 1;
+/* Content overlay — emoji above, percentage below */
+.gl-ring-content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  inset: 0;
+  justify-content: center;
   pointer-events: none;
   position: absolute;
-  transform: translateX(-50%);
+}
+
+.gl-ring-emoji {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.gl-ring-pct {
+  color: var(--text-1);
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  line-height: 1;
 }
 
 /* Card body */
@@ -307,7 +316,18 @@
   padding: 20px;
 }
 
-.gl-adjust-inner { display: flex; flex-direction: column; gap: 8px; }
+.gl-adjust-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Each label + slider pair */
+.gl-adjust-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
 
 .gl-adjust-row {
   align-items: center;
@@ -369,17 +389,15 @@
   color: var(--text-2);
   font-size: var(--fs-md);
   line-height: 1.5;
-  margin-block-start: 8px;
   padding: 12px 14px;
   text-align: center;
 }
 
-.gl-adjust-result strong { color: var(--gold); }
+.gl-adjust-result output { color: var(--gold); font-weight: var(--fw-semibold); }
 
 .gl-adjust-btns {
   display: flex;
   gap: 8px;
-  margin-block-start: 4px;
 }
 
 .gl-adjust-save {

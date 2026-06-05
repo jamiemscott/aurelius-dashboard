@@ -1,11 +1,11 @@
 /* ─── MY GOALS ─────────────────────────────────────────────────
-   Goal-based investing: progress arcs, scenario planner,
+   Goal-based investing: progress rings, scenario planner,
    add-goal flow.
    ─────────────────────────────────────────────────────────── */
 
 /* ── Goal types ─────────────────────────────────────────────── */
 
-const goalTypes = [
+var goalTypes = [
   { id: 'home',       emoji: '🏠', label: 'Buy a home',        color: '#F5A623', hint: 'Average UK deposit is around £50,000' },
   { id: 'holiday',    emoji: '🌍', label: 'Dream holiday',     color: '#34D399', hint: 'Where in the world is calling you?' },
   { id: 'education',  emoji: '🎓', label: 'Education',         color: '#60A5FA', hint: 'For you or someone you love' },
@@ -68,8 +68,8 @@ function glFmt(n) {
 }
 
 function glMonthsUntil(dateStr) {
-  var now   = new Date();
-  var then  = new Date(dateStr);
+  var now  = new Date();
+  var then = new Date(dateStr);
   return Math.max(0, (then.getFullYear() - now.getFullYear()) * 12 + (then.getMonth() - now.getMonth()));
 }
 
@@ -84,37 +84,24 @@ function glMonthsNeeded(target, saved, monthlyContrib) {
 }
 
 function glStatus(goal) {
-  var monthsLeft    = glMonthsUntil(goal.targetDate);
-  var monthsNeeded  = glMonthsNeeded(goal.target, goal.saved, goal.monthlyContrib);
-  var pct           = goal.saved / goal.target;
-  if (pct >= 1)                       return { key: 'complete', label: 'Complete 🎉',      cls: 'gl-status--complete' };
-  if (monthsNeeded <= monthsLeft * 1.05) return { key: 'on-track',  label: 'On track',        cls: 'gl-status--good'     };
-  if (monthsNeeded <= monthsLeft * 1.3)  return { key: 'watch',     label: 'Worth a look',    cls: 'gl-status--warn'     };
-  return                                        { key: 'behind',    label: 'Needs attention', cls: 'gl-status--bad'      };
+  var monthsLeft   = glMonthsUntil(goal.targetDate);
+  var monthsNeeded = glMonthsNeeded(goal.target, goal.saved, goal.monthlyContrib);
+  var pct          = goal.saved / goal.target;
+  if (pct >= 1)                            return { label: 'Complete 🎉',      cls: 'gl-status--complete' };
+  if (monthsNeeded <= monthsLeft * 1.05)   return { label: 'On track',        cls: 'gl-status--good'     };
+  if (monthsNeeded <= monthsLeft * 1.3)    return { label: 'Worth a look',    cls: 'gl-status--warn'     };
+  return                                          { label: 'Needs attention', cls: 'gl-status--bad'      };
 }
 
-/* ── SVG progress arc ───────────────────────────────────────── */
+/* ── Slider fill sync ───────────────────────────────────────── */
+/* Updates --gl-slider-pct on the element itself so the CSS
+   gradient fill tracks the thumb without any transition lag.   */
 
-function glArc(pct, color, id) {
-  var r   = 54;
-  var cx  = 64;
-  var cy  = 64;
-  var circ = 2 * Math.PI * r;
-  var clamped = Math.min(1, Math.max(0, pct));
-  var offset  = circ * (1 - clamped);
-  return [
-    '<svg class="gl-arc" viewBox="0 0 128 128" aria-hidden="true">',
-      '<circle class="gl-arc-track" cx="' + cx + '" cy="' + cy + '" r="' + r + '"/>',
-      '<circle class="gl-arc-fill" id="arc-' + id + '"',
-        ' cx="' + cx + '" cy="' + cy + '" r="' + r + '"',
-        ' stroke="' + color + '"',
-        ' stroke-dasharray="' + circ.toFixed(2) + '"',
-        ' stroke-dashoffset="' + offset.toFixed(2) + '"',
-        ' style="--gl-circ:' + circ.toFixed(2) + ';--gl-offset:' + offset.toFixed(2) + '"',
-      '/>',
-      '<text class="gl-arc-pct" x="' + cx + '" y="' + (cy + 6) + '">' + Math.round(clamped * 100) + '%</text>',
-    '</svg>',
-  ].join('');
+function glSyncSliderFill(el) {
+  var min = parseFloat(el.min);
+  var max = parseFloat(el.max);
+  el.style.setProperty('--gl-slider-pct',
+    ((parseFloat(el.value) - min) / (max - min) * 100).toFixed(1) + '%');
 }
 
 /* ── Hero stats ─────────────────────────────────────────────── */
@@ -123,32 +110,31 @@ function glRenderHero() {
   var el = document.getElementById('gl-hero-stats');
   if (!el) return;
 
-  var totalTarget  = goalsData.reduce(function(s, g) { return s + g.target; }, 0);
-  var totalSaved   = goalsData.reduce(function(s, g) { return s + g.saved;  }, 0);
-  var activeCount  = goalsData.length;
-  var nearest      = goalsData.slice().sort(function(a, b) {
+  var totalTarget = goalsData.reduce(function(s, g) { return s + g.target; }, 0);
+  var totalSaved  = goalsData.reduce(function(s, g) { return s + g.saved;  }, 0);
+  var nearest     = goalsData.slice().sort(function(a, b) {
     return new Date(a.targetDate) - new Date(b.targetDate);
   })[0];
 
   el.innerHTML = [
     '<div class="gl-stat">',
-      '<span class="gl-stat-value">' + activeCount + '</span>',
+      '<span class="gl-stat-value">', goalsData.length, '</span>',
       '<span class="gl-stat-label">Active goals</span>',
     '</div>',
     '<div class="gl-stat-sep" aria-hidden="true"></div>',
     '<div class="gl-stat">',
-      '<span class="gl-stat-value">' + glFmt(totalSaved) + '</span>',
+      '<span class="gl-stat-value">', glFmt(totalSaved), '</span>',
       '<span class="gl-stat-label">Saved so far</span>',
     '</div>',
     '<div class="gl-stat-sep" aria-hidden="true"></div>',
     '<div class="gl-stat">',
-      '<span class="gl-stat-value">' + glFmt(totalTarget) + '</span>',
+      '<span class="gl-stat-value">', glFmt(totalTarget), '</span>',
       '<span class="gl-stat-label">Total target</span>',
     '</div>',
     nearest ? [
       '<div class="gl-stat-sep" aria-hidden="true"></div>',
       '<div class="gl-stat">',
-        '<span class="gl-stat-value">' + nearest.emoji + ' ' + glFriendlyDate(nearest.targetDate) + '</span>',
+        '<span class="gl-stat-value">', nearest.emoji, ' ', glFriendlyDate(nearest.targetDate), '</span>',
         '<span class="gl-stat-label">Nearest goal</span>',
       '</div>',
     ].join('') : '',
@@ -156,69 +142,101 @@ function glRenderHero() {
 }
 
 /* ── Goal card ──────────────────────────────────────────────── */
+/* Progress ring is driven entirely by CSS:
+   conic-gradient fills --gl-pct percent with the goal colour;
+   a mask clips the centre to make a donut.
+   @property registers --gl-pct as animatable so the
+   CSS transition in goals.css plays on first paint.            */
 
 function glRenderCard(goal) {
-  var pct    = goal.saved / goal.target;
+  var pct    = Math.min(1, Math.max(0, goal.saved / goal.target));
+  var pctInt = Math.round(pct * 100);
   var status = glStatus(goal);
   var months = glMonthsUntil(goal.targetDate);
+  var tgtPct = ((goal.target - 5000) / (500000 - 5000) * 100).toFixed(1);
+  var moPct  = ((Math.max(3, months) - 3) / (240 - 3) * 100).toFixed(1);
 
   return [
-    '<article class="gl-card" id="card-' + goal.id + '" style="--gl-color:' + goal.color + '" aria-label="' + goal.name + ' goal">',
+    '<article class="gl-card" id="card-', goal.id, '"',
+      ' style="--gl-color:', goal.color, '"',
+      ' aria-label="', goal.name, ' goal">',
+
+      /* ── Progress ring (pure CSS — no SVG) ── */
       '<div class="gl-card-arc-wrap">',
-        glArc(pct, goal.color, goal.id),
-        '<span class="gl-card-emoji" aria-hidden="true">' + goal.emoji + '</span>',
-      '</div>',
-      '<div class="gl-card-body">',
-        '<h2 class="gl-card-name">' + goal.name + '</h2>',
-        '<div class="gl-card-amounts">',
-          '<span class="gl-card-saved">' + glFmt(goal.saved) + '</span>',
-          '<span class="gl-card-of"> of </span>',
-          '<span class="gl-card-target">' + glFmt(goal.target) + '</span>',
+        '<div class="gl-ring-wrap">',
+          '<div class="gl-progress-ring"',
+            ' style="--gl-pct:', pctInt, ';--gl-color:', goal.color, '"',
+            ' aria-hidden="true">',
+          '</div>',
+          '<div class="gl-ring-content" aria-hidden="true">',
+            '<span class="gl-ring-emoji">', goal.emoji, '</span>',
+            '<span class="gl-ring-pct">', pctInt, '%</span>',
+          '</div>',
         '</div>',
       '</div>',
+
+      /* ── Card body ── */
+      '<div class="gl-card-body">',
+        '<h2 class="gl-card-name">', goal.name, '</h2>',
+        '<div class="gl-card-amounts">',
+          '<span class="gl-card-saved">', glFmt(goal.saved), '</span>',
+          '<span class="gl-card-of"> of </span>',
+          '<span class="gl-card-target">', glFmt(goal.target), '</span>',
+        '</div>',
+      '</div>',
+
+      /* ── Card footer ── */
       '<div class="gl-card-footer">',
         '<div class="gl-card-meta">',
-          '<span class="gl-card-monthly"><strong>' + glFmt(goal.monthlyContrib) + '</strong>/mo</span>',
-          '<span class="gl-card-date">' + glFriendlyDate(goal.targetDate) + '</span>',
+          '<span class="gl-card-monthly"><strong>', glFmt(goal.monthlyContrib), '</strong>/mo</span>',
+          '<span class="gl-card-date">', glFriendlyDate(goal.targetDate), '</span>',
         '</div>',
         '<div class="gl-card-actions">',
-          '<span class="gl-status ' + status.cls + '">' + status.label + '</span>',
-          '<button class="gl-adjust-btn" onclick="glOpenAdjust(\'' + goal.id + '\')" aria-label="Adjust ' + goal.name + ' goal">',
+          '<span class="gl-status ', status.cls, '">', status.label, '</span>',
+          '<button class="gl-adjust-btn"',
+            ' data-action="adjust" data-id="', goal.id, '"',
+            ' aria-label="Adjust ', goal.name, ' goal">',
             'Adjust',
-            '<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>',
+            '<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>',
           '</button>',
         '</div>',
       '</div>',
-      // Inline adjust panel (hidden by default)
-      '<div class="gl-adjust-panel" id="adjust-' + goal.id + '" hidden aria-label="Adjust goal">',
+
+      /* ── Inline adjust panel ── */
+      '<div class="gl-adjust-panel" id="adjust-', goal.id, '" hidden>',
         '<div class="gl-adjust-inner">',
-          '<div class="gl-adjust-row">',
-            '<label class="gl-adjust-label" for="slider-target-' + goal.id + '">Target amount</label>',
-            '<span class="gl-adjust-val" id="val-target-' + goal.id + '">' + glFmt(goal.target) + '</span>',
+          '<div class="gl-adjust-group">',
+            '<div class="gl-adjust-row">',
+              '<label class="gl-adjust-label" for="slider-target-', goal.id, '">Target amount</label>',
+              '<span class="gl-adjust-val" id="val-target-', goal.id, '">', glFmt(goal.target), '</span>',
+            '</div>',
+            '<input class="gl-slider" id="slider-target-', goal.id, '" type="range"',
+              ' data-action="slider-update" data-id="', goal.id, '"',
+              ' min="5000" max="500000" step="5000" value="', goal.target, '"',
+              ' aria-label="Target amount for ', goal.name, '"',
+              ' style="--gl-slider-pct:', tgtPct, '%">',
           '</div>',
-          '<input class="gl-slider" id="slider-target-' + goal.id + '" type="range"',
-            ' min="5000" max="500000" step="5000" value="' + goal.target + '"',
-            ' oninput="glUpdateAdjust(\'' + goal.id + '\')"',
-            ' aria-label="Target amount for ' + goal.name + '"',
-            ' style="--gl-slider-pct:' + ((goal.target - 5000) / (500000 - 5000) * 100).toFixed(1) + '%">',
-          '<div class="gl-adjust-row" style="margin-top:12px">',
-            '<label class="gl-adjust-label" for="slider-months-' + goal.id + '">Target date</label>',
-            '<span class="gl-adjust-val" id="val-months-' + goal.id + '">' + glFriendlyDate(goal.targetDate) + '</span>',
+          '<div class="gl-adjust-group">',
+            '<div class="gl-adjust-row">',
+              '<label class="gl-adjust-label" for="slider-months-', goal.id, '">Target date</label>',
+              '<span class="gl-adjust-val" id="val-months-', goal.id, '">', glFriendlyDate(goal.targetDate), '</span>',
+            '</div>',
+            '<input class="gl-slider" id="slider-months-', goal.id, '" type="range"',
+              ' data-action="slider-update" data-id="', goal.id, '"',
+              ' min="3" max="240" step="1" value="', Math.max(3, months), '"',
+              ' aria-label="Months until target for ', goal.name, '"',
+              ' style="--gl-slider-pct:', moPct, '%">',
           '</div>',
-          '<input class="gl-slider" id="slider-months-' + goal.id + '" type="range"',
-            ' min="3" max="240" step="1" value="' + Math.max(3, months) + '"',
-            ' oninput="glUpdateAdjust(\'' + goal.id + '\')"',
-            ' aria-label="Months until target for ' + goal.name + '"',
-            ' style="--gl-slider-pct:' + ((Math.max(3, months) - 3) / (240 - 3) * 100).toFixed(1) + '%">',
-          '<div class="gl-adjust-result" id="result-' + goal.id + '">',
-            'You need <strong>' + glFmt(goal.monthlyContrib) + '/month</strong> to get there.',
+          '<div class="gl-adjust-result" id="result-', goal.id, '">',
+            'You need <output id="result-amount-', goal.id, '">', glFmt(goal.monthlyContrib), '/month</output> to get there.',
           '</div>',
           '<div class="gl-adjust-btns">',
-            '<button class="gl-adjust-save" onclick="glSaveAdjust(\'' + goal.id + '\')">Save changes</button>',
-            '<button class="gl-adjust-cancel" onclick="glCloseAdjust(\'' + goal.id + '\')">Cancel</button>',
+            '<button class="gl-adjust-save" data-action="save" data-id="', goal.id, '">Save changes</button>',
+            '<button class="gl-adjust-cancel" data-action="cancel" data-id="', goal.id, '">Cancel</button>',
           '</div>',
         '</div>',
       '</div>',
+
     '</article>',
   ].join('');
 }
@@ -227,9 +245,9 @@ function glRenderCard(goal) {
 
 function glAddCard() {
   return [
-    '<button class="gl-add-card" onclick="glOpenDrawer()" aria-label="Add a new goal">',
+    '<button class="gl-add-card" data-action="add-goal" aria-label="Add a new goal">',
       '<span class="gl-add-icon" aria-hidden="true">',
-        '<svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">',
+        '<svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">',
           '<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>',
         '</svg>',
       '</span>',
@@ -250,7 +268,6 @@ function glRenderGrid() {
 /* ── Adjust panel ───────────────────────────────────────────── */
 
 function glOpenAdjust(id) {
-  // Close any other open panels first
   document.querySelectorAll('.gl-adjust-panel:not([hidden])').forEach(function(p) {
     p.setAttribute('hidden', '');
     var card = p.closest('.gl-card');
@@ -277,29 +294,20 @@ function glUpdateAdjust(id) {
 
   var sliderTarget = document.getElementById('slider-target-' + id);
   var sliderMonths = document.getElementById('slider-months-' + id);
-  var valTarget    = document.getElementById('val-target-'   + id);
-  var valMonths    = document.getElementById('val-months-'   + id);
-  var result       = document.getElementById('result-'       + id);
+  var valTarget    = document.getElementById('val-target-'    + id);
+  var valMonths    = document.getElementById('val-months-'    + id);
+  var resultAmount = document.getElementById('result-amount-' + id);
+  if (!sliderTarget || !sliderMonths || !valTarget || !valMonths || !resultAmount) return;
 
   var newTarget = parseFloat(sliderTarget.value);
   var newMonths = parseInt(sliderMonths.value, 10);
 
-  // Update slider fill via CSS custom property
-  sliderTarget.style.setProperty('--gl-slider-pct',
-    ((newTarget - 5000) / (500000 - 5000) * 100).toFixed(1) + '%');
-  sliderMonths.style.setProperty('--gl-slider-pct',
-    ((newMonths - 3) / (240 - 3) * 100).toFixed(1) + '%');
-
-  // Friendly date from months
   var futureDate = new Date();
   futureDate.setMonth(futureDate.getMonth() + newMonths);
-  var friendlyDate = futureDate.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
 
-  valTarget.textContent = glFmt(newTarget);
-  valMonths.textContent = friendlyDate;
-
-  var needed = Math.ceil(Math.max(0, newTarget - goal.saved) / newMonths);
-  result.innerHTML = 'You need <strong>' + glFmt(needed) + '/month</strong> to get there.';
+  valTarget.textContent    = glFmt(newTarget);
+  valMonths.textContent    = futureDate.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+  resultAmount.textContent = glFmt(Math.ceil(Math.max(0, newTarget - goal.saved) / newMonths)) + '/month';
 }
 
 function glSaveAdjust(id) {
@@ -308,15 +316,15 @@ function glSaveAdjust(id) {
 
   var sliderTarget = document.getElementById('slider-target-' + id);
   var sliderMonths = document.getElementById('slider-months-' + id);
+  if (!sliderTarget || !sliderMonths) return;
 
   var newTarget = parseFloat(sliderTarget.value);
   var newMonths = parseInt(sliderMonths.value, 10);
-
   var futureDate = new Date();
   futureDate.setMonth(futureDate.getMonth() + newMonths);
 
-  goal.target      = newTarget;
-  goal.targetDate  = futureDate.toISOString().split('T')[0];
+  goal.target         = newTarget;
+  goal.targetDate     = futureDate.toISOString().split('T')[0];
   goal.monthlyContrib = Math.ceil(Math.max(0, newTarget - goal.saved) / newMonths);
 
   glCloseAdjust(id);
@@ -344,11 +352,12 @@ function glRenderDrawer() {
       '<div class="gl-type-grid">',
         goalTypes.map(function(t) {
           return [
-            '<button class="gl-type-btn" onclick="glSelectType(\'' + t.id + '\')"',
-              ' style="--gl-type-color:' + t.color + '"',
-              ' aria-label="' + t.label + '">',
-              '<span class="gl-type-emoji" aria-hidden="true">' + t.emoji + '</span>',
-              '<span class="gl-type-label">' + t.label + '</span>',
+            '<button class="gl-type-btn"',
+              ' data-action="select-type" data-id="', t.id, '"',
+              ' style="--gl-type-color:', t.color, '"',
+              ' aria-label="', t.label, '">',
+              '<span class="gl-type-emoji" aria-hidden="true">', t.emoji, '</span>',
+              '<span class="gl-type-label">', t.label, '</span>',
             '</button>',
           ].join('');
         }).join(''),
@@ -361,23 +370,23 @@ function glRenderDrawer() {
     label.textContent = 'Set your goal';
     body.innerHTML = [
       '<div class="gl-form">',
-        '<div class="gl-form-emoji" aria-hidden="true">' + type.emoji + '</div>',
+        '<div class="gl-form-emoji" aria-hidden="true">', type.emoji, '</div>',
         '<div class="gl-form-group">',
           '<label class="gl-form-label" for="gl-goal-name">What will you call it?</label>',
           '<input class="gl-form-input" id="gl-goal-name" type="text"',
+            ' data-draft-field="name"',
             ' placeholder="e.g. Our dream home"',
-            ' value="' + (glDraftGoal.name || type.label) + '"',
-            ' oninput="glDraftGoal.name = this.value">',
+            ' value="', (glDraftGoal.name || type.label), '">',
         '</div>',
         '<div class="gl-form-row">',
           '<div class="gl-form-group">',
             '<label class="gl-form-label" for="gl-goal-target">How much do you need?</label>',
             '<div class="gl-form-input-wrap">',
-              '<span class="gl-form-prefix">£</span>',
+              '<span class="gl-form-prefix" aria-hidden="true">£</span>',
               '<input class="gl-form-input gl-form-input--prefixed" id="gl-goal-target" type="number"',
+                ' data-draft-field="target"',
                 ' placeholder="50000" min="100" step="100"',
-                ' value="' + (glDraftGoal.target || '') + '"',
-                ' oninput="glDraftGoal.target = parseFloat(this.value); glPreviewMonthly()">',
+                ' value="', (glDraftGoal.target || ''), '">',
             '</div>',
             type.hint ? '<p class="gl-form-hint">' + type.hint + '</p>' : '',
           '</div>',
@@ -385,20 +394,27 @@ function glRenderDrawer() {
             '<label class="gl-form-label" for="gl-goal-years">By when?</label>',
             '<div class="gl-form-input-wrap">',
               '<input class="gl-form-input gl-form-input--suffixed" id="gl-goal-years" type="number"',
+                ' data-draft-field="years"',
                 ' placeholder="5" min="1" max="40" step="1"',
-                ' value="' + (glDraftGoal.years || '') + '"',
-                ' oninput="glDraftGoal.years = parseInt(this.value,10); glPreviewMonthly()">',
-              '<span class="gl-form-suffix">years</span>',
+                ' value="', (glDraftGoal.years || ''), '">',
+              '<span class="gl-form-suffix" aria-hidden="true">years</span>',
             '</div>',
           '</div>',
         '</div>',
-        '<div class="gl-form-preview" id="gl-form-preview"></div>',
+        /* Monthly preview — shown/hidden by glPreviewMonthly() */
+        '<div class="gl-form-preview">',
+          '<div class="gl-form-preview-inner" id="gl-preview-inner" hidden>',
+            '<span class="gl-form-preview-label">You\'d need to save</span>',
+            '<output class="gl-form-preview-amount" id="gl-preview-amount"></output>',
+            '<output class="gl-form-preview-sub" id="gl-preview-sub"></output>',
+          '</div>',
+        '</div>',
         '<div class="gl-form-actions">',
-          '<button class="gl-form-back" onclick="glDrawerStep=1;glRenderDrawer()">',
-            '<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>',
+          '<button class="gl-form-back" data-action="drawer-back">',
+            '<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>',
             'Back',
           '</button>',
-          '<button class="gl-form-submit" onclick="glSubmitGoal()">Add this goal</button>',
+          '<button class="gl-form-submit" data-action="submit-goal">Add this goal</button>',
         '</div>',
       '</div>',
     ].join('');
@@ -418,58 +434,90 @@ function glSelectType(typeId) {
 }
 
 function glPreviewMonthly() {
-  var preview = document.getElementById('gl-form-preview');
-  if (!preview) return;
-  var target = glDraftGoal.target;
-  var years  = glDraftGoal.years;
-  if (!target || !years || target <= 0 || years <= 0) {
-    preview.innerHTML = '';
-    return;
-  }
-  var monthly = Math.ceil(target / (years * 12));
-  preview.innerHTML = [
-    '<div class="gl-form-preview-inner">',
-      '<span class="gl-form-preview-label">You\'d need to save</span>',
-      '<span class="gl-form-preview-amount">' + glFmt(monthly) + '/month</span>',
-      '<span class="gl-form-preview-sub">to reach ' + glFmt(target) + ' in ' + years + ' year' + (years !== 1 ? 's' : '') + '</span>',
-    '</div>',
-  ].join('');
+  var inner  = document.getElementById('gl-preview-inner');
+  var amount = document.getElementById('gl-preview-amount');
+  var sub    = document.getElementById('gl-preview-sub');
+  if (!inner || !amount || !sub) return;
+
+  var target  = glDraftGoal.target;
+  var years   = glDraftGoal.years;
+  var valid   = target > 0 && years > 0;
+
+  inner.hidden = !valid;
+  if (!valid) return;
+
+  var monthly        = Math.ceil(target / (years * 12));
+  amount.textContent = glFmt(monthly) + '/month';
+  sub.textContent    = 'to reach ' + glFmt(target) + ' in ' + years + ' year' + (years !== 1 ? 's' : '');
 }
 
 function glSubmitGoal() {
   var nameEl   = document.getElementById('gl-goal-name');
   var targetEl = document.getElementById('gl-goal-target');
   var yearsEl  = document.getElementById('gl-goal-years');
-  var name     = nameEl   ? nameEl.value.trim()          : '';
-  var target   = targetEl ? parseFloat(targetEl.value)   : 0;
-  var years    = yearsEl  ? parseInt(yearsEl.value, 10)  : 0;
-
+  var name     = nameEl   ? nameEl.value.trim()         : '';
+  var target   = targetEl ? parseFloat(targetEl.value)  : 0;
+  var years    = yearsEl  ? parseInt(yearsEl.value, 10) : 0;
   if (!name || !target || !years) return;
 
   var futureDate = new Date();
   futureDate.setFullYear(futureDate.getFullYear() + years);
 
-  var newGoal = {
-    id:           'g' + Date.now(),
-    typeId:        glDraftGoal.typeId || 'custom',
-    emoji:         glDraftGoal.emoji  || '⭐',
-    name:          name,
-    color:         glDraftGoal.color  || '#E2E8F0',
-    target:        target,
-    saved:         0,
-    monthlyContrib: Math.ceil(target / (years * 12)),
-    targetDate:    futureDate.toISOString().split('T')[0],
-  };
+  goalsData.push({
+    id:             'g' + Date.now(),
+    typeId:          glDraftGoal.typeId || 'custom',
+    emoji:           glDraftGoal.emoji  || '⭐',
+    name:            name,
+    color:           glDraftGoal.color  || '#E2E8F0',
+    target:          target,
+    saved:           0,
+    monthlyContrib:  Math.ceil(target / (years * 12)),
+    targetDate:      futureDate.toISOString().split('T')[0],
+  });
 
-  goalsData.push(newGoal);
   document.getElementById('add-goal-drawer').hidePopover();
   glRenderGrid();
   glRenderHero();
 }
 
+/* ── Event delegation ───────────────────────────────────────── */
+/* All click/input wiring in one place — no inline handlers.    */
+
+document.addEventListener('click', function(e) {
+  var btn = e.target.closest('[data-action]');
+  if (!btn) return;
+
+  var action = btn.dataset.action;
+  var id     = btn.dataset.id;
+
+  if (action === 'adjust')      glOpenAdjust(id);
+  if (action === 'save')        glSaveAdjust(id);
+  if (action === 'cancel')      glCloseAdjust(id);
+  if (action === 'add-goal')    glOpenDrawer();
+  if (action === 'select-type') glSelectType(id);
+  if (action === 'drawer-back') { glDrawerStep = 1; glRenderDrawer(); }
+  if (action === 'submit-goal') glSubmitGoal();
+});
+
+document.addEventListener('input', function(e) {
+  var el = e.target;
+
+  /* Slider fill — keep the gradient thumb in sync */
+  if (el.classList.contains('gl-slider')) glSyncSliderFill(el);
+
+  /* Draft goal field updates */
+  var field = el.dataset.draftField;
+  if (field === 'name')   { glDraftGoal.name   = el.value; }
+  if (field === 'target') { glDraftGoal.target  = parseFloat(el.value); glPreviewMonthly(); }
+  if (field === 'years')  { glDraftGoal.years   = parseInt(el.value, 10); glPreviewMonthly(); }
+
+  /* Adjust panel sliders */
+  if (el.dataset.action === 'slider-update') glUpdateAdjust(el.dataset.id);
+});
+
 /* ── Init ───────────────────────────────────────────────────── */
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
   if (!document.getElementById('gl-grid')) return;
   glRenderHero();
   glRenderGrid();
