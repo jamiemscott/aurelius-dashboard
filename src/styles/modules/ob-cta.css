@@ -1,4 +1,4 @@
-/* ─── ONBOARDING CTA ──────────────────────────────────────────────
+/* ─── ONBOARDING CTA ───────────────────────────────────────────────
    Sits at the top of the sidebar, above the nav items.
    Prompts new users to take the 'Know Your Element' assessment,
    or returning users to retake it.
@@ -21,18 +21,18 @@
 
 /* ── Dismiss button ─────────────────────────────────────────── */
 .ob-cta__dismiss {
+  align-items: center;
   background: none;
   border: none;
   color: var(--text-3);
   cursor: pointer;
   display: flex;
-  align-items: center;
+  inset-block-start: 8px;
+  inset-inline-end: 8px;
   justify-content: center;
   opacity: 0.7;
   padding: 2px;
   position: absolute;
-  right: 8px;
-  top: 8px;
   transition: color 0.15s, opacity 0.15s;
 }
 .ob-cta__dismiss:hover { color: var(--gold); opacity: 1; }
@@ -42,15 +42,15 @@
   align-items: flex-start;
   display: flex;
   gap: 10px;
-  margin-bottom: 10px;
-  padding-right: 18px;      /* clear the dismiss button */
+  margin-block-end: 10px;
+  padding-inline-end: 18px;      /* clear the dismiss button */
 }
 
 .ob-cta__icon {
   color: var(--gold);
   display: flex;
   flex-shrink: 0;
-  margin-top: 1px;
+  margin-block-start: 1px;
 }
 
 .ob-cta__copy {
@@ -79,7 +79,7 @@
   color: var(--text-2);
   font-size: var(--fs-sm);            /* 11px */
   line-height: 1.4;
-  margin-top: 1px;
+  margin-block-start: 1px;
 }
 
 /* ── CTA button ─────────────────────────────────────────────── */
@@ -104,11 +104,11 @@
 /* ── Compact sidebar (901–1280px) ───────────────────────────── */
 @media (max-width: 1280px) {
   .ob-cta {
-    margin-bottom: 12px;
+    margin-block-end: 12px;
     padding: 10px;
   }
 
-  .ob-cta__top { margin-bottom: 8px; }
+  .ob-cta__top { margin-block-end: 8px; }
 
   .ob-cta__eyebrow,
   .ob-cta__sub  { display: none; }

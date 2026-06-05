@@ -28,11 +28,11 @@
  * center it horizontally.
  */
 .feedback-message-wrapper {
-  left: 50%;
+  inset-block-start: calc(var(--topbar-h, 68px) + 12px);
+  inset-inline-start: 50%;
   max-width: min(480px, calc(100vw - 32px));
   pointer-events: none;    /* don't block clicks on the page behind */
   position: fixed;
-  top: calc(var(--topbar-h, 68px) + 12px);
   transform: translateX(-50%);
   width: 100%;
   z-index: var(--layer-global-instant-interaction, 20);
@@ -42,14 +42,15 @@
 /* ─── BASE MESSAGE ──────────────────────────────────────────── */
 .feedback-message {
   align-items: flex-start;
-  border-radius: var(--radius-item);
+  animation: feedback-slide-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
   border: 1px solid transparent;
+  border-radius: var(--radius-item);
   box-shadow: var(--shadow-card);
   color: var(--text-1);
   cursor: default;
   display: flex;
   font-family: var(--font-sans);
-  font-size: var(--fs-ui);           /* 13px */
+  font-size: var(--fs-ui);            /* 13px */
   font-weight: var(--fw-medium);
   gap: 10px;
   line-height: var(--lh-snug);
@@ -57,19 +58,15 @@
   padding: 13px 16px;
   pointer-events: auto;
   position: relative;
-
-  /* Entrance animation */
-  animation: feedback-slide-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* Left accent bar — coloured per variant via the custom property set below */
 .feedback-message::before {
   background: var(--fb-color);
-  bottom: 0;
   content: '';
-  left: 0;
+  inset-block: 0;
+  inset-inline-start: 0;
   position: absolute;
-  top: 0;
   width: 3px;
 }
 
@@ -79,7 +76,7 @@
   flex-shrink: 0;
   font-size: 15px;
   line-height: 1.4;              /* align with first line of text */
-  margin-left: 6px;              /* clearance from the 3px accent bar */
+  margin-inline-start: 6px;     /* clearance from the 3px accent bar */
 }
 
 /* Message text */

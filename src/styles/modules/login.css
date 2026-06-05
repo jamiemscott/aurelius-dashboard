@@ -89,7 +89,7 @@
 .utility-brand-rule {
   background: linear-gradient(to right, rgba(245,166,35,0.7), transparent);
   height: 1px;
-  margin-bottom: 28px;
+  margin-block-end: 28px;
   width: 80px;
 }
 
@@ -113,7 +113,7 @@
   font-style: normal;
   font-weight: 500;
   letter-spacing: 0.08em;
-  margin-top: 10px;
+  margin-block-start: 10px;
   text-transform: uppercase;
 }
 
@@ -179,7 +179,7 @@
   font-weight: var(--fw-medium);
   gap: 6px;
   padding: 7px 13px;
-  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
   white-space: nowrap;
 }
 
@@ -228,22 +228,21 @@
 }
 
 .login-pw-wrap input {
-  padding-right: 46px;
+  padding-inline-end: 46px;
 }
 
 .login-pw-toggle {
   align-items: center;
   background: none;
   border: none;
-  bottom: 0;
   color: var(--text-3);
   cursor: pointer;
   display: flex;
+  inset-block: 0;
+  inset-inline-end: 0;
   justify-content: center;
   padding: 0 13px;
   position: absolute;
-  right: 0;
-  top: 0;
   transition: color 0.15s;
 }
 
@@ -307,8 +306,8 @@
   font-weight: var(--fw-semibold);
   height: 48px;
   letter-spacing: 0.01em;
-  margin-top: 4px;
-  transition: opacity 0.2s, transform 0.1s, box-shadow 0.2s;
+  margin-block-start: 4px;
+  transition: box-shadow 0.2s, opacity 0.2s, transform 0.1s;
   width: 100%;
 }
 
@@ -381,15 +380,15 @@
 }
 
 .utility-fca {
-  border-top: 1px solid var(--border);
-  padding-top: 18px;
+  border-block-start: 1px solid var(--border);
+  padding-block-start: 18px;
 }
 
 .utility-fca-auth {
   align-items: flex-start;
   display: flex;
   gap: 10px;
-  margin-bottom: 10px;
+  margin-block-end: 10px;
 }
 
 .utility-fca-badge {
@@ -402,7 +401,7 @@
   font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.07em;
-  margin-top: 1px;
+  margin-block-start: 1px;
   padding: 3px 6px;
   text-transform: uppercase;
 }
@@ -414,7 +413,7 @@
   margin: 0 0 7px;
 }
 
-.utility-fca p:last-child { margin-bottom: 0; }
+.utility-fca p:last-child { margin-block-end: 0; }
 
 .utility-fca a {
   color: var(--text-3);
@@ -431,14 +430,14 @@
   border-radius: 8px;
   display: flex;
   gap: 9px;
-  margin-bottom: 14px;
+  margin-block-end: 14px;
   padding: 10px 12px;
 }
 
 .utility-risk-warning svg {
   color: var(--gold-text);
   flex-shrink: 0;
-  margin-top: 1px;
+  margin-block-start: 1px;
 }
 
 .utility-risk-warning p {
@@ -524,7 +523,7 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-top: 32px;
+  margin-block-start: 32px;
 }
 
 /* Allow <a> to carry .login-submit styling */

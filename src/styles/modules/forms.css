@@ -12,13 +12,13 @@
 .field label,
 .field-label {
   color: var(--text-2);
-  font-size: var(--fs-input-label);  /* 12px */
+  font-size: var(--fs-input-label);   /* 12px */
   font-weight: var(--fw-medium);
 }
 
 .field-hint {
   color: var(--text-3);
-  font-size: var(--fs-xs);           /* 11px */
+  font-size: var(--fs-xs);            /* 11px */
   line-height: var(--lh-relaxed);
   margin: 0;
 }
@@ -31,7 +31,7 @@
 
 .field-required {
   color: var(--red);
-  margin-left: 2px;
+  margin-inline-start: 2px;
 }
 
 
@@ -46,8 +46,8 @@
 input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="reset"]),
 select,
 textarea {
-  appearance: none;
   -webkit-appearance: none;
+  appearance: none;
   background: var(--bg-input);
   border: 1.5px solid var(--border);
   border-radius: var(--radius-item);   /* 12px */
@@ -56,7 +56,7 @@ textarea {
   font-size: var(--fs-input);          /* 14px */
   outline: none;
   padding: 10px 14px;
-  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
   width: 100%;
 }
 
@@ -104,7 +104,7 @@ select {
   background-position: right 12px center;
   background-repeat: no-repeat;
   cursor: pointer;
-  padding-right: 36px;
+  padding-inline-end: 36px;
 }
 
 
@@ -113,7 +113,7 @@ select {
 .steps {
   align-items: center;
   display: flex;
-  margin-bottom: 32px;
+  margin-block-end: 32px;
 }
 
 .step {
@@ -127,7 +127,7 @@ select {
   background: var(--divider);
   flex: 1;
   height: 1px;
-  margin: 0 8px;
+  margin-inline: 8px;
   min-width: 16px;
   transition: background 0.3s;
 }
@@ -177,7 +177,7 @@ select {
   display: grid;
   gap: 12px;
   grid-template-columns: repeat(3, 1fr);
-  margin-bottom: 24px;
+  margin-block-end: 24px;
 }
 
 .method-card {
@@ -189,8 +189,8 @@ select {
   flex-direction: column;
   gap: 6px;
   padding: 16px;
-  text-align: left;
-  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  text-align: start;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
 
 .method-card:hover {
@@ -212,7 +212,7 @@ select {
   display: flex;
   height: 38px;
   justify-content: center;
-  margin-bottom: 4px;
+  margin-block-end: 4px;
   width: 38px;
 }
 
@@ -239,7 +239,7 @@ select {
 /* ─── AMOUNT INPUT ──────────────────────────────────────────────── */
 
 .amount-wrap {
-  margin-bottom: 10px;
+  margin-block-end: 10px;
   position: relative;
 }
 
@@ -247,14 +247,15 @@ select {
   color: var(--text-2);
   font-family: var(--font-serif);
   font-size: var(--fs-data-lg);
-  left: 18px;
+  inset-block-start: 50%;
+  inset-inline-start: 18px;
   pointer-events: none;
   position: absolute;
-  top: 50%;
   transform: translateY(-50%);
 }
 
 .amount-input {
+  -moz-appearance: textfield;
   background: var(--bg-input);
   border: 1.5px solid var(--border);
   border-radius: var(--radius-btn);
@@ -266,7 +267,6 @@ select {
   padding: 16px 18px 16px 42px;
   transition: border-color 0.2s, box-shadow 0.2s;
   width: 100%;
-  -moz-appearance: textfield;
 }
 
 .amount-input::-webkit-outer-spin-button,
@@ -283,7 +283,7 @@ select {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 20px;
+  margin-block-end: 20px;
 }
 
 .amount-chip {
@@ -333,20 +333,20 @@ select {
   background: var(--bg-input);
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
-  margin-bottom: 20px;
+  margin-block-end: 20px;
   overflow: hidden;
 }
 
 .review-row {
   align-items: center;
-  border-bottom: 1px solid var(--divider);
+  border-block-end: 1px solid var(--divider);
   display: flex;
   font-size: var(--fs-ui);
   justify-content: space-between;
   padding: 12px 20px;
 }
 
-.review-row:last-child { border-bottom: none; }
+.review-row:last-child { border-block-end: none; }
 
 .review-row-label { color: var(--text-3); }
 
@@ -359,7 +359,7 @@ select {
 
 .review-row--total {
   background: var(--bg-card);
-  border-top: 1px solid var(--border);
+  border-block-start: 1px solid var(--border);
   padding: 16px 20px;
 }
 
@@ -380,11 +380,11 @@ select {
 
 .form-checkbox-row {
   align-items: flex-start;
-  border-top: 1px solid var(--divider);
+  border-block-start: 1px solid var(--divider);
   cursor: pointer;
   display: flex;
   gap: 12px;
-  margin-top: 4px;
+  margin-block-start: 4px;
   padding: 16px 0;
 }
 
@@ -393,7 +393,7 @@ select {
   cursor: pointer;
   flex-shrink: 0;
   height: 16px;
-  margin-top: 2px;
+  margin-block-start: 2px;
   width: 16px;
 }
 
@@ -429,7 +429,7 @@ select {
   display: flex;
   height: 68px;
   justify-content: center;
-  margin-bottom: 22px;
+  margin-block-end: 22px;
   opacity: 0;
   width: 68px;
 }
@@ -444,14 +444,14 @@ select {
   font-family: var(--font-serif);
   font-size: var(--fs-page-title);
   letter-spacing: var(--ls-heading);
-  margin-bottom: 8px;
+  margin-block-end: 8px;
 }
 
 .form-success-sub {
   color: var(--text-3);
   font-size: var(--fs-md);
   line-height: var(--lh-relaxed);
-  margin-bottom: 24px;
+  margin-block-end: 24px;
   max-width: 340px;
 }
 
@@ -459,7 +459,7 @@ select {
   background: var(--bg-input);
   border: 1px solid var(--border);
   border-radius: var(--radius-item);
-  margin-bottom: 20px;
+  margin-block-end: 20px;
   min-width: 260px;
   padding: 14px 24px;
   text-align: center;
@@ -469,7 +469,7 @@ select {
   color: var(--text-3);
   font-size: var(--fs-sm);
   letter-spacing: var(--ls-widest);
-  margin-bottom: 6px;
+  margin-block-end: 6px;
   text-transform: uppercase;
 }
 
@@ -486,7 +486,7 @@ select {
   display: flex;
   font-size: var(--fs-md);
   gap: 6px;
-  margin-bottom: 32px;
+  margin-block-end: 32px;
 }
 
 .form-success-timeline strong { color: var(--text-2); }
@@ -555,11 +555,11 @@ select {
   border-radius: 50%;
   content: '';
   height: 14px;
-  left: 3px;
+  inset-block-start: 50%;
+  inset-inline-start: 3px;
   position: absolute;
-  top: 50%;
   transform: translateY(-50%);
-  transition: left 0.2s, background 0.2s;
+  transition: background 0.2s, inset-inline-start 0.2s;
   width: 14px;
 }
 
@@ -571,7 +571,7 @@ select {
 
 .switch input[type="checkbox"]:checked + .switch-track::after {
   background: #0B0D10;
-  left: calc(100% - 17px);
+  inset-inline-start: calc(100% - 17px);
 }
 
 /* Focus ring */

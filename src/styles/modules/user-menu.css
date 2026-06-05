@@ -1,4 +1,4 @@
-/* ─── USER MENU ───────────────────────────────────────────────
+/* ─── USER MENU ────────────────────────────────────────────────
    Prototype: uses native Popover API — open state driven by :popover-open.
    OutSystems: toggle .is-open on the element to show/hide it.
    ─────────────────────────────────────────────────────────── */
@@ -6,7 +6,7 @@
 /* Avatar button — reset + hover ring */
 button.avatar {
   font-family: var(--font-sans);
-  font-size: var(--fs-md);           /* 12px */
+  font-size: var(--fs-md);             /* 12px */
   font-weight: var(--fw-semibold);
   transition: box-shadow 0.2s;
 }
@@ -16,9 +16,11 @@ button.avatar:hover { box-shadow: 0 0 0 3px var(--gold-dim); }
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 16px;
-  bottom: auto;
   box-shadow: 0 8px 40px light-dark(rgba(0,0,0,0.12), rgba(0,0,0,0.45)), 0 2px 8px light-dark(rgba(0,0,0,0.06), rgba(0,0,0,0.3));
-  left: auto;
+  inset-block-start: calc(var(--topbar-h, 68px) + 8px);
+  inset-block-end: auto;
+  inset-inline-end: 14px;
+  inset-inline-start: auto;
   margin: 0;
   opacity: 0;
   padding: 0;
@@ -26,15 +28,13 @@ button.avatar:hover { box-shadow: 0 0 0 3px var(--gold-dim); }
      clicks when OS renders it without the Popover API's display:none */
   pointer-events: none;
   position: fixed;
-  right: 14px;
-  top: calc(var(--topbar-h, 68px) + 8px);
   transform: scale(0.95) translateY(-8px);
   transform-origin: top right;
   transition:
-    opacity   0.2s ease,
-    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
     display   0.2s allow-discrete,
-    overlay   0.2s allow-discrete;
+    opacity   0.2s ease,
+    overlay   0.2s allow-discrete,
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   width: 264px;
   z-index: 300;
 }
@@ -57,31 +57,39 @@ button.avatar:hover { box-shadow: 0 0 0 3px var(--gold-dim); }
 
 .um-header {
   align-items: center;
-  border-bottom: 1px solid var(--border);
+  border-block-end: 1px solid var(--border);
   display: flex;
   gap: 12px;
   padding: 14px 14px 13px;
 }
 
 .um-avatar {
+  align-items: center;
   background: linear-gradient(135deg, var(--gold-dim), var(--gold-glow));
   border: 1.5px solid var(--gold);
   border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: var(--fs-md); font-weight: var(--fw-semibold); color: var(--gold); /* 12px */
-  letter-spacing: var(--ls-wide); flex-shrink: 0;
-  width: 40px; height: 40px;
+  color: var(--gold);
+  display: flex;
+  flex-shrink: 0;
+  font-size: var(--fs-md);             /* 12px */
+  font-weight: var(--fw-semibold);
+  height: 40px;
+  justify-content: center;
+  letter-spacing: var(--ls-wide);
+  width: 40px;
 }
 
 .um-name  { color: var(--text-1); font-size: var(--fs-ui); font-weight: var(--fw-semibold); line-height: var(--lh-snug); }
-.um-meta  { color: var(--text-3); font-size: var(--fs-md); margin-top: 2px; }
+.um-meta  { color: var(--text-3); font-size: var(--fs-md); margin-block-start: 2px; }
 
 .um-section       { padding: 6px; }
 .um-section-label {
   color: var(--text-3);
-  font-size: var(--fs-badge); font-weight: var(--fw-semibold); /* 10px */
-  letter-spacing: var(--ls-wider); text-transform: uppercase;
+  font-size: var(--fs-badge);          /* 10px */
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wider);
   padding: 5px 10px 3px;
+  text-transform: uppercase;
 }
 
 .um-item {
@@ -93,10 +101,10 @@ button.avatar:hover { box-shadow: 0 0 0 3px var(--gold-dim); }
   cursor: pointer;
   display: flex;
   font-family: var(--font-sans);
-  font-size: var(--fs-nav);          /* 13px */
+  font-size: var(--fs-nav);            /* 13px */
   gap: 10px;
   padding: 8px 10px;
-  text-align: left;
+  text-align: start;
   text-decoration: none;
   transition: background 0.15s, color 0.15s;
   width: 100%;
@@ -110,21 +118,22 @@ button.avatar:hover { box-shadow: 0 0 0 3px var(--gold-dim); }
   background: var(--gold-dim);
   border-radius: 999px;
   color: var(--gold-text);
-  font-size: var(--fs-badge); font-weight: var(--fw-semibold); /* 10px */
-  margin-left: auto;
+  font-size: var(--fs-badge);          /* 10px */
+  font-weight: var(--fw-semibold);
+  margin-inline-start: auto;
   padding: 2px 7px;
 }
 
 .um-hint {
   color: var(--text-3);
-  font-size: var(--fs-md);           /* 12px */
-  margin-left: auto;
+  font-size: var(--fs-md);             /* 12px */
+  margin-inline-start: auto;
 }
 
 .um-divider {
   background: var(--divider);
   height: 1px;
-  margin: 0 6px;
+  margin-inline: 6px;
 }
 
 .um-item--danger             { color: var(--red); }
@@ -138,7 +147,7 @@ button.avatar:hover { box-shadow: 0 0 0 3px var(--gold-dim); }
   font-size: var(--fs-badge);
   font-weight: var(--fw-semibold);
   letter-spacing: var(--ls-wide);
-  margin-left: auto;
+  margin-inline-start: auto;
   padding: 2px 7px;
 }
 .um-2fa-pill--on  { background: var(--green-dim);  color: var(--green); }
@@ -155,7 +164,7 @@ button.avatar:hover { box-shadow: 0 0 0 3px var(--gold-dim); }
     inset 0 1px 0 rgba(255,255,255,0.08);
   gap: 0;
   height: 40px;
-  margin-left: 4px;
+  margin-inline-start: 4px;
   padding: 0 13px 0 10px;
   width: auto;
 }
@@ -172,9 +181,9 @@ button.avatar:hover { box-shadow: 0 0 0 3px var(--gold-dim); }
 }
 
 .avatar-emoji {
-  border-right: 1px solid rgba(245,166,35,0.3);
+  border-inline-end: 1px solid rgba(245,166,35,0.3);
   font-size: 1.45rem;
   line-height: 1;
-  margin-right: 9px;
-  padding-right: 10px;
+  margin-inline-end: 9px;
+  padding-inline-end: 10px;
 }

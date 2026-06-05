@@ -9,13 +9,13 @@
   /* Small inset so the card never touches the sidebar border regardless
      of sidebar width. The sidebar padding handles most of the gap but
      2px here gives a visual margin on the card's own border-radius. */
-  margin: 0 2px;
+  margin-inline: 2px;
   padding: 12px;
 }
 
 .advisor-label {
   color: var(--gold);
-  font-size: var(--fs-badge);        /* 10px */
+  font-size: var(--fs-badge);          /* 10px */
   font-weight: var(--fw-semibold);
   letter-spacing: var(--ls-widest);
   text-transform: uppercase;
@@ -23,13 +23,13 @@
 
 .advisor-name {
   color: var(--text-1);
-  font-size: var(--fs-ui);           /* 13px */
+  font-size: var(--fs-ui);             /* 13px */
   font-weight: var(--fw-semibold);
 }
 
 .advisor-contact {
   color: var(--text-2);
-  font-size: var(--fs-sm);           /* 11px */
+  font-size: var(--fs-sm);             /* 11px */
 }
 
 .contact-btn {
@@ -39,9 +39,9 @@
   color: #0B0D10;
   cursor: pointer;
   font-family: var(--font-sans);
-  font-size: var(--fs-md);           /* 12px */
+  font-size: var(--fs-md);             /* 12px */
   font-weight: var(--fw-semibold);
-  margin-top: 4px;
+  margin-block-start: 4px;
   padding: 7px 12px;
   transition: opacity 0.2s;
 }

@@ -1,4 +1,4 @@
-/* ─── SHELL ──────────────────────────────────────────── */
+/* ─── SHELL ──────────────────────────────────────────────── */
 .shell {
   display: grid;
   grid-template-areas:
@@ -30,7 +30,7 @@
 [role="banner"] {
   align-items: center;
   background: var(--bg-card);
-  border-bottom: 1px solid var(--border);
+  border-block-end: 1px solid var(--border);
   box-shadow: var(--shadow-inner);
   display: grid;
   grid-area: topbar;
@@ -82,7 +82,7 @@
 .sidebar,
 .site-sidebar {
   background: var(--bg-sidebar);
-  border-right: 1px solid var(--border);
+  border-inline-end: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   grid-area: sidebar;
@@ -92,9 +92,9 @@
 }
 
 .sidebar-footer {
-  border-top: 1px solid var(--divider);
-  margin-top: auto;
-  padding-top: 16px;
+  border-block-start: 1px solid var(--divider);
+  margin-block-start: auto;
+  padding-block-start: 16px;
 }
 
 /* ─── MAIN ───────────────────────────────────────────── */
@@ -114,15 +114,15 @@
   align-items: flex-start;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 24px;
+  margin-block-end: 24px;
 }
 
 .header-actions { align-items: center; display: flex; gap: 8px; }
 
 /* ─── GRID UTILITIES ─────────────────────────────────── */
-.two-col       { display: grid; gap: 16px; grid-template-columns: 1fr 380px; margin-bottom: 20px; }
-.three-col     { display: grid; gap: 16px; grid-template-columns: 1fr 1fr 1fr; margin-bottom: 20px; }
-.two-col-equal { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; margin-bottom: 20px; }
+.two-col       { display: grid; gap: 16px; grid-template-columns: 1fr 380px; margin-block-end: 20px; }
+.three-col     { display: grid; gap: 16px; grid-template-columns: 1fr 1fr 1fr; margin-block-end: 20px; }
+.two-col-equal { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; margin-block-end: 20px; }
 
 /* ─── RESPONSIVE ─────────────────────────────────────── */
 @media (max-width: 1200px) {
@@ -155,9 +155,9 @@
        </div>
      </div>                                                   */
 .page-header--standalone {
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 32px;
-  padding-bottom: 20px;
+  border-block-end: 1px solid var(--border);
+  margin-block-end: 32px;
+  padding-block-end: 20px;
 }
 
 /* ─── CHAT PAGE LAYOUT ───────────────────────────────── */
@@ -217,7 +217,7 @@
   .sidebar-section-label { display: none; }
 
   /* First nav group loses its top margin without the label */
-  .sidebar nav [role="group"]:first-child { margin-top: 4px; }
+  .sidebar nav [role="group"]:first-child { margin-block-start: 4px; }
 
   /* Nav items — tighter padding, slightly smaller text */
   .nav-item {

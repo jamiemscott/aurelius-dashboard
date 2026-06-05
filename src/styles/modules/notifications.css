@@ -4,7 +4,7 @@
 #notif-panel {
   background: var(--bg-card);
   border: none;
-  border-left: 1px solid var(--border);
+  border-inline-start: 1px solid var(--border);
   box-shadow: -24px 0 60px light-dark(rgba(0,0,0,0.14), rgba(0,0,0,0.45));
   display: grid;
   grid-template-rows: auto 1fr;
@@ -19,9 +19,9 @@
   position: fixed;
   translate: 100% 0;
   transition:
-    translate  0.36s cubic-bezier(0.16, 1, 0.3, 1),
+    display    0.36s ease allow-discrete,
     overlay    0.36s ease allow-discrete,
-    display    0.36s ease allow-discrete;
+    translate  0.36s cubic-bezier(0.16, 1, 0.3, 1);
   width: 380px;
 }
 
@@ -35,10 +35,10 @@
   backdrop-filter: blur(0px);
   background: rgba(0,0,0,0);
   transition:
-    background       0.36s ease,
     backdrop-filter  0.36s ease,
-    overlay          0.36s ease allow-discrete,
-    display          0.36s ease allow-discrete;
+    background       0.36s ease,
+    display          0.36s ease allow-discrete,
+    overlay          0.36s ease allow-discrete;
 }
 #notif-panel:popover-open::backdrop {
   backdrop-filter: blur(2px);
@@ -55,13 +55,13 @@
 .np-hd {
   align-items: center;
   background: var(--bg-card);
-  border-bottom: 1px solid var(--border);
+  border-block-end: 1px solid var(--border);
   display: flex;
   gap: 8px;
+  inset-block-start: 0;
   justify-content: space-between;
   padding: 18px 20px 16px;
   position: sticky;
-  top: 0;
   z-index: 1;
 }
 
@@ -76,7 +76,7 @@
 
 .np-title {
   color: var(--text-1);
-  font-size: var(--fs-panel-title);  /* 15px */
+  font-size: var(--fs-panel-title);   /* 15px */
   font-weight: var(--fw-semibold);
   letter-spacing: var(--ls-snug);
   white-space: nowrap;
@@ -86,7 +86,7 @@
   background: var(--gold-dim);
   border-radius: var(--radius-btn);
   color: var(--gold-text);
-  font-size: var(--fs-xs);           /* 10px */
+  font-size: var(--fs-xs);            /* 10px */
   font-weight: var(--fw-bold);
   letter-spacing: var(--ls-wide);
   padding: 2px 7px;
@@ -108,7 +108,7 @@
   color: var(--gold-text);
   cursor: pointer;
   font-family: var(--font-sans);
-  font-size: var(--fs-md);           /* 12px */
+  font-size: var(--fs-md);            /* 12px */
   font-weight: var(--fw-medium);
   padding: 4px 10px;
   transition: background 0.15s ease;
@@ -140,11 +140,11 @@
 
 /* ── Scrollable body ── */
 .np-body {
+  /* Fade-to-transparent at bottom signals more content below */
+  mask-image: linear-gradient(to bottom, black calc(100% - 48px), transparent 100%);
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: 10px;
-  /* Fade-to-transparent at bottom signals more content below */
-  mask-image: linear-gradient(to bottom, black calc(100% - 48px), transparent 100%);
 }
 
 /* ── List ── */
@@ -198,7 +198,7 @@
   gap: 11px;
   min-width: 0;
   padding: 12px 10px 12px 13px;
-  text-align: left;
+  text-align: start;
   transition: background 0.15s ease;
 }
 .np-item-btn:hover { background: var(--bg-hover); }
@@ -221,7 +221,7 @@
   flex-shrink: 0;
   height: 30px;
   justify-content: center;
-  margin-top: 1px;
+  margin-block-start: 1px;
   width: 30px;
 }
 
@@ -235,7 +235,7 @@
 
 .np-item-title {
   color: var(--text-1);
-  font-size: var(--fs-body);         /* 14px */
+  font-size: var(--fs-body);          /* 14px */
   font-weight: var(--fw-semibold);
   line-height: var(--lh-snug);
 }
@@ -246,16 +246,16 @@
 
 .np-item-body {
   color: var(--text-3);
-  font-size: var(--fs-md);           /* 12px */
+  font-size: var(--fs-md);            /* 12px */
   line-height: var(--lh-snug);
 }
 
 .np-item-time {
   color: var(--text-3);
   display: block;
-  font-size: var(--fs-xs);           /* 10px */
+  font-size: var(--fs-xs);            /* 10px */
   letter-spacing: var(--ls-wide);
-  margin-top: 2px;
+  margin-block-start: 2px;
 }
 
 /* ── Unread indicator dot ── */
@@ -264,8 +264,8 @@
   border-radius: 50%;
   flex-shrink: 0;
   height: 7px;
-  margin-left: auto;
-  margin-top: 5px;
+  margin-block-start: 5px;
+  margin-inline-start: auto;
   width: 7px;
 }
 
@@ -280,11 +280,11 @@
   display: flex;
   font-size: 11px;
   justify-content: center;
-  margin-right: 6px;
-  margin-top: 8px;
+  margin-block-start: 8px;
+  margin-inline-end: 6px;
   opacity: 0;
   padding: 4px 6px;
-  transition: opacity 0.15s ease, color 0.15s ease;
+  transition: color 0.15s ease, opacity 0.15s ease;
 }
 .np-item:hover .np-dismiss,
 .np-item:focus-within .np-dismiss { opacity: 1; }

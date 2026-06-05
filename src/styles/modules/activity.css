@@ -1,30 +1,33 @@
 /* ─── ACTIVITY FEED ──────────────────────────────────── */
 .activity-item {
   align-items: flex-start;
-  border-bottom: 1px solid var(--divider);
+  border-block-end: 1px solid var(--divider);
   display: flex;
   gap: 12px;
   padding: 12px 0;
 }
 
-.activity-item:last-child { border-bottom: none; }
+.activity-item:last-child { border-block-end: none; }
 
 .activity-icon {
+  align-items: center;
   border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
   flex-shrink: 0;
-  font-size: var(--fs-lg);           /* 15px */
-  width: 34px; height: 34px;
+  font-size: var(--fs-lg);             /* 15px */
+  height: 34px;
+  justify-content: center;
+  width: 34px;
 }
 
-.activity-icon.is-buy { background: var(--green-dim); color: var(--green); }
+.activity-icon.is-buy  { background: var(--green-dim); color: var(--green); }
 .activity-icon.is-sell { background: var(--red-dim); color: var(--red); }
-.activity-icon.is-div { background: var(--gold-dim); color: var(--gold-text); }
+.activity-icon.is-div  { background: var(--gold-dim); color: var(--gold-text); }
 
 .activity-body { flex: 1; }
 .activity-title { color: var(--text-1); font-size: var(--fs-ui); font-weight: var(--fw-medium); }
-.activity-sub { color: var(--text-3); font-size: var(--fs-md); margin-top: 2px; }
+.activity-sub { color: var(--text-3); font-size: var(--fs-md); margin-block-start: 2px; }
 .activity-amount { color: var(--text-1); font-size: var(--fs-ui); font-weight: var(--fw-semibold); }
 .activity-amount.is-positive { color: var(--green); }
 .activity-amount.is-negative { color: var(--red); }
-.activity-time { color: var(--text-3); font-size: var(--fs-sm); margin-top: 2px; text-align: right; }
+.activity-time { color: var(--text-3); font-size: var(--fs-sm); margin-block-start: 2px; text-align: end; }
