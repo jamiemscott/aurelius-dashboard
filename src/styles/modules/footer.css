@@ -236,21 +236,14 @@
    and smaller devices.                                       */
 
 @media (max-width: 1024px) {
+  /* Brand spans full width; three link columns sit in a row beneath */
   .footer-upper {
-    gap: 16px;
-    grid-template-columns: 1fr;
+    gap: 16px 24px;
+    grid-template-columns: 1fr 1fr 1fr;
     padding: 24px 0 16px;
   }
 
-  /* Brand block sits above the three link columns */
-  .footer-brand { margin-block-end: 4px; }
-
-  /* Link columns sit side-by-side in three equal columns */
-  .footer-upper--link-wrapper {
-    display: grid;
-    gap: 16px;
-    grid-template-columns: repeat(3, 1fr);
-  }
+  .footer-brand-col { grid-column: 1 / -1; }
 
   /* Within each column, links run horizontally and wrap —
      eliminates the tall vertical stacks                     */
@@ -283,10 +276,8 @@
 }
 
 @media (max-width: 768px) {
-  /* Link columns stack to single column on phones */
-  .footer-upper--link-wrapper {
-    grid-template-columns: 1fr;
-  }
+  /* Collapse to single column on phones */
+  .footer-upper { grid-template-columns: 1fr; }
 
   /* Restore vertical links at phone width — more readable */
   .footer-links {
