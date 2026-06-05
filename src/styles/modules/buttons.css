@@ -12,12 +12,14 @@
   font-weight: var(--fw-semibold);
   gap: 6px;
   padding: 9px 20px;
-  transition: opacity 0.2s, transform 0.1s;
+  transition: box-shadow 0.2s, transform 0.15s;
   white-space: nowrap;
 }
 
-.btn-primary:hover  { color: currentColor; opacity: 0.88; }
-.btn-primary:active { transform: scale(0.98); }
+/* Lift + gold glow — keeps button fully opaque so dark text
+   retains contrast against the gold background.             */
+.btn-primary:hover  { box-shadow: 0 4px 18px oklch(from var(--gold) l c h / 0.50); transform: translateY(-1px); }
+.btn-primary:active { box-shadow: none; transform: scale(0.98); }
 
 .btn-secondary {
   align-items: center;
