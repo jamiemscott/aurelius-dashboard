@@ -27,12 +27,12 @@
   background:
     linear-gradient(var(--card-fill), var(--card-fill)) padding-box,
     conic-gradient(from var(--border-angle),
-      var(--gold)  0%,
-      var(--gold) 40%,
-      #7C3AED     52%,
-      #7C3AED     62%,
-      var(--gold) 75%,
-      var(--gold) 100%
+      oklch(from var(--gold) l c h / 0.45)   0%,
+      oklch(from var(--gold) l c h / 0.45)  40%,
+      rgba(124, 58, 237, 0.35)               52%,
+      rgba(124, 58, 237, 0.35)               62%,
+      oklch(from var(--gold) l c h / 0.45)  75%,
+      oklch(from var(--gold) l c h / 0.45) 100%
     ) border-box;
   border: 1px solid transparent;
   border-radius: var(--radius-card);
