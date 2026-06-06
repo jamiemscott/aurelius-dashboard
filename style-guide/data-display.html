@@ -283,6 +283,37 @@
       </div>
     </section>
 
+    <!-- ── Stat Chips ───────────────────────────────────────── -->
+    <section class="sg-section" id="stat-chips">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Stat Chips — <code>.card.stat-chip</code></h2>
+        <p class="sg-section-desc">A row of compact metric tiles used to surface key portfolio statistics — value, cost, gain/loss, yield, and cash. Each chip uses <code>.card</code> as its base (background, border, shadow, radius) with <code>.stat-chip</code> as a layout modifier (<code>flex: 1</code>, padding). Wrap chips in a <code>.stat-row</code> flex container. Value colour variants: <code>.gold</code> for primary metric, <code>.green</code> for gains, <code>.red</code> for losses.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="stat-row">
+          <div class="card stat-chip"><div class="stat-chip-label">Total Market Value</div><div class="stat-chip-value gold">£842,340</div></div>
+          <div class="card stat-chip"><div class="stat-chip-label">Total Cost</div><div class="stat-chip-value">£694,210</div></div>
+          <div class="card stat-chip"><div class="stat-chip-label">Total Gain / Loss</div><div class="stat-chip-value green">+£148,130</div></div>
+          <div class="card stat-chip"><div class="stat-chip-label">Yield</div><div class="stat-chip-value">2.21%</div></div>
+          <div class="card stat-chip"><div class="stat-chip-label">Cash (GBP)</div><div class="stat-chip-value">£31,800</div></div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="stat-row"&gt;
+  &lt;div class="card stat-chip"&gt;
+    &lt;div class="stat-chip-label"&gt;Total Market Value&lt;/div&gt;
+    &lt;div class="stat-chip-value gold"&gt;£842,340&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="card stat-chip"&gt;
+    &lt;div class="stat-chip-label"&gt;Total Cost&lt;/div&gt;
+    &lt;div class="stat-chip-value"&gt;£694,210&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;!-- .gold / .green / .red on .stat-chip-value for colour variants --&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
   </main>
 </div>
 
