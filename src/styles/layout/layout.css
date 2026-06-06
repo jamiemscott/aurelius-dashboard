@@ -29,7 +29,7 @@
 /* ─── TOPBAR ─────────────────────────────────────────── */
 [role="banner"] {
   align-items: center;
-  background: var(--bg-card);
+  background: var(--bg-sidebar);
   border-block-end: 1px solid var(--border);
   box-shadow: var(--shadow-inner);
   display: grid;
