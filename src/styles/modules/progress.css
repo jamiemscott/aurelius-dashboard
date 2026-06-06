@@ -44,8 +44,6 @@
 }
 
 .stat-chip {
-  background: var(--tag-bg);
-  border-radius: 10px;
   flex: 1;
   padding: 12px 14px;
 }
