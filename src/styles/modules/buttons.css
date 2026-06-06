@@ -11,6 +11,7 @@
   font-size: var(--fs-btn);            /* 13px */
   font-weight: var(--fw-semibold);
   gap: 6px;
+  justify-content: center;
   padding: 9px 20px;
   text-decoration: underline;
   text-decoration-color: transparent;
@@ -45,6 +46,7 @@
   font-size: var(--fs-btn);            /* 13px */
   font-weight: var(--fw-semibold);
   gap: 6px;
+  justify-content: center;
   padding: 9px 20px;
   text-decoration: underline;
   text-decoration-color: transparent;
