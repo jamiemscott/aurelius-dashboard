@@ -36,7 +36,6 @@
    Only context-specific overrides live here.         */
 .contact-btn {
   font-size: var(--fs-md);             /* 12px — smaller than default btn */
-  justify-content: center;
   margin-block-start: 4px;
   padding: 7px 12px;
 }

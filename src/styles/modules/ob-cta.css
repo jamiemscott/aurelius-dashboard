@@ -85,7 +85,6 @@
 /* ── CTA button — modifier only, gold from .btn-primary ──────── */
 .ob-cta__btn {
   font-size: var(--fs-md);            /* 12px — smaller than default btn */
-  justify-content: center;
   padding: 7px 12px;
   width: 100%;
 }
