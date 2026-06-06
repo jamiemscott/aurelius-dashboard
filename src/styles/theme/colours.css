@@ -45,14 +45,16 @@ html:has(.theme-checkbox:checked) {
 
 
 /* ─── BORDERS & DIVIDERS ───────────────────────────────────────
-   --border      neutral alpha — used for structural chrome,
-                 inputs, nav, etc. Not hue-tinted.
-   --border-card gold-tinted in dark mode — gives cards a warm,
-                 premium edge against the dark canvas.         */
+   --border       neutral alpha — structural chrome only (cards,
+                  nav, panels). Too subtle for inputs.
+   --border-input meets WCAG 1.4.11 (3:1 non-text contrast) on
+                  all input surfaces. Use for every form control.
+   --border-card  gold-tinted in dark mode — warm premium edge.  */
 :root {
-  --border:      light-dark(rgba(0, 0, 0, 0.06), rgba(255, 255, 255, 0.06));
-  --border-card: light-dark(rgba(0, 0, 0, 0.06), oklch(from var(--seed-primary) l c h / 0.14));
-  --divider:     light-dark(rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.05));
+  --border:       light-dark(rgba(0, 0, 0, 0.06), rgba(255, 255, 255, 0.06));
+  --border-input: light-dark(rgba(0, 0, 0, 0.25), oklch(from var(--gold) l c h / 0.45));
+  --border-card:  light-dark(rgba(0, 0, 0, 0.06), oklch(from var(--seed-primary) l c h / 0.14));
+  --divider:      light-dark(rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.05));
 }
 
 
