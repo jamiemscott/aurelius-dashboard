@@ -436,14 +436,15 @@ mark.hs-hl {
   border: 1px solid var(--border);
   border-radius: var(--radius-btn);
   color: var(--text-1);
+  align-items: center;
   cursor: pointer;
-  display: block;
+  display: flex;
   font-family: var(--font-sans);
   font-size: var(--fs-ui);
   font-weight: var(--fw-medium);
+  justify-content: center;
   margin-block-start: 4px;
   padding: 9px 16px;
-  text-align: center;
   text-decoration: none;
   transition: background 0.2s, border-color 0.2s, color 0.2s;
 }
