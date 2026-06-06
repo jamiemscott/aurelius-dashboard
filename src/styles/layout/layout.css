@@ -200,9 +200,14 @@ html:has(.theme-checkbox:checked) .main::before {
    usable at narrow/short windows. Flex: 1 removed in favour
    of an explicit clamp so the footer is scrollable below.   */
 .chat-wrap {
+  background: var(--card-fill);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-inner), var(--shadow-card);
   display: flex;
   flex-direction: column;
   min-height: clamp(480px, calc(100svh - var(--topbar-h) - 160px), 900px);
+  overflow: hidden;
   width: 100%;
 }
 
