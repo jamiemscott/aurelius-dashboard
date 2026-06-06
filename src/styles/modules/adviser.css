@@ -40,7 +40,7 @@
   background-position: right 12px center;
   background-repeat: no-repeat;
   background-size: 12px;
-  border: 1px solid var(--gold-glow);
+  border: 1px solid oklch(from var(--gold) l c h / 0.45);
   border-radius: var(--radius-item);
   color: var(--text-1);
   cursor: pointer;
@@ -593,7 +593,7 @@
 
 .adv-textarea {
   background: var(--bg-input);
-  border: 1px solid var(--gold-glow);
+  border: 1px solid oklch(from var(--gold) l c h / 0.45);
   border-radius: 12px;
   color: var(--text-1);
   flex: 1;
