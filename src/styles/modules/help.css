@@ -428,32 +428,9 @@ mark.hs-hl {
   font-size: var(--fs-sm);
 }
 
-/* Ghost variant — transparent at rest, fills gold on hover.
-   Used for phone / callback options on the help page.      */
+/* Layout modifier — all three CTAs use btn-primary as base.
+   This class keeps only help-page-specific layout overrides. */
 .hs-contact-cta {
   align-self: stretch;
-  background: transparent;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-btn);
-  color: var(--text-1);
-  align-items: center;
-  cursor: pointer;
-  display: flex;
-  font-family: var(--font-sans);
-  font-size: var(--fs-ui);
-  font-weight: var(--fw-medium);
-  justify-content: center;
   margin-block-start: 4px;
-  padding: 9px 16px;
-  text-decoration: none;
-  transition: background 0.2s, border-color 0.2s, color 0.2s;
 }
-
-.hs-contact-cta:hover {
-  background: var(--gold);
-  border-color: var(--gold);
-  color: #0B0D10;
-}
-
-/* Modifier — when used alongside .btn-primary, keeps layout only.
-   .hs-contact-cta--primary has been removed; use btn-primary instead. */
