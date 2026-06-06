@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="charts">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Charts — Aurelius Style Guide</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Charts</h1>
+      <p class="sg-page-desc">Chart layout and chrome classes defined in <code>modules/charts.css</code>. These classes handle the card structure, header, legend, tooltip, range pills, and axis labels. The SVG chart content itself is generated dynamically (OutSystems or JavaScript) — these classes style the surrounding shell, not the chart paths.</p>
+    </div>
+
+    <!-- ── Chart Header ──────────────────────────────────────── -->
+    <section class="sg-section" id="chart-header">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Chart Header</h2>
+        <p class="sg-section-desc">A flex row with a title/subtitle on the left and range pills or action buttons on the right. Sits above the chart SVG container. Use <code>.chart-header</code> + <code>.chart-title</code> + <code>.chart-subtitle</code> on the left, and <code>.range-pills</code> + <code>.range-pill</code> on the right.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="chart-header">
+          <div>
+            <div class="chart-title">Portfolio Performance</div>
+            <div class="chart-subtitle">Total return since inception</div>
+          </div>
+          <div class="range-pills">
+            <button class="range-pill">1M</button>
+            <button class="range-pill">3M</button>
+            <button class="range-pill">6M</button>
+            <button class="range-pill is-active">1Y</button>
+            <button class="range-pill">All</button>
+          </div>
+        </div>
+        <div style="height:4px;background:var(--divider);border-radius:2px;margin-top:8px;opacity:0.5"></div>
+        <p style="color:var(--text-3);font-size:var(--fs-xs);margin:8px 0 0;text-align:center">[Chart SVG renders here]</p>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="chart-header"&gt;
+  &lt;div&gt;
+    &lt;div class="chart-title"&gt;Portfolio Performance&lt;/div&gt;
+    &lt;div class="chart-subtitle"&gt;Total return since inception&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="range-pills"&gt;
+    &lt;button class="range-pill"&gt;1M&lt;/button&gt;
+    &lt;button class="range-pill"&gt;3M&lt;/button&gt;
+    &lt;button class="range-pill is-active"&gt;1Y&lt;/button&gt;
+    &lt;button class="range-pill"&gt;All&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="chart-container"&gt;
+  &lt;svg class="chart-svg" viewBox="0 0 600 200"&gt;&lt;!-- chart paths --&gt;&lt;/svg&gt;
+  &lt;div class="chart-tooltip" id="chart-tip"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="chart-axis-labels"&gt;
+  &lt;span class="chart-axis-label"&gt;Jan&lt;/span&gt;
+  &lt;span class="chart-axis-label"&gt;Dec&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Donut Chart ────────────────────────────────────────── -->
+    <section class="sg-section" id="donut-chart">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Donut Chart with Legend</h2>
+        <p class="sg-section-desc">Used for asset allocation and sector breakdown displays. The <code>.donut-wrap</code> aligns the SVG donut (<code>.donut-svg</code>) side-by-side with a <code>.legend</code>. The centred chart card variant (<code>.chart-card</code>) stacks them vertically for narrower contexts.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="donut-wrap">
+          <svg class="donut-svg" viewBox="0 0 150 150" aria-label="Asset allocation donut chart">
+            <circle cx="75" cy="75" r="55" fill="none" stroke="var(--gold)" stroke-width="30" stroke-dasharray="207.35 138.23" stroke-dashoffset="0" transform="rotate(-90 75 75)"/>
+            <circle cx="75" cy="75" r="55" fill="none" stroke="var(--el-water)" stroke-width="30" stroke-dasharray="103.67 241.9" stroke-dashoffset="-207.35" transform="rotate(-90 75 75)"/>
+            <circle cx="75" cy="75" r="55" fill="none" stroke="var(--el-wood)" stroke-width="30" stroke-dasharray="34.56 310.88" stroke-dashoffset="-311.02" transform="rotate(-90 75 75)"/>
+          </svg>
+          <div class="legend">
+            <div class="legend-item">
+              <div class="legend-dot" style="background:var(--gold)"></div>
+              <span class="legend-label">Global Equity</span>
+              <span class="legend-pct">60%</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background:var(--el-water)"></div>
+              <span class="legend-label">Fixed Income</span>
+              <span class="legend-pct">30%</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background:var(--el-wood)"></div>
+              <span class="legend-label">Alternatives</span>
+              <span class="legend-pct">10%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="donut-wrap"&gt;
+  &lt;svg class="donut-svg" viewBox="0 0 150 150" aria-label="Asset allocation"&gt;
+    &lt;!-- SVG arc paths --&gt;
+  &lt;/svg&gt;
+  &lt;div class="legend"&gt;
+    &lt;div class="legend-item"&gt;
+      &lt;div class="legend-dot" style="background:var(--gold)"&gt;&lt;/div&gt;
+      &lt;span class="legend-label"&gt;Global Equity&lt;/span&gt;
+      &lt;span class="legend-pct"&gt;60%&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;!-- more legend items --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Chart Tooltip ─────────────────────────────────────── -->
+    <section class="sg-section" id="chart-tooltip">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Chart Tooltip</h2>
+        <p class="sg-section-desc">An absolutely positioned card that appears on hover/focus over a chart data point. The <code>.chart-container</code> must be <code>position: relative</code> (already set). The tooltip has <code>display: none</code> by default — JavaScript sets <code>style="display:block; left: Xpx; top: Ypx;"</code> on interaction. <code>pointer-events: none</code> ensures the tooltip never captures mouse events.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="chart-container" style="min-height:80px;display:flex;align-items:center;justify-content:center">
+          <div class="chart-tooltip" style="display:block;position:relative;inset:auto">
+            <strong style="color:var(--text-1);font-size:var(--fs-ui);display:block">£124,350</strong>
+            <span style="color:var(--text-3);font-size:var(--fs-xs)">14 Nov 2024</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── OutSystems Note ───────────────────────────────────── -->
+    <section class="sg-section" id="outsystems-note">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">OutSystems SVG Note</h2>
+      </div>
+      <div style="background:var(--bg-card);border:1px solid var(--gold-glow);border-radius:var(--radius-item);padding:16px 18px">
+        <p style="color:var(--text-2);font-size:var(--fs-body);margin:0;line-height:var(--lh-relaxed)">OutSystems <code>InlineSVG</code> strips <code>class</code> and <code>id</code> from the SVG element. Target by structural selector instead:</p>
+        <div class="sg-code" style="margin-top:12px">
+          <pre><code class="language-css">/* Local prototype (class preserved) */
+.chart-svg { display: block; width: 100% !important; }
+
+/* OutSystems (class/id stripped) */
+.chart-container svg { display: block; height: auto; width: 100% !important; }</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Token Table ────────────────────────────────────────── -->
+    <section class="sg-section" id="tokens">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Token Reference</h2>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md)">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);color:var(--text-3);text-align:left">
+              <th style="padding:8px 12px 8px 0;font-weight:var(--fw-semibold)">Token</th>
+              <th style="padding:8px 0;font-weight:var(--fw-semibold)">Purpose</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--text-2)">
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--fs-panel-title</code> (15px)</td><td style="padding:8px 0">chart-title font size</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--fs-sm</code> (11px)</td><td style="padding:8px 0">Range pill, axis label, chart-subtitle</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--gold-dim / --gold-text</code></td><td style="padding:8px 0">Active range pill background/text</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--bg-card</code></td><td style="padding:8px 0">Tooltip background</td></tr>
+            <tr><td style="padding:8px 12px 8px 0"><code>--shadow-card</code></td><td style="padding:8px 0">Tooltip shadow</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Accessibility ─────────────────────────────────────── -->
+    <section class="sg-section" id="accessibility">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Accessibility Notes</h2>
+      </div>
+      <div class="sg-demo sg-demo--col">
+        <p style="margin:0;color:var(--text-2);font-size:var(--fs-body)">SVG charts must include an <code>aria-label</code> describing the chart's purpose and key data. Tooltips must be accessible via keyboard (mouse-over data points should also respond to focus). Range pills must be buttons (<code>role="button"</code> or <code>&lt;button&gt;</code>) with clear active state. Legend items use colour + text — never colour alone (WCAG 1.4.1).</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+</body>
+</html>

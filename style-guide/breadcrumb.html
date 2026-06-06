@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="breadcrumb">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Breadcrumb — Aurelius Style Guide</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Breadcrumb</h1>
+      <p class="sg-page-desc">A lightweight horizontal path indicator that tells users where they are in the page hierarchy. Defined in <code>modules/breadcrumb.css</code>. Typically sits above the page title in the <code>.page-header</code> region or at the top of a wizard/multi-step flow. Renders at 12px — smaller than body copy — so it adds context without competing with the page heading.</p>
+    </div>
+
+    <!-- ── Anatomy ───────────────────────────────────────────── -->
+    <section class="sg-section" id="anatomy">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Anatomy</h2>
+        <p class="sg-section-desc">The breadcrumb is a flex row of links and separators. The last item (<code>.breadcrumb-current</code>) is slightly lighter than the preceding links and is not a link — it represents the current page.</p>
+      </div>
+      <div class="sg-demo sg-demo--col">
+        <nav aria-label="Breadcrumb">
+          <ol class="breadcrumb" style="list-style:none;padding:0;margin:0">
+            <li><a href="#" style="color:var(--text-3);font-size:var(--fs-md);text-decoration:none">My Investments</a></li>
+            <li class="breadcrumb-sep" aria-hidden="true">/</li>
+            <li><a href="#" style="color:var(--text-3);font-size:var(--fs-md);text-decoration:none">Portfolios</a></li>
+            <li class="breadcrumb-sep" aria-hidden="true">/</li>
+            <li class="breadcrumb-current" aria-current="page">Add Investment</li>
+          </ol>
+        </nav>
+        <div style="margin-top:8px;display:flex;gap:20px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="width:12px;height:12px;border-radius:50%;background:var(--text-3);opacity:0.5"></div>
+            <span style="color:var(--text-3);font-size:var(--fs-xs)">.breadcrumb — flex row, text-3, 12px</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="width:12px;height:12px;border-radius:50%;background:var(--gold)"></div>
+            <span style="color:var(--text-3);font-size:var(--fs-xs)">.breadcrumb-sep — opacity: 0.4</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="width:12px;height:12px;border-radius:50%;background:var(--text-2)"></div>
+            <span style="color:var(--text-3);font-size:var(--fs-xs)">.breadcrumb-current — text-2, no link</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Usage ─────────────────────────────────────────────── -->
+    <section class="sg-section" id="usage">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Usage with Page Header</h2>
+        <p class="sg-section-desc">Place the breadcrumb <em>inside</em> the left column of <code>.page-header</code>, immediately above the <code>.page-title</code>. The 4px bottom margin on <code>.breadcrumb</code> provides the correct gap to the heading.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="page-header" style="margin:0">
+          <div>
+            <nav aria-label="Breadcrumb">
+              <ol class="breadcrumb" style="list-style:none;padding:0;margin:0">
+                <li><a href="#" style="color:var(--text-3);font-size:var(--fs-md);text-decoration:none">My Investments</a></li>
+                <li class="breadcrumb-sep" aria-hidden="true">/</li>
+                <li class="breadcrumb-current" aria-current="page">Add Investment</li>
+              </ol>
+            </nav>
+            <h1 class="page-title">Add Investment</h1>
+            <p class="page-date">Select a fund and configure your contribution</p>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="page-header"&gt;
+  &lt;div&gt;
+    &lt;nav aria-label="Breadcrumb"&gt;
+      &lt;ol class="breadcrumb" style="list-style:none;padding:0;margin:0"&gt;
+        &lt;li&gt;&lt;a href="/my-investments/"&gt;My Investments&lt;/a&gt;&lt;/li&gt;
+        &lt;li class="breadcrumb-sep" aria-hidden="true"&gt;/&lt;/li&gt;
+        &lt;li class="breadcrumb-current" aria-current="page"&gt;Add Investment&lt;/li&gt;
+      &lt;/ol&gt;
+    &lt;/nav&gt;
+    &lt;h1 class="page-title"&gt;Add Investment&lt;/h1&gt;
+    &lt;p class="page-date"&gt;Select a fund and configure your contribution&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Token Table ────────────────────────────────────────── -->
+    <section class="sg-section" id="tokens">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Token Reference</h2>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md)">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);color:var(--text-3);text-align:left">
+              <th style="padding:8px 12px 8px 0;font-weight:var(--fw-semibold)">Token</th>
+              <th style="padding:8px 12px;font-weight:var(--fw-semibold)">Value</th>
+              <th style="padding:8px 0;font-weight:var(--fw-semibold)">Purpose</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--text-2)">
+            <tr style="border-bottom:1px solid var(--divider)">
+              <td style="padding:8px 12px 8px 0"><code>--text-3</code></td>
+              <td style="padding:8px 12px">Tertiary text</td>
+              <td style="padding:8px 0">Default breadcrumb item colour</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--divider)">
+              <td style="padding:8px 12px 8px 0"><code>--text-2</code></td>
+              <td style="padding:8px 12px">Secondary text</td>
+              <td style="padding:8px 0">Current page label (.breadcrumb-current)</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--divider)">
+              <td style="padding:8px 12px 8px 0"><code>--fs-md</code></td>
+              <td style="padding:8px 12px">12px</td>
+              <td style="padding:8px 0">Breadcrumb font size</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 12px 8px 0"><code>opacity: 0.4</code></td>
+              <td style="padding:8px 12px">—</td>
+              <td style="padding:8px 0">Separator (.breadcrumb-sep) dimming</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Do / Don't ────────────────────────────────────────── -->
+    <section class="sg-section" id="do-dont">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Do &amp; Don't</h2>
+      </div>
+      <div class="sg-do-dont">
+        <div class="sg-do">
+          <div class="sg-do-label">Do</div>
+          <div class="sg-do-body">
+            <p style="color:var(--text-2);font-size:var(--fs-sm);margin:0 0 8px">Mark the current page with <code>aria-current="page"</code> and <code>.breadcrumb-current</code> — never make it a link.</p>
+            <nav aria-label="Breadcrumb">
+              <ol class="breadcrumb" style="list-style:none;padding:0;margin:0">
+                <li><a href="#" style="color:var(--text-3);font-size:var(--fs-md);text-decoration:none">Parent</a></li>
+                <li class="breadcrumb-sep" aria-hidden="true">/</li>
+                <li class="breadcrumb-current" aria-current="page">Current Page</li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+        <div class="sg-dont">
+          <div class="sg-dont-label">Don't</div>
+          <div class="sg-dont-body">
+            <p style="color:var(--text-2);font-size:var(--fs-sm);margin:0 0 8px">Don't show a breadcrumb for top-level pages — it adds no navigational value when there's only one level.</p>
+            <ol class="breadcrumb" style="list-style:none;padding:0;margin:0">
+              <li class="breadcrumb-current" aria-current="page">My Overview</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Accessibility ─────────────────────────────────────── -->
+    <section class="sg-section" id="accessibility">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Accessibility Notes</h2>
+      </div>
+      <div class="sg-demo sg-demo--col">
+        <p style="margin:0;color:var(--text-2);font-size:var(--fs-body)">Wrap the breadcrumb in a <code>&lt;nav aria-label="Breadcrumb"&gt;</code> landmark so screen readers announce the region. Use an ordered list (<code>&lt;ol&gt;</code>) to convey hierarchy. Mark separators with <code>aria-hidden="true"</code> — they are decorative. Mark the current item with <code>aria-current="page"</code>. WCAG 2.4.8 (Location) — Level AAA.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+</body>
+</html>

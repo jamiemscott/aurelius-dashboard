@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="goals">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goals — Aurelius Style Guide</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+<style>
+/* Demo-only: animate the ring on load */
+.sg-gl-demo .gl-progress-ring { transition: --gl-pct 0.9s cubic-bezier(0.22,1,0.36,1) 0.3s; }
+</style>
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Goals</h1>
+      <p class="sg-page-desc">The My Goals page component system — hero, goal cards, progress rings, adjust panels, and the add-goal drawer. Defined in <code>modules/goals.css</code>. Goals are full-page width with <code>.shell--no-sidebar</code> layout. The design language is open and motivational: large serif headings, gold accents, and progress rings that animate on mount.</p>
+    </div>
+
+    <!-- ── Goal Card ─────────────────────────────────────────── -->
+    <section class="sg-section" id="goal-card">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Goal Card (<code>.gl-card</code>)</h2>
+        <p class="sg-section-desc">The primary goal display unit. Each card shows a CSS conic-gradient progress ring with an emoji and percentage overlay, a name, saved/target amounts, monthly contribution, and a status badge. Cards are arranged in a responsive auto-fill grid (<code>.gl-grid</code>). Each card has a 3px top colour accent from <code>--gl-color</code>.</p>
+      </div>
+      <div class="sg-demo sg-gl-demo" style="max-width:320px">
+        <div class="gl-card" style="--gl-color:#22C55E">
+          <div class="gl-card-arc-wrap">
+            <div class="gl-ring-wrap">
+              <div class="gl-progress-ring" style="--gl-pct:72;--gl-color:#22C55E"></div>
+              <div class="gl-ring-content">
+                <span class="gl-ring-emoji">🏡</span>
+                <span class="gl-ring-pct">72%</span>
+              </div>
+            </div>
+          </div>
+          <div class="gl-card-body">
+            <h3 class="gl-card-name">House Deposit</h3>
+            <div class="gl-card-amounts">
+              <span class="gl-card-saved" style="--gl-color:#22C55E">£36,000</span>
+              <span> of £50,000</span>
+            </div>
+          </div>
+          <div class="gl-card-footer">
+            <div class="gl-card-meta">
+              <span class="gl-card-monthly">Monthly: <strong>£500</strong></span>
+              <span class="gl-card-date">Target: Dec 2026</span>
+            </div>
+            <div class="gl-card-actions">
+              <span class="gl-status gl-status--good">On track</span>
+              <button class="btn-secondary btn-secondary--sm">Adjust</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="gl-card" style="--gl-color:#22C55E"&gt;
+  &lt;div class="gl-card-arc-wrap"&gt;
+    &lt;div class="gl-ring-wrap"&gt;
+      &lt;!-- --gl-pct = percentage complete (0–100) --&gt;
+      &lt;div class="gl-progress-ring" style="--gl-pct:72;--gl-color:#22C55E"&gt;&lt;/div&gt;
+      &lt;div class="gl-ring-content"&gt;
+        &lt;span class="gl-ring-emoji"&gt;🏡&lt;/span&gt;
+        &lt;span class="gl-ring-pct"&gt;72%&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="gl-card-body"&gt;
+    &lt;h3 class="gl-card-name"&gt;House Deposit&lt;/h3&gt;
+    &lt;div class="gl-card-amounts"&gt;
+      &lt;span class="gl-card-saved"&gt;£36,000&lt;/span&gt; of £50,000
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="gl-card-footer"&gt;
+    &lt;div class="gl-card-meta"&gt;
+      &lt;span class="gl-card-monthly"&gt;Monthly: &lt;strong&gt;£500&lt;/strong&gt;&lt;/span&gt;
+      &lt;span class="gl-card-date"&gt;Target: Dec 2026&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="gl-card-actions"&gt;
+      &lt;span class="gl-status gl-status--good"&gt;On track&lt;/span&gt;
+      &lt;button class="btn-secondary btn-secondary--sm"&gt;Adjust&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Status Badges ──────────────────────────────────────── -->
+    <section class="sg-section" id="status-badges">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Status Badges</h2>
+        <p class="sg-section-desc">Four status modifier classes for the goal card badge. Always pair with <code>.gl-status</code> base class.</p>
+      </div>
+      <div class="sg-demo sg-demo--grid">
+        <span class="gl-status gl-status--good">On track</span>
+        <span class="gl-status gl-status--warn">Behind</span>
+        <span class="gl-status gl-status--bad">At risk</span>
+        <span class="gl-status gl-status--complete">Complete</span>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;span class="gl-status gl-status--good"&gt;On track&lt;/span&gt;
+&lt;span class="gl-status gl-status--warn"&gt;Behind&lt;/span&gt;
+&lt;span class="gl-status gl-status--bad"&gt;At risk&lt;/span&gt;
+&lt;span class="gl-status gl-status--complete"&gt;Complete&lt;/span&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Progress Ring ──────────────────────────────────────── -->
+    <section class="sg-section" id="progress-ring">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">CSS Progress Ring</h2>
+        <p class="sg-section-desc">The ring is a pure CSS conic-gradient — no SVG, no JavaScript. The <code>--gl-pct</code> custom property is registered via <code>@property</code> with <code>syntax: '&lt;number&gt;'</code>, making it animatable. Set it on the element as an inline style — the ring fills from 0 to the target value on mount.</p>
+        <p class="sg-section-desc" style="margin-top:8px">The <code>--gl-color</code> property sets both the ring fill colour and the card's top accent. Pass any valid CSS colour — the goals system uses status-appropriate colours (green for savings, gold for default, etc.).</p>
+      </div>
+      <div class="sg-demo sg-demo--grid">
+        <div style="text-align:center">
+          <div class="gl-ring-wrap" style="display:inline-block">
+            <div class="gl-progress-ring" style="--gl-pct:25;--gl-color:var(--el-water)"></div>
+            <div class="gl-ring-content"><span class="gl-ring-emoji">✈️</span><span class="gl-ring-pct">25%</span></div>
+          </div>
+          <div style="color:var(--text-3);font-size:var(--fs-xs);margin-top:8px">25% — Behind</div>
+        </div>
+        <div style="text-align:center">
+          <div class="gl-ring-wrap" style="display:inline-block">
+            <div class="gl-progress-ring" style="--gl-pct:72;--gl-color:#22C55E"></div>
+            <div class="gl-ring-content"><span class="gl-ring-emoji">🏡</span><span class="gl-ring-pct">72%</span></div>
+          </div>
+          <div style="color:var(--text-3);font-size:var(--fs-xs);margin-top:8px">72% — On track</div>
+        </div>
+        <div style="text-align:center">
+          <div class="gl-ring-wrap" style="display:inline-block">
+            <div class="gl-progress-ring" style="--gl-pct:100;--gl-color:var(--gold)"></div>
+            <div class="gl-ring-content"><span class="gl-ring-emoji">🎓</span><span class="gl-ring-pct">100%</span></div>
+          </div>
+          <div style="color:var(--text-3);font-size:var(--fs-xs);margin-top:8px">100% — Complete</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Add Goal Card ──────────────────────────────────────── -->
+    <section class="sg-section" id="add-card">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Add Goal Card (<code>.gl-add-card</code>)</h2>
+        <p class="sg-section-desc">A dashed-border placeholder card that sits at the end of the goal grid. On hover, the dashed border becomes solid gold and the icon background fills. Opens the <code>.gl-drawer</code> to create a new goal.</p>
+      </div>
+      <div class="sg-demo" style="max-width:280px">
+        <button class="gl-add-card">
+          <div class="gl-add-icon">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+          <div class="gl-add-label">New Goal</div>
+          <div class="gl-add-sub">Set a target and start saving</div>
+        </button>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;button class="gl-add-card" popovertarget="add-goal-drawer"&gt;
+  &lt;div class="gl-add-icon"&gt;
+    &lt;!-- plus icon SVG --&gt;
+  &lt;/div&gt;
+  &lt;div class="gl-add-label"&gt;New Goal&lt;/div&gt;
+  &lt;div class="gl-add-sub"&gt;Set a target and start saving&lt;/div&gt;
+&lt;/button&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Token Table ────────────────────────────────────────── -->
+    <section class="sg-section" id="tokens">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Token Reference</h2>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md)">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);color:var(--text-3);text-align:left">
+              <th style="padding:8px 12px 8px 0;font-weight:var(--fw-semibold)">Token</th>
+              <th style="padding:8px 0;font-weight:var(--fw-semibold)">Purpose</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--text-2)">
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--gl-pct</code></td><td style="padding:8px 0">Animatable progress percentage (0–100). Set via inline style.</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--gl-color</code></td><td style="padding:8px 0">Goal-specific colour: ring fill, card top accent, saved amount text.</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--gl-slider-pct</code></td><td style="padding:8px 0">Inline custom property for the adjust-panel range slider fill.</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--border</code></td><td style="padding:8px 0">Ring track (unfilled portion of the conic-gradient).</td></tr>
+            <tr><td style="padding:8px 12px 8px 0"><code>--font-serif</code></td><td style="padding:8px 0">Goal name, ring percentage, hero headings.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Accessibility ─────────────────────────────────────── -->
+    <section class="sg-section" id="accessibility">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Accessibility Notes</h2>
+      </div>
+      <div class="sg-demo sg-demo--col">
+        <p style="margin:0;color:var(--text-2);font-size:var(--fs-body)">Progress rings are purely visual — always include a text fallback via the <code>.gl-ring-pct</code> percentage inside the ring. Goal names use <code>&lt;h3&gt;</code> inside the grid (grid is inside a <code>&lt;main&gt;</code> with an <code>&lt;h1&gt;</code> page title). The "Adjust" interaction must be accessible via keyboard. Status badges use colour + text — WCAG 1.4.1. Reduced-motion: the ring transition is wrapped in <code>@media (prefers-reduced-motion: no-preference)</code> — at rest the ring still renders at its final value, just without the animation.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+</body>
+</html>

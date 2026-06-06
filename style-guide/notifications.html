@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="notifications">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notifications — Aurelius Style Guide</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Notifications Panel</h1>
+      <p class="sg-page-desc">A right-edge slide-in panel for activity notifications — portfolio updates, adviser messages, document alerts, dividends, tax notices, and security events. Defined in <code>modules/notifications.css</code>. Identified by <code>id="notif-panel"</code> (ID-targeted CSS). Uses the native Popover API on the prototype; <code>.is-open</code> toggle on OutSystems.</p>
+    </div>
+
+    <!-- ── Notification Types ─────────────────────────────────── -->
+    <section class="sg-section" id="types">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Notification Types</h2>
+        <p class="sg-section-desc">Each notification item receives a <code>data-type</code> attribute that controls its colour palette via CSS custom property overrides. Six types are defined, each with its own <code>--notif-color</code> and <code>--notif-bg</code>.</p>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md)">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);color:var(--text-3);text-align:left">
+              <th style="padding:8px 12px 8px 0;font-weight:var(--fw-semibold)">data-type</th>
+              <th style="padding:8px 12px;font-weight:var(--fw-semibold)">Color</th>
+              <th style="padding:8px 0;font-weight:var(--fw-semibold)">Meaning</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--text-2)">
+            <tr style="border-bottom:1px solid var(--divider)">
+              <td style="padding:8px 12px 8px 0"><code>portfolio</code></td>
+              <td style="padding:8px 12px"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--green);margin-right:6px"></span>Green</td>
+              <td style="padding:8px 0">Portfolio performance updates</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--divider)">
+              <td style="padding:8px 12px 8px 0"><code>adviser</code></td>
+              <td style="padding:8px 12px"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--gold);margin-right:6px"></span>Gold</td>
+              <td style="padding:8px 0">Messages from your adviser</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--divider)">
+              <td style="padding:8px 12px 8px 0"><code>document</code></td>
+              <td style="padding:8px 12px"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#818CF8;margin-right:6px"></span>Indigo</td>
+              <td style="padding:8px 0">New documents, statements, reports</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--divider)">
+              <td style="padding:8px 12px 8px 0"><code>tax</code></td>
+              <td style="padding:8px 12px"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#FBBF24;margin-right:6px"></span>Amber</td>
+              <td style="padding:8px 0">Tax reporting, CGT notices</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--divider)">
+              <td style="padding:8px 12px 8px 0"><code>security</code></td>
+              <td style="padding:8px 12px"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--red);margin-right:6px"></span>Red</td>
+              <td style="padding:8px 0">Login alerts, security events</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 12px 8px 0"><code>dividend</code></td>
+              <td style="padding:8px 12px"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#38BDF8;margin-right:6px"></span>Sky blue</td>
+              <td style="padding:8px 0">Dividend payments received</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Notification Items ─────────────────────────────────── -->
+    <section class="sg-section" id="items">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Notification Items</h2>
+        <p class="sg-section-desc">Each <code>.np-item</code> has a left accent stripe (3px, from <code>--notif-color</code>), an icon chip (<code>.np-icon</code>), a content block, and an optional unread dot. Unread items receive <code>data-unread</code> which intensifies the accent and adds a tinted background wash.</p>
+      </div>
+      <div class="sg-demo" style="padding:12px">
+        <ul class="np-list">
+          <li class="np-item" data-type="portfolio" data-unread style="--i:0">
+            <button class="np-item-btn">
+              <div class="np-icon">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              </div>
+              <div class="np-content">
+                <div class="np-item-title">Portfolio up 2.4% this month</div>
+                <div class="np-item-body">Your Vanguard Global Equity fund is outperforming the benchmark.</div>
+                <span class="np-item-time">2 hours ago</span>
+              </div>
+              <div class="np-unread-dot" aria-hidden="true"></div>
+            </button>
+          </li>
+          <li class="np-item" data-type="adviser" style="--i:1">
+            <button class="np-item-btn">
+              <div class="np-icon">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
+              <div class="np-content">
+                <div class="np-item-title">Message from Sarah Reynolds</div>
+                <div class="np-item-body">I've reviewed your CGT position for this tax year…</div>
+                <span class="np-item-time">Yesterday</span>
+              </div>
+            </button>
+          </li>
+          <li class="np-item" data-type="document" style="--i:2">
+            <button class="np-item-btn">
+              <div class="np-icon">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              </div>
+              <div class="np-content">
+                <div class="np-item-title">Q3 2024 Valuation Statement ready</div>
+                <div class="np-item-body">Your quarterly statement is now available to download.</div>
+                <span class="np-item-time">3 days ago</span>
+              </div>
+            </button>
+          </li>
+        </ul>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;!-- Unread item (add data-unread) --&gt;
+&lt;li class="np-item" data-type="portfolio" data-unread style="--i:0"&gt;
+  &lt;button class="np-item-btn"&gt;
+    &lt;div class="np-icon"&gt;&lt;!-- type icon --&gt;&lt;/div&gt;
+    &lt;div class="np-content"&gt;
+      &lt;div class="np-item-title"&gt;Portfolio up 2.4% this month&lt;/div&gt;
+      &lt;div class="np-item-body"&gt;Your Vanguard Global Equity fund is outperforming…&lt;/div&gt;
+      &lt;span class="np-item-time"&gt;2 hours ago&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="np-unread-dot" aria-hidden="true"&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/li&gt;
+
+&lt;!-- Read item (no data-unread, no .np-unread-dot) --&gt;
+&lt;li class="np-item" data-type="adviser" style="--i:1"&gt;
+  &lt;button class="np-item-btn"&gt;
+    &lt;div class="np-icon"&gt;&lt;!-- icon --&gt;&lt;/div&gt;
+    &lt;div class="np-content"&gt;
+      &lt;div class="np-item-title"&gt;Message from Sarah Reynolds&lt;/div&gt;
+      &lt;span class="np-item-time"&gt;Yesterday&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/button&gt;
+&lt;/li&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Panel Shell ────────────────────────────────────────── -->
+    <section class="sg-section" id="panel-shell">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Panel Shell</h2>
+        <p class="sg-section-desc">The outer panel uses <code>id="notif-panel"</code> (not a class) because its open/close animation and some state-based rules are scoped to this specific element. The header contains the title, unread count badge, a "mark all read" button, and a close button. The body uses a fade-to-transparent bottom mask to signal scrollable content.</p>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;!-- Prototype: native Popover --&gt;
+&lt;div id="notif-panel" popover="manual" role="dialog" aria-modal="true" aria-label="Notifications"&gt;
+  &lt;div class="np-hd"&gt;
+    &lt;div class="np-hd-left"&gt;
+      &lt;!-- bell icon --&gt;
+      &lt;span class="np-title"&gt;Notifications&lt;/span&gt;
+      &lt;span class="np-count" aria-live="polite"&gt;3&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="np-hd-right"&gt;
+      &lt;button class="np-mark-all-btn"&gt;Mark all read&lt;/button&gt;
+      &lt;button class="np-close" popovertarget="notif-panel"
+        popovertargetaction="hide" aria-label="Close notifications"&gt;
+        &amp;times;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="np-body"&gt;
+    &lt;ul class="np-list" role="list"&gt;
+      &lt;!-- np-item elements --&gt;
+    &lt;/ul&gt;
+    &lt;div class="np-empty"&gt;
+      &lt;!-- bell icon with opacity: 0.35 --&gt;
+      All caught up — no new notifications
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Zero State ─────────────────────────────────────────── -->
+    <section class="sg-section" id="zero-state">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Empty State</h2>
+        <p class="sg-section-desc">The <code>.np-empty</code> element is shown via CSS <code>:not(:has(.np-item))</code> — no JavaScript needed. It automatically appears when the list contains no items. This is a zero-JS empty state powered entirely by the CSS <code>:has()</code> selector.</p>
+      </div>
+    </section>
+
+    <!-- ── Stagger Animation ──────────────────────────────────── -->
+    <section class="sg-section" id="stagger">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Entry Animation Stagger</h2>
+        <p class="sg-section-desc">Each <code>.np-item</code> uses <code>fade-in-up</code> with a stagger delay from <code>--i</code>: <code>animation-delay: calc(var(--i, 0) * 55ms)</code>. Set <code>style="--i:0"</code>, <code>style="--i:1"</code>, etc. on each item so they cascade in sequence when the panel opens.</p>
+      </div>
+    </section>
+
+    <!-- ── Accessibility ─────────────────────────────────────── -->
+    <section class="sg-section" id="accessibility">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Accessibility Notes</h2>
+      </div>
+      <div class="sg-demo sg-demo--col">
+        <p style="margin:0;color:var(--text-2);font-size:var(--fs-body)">The panel is a <code>role="dialog" aria-modal="true"</code> element. The unread count badge uses <code>aria-live="polite"</code> so screen readers announce changes. The "mark all read" button is hidden via CSS <code>display:none</code> when there are no unread items (using <code>:not(:has([data-unread]))</code>) — no JavaScript required. Dismiss buttons have descriptive <code>aria-label</code> attributes. Keyboard: <kbd>Escape</kbd> closes the panel.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+</body>
+</html>

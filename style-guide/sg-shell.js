@@ -28,6 +28,24 @@ const PAGES = [
   { id: 'footer',       label: 'Footer',        href: 'footer.html',        icon: '<path d="M4 20h16"/><rect x="4" y="4" width="16" height="12" rx="2"/>' },
   { id: 'login',        label: 'Login',         href: 'login.html',         icon: '<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>' },
   { id: 'error',        label: 'Error Pages',   href: 'error.html',         icon: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>' },
+  // ── New pages ───────────────────────────────────────────────────────
+  { id: 'theming',      label: 'Theming',       href: 'theming.html',       icon: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>' },
+  { id: 'theme-toggle', label: 'Theme Toggle',  href: 'theme-toggle.html',  icon: '<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>' },
+  { id: 'brand',        label: 'Brand',         href: 'brand.html',         icon: '<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>' },
+  { id: 'breadcrumb',   label: 'Breadcrumb',    href: 'breadcrumb.html',    icon: '<polyline points="9 18 15 12 9 6"/>' },
+  { id: 'activity',     label: 'Activity Feed', href: 'activity.html',      icon: '<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>' },
+  { id: 'charts',       label: 'Charts',        href: 'charts.html',        icon: '<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>' },
+  { id: 'drawers',      label: 'Drawers',       href: 'drawers.html',       icon: '<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="15" y1="3" x2="15" y2="21"/>' },
+  { id: 'notifications',label: 'Notifications', href: 'notifications.html', icon: '<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>' },
+  { id: 'goals',        label: 'Goals',         href: 'goals.html',         icon: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>' },
+  { id: 'contact',      label: 'Contact Form',  href: 'contact.html',       icon: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>' },
+  { id: 'details',      label: 'My Details',    href: 'details.html',       icon: '<circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>' },
+  { id: 'progress',     label: 'Progress & Stats', href: 'progress.html',   icon: '<rect x="1" y="3" width="15" height="13"/><path d="M16 8h5"/><path d="M16 12h5"/><path d="M16 16h5"/>' },
+  { id: 'user-menu',    label: 'User Menu',     href: 'user-menu.html',     icon: '<circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/><circle cx="19" cy="19" r="3"/>' },
+  { id: 'advisor-card', label: 'Advisor Card',  href: 'advisor-card.html',  icon: '<rect x="2" y="4" width="20" height="16" rx="3"/><path d="M8 10h8M8 14h5"/>' },
+  { id: 'help',         label: 'Help Centre',   href: 'help.html',          icon: '<circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>' },
+  { id: 'ob-cta',       label: 'Onboarding CTA',href: 'ob-cta.html',        icon: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>' },
+  { id: 'add-investment',label: 'Add Investment',href: 'add-investment.html',icon: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>' },
 ];
 
 function svgIcon(paths) {

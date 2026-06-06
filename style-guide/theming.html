@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="theming">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Theming — Aurelius Style Guide</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Theming &amp; Dark Mode</h1>
+      <p class="sg-page-desc">Aurelius Wealth uses a CSS-native dark/light theme system built on <code>light-dark()</code>, <code>color-scheme</code>, and a hidden checkbox pattern. Dark mode is the default. Understanding how this works is essential before adding any new tokens or theme-aware styles.</p>
+    </div>
+
+    <!-- ── How it works ──────────────────────────────────────── -->
+    <section class="sg-section" id="how-it-works">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">How It Works</h2>
+        <p class="sg-section-desc">The theme system has three layers: the <code>color-scheme</code> property tells the browser which palette to use, <code>light-dark()</code> picks the correct value automatically, and a hidden checkbox + <code>:has()</code> selector toggles between modes without JavaScript writing to the DOM.</p>
+      </div>
+      <div class="sg-demo sg-demo--col">
+        <div style="background:var(--bg-input);border-radius:var(--radius-item);padding:16px 20px">
+          <p style="margin:0;color:var(--text-2);font-size:var(--fs-body);line-height:var(--lh-relaxed)"><strong style="color:var(--text-1)">Step 1 — Default dark mode.</strong> <code>:root { color-scheme: dark; }</code> tells the browser to treat all <code>light-dark()</code> calls as "resolve to the dark value". This is set in <code>theme/colours.css</code> before any token definitions.</p>
+        </div>
+        <div style="background:var(--bg-input);border-radius:var(--radius-item);padding:16px 20px">
+          <p style="margin:0;color:var(--text-2);font-size:var(--fs-body);line-height:var(--lh-relaxed)"><strong style="color:var(--text-1)">Step 2 — Light mode override.</strong> When the hidden <code>.theme-checkbox</code> is checked, <code>html:has(.theme-checkbox:checked) { color-scheme: light; }</code> switches the resolver. Every <code>light-dark()</code> value in every token immediately resolves to its light variant — no class toggling on individual elements needed.</p>
+        </div>
+        <div style="background:var(--bg-input);border-radius:var(--radius-item);padding:16px 20px">
+          <p style="margin:0;color:var(--text-2);font-size:var(--fs-body);line-height:var(--lh-relaxed)"><strong style="color:var(--text-1)">Step 3 — Tokens resolve automatically.</strong> Any token defined with <code>light-dark()</code> works in both modes with no extra code. Example: <code>--bg: light-dark(var(--neutral-1), var(--neutral-10))</code> resolves to light grey in light mode, dark navy in dark mode.</p>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">/* theme/colours.css — the foundation */
+:root { color-scheme: dark; }                          /* dark is default */
+html:has(.theme-checkbox:checked) { color-scheme: light; } /* light on toggle */
+
+/* Any token using light-dark() just works */
+:root {
+  --bg:      light-dark(var(--neutral-1), var(--neutral-10));
+  --bg-card: light-dark(var(--neutral-0), var(--neutral-8));
+  --text-1:  light-dark(var(--neutral-10), var(--neutral-0));
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Hidden Checkbox Pattern ───────────────────────────── -->
+    <section class="sg-section" id="checkbox-pattern">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">The Hidden Checkbox Pattern</h2>
+        <p class="sg-section-desc">The theme toggle uses a visually hidden <code>&lt;input type="checkbox"&gt;</code> with class <code>.theme-checkbox</code>. A visible <code>&lt;label for="theme-checkbox"&gt;</code> styled as a toggle switch triggers it. The <code>:has()</code> selector on the <code>&lt;html&gt;</code> element detects the checked state and switches <code>color-scheme</code> — no JavaScript DOM manipulation required for the theme switch itself.</p>
+        <p class="sg-section-desc" style="margin-top:8px">The checkbox must remain in the DOM at all viewport sizes, even when the visual toggle label is hidden via CSS (<code>display:none</code> below 1100px). The user menu "Appearance" item uses <code>for="theme-checkbox"</code> to link to the same input, so the toggle still works on mobile via the dropdown.</p>
+      </div>
+      <div class="sg-demo">
+        <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+          <div class="theme-switcher">
+            <input type="checkbox" role="switch" id="sg-theme-demo" class="theme-checkbox" aria-label="Colour theme">
+            <label class="theme-toggle" for="sg-theme-demo" aria-hidden="true">
+              <span class="theme-label-dark">Dark</span>
+              <span class="theme-label-light">Light</span>
+            </label>
+          </div>
+          <p style="color:var(--text-3);font-size:var(--fs-sm);margin:0">Toggle above controls the entire page theme</p>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;!-- Must be in the DOM at all times — even when visually hidden --&gt;
+&lt;div class="theme-switcher"&gt;
+  &lt;input type="checkbox" role="switch" id="theme-checkbox"
+    class="theme-checkbox" aria-label="Colour theme"&gt;
+  &lt;label class="theme-toggle" for="theme-checkbox" aria-hidden="true"&gt;
+    &lt;span class="theme-label-dark"&gt;Dark&lt;/span&gt;
+    &lt;span class="theme-label-light"&gt;Light&lt;/span&gt;
+  &lt;/label&gt;
+&lt;/div&gt;
+
+&lt;!-- The user menu Appearance item links to the same input --&gt;
+&lt;label class="um-item" for="theme-checkbox"&gt;
+  &lt;!-- icon --&gt;
+  Appearance
+  &lt;span class="um-hint theme-hint-dark"&gt;Dark&lt;/span&gt;
+  &lt;span class="um-hint theme-hint-light"&gt;Light&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Adding a New Token ────────────────────────────────── -->
+    <section class="sg-section" id="adding-tokens">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Adding a New Theme-Aware Token</h2>
+        <p class="sg-section-desc">When a component needs a colour that changes between modes, add it to <code>theme/colours.css</code> using <code>light-dark()</code>. Never hard-code a hex value in a component file — always define a token first. This keeps re-theming centralised.</p>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">/* 1. Define in theme/colours.css */
+:root {
+  --my-component-bg: light-dark(rgba(0,0,0,0.04), rgba(255,255,255,0.06));
+}
+
+/* 2. Consume in your module CSS */
+.my-component {
+  background: var(--my-component-bg);
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Gradient-Safe Tokens ──────────────────────────────── -->
+    <section class="sg-section" id="gradient-safe">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Gradient-Safe Tokens (<code>--card-fill</code>)</h2>
+        <p class="sg-section-desc">CSS gradient functions (<code>linear-gradient</code>, <code>conic-gradient</code>) do not resolve <code>light-dark()</code> inside their color stops. This is a browser limitation. To use a theme-aware colour as a gradient stop, you must use a <code>:has()</code> override rather than <code>light-dark()</code> directly.</p>
+        <p class="sg-section-desc" style="margin-top:8px"><code>--card-fill</code> and <code>--card-fill-glass</code> are the established pattern. They mirror <code>--bg-card</code> but are defined without <code>light-dark()</code> wrapper:</p>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">/* theme/colours.css — gradient-safe pattern */
+:root {
+  /* Dark default — no light-dark() wrapper */
+  --card-fill:       var(--neutral-8);
+  --card-fill-glass: oklch(from var(--seed-neutral) 0.22 calc(c * 0.85) h / 0.60);
+}
+
+/* Light mode override via :has() */
+html:has(.theme-checkbox:checked) {
+  --card-fill: var(--neutral-0);
+}
+
+/* Usage — safe in gradient stops */
+.my-element {
+  background: linear-gradient(135deg, var(--card-fill), transparent);
+}</code></pre>
+      </div>
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-item);padding:14px 18px;margin-top:0">
+        <p style="margin:0;color:var(--status-warning);font-size:var(--fs-sm);font-weight:var(--fw-semibold)">⚠️ Never use <code>light-dark()</code> directly inside <code>linear-gradient()</code> or <code>conic-gradient()</code> — use <code>--card-fill</code> or define a new gradient-safe token following this pattern.</p>
+      </div>
+    </section>
+
+    <!-- ── Gradient Border Pattern ───────────────────────────── -->
+    <section class="sg-section" id="gradient-border">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Animated Gradient Border (<code>@property --border-angle</code>)</h2>
+        <p class="sg-section-desc">Card gradient borders use a registered <code>@property</code> to animate the border angle. This requires the <code>@property</code> declaration so the browser knows the type and can interpolate it. Used on the onboarding card and similar premium surfaces.</p>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">/* Register the custom property so it's animatable */
+@property --border-angle {
+  inherits: false;
+  initial-value: 0turn;
+  syntax: '&lt;angle&gt;';
+}
+
+/* Apply with conic-gradient and animate */
+.gradient-border-card {
+  --border-angle: 0turn;
+  animation: border-spin 8s linear infinite;
+  background:
+    conic-gradient(from var(--border-angle),
+      transparent 50%,
+      var(--gold) 80%,
+      transparent 100%
+    )
+    border-box;
+  border: 1px solid transparent;
+}
+
+@keyframes border-spin {
+  to { --border-angle: 1turn; }
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Token Table ────────────────────────────────────────── -->
+    <section class="sg-section" id="theme-tokens">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Theme Infrastructure Tokens</h2>
+        <p class="sg-section-desc">These tokens control the theming mechanism itself, not colours.</p>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md)">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);color:var(--text-3);text-align:left">
+              <th style="padding:8px 12px 8px 0;font-weight:var(--fw-semibold)">Token / Selector</th>
+              <th style="padding:8px 12px;font-weight:var(--fw-semibold)">Value</th>
+              <th style="padding:8px 0;font-weight:var(--fw-semibold)">Purpose</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--text-2)">
+            <tr style="border-bottom:1px solid var(--divider)">
+              <td style="padding:9px 12px 9px 0"><code>:root { color-scheme: dark }</code></td>
+              <td style="padding:9px 12px">dark</td>
+              <td style="padding:9px 0">Sets dark as the default mode for all <code>light-dark()</code> resolution</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--divider)">
+              <td style="padding:9px 12px 9px 0"><code>html:has(.theme-checkbox:checked)</code></td>
+              <td style="padding:9px 12px">color-scheme: light</td>
+              <td style="padding:9px 0">Switches to light mode when the toggle checkbox is checked</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--divider)">
+              <td style="padding:9px 12px 9px 0"><code>--card-fill</code></td>
+              <td style="padding:9px 12px">var(--neutral-8) / var(--neutral-0)</td>
+              <td style="padding:9px 0">Gradient-safe card fill; mirrors --bg-card without light-dark()</td>
+            </tr>
+            <tr>
+              <td style="padding:9px 12px 9px 0"><code>--card-fill-glass</code></td>
+              <td style="padding:9px 12px">oklch(…/0.60)</td>
+              <td style="padding:9px 0">Semi-transparent dark version for glassmorphism with backdrop-filter</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Do / Don't ────────────────────────────────────────── -->
+    <section class="sg-section" id="theme-do-dont">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Do &amp; Don't</h2>
+      </div>
+      <div class="sg-do-dont">
+        <div class="sg-do">
+          <div class="sg-do-label">Do</div>
+          <div class="sg-do-body">
+            <p style="color:var(--text-2);font-size:var(--fs-sm);margin:0 0 8px">Use <code>light-dark()</code> for all theme-aware values:</p>
+            <code style="display:block;font-size:11px;color:var(--text-1);background:var(--bg-input);padding:8px 12px;border-radius:6px">--my-token: light-dark(#eee, #111);</code>
+          </div>
+        </div>
+        <div class="sg-dont">
+          <div class="sg-dont-label">Don't</div>
+          <div class="sg-dont-body">
+            <p style="color:var(--text-2);font-size:var(--fs-sm);margin:0 0 8px">Hard-code dark hex values in component files:</p>
+            <code style="display:block;font-size:11px;color:var(--text-1);background:var(--bg-input);padding:8px 12px;border-radius:6px">.my-component { background: #2A2E35; }</code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Accessibility ─────────────────────────────────────── -->
+    <section class="sg-section" id="theme-a11y">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Accessibility Notes</h2>
+      </div>
+      <div class="sg-demo sg-demo--col">
+        <div>
+          <p style="color:var(--text-2);font-size:var(--fs-body);margin:0"><strong style="color:var(--text-1)">ARIA role="switch"</strong> — The hidden checkbox uses <code>role="switch"</code> to communicate its toggle behaviour to screen readers. The checked state (on/off) is announced automatically.</p>
+        </div>
+        <div>
+          <p style="color:var(--text-2);font-size:var(--fs-body);margin:0"><strong style="color:var(--text-1)">Live region</strong> — A visually hidden <code>.theme-live</code> element with <code>aria-live="polite"</code> and <code>aria-atomic="true"</code> announces "Dark mode" or "Light mode" when the toggle fires. Populated by JavaScript in <code>sg-shell.js</code>.</p>
+        </div>
+        <div>
+          <p style="color:var(--text-2);font-size:var(--fs-body);margin:0"><strong style="color:var(--text-1)">Contrast ratios</strong> — All text tokens (<code>--text-1</code>, <code>--text-2</code>, <code>--text-3</code>) pass WCAG AA (4.5:1) on their paired background in both light and dark modes. The <code>--gold-text</code> token is specifically calibrated (≈#A05607 in light, gold in dark) to maintain AA compliance on all surface colours.</p>
+        </div>
+        <div>
+          <p style="color:var(--text-2);font-size:var(--fs-body);margin:0"><strong style="color:var(--text-1)">prefers-color-scheme</strong> — The current system does not yet auto-respond to <code>prefers-color-scheme: light</code>. The product defaults to dark and requires explicit user action. This is a known gap — a future enhancement would sync the default to the OS preference on first load.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+</body>
+</html>

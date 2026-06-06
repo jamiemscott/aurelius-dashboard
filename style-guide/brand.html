@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="brand">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand — Aurelius Style Guide</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Brand</h1>
+      <p class="sg-page-desc">The Aurelius wordmark and brand mark component. Defined in <code>modules/brand.css</code>. Used in the sidebar header and page footers. The brand mark is a pure CSS element — no image file — making it instantly theme-responsive and sharp at any resolution.</p>
+    </div>
+
+    <!-- ── Full Brand ────────────────────────────────────────── -->
+    <section class="sg-section" id="full-brand">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Full Wordmark (<code>.brand</code>)</h2>
+        <p class="sg-section-desc">A flex row combining <code>.brand-mark</code> (the logomark) and <code>.brand-text</code> (name + sub-line). Default size: mark is 34×34px with 8px radius, name is <code>--fs-2xl</code> (17px) in DM Serif Display, sub-line is <code>--fs-xs</code> (10px) uppercase with widest tracking.</p>
+      </div>
+      <div class="sg-demo sg-demo--center">
+        <div class="brand">
+          <div class="brand-mark">A</div>
+          <div class="brand-text">
+            <div class="brand-name">Aurelius</div>
+            <div class="brand-sub">Wealth Management</div>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="brand"&gt;
+  &lt;div class="brand-mark" aria-hidden="true"&gt;A&lt;/div&gt;
+  &lt;div class="brand-text"&gt;
+    &lt;div class="brand-name"&gt;Aurelius&lt;/div&gt;
+    &lt;div class="brand-sub"&gt;Wealth Management&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Brand Mark Anatomy ────────────────────────────────── -->
+    <section class="sg-section" id="brand-mark">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Brand Mark (<code>.brand-mark</code>)</h2>
+        <p class="sg-section-desc">A 34×34px square with <code>border-radius: 8px</code>. Background is a gold linear gradient (<code>--seed-primary → --seed-secondary</code>). Text "A" is <code>var(--neutral-10)</code> (near-black) in DM Serif Display at <code>--fs-xl</code> (16px) — chosen to contrast against the gold background in both themes.</p>
+      </div>
+      <div class="sg-demo sg-demo--grid">
+        <div style="text-align:center">
+          <div class="brand-mark" style="display:inline-flex"></div>
+          <div style="color:var(--text-3);font-size:var(--fs-xs);margin-top:8px">34×34px (default)</div>
+        </div>
+        <div style="text-align:center">
+          <div class="brand-mark" style="display:inline-flex;width:48px;height:48px;font-size:22px;border-radius:10px"></div>
+          <div style="color:var(--text-3);font-size:var(--fs-xs);margin-top:8px">48×48px (scaled)</div>
+        </div>
+      </div>
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-card);padding:14px 16px;margin-top:16px">
+        <p style="color:var(--text-2);font-size:var(--fs-body);margin:0">The brand mark has no image dependency — it's a styled <code>&lt;div&gt;</code> with a CSS gradient. Scaling: adjust <code>width</code>, <code>height</code>, <code>font-size</code>, and <code>border-radius</code> proportionally. No separate SVG or PNG asset needed.</p>
+      </div>
+    </section>
+
+    <!-- ── Footer Context ────────────────────────────────────── -->
+    <section class="sg-section" id="footer">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Footer Context Override</h2>
+        <p class="sg-section-desc">When the brand is used inside a footer, <code>modules/brand.css</code> applies context-specific overrides via a footer descendant selector. The sub-line colour shifts to <code>--text-3</code> and the gap/layout is adjusted for a horizontal footer layout.</p>
+      </div>
+      <div class="sg-demo sg-demo--flush" style="background:var(--bg-dark);padding:24px;border-radius:var(--radius-card)">
+        <footer style="display:flex;align-items:center;justify-content:space-between">
+          <div class="brand">
+            <div class="brand-mark">A</div>
+            <div class="brand-text">
+              <div class="brand-name" style="color:var(--text-1)">Aurelius</div>
+              <div class="brand-sub" style="color:var(--text-3)">Wealth Management</div>
+            </div>
+          </div>
+          <span style="color:var(--text-3);font-size:var(--fs-sm)">© 2025 Aurelius Ltd. FCA registered.</span>
+        </footer>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;footer&gt;
+  &lt;!-- Same .brand markup — footer CSS overrides apply automatically --&gt;
+  &lt;div class="brand"&gt;
+    &lt;div class="brand-mark" aria-hidden="true"&gt;A&lt;/div&gt;
+    &lt;div class="brand-text"&gt;
+      &lt;div class="brand-name"&gt;Aurelius&lt;/div&gt;
+      &lt;div class="brand-sub"&gt;Wealth Management&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;span&gt;© 2025 Aurelius Ltd. FCA registered.&lt;/span&gt;
+&lt;/footer&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Token Table ────────────────────────────────────────── -->
+    <section class="sg-section" id="tokens">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Token Reference</h2>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md)">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);color:var(--text-3);text-align:left">
+              <th style="padding:8px 12px 8px 0;font-weight:var(--fw-semibold)">Token</th>
+              <th style="padding:8px 0;font-weight:var(--fw-semibold)">Purpose</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--text-2)">
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--seed-primary / --seed-secondary</code></td><td style="padding:8px 0">Brand mark gradient stops (#F5A623 → #FFB547)</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--neutral-10</code></td><td style="padding:8px 0">Brand mark letter colour (near-black, contrast on gold)</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--font-serif</code></td><td style="padding:8px 0">Brand name and mark letter typeface</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--fs-2xl</code> (17px)</td><td style="padding:8px 0">Brand name size</td></tr>
+            <tr><td style="padding:8px 12px 8px 0"><code>--ls-widest</code></td><td style="padding:8px 0">Brand sub-line letter spacing</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Do / Don't ────────────────────────────────────────── -->
+    <section class="sg-section" id="do-dont">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Do &amp; Don't</h2>
+      </div>
+      <div class="sg-do-dont">
+        <div class="sg-do">
+          <div class="sg-do-label">Do</div>
+          <div class="sg-do-body"><p style="color:var(--text-2);font-size:var(--fs-sm);margin:0">Use the CSS brand mark consistently across all pages. The mark-only variant (no wordmark) is suitable at widths ≤900px when text space is unavailable.</p></div>
+        </div>
+        <div class="sg-dont">
+          <div class="sg-dont-label">Don't</div>
+          <div class="sg-dont-body"><p style="color:var(--text-2);font-size:var(--fs-sm);margin:0">Don't replace <code>.brand-mark</code> with an image file — the CSS approach is infinitely sharp, theme-responsive, and dependency-free. Use an image only if regulatory brand guidelines require an exact SVG logo.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Accessibility ─────────────────────────────────────── -->
+    <section class="sg-section" id="accessibility">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Accessibility Notes</h2>
+      </div>
+      <div class="sg-demo sg-demo--col">
+        <p style="margin:0;color:var(--text-2);font-size:var(--fs-body)">The brand mark letter "A" is <code>aria-hidden="true"</code> — it is decorative. The visible "Aurelius" text in <code>.brand-name</code> serves as the accessible label. When the brand is wrapped in a link (e.g. to the homepage), add <code>aria-label="Aurelius — go to homepage"</code> on the anchor. The gold gradient on near-black text achieves a contrast ratio of approximately 8:1, meeting WCAG AA and AAA.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+</body>
+</html>

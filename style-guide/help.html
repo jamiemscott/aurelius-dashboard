@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="help">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Help Centre — Aurelius Style Guide</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Help Centre</h1>
+      <p class="sg-page-desc">All components for the Help Centre page — search hero, category cards, FAQ accordion, and the contact strip. Defined in <code>modules/help.css</code>. The search uses CSS <code>:focus-within</code> for the gold ring, and a client-side search highlights matches with <code>mark.hs-hl</code>.</p>
+    </div>
+
+    <!-- ── Search Hero ───────────────────────────────────────── -->
+    <section class="sg-section" id="search-hero">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Search Hero (<code>.hs-search-hero</code>)</h2>
+        <p class="sg-section-desc">A full-width gradient banner with a centred pill search bar. The search wrap (<code>.hs-search-wrap</code>) gains a gold ring on <code>:focus-within</code>. The clear button (<code>.hs-search-clear</code>) is hidden until the input has a value.</p>
+      </div>
+      <div class="sg-demo sg-demo--flush" style="background:linear-gradient(135deg,var(--gold-dim) 0%,var(--bg-card) 100%);padding:32px 24px;border-radius:var(--radius-card)">
+        <div style="text-align:center;margin-bottom:20px">
+          <h2 style="font-family:var(--font-serif);font-size:var(--fs-section-title);color:var(--text-1);margin:0 0 4px">How can we help?</h2>
+          <p style="color:var(--text-2);font-size:var(--fs-ui);margin:0">Search our knowledge base or browse by topic below</p>
+        </div>
+        <div class="hs-search-wrap" style="max-width:480px;margin-inline:auto;display:flex;align-items:center;background:var(--bg-input);border:1px solid var(--border-input);border-radius:24px;padding:0 16px;gap:8px">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true" style="color:var(--text-3);flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input class="hs-search-input" type="search" placeholder="Search help articles…" aria-label="Search help articles" style="flex:1;background:none;border:none;outline:none;color:var(--text-1);font-size:var(--fs-ui);padding:10px 0">
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;section class="hs-search-hero"&gt;
+  &lt;h1&gt;How can we help?&lt;/h1&gt;
+  &lt;div class="hs-search-wrap"&gt;
+    &lt;!-- search icon --&gt;
+    &lt;input class="hs-search-input" type="search"
+      placeholder="Search help articles…" aria-label="Search help articles"&gt;
+    &lt;button class="hs-search-clear" aria-label="Clear search"&gt;&amp;times;&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Category Cards ────────────────────────────────────── -->
+    <section class="sg-section" id="categories">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Category Cards (<code>.hs-cat-card</code>)</h2>
+        <p class="sg-section-desc">A 3-column grid of clickable category cards. On hover, the card lifts with a shadow. The active category (<code>.is-active</code>) receives a gold border and gold icon. A count badge shows the number of articles in each category.</p>
+      </div>
+      <div class="sg-demo" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+        <button class="hs-cat-card is-active" style="background:var(--bg-card);border:1px solid var(--gold);border-radius:var(--radius-card);padding:16px;text-align:left;cursor:pointer;transition:transform 0.15s,box-shadow 0.15s">
+          <div style="color:var(--gold);font-size:20px;margin-bottom:8px">💰</div>
+          <div style="color:var(--text-1);font-size:var(--fs-ui);font-weight:var(--fw-semibold)">Investments</div>
+          <div style="color:var(--text-3);font-size:var(--fs-sm)">12 articles</div>
+        </button>
+        <button class="hs-cat-card" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-card);padding:16px;text-align:left;cursor:pointer;transition:transform 0.15s,box-shadow 0.15s">
+          <div style="color:var(--text-2);font-size:20px;margin-bottom:8px">🔐</div>
+          <div style="color:var(--text-1);font-size:var(--fs-ui);font-weight:var(--fw-semibold)">Security</div>
+          <div style="color:var(--text-3);font-size:var(--fs-sm)">8 articles</div>
+        </button>
+        <button class="hs-cat-card" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-card);padding:16px;text-align:left;cursor:pointer;transition:transform 0.15s,box-shadow 0.15s">
+          <div style="color:var(--text-2);font-size:20px;margin-bottom:8px">📋</div>
+          <div style="color:var(--text-1);font-size:var(--fs-ui);font-weight:var(--fw-semibold)">Documents</div>
+          <div style="color:var(--text-3);font-size:var(--fs-sm)">6 articles</div>
+        </button>
+      </div>
+    </section>
+
+    <!-- ── FAQ Accordion ─────────────────────────────────────── -->
+    <section class="sg-section" id="faq">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">FAQ Accordion (<code>.hs-faq-item</code>)</h2>
+        <p class="sg-section-desc">A pure CSS accordion using max-height transition. The question row (<code>.hs-faq-q</code>) contains a chevron (<code>.hs-faq-chevron</code>) that rotates 180° when the item is open. The answer (<code>.hs-faq-a</code>) transitions from <code>max-height: 0</code> to <code>600px</code>. Add <code>.is-open</code> via JavaScript — no CSS-only trick to avoid input element dependencies.</p>
+      </div>
+      <div class="sg-demo" style="max-width:560px">
+        <div class="hs-faq-item is-open" style="border-bottom:1px solid var(--divider)">
+          <button class="hs-faq-q" style="display:flex;justify-content:space-between;align-items:center;width:100%;padding:14px 0;background:none;border:none;color:var(--text-1);font-size:var(--fs-ui);font-weight:var(--fw-medium);cursor:pointer;text-align:left">
+            How do I add a new investment?
+            <svg class="hs-faq-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true" style="transform:rotate(180deg);transition:transform 0.2s;flex-shrink:0"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="hs-faq-a" style="overflow:hidden;max-height:600px;transition:max-height 0.3s ease">
+            <p style="color:var(--text-2);font-size:var(--fs-body);padding-bottom:14px;margin:0">Navigate to My Investments and click "Add Investment". You can search for funds, filter by asset class, and review the fund factsheet before adding. The minimum investment is £500 per fund.</p>
+          </div>
+        </div>
+        <div class="hs-faq-item" style="border-bottom:1px solid var(--divider)">
+          <button class="hs-faq-q" style="display:flex;justify-content:space-between;align-items:center;width:100%;padding:14px 0;background:none;border:none;color:var(--text-1);font-size:var(--fs-ui);font-weight:var(--fw-medium);cursor:pointer;text-align:left">
+            How long do withdrawals take?
+            <svg class="hs-faq-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true" style="transition:transform 0.2s;flex-shrink:0"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="hs-faq-a" style="overflow:hidden;max-height:0;transition:max-height 0.3s ease"></div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;!-- Add .is-open via JS to open; remove to close --&gt;
+&lt;div class="hs-faq-item is-open"&gt;
+  &lt;button class="hs-faq-q" aria-expanded="true"
+    aria-controls="faq-1-a"&gt;
+    How do I add a new investment?
+    &lt;svg class="hs-faq-chevron" aria-hidden="true"&gt;&lt;!-- chevron --&gt;&lt;/svg&gt;
+  &lt;/button&gt;
+  &lt;div class="hs-faq-a" id="faq-1-a" role="region"&gt;
+    &lt;p&gt;Navigate to My Investments and click "Add Investment"…&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Search Highlight ──────────────────────────────────── -->
+    <section class="sg-section" id="highlight">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Search Highlight (<code>mark.hs-hl</code>)</h2>
+        <p class="sg-section-desc">When a search query matches text in an FAQ answer or article, wrap matching substrings in <code>&lt;mark class="hs-hl"&gt;</code>. The native <code>&lt;mark&gt;</code> element has built-in semantics for screen readers. Styled with a gold tinted background.</p>
+      </div>
+      <div class="sg-demo">
+        <p style="color:var(--text-2);font-size:var(--fs-body);margin:0">Navigate to <mark class="hs-hl" style="background:var(--gold-dim);color:var(--gold-text);border-radius:2px;padding:0 2px">My Investments</mark> and click "Add Investment". The minimum investment is £500 per fund.</p>
+      </div>
+    </section>
+
+    <!-- ── Contact Strip ─────────────────────────────────────── -->
+    <section class="sg-section" id="contact-strip">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Contact Strip (<code>.hs-contact-strip</code>)</h2>
+        <p class="sg-section-desc">A 3-column grid at the bottom of the Help page for "Still need help?" contact options. Each card (<code>.hs-contact-card</code>) shows an icon, heading, and description. The CTA card uses <code>.hs-contact-cta</code> — a layout-only modifier that stretches to column height and centres its content.</p>
+      </div>
+      <div class="sg-demo" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+        <div class="hs-contact-card" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-card);padding:20px">
+          <div style="font-size:24px;margin-bottom:8px">💬</div>
+          <div style="color:var(--text-1);font-size:var(--fs-ui);font-weight:var(--fw-semibold);margin-bottom:4px">Live Chat</div>
+          <div style="color:var(--text-3);font-size:var(--fs-sm)">Typically replies in 5 minutes</div>
+        </div>
+        <div class="hs-contact-card" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-card);padding:20px">
+          <div style="font-size:24px;margin-bottom:8px">📞</div>
+          <div style="color:var(--text-1);font-size:var(--fs-ui);font-weight:var(--fw-semibold);margin-bottom:4px">Phone</div>
+          <div style="color:var(--text-3);font-size:var(--fs-sm)">Mon–Fri 9am–5pm GMT</div>
+        </div>
+        <div class="hs-contact-card hs-contact-cta" style="background:var(--gold-dim);border:1px solid var(--gold-glow);border-radius:var(--radius-card);padding:20px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start">
+          <div style="color:var(--text-1);font-size:var(--fs-ui);font-weight:var(--fw-semibold);margin-bottom:6px">Message your adviser</div>
+          <div style="color:var(--text-2);font-size:var(--fs-sm);margin-bottom:12px">Get a personal response within 1 business day</div>
+          <button class="btn-primary contact-btn">Message Adviser</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Token Table ────────────────────────────────────────── -->
+    <section class="sg-section" id="tokens">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Token Reference</h2>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md)">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);color:var(--text-3);text-align:left">
+              <th style="padding:8px 12px 8px 0;font-weight:var(--fw-semibold)">Token</th>
+              <th style="padding:8px 0;font-weight:var(--fw-semibold)">Purpose</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--text-2)">
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--gold / --gold-glow</code></td><td style="padding:8px 0">Search ring on focus-within, active category card border</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--gold-dim / --gold-text</code></td><td style="padding:8px 0">Search highlight mark, contact CTA card background</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--divider</code></td><td style="padding:8px 0">FAQ item bottom border</td></tr>
+            <tr><td style="padding:8px 12px 8px 0"><code>600px</code></td><td style="padding:8px 0">Hard-coded max-height for open FAQ answer — adjust if answers can be taller</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Accessibility ─────────────────────────────────────── -->
+    <section class="sg-section" id="accessibility">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Accessibility Notes</h2>
+      </div>
+      <div class="sg-demo sg-demo--col">
+        <p style="margin:0;color:var(--text-2);font-size:var(--fs-body)">FAQ accordion: question buttons need <code>aria-expanded</code> (true/false) and <code>aria-controls</code> pointing to the answer panel ID. Answer panel needs <code>role="region"</code> and <code>aria-labelledby</code> pointing to the question. Search input: use <code>type="search"</code> (gives browser clear button for free) plus <code>aria-label</code>. The <code>&lt;mark&gt;</code> element is natively announced by screen readers as "highlight" — no extra ARIA needed. Category cards are <code>&lt;button&gt;</code> elements, not <code>&lt;div&gt;</code>.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+</body>
+</html>
