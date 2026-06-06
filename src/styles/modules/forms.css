@@ -288,7 +288,7 @@ select {
 
 .amount-chip {
   background: var(--bg-input);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-input);
   border-radius: 99px;
   color: var(--text-2);
   cursor: pointer;

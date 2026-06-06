@@ -262,7 +262,7 @@
 
 .ob-btn--ghost {
   background: transparent;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-input);
   color: var(--text-2);
 }
 
@@ -441,7 +441,7 @@
 
 .ob-risk-card {
   background: var(--bg-hover);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-input);
   border-radius: 6px;
   margin-top: 16px;
   padding: 16px 18px;
@@ -471,7 +471,7 @@
 }
 
 .ob-sc {
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-input);
   border-radius: 8px;
   bottom: 0;
   left: 0;
@@ -570,7 +570,7 @@
 .ob-sa {
   align-items: center;
   background: var(--bg-hover);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-input);
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -606,7 +606,7 @@
 .ob-rank-item {
   align-items: center;
   background: var(--bg-hover);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-input);
   border-radius: 6px;
   cursor: grab;
   display: flex;
@@ -806,7 +806,7 @@
 
 .ob-achip {
   background: transparent;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-input);
   border-radius: 4px;
   color: var(--text-2);
   cursor: pointer;
@@ -1158,7 +1158,7 @@
 
 .ob-reg-input {
   background: light-dark(var(--neutral-1), rgba(255,255,255,0.04));
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-input);
   border-radius: var(--radius-item);
   color: var(--text-1);
   font-family: var(--font-sans);
@@ -1344,7 +1344,7 @@
 
 .ob-el-chip {
   align-items: center;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-input);
   border-radius: 3px;
   display: flex;
   gap: 6px;

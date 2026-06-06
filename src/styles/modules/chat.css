@@ -149,7 +149,7 @@
 }
 .chat-chip {
   background: var(--bg-card);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-input);
   border-radius: var(--radius-btn);
   color: var(--text-2);
   cursor: pointer;
@@ -194,7 +194,7 @@
 }
 .chat-input {
   background: var(--bg-input);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-input);
   border-radius: var(--radius-btn);
   color: var(--text-1);
   flex: 1;
