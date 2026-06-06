@@ -27,7 +27,7 @@ Our Aurelius design system defines *its own* vocabulary:
 /* Aurelius tokens */
 --gold
 --text-1, --text-2, --text-3
---bg, --bg-card, --bg-sidebar
+--bg, --bg-card, --bg-dark
 --fs-base, --fs-body, --fs-nav …
 --pad
 --radius-card, --radius-item, --radius-btn
