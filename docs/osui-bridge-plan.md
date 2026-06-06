@@ -27,7 +27,7 @@ Our Aurelius design system defines *its own* vocabulary:
 /* Aurelius tokens */
 --gold
 --text-1, --text-2, --text-3
---bg, --bg-card, --bg-sidebar
+--bg, --bg-card, --bg-dark
 --fs-base, --fs-body, --fs-nav …
 --pad
 --radius-card, --radius-item, --radius-btn
@@ -111,7 +111,7 @@ OSUI uses a 0–10 neutral scale (0 = white, 10 = black in light mode; inverted 
 | OSUI token | Light value | Dark value | Strategy |
 |---|---|---|---|
 | `--color-neutral-0` | `#FFFFFF` | `#0B0D10` | `light-dark(#FFF, var(--bg))` |
-| `--color-neutral-1` | `#F4F5F7` | `#0E1014` | `light-dark(var(--bg), var(--bg-sidebar))` |
+| `--color-neutral-1` | `#F4F5F7` | `#0E1014` | `light-dark(var(--bg), var(--bg-dark))` |
 | `--color-neutral-2` | `#E8EAF0` | `#14171C` | `light-dark(…, var(--bg-card))` |
 | `--color-neutral-3` | `#D5D8E0` | `#1A1E25` | `light-dark(…, var(--bg-hover))` |
 | `--color-neutral-4` | `#B8BCC8` | `#3A3E47` | midpoint — custom value |
