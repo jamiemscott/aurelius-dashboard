@@ -182,14 +182,6 @@ html:has(.theme-checkbox:checked) .main::before {
   padding-block-end: 20px;
 }
 
-/* When the header is wrapped in a .card, the card border replaces
-   the standalone bottom rule and padding is already handled by
-   .card-pad — so suppress both.                                   */
-.card.page-header--standalone {
-  border-block-end: none;
-  padding-block-end: var(--pad);
-}
-
 /* ─── CHAT PAGE LAYOUT ───────────────────────────────── */
 /* .chat-main: allows vertical scroll so the page header and
    legal footer are reachable while the chat interface fills
