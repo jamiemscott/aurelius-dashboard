@@ -16,6 +16,9 @@
     radial-gradient(ellipse 40% 50% at 100% 100%, rgba(245,166,35,0.05) 0%, transparent 60%),
     var(--bg);
   border-block-end: 1px solid var(--border);
+  /* Bleed out of .main's universal padding so the hero runs edge-to-edge. */
+  margin-inline: calc(-1 * var(--pad));
+  margin-block-start: calc(-1 * var(--pad));
   padding: 72px var(--pad) 60px;
 }
 

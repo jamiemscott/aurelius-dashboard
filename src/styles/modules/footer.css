@@ -2,7 +2,11 @@
 .site-footer {
   background: var(--bg);
   border-block-start: 1px solid var(--divider);
+  /* Bleed out of .main's universal padding so the footer runs edge-to-edge.
+     The negative margins cancel the 24px padding on all three outer sides. */
+  margin-block-end: calc(-1 * var(--pad));
   margin-block-start: 48px;
+  margin-inline: calc(-1 * var(--pad));
   transition: background 0.3s ease;
 }
 
