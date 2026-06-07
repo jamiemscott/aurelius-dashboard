@@ -212,6 +212,13 @@ html:has(.theme-checkbox:checked) .main::before {
   width: 100%;
 }
 
+/* Light mode — swap to a white-based semi-transparent surface
+   so the wave bleeds through without the dark navy showing.  */
+html:has(.theme-checkbox:checked) .chat-wrap {
+  background: oklch(from var(--neutral-0) l c h / 0.82);
+  border-color: var(--border);
+}
+
 @media (min-width: 768px) {
   .chat-wrap {
     margin-inline: auto;
