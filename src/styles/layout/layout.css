@@ -180,7 +180,10 @@ html:has(.theme-checkbox:checked) .main::before {
        </div>
      </div>                                                   */
 .page-header--standalone {
-  background: oklch(from var(--neutral-10) l c h / 0.72);
+  background:
+    radial-gradient(ellipse 80% 60% at 60% 0%, rgba(245,166,35,0.10) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 50% at 100% 100%, rgba(245,166,35,0.05) 0%, transparent 60%),
+    oklch(from var(--neutral-10) l c h / 0.72);
   border-block-end: 1px solid oklch(from var(--gold) l c h / 0.45);
   box-shadow: 0 4px 24px oklch(from var(--gold) l c h / 0.08);
   /* Bleed out of .main / .chat-main padding so the header runs edge-to-edge.
@@ -194,7 +197,10 @@ html:has(.theme-checkbox:checked) .main::before {
 }
 
 html:has(.theme-checkbox:checked) .page-header--standalone {
-  background: oklch(from var(--neutral-1) l c h / 0.72);
+  background:
+    radial-gradient(ellipse 80% 60% at 60% 0%, rgba(245,166,35,0.10) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 50% at 100% 100%, rgba(245,166,35,0.05) 0%, transparent 60%),
+    oklch(from var(--neutral-1) l c h / 0.72);
 }
 
 /* ─── CHAT PAGE LAYOUT ───────────────────────────────── */
