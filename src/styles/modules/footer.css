@@ -1,8 +1,12 @@
 /* ─── SITE FOOTER ────────────────────────────────────── */
 .site-footer {
   background: var(--bg);
-  border-block-start: 1px solid var(--divider);
+  border-block-start: 1px solid oklch(from var(--gold) l c h / 0.45);
+  /* Bleed out of .main's universal padding so the footer runs edge-to-edge.
+     The negative margins cancel the 24px padding on all three outer sides. */
+  margin-block-end: calc(-1 * var(--pad));
   margin-block-start: 48px;
+  margin-inline: calc(-1 * var(--pad));
   transition: background 0.3s ease;
 }
 
@@ -11,7 +15,7 @@
   display: grid;
   gap: 40px;
   grid-template-columns: 220px 1fr 1fr 1fr;
-  padding: 40px 0 32px;
+  padding: 40px var(--pad) 32px;
 }
 
 /* OutSystems injects a data-container wrapper around the three link-column
@@ -97,7 +101,7 @@
   border-block-end: 1px solid var(--divider);
   display: flex;
   gap: 48px;
-  padding: 24px 0;
+  padding: 24px var(--pad);
 }
 
 /* Wrapper so the text block flexes independently of .footer-sponsors */
@@ -240,7 +244,7 @@
   .footer-upper {
     gap: 16px 24px;
     grid-template-columns: 1fr 1fr 1fr;
-    padding: 24px 0 16px;
+    padding: 24px var(--pad) 16px;
   }
 
   .footer-brand-col { grid-column: 1 / -1; }
@@ -259,7 +263,7 @@
   .footer-regulatory {
     flex-direction: column;
     gap: 16px;
-    padding: 16px 0;
+    padding: 16px var(--pad);
   }
 
   .footer-sponsors {
@@ -272,7 +276,7 @@
 
   .footer-sponsors-label { margin-block-end: 0; margin-inline-end: 14px; }
 
-  .footer-bottom { padding: 12px 0; }
+  .footer-bottom { padding: 12px var(--pad); }
 }
 
 @media (max-width: 768px) {
@@ -293,7 +297,7 @@
   flex-wrap: wrap;
   gap: 12px;
   justify-content: space-between;
-  padding: 16px 0;
+  padding: 16px var(--pad);
 }
 
 .footer-copyright {

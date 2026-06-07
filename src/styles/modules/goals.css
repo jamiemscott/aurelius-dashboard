@@ -14,9 +14,20 @@
   background:
     radial-gradient(ellipse 80% 60% at 60% 0%, rgba(245,166,35,0.10) 0%, transparent 70%),
     radial-gradient(ellipse 40% 50% at 100% 100%, rgba(245,166,35,0.05) 0%, transparent 60%),
-    var(--bg-base);
-  border-block-end: 1px solid var(--border);
+    oklch(from var(--neutral-10) l c h / 0.72);
+  border-block-end: 1px solid oklch(from var(--gold) l c h / 0.45);
+  box-shadow: 0 4px 24px oklch(from var(--gold) l c h / 0.08);
+  /* Bleed out of .main's universal padding so the hero runs edge-to-edge. */
+  margin-inline: calc(-1 * var(--pad));
+  margin-block-start: calc(-1 * var(--pad));
   padding: 72px var(--pad) 60px;
+}
+
+html:has(.theme-checkbox:checked) .gl-hero {
+  background:
+    radial-gradient(ellipse 80% 60% at 60% 0%, rgba(245,166,35,0.10) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 50% at 100% 100%, rgba(245,166,35,0.05) 0%, transparent 60%),
+    oklch(from var(--neutral-1) l c h / 0.72);
 }
 
 .gl-hero-inner {
@@ -391,7 +402,7 @@
 .gl-add-card {
   align-items: center;
   background: none;
-  border: 2px dashed var(--border);
+  border: 2px dashed oklch(from var(--gold) l c h / 0.45);
   border-radius: 20px;
   color: inherit;
   cursor: pointer;
