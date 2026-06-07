@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="add-investment">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Investment — Aurelius Style Guide</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Add Investment</h1>
+      <p class="sg-page-desc">The full Add Investment wizard and Smart Search interface. Defined in <code>modules/add-investment.css</code>. Two entry modes: a traditional step-by-step wizard (<code>.ai-*</code> classes) and an AI-powered smart search (<code>.ais-*</code> classes). Both modes share the same confirmation step.</p>
+    </div>
+
+    <!-- ── Step Progress Bar ─────────────────────────────────── -->
+    <section class="sg-section" id="step-bar">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Step Progress Bar (<code>.ai-steps</code>)</h2>
+        <p class="sg-section-desc">A horizontal bar of labelled steps connected by lines. Each <code>.ai-step</code> has three states: default (hollow circle), active (<code>.is-active</code> — gold dot), and done (<code>.is-done</code> — solid gold with a tick). The connector line (<code>.ai-step-line</code>) uses <code>::after</code> with <code>scaleX()</code> to fill progressively as steps complete.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="ai-steps">
+          <div class="ai-step is-done">
+            <div class="ai-step-dot"></div>
+            <div class="ai-step-label">Choose</div>
+          </div>
+          <div class="ai-step-line is-filled"></div>
+          <div class="ai-step is-active">
+            <div class="ai-step-dot"></div>
+            <div class="ai-step-label">Amount</div>
+          </div>
+          <div class="ai-step-line"></div>
+          <div class="ai-step">
+            <div class="ai-step-dot"></div>
+            <div class="ai-step-label">Review</div>
+          </div>
+          <div class="ai-step-line"></div>
+          <div class="ai-step">
+            <div class="ai-step-dot"></div>
+            <div class="ai-step-label">Confirm</div>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="ai-steps" role="list" aria-label="Investment wizard progress"&gt;
+  &lt;div class="ai-step is-done" role="listitem"&gt;
+    &lt;div class="ai-step-dot" aria-hidden="true"&gt;&lt;/div&gt;
+    &lt;div class="ai-step-label"&gt;Choose&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="ai-step-line is-filled" aria-hidden="true"&gt;&lt;/div&gt;
+  &lt;div class="ai-step is-active" role="listitem" aria-current="step"&gt;
+    &lt;div class="ai-step-dot" aria-hidden="true"&gt;&lt;/div&gt;
+    &lt;div class="ai-step-label"&gt;Amount&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="ai-step-line" aria-hidden="true"&gt;&lt;/div&gt;
+  &lt;div class="ai-step" role="listitem"&gt;
+    &lt;div class="ai-step-dot" aria-hidden="true"&gt;&lt;/div&gt;
+    &lt;div class="ai-step-label"&gt;Review&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Fund Card ─────────────────────────────────────────── -->
+    <section class="sg-section" id="fund-card">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Fund Selection Card (<code>.ai-fund-card</code>)</h2>
+        <p class="sg-section-desc">A clickable card for selecting a fund in step 1. Default state has <code>--border-input</code> border. Selected state (<code>.is-selected</code>) upgrades to a gold border with a gold checkmark (<code>.ai-fund-checkmark</code>). Fund stats are in <code>.ai-fund-stats</code>.</p>
+      </div>
+      <div class="sg-demo" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:600px">
+        <div class="ai-fund-card" style="border:1px solid var(--border-input);border-radius:var(--radius-card);padding:16px;cursor:pointer;transition:border-color 0.15s">
+          <div style="color:var(--text-1);font-size:var(--fs-ui);font-weight:var(--fw-semibold)">Vanguard FTSE All-World ETF</div>
+          <div style="color:var(--text-3);font-size:var(--fs-sm);margin:4px 0 12px">Global Equity · VWRL</div>
+          <div class="ai-fund-stats" style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+            <div><div style="color:var(--text-3);font-size:var(--fs-xs);text-transform:uppercase">OCF</div><div style="color:var(--text-1);font-size:var(--fs-ui)">0.22%</div></div>
+            <div><div style="color:var(--text-3);font-size:var(--fs-xs);text-transform:uppercase">5Y Return</div><div style="color:var(--green);font-size:var(--fs-ui)">+68.4%</div></div>
+          </div>
+        </div>
+        <div class="ai-fund-card is-selected" style="border:1px solid var(--gold);border-radius:var(--radius-card);padding:16px;cursor:pointer;position:relative">
+          <div class="ai-fund-checkmark" style="position:absolute;top:10px;right:10px;width:18px;height:18px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center">
+            <svg width="10" height="10" fill="none" stroke="#0B0D10" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div style="color:var(--text-1);font-size:var(--fs-ui);font-weight:var(--fw-semibold)">iShares Core S&amp;P 500 ETF</div>
+          <div style="color:var(--text-3);font-size:var(--fs-sm);margin:4px 0 12px">US Equity · CSPX</div>
+          <div class="ai-fund-stats" style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+            <div><div style="color:var(--text-3);font-size:var(--fs-xs);text-transform:uppercase">OCF</div><div style="color:var(--text-1);font-size:var(--fs-ui)">0.07%</div></div>
+            <div><div style="color:var(--text-3);font-size:var(--fs-xs);text-transform:uppercase">5Y Return</div><div style="color:var(--green);font-size:var(--fs-ui)">+94.1%</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Filter Chips ───────────────────────────────────────── -->
+    <section class="sg-section" id="filter-chips">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Filter Chips (<code>.ai-chip</code>)</h2>
+        <p class="sg-section-desc">Horizontal scrolling pill filters for narrowing fund results by asset class, region, or risk level. Active chip (<code>.is-active</code>) uses gold background and dark text.</p>
+      </div>
+      <div class="sg-demo sg-demo--row">
+        <button class="ai-chip is-active" style="background:var(--gold);color:#0B0D10;border:none;border-radius:20px;padding:5px 12px;font-size:var(--fs-sm);font-weight:var(--fw-semibold);cursor:pointer;white-space:nowrap">All</button>
+        <button class="ai-chip" style="background:var(--bg-card);color:var(--text-2);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:var(--fs-sm);cursor:pointer;white-space:nowrap">Global Equity</button>
+        <button class="ai-chip" style="background:var(--bg-card);color:var(--text-2);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:var(--fs-sm);cursor:pointer;white-space:nowrap">Fixed Income</button>
+        <button class="ai-chip" style="background:var(--bg-card);color:var(--text-2);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:var(--fs-sm);cursor:pointer;white-space:nowrap">US Equity</button>
+        <button class="ai-chip" style="background:var(--bg-card);color:var(--text-2);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:var(--fs-sm);cursor:pointer;white-space:nowrap">Alternatives</button>
+      </div>
+    </section>
+
+    <!-- ── Smart Search Mode ─────────────────────────────────── -->
+    <section class="sg-section" id="smart-search">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">AI Smart Search (<code>.ais-*</code>)</h2>
+        <p class="sg-section-desc">The <code>.ais-*</code> prefix is for the AI-powered conversational fund-finding mode. A mode toggle (<code>.ais-mode-toggle</code>) switches between "Browse" and "AI Search". The prompt bar (<code>.ais-prompt-input</code> + <code>.ais-prompt-send</code>) accepts natural language. A thinking animation (<code>.ais-thinking-dots</code>) shows while the AI responds. Results appear as <code>.ais-result-card</code> with a match pill (<code>.ais-match-pill</code>).</p>
+      </div>
+      <div class="sg-demo" style="max-width:560px">
+        <!-- Mode toggle -->
+        <div class="ais-mode-toggle" style="display:flex;background:var(--bg-input);border-radius:20px;padding:3px;width:fit-content;margin-bottom:16px">
+          <button class="ais-mode-btn" style="padding:5px 14px;border-radius:18px;border:none;background:none;color:var(--text-2);font-size:var(--fs-sm);cursor:pointer">Browse</button>
+          <button class="ais-mode-btn is-active" style="padding:5px 14px;border-radius:18px;border:none;background:var(--gold);color:#0B0D10;font-size:var(--fs-sm);font-weight:var(--fw-semibold);cursor:pointer">AI Search</button>
+        </div>
+        <!-- Prompt bar -->
+        <div style="display:flex;gap:8px;align-items:flex-end;margin-bottom:16px">
+          <textarea class="ais-prompt-input" rows="2" placeholder="E.g. "I want low-cost global equity exposure"…" style="flex:1;background:var(--bg-input);border:1px solid var(--border-input);border-radius:12px;padding:10px 14px;color:var(--text-1);font-size:var(--fs-ui);resize:none;outline:none"></textarea>
+          <button class="ais-prompt-send" style="width:42px;height:42px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="16" height="16" fill="none" stroke="#0B0D10" stroke-width="2.5" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+        </div>
+        <!-- Result card -->
+        <div class="ais-result-card" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-card);padding:16px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+            <div>
+              <div style="color:var(--text-1);font-size:var(--fs-ui);font-weight:var(--fw-semibold)">Vanguard FTSE All-World ETF</div>
+              <div style="color:var(--text-3);font-size:var(--fs-sm)">Global Equity · VWRL · OCF 0.22%</div>
+            </div>
+            <span class="ais-match-pill" style="background:var(--green-dim);color:var(--green);border-radius:10px;padding:2px 8px;font-size:var(--fs-xs);font-weight:var(--fw-semibold);white-space:nowrap">98% match</span>
+          </div>
+          <p style="color:var(--text-2);font-size:var(--fs-sm);margin:0 0 12px">Broad global diversification across 3,700+ stocks. Low cost and tax-efficient. Ideal for long-term buy-and-hold investors seeking market-rate returns.</p>
+          <button class="btn-primary" style="width:100%">Select This Fund</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Confirmation ───────────────────────────────────────── -->
+    <section class="sg-section" id="confirmation">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Confirmation Step (<code>.ai-confirm-wrap</code>)</h2>
+        <p class="sg-section-desc">The final step success state. An animated SVG check mark uses <code>stroke-dashoffset</code> animation — the circle draws in, then the tick draws in. The confirmation panel appears below once the animation completes.</p>
+      </div>
+      <div class="sg-demo sg-demo--col" style="align-items:center;text-align:center;max-width:320px;margin-inline:auto">
+        <div class="ai-confirm-wrap" style="display:flex;flex-direction:column;align-items:center;gap:12px">
+          <svg class="ai-check-svg" width="64" height="64" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <circle cx="32" cy="32" r="28" stroke="var(--green)" stroke-width="3" stroke-dasharray="176" stroke-dashoffset="0" opacity="0.3"/>
+            <circle cx="32" cy="32" r="28" stroke="var(--green)" stroke-width="3" stroke-dasharray="176" stroke-dashoffset="0"/>
+            <polyline points="20 33 28 41 44 24" stroke="var(--green)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div style="font-family:var(--font-serif);font-size:var(--fs-section-title);color:var(--text-1)">Investment placed</div>
+          <p style="color:var(--text-2);font-size:var(--fs-ui);margin:0">Your investment in iShares Core S&amp;P 500 ETF has been queued for the next trading window.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Order Summary ─────────────────────────────────────── -->
+    <section class="sg-section" id="order-summary">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Order Summary (<code>.ai-order-summary</code>)</h2>
+        <p class="sg-section-desc">A sticky right-column panel that appears during the Amount and Review steps. Uses <code>position: sticky; top: calc(var(--topbar-h) + 24px)</code> so it scrolls with the page but locks to the viewport top. Contains a <code>.ai-review-table</code> for the key/value breakdown and an acknowledgement checkbox row (<code>.ai-ack-row</code>).</p>
+      </div>
+      <div class="sg-demo" style="max-width:280px">
+        <div class="ai-order-summary" style="background:var(--bg-card);border:1px solid var(--gold-glow);border-top:2px solid var(--gold);border-radius:var(--radius-card);padding:18px">
+          <div style="color:var(--text-1);font-size:var(--fs-ui);font-weight:var(--fw-semibold);margin-bottom:12px">Order Summary</div>
+          <div class="ai-review-table">
+            <div class="ai-review-row" style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--divider);font-size:var(--fs-sm)">
+              <span style="color:var(--text-3)">Fund</span><span style="color:var(--text-1)">CSPX</span>
+            </div>
+            <div class="ai-review-row" style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--divider);font-size:var(--fs-sm)">
+              <span style="color:var(--text-3)">Amount</span><span style="color:var(--text-1)">£2,500.00</span>
+            </div>
+            <div class="ai-review-row" style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--divider);font-size:var(--fs-sm)">
+              <span style="color:var(--text-3)">Account</span><span style="color:var(--text-1)">Stocks &amp; Shares ISA</span>
+            </div>
+            <div class="ai-review-row" style="display:flex;justify-content:space-between;padding:8px 0 0;font-size:var(--fs-ui)">
+              <span style="color:var(--text-1);font-weight:var(--fw-semibold)">Total</span><span style="color:var(--text-1);font-weight:var(--fw-semibold)">£2,500.00</span>
+            </div>
+          </div>
+          <div class="ai-ack-row" style="display:flex;gap:8px;align-items:flex-start;margin-top:14px;font-size:var(--fs-sm);color:var(--text-2)">
+            <input type="checkbox" id="sg-ack" style="margin-top:2px;flex-shrink:0">
+            <label for="sg-ack">I confirm I have read the Key Investor Information Document (KIID)</label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Token Table ────────────────────────────────────────── -->
+    <section class="sg-section" id="tokens">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Token Reference</h2>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md)">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);color:var(--text-3);text-align:left">
+              <th style="padding:8px 12px 8px 0;font-weight:var(--fw-semibold)">Token / Value</th>
+              <th style="padding:8px 0;font-weight:var(--fw-semibold)">Purpose</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--text-2)">
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--gold</code></td><td style="padding:8px 0">Active step dot, selected fund border, active chip, send button</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--border-input</code></td><td style="padding:8px 0">Default fund card border, prompt textarea border</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--green / --green-dim</code></td><td style="padding:8px 0">Confirmation checkmark, match pill background</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--topbar-h</code> (68px)</td><td style="padding:8px 0">Order summary sticky offset calculation</td></tr>
+            <tr><td style="padding:8px 12px 8px 0"><code>--gold-glow / --gold</code></td><td style="padding:8px 0">Order summary card border and top accent</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Accessibility ─────────────────────────────────────── -->
+    <section class="sg-section" id="accessibility">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Accessibility Notes</h2>
+      </div>
+      <div class="sg-demo sg-demo--col">
+        <p style="margin:0;color:var(--text-2);font-size:var(--fs-body)">The step bar uses <code>role="list"</code> with <code>aria-current="step"</code> on the active step. Fund cards are <code>&lt;button&gt;</code> elements with <code>aria-pressed</code> for selection state. Filter chips use <code>aria-pressed</code>. The smart search prompt is a <code>&lt;textarea&gt;</code> with a visible label. The KIID acknowledgement checkbox must have an associated <code>&lt;label&gt;</code> — regulatory content must be readable, not hidden behind a tooltip. Confirmation success state must move focus to the confirmation heading.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+</body>
+</html>

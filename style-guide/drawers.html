@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="drawers">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drawers — Aurelius Style Guide</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Drawers</h1>
+      <p class="sg-page-desc">Right-edge slide-in panels for contextual content — adviser messages, add fund, add investment. Defined in <code>modules/drawers.css</code>. All drawers use the CSS Popover API (native) on the prototype and a <code>.is-open</code> class toggle on OutSystems. All drawers share a <code>translateX(100%)</code> closed state and spring animation on open.</p>
+    </div>
+
+    <!-- ── Variants ──────────────────────────────────────────── -->
+    <section class="sg-section" id="variants">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Drawer Variants</h2>
+        <p class="sg-section-desc">Three drawer classes exist, each with a different default width to suit their content. All share the same animation, backdrop, and inner layout system.</p>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md)">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);color:var(--text-3);text-align:left">
+              <th style="padding:8px 12px 8px 0;font-weight:var(--fw-semibold)">Class</th>
+              <th style="padding:8px 12px;font-weight:var(--fw-semibold)">Width</th>
+              <th style="padding:8px 0;font-weight:var(--fw-semibold)">Used For</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--text-2)">
+            <tr style="border-bottom:1px solid var(--divider)">
+              <td style="padding:8px 12px 8px 0"><code>.adv-drawer</code></td>
+              <td style="padding:8px 12px">420px</td>
+              <td style="padding:8px 0">Adviser message drawer</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--divider)">
+              <td style="padding:8px 12px 8px 0"><code>.add-fund-drawer</code></td>
+              <td style="padding:8px 12px">520px</td>
+              <td style="padding:8px 0">Add Fund / top-up flow</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 12px 8px 0"><code>.add-investment-drawer</code></td>
+              <td style="padding:8px 12px">480px</td>
+              <td style="padding:8px 0">Add Investment quick-add</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Adviser Drawer Demo ────────────────────────────────── -->
+    <section class="sg-section" id="adv-drawer">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Adviser Message Drawer</h2>
+        <p class="sg-section-desc">The most detailed drawer — includes a sticky header with adviser avatar, a "Secure Connection" bar, a scrollable body, and a sent-state overlay. Inner layout classes: <code>.adv-drawer-inner</code>, <code>.adv-drawer-hd</code>, <code>.adv-drawer-body</code>.</p>
+      </div>
+      <div class="sg-demo" style="padding:0;overflow:hidden;max-width:420px;margin-inline:auto">
+        <!-- Simulated drawer at rest (not fixed) -->
+        <div style="background:var(--bg-card);display:flex;flex-direction:column;min-height:320px;border-radius:var(--radius-card)">
+          <div class="adv-drawer-hd" style="position:relative">
+            <div class="adv-drawer-hd-left">
+              <div class="adv-drawer-avatar">SR</div>
+              <div>
+                <div class="adv-drawer-name">Sarah Reynolds</div>
+                <div class="adv-drawer-role">Wealth Manager · Aurelius</div>
+              </div>
+            </div>
+            <button class="adv-drawer-close" aria-label="Close drawer">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+          <div class="adv-drawer-secure">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            End-to-end encrypted · FCA regulated communication
+          </div>
+          <div class="adv-drawer-body" style="flex:1">
+            <div>
+              <label class="adv-drawer-label">Your message</label>
+              <textarea class="contact-textarea" rows="4" placeholder="Write a message to your adviser…"></textarea>
+            </div>
+            <button class="btn-primary" style="width:100%;margin-top:8px">Send Message</button>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;!-- Prototype: native Popover API --&gt;
+&lt;div class="adv-drawer" id="adviser-drawer" popover="manual"&gt;
+  &lt;div class="adv-drawer-inner"&gt;
+    &lt;div class="adv-drawer-hd"&gt;
+      &lt;div class="adv-drawer-hd-left"&gt;
+        &lt;div class="adv-drawer-avatar"&gt;SR&lt;/div&gt;
+        &lt;div&gt;
+          &lt;div class="adv-drawer-name"&gt;Sarah Reynolds&lt;/div&gt;
+          &lt;div class="adv-drawer-role"&gt;Wealth Manager&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;button class="adv-drawer-close" popovertarget="adviser-drawer"
+        popovertargetaction="hide" aria-label="Close"&gt;&amp;times;&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="adv-drawer-secure"&gt;
+      &lt;!-- lock icon --&gt; End-to-end encrypted
+    &lt;/div&gt;
+    &lt;div class="adv-drawer-body"&gt;
+      &lt;label class="adv-drawer-label"&gt;Your message&lt;/label&gt;
+      &lt;textarea class="contact-textarea"&gt;&lt;/textarea&gt;
+      &lt;button class="btn-primary"&gt;Send Message&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Trigger --&gt;
+&lt;button class="btn-primary contact-btn" popovertarget="adviser-drawer"&gt;
+  Message Adviser
+&lt;/button&gt;
+
+&lt;!-- OutSystems variant: toggle .is-open + .drawer-overlay sibling --&gt;
+&lt;div class="adv-drawer is-open"&gt;&lt;!-- content --&gt;&lt;/div&gt;
+&lt;div class="drawer-overlay"&gt;&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Animation Details ──────────────────────────────────── -->
+    <section class="sg-section" id="animation">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Animation &amp; Transition</h2>
+        <p class="sg-section-desc">All drawers use <code>transform: translateX(100%)</code> as the closed state. Opening applies <code>transform: translateX(0)</code> via the <code>:popover-open</code> pseudo-class or <code>.is-open</code> class. The spring easing (<code>cubic-bezier(0.16, 1, 0.3, 1)</code>) creates a snappy, decelerated entry. The <code>@starting-style</code> block enables the initial keyframe for the browser's native Popover animation.</p>
+        <p class="sg-section-desc" style="margin-top:8px">The backdrop uses <code>allow-discrete</code> on the <code>display</code> and <code>overlay</code> properties to enable smooth show/hide transitions — required for the native Popover API backdrop to animate correctly.</p>
+      </div>
+    </section>
+
+    <!-- ── OutSystems Overlay ─────────────────────────────────── -->
+    <section class="sg-section" id="overlay">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">OutSystems Overlay (<code>.drawer-overlay</code>)</h2>
+        <p class="sg-section-desc">The native Popover API provides its own <code>::backdrop</code>. OutSystems cannot use this — instead, add a <code>.drawer-overlay</code> element as a DOM sibling to the drawer element. Show/hide it alongside the drawer to provide the same blurred backdrop effect.</p>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;!-- Place these as siblings in the page body --&gt;
+&lt;div class="adv-drawer is-open"&gt;
+  &lt;!-- drawer content --&gt;
+&lt;/div&gt;
+&lt;div class="drawer-overlay"&gt;&lt;/div&gt;
+
+&lt;!-- To close: remove .is-open from drawer; remove .drawer-overlay from DOM
+     (or toggle its opacity/display) --&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Token Table ────────────────────────────────────────── -->
+    <section class="sg-section" id="tokens">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Token Reference</h2>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md)">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);color:var(--text-3);text-align:left">
+              <th style="padding:8px 12px 8px 0;font-weight:var(--fw-semibold)">Token</th>
+              <th style="padding:8px 0;font-weight:var(--fw-semibold)">Purpose</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--text-2)">
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--bg-card</code></td><td style="padding:8px 0">Drawer panel background</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--border</code></td><td style="padding:8px 0">Left border separating drawer from page content</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--gold / --gold-glow</code></td><td style="padding:8px 0">Adviser avatar border and gradient fill</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--green-dim / --green</code></td><td style="padding:8px 0">Secure connection bar background and icon</td></tr>
+            <tr><td style="padding:8px 12px 8px 0"><code>--fs-drawer-title</code> (20px)</td><td style="padding:8px 0">Sent-state confirmation heading</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Accessibility ─────────────────────────────────────── -->
+    <section class="sg-section" id="accessibility">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Accessibility Notes</h2>
+      </div>
+      <div class="sg-demo sg-demo--col">
+        <p style="margin:0;color:var(--text-2);font-size:var(--fs-body)">Drawers must trap focus while open — the native Popover API handles this automatically. On OutSystems, use a focus-trap library or manually move focus to the first interactive element inside the drawer on open, and return focus to the trigger on close. Include <code>aria-modal="true"</code> and <code>role="dialog"</code> on the drawer element. The close button must have <code>aria-label="Close"</code>. Drawers must be closeable by pressing <kbd>Escape</kbd>.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+</body>
+</html>

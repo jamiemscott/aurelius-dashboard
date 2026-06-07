@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="contact">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Form — Aurelius Style Guide</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Contact Form</h1>
+      <p class="sg-page-desc">The contact page component system — message form, segmented control, character counter, loading overlay, and success state. Defined in <code>modules/contact.css</code>. All form elements share tokens with the Details page input system.</p>
+    </div>
+
+    <!-- ── Segmented Control ─────────────────────────────────── -->
+    <section class="sg-section" id="seg-control">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Segmented Control (<code>.contact-seg</code>)</h2>
+        <p class="sg-section-desc">A pill-style tab row for switching contact method or message type. Active segment uses <code>.is-active</code> which applies the gold background. Only one segment should be active at a time — update via JavaScript.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="contact-seg" role="tablist" aria-label="Contact method">
+          <button class="contact-seg-btn is-active" role="tab" aria-selected="true">Send Message</button>
+          <button class="contact-seg-btn" role="tab" aria-selected="false">Request Call</button>
+          <button class="contact-seg-btn" role="tab" aria-selected="false">Book Meeting</button>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="contact-seg" role="tablist" aria-label="Contact method"&gt;
+  &lt;button class="contact-seg-btn is-active" role="tab" aria-selected="true"&gt;
+    Send Message
+  &lt;/button&gt;
+  &lt;button class="contact-seg-btn" role="tab" aria-selected="false"&gt;
+    Request Call
+  &lt;/button&gt;
+  &lt;button class="contact-seg-btn" role="tab" aria-selected="false"&gt;
+    Book Meeting
+  &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Textarea ──────────────────────────────────────────── -->
+    <section class="sg-section" id="textarea">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Message Textarea (<code>.contact-textarea</code>)</h2>
+        <p class="sg-section-desc">Full-width textarea with border-input styling for WCAG 1.4.11 compliance. On focus, a gold ring replaces the grey border. Character counter sits below using <code>.contact-char-count</code>. The lock note (<code>.contact-lock-note</code>) appears beneath the form to reassure users about encryption.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="contact-form-wrap" style="max-width:500px">
+          <label class="sg-label" for="sg-msg">Your message</label>
+          <textarea class="contact-textarea" id="sg-msg" rows="5" placeholder="Describe your question or topic…" maxlength="1000"></textarea>
+          <div class="contact-char-count">0 / 1000</div>
+          <div class="contact-lock-note">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Messages are encrypted end-to-end · FCA regulated
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="contact-form-wrap"&gt;
+  &lt;label for="message"&gt;Your message&lt;/label&gt;
+  &lt;textarea class="contact-textarea" id="message" rows="5"
+    placeholder="Describe your question…" maxlength="1000"&gt;&lt;/textarea&gt;
+  &lt;div class="contact-char-count" aria-live="polite"&gt;0 / 1000&lt;/div&gt;
+  &lt;div class="contact-lock-note"&gt;
+    &lt;!-- lock icon --&gt; Messages are encrypted end-to-end
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Sending State ─────────────────────────────────────── -->
+    <section class="sg-section" id="sending">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Sending Overlay (<code>.contact-form-overlay</code>)</h2>
+        <p class="sg-section-desc">When the user submits the form, a frosted-glass overlay appears over the form with a spinner. The overlay uses <code>backdrop-filter: blur(6px)</code> and sits <code>position: absolute</code> inside <code>.contact-form-wrap</code>.</p>
+      </div>
+      <div class="sg-demo" style="max-width:400px;position:relative;min-height:120px">
+        <div class="contact-form-wrap" style="position:relative;min-height:120px;display:flex;align-items:center;justify-content:center">
+          <div class="contact-form-overlay" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:var(--bg-card);border-radius:var(--radius-card);border:1px solid var(--border)">
+            <div class="contact-spinner" style="width:28px;height:28px;border:3px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 0.7s linear infinite"></div>
+            <span style="color:var(--text-2);font-size:var(--fs-ui)">Sending…</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Sent State ────────────────────────────────────────── -->
+    <section class="sg-section" id="sent">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Success State</h2>
+        <p class="sg-section-desc">After successful send, the form is replaced by a confirmation panel with a circular check icon (<code>.contact-sent-icon</code>), a serif heading (<code>.contact-sent-title</code>), a reference number chip (<code>.contact-ref</code>), and an explanatory note (<code>.contact-sent-note</code>).</p>
+      </div>
+      <div class="sg-demo sg-demo--col" style="align-items:center;text-align:center;max-width:400px;margin-inline:auto">
+        <div class="contact-sent-icon" style="width:56px;height:56px;border-radius:50%;background:var(--green-dim);display:flex;align-items:center;justify-content:center;margin-inline:auto">
+          <svg width="24" height="24" fill="none" stroke="var(--green)" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="contact-sent-title" style="font-family:var(--font-serif);font-size:var(--fs-page-title);color:var(--text-1);margin-top:12px">Message sent</div>
+        <p class="contact-sent-note" style="color:var(--text-2);font-size:var(--fs-ui);margin:6px 0 12px">Your adviser will respond within 1 business day.</p>
+        <div class="contact-ref" style="display:inline-block;background:var(--gold-dim);color:var(--gold-text);border-radius:6px;padding:4px 10px;font-size:var(--fs-sm);font-family:monospace">REF-2024-08471</div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="contact-sent-icon"&gt;&lt;!-- check SVG --&gt;&lt;/div&gt;
+&lt;div class="contact-sent-title"&gt;Message sent&lt;/div&gt;
+&lt;p class="contact-sent-note"&gt;
+  Your adviser will respond within 1 business day.
+&lt;/p&gt;
+&lt;div class="contact-ref"&gt;REF-2024-08471&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Token Table ────────────────────────────────────────── -->
+    <section class="sg-section" id="tokens">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Token Reference</h2>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md)">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);color:var(--text-3);text-align:left">
+              <th style="padding:8px 12px 8px 0;font-weight:var(--fw-semibold)">Token</th>
+              <th style="padding:8px 0;font-weight:var(--fw-semibold)">Purpose</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--text-2)">
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--border-input</code></td><td style="padding:8px 0">Textarea default border (WCAG 1.4.11 compliant)</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--gold / --gold-glow</code></td><td style="padding:8px 0">Textarea focus ring, seg control active state</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--gold-dim / --gold-text</code></td><td style="padding:8px 0">Reference number chip background and text</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--green-dim / --green</code></td><td style="padding:8px 0">Success icon background and check mark</td></tr>
+            <tr><td style="padding:8px 12px 8px 0"><code>--font-serif</code></td><td style="padding:8px 0">Sent confirmation heading font</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Do / Don't ────────────────────────────────────────── -->
+    <section class="sg-section" id="do-dont">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Do &amp; Don't</h2>
+      </div>
+      <div class="sg-do-dont">
+        <div class="sg-do">
+          <div class="sg-do-label">Do</div>
+          <div class="sg-do-body"><p style="color:var(--text-2);font-size:var(--fs-sm);margin:0">Use <code>aria-live="polite"</code> on <code>.contact-char-count</code> so screen reader users hear updates as they type.</p></div>
+        </div>
+        <div class="sg-dont">
+          <div class="sg-dont-label">Don't</div>
+          <div class="sg-dont-body"><p style="color:var(--text-2);font-size:var(--fs-sm);margin:0">Don't disable the submit button during sending — use the overlay instead. Disabling the button removes it from the accessibility tree and causes confusion.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Accessibility ─────────────────────────────────────── -->
+    <section class="sg-section" id="accessibility">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Accessibility Notes</h2>
+      </div>
+      <div class="sg-demo sg-demo--col">
+        <p style="margin:0;color:var(--text-2);font-size:var(--fs-body)">Segmented control uses <code>role="tablist"</code> with <code>role="tab"</code> buttons and <code>aria-selected</code>. Textarea must have a visible <code>&lt;label&gt;</code> — do not rely on placeholder alone (WCAG 1.3.5). Character counter uses <code>aria-live="polite"</code>. The sending overlay must announce its state: add <code>role="status"</code> and <code>aria-label="Sending your message"</code>. The success state should move focus to the confirmation heading.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+</body>
+</html>

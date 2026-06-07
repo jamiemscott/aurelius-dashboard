@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="details">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Details — Aurelius Style Guide</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">My Details</h1>
+      <p class="sg-page-desc">All components for the My Details / Account Settings page — field rows, editable inputs, toggle switches, session management, KYC/2FA status pills, and the investor profile card. Defined in <code>modules/details.css</code>.</p>
+    </div>
+
+    <!-- ── Field Rows ─────────────────────────────────────────── -->
+    <section class="sg-section" id="field-rows">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Field Rows (<code>.det-field-row</code>)</h2>
+        <p class="sg-section-desc">The primary display unit for account data. A flex row with a fixed-width label (<code>.det-field-label</code>, min-width 148px) and a value column (<code>.det-field-val</code>). Add <code>.det-verified-badge</code> inside the value to display a verified tick.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="det-section">
+          <div class="det-section-hd">Personal Information</div>
+          <div class="det-field-row">
+            <div class="det-field-label">Full name</div>
+            <div class="det-field-val">James Alexander Scott</div>
+          </div>
+          <div class="det-field-row">
+            <div class="det-field-label">Email</div>
+            <div class="det-field-val">
+              james.scott@example.com
+              <span class="det-verified-badge">Verified</span>
+            </div>
+          </div>
+          <div class="det-field-row">
+            <div class="det-field-label">Date of birth</div>
+            <div class="det-field-val">14 March 1985</div>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="det-section"&gt;
+  &lt;div class="det-section-hd"&gt;Personal Information&lt;/div&gt;
+
+  &lt;div class="det-field-row"&gt;
+    &lt;div class="det-field-label"&gt;Full name&lt;/div&gt;
+    &lt;div class="det-field-val"&gt;James Alexander Scott&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="det-field-row"&gt;
+    &lt;div class="det-field-label"&gt;Email&lt;/div&gt;
+    &lt;div class="det-field-val"&gt;
+      james.scott@example.com
+      &lt;span class="det-verified-badge"&gt;Verified&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Status Dots ────────────────────────────────────────── -->
+    <section class="sg-section" id="status-dots">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Status Dots (<code>.det-status-dot</code>)</h2>
+        <p class="sg-section-desc">Coloured pulsing dots for live status indicators (e.g. account standing, session activity). Three colour states: green (good), gold (pending/warning), red (problem). Each has a matching CSS glow via box-shadow.</p>
+      </div>
+      <div class="sg-demo sg-demo--row">
+        <span style="display:flex;align-items:center;gap:8px;font-size:var(--fs-ui);color:var(--text-2)"><span class="det-status-dot" style="background:var(--green);box-shadow:0 0 0 3px color-mix(in oklch,var(--green) 25%,transparent)"></span> Active</span>
+        <span style="display:flex;align-items:center;gap:8px;font-size:var(--fs-ui);color:var(--text-2)"><span class="det-status-dot" style="background:var(--gold);box-shadow:0 0 0 3px color-mix(in oklch,var(--gold) 25%,transparent)"></span> Pending</span>
+        <span style="display:flex;align-items:center;gap:8px;font-size:var(--fs-ui);color:var(--text-2)"><span class="det-status-dot" style="background:var(--red);box-shadow:0 0 0 3px color-mix(in oklch,var(--red) 25%,transparent)"></span> Issue</span>
+      </div>
+    </section>
+
+    <!-- ── Toggle Switch ─────────────────────────────────────── -->
+    <section class="sg-section" id="toggle">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Toggle Switch (<code>.det-toggle</code>)</h2>
+        <p class="sg-section-desc">A pure CSS toggle switch built with a checkbox + label pattern. The <code>.det-toggle-row</code> arranges the label text on the left and the toggle on the right. The checked state turns the track gold. Use inside <code>.det-notif-wrap</code> for notification preference grids.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="det-section" style="max-width:400px">
+          <div class="det-toggle-row">
+            <div>
+              <div style="color:var(--text-1);font-size:var(--fs-ui)">Email notifications</div>
+              <div style="color:var(--text-3);font-size:var(--fs-sm)">Portfolio updates and reports</div>
+            </div>
+            <label class="det-toggle">
+              <input type="checkbox" checked aria-label="Email notifications">
+              <span class="det-toggle-track"></span>
+            </label>
+          </div>
+          <div class="det-toggle-row">
+            <div>
+              <div style="color:var(--text-1);font-size:var(--fs-ui)">SMS alerts</div>
+              <div style="color:var(--text-3);font-size:var(--fs-sm)">Security events only</div>
+            </div>
+            <label class="det-toggle">
+              <input type="checkbox" aria-label="SMS alerts">
+              <span class="det-toggle-track"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="det-toggle-row"&gt;
+  &lt;div&gt;
+    &lt;div&gt;Email notifications&lt;/div&gt;
+    &lt;div&gt;Portfolio updates and reports&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;label class="det-toggle"&gt;
+    &lt;input type="checkbox" checked aria-label="Email notifications"&gt;
+    &lt;span class="det-toggle-track"&gt;&lt;/span&gt;
+  &lt;/label&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Session Row ────────────────────────────────────────── -->
+    <section class="sg-section" id="sessions">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Session Rows (<code>.det-session-row</code>)</h2>
+        <p class="sg-section-desc">Displays active login sessions with device info, location, last-seen time, and a revoke button. Combine with <code>.det-status-badge</code> for "Current session" / "Active" labelling.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="det-section" style="max-width:520px">
+          <div class="det-session-row">
+            <div>
+              <div style="color:var(--text-1);font-size:var(--fs-ui);font-weight:var(--fw-medium)">MacBook Pro — Chrome 120 <span class="det-status-badge" style="background:var(--green-dim);color:var(--green);font-size:var(--fs-xs);border-radius:4px;padding:2px 6px;margin-left:6px">Current</span></div>
+              <div style="color:var(--text-3);font-size:var(--fs-sm)">London, UK · Active now</div>
+            </div>
+          </div>
+          <div class="det-session-row">
+            <div>
+              <div style="color:var(--text-1);font-size:var(--fs-ui);font-weight:var(--fw-medium)">iPhone 15 — Safari</div>
+              <div style="color:var(--text-3);font-size:var(--fs-sm)">London, UK · 2 hours ago</div>
+            </div>
+            <button class="det-revoke-btn">Revoke</button>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="det-session-row"&gt;
+  &lt;div&gt;
+    &lt;div&gt;MacBook Pro — Chrome 120
+      &lt;span class="det-status-badge"&gt;Current&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div&gt;London, UK · Active now&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;!-- No revoke button for current session --&gt;
+&lt;/div&gt;
+
+&lt;div class="det-session-row"&gt;
+  &lt;div&gt;
+    &lt;div&gt;iPhone 15 — Safari&lt;/div&gt;
+    &lt;div&gt;London, UK · 2 hours ago&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;button class="det-revoke-btn"&gt;Revoke&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Investor Profile Card ─────────────────────────────── -->
+    <section class="sg-section" id="profile-card">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Investor Profile Card (<code>.det-profile-card</code>)</h2>
+        <p class="sg-section-desc">A full-width card with a gold <code>border-block-start</code> accent that summarises the user's KYC status, risk profile, and 2FA status in a flex row. Displayed at the top of the <code>.details-hero-row</code>.</p>
+      </div>
+      <div class="sg-demo" style="max-width:560px">
+        <div class="det-profile-card" style="background:var(--bg-card);border-radius:var(--radius-card);border-top:2px solid var(--gold);padding:20px 24px;display:flex;gap:32px;flex-wrap:wrap">
+          <div>
+            <div class="det-kyc-status" style="display:flex;align-items:center;gap:6px">
+              <span style="width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block"></span>
+              <span style="color:var(--text-2);font-size:var(--fs-sm);text-transform:uppercase;letter-spacing:var(--ls-wider);font-weight:var(--fw-semibold)">KYC Verified</span>
+            </div>
+            <div style="color:var(--text-3);font-size:var(--fs-xs);margin-top:2px">Verified 14 Jan 2023</div>
+          </div>
+          <div>
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="color:var(--gold);font-size:var(--fs-sm);font-weight:var(--fw-semibold)">Balanced</span>
+            </div>
+            <div style="color:var(--text-3);font-size:var(--fs-xs);margin-top:2px">Risk Profile</div>
+          </div>
+          <div>
+            <div class="det-twofa-status" style="display:flex;align-items:center;gap:6px">
+              <span style="width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block"></span>
+              <span style="color:var(--text-2);font-size:var(--fs-sm);font-weight:var(--fw-semibold)">2FA Enabled</span>
+            </div>
+            <div style="color:var(--text-3);font-size:var(--fs-xs);margin-top:2px">Authenticator app</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Danger Zone ────────────────────────────────────────── -->
+    <section class="sg-section" id="danger">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Danger Zone (<code>.det-danger-zone</code>)</h2>
+        <p class="sg-section-desc">A section for destructive account actions — close account, delete data. Uses a red-dim tinted background and a subtle red border. Danger links (<code>.det-danger-link</code>) are red-coloured text-only buttons.</p>
+      </div>
+      <div class="sg-demo" style="max-width:480px">
+        <div class="det-danger-zone" style="background:var(--red-dim);border:1px solid color-mix(in oklch,var(--red) 25%,transparent);border-radius:var(--radius-card);padding:16px 20px">
+          <div style="color:var(--red);font-size:var(--fs-ui);font-weight:var(--fw-semibold);margin-bottom:4px">Danger Zone</div>
+          <div style="color:var(--text-2);font-size:var(--fs-sm);margin-bottom:12px">These actions are permanent and cannot be undone.</div>
+          <button class="det-danger-link" style="color:var(--red);background:none;border:none;font-size:var(--fs-ui);cursor:pointer;padding:0;text-decoration:underline">Close my account</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Token Table ────────────────────────────────────────── -->
+    <section class="sg-section" id="tokens">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Token Reference</h2>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md)">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);color:var(--text-3);text-align:left">
+              <th style="padding:8px 12px 8px 0;font-weight:var(--fw-semibold)">Token</th>
+              <th style="padding:8px 0;font-weight:var(--fw-semibold)">Purpose</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--text-2)">
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--border-input</code></td><td style="padding:8px 0">Editable input/select border (WCAG 1.4.11)</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--gold</code></td><td style="padding:8px 0">Profile card top accent, toggle checked state</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--green / --green-dim</code></td><td style="padding:8px 0">KYC verified, 2FA enabled, active session status</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--red / --red-dim</code></td><td style="padding:8px 0">Danger zone, problem status, revoke actions</td></tr>
+            <tr><td style="padding:8px 12px 8px 0"><code>148px</code></td><td style="padding:8px 0">Hard-coded min-width on <code>.det-field-label</code> — aligns all labels in a section.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Accessibility ─────────────────────────────────────── -->
+    <section class="sg-section" id="accessibility">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Accessibility Notes</h2>
+      </div>
+      <div class="sg-demo sg-demo--col">
+        <p style="margin:0;color:var(--text-2);font-size:var(--fs-body)">Toggle switches must use <code>role="switch"</code> and <code>aria-checked</code> if built with divs; the checkbox+label pattern is preferred as it is natively accessible. Status dots use colour + text — never colour alone (WCAG 1.4.1). Revoke session buttons must have descriptive labels: <code>aria-label="Revoke session: iPhone 15 Safari"</code>. Danger zone actions should use a confirmation dialog to prevent accidental activation.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+</body>
+</html>

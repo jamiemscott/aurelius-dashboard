@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="activity">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity Feed — Aurelius Style Guide</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Activity Feed</h1>
+      <p class="sg-page-desc">A vertical list of transaction events — buys, sells, and dividends. Defined in <code>modules/activity.css</code>. Used inside card components on the portfolio overview and statement pages. Each item consists of a coloured icon chip, a body with title and subtitle, an optional amount, and a timestamp.</p>
+    </div>
+
+    <!-- ── Anatomy ───────────────────────────────────────────── -->
+    <section class="sg-section" id="anatomy">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Anatomy &amp; Variants</h2>
+        <p class="sg-section-desc">Three icon states exist: <code>.is-buy</code> (green), <code>.is-sell</code> (red), <code>.is-div</code> (gold/dividend). Amount uses <code>.is-positive</code> and <code>.is-negative</code> for semantic colour.</p>
+      </div>
+      <div class="sg-demo">
+        <!-- Buy -->
+        <div class="activity-item">
+          <div class="activity-icon is-buy" aria-hidden="true">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+          </div>
+          <div class="activity-body">
+            <div class="activity-title">Bought — Vanguard FTSE All-World ETF</div>
+            <div class="activity-sub">ISA · 14 units @ £92.40</div>
+          </div>
+          <div>
+            <div class="activity-amount is-negative">−£1,293.60</div>
+            <div class="activity-time">9:14 am</div>
+          </div>
+        </div>
+        <!-- Sell -->
+        <div class="activity-item">
+          <div class="activity-icon is-sell" aria-hidden="true">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+          </div>
+          <div class="activity-body">
+            <div class="activity-title">Sold — Fidelity Index World Fund</div>
+            <div class="activity-sub">GIA · 30 units @ £8.12</div>
+          </div>
+          <div>
+            <div class="activity-amount is-positive">+£243.60</div>
+            <div class="activity-time">2:05 pm</div>
+          </div>
+        </div>
+        <!-- Dividend -->
+        <div class="activity-item">
+          <div class="activity-icon is-div" aria-hidden="true">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          </div>
+          <div class="activity-body">
+            <div class="activity-title">Dividend — iShares Core S&amp;P 500 ETF</div>
+            <div class="activity-sub">ISA · Quarterly distribution</div>
+          </div>
+          <div>
+            <div class="activity-amount is-positive">+£47.20</div>
+            <div class="activity-time">Yesterday</div>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="activity-item"&gt;
+  &lt;div class="activity-icon is-buy" aria-hidden="true"&gt;
+    &lt;!-- down-arrow SVG for buy --&gt;
+  &lt;/div&gt;
+  &lt;div class="activity-body"&gt;
+    &lt;div class="activity-title"&gt;Bought — Vanguard FTSE All-World ETF&lt;/div&gt;
+    &lt;div class="activity-sub"&gt;ISA · 14 units @ £92.40&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;div class="activity-amount is-negative"&gt;−£1,293.60&lt;/div&gt;
+    &lt;div class="activity-time"&gt;9:14 am&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="activity-item"&gt;
+  &lt;div class="activity-icon is-sell" aria-hidden="true"&gt;&lt;!-- up-arrow SVG --&gt;&lt;/div&gt;
+  &lt;div class="activity-body"&gt;
+    &lt;div class="activity-title"&gt;Sold — Fidelity Index World Fund&lt;/div&gt;
+    &lt;div class="activity-sub"&gt;GIA · 30 units @ £8.12&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;div class="activity-amount is-positive"&gt;+£243.60&lt;/div&gt;
+    &lt;div class="activity-time"&gt;2:05 pm&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="activity-item"&gt;
+  &lt;div class="activity-icon is-div" aria-hidden="true"&gt;&lt;!-- clock SVG --&gt;&lt;/div&gt;
+  &lt;div class="activity-body"&gt;
+    &lt;div class="activity-title"&gt;Dividend — iShares Core S&amp;P 500 ETF&lt;/div&gt;
+    &lt;div class="activity-sub"&gt;ISA · Quarterly distribution&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;div class="activity-amount is-positive"&gt;+£47.20&lt;/div&gt;
+    &lt;div class="activity-time"&gt;Yesterday&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Token Table ────────────────────────────────────────── -->
+    <section class="sg-section" id="tokens">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Token Reference</h2>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md)">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);color:var(--text-3);text-align:left">
+              <th style="padding:8px 12px 8px 0;font-weight:var(--fw-semibold)">Token</th>
+              <th style="padding:8px 12px;font-weight:var(--fw-semibold)">Purpose</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--text-2)">
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--green-dim / --green</code></td><td style="padding:8px 0">Buy icon background and text (is-buy)</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--red-dim / --red</code></td><td style="padding:8px 0">Sell icon background and text (is-sell)</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--gold-dim / --gold-text</code></td><td style="padding:8px 0">Dividend icon background and text (is-div)</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--divider</code></td><td style="padding:8px 0">Bottom border separating activity items</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--fs-ui</code> (13px)</td><td style="padding:8px 0">Activity title and amount font size</td></tr>
+            <tr><td style="padding:8px 12px 8px 0"><code>--fs-sm</code> (11px)</td><td style="padding:8px 0">Activity timestamp font size</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Do / Don't ────────────────────────────────────────── -->
+    <section class="sg-section" id="do-dont">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Do &amp; Don't</h2>
+      </div>
+      <div class="sg-do-dont">
+        <div class="sg-do">
+          <div class="sg-do-label">Do</div>
+          <div class="sg-do-body">
+            <p style="color:var(--text-2);font-size:var(--fs-sm);margin:0">Always use <code>is-positive</code> / <code>is-negative</code> on amounts. Green for money received, red for money paid out — consistent with financial convention.</p>
+          </div>
+        </div>
+        <div class="sg-dont">
+          <div class="sg-dont-label">Don't</div>
+          <div class="sg-dont-body">
+            <p style="color:var(--text-2);font-size:var(--fs-sm);margin:0">Don't use the activity icon classes (<code>is-buy</code>, <code>is-sell</code>, <code>is-div</code>) outside of <code>.activity-icon</code> elements — they set background and colour together and will produce unexpected results elsewhere.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Accessibility ─────────────────────────────────────── -->
+    <section class="sg-section" id="accessibility">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Accessibility Notes</h2>
+      </div>
+      <div class="sg-demo sg-demo--col">
+        <p style="margin:0;color:var(--text-2);font-size:var(--fs-body)">Icons are decorative (<code>aria-hidden="true"</code>) — the activity title conveys the transaction type in text. Positive/negative amounts use colour alone for emphasis; screen readers still read the full amount string including the sign character (+ or −). Wrap the feed in a <code>role="feed"</code> region if it can be dynamically updated to support live regions.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+</body>
+</html>

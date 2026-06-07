@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="user-menu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Menu — Aurelius Style Guide</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">User Menu</h1>
+      <p class="sg-page-desc">The topbar avatar button and its dropdown menu popover. Defined in <code>modules/user-menu.css</code>. Uses the native Popover API (prototype) or <code>.is-open</code> class (OutSystems). Width 264px, anchored to the top-right corner.</p>
+    </div>
+
+    <!-- ── Avatar Button ─────────────────────────────────────── -->
+    <section class="sg-section" id="avatar-btn">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Avatar Button</h2>
+        <p class="sg-section-desc">A <code>&lt;button class="avatar"&gt;</code> in the topbar right zone. On hover, a gold ring appears via <code>box-shadow</code>. This is the popover trigger — it should have <code>popovertarget="user-menu"</code> or an OutSystems click handler.</p>
+      </div>
+      <div class="sg-demo sg-demo--center">
+        <button class="avatar" aria-label="Open user menu" style="background:var(--gold-dim);border:2px solid var(--gold);border-radius:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;color:var(--gold-text);font-size:var(--fs-ui);font-weight:var(--fw-semibold);cursor:pointer;transition:box-shadow 0.15s">JS</button>
+      </div>
+    </section>
+
+    <!-- ── Menu Panel ─────────────────────────────────────────── -->
+    <section class="sg-section" id="menu-panel">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Menu Panel (<code>.user-menu</code>)</h2>
+        <p class="sg-section-desc">The dropdown panel. Closed state: <code>opacity:0; scale(0.95); pointer-events:none</code>. Open state: <code>opacity:1; scale(1)</code> via <code>:popover-open</code> or <code>.is-open</code>. Uses <code>transform-origin: top right</code> so it scales from the avatar. Sections are separated by <code>.um-divider</code>. Danger items use <code>.um-item--danger</code>.</p>
+      </div>
+      <div class="sg-demo" style="padding:0;overflow:visible;max-width:280px;margin-inline:auto">
+        <div class="user-menu" style="position:relative;inset:auto;opacity:1;transform:none;pointer-events:all;width:264px">
+          <div class="um-header">
+            <div class="um-avatar">JS</div>
+            <div>
+              <div class="um-name">James Scott</div>
+              <div class="um-meta">james@example.com</div>
+            </div>
+          </div>
+          <div class="um-divider"></div>
+          <div class="um-section">
+            <div class="um-section-label">Account</div>
+            <button class="um-item">
+              <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+              My Profile
+            </button>
+            <button class="um-item">
+              <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Security
+              <span class="um-2fa-pill um-2fa-pill--on">2FA On</span>
+            </button>
+          </div>
+          <div class="um-divider"></div>
+          <div class="um-section">
+            <button class="um-item um-item--danger">
+              <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+              Sign out
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;!-- Prototype: native Popover API --&gt;
+&lt;button class="avatar" popovertarget="user-menu" aria-label="Open user menu"&gt;
+  JS
+&lt;/button&gt;
+
+&lt;div class="user-menu" id="user-menu" popover="manual"
+  role="menu" aria-label="User menu"&gt;
+
+  &lt;div class="um-header"&gt;
+    &lt;div class="um-avatar"&gt;JS&lt;/div&gt;
+    &lt;div&gt;
+      &lt;div class="um-name"&gt;James Scott&lt;/div&gt;
+      &lt;div class="um-meta"&gt;james@example.com&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="um-divider"&gt;&lt;/div&gt;
+
+  &lt;div class="um-section"&gt;
+    &lt;div class="um-section-label"&gt;Account&lt;/div&gt;
+    &lt;button class="um-item" role="menuitem"&gt;My Profile&lt;/button&gt;
+    &lt;button class="um-item" role="menuitem"&gt;
+      Security
+      &lt;span class="um-2fa-pill um-2fa-pill--on"&gt;2FA On&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;div class="um-divider"&gt;&lt;/div&gt;
+
+  &lt;div class="um-section"&gt;
+    &lt;button class="um-item um-item--danger" role="menuitem"&gt;Sign out&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- OutSystems: toggle .is-open on .user-menu instead --&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── 2FA Pill ────────────────────────────────────────────── -->
+    <section class="sg-section" id="2fa-pill">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">2FA Status Pill (<code>.um-2fa-pill</code>)</h2>
+        <p class="sg-section-desc">A small inline badge on the Security menu item. Two variants: <code>.um-2fa-pill--on</code> (green, 2FA enabled) and <code>.um-2fa-pill--off</code> (red, 2FA disabled). This gives at-a-glance security status without navigating to the security page.</p>
+      </div>
+      <div class="sg-demo sg-demo--row">
+        <span class="um-2fa-pill um-2fa-pill--on" style="background:var(--green-dim);color:var(--green);border-radius:4px;padding:2px 6px;font-size:var(--fs-xs);font-weight:var(--fw-semibold)">2FA On</span>
+        <span class="um-2fa-pill um-2fa-pill--off" style="background:var(--red-dim);color:var(--red);border-radius:4px;padding:2px 6px;font-size:var(--fs-xs);font-weight:var(--fw-semibold)">2FA Off</span>
+      </div>
+    </section>
+
+    <!-- ── Token Table ────────────────────────────────────────── -->
+    <section class="sg-section" id="tokens">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Token Reference</h2>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md)">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);color:var(--text-3);text-align:left">
+              <th style="padding:8px 12px 8px 0;font-weight:var(--fw-semibold)">Token</th>
+              <th style="padding:8px 0;font-weight:var(--fw-semibold)">Purpose</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--text-2)">
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--bg-card</code></td><td style="padding:8px 0">Menu panel background</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--border</code></td><td style="padding:8px 0">Menu panel border</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--gold-dim / --gold</code></td><td style="padding:8px 0">Avatar background and border</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--bg-hover</code></td><td style="padding:8px 0">Menu item hover background</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--red</code></td><td style="padding:8px 0">Danger menu item text colour</td></tr>
+            <tr><td style="padding:8px 12px 8px 0"><code>--shadow-xl</code></td><td style="padding:8px 0">Elevated panel shadow</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Accessibility ─────────────────────────────────────── -->
+    <section class="sg-section" id="accessibility">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Accessibility Notes</h2>
+      </div>
+      <div class="sg-demo sg-demo--col">
+        <p style="margin:0;color:var(--text-2);font-size:var(--fs-body)">The menu panel uses <code>role="menu"</code> with <code>role="menuitem"</code> on each interactive item. Avatar trigger has <code>aria-label="Open user menu"</code> and <code>aria-expanded</code> toggled by JS. The native Popover API handles focus management; on OutSystems, manually move focus to the first menu item on open and return focus to the avatar on close. <kbd>Escape</kbd> must close the menu. Arrow keys should navigate between items (ARIA APG menu pattern).</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+</body>
+</html>

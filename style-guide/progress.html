@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="progress">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Progress & Stats — Aurelius Style Guide</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Progress &amp; Stats</h1>
+      <p class="sg-page-desc">Horizontal progress bars for allocation/holdings, and stat chips for key metrics. Defined in <code>modules/progress.css</code>. Progress items are used in fund breakdown lists; stat chips appear as summary rows on portfolio and holdings pages.</p>
+    </div>
+
+    <!-- ── Progress Items ────────────────────────────────────── -->
+    <section class="sg-section" id="progress-items">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Progress Items (<code>.progress-item</code>)</h2>
+        <p class="sg-section-desc">Each progress item is a flex row: a coloured dot (<code>.progress-dot</code>), a label (<code>.progress-label</code>), the percentage bar (<code>.progress-bar-wrap</code> containing <code>.progress-bar-track</code> and <code>.progress-bar-fill</code>), and a percentage text (<code>.progress-pct</code>). The fill width is set as an inline style on <code>.progress-bar-fill</code>.</p>
+      </div>
+      <div class="sg-demo" style="max-width:480px">
+        <div class="progress-item">
+          <div class="progress-dot" style="background:var(--gold)"></div>
+          <div class="progress-label">Global Equity</div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-track">
+              <div class="progress-bar-fill" style="width:60%;background:var(--gold)"></div>
+            </div>
+          </div>
+          <div class="progress-pct">60%</div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-dot" style="background:var(--el-water)"></div>
+          <div class="progress-label">Fixed Income</div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-track">
+              <div class="progress-bar-fill" style="width:25%;background:var(--el-water)"></div>
+            </div>
+          </div>
+          <div class="progress-pct">25%</div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-dot" style="background:var(--el-wood)"></div>
+          <div class="progress-label">Alternatives</div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-track">
+              <div class="progress-bar-fill" style="width:10%;background:var(--el-wood)"></div>
+            </div>
+          </div>
+          <div class="progress-pct">10%</div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-dot" style="background:var(--el-earth)"></div>
+          <div class="progress-label">Cash</div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-track">
+              <div class="progress-bar-fill" style="width:5%;background:var(--el-earth)"></div>
+            </div>
+          </div>
+          <div class="progress-pct">5%</div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="progress-item"&gt;
+  &lt;div class="progress-dot" style="background:var(--gold)"&gt;&lt;/div&gt;
+  &lt;div class="progress-label"&gt;Global Equity&lt;/div&gt;
+  &lt;div class="progress-bar-wrap"&gt;
+    &lt;div class="progress-bar-track"&gt;
+      &lt;!-- Set width as inline style --&gt;
+      &lt;div class="progress-bar-fill" style="width:60%;background:var(--gold)"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="progress-pct"&gt;60%&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Stat Chips ─────────────────────────────────────────── -->
+    <section class="sg-section" id="stat-chips">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Stat Chips (<code>.stat-chip</code>)</h2>
+        <p class="sg-section-desc">Compact metric display units arranged in a <code>.stat-row</code> flex container. Each chip has an uppercase tracking label (<code>.stat-chip-label</code>) and a value (<code>.stat-chip-value</code>). Value modifiers: no modifier (default text-1), add <code>.is-gold</code> for gold, <code>.is-green</code> for positive gains, <code>.is-red</code> for losses.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="stat-row">
+          <div class="stat-chip">
+            <div class="stat-chip-label">Total Value</div>
+            <div class="stat-chip-value">£124,350</div>
+          </div>
+          <div class="stat-chip">
+            <div class="stat-chip-label">Total Return</div>
+            <div class="stat-chip-value is-green">+£14,230</div>
+          </div>
+          <div class="stat-chip">
+            <div class="stat-chip-label">Return %</div>
+            <div class="stat-chip-value is-green">+12.9%</div>
+          </div>
+          <div class="stat-chip">
+            <div class="stat-chip-label">Today's Change</div>
+            <div class="stat-chip-value is-red">−£342</div>
+          </div>
+          <div class="stat-chip">
+            <div class="stat-chip-label">Yield</div>
+            <div class="stat-chip-value is-gold">3.2%</div>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="stat-row"&gt;
+  &lt;div class="stat-chip"&gt;
+    &lt;div class="stat-chip-label"&gt;Total Value&lt;/div&gt;
+    &lt;div class="stat-chip-value"&gt;£124,350&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="stat-chip"&gt;
+    &lt;div class="stat-chip-label"&gt;Total Return&lt;/div&gt;
+    &lt;div class="stat-chip-value is-green"&gt;+£14,230&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="stat-chip"&gt;
+    &lt;div class="stat-chip-label"&gt;Today's Change&lt;/div&gt;
+    &lt;div class="stat-chip-value is-red"&gt;−£342&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="stat-chip"&gt;
+    &lt;div class="stat-chip-label"&gt;Yield&lt;/div&gt;
+    &lt;div class="stat-chip-value is-gold"&gt;3.2%&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Token Table ────────────────────────────────────────── -->
+    <section class="sg-section" id="tokens">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Token Reference</h2>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md)">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);color:var(--text-3);text-align:left">
+              <th style="padding:8px 12px 8px 0;font-weight:var(--fw-semibold)">Token</th>
+              <th style="padding:8px 0;font-weight:var(--fw-semibold)">Purpose</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--text-2)">
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--progress-bg</code></td><td style="padding:8px 0">Progress track background (maps to <code>--bg-hover</code>)</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--fs-xs</code> (10px)</td><td style="padding:8px 0">Stat chip label (uppercase + letter-spacing)</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--ls-wider</code></td><td style="padding:8px 0">Letter spacing on stat chip label</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--green / --red / --gold-text</code></td><td style="padding:8px 0">is-green / is-red / is-gold value modifiers</td></tr>
+            <tr><td style="padding:8px 12px 8px 0"><code>--divider</code></td><td style="padding:8px 0">Separator between stat chips in a row</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Do / Don't ────────────────────────────────────────── -->
+    <section class="sg-section" id="do-dont">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Do &amp; Don't</h2>
+      </div>
+      <div class="sg-do-dont">
+        <div class="sg-do">
+          <div class="sg-do-label">Do</div>
+          <div class="sg-do-body"><p style="color:var(--text-2);font-size:var(--fs-sm);margin:0">Always set the fill width as an inline <code>style</code> attribute so OutSystems can drive it from data. Never hardcode the width in a modifier class.</p></div>
+        </div>
+        <div class="sg-dont">
+          <div class="sg-dont-label">Don't</div>
+          <div class="sg-dont-body"><p style="color:var(--text-2);font-size:var(--fs-sm);margin:0">Don't use more than 5–6 stat chips in a single <code>.stat-row</code> — they become too dense on tablet breakpoints. Split into two rows or use a grid if more are needed.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Accessibility ─────────────────────────────────────── -->
+    <section class="sg-section" id="accessibility">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Accessibility Notes</h2>
+      </div>
+      <div class="sg-demo sg-demo--col">
+        <p style="margin:0;color:var(--text-2);font-size:var(--fs-body)">Progress bars should use <code>role="progressbar"</code>, <code>aria-valuenow</code>, <code>aria-valuemin="0"</code>, and <code>aria-valuemax="100"</code> on the fill element. This allows screen readers to announce the allocation. Stat chip colour modifiers (green/red) must not be the only way to convey direction — the sign character (+ or −) must always be present in the value text.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+</body>
+</html>

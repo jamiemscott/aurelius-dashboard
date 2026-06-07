@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="theme-toggle">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Theme Toggle — Aurelius Style Guide</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Theme Toggle</h1>
+      <p class="sg-page-desc">The dark/light mode switch — a hidden checkbox with a pill-shaped label track. Defined in <code>modules/theme-toggle.css</code>. For the theming system itself (tokens, <code>light-dark()</code>, <code>color-scheme</code>, <code>@property</code>), see the <a href="theming.html" style="color:var(--gold)">Theming</a> page.</p>
+    </div>
+
+    <!-- ── Anatomy ───────────────────────────────────────────── -->
+    <section class="sg-section" id="anatomy">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Anatomy</h2>
+        <p class="sg-section-desc">The toggle lives inside a <code>.theme-switcher</code> wrapper (which has <code>display: contents</code>, making it invisible to layout). The hidden <code>.theme-checkbox</code> is visually positioned off-screen with <code>clip</code> technique — it stays in the DOM at all viewport sizes so theme state is never lost. The <code>label.theme-toggle</code> is the visible pill with a sliding thumb. Dark/light labels flank it.</p>
+      </div>
+      <div class="sg-demo sg-demo--center">
+        <div class="theme-switcher">
+          <span class="theme-label-dark" aria-hidden="true">Dark</span>
+          <label class="theme-toggle" for="sg-theme-demo" aria-label="Switch colour theme">
+            <input type="checkbox" class="theme-checkbox" id="sg-theme-demo">
+          </label>
+          <span class="theme-label-light" aria-hidden="true">Light</span>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;!-- Place this block anywhere in the topbar --&gt;
+&lt;div class="theme-switcher"&gt;
+  &lt;span class="theme-label-dark" aria-hidden="true"&gt;Dark&lt;/span&gt;
+
+  &lt;!-- The checkbox MUST persist at all viewport sizes --&gt;
+  &lt;label class="theme-toggle" for="theme" aria-label="Switch colour theme"&gt;
+    &lt;input type="checkbox" class="theme-checkbox" id="theme"&gt;
+  &lt;/label&gt;
+
+  &lt;span class="theme-label-light" aria-hidden="true"&gt;Light&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Screen-reader live region --&gt;
+&lt;div class="theme-live" aria-live="polite" aria-atomic="true"&gt;&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── How It Works ──────────────────────────────────────── -->
+    <section class="sg-section" id="how-it-works">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">How the Toggle Switches Themes</h2>
+        <p class="sg-section-desc">The checkbox drives the entire colour system via a single CSS selector in <code>theme/colours.css</code>:</p>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">/* colours.css — default is dark mode */
+:root { color-scheme: dark; }
+
+/* When the checkbox is checked, switch to light */
+html:has(.theme-checkbox:checked) { color-scheme: light; }
+
+/* Every token uses light-dark() to respond automatically */
+:root {
+  --bg: light-dark(#F8F8FA, #0B0D10);
+  --text-1: light-dark(#14161A, #F2F3F5);
+}</code></pre>
+      </div>
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-card);padding:14px 16px;margin-top:16px">
+        <p style="color:var(--text-2);font-size:var(--fs-body);margin:0;line-height:var(--lh-relaxed)">The <code>:has()</code> selector means no JavaScript is needed to change theme — checking the box triggers the CSS cascade globally. The <code>sg-shell.js</code> script only reads the checkbox state to persist it to <code>localStorage</code> and update the accessible live region.</p>
+      </div>
+    </section>
+
+    <!-- ── Responsive Behaviour ──────────────────────────────── -->
+    <section class="sg-section" id="responsive">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Responsive Behaviour</h2>
+        <p class="sg-section-desc">The toggle label and flanking text are hidden at viewports ≤1100px (icon rail mode). The <code>.theme-checkbox</code> input is intentionally never hidden — it must remain in the DOM to preserve the theme state via the <code>:has()</code> selector, even when invisible.</p>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md)">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);color:var(--text-3);text-align:left">
+              <th style="padding:8px 12px 8px 0;font-weight:var(--fw-semibold)">Breakpoint</th>
+              <th style="padding:8px 0;font-weight:var(--fw-semibold)">Behaviour</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--text-2)">
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0">&gt;1100px</td><td style="padding:8px 0">Toggle pill + dark/light labels fully visible in topbar</td></tr>
+            <tr><td style="padding:8px 12px 8px 0">≤1100px</td><td style="padding:8px 0">Toggle visually hidden; checkbox stays in DOM; theme persists</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Token Table ────────────────────────────────────────── -->
+    <section class="sg-section" id="tokens">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Token Reference</h2>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md)">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);color:var(--text-3);text-align:left">
+              <th style="padding:8px 12px 8px 0;font-weight:var(--fw-semibold)">Token</th>
+              <th style="padding:8px 0;font-weight:var(--fw-semibold)">Purpose</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--text-2)">
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--bg-input</code></td><td style="padding:8px 0">Toggle pill track background</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--border</code></td><td style="padding:8px 0">Toggle pill border</td></tr>
+            <tr><td style="padding:8px 12px 8px 0"><code>--text-3</code></td><td style="padding:8px 0">Dark/light flanking label colour</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Accessibility ─────────────────────────────────────── -->
+    <section class="sg-section" id="accessibility">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Accessibility Notes</h2>
+      </div>
+      <div class="sg-demo sg-demo--col">
+        <p style="margin:0;color:var(--text-2);font-size:var(--fs-body)">The toggle is a native <code>&lt;input type="checkbox"&gt;</code>, which is natively keyboard-accessible (Space to toggle). The <code>aria-label</code> on the <code>&lt;label&gt;</code> reads "Switch colour theme". A visually-hidden <code>.theme-live</code> element with <code>aria-live="polite"</code> announces the new mode ("Dark mode enabled" / "Light mode enabled") via the JavaScript hook in <code>sg-shell.js</code>. The "Dark" and "Light" flanking labels are <code>aria-hidden="true"</code> since the label covers the semantics. Contrast of the thumb on the track meets WCAG 1.4.11 (UI component contrast).</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+</body>
+</html>

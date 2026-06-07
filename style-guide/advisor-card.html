@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="advisor-card">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advisor Card — Aurelius Style Guide</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Advisor Card</h1>
+      <p class="sg-page-desc">The sidebar adviser introduction card and its contact button modifier. Defined in <code>modules/advisor-card.css</code>. The card appears in the left sidebar (below the nav) and gives the user quick access to their assigned wealth manager. The <code>.contact-btn</code> modifier reduces button size to fit the narrow sidebar context.</p>
+    </div>
+
+    <!-- ── Anatomy ───────────────────────────────────────────── -->
+    <section class="sg-section" id="anatomy">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Anatomy (<code>.advisor-card</code>)</h2>
+        <p class="sg-section-desc">A flex column card with gold-dim background, gold-glow border, <code>--radius-item</code> corners, and 2px horizontal margin to prevent clipping. Contains: a badge label (<code>.advisor-label</code>), the adviser's name (<code>.advisor-name</code>), contact details (<code>.advisor-contact</code>), and a "Message Adviser" CTA button using the <code>.contact-btn</code> modifier.</p>
+      </div>
+      <div class="sg-demo sg-demo--center" style="max-width:200px;margin-inline:auto">
+        <div class="advisor-card">
+          <div class="advisor-label">Your Adviser</div>
+          <div class="advisor-name">Sarah Reynolds</div>
+          <div class="advisor-contact">sarah.r@aurelius.co.uk</div>
+          <div class="advisor-contact">+44 20 7946 0321</div>
+          <button class="btn-primary contact-btn" style="width:100%;margin-block-start:8px">Message Adviser</button>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="advisor-card"&gt;
+  &lt;div class="advisor-label"&gt;Your Adviser&lt;/div&gt;
+  &lt;div class="advisor-name"&gt;Sarah Reynolds&lt;/div&gt;
+  &lt;div class="advisor-contact"&gt;sarah.r@aurelius.co.uk&lt;/div&gt;
+  &lt;div class="advisor-contact"&gt;+44 20 7946 0321&lt;/div&gt;
+
+  &lt;!-- .contact-btn modifier reduces button size for sidebar --&gt;
+  &lt;button class="btn-primary contact-btn"
+    popovertarget="adviser-drawer"&gt;
+    Message Adviser
+  &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Contact Btn Modifier ──────────────────────────────── -->
+    <section class="sg-section" id="contact-btn">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title"><code>.contact-btn</code> Modifier</h2>
+        <p class="sg-section-desc">A size-reduction modifier applied on top of <code>.btn-primary</code> or <code>.btn-secondary</code> for sidebar-constrained contexts. Reduces font size to <code>--fs-md</code> (12px) and padding to <code>7px 12px</code>. Also adds <code>margin-block-start: 4px</code> to create breathing room from the adviser contact details above it.</p>
+      </div>
+      <div class="sg-demo sg-demo--row">
+        <div style="display:flex;flex-direction:column;align-items:flex-start;gap:8px">
+          <span style="color:var(--text-3);font-size:var(--fs-xs)">Standard .btn-primary</span>
+          <button class="btn-primary">Message Adviser</button>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-start;gap:8px">
+          <span style="color:var(--text-3);font-size:var(--fs-xs)">With .contact-btn modifier</span>
+          <button class="btn-primary contact-btn">Message Adviser</button>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;!-- Always pair with a base button class --&gt;
+&lt;button class="btn-primary contact-btn"&gt;Message Adviser&lt;/button&gt;
+&lt;button class="btn-secondary contact-btn"&gt;View Profile&lt;/button&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Token Table ────────────────────────────────────────── -->
+    <section class="sg-section" id="tokens">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Token Reference</h2>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md)">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);color:var(--text-3);text-align:left">
+              <th style="padding:8px 12px 8px 0;font-weight:var(--fw-semibold)">Token</th>
+              <th style="padding:8px 0;font-weight:var(--fw-semibold)">Purpose</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--text-2)">
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--gold-dim</code></td><td style="padding:8px 0">Card background</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--gold-glow</code></td><td style="padding:8px 0">Card border colour</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--radius-item</code></td><td style="padding:8px 0">Card corner radius</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--gold</code> + <code>--ls-widest</code></td><td style="padding:8px 0">Adviser label (uppercase, widest tracking)</td></tr>
+            <tr><td style="padding:8px 12px 8px 0"><code>--fs-md</code> (12px)</td><td style="padding:8px 0">contact-btn reduced font size</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Do / Don't ────────────────────────────────────────── -->
+    <section class="sg-section" id="do-dont">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Do &amp; Don't</h2>
+      </div>
+      <div class="sg-do-dont">
+        <div class="sg-do">
+          <div class="sg-do-label">Do</div>
+          <div class="sg-do-body"><p style="color:var(--text-2);font-size:var(--fs-sm);margin:0">Always use <code>.contact-btn</code> alongside a base button class — it only overrides size, not colours or states.</p></div>
+        </div>
+        <div class="sg-dont">
+          <div class="sg-dont-label">Don't</div>
+          <div class="sg-dont-body"><p style="color:var(--text-2);font-size:var(--fs-sm);margin:0">Don't use <code>.contact-btn</code> outside of narrow sidebar or card contexts — the reduced size reduces tap target size below the 44×44px WCAG 2.5.5 threshold at full viewport widths.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Accessibility ─────────────────────────────────────── -->
+    <section class="sg-section" id="accessibility">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Accessibility Notes</h2>
+      </div>
+      <div class="sg-demo sg-demo--col">
+        <p style="margin:0;color:var(--text-2);font-size:var(--fs-body)">The adviser card is a landmark region — wrap it in a <code>&lt;section aria-label="Your adviser"&gt;</code>. The "Message Adviser" button opens the adviser drawer: include <code>aria-haspopup="dialog"</code> and <code>aria-expanded</code>. The <code>.contact-btn</code> modifier reduces font size but the button element itself remains keyboard and screen reader accessible. Adviser contact details (email, phone) should be marked up as <code>&lt;a href="mailto:..."&gt;</code> and <code>&lt;a href="tel:..."&gt;</code> links.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+</body>
+</html>
