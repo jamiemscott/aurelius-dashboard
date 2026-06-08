@@ -611,10 +611,7 @@ html:has(.theme-checkbox:checked) .gl-drawer-hd {
 
 .gl-form-input {
   background: var(--bg-input);
-  /* The global input reset rule has specificity (0,8,1) due to its 8 :not()
-     pseudo-classes, which beats our (0,1,0). !important is the correct tool
-     here to override a base reset with an intentional component border. */
-  border: 1px solid light-dark(rgba(0,0,0,0.40), rgba(255,255,255,0.40)) !important;
+  border: 1px solid light-dark(rgba(0,0,0,0.40), rgba(255,255,255,0.40));
   border-radius: 10px;
   color: var(--text-1);
   font-family: var(--font-sans);
@@ -624,7 +621,7 @@ html:has(.theme-checkbox:checked) .gl-drawer-hd {
   width: 100%;
 }
 
-.gl-form-input:focus { border-color: var(--gold) !important; outline: none; }
+.gl-form-input:focus { border-color: var(--gold); outline: none; }
 
 .gl-form-input--prefixed { padding-inline-start: 28px; }
 .gl-form-input--suffixed { padding-inline-end: 48px; }

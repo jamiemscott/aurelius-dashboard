@@ -43,9 +43,12 @@
    native appearance (checkbox, radio) or have their own module
    styles (range, file, submit, button).                              */
 
-input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="reset"]),
-select,
-textarea {
+/* :where() zeroes out the specificity of the :not() chain so any
+   class-based component style (e.g. .gl-form-input, .amount-input)
+   overrides the base reset without needing !important.               */
+:where(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="reset"])),
+:where(select),
+:where(textarea) {
   -webkit-appearance: none;
   appearance: none;
   background: var(--bg-input);
@@ -61,9 +64,9 @@ textarea {
 }
 
 /* Focus ring — gold, consistent with button / chip focus */
-input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="reset"]):focus,
-select:focus,
-textarea:focus {
+:where(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="reset"])):focus,
+:where(select):focus,
+:where(textarea):focus {
   border-color: var(--gold-glow);
   box-shadow: 0 0 0 3px var(--gold-dim);
 }
