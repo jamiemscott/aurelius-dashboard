@@ -126,15 +126,34 @@
         <div class="range-pills">
           <button class="range-pill" onclick="setRange(this,'1M')">1M</button>
           <button class="range-pill" onclick="setRange(this,'3M')">3M</button>
-          <button class="range-pill active" onclick="setRange(this,'6M')">6M</button>
+          <button class="range-pill is-active" onclick="setRange(this,'6M')">6M</button>
           <button class="range-pill" onclick="setRange(this,'1Y')">1Y</button>
           <button class="range-pill" onclick="setRange(this,'All')">All</button>
         </div>
       </div>
-      <svg class="chart-svg" id="hist-chart" height="260" viewBox="0 0 800 260" preserveAspectRatio="none"></svg>
-      <div style="display:flex;justify-content:space-between;margin-top:8px;">
-        <span style="font-size:11px;color:var(--text-3)">06/11/2025</span>
-        <span style="font-size:11px;color:var(--text-3)">06/02/2026</span>
+
+      <!-- Benchmark headline callout -->
+      <output class="bm-headline" id="bm-headline" role="status" aria-live="polite" aria-atomic="true"></output>
+
+      <div class="chart-container">
+        <svg class="chart-svg" id="hist-chart" height="260" viewBox="0 0 800 260" preserveAspectRatio="none" aria-label="Portfolio performance chart with benchmark comparison"></svg>
+        <div class="bm-tooltip" id="bm-tooltip" role="tooltip" aria-hidden="true"></div>
+      </div>
+
+      <div class="chart-axis-labels">
+        <span class="chart-axis-label">Sep 2025</span>
+        <span class="chart-axis-label">Feb 2026</span>
+      </div>
+
+      <!-- Benchmark selector chips -->
+      <div class="bm-chips" role="group" aria-label="Benchmark comparisons">
+        <span class="bm-chips-label">Compare vs:</span>
+        <button class="bm-chip" data-bm="ftse-all-world" aria-pressed="true"  onclick="toggleBenchmark('ftse-all-world')">FTSE All-World</button>
+        <button class="bm-chip" data-bm="ftse-100"       aria-pressed="false" onclick="toggleBenchmark('ftse-100')">FTSE 100</button>
+        <button class="bm-chip" data-bm="inflation"      aria-pressed="false" onclick="toggleBenchmark('inflation')">Inflation (CPI)</button>
+        <button class="bm-chip" data-bm="peer"           aria-pressed="false" onclick="toggleBenchmark('peer')">Peer Group</button>
+        <button class="bm-chip" data-bm="cash"           aria-pressed="false" onclick="toggleBenchmark('cash')">Cash (Best Rate)</button>
+        <button class="bm-chip" data-bm="goal"           aria-pressed="false" onclick="toggleBenchmark('goal')">Goal Trajectory</button>
       </div>
     </div>
 
