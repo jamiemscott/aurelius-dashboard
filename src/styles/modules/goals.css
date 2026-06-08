@@ -557,7 +557,7 @@ html:has(.theme-checkbox:checked) .gl-drawer-hd {
 .gl-type-btn {
   align-items: center;
   background: var(--bg-input);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-input);
   border-radius: 14px;
   cursor: pointer;
   display: flex;
@@ -611,7 +611,7 @@ html:has(.theme-checkbox:checked) .gl-drawer-hd {
 
 .gl-form-input {
   background: var(--bg-input);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-input);
   border-radius: 10px;
   color: var(--text-1);
   font-family: var(--font-sans);
