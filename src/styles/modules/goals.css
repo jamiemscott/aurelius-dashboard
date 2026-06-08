@@ -491,7 +491,7 @@ html:has(.theme-checkbox:checked) .gl-add-card {
   inset-block-end: 0;
   inset-inline: 0;
   margin-inline: auto;
-  max-height: 85dvh;
+  max-height: 72dvh;
   max-width: min(860px, calc(100% - 48px));
   overflow-y: auto;
   padding: 0;
