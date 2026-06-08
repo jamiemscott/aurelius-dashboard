@@ -404,8 +404,11 @@ function glRenderDrawer() {
         /* Monthly preview — shown/hidden by glPreviewMonthly() */
         '<div class="gl-form-preview">',
           '<div class="gl-form-preview-inner" id="gl-preview-inner" hidden>',
-            '<span class="gl-form-preview-label">You\'d need to save</span>',
-            '<output class="gl-form-preview-amount" id="gl-preview-amount"></output>',
+            '<p class="gl-form-preview-label">You would need to save</p>',
+            '<div class="gl-form-preview-figure">',
+              '<output class="gl-form-preview-amount" id="gl-preview-amount"></output>',
+              '<span class="gl-form-preview-unit" aria-hidden="true">per month</span>',
+            '</div>',
             '<output class="gl-form-preview-sub" id="gl-preview-sub"></output>',
           '</div>',
         '</div>',
@@ -447,7 +450,7 @@ function glPreviewMonthly() {
   if (!valid) return;
 
   var monthly        = Math.ceil(target / (years * 12));
-  amount.textContent = glFmt(monthly) + '/month';
+  amount.textContent = glFmt(monthly);
   sub.textContent    = 'to reach ' + glFmt(target) + ' in ' + years + ' year' + (years !== 1 ? 's' : '');
 }
 
