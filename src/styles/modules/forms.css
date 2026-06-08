@@ -36,26 +36,50 @@
 
 
 /* ─── BASE INPUT / SELECT / TEXTAREA ────────────────────────────────
-   Low-specificity tag rules — all specialised inputs (.ob-reg-input,
-   .amount-input, .filter-select, etc.) override as needed.
+   Two-layer approach — all wrapped in :where() so specificity is zero
+   and any single class (e.g. .gl-form-input at 0,1,0) wins without
+   needing !important or specificity hacks.
 
-   :not() chain excludes non-text inputs that should keep their
-   native appearance (checkbox, radio) or have their own module
-   styles (range, file, submit, button).                              */
+   Layer 1 — universal reset: box model + font inheritance only.
+             Applies to every input incl. checkbox/radio so they
+             at least inherit the correct font family.
 
-/* :where() zeroes out the specificity of the :not() chain so any
-   class-based component style (e.g. .gl-form-input, .amount-input)
-   overrides the base reset without needing !important.               */
-:where(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="reset"])),
-:where(select),
-:where(textarea) {
+   Layer 2 — visual defaults: explicit allowlist of text-entry types.
+             Non-text inputs (checkbox, radio, range, file, submit…)
+             are simply not listed, so they keep native appearance.
+             No :not() exclusion chain needed.                        */
+
+/* 1. Universal reset */
+:where(input, select, textarea) {
+  box-sizing: border-box;
+  font-family: var(--font-sans);
+  margin: 0;
+}
+
+/* 2. Visual defaults — text-entry inputs only */
+:where(
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="date"],
+  input[type="month"],
+  input[type="week"],
+  input[type="time"],
+  input[type="datetime-local"],
+  input:not([type]),
+  select,
+  textarea
+) {
   -webkit-appearance: none;
   appearance: none;
   background: var(--bg-input);
   border: 1.5px solid var(--border);
   border-radius: var(--radius-item);   /* 12px */
   color: var(--text-1);
-  font-family: var(--font-sans);
   font-size: var(--fs-input);          /* 14px */
   outline: none;
   padding: 10px 14px;
@@ -64,9 +88,23 @@
 }
 
 /* Focus ring — gold, consistent with button / chip focus */
-:where(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="reset"])):focus,
-:where(select):focus,
-:where(textarea):focus {
+:where(
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="date"],
+  input[type="month"],
+  input[type="week"],
+  input[type="time"],
+  input[type="datetime-local"],
+  input:not([type]),
+  select,
+  textarea
+):focus {
   border-color: var(--gold-glow);
   box-shadow: 0 0 0 3px var(--gold-dim);
 }
