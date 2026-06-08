@@ -262,7 +262,7 @@ function glAddCard() {
 function glRenderGrid() {
   var el = document.getElementById('gl-grid');
   if (!el) return;
-  el.innerHTML = goalsData.map(glRenderCard).join('') + glAddCard();
+  el.innerHTML = goalsData.map(glRenderCard).join('') + glAddCard() + (typeof avaEntryCard === 'function' ? avaEntryCard() : '');
 }
 
 /* ── Adjust panel ───────────────────────────────────────────── */

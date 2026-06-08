@@ -1,0 +1,440 @@
+/* ─── AVA GOAL DISCOVERY ─────────────────────────────────────
+   Inline conversational panel that helps users discover which
+   goals are right for them. Triggered from the .ava-entry-card
+   on the My Goals page.
+
+   Layout: the entry card sits in the goals grid. On activation
+   it expands into a full-width panel beneath the hero stats,
+   sitting above the goals grid (not a modal — page-native).
+   ─────────────────────────────────────────────────────────── */
+
+/* ─── ENTRY CARD ─────────────────────────────────────────── */
+/* Distinct from regular goal cards — uses the AI blue-violet
+   gradient to signal Ava, consistent with .btn-ai.           */
+.ava-entry-card {
+  align-items: flex-start;
+  background: linear-gradient(
+    135deg,
+    light-dark(#1460c8, #1c7de8) 0%,
+    light-dark(#7422d4, #9333ea) 100%
+  );
+  border: none;
+  border-radius: var(--radius-card);
+  box-shadow: 0 4px 24px light-dark(rgba(20,96,200,0.20), rgba(28,125,232,0.25));
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  position: relative;
+  text-align: start;
+  transition: box-shadow 0.2s, transform 0.15s;
+}
+
+.ava-entry-card:hover {
+  box-shadow: 0 8px 32px light-dark(rgba(20,96,200,0.30), rgba(28,125,232,0.40));
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ava-entry-card:hover { transform: none; }
+}
+
+.ava-entry-card:active { transform: scale(0.99); }
+
+/* Avatar + title row */
+.ava-entry-hd {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+}
+
+.ava-entry-avatar {
+  align-items: center;
+  background: rgba(255,255,255,0.18);
+  border-radius: 50%;
+  display: flex;
+  flex-shrink: 0;
+  height: 36px;
+  justify-content: center;
+  width: 36px;
+}
+
+.ava-entry-avatar svg { color: #ffffff; }
+
+.ava-entry-name {
+  color: rgba(255,255,255,0.75);
+  font-size: var(--fs-badge);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-widest);
+  text-transform: uppercase;
+}
+
+.ava-entry-heading {
+  color: #ffffff;
+  font-family: var(--font-serif);
+  font-size: var(--fs-card-title);
+  letter-spacing: var(--ls-heading);
+  line-height: var(--lh-tight);
+  margin: 0;
+}
+
+.ava-entry-sub {
+  color: rgba(255,255,255,0.75);
+  font-size: var(--fs-ui);
+  line-height: var(--lh-relaxed);
+  margin: 0;
+}
+
+.ava-entry-cta {
+  align-items: center;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.30);
+  border-radius: var(--radius-btn);
+  color: #ffffff;
+  display: inline-flex;
+  font-family: var(--font-sans);
+  font-size: var(--fs-btn);
+  font-weight: var(--fw-semibold);
+  gap: 6px;
+  margin-block-start: 4px;
+  padding: 8px 16px;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.ava-entry-card:hover .ava-entry-cta {
+  background: rgba(255,255,255,0.25);
+  border-color: rgba(255,255,255,0.55);
+}
+
+
+/* ─── DISCOVERY PANEL ────────────────────────────────────── */
+/* Full-width panel injected above the goals grid when the
+   user activates the entry card. Sits in its own element
+   outside the grid so it spans the full column width.       */
+.ava-panel {
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 0%, rgba(28,125,232,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 20% 100%, rgba(147,51,234,0.06) 0%, transparent 60%),
+    var(--bg-card);
+  border: 1px solid light-dark(rgba(20,96,200,0.25), rgba(28,125,232,0.30));
+  border-radius: var(--radius-card);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.20), 0 0 0 1px light-dark(rgba(20,96,200,0.10), rgba(28,125,232,0.12));
+  display: none;
+  flex-direction: column;
+  margin-block-end: 24px;
+  overflow: hidden;
+}
+
+.ava-panel.is-open { display: flex; }
+
+/* Panel header */
+.ava-panel-hd {
+  align-items: center;
+  background: light-dark(rgba(20,96,200,0.06), rgba(28,125,232,0.08));
+  border-block-end: 1px solid light-dark(rgba(20,96,200,0.15), rgba(28,125,232,0.20));
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  padding: 16px 20px;
+}
+
+.ava-panel-hd-left {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+}
+
+.ava-panel-avatar {
+  align-items: center;
+  background: linear-gradient(135deg, light-dark(#1460c8,#1c7de8), light-dark(#7422d4,#9333ea));
+  border-radius: 50%;
+  display: flex;
+  flex-shrink: 0;
+  height: 32px;
+  justify-content: center;
+  width: 32px;
+}
+
+.ava-panel-avatar svg { color: #ffffff; }
+
+.ava-panel-title {
+  color: var(--text-1);
+  font-size: var(--fs-ui);
+  font-weight: var(--fw-semibold);
+}
+
+.ava-panel-subtitle {
+  color: var(--text-3);
+  font-size: var(--fs-sm);
+}
+
+.ava-panel-close {
+  background: none;
+  border: none;
+  border-radius: 8px;
+  color: var(--text-3);
+  cursor: pointer;
+  line-height: 1;
+  padding: 6px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.ava-panel-close:hover {
+  background: var(--bg-input);
+  color: var(--text-1);
+}
+
+/* Panel body — chat area */
+.ava-panel-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 24px 20px 20px;
+}
+
+/* ─── CHAT BUBBLES ───────────────────────────────────────── */
+.ava-bubble-row {
+  align-items: flex-end;
+  display: flex;
+  gap: 8px;
+  margin-block-end: 16px;
+  animation: ava-bubble-in 0.25s ease;
+}
+
+@keyframes ava-bubble-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ava-bubble-row { animation: none; }
+}
+
+/* Ava's avatar beside bubble */
+.ava-bubble-avatar {
+  align-items: center;
+  background: linear-gradient(135deg, light-dark(#1460c8,#1c7de8), light-dark(#7422d4,#9333ea));
+  border-radius: 50%;
+  color: #ffffff;
+  display: flex;
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: var(--fw-semibold);
+  height: 28px;
+  justify-content: center;
+  margin-block-end: 2px;
+  width: 28px;
+}
+
+.ava-bubble {
+  background: light-dark(rgba(20,96,200,0.08), rgba(28,125,232,0.10));
+  border: 1px solid light-dark(rgba(20,96,200,0.15), rgba(28,125,232,0.20));
+  border-radius: 16px 16px 16px 4px;
+  color: var(--text-1);
+  font-size: var(--fs-ui);
+  line-height: var(--lh-relaxed);
+  max-width: 520px;
+  padding: 12px 16px;
+}
+
+/* ─── PROGRESS DOTS ──────────────────────────────────────── */
+.ava-progress {
+  align-items: center;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-block-end: 20px;
+}
+
+.ava-progress-dot {
+  background: var(--border);
+  border-radius: 50%;
+  height: 6px;
+  transition: background 0.2s, width 0.2s;
+  width: 6px;
+}
+
+.ava-progress-dot.is-done    { background: light-dark(#1460c8,#1c7de8); }
+.ava-progress-dot.is-current { background: light-dark(#7422d4,#9333ea); width: 18px; border-radius: 3px; }
+
+/* ─── REPLY CHIPS ────────────────────────────────────────── */
+.ava-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-block-start: 4px;
+  padding-inline-start: 36px; /* align with bubble, past avatar */
+}
+
+.ava-chip {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  color: var(--text-1);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: var(--fs-ui);
+  font-weight: var(--fw-medium);
+  padding: 8px 16px;
+  transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.1s;
+}
+
+.ava-chip:hover {
+  background: light-dark(rgba(20,96,200,0.08), rgba(28,125,232,0.12));
+  border-color: light-dark(rgba(20,96,200,0.40), rgba(28,125,232,0.50));
+  color: light-dark(#1460c8, #60a5fa);
+}
+
+.ava-chip:active { transform: scale(0.97); }
+
+/* Selected chip — shown after user picks an answer */
+.ava-chip.is-selected {
+  background: light-dark(rgba(20,96,200,0.12), rgba(28,125,232,0.18));
+  border-color: light-dark(#1460c8, #60a5fa);
+  color: light-dark(#1460c8, #60a5fa);
+  cursor: default;
+  pointer-events: none;
+}
+
+/* User reply bubble (right-aligned) */
+.ava-reply-row {
+  animation: ava-bubble-in 0.2s ease;
+  display: flex;
+  justify-content: flex-end;
+  margin-block-end: 20px;
+}
+
+.ava-reply-bubble {
+  background: light-dark(rgba(20,96,200,0.10), rgba(28,125,232,0.15));
+  border: 1px solid light-dark(rgba(20,96,200,0.25), rgba(28,125,232,0.30));
+  border-radius: 16px 16px 4px 16px;
+  color: var(--text-1);
+  font-size: var(--fs-ui);
+  max-width: 420px;
+  padding: 10px 16px;
+}
+
+/* ─── TYPING INDICATOR ───────────────────────────────────── */
+.ava-typing-row {
+  align-items: flex-end;
+  display: flex;
+  gap: 8px;
+  margin-block-end: 16px;
+}
+
+.ava-typing {
+  align-items: center;
+  background: light-dark(rgba(20,96,200,0.08), rgba(28,125,232,0.10));
+  border: 1px solid light-dark(rgba(20,96,200,0.15), rgba(28,125,232,0.20));
+  border-radius: 16px 16px 16px 4px;
+  display: flex;
+  gap: 4px;
+  padding: 14px 16px;
+}
+
+.ava-typing span {
+  animation: ava-dot 1.2s infinite;
+  background: light-dark(#1460c8, #60a5fa);
+  border-radius: 50%;
+  display: block;
+  height: 6px;
+  width: 6px;
+}
+
+.ava-typing span:nth-child(2) { animation-delay: 0.2s; }
+.ava-typing span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes ava-dot {
+  0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+  30%           { opacity: 1;   transform: translateY(-4px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ava-typing span { animation: none; opacity: 0.6; }
+}
+
+/* ─── GOAL SUGGESTION CARDS ──────────────────────────────── */
+.ava-suggestions {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  margin-block-start: 4px;
+  padding-inline-start: 36px;
+}
+
+.ava-suggestion-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-card);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  text-align: start;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+
+.ava-suggestion-card:hover {
+  border-color: light-dark(rgba(20,96,200,0.40), rgba(28,125,232,0.50));
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12), 0 0 0 1px light-dark(rgba(20,96,200,0.15), rgba(28,125,232,0.20));
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ava-suggestion-card:hover { transform: none; }
+}
+
+.ava-suggestion-emoji {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.ava-suggestion-label {
+  color: var(--text-1);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-semibold);
+}
+
+.ava-suggestion-meta {
+  color: var(--text-3);
+  font-size: var(--fs-sm);
+}
+
+.ava-suggestion-reason {
+  border-block-start: 1px solid var(--divider);
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-relaxed);
+  padding-block-start: 8px;
+}
+
+.ava-suggestion-cta {
+  align-items: center;
+  color: light-dark(#1460c8, #60a5fa);
+  display: flex;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  gap: 4px;
+  margin-block-start: 4px;
+  transition: gap 0.15s;
+}
+
+.ava-suggestion-card:hover .ava-suggestion-cta { gap: 8px; }
+
+/* Reset panel button */
+.ava-panel-restart {
+  align-self: center;
+  background: none;
+  border: none;
+  color: var(--text-3);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: var(--fs-sm);
+  margin-block-start: 12px;
+  padding: 4px 8px;
+  transition: color 0.15s;
+}
+
+.ava-panel-restart:hover { color: var(--text-2); }
