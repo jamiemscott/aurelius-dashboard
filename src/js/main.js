@@ -12,6 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (container && window.ResizeObserver) new ResizeObserver(draw).observe(container);
   }());
   updateHistoryView('6M');
+  /* If on valuation history page, initialise benchmark chart */
+  if (document.getElementById('hist-chart') && document.getElementById('bm-headline')) {
+    rebuildBmChart();
+  }
   buildDonut('small-donut', allocationData, 34, 12);
   buildLegend('small-legend', allocationData.slice(0, 6));
   buildDonut('big-donut', allocationData, 38, 14);

@@ -46,6 +46,338 @@ function buildPerfChart(svgId, w, h) {
   `;
 }
 
+/* ─── BENCHMARK DATA ─────────────────────────────────────── */
+
+var benchmarkData = {
+  'ftse-all-world': {
+    label: 'FTSE All-World',
+    color: '#60A5FA',
+    pts: [
+       0.00, -0.5, -1.4,  0.8,  2.2,  1.9,  2.8,  4.1,  3.6,  5.2,
+       6.0,   5.5,  6.8,  6.5,  7.6,  7.2,  8.5,  9.4,  9.0, 10.0,
+       9.8,  10.8, 10.5, 11.5, 10.7,  9.9,  9.4,  9.0,  9.8, 10.5,
+      11.4,  11.1, 12.1, 11.5, 10.7, 10.1, 11.1, 11.7, 12.5, 12.1,
+      12.7,  12.3, 13.3, 12.8, 13.8, 14.1, 13.6, 13.1, 13.5, 14.0,
+      14.6,  14.2, 15.0, 15.5, 14.6, 14.4, 15.4, 15.2, 16.0, 15.7,
+    ],
+  },
+  'ftse-100': {
+    label: 'FTSE 100',
+    color: '#34D399',
+    pts: [
+       0.00, -0.3, -0.9,  0.5,  1.5,  1.2,  1.9,  2.7,  2.4,  3.5,
+       4.1,   3.7,  4.6,  4.4,  5.1,  4.8,  5.7,  6.3,  6.0,  6.7,
+       6.5,   7.2,  7.0,  7.7,  7.1,  6.6,  6.3,  6.0,  6.5,  7.0,
+       7.6,   7.4,  8.1,  7.7,  7.2,  6.8,  7.4,  7.8,  8.4,  8.1,
+       8.5,   8.2,  8.9,  8.5,  9.2,  9.4,  9.0,  8.7,  9.0,  9.3,
+       9.8,   9.5, 10.1, 10.5,  9.9,  9.7, 10.4, 10.2, 10.9, 10.7,
+    ],
+  },
+  'inflation': {
+    label: 'Inflation (CPI)',
+    color: '#F87171',
+    pts: [
+      0.00, 0.15, 0.30, 0.45, 0.60, 0.75, 0.90, 1.05, 1.20, 1.35,
+      1.50, 1.65, 1.80, 1.95, 2.10, 2.25, 2.40, 2.55, 2.70, 2.85,
+      3.00, 3.15, 3.30, 3.45, 3.60, 3.75, 3.90, 4.05, 4.20, 4.35,
+      4.50, 4.65, 4.80, 4.95, 5.10, 5.25, 5.40, 5.55, 5.70, 5.85,
+      6.00, 6.15, 6.30, 6.45, 6.60, 6.75, 6.90, 7.05, 7.20, 7.35,
+      7.50, 7.65, 7.80, 7.95, 8.10, 8.25, 8.40, 8.55, 8.70, 8.85,
+    ],
+  },
+  'peer': {
+    label: 'Peer Group',
+    color: '#A78BFA',
+    pts: [
+       0.00, -0.6, -1.8,  1.0,  2.9,  2.4,  3.5,  5.3,  4.6,  6.6,
+       7.7,   7.0,  8.6,  8.3,  9.6,  9.2, 10.8, 11.9, 11.4, 12.7,
+      12.5,  13.7, 13.3, 14.6, 13.6, 12.6, 12.0, 11.6, 12.5, 13.3,
+      14.4,  14.0, 15.3, 14.6, 13.5, 12.8, 14.1, 14.8, 15.8, 15.4,
+      16.1,  15.6, 16.8, 16.2, 17.4, 17.8, 17.2, 16.6, 17.1, 17.7,
+      18.4,  18.0, 19.1, 19.6, 18.5, 18.2, 19.4, 19.1, 20.2, 19.8,
+    ],
+  },
+  'cash': {
+    label: 'Cash (Best Rate)',
+    color: '#94A3B8',
+    pts: [
+      0.00, 0.08, 0.17, 0.25, 0.33, 0.42, 0.50, 0.58, 0.67, 0.75,
+      0.83, 0.92, 1.00, 1.08, 1.17, 1.25, 1.33, 1.42, 1.50, 1.58,
+      1.67, 1.75, 1.83, 1.92, 2.00, 2.08, 2.17, 2.25, 2.33, 2.42,
+      2.50, 2.58, 2.67, 2.75, 2.83, 2.92, 3.00, 3.08, 3.17, 3.25,
+      3.33, 3.42, 3.50, 3.58, 3.67, 3.75, 3.83, 3.92, 4.00, 4.08,
+      4.17, 4.25, 4.33, 4.42, 4.50, 4.58, 4.67, 4.75, 4.83, 4.92,
+    ],
+  },
+  'goal': {
+    label: 'Goal Trajectory',
+    color: '#FBBF24',
+    pts: [
+       0.00,  0.40,  0.80,  1.21,  1.62,  2.03,  2.45,  2.87,  3.30,  3.73,
+       4.16,  4.60,  5.04,  5.49,  5.94,  6.39,  6.85,  7.31,  7.77,  8.24,
+       8.71,  9.19,  9.67, 10.15, 10.64, 11.13, 11.62, 12.12, 12.62, 13.13,
+      13.64, 14.15, 14.67, 15.19, 15.71, 16.24, 16.77, 17.31, 17.85, 18.39,
+      18.94, 19.49, 20.05, 20.61, 21.17, 21.74, 22.31, 22.89, 23.47, 24.05,
+      24.64, 25.23, 25.83, 26.43, 27.03, 27.64, 28.25, 28.87, 29.49, 30.12,
+    ],
+  },
+};
+
+/* ─── BENCHMARK STATE ────────────────────────────────────── */
+
+var bmState = {
+  active: ['ftse-all-world'],  /* default: FTSE All-World on */
+  maxActive: 3,
+  currentPeriod: '6M',
+};
+
+/* Period slice lengths (out of 60 points) */
+var bmPeriodSlice = {
+  '1M': 5,
+  '3M': 13,
+  '6M': 26,
+  '1Y': 52,
+  '3Y': 60,
+  '5Y': 60,
+  'All': 60,
+};
+
+/* Portfolio pts mirror from buildPerfChart — kept here for benchmark calc */
+var portfolioPts = [
+   0.00, -0.8, -2.1,  1.2,  3.4,  2.8,  4.1,  6.2,  5.4,  7.8,
+   9.1,   8.3, 10.2,  9.8, 11.4, 10.9, 12.8, 14.2, 13.6, 15.1,
+  14.8,  16.3, 15.9, 17.4, 16.2, 15.0, 14.3, 13.8, 14.9, 15.8,
+  17.2,  16.8, 18.3, 17.4, 16.1, 15.3, 16.8, 17.6, 18.9, 18.4,
+  19.2,  18.7, 20.1, 19.4, 20.8, 21.3, 20.6, 19.8, 20.4, 21.1,
+  22.0,  21.5, 22.8, 23.4, 22.1, 21.8, 23.2, 22.9, 24.1, 23.6,
+];
+
+/* Month labels aligned to the 60-point series (Sep 2025 – Feb 2026) */
+var bmMonthLabels = (function () {
+  var labels = [];
+  var months = ['Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug'];
+  var start = { m: 8, y: 2025 }; /* Sep 2025 = index 8 */
+  for (var i = 0; i < 60; i++) {
+    var mi = (start.m + Math.floor(i * 12 / 60)) % 12;
+    var yi = start.y + Math.floor((start.m + Math.floor(i * 12 / 60)) / 12);
+    labels.push(months[mi] + ' ' + yi);
+  }
+  return labels;
+}());
+
+/* ─── buildPerfChartWithBenchmarks ──────────────────────── */
+
+function buildPerfChartWithBenchmarks(svgId, w, h) {
+  var svg = document.getElementById(svgId);
+  if (!svg) return;
+
+  svg.setAttribute('width', '100%');
+  svg.setAttribute('height', String(h));
+  svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+  svg.setAttribute('aria-label', 'Portfolio performance chart with benchmark comparison');
+
+  var slice = bmPeriodSlice[bmState.currentPeriod] || 60;
+  /* Use last `slice` points */
+  var offset = 60 - slice;
+  var portSlice = portfolioPts.slice(offset);
+
+  /* Compute y domain across portfolio + all active benchmarks */
+  var allPts = portSlice.slice();
+  bmState.active.forEach(function (key) {
+    allPts = allPts.concat(benchmarkData[key].pts.slice(offset));
+  });
+
+  var pad = 20;
+  var xStep = (w - pad * 2) / (portSlice.length - 1);
+  var minV = Math.min.apply(null, allPts) - 2;
+  var maxV = Math.max.apply(null, allPts) + 2;
+  var yScale = function (v) {
+    return h - pad - ((v - minV) / (maxV - minV)) * (h - pad * 2);
+  };
+
+  var portPoints = portSlice.map(function (v, i) {
+    return (pad + i * xStep) + ',' + yScale(v);
+  }).join(' ');
+
+  var areaPoints = pad + ',' + (h - pad) + ' ' + portPoints + ' ' + (pad + (portSlice.length - 1) * xStep) + ',' + (h - pad);
+
+  var uid = svgId + '-bm-grad';
+
+  /* Build benchmark polylines (drawn first so portfolio line is on top) */
+  var bmLines = bmState.active.map(function (key) {
+    var bm = benchmarkData[key];
+    var bmSlice = bm.pts.slice(offset);
+    var bmPoints = bmSlice.map(function (v, i) {
+      return (pad + i * xStep) + ',' + yScale(v);
+    }).join(' ');
+
+    var isDashed = key === 'goal';
+    var dashAttr = isDashed ? ' stroke-dasharray="6,4"' : '';
+
+    return '<polyline points="' + bmPoints + '" fill="none" stroke="' + bm.color + '"' +
+           ' stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round" stroke-linecap="round"' +
+           dashAttr + ' aria-hidden="true"/>';
+  }).join('');
+
+  /* Dashed grid lines */
+  var gridLines = [0, Math.floor(slice * 0.25), Math.floor(slice * 0.5), Math.floor(slice * 0.75), slice - 1].map(function (i) {
+    return '<line x1="' + (pad + i * xStep) + '" y1="' + pad + '" x2="' + (pad + i * xStep) + '" y2="' + (h - pad) + '"' +
+           ' stroke="var(--divider)" stroke-width="1" stroke-dasharray="3,4" aria-hidden="true"/>';
+  }).join('');
+
+  /* Crosshair + invisible overlay for tooltip */
+  var crosshair = '<line id="bm-crosshair" x1="0" y1="' + pad + '" x2="0" y2="' + (h - pad) + '"' +
+    ' stroke="var(--text-3)" stroke-width="1" stroke-dasharray="3,3" opacity="0" aria-hidden="true"/>';
+
+  var overlay = '<rect id="bm-overlay" x="' + pad + '" y="' + pad + '" width="' + (w - pad * 2) + '" height="' + (h - pad * 2) + '"' +
+    ' fill="transparent" aria-hidden="true"/>';
+
+  svg.innerHTML = '<defs>' +
+    '<linearGradient id="' + uid + '" x1="0" y1="0" x2="0" y2="1">' +
+    '<stop offset="0%" stop-color="#F5A623" stop-opacity="0.2"/>' +
+    '<stop offset="100%" stop-color="#F5A623" stop-opacity="0"/>' +
+    '</linearGradient>' +
+    '</defs>' +
+    gridLines +
+    bmLines +
+    '<polygon points="' + areaPoints + '" fill="url(#' + uid + ')" aria-hidden="true"/>' +
+    '<polyline points="' + portPoints + '" fill="none" stroke="#F5A623" stroke-width="2.5"' +
+    ' stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"/>' +
+    '<circle cx="' + (pad + (portSlice.length - 1) * xStep) + '" cy="' + yScale(portSlice[portSlice.length - 1]) + '"' +
+    ' r="4" fill="#F5A623" stroke="var(--bg-card)" stroke-width="2" aria-hidden="true"/>' +
+    crosshair +
+    overlay;
+
+  /* Wire up crosshair tooltip */
+  var overlayEl = document.getElementById('bm-overlay');
+  var crosshairEl = document.getElementById('bm-crosshair');
+  var tooltip = document.getElementById('bm-tooltip');
+
+  if (overlayEl && crosshairEl && tooltip) {
+    overlayEl.addEventListener('mousemove', function (e) {
+      var rect = svg.getBoundingClientRect();
+      var scaleX = w / rect.width;
+      var mx = (e.clientX - rect.left) * scaleX;
+      var idx = Math.round((mx - pad) / xStep);
+      idx = Math.max(0, Math.min(portSlice.length - 1, idx));
+
+      crosshairEl.setAttribute('x1', pad + idx * xStep);
+      crosshairEl.setAttribute('x2', pad + idx * xStep);
+      crosshairEl.setAttribute('opacity', '1');
+
+      var dateLabel = bmMonthLabels[offset + idx] || '';
+      var rowsHtml = '<div class="bm-tooltip-date">' + dateLabel + '</div>';
+
+      /* Portfolio row */
+      rowsHtml += '<div class="bm-tooltip-row">' +
+        '<div class="bm-tooltip-dot" style="background:#F5A623"></div>' +
+        '<span class="bm-tooltip-label">Portfolio</span>' +
+        '<span class="bm-tooltip-val">' + (portSlice[idx] >= 0 ? '+' : '') + portSlice[idx].toFixed(1) + '%</span>' +
+        '</div>';
+
+      /* Active benchmark rows */
+      bmState.active.forEach(function (key) {
+        var bm = benchmarkData[key];
+        var val = bm.pts.slice(offset)[idx];
+        rowsHtml += '<div class="bm-tooltip-row">' +
+          '<div class="bm-tooltip-dot" style="background:' + bm.color + '"></div>' +
+          '<span class="bm-tooltip-label">' + bm.label + '</span>' +
+          '<span class="bm-tooltip-val">' + (val >= 0 ? '+' : '') + val.toFixed(1) + '%</span>' +
+          '</div>';
+      });
+
+      tooltip.innerHTML = rowsHtml;
+      tooltip.style.display = 'block';
+
+      /* Position tooltip: flip if too close to right edge */
+      var tipX = e.clientX - rect.left + 14;
+      if (tipX + 180 > rect.width) tipX = e.clientX - rect.left - 190;
+      tooltip.style.left = tipX + 'px';
+      tooltip.style.top = (e.clientY - rect.top - 10) + 'px';
+    });
+
+    overlayEl.addEventListener('mouseleave', function () {
+      crosshairEl.setAttribute('opacity', '0');
+      tooltip.style.display = 'none';
+    });
+  }
+
+  /* Update headline */
+  updateBmHeadline();
+}
+
+/* ─── BENCHMARK HEADLINE ─────────────────────────────────── */
+
+function updateBmHeadline() {
+  var el = document.getElementById('bm-headline');
+  if (!el) return;
+
+  if (bmState.active.length === 0) {
+    el.innerHTML = 'Select a benchmark below to compare your portfolio.';
+    return;
+  }
+
+  var slice = bmPeriodSlice[bmState.currentPeriod] || 60;
+  var offset = 60 - slice;
+  var portEnd = portfolioPts[59];
+  var portStart = portfolioPts[offset];
+  var portReturn = portEnd - portStart;
+
+  /* Use primary (first) active benchmark for headline */
+  var primary = bmState.active[0];
+  var bm = benchmarkData[primary];
+  var bmEnd = bm.pts[59];
+  var bmStart = bm.pts[offset];
+  var bmReturn = bmEnd - bmStart;
+
+  var diff = portReturn - bmReturn;
+  var absDiff = Math.abs(diff).toFixed(1);
+  var periodLabel = bmState.currentPeriod === 'All' ? 'all time' : 'the last ' + bmState.currentPeriod;
+
+  var html;
+  if (diff >= 0) {
+    html = "You're outperforming the " + bm.label + " by " +
+      '<span class="bm-outperform">+' + absDiff + '%</span>' +
+      ' over ' + periodLabel + '.';
+  } else {
+    html = "You're underperforming the " + bm.label + " by " +
+      '<span class="bm-underperform">-' + absDiff + '%</span>' +
+      ' over ' + periodLabel + '.';
+  }
+
+  el.innerHTML = html;
+}
+
+/* ─── BENCHMARK CHIP TOGGLE ──────────────────────────────── */
+
+function toggleBenchmark(key) {
+  var idx = bmState.active.indexOf(key);
+  if (idx === -1) {
+    if (bmState.active.length >= bmState.maxActive) return; /* max 3 active */
+    bmState.active.push(key);
+  } else {
+    bmState.active.splice(idx, 1);
+  }
+
+  /* Update aria-pressed on all chips */
+  var chips = document.querySelectorAll('.bm-chip');
+  for (var i = 0; i < chips.length; i++) {
+    var chip = chips[i];
+    var k = chip.getAttribute('data-bm');
+    chip.setAttribute('aria-pressed', bmState.active.indexOf(k) !== -1 ? 'true' : 'false');
+  }
+
+  rebuildBmChart();
+}
+
+function rebuildBmChart() {
+  var svgEl = document.getElementById('hist-chart');
+  if (!svgEl) return;
+  var w = svgEl.parentElement ? svgEl.parentElement.clientWidth || 800 : 800;
+  if (w < 100) w = 800;
+  buildPerfChartWithBenchmarks('hist-chart', w, 260);
+}
+
 function buildDonut(svgId, data, r = 38, strokeW = 14) {
   const svg = document.getElementById(svgId);
   if (!svg) return;
@@ -2268,10 +2600,14 @@ function updateHistoryView(range) {
   }
   const filtered = historyData.filter(r => r.date >= cutoff);
   if (!filtered.length) return;
-  buildHistChart(filtered);
   buildHistKPIs(filtered, range);
   buildHistDateLabels(filtered);
   buildHistTable(filtered, range);
+
+  /* Sync benchmark state period and redraw chart with benchmarks */
+  var periodMap = { '1M': '1M', '3M': '3M', '6M': '6M', '1Y': '1Y', 'All': 'All', 'ALL': 'All', '1D': '1M', '1W': '1M' };
+  bmState.currentPeriod = periodMap[range] || '6M';
+  rebuildBmChart();
 }
 
 function buildHistChart(filtered) {
