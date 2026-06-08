@@ -263,6 +263,21 @@ function glRenderGrid() {
   var el = document.getElementById('gl-grid');
   if (!el) return;
   el.innerHTML = goalsData.map(glRenderCard).join('') + glAddCard();
+
+  /* Re-attach the Ava cell — it lives in the HTML as a sibling of
+     #gl-grid so that innerHTML wipes above don't destroy it, but
+     it must be a real grid child for CSS placement to work.
+     appendChild moves (not clones) the node, so event listeners
+     and panel state (is-open class etc.) are preserved.          */
+  var avaCell = document.getElementById('gl-ava-cell');
+  if (avaCell) {
+    el.appendChild(avaCell);
+    /* Re-mount the entry card only when the panel isn't open     */
+    var panel = document.getElementById('ava-panel');
+    if (typeof avaMountEntryCard === 'function' && (!panel || !panel.classList.contains('is-open'))) {
+      avaMountEntryCard();
+    }
+  }
 }
 
 /* ── Adjust panel ───────────────────────────────────────────── */

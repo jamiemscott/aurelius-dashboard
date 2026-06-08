@@ -57,11 +57,56 @@
       </div>
     </div>
 
-    <!-- ── GOALS GRID ──────────────────────────────────────── -->
+    <!-- ── GOALS BODY ────────────────────────────────────────── -->
     <div class="gl-body">
-      <div class="gl-grid" id="gl-grid">
-        <!-- Rendered by JS -->
+
+      <h2 class="gl-col-heading">Your top goals</h2>
+
+      <!-- Single 3-column grid. Goal cards auto-flow into cols 1–2.
+           Ava cell is explicitly placed at col 3 row 1, spanning to
+           row 2 when the discovery panel is open.                   -->
+      <!-- Goal cards + add card rendered by goals.js into #gl-grid.
+           The Ava cell is appended by ava-goals.js after render so
+           goals.js innerHTML doesn't wipe it.                      -->
+      <div class="gl-grid" id="gl-grid"></div>
+
+      <!-- Ava cell lives outside #gl-grid in the DOM but is moved
+           into the grid by ava-goals.js using appendChild so it
+           participates in grid layout as a proper grid item.        -->
+      <div class="gl-ava-cell" id="gl-ava-cell">
+        <div id="ava-entry-container"></div>
+        <div class="ava-panel" id="ava-panel" role="region" aria-label="Ava goal discovery" aria-live="polite">
+          <div class="ava-panel-hd">
+            <div class="ava-panel-hd-left">
+              <div class="ava-panel-avatar" aria-hidden="true">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="3"/>
+                  <line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/>
+                  <line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/>
+                  <line x1="4.93" y1="4.93" x2="7.05" y2="7.05"/><line x1="16.95" y1="16.95" x2="19.07" y2="19.07"/>
+                  <line x1="19.07" y1="4.93" x2="16.95" y2="7.05"/><line x1="7.05" y1="16.95" x2="4.93" y2="19.07"/>
+                </svg>
+              </div>
+              <div>
+                <div class="ava-panel-title">Ava — Goal Discovery</div>
+                <div class="ava-panel-subtitle">Three quick questions to find the right goals for you</div>
+              </div>
+            </div>
+            <button class="ava-panel-close" data-action="ava-close" aria-label="Close Ava goal discovery">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+          <div class="ava-panel-body" id="ava-panel-body"></div>
+        </div>
       </div>
+
+      <div class="gl-grid-footer">
+        <a class="btn-secondary gl-show-all" href="#">
+          Show me all of my goals
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+      </div>
+
     </div>
 
     <!-- ── FOOTER ──────────────────────────────────────────── -->
@@ -248,6 +293,7 @@
 
 <script src="../src/js/data.js"></script>
 <script src="../src/js/goals.js"></script>
+<script src="../src/js/ava-goals.js"></script>
 <script src="../src/js/navigation.js"></script>
 <script src="../src/js/chatbot.js"></script>
 <script src="../src/js/main.js"></script>
