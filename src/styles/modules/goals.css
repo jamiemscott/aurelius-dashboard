@@ -525,19 +525,23 @@ html:has(.theme-checkbox:checked) .gl-drawer-hd {
 
 .gl-drawer-close {
   align-items: center;
-  background: var(--bg-input);
-  border: none;
+  background: var(--gold-dim);
+  border: 1px solid oklch(from var(--gold) l c h / 0.45);
   border-radius: 50%;
-  color: var(--text-2);
+  color: var(--gold);
   cursor: pointer;
   display: flex;
-  height: 32px;
+  height: 36px;
   justify-content: center;
   transition: all 0.15s;
-  width: 32px;
+  width: 36px;
 }
 
-.gl-drawer-close:hover { background: var(--bg-hover); color: var(--text-1); }
+.gl-drawer-close:hover {
+  background: var(--gold);
+  color: var(--gold-text);
+  transform: scale(1.1);
+}
 
 .gl-drawer-body { padding: 24px; }
 
