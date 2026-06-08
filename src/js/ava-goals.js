@@ -268,12 +268,17 @@ function avaReplyBubble(label) {
 
 /* ── Conversation flow ──────────────────────────────────────── */
 
+function avaLayout() { return document.querySelector('.gl-layout'); }
+
 function avaOpen() {
   var panel = avaPanel();
   if (!panel) return;
   /* Hide entry card, show panel in its place */
   var container = document.getElementById('ava-entry-container');
   if (container) container.hidden = true;
+  /* Stretch right column to match left */
+  var layout = avaLayout();
+  if (layout) layout.classList.add('ava-is-open');
   panel.classList.add('is-open');
   avaState.step    = 0;
   avaState.answers = {};
@@ -288,9 +293,11 @@ function avaClose() {
   if (body) body.innerHTML = '';
   avaState.step    = 0;
   avaState.answers = {};
-  /* Restore entry card */
+  /* Restore entry card + collapse right column */
   var container = document.getElementById('ava-entry-container');
   if (container) container.hidden = false;
+  var layout = avaLayout();
+  if (layout) layout.classList.remove('ava-is-open');
 }
 
 function avaStart() {
