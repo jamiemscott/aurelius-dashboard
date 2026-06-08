@@ -481,10 +481,13 @@ html:has(.theme-checkbox:checked) .gl-add-card {
 
 /* ── Add goal drawer ─────────────────────────────────────────── */
 .gl-drawer {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  background:
+    radial-gradient(ellipse 80% 40% at 60% 0%, oklch(from var(--gold) l c h / 0.08) 0%, transparent 60%),
+    var(--bg-card);
+  border: 1px solid oklch(from var(--gold) l c h / 0.45);
+  border-block-end: none;
   border-radius: 24px 24px 0 0;
-  box-shadow: 0 -8px 48px rgba(0,0,0,0.3);
+  box-shadow: 0 -8px 48px rgba(0,0,0,0.3), 0 -1px 0 oklch(from var(--gold) l c h / 0.45);
   inset-block-end: 0;
   inset-inline: 0;
   margin: 0;
@@ -495,20 +498,24 @@ html:has(.theme-checkbox:checked) .gl-add-card {
   width: 100%;
 }
 
-.gl-drawer::backdrop { backdrop-filter: blur(4px); background: rgba(0,0,0,0.6); }
+.gl-drawer::backdrop { backdrop-filter: blur(6px); background: rgba(0,0,0,0.65); }
 
 .gl-drawer-inner { padding: 0 0 env(safe-area-inset-bottom); }
 
 .gl-drawer-hd {
   align-items: center;
-  background: var(--bg-card);
-  border-block-end: 1px solid var(--border);
+  background: oklch(from var(--neutral-9) l c h / 0.85);
+  border-block-end: 1px solid oklch(from var(--gold) l c h / 0.30);
   display: flex;
   inset-block-start: 0;
   justify-content: space-between;
   padding: 20px 24px;
   position: sticky;
   z-index: 1;
+}
+
+html:has(.theme-checkbox:checked) .gl-drawer-hd {
+  background: oklch(from var(--neutral-1) l c h / 0.85);
 }
 
 .gl-drawer-step {
