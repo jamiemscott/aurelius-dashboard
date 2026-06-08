@@ -271,6 +271,9 @@ function avaReplyBubble(label) {
 function avaOpen() {
   var panel = avaPanel();
   if (!panel) return;
+  /* Hide entry card, show panel in its place */
+  var container = document.getElementById('ava-entry-container');
+  if (container) container.hidden = true;
   panel.classList.add('is-open');
   avaState.step    = 0;
   avaState.answers = {};
@@ -285,6 +288,9 @@ function avaClose() {
   if (body) body.innerHTML = '';
   avaState.step    = 0;
   avaState.answers = {};
+  /* Restore entry card */
+  var container = document.getElementById('ava-entry-container');
+  if (container) container.hidden = false;
 }
 
 function avaStart() {
@@ -409,6 +415,24 @@ function avaEntryCard() {
       '</span>',
     '</button>',
   ].join('');
+}
+
+/* ── Init ───────────────────────────────────────────────────── */
+
+document.addEventListener('DOMContentLoaded', function() {
+  if (!document.getElementById('ava-entry-container')) return;
+  avaMountEntryCard();
+});
+
+/* ── Entry card mount ───────────────────────────────────────── */
+/* Renders the entry card into #ava-entry-container on load.
+   The container lives in the right column of the goals layout,
+   separate from the goals grid.                                */
+
+function avaMountEntryCard() {
+  var container = document.getElementById('ava-entry-container');
+  if (!container) return;
+  container.innerHTML = avaEntryCard();
 }
 
 /* ── Event wiring ───────────────────────────────────────────── */

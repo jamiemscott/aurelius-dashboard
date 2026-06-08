@@ -126,7 +126,10 @@
   overflow: hidden;
 }
 
-.ava-panel.is-open { display: flex; }
+.ava-panel.is-open {
+  display: flex;
+  min-height: 420px; /* enough room for the full conversation */
+}
 
 /* Panel header */
 .ava-panel-hd {
