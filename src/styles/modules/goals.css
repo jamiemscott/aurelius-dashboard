@@ -490,8 +490,9 @@ html:has(.theme-checkbox:checked) .gl-add-card {
   box-shadow: 0 -8px 48px rgba(0,0,0,0.3), 0 -1px 0 oklch(from var(--gold) l c h / 0.45);
   inset-block-end: 0;
   inset-inline: 0;
-  margin: 0;
+  margin-inline: auto;
   max-height: 85dvh;
+  max-width: min(860px, calc(100% - 48px));
   overflow-y: auto;
   padding: 0;
   position: fixed;
