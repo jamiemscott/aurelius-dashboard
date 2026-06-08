@@ -59,20 +59,17 @@
 
     <!-- ── GOALS BODY ────────────────────────────────────────── -->
     <div class="gl-body">
+
+      <!-- Heading and footer sit outside the two-column layout so
+           both columns — goals grid and Ava card — share the same
+           top edge.                                               -->
+      <h2 class="gl-col-heading">Your top goals</h2>
+
       <div class="gl-layout">
 
         <!-- Left: top goals 2×2 grid -->
-        <div class="gl-goals-col">
-          <h2 class="gl-col-heading">Your top goals</h2>
-          <div class="gl-grid" id="gl-grid">
-            <!-- Rendered by goals.js -->
-          </div>
-          <div class="gl-grid-footer">
-            <a class="btn-secondary gl-show-all" href="#">
-              Show me all of my goals
-              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-            </a>
-          </div>
+        <div class="gl-grid" id="gl-grid">
+          <!-- Rendered by goals.js -->
         </div>
 
         <!-- Right: Ava discovery — entry card or open panel -->
@@ -109,6 +106,14 @@
         </div>
 
       </div>
+
+      <div class="gl-grid-footer">
+        <a class="btn-secondary gl-show-all" href="#">
+          Show me all of my goals
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+      </div>
+
     </div>
 
     <!-- ── FOOTER ──────────────────────────────────────────── -->
