@@ -36,7 +36,7 @@
 
 .btn-secondary {
   align-items: center;
-  background: light-dark(transparent, var(--bg-card));
+  background: var(--bg-card);
   border: 1px solid light-dark(rgba(160,86,7,0.3), var(--gold-glow));
   border-radius: var(--radius-btn);
   color: var(--gold-text);
@@ -62,7 +62,7 @@
 .btn-secondary:hover {
   background:
     light-dark(rgba(160,86,7,0.06), var(--gold-dim)),
-    light-dark(transparent,         var(--bg-card));
+    var(--bg-card);
   text-decoration-color: oklch(from var(--gold) l c h / 0.80);
   text-decoration-thickness: 2px;
   text-underline-offset: 3px;
