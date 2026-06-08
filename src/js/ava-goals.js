@@ -424,11 +424,37 @@ function avaEntryCard() {
   ].join('');
 }
 
+/* ── Card height sync ───────────────────────────────────────── */
+/* Matches the Ava entry card height to a single goal card so the
+   two columns feel visually balanced at rest. A ResizeObserver
+   keeps them in sync if the viewport changes.                   */
+
+function avaSyncCardHeight() {
+  var card      = document.querySelector('.gl-card');
+  var container = document.getElementById('ava-entry-container');
+  if (!card || !container) return;
+  var entryCard = container.querySelector('.ava-entry-card');
+  if (!entryCard) return;
+  var h = Math.round(card.getBoundingClientRect().height);
+  if (h > 0) entryCard.style.height = h + 'px';
+}
+
 /* ── Init ───────────────────────────────────────────────────── */
 
 document.addEventListener('DOMContentLoaded', function() {
   if (!document.getElementById('ava-entry-container')) return;
   avaMountEntryCard();
+  /* Sync after paint so card dimensions are finalised */
+  requestAnimationFrame(function() {
+    avaSyncCardHeight();
+  });
+  /* Re-sync on resize */
+  if (window.ResizeObserver) {
+    var firstCard = document.querySelector('.gl-card');
+    if (firstCard) {
+      new ResizeObserver(avaSyncCardHeight).observe(firstCard);
+    }
+  }
 });
 
 /* ── Entry card mount ───────────────────────────────────────── */
