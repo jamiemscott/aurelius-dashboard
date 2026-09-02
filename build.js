@@ -63,6 +63,7 @@ const PARTIALS = [
   'src/styles/modules/goals.css',
   'src/styles/modules/ava-goals.css',
   'src/styles/modules/benchmarking.css',
+  'src/styles/modules/splash.css',
   // State — is-* classes
   'src/styles/state/state.css',
   // Pages — page-specific overrides

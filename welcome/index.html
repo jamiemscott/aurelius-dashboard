@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Why investing matters, and why Aurelius Wealth Management — a short introduction before you sign in or start your investment personality assessment.">
+  <title>Welcome — Aurelius Wealth Management</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../src/styles/bundle.css">
+</head>
+<body class="splash-body" id="top">
+
+  <!-- Hidden theme checkbox — same pattern as the main app shell and login.
+       Checking it switches color-scheme to light; unchecked = dark (default). -->
+  <input type="checkbox" role="switch" id="theme-checkbox" class="theme-checkbox" aria-label="Colour theme">
+
+  <a class="splash-skip-link" href="#splash-main">Skip to content</a>
+
+  <!-- Decorative scroll progress bar — see src/styles/modules/splash.css for
+       the scroll-driven animation + JS fallback wiring. -->
+  <div class="splash-progress" aria-hidden="true"></div>
+
+  <!-- ── Top bar ─────────────────────────────────────────────────────────── -->
+  <header class="splash-topbar">
+    <a class="splash-topbar-logo" href="#top">Aurelius</a>
+    <div class="splash-topbar-actions">
+      <div class="theme-switcher">
+        <label class="theme-toggle" for="theme-checkbox" aria-hidden="true">
+          <span class="theme-label-dark">Dark</span>
+          <span class="theme-label-light">Light</span>
+        </label>
+      </div>
+      <span class="theme-live" role="status" aria-live="polite" aria-atomic="true"></span>
+      <a class="btn-secondary btn-secondary--sm" href="../login/">Sign In</a>
+    </div>
+  </header>
+
+  <main id="splash-main">
+
+    <!-- ════════════════════════════════════════════════════════════════
+         HERO
+         ════════════════════════════════════════════════════════════════ -->
+    <section class="splash-hero" aria-label="Welcome to Aurelius Wealth Management">
+      <div class="splash-hero-inner">
+        <p class="splash-kicker">Aurelius Wealth Management</p>
+        <h1 class="splash-hero-heading">
+          Money left alone<br>doesn't grow. It just <em>waits</em>.
+        </h1>
+        <p class="splash-hero-desc">
+          Every year it sits still, inflation quietly spends it for you. Aurelius exists to put your money to work, deliberately, and entirely on your terms.
+        </p>
+        <div class="splash-hero-actions">
+          <a class="btn-primary" href="../onboarding/">Get started — know your element</a>
+          <a class="btn-secondary" href="#why-it-matters">See why it matters</a>
+        </div>
+      </div>
+      <a class="splash-scroll-cue" href="#why-it-matters" aria-label="Scroll to learn why investing matters">
+        <span aria-hidden="true"></span>
+      </a>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════
+         SECTION 1 · THE COST OF DOING NOTHING
+         ════════════════════════════════════════════════════════════════ -->
+    <section class="splash-section splash-reveal" id="why-it-matters" aria-labelledby="s1-heading">
+      <div class="splash-inner">
+        <p class="splash-kicker">Why it matters</p>
+        <h2 class="splash-heading" id="s1-heading">Cash feels safe. It rarely is.</h2>
+        <p class="splash-body-text">
+          Holding cash feels like the cautious choice — nothing to lose, nothing at risk. But prices rise every year, and money that isn't growing is quietly losing ground against them. The risk isn't always the one you can see.
+        </p>
+
+        <div class="splash-stat-card">
+          <p class="splash-stat-figure">£20,000 → <span class="splash-stat-figure-muted">≈£13,000</span></p>
+          <p class="splash-stat-caption">
+            The illustrative real-terms buying power of £20,000 left in a 0%-interest account for 15 years, assuming inflation averages 3% a year.
+          </p>
+          <p class="splash-disclaimer">Illustrative example only — not a forecast, projection or guarantee. Inflation rates vary and past performance is not a reliable indicator of future performance.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════
+         SECTION 2 · THE POWER OF STARTING TODAY
+         ════════════════════════════════════════════════════════════════ -->
+    <section class="splash-section splash-section--alt splash-reveal" aria-labelledby="s2-heading">
+      <div class="splash-inner">
+        <p class="splash-kicker">Time, not timing</p>
+        <h2 class="splash-heading" id="s2-heading">The best time to start was years ago.<br>The second best is today.</h2>
+        <p class="splash-body-text">
+          Growth compounds — returns earn their own returns, year after year. That means the single biggest factor in most people's outcome isn't picking the perfect moment to invest, it's simply the number of years their money has had to work. Waiting is the expensive choice, even when it doesn't feel like one.
+        </p>
+
+        <div class="splash-chart-card">
+          <svg class="splash-chart" viewBox="0 0 320 140" aria-hidden="true" focusable="false">
+            <line x1="0" y1="120" x2="320" y2="120" class="splash-chart-axis" />
+            <path d="M0,110 C 80,100 160,70 320,15" class="splash-chart-line splash-chart-line--gold" />
+            <path d="M110,118 C 180,112 250,95 320,60" class="splash-chart-line splash-chart-line--dim" />
+            <circle cx="320" cy="15" r="4" class="splash-chart-dot splash-chart-dot--gold" />
+            <circle cx="320" cy="60" r="4" class="splash-chart-dot splash-chart-dot--dim" />
+          </svg>
+          <dl class="splash-chart-legend">
+            <div class="splash-chart-legend-item">
+              <dt><span class="splash-chart-swatch splash-chart-swatch--gold" aria-hidden="true"></span>Starts investing today</dt>
+              <dd>More years for growth to compound.</dd>
+            </div>
+            <div class="splash-chart-legend-item">
+              <dt><span class="splash-chart-swatch splash-chart-swatch--dim" aria-hidden="true"></span>Waits 10 years, invests the same amount</dt>
+              <dd>Fewer years for growth to compound.</dd>
+            </div>
+          </dl>
+          <p class="splash-disclaimer">For illustration only — not a prediction of investment performance. The value of investments can fall as well as rise, and you may get back less than you invest.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════
+         SECTION 3 · INVESTING BUILT AROUND YOU
+         ════════════════════════════════════════════════════════════════ -->
+    <section class="splash-section splash-reveal" aria-labelledby="s3-heading">
+      <div class="splash-inner">
+        <p class="splash-kicker">Not one-size-fits-all</p>
+        <h2 class="splash-heading" id="s3-heading">Six short questions reveal how you actually think about money.</h2>
+        <p class="splash-body-text">
+          Two people with identical incomes can have completely different relationships with risk, time, and control. Aurelius starts by understanding yours — then builds around it, rather than asking you to fit a template.
+        </p>
+
+        <div class="splash-feature-grid">
+          <div class="splash-feature-card">
+            <p class="splash-feature-eyebrow">Know your element</p>
+            <p class="splash-feature-text">A short, bespoke assessment across six interactions reveals your investment personality — your appetite, instincts, and long-term financial character.</p>
+          </div>
+          <div class="splash-feature-card">
+            <p class="splash-feature-eyebrow">Goals, not just numbers</p>
+            <p class="splash-feature-text">Your plan is organised around what the money is actually for — a house, retirement, your children's future — not just a portfolio balance.</p>
+          </div>
+          <div class="splash-feature-card">
+            <p class="splash-feature-eyebrow">Ava, always on</p>
+            <p class="splash-feature-text">Ava, your Aurelius AI guide, helps you talk through goals and questions in plain language, any time — backed by human oversight, never a replacement for it.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════
+         SECTION 4 · WHY AURELIUS
+         ════════════════════════════════════════════════════════════════ -->
+    <section class="splash-section splash-section--dark splash-reveal" aria-labelledby="s4-heading">
+      <div class="splash-inner">
+        <p class="splash-kicker">Held to a higher standard</p>
+        <h2 class="splash-heading" id="s4-heading">Why Aurelius</h2>
+
+        <blockquote class="utility-brand-quote splash-quote">
+          "The happiness of your life depends upon the quality of your thoughts."
+          <cite>— Marcus Aurelius, Meditations</cite>
+        </blockquote>
+        <p class="splash-body-text">
+          The name isn't decoration. Aurelius is built on the same idea the quote captures: clarity and intention beat impulse, every time — in how you think, and in how you invest.
+        </p>
+
+        <div class="utility-brand-badges splash-badges">
+          <span class="utility-brand-badge">FCA Regulated</span>
+          <span class="utility-brand-badge">ISO 27001</span>
+          <span class="utility-brand-badge">GDPR Compliant</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════
+         FINAL CTA
+         ════════════════════════════════════════════════════════════════ -->
+    <section class="splash-cta" aria-labelledby="cta-heading">
+      <div class="splash-inner">
+        <h2 class="splash-heading" id="cta-heading">Your money is waiting.<br>Put it to work.</h2>
+        <div class="splash-cta-actions">
+          <a class="btn-primary" href="../onboarding/">Get started — know your element</a>
+          <a class="btn-secondary" href="../login/">I already have an account — sign in</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="splash-footer">
+      <p class="splash-disclaimer">
+        Aurelius Wealth Management is authorised and regulated by the Financial Conduct Authority. This page is for general information only and does not constitute financial advice. The value of investments can fall as well as rise, and you may get back less than you invest.
+      </p>
+    </footer>
+
+  </main>
+
+  <script src="../src/js/splash.js" defer></script>
+</body>
+</html>
