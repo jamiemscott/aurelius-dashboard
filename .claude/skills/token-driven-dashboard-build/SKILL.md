@@ -1,0 +1,95 @@
+---
+name: token-driven-dashboard-build
+description: Use when building (or extending) a vanilla HTML/CSS/JS dashboard or app that has a token-based design system, a custom CSS partial-bundler build script, a living style guide, and a git-worktree + conventional-commit PR workflow — e.g. reproducing the Aurelius Wealth Management dashboard's way of working, or bridging a third-party component library's CSS variables onto a custom design system.
+---
+
+# Token-driven dashboard build
+
+This captures the working pattern behind the Aurelius Wealth Management dashboard (`github.com/jamiemscott/aurelius-dashboard`): a no-framework HTML/CSS/JS app with a strict design-token architecture, a hand-rolled build script instead of a bundler, a living style guide kept in lockstep with the components, and a disciplined git-worktree + PR workflow. Apply this when starting a similar project or extending one already built this way.
+
+## 1. Project shape
+
+No framework, no npm dependencies beyond `serve` (via `npx`) for local dev. Plain HTML pages, one per route/section, each pulling in the same built CSS bundle and page-specific JS:
+
+```
+index.html, login/, onboarding/, my-investments/, my-goals/,
+asset-allocation/, capital-gains-tax/, valuation-history/,
+documents/, my-details/, contact-us/, help/, chat/, error/
+
+src/
+  js/            one file per feature (goals.js, add-investment.js, charts.js, chatbot.js...)
+  js/onboarding/ sub-flow broken into its own small modules
+  styles/
+    theme/       design tokens — fonts, brand, colours, typography, animations
+    base/        resets, defaults
+    layout/      shell, topbar, sidebar, grids
+    modules/     one file per reusable component (buttons.css, cards.css, drawers.css, chat.css...)
+    state/       is-* state classes
+    pages/       page-specific overrides only
+    bundle.css   generated — never hand-edit
+
+style-guide/     living component gallery, one HTML page per module, mirrors src/styles/modules
+docs/            architecture plan docs written BEFORE risky/cross-cutting work
+build.js         concatenates + minifies the CSS partials
+netlify.toml     build command + Lighthouse gate
+```
+
+Key discipline: CSS is authored as small per-component partials under `modules/`, never as one growing file. A page's own CSS only ever holds true page-specific overrides in `pages/pages.css` — component styling lives with the component.
+
+## 2. Design tokens
+
+`theme/brand.css` is the single seed: a handful of `--seed-*` / `--brand-*` values that everything else derives from using `oklch(from var(--seed-x) ...)` for tints/shades and alpha variants — never hand-picked hex values scattered around.
+
+`theme/colours.css` builds the public token API on top of that seed and is the ONLY file downstream CSS should reference:
+- Brand aliases: `--gold`, `--gold-soft`, `--gold-dim`, `--gold-glow`, `--gold-text` — each documented with a one-line comment on what it's for and why it's derived that way (e.g. `--gold-text` uses `light-dark()` to stay AA on light surfaces).
+- Surface tokens: `--bg`, `--bg-card`, `--bg-hover`, `--bg-input`, `--bg-dark`, all defined via `light-dark(lightValue, darkValue)`.
+- Border tokens split by purpose, not just by colour: `--border` (structural chrome, too subtle for inputs) vs `--border-input` (meets WCAG 1.4.11 3:1 non-text contrast, used on every form control) vs `--border-card` (gold-tinted accent in dark mode). Comment the WCAG rule a token satisfies right above it.
+- A `--card-fill` / `--card-fill-glass` pair kept free of `light-dark()` specifically because gradient stops can't parse it — note *why* a token breaks the normal pattern when it does.
+
+Dark is the default theme; light mode is the opt-in via `html:has(.theme-checkbox:checked)` flipping `color-scheme` and any tokens that don't reduce to `light-dark()` cleanly (e.g. `--card-fill`). No JS is needed for the token swap itself — only for persisting the toggle choice.
+
+When a token is renamed or consolidated (e.g. `--bg-sidebar` → `--bg-dark`), sweep every reference in the same PR and call it out as a `refactor:` commit — don't leave the old name as a silent alias.
+
+## 3. Build script, not a bundler
+
+`build.js` is a small hand-written Node script (no webpack/vite/postcss): an ordered array of partial paths, concatenated in a specific cascade order (theme → base → layout → modules → state → pages), with `--minify` and `--watch` flags. Reproduce this pattern rather than reaching for a bundler when the project is meant to stay dependency-free:
+
+```
+node build.js            bundle, unminified, with `/* ── path ── */` section header comments
+node build.js --minify   bundle + minify (what Netlify's build command runs)
+node build.js --watch    rebuild on partial change
+```
+
+The minifier is a few regex passes (strip comments, collapse whitespace, strip space around `{}:;,>~`) — deliberately simple, and deliberately preserves whitespace around `+`/`-` so `calc()` still parses. The generated `bundle.css` gets a `Generated by build.js — DO NOT EDIT` header when unminified.
+
+Deploy config (Netlify): `build command = node build.js --minify`, `publish = "."`, plus a `@netlify/plugin-lighthouse` gate with per-category thresholds (performance/accessibility/best-practices/SEO) that ratchet up over time — start with thresholds the current build already clears, not aspirational ones.
+
+## 4. Living style guide
+
+`style-guide/` has one HTML page per CSS module (`buttons.html`, `cards.html`, `drawers.html`, `goals.html`-style component demos, plus cross-cutting pages like `typography.html`, `spacing.html`, `theming.html`). When a component's CSS changes or a new component is added, update or add its style-guide page **in the same PR**, and register it in the sidebar nav — treat an undocumented component as an incomplete PR, not a follow-up. Commit message pattern: `docs(style-guide): add N new component pages and register in sidebar nav`.
+
+## 5. Third-party CSS variable bridging (e.g. OutSystems UI)
+
+When a third-party component library (OSUI or similar) needs to render inside the app and pick up its design tokens instead of its own baked-in defaults, don't fork or modify either system. Instead:
+
+1. **Write the plan first**, as a markdown doc in `docs/` (e.g. `docs/osui-bridge-plan.md`), before writing any bridge CSS. It should cover: the problem (two disjoint CSS custom-property vocabularies), the unidirectional mapping direction (third-party variable ← your token, never the reverse), a full mapping table by category (brand colour, semantic/status colour, neutral scale, typography, spacing, radius, shadow, z-index) noting which mappings are straightforward `var()` aliases vs. which need `light-dark()` because the two systems invert their light/dark direction, the load order requirement (bridge file loads after your tokens, before any third-party component CSS), what the bridge deliberately does NOT do (never edit your own tokens, never bundle the third-party CSS itself, never touch its markup/JS), and a phased rollout (stub the file → wire one component → validate both theme directions → expand to the full library → audit and remove hardcoded values).
+2. **Implement as a single new file** — one `:root { --their-var: var(--your-token); }` stylesheet, nothing else touched. Register it as one `@import`/concat entry, positioned last among theme files and before base/layout/modules.
+3. **Flag the hard parts explicitly in the plan doc**: any inverted numeric scale (their neutral-0=lightest vs. your dark-first scale) needs `light-dark()` on every step, not a blanket assumption; note where their runtime CSS injection order could load after yours and override the bridge (mitigate with a `@layer` or documented load-order dependency); note any semantic gap where your palette has no equivalent (e.g. no blue for an "info" state) and call out the honest workaround plus the follow-up token that would remove it.
+
+This same pattern generalizes to bridging any two CSS custom-property vocabularies, not just OutSystems.
+
+## 6. Git & PR workflow
+
+- **One git worktree per feature/fix**, not per-branch-in-place — this is what lets several Claude sessions work the codebase in parallel without stepping on each other's working directory. Each worktree gets its own branch.
+- **Conventional commits, scoped to the module or page touched**: `feat(goals): Ava goal discovery panel`, `fix(chat): input borders to 45% gold for WCAG 3:1`, `refactor(goals): CSS ring, event delegation, semantic output elements`, `style(footer): compact responsive layout for iPad`, `docs(style-guide): ...`, `chore: add wave.svg background image to version control`. Prefer a scope matching the CSS module/page name so `git log --format=%s | grep '(goals)'` reconstructs a component's whole history.
+- **One PR per unit of work**, title mirrors the commit convention (`gh pr create --title 'refactor(goals): wire buttons to shared system, fix gold-on-gold'`), squash-merged so the commit that lands on `main` still carries the PR number (`(#168)`).
+- **Revert fast, don't patch over**: when a change turns out wrong, `git revert`/`Revert "..."` as its own commit rather than layering a fix on top — keeps the history honest about what shipped and what didn't.
+- **Bug fixes dominate the log by volume** (fix >> feat here) — small, frequent, narrowly-scoped fix commits are the norm, not a smell. Don't batch unrelated fixes into one commit just to reduce PR count.
+
+## 7. Visual QA loop
+
+After a CSS/layout change, check it against a live deployed preview (this project used a Netlify preview URL) with a real browser tool — not just by reading the CSS — before opening the PR, especially for anything touching breakpoints (iPad-width fixes show up repeatedly in this log), theme toggling, or contrast. Treat "looks right in one theme" as incomplete; check both light and dark.
+
+## 8. Accessibility is load-bearing, not a pass
+
+WCAG targets are named explicitly in commits and token comments (`WCAG 1.4.11 3:1 non-text contrast`, `bump chat input borders to 45% gold for WCAG 3:1`) rather than "improve contrast". When you touch a border/text token, check which WCAG success criterion it exists to satisfy and preserve or state that ratio in the commit message and, where relevant, in a comment on the token itself.
