@@ -4,8 +4,9 @@
     {
       "name": "aurelius-main",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["serve", "-p", "3003", "."],
-      "port": 3003
+      "runtimeArgs": ["serve", "."],
+      "port": 3003,
+      "autoPort": true
     }
   ]
 }
