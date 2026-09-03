@@ -233,6 +233,28 @@
   width: auto;
 }
 
+/* ─── FOOTER ACCORDION (details/summary) ─────────────────
+   Desktop: details always open, summary acts as plain heading.
+   Tablet/mobile: native collapse/expand with chevron indicator. */
+
+/* Desktop — force content always visible */
+.footer-acc > .footer-links {
+  display: flex; /* overrides UA display:none when details is closed */
+}
+
+/* Summary looks like a plain heading on desktop — not interactive */
+.footer-acc-summary {
+  cursor: default;
+  list-style: none;
+  pointer-events: none;
+}
+.footer-acc-summary::-webkit-details-marker { display: none; }
+.footer-acc-summary::marker { display: none; }
+
+/* Chevron hidden on desktop */
+.footer-acc-chevron { display: none; }
+
+
 /* ─── RESPONSIVE — TABLET / IPAD ─────────────────────────
    iPad Pro portrait = 1024px CSS width.
    ≤1024px: compact layout — horizontal link rows replace the
@@ -241,24 +263,62 @@
    and smaller devices.                                       */
 
 @media (max-width: 1024px) {
-  /* Brand spans full width; three link columns sit in a row beneath */
+  /* Single column: brand → Services → Support → Legal stacked */
   .footer-upper {
-    gap: 16px 24px;
-    grid-template-columns: 1fr 1fr 1fr;
-    padding: 24px var(--pad) 16px;
+    gap: 0;
+    grid-template-columns: 1fr;
+    padding: 24px var(--pad) 0;
   }
 
-  .footer-brand-col { grid-column: 1 / -1; }
+  .footer-brand-col {
+    grid-column: 1;
+    margin-block-end: 16px;
+  }
 
-  /* Within each column, links run horizontally and wrap —
-     eliminates the tall vertical stacks                     */
-  .footer-links {
+  /* Accordion — restore interactive behaviour */
+  .footer-acc > .footer-links {
+    display: none; /* collapsed by default */
+  }
+  .footer-acc[open] > .footer-links {
+    display: flex;
+  }
+
+  .footer-acc-summary {
+    align-items: center;
+    border-block-end: 1px solid var(--divider);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    margin-block-end: 0;
+    padding-block: 10px;
+    pointer-events: auto;
+  }
+
+  /* Show chevron on tablet/mobile */
+  .footer-acc-chevron {
+    color: var(--text-3);
+    display: block;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+
+  /* Rotate chevron when open */
+  .footer-acc[open] .footer-acc-chevron {
+    transform: rotate(180deg);
+  }
+
+  /* Expanded links — horizontal wrap inside accordion */
+  .footer-acc[open] > .footer-links {
     flex-direction: row;
     flex-wrap: wrap;
     gap: 6px 14px;
+    margin-block-end: 4px;
+    margin-block-start: 12px;
+    padding-block-end: 12px;
   }
 
-  .footer-col-title { margin-block-end: 8px; }
+  .footer-col-title { margin-block-end: 0; }
 
   /* Regulatory — stack sponsors below reg text */
   .footer-regulatory {
@@ -281,12 +341,10 @@
 }
 
 @media (max-width: 768px) {
-  /* Collapse to single column on phones */
-  .footer-upper { grid-template-columns: 1fr; }
-
-  /* Restore vertical links at phone width — more readable */
-  .footer-links {
+  /* Already single column from ≤1024px block; restore vertical links */
+  .footer-acc[open] > .footer-links {
     flex-direction: column;
+    flex-wrap: nowrap;
     gap: 8px;
   }
 }
