@@ -11,6 +11,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../src/styles/bundle.css">
+  <!-- prop-for-that: bridges live browser state (pointer, scroll, visibility,
+       randomness) into CSS custom properties so CSS can react directly.
+       Module scripts are deferred by default — no render-blocking.
+       https://prop-for-that.netlify.app -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/prop-for-that@0.7.12/dist/auto.js"></script>
 </head>
 <body class="splash-body" id="top">
 
@@ -66,7 +71,7 @@
     <!-- ════════════════════════════════════════════════════════════════
          SECTION 1 · THE COST OF DOING NOTHING
          ════════════════════════════════════════════════════════════════ -->
-    <section class="splash-section splash-reveal" id="why-it-matters" aria-labelledby="s1-heading">
+    <section class="splash-section splash-reveal" id="why-it-matters" aria-labelledby="s1-heading" data-props-for="visibility">
       <div class="splash-inner">
         <p class="splash-kicker">Why it matters</p>
         <h2 class="splash-heading" id="s1-heading">Cash feels safe. It rarely is.</h2>
@@ -74,7 +79,7 @@
           Holding cash feels like the cautious choice — nothing to lose, nothing at risk. But prices rise every year, and money that isn't growing is quietly losing ground against them. The risk isn't always the one you can see.
         </p>
 
-        <div class="splash-stat-card">
+        <div class="splash-stat-card" data-props-for="pointer-local">
           <p class="splash-stat-figure">£20,000 → <span class="splash-stat-figure-muted">≈£13,000</span></p>
           <p class="splash-stat-caption">
             The illustrative real-terms buying power of £20,000 left in a 0%-interest account for 15 years, assuming inflation averages 3% a year.
@@ -87,7 +92,7 @@
     <!-- ════════════════════════════════════════════════════════════════
          SECTION 2 · THE POWER OF STARTING TODAY
          ════════════════════════════════════════════════════════════════ -->
-    <section class="splash-section splash-section--alt splash-reveal" aria-labelledby="s2-heading">
+    <section class="splash-section splash-section--alt splash-reveal" aria-labelledby="s2-heading" data-props-for="visibility">
       <div class="splash-inner">
         <p class="splash-kicker">Time, not timing</p>
         <h2 class="splash-heading" id="s2-heading">The best time to start was years ago.<br>The second best is today.</h2>
@@ -95,7 +100,7 @@
           Growth compounds — returns earn their own returns, year after year. That means the single biggest factor in most people's outcome isn't picking the perfect moment to invest, it's simply the number of years their money has had to work. Waiting is the expensive choice, even when it doesn't feel like one.
         </p>
 
-        <div class="splash-chart-card">
+        <div class="splash-chart-card" data-props-for="pointer-local">
           <svg class="splash-chart" viewBox="0 0 320 140" aria-hidden="true" focusable="false">
             <line x1="0" y1="120" x2="320" y2="120" class="splash-chart-axis" />
             <path d="M0,110 C 80,100 160,70 320,15" class="splash-chart-line splash-chart-line--gold" />
@@ -121,7 +126,7 @@
     <!-- ════════════════════════════════════════════════════════════════
          SECTION 3 · INVESTING BUILT AROUND YOU
          ════════════════════════════════════════════════════════════════ -->
-    <section class="splash-section splash-reveal" aria-labelledby="s3-heading">
+    <section class="splash-section splash-reveal" aria-labelledby="s3-heading" data-props-for="visibility">
       <div class="splash-inner">
         <p class="splash-kicker">Not one-size-fits-all</p>
         <h2 class="splash-heading" id="s3-heading">Six short questions reveal how you actually think about money.</h2>
@@ -130,15 +135,15 @@
         </p>
 
         <div class="splash-feature-grid">
-          <div class="splash-feature-card">
+          <div class="splash-feature-card" data-props-for="pointer-local random">
             <p class="splash-feature-eyebrow">Know your element</p>
             <p class="splash-feature-text">A short, bespoke assessment across six interactions reveals your investment personality — your appetite, instincts, and long-term financial character.</p>
           </div>
-          <div class="splash-feature-card">
+          <div class="splash-feature-card" data-props-for="pointer-local random">
             <p class="splash-feature-eyebrow">Goals, not just numbers</p>
             <p class="splash-feature-text">Your plan is organised around what the money is actually for — a house, retirement, your children's future — not just a portfolio balance.</p>
           </div>
-          <div class="splash-feature-card">
+          <div class="splash-feature-card" data-props-for="pointer-local random">
             <p class="splash-feature-eyebrow">Ava, always on</p>
             <p class="splash-feature-text">Ava, your Aurelius AI guide, helps you talk through goals and questions in plain language, any time — backed by human oversight, never a replacement for it.</p>
           </div>
@@ -149,7 +154,7 @@
     <!-- ════════════════════════════════════════════════════════════════
          SECTION 4 · WHY AURELIUS
          ════════════════════════════════════════════════════════════════ -->
-    <section class="splash-section splash-section--dark splash-reveal" aria-labelledby="s4-heading">
+    <section class="splash-section splash-section--dark splash-reveal" aria-labelledby="s4-heading" data-props-for="visibility">
       <div class="splash-inner">
         <p class="splash-kicker">Held to a higher standard</p>
         <h2 class="splash-heading" id="s4-heading">Why Aurelius</h2>
