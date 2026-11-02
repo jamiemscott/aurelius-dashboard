@@ -9,18 +9,24 @@
 
 .brand-mark {
   align-items: center;
-  background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+  border: 1.5px solid var(--gold-text);
   border-radius: 8px;
-  color: var(--neutral-10);            /* always dark — sits on gold gradient */
+  color: var(--gold-text);             /* gold on dark, AA amber on light */
   display: flex;
   flex-shrink: 0;
-  font-family: var(--font-serif);
-  font-size: var(--fs-xl);             /* 16px */
-  font-weight: var(--fw-semibold);
+  font-size: 0;                        /* hides the fallback "A" text node */
   height: 34px;
   justify-content: center;
-  letter-spacing: var(--ls-heading);
   width: 34px;
+}
+
+/* Monogram glyph — painted via mask so it inherits color */
+.brand-mark::before {
+  aspect-ratio: var(--brand-monogram-ratio);
+  background: currentColor;
+  content: "";
+  mask: var(--brand-monogram) center / contain no-repeat;
+  width: 68%;
 }
 
 .brand-text {
@@ -51,7 +57,6 @@
 
 .site-footer .brand-mark {
   border-radius: 7px;
-  font-size: var(--fs-body);           /* 14px */
   height: 30px;
   width: 30px;
 }
