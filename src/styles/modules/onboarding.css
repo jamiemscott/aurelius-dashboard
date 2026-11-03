@@ -1292,6 +1292,18 @@
   width: 58%;
 }
 
+/* High-contrast mode — see .brand-mark::before in modules/brand.css */
+@media (forced-colors: active) {
+  .ob-logo-mark {
+    border: 1px solid CanvasText;    /* gold fill is dropped; keep the shape */
+  }
+
+  .ob-logo-mark::before {
+    background: CanvasText;
+    forced-color-adjust: none;
+  }
+}
+
 .ob-logo-name {
   color: var(--text-1);
   font-size: var(--fs-ui);
