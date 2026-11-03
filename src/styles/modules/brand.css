@@ -3,59 +3,81 @@
   align-items: center;
   color: inherit;
   display: flex;
-  gap: 10px;
+  gap: 12px;
   text-decoration: none;
 }
 
 .brand-mark {
   align-items: center;
-  background: linear-gradient(135deg, var(--gold), var(--gold-soft));
-  border-radius: 8px;
-  color: var(--neutral-10);            /* always dark — sits on gold gradient */
+  border: 1.5px solid var(--gold-text);
+  border-radius: 9px;
+  color: var(--gold-text);             /* gold on dark, AA amber on light */
   display: flex;
   flex-shrink: 0;
-  font-family: var(--font-serif);
-  font-size: var(--fs-xl);             /* 16px */
-  font-weight: var(--fw-semibold);
-  height: 34px;
+  font-size: 0;                        /* hides the fallback "A" text node */
+  height: 40px;                        /* matches the lockup text height */
   justify-content: center;
-  letter-spacing: var(--ls-heading);
-  width: 34px;
+  width: 40px;
 }
 
+/* Monogram glyph — painted via mask so it inherits color */
+.brand-mark::before {
+  aspect-ratio: var(--brand-monogram-ratio);
+  background: currentColor;
+  content: "";
+  mask: var(--brand-monogram) center / contain no-repeat;
+  width: 72%;
+}
+
+/* High-contrast mode forces background-color to Canvas, which would
+   erase the mask-painted glyph — paint it in a system colour instead.
+   (currentColor won't do: forced-color-adjust: none unforces it too.) */
+@media (forced-colors: active) {
+  .brand-mark::before {
+    background: CanvasText;
+    forced-color-adjust: none;
+  }
+
+  /* Inside the brand link, match the LinkText tile and wordmark */
+  a.brand .brand-mark::before {
+    background: LinkText;
+  }
+}
+
+/* Lockup — everything is sized in em off .brand-text so the
+   name and strapline scale together. The strapline's size and
+   tracking are tuned so "WEALTH MANAGEMENT" in DM Sans spans
+   exactly the width of "Aurelius" in DM Serif Display:
+     name width ≈ 3.68em · strap ≈ 0.28em × (11.09 + 16 × 0.128) */
 .brand-text {
+  border-inline-start: 1px solid var(--gold-text);  /* lockup divider */
   display: flex;
   flex-direction: column;
+  font-size: var(--fs-display-md);     /* 28px — sets the lockup scale */
+  inline-size: max-content;
+  padding-inline-start: 12px;          /* mirrors the .brand gap */
 }
 
 .brand-name {
   color: var(--text-1);
   font-family: var(--font-serif);
-  font-size: var(--fs-2xl);            /* 17px */
-  letter-spacing: var(--ls-snug);
+  font-size: 1em;
+  letter-spacing: 0;                   /* tracking is part of the width match */
   line-height: var(--lh-none);
 }
 
 .brand-sub {
-  color: var(--text-3);
-  font-size: var(--fs-xs);             /* 10px */
-  letter-spacing: var(--ls-widest);
-  margin-block-start: 2px;
+  color: var(--text-2);
+  font-size: 0.28em;                   /* ≈ 7.8px at the default scale */
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.128em;
+  line-height: var(--lh-none);
+  margin-block-start: 0.6em;
+  margin-inline-end: -0.128em;         /* cancel trailing tracking on the last letter */
   text-transform: uppercase;
 }
 
 /* ─── FOOTER CONTEXT ─────────────────────────────────── */
 .site-footer .brand {
   margin-block-end: 14px;
-}
-
-.site-footer .brand-mark {
-  border-radius: 7px;
-  font-size: var(--fs-body);           /* 14px */
-  height: 30px;
-  width: 30px;
-}
-
-.site-footer .brand-name {
-  font-size: var(--fs-lg);             /* 15px */
 }

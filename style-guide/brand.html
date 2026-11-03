@@ -56,7 +56,7 @@
     <section class="sg-section" id="brand-mark">
       <div class="sg-section-header">
         <h2 class="sg-section-title">Brand Mark (<code>.brand-mark</code>)</h2>
-        <p class="sg-section-desc">A 34×34px square with <code>border-radius: 8px</code>. Background is a gold linear gradient (<code>--seed-primary → --seed-secondary</code>). Text "A" is <code>var(--neutral-10)</code> (near-black) in DM Serif Display at <code>--fs-xl</code> (16px) — chosen to contrast against the gold background in both themes.</p>
+        <p class="sg-section-desc">A 34×34px tile with <code>border-radius: 8px</code> and a 1.5px <code>--gold-text</code> outline. The Aurelius "A" monogram is painted by a <code>::before</code> pseudo-element using the <code>--brand-monogram</code> CSS mask, filled with <code>currentColor</code> (<code>--gold-text</code>) — gold in dark mode, AA amber in light mode. The "A" text inside the element is a no-CSS fallback, hidden with <code>font-size: 0</code>.</p>
       </div>
       <div class="sg-demo sg-demo--grid">
         <div style="text-align:center">
@@ -64,12 +64,12 @@
           <div style="color:var(--text-3);font-size:var(--fs-xs);margin-top:8px">34×34px (default)</div>
         </div>
         <div style="text-align:center">
-          <div class="brand-mark" style="display:inline-flex;width:48px;height:48px;font-size:22px;border-radius:10px"></div>
+          <div class="brand-mark" style="display:inline-flex;width:48px;height:48px;border-radius:10px"></div>
           <div style="color:var(--text-3);font-size:var(--fs-xs);margin-top:8px">48×48px (scaled)</div>
         </div>
       </div>
       <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-card);padding:14px 16px;margin-top:16px">
-        <p style="color:var(--text-2);font-size:var(--fs-body);margin:0">The brand mark has no image dependency — it's a styled <code>&lt;div&gt;</code> with a CSS gradient. Scaling: adjust <code>width</code>, <code>height</code>, <code>font-size</code>, and <code>border-radius</code> proportionally. No separate SVG or PNG asset needed.</p>
+        <p style="color:var(--text-2);font-size:var(--fs-body);margin:0">The monogram is inlined in CSS as a data-URI mask (<code>--brand-monogram</code> in <code>theme/brand.css</code>), so there's no image request and the glyph is always sharp and theme-aware. Scaling: adjust <code>width</code>, <code>height</code> and <code>border-radius</code> proportionally — the glyph scales with the tile. The standalone source is <code>src/images/brand/aurelius-monogram.svg</code> (uses <code>currentColor</code>); keep it and the token in sync.</p>
       </div>
     </section>
 
@@ -121,9 +121,9 @@
             </tr>
           </thead>
           <tbody style="color:var(--text-2)">
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--seed-primary / --seed-secondary</code></td><td style="padding:8px 0">Brand mark gradient stops (#F5A623 → #FFB547)</td></tr>
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--neutral-10</code></td><td style="padding:8px 0">Brand mark letter colour (near-black, contrast on gold)</td></tr>
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--font-serif</code></td><td style="padding:8px 0">Brand name and mark letter typeface</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--brand-monogram</code></td><td style="padding:8px 0">Monogram glyph as a CSS mask (data URI); <code>--brand-monogram-ratio</code> holds its aspect ratio</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--gold-text</code></td><td style="padding:8px 0">Monogram and tile outline colour (brand-500 dark / brand-700 light)</td></tr>
+            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--font-serif</code></td><td style="padding:8px 0">Brand name typeface</td></tr>
             <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--fs-2xl</code> (17px)</td><td style="padding:8px 0">Brand name size</td></tr>
             <tr><td style="padding:8px 12px 8px 0"><code>--ls-widest</code></td><td style="padding:8px 0">Brand sub-line letter spacing</td></tr>
           </tbody>
@@ -143,7 +143,7 @@
         </div>
         <div class="sg-dont">
           <div class="sg-dont-label">Don't</div>
-          <div class="sg-dont-body"><p style="color:var(--text-2);font-size:var(--fs-sm);margin:0">Don't replace <code>.brand-mark</code> with an image file — the CSS approach is infinitely sharp, theme-responsive, and dependency-free. Use an image only if regulatory brand guidelines require an exact SVG logo.</p></div>
+          <div class="sg-dont-body"><p style="color:var(--text-2);font-size:var(--fs-sm);margin:0">Don't replace <code>.brand-mark</code> with an <code>&lt;img&gt;</code> or a hard-coded colour SVG — it loses theme colours. Use the mask-based mark (or the <code>currentColor</code> source SVG) so the monogram follows the theme.</p></div>
         </div>
       </div>
     </section>

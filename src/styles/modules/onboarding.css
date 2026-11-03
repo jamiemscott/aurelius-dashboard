@@ -1277,11 +1277,31 @@
   color: #08090d;
   display: flex;
   flex-shrink: 0;
-  font-family: var(--font-serif);
-  font-size: var(--fs-3xl);
+  font-size: 0;                        /* hides the fallback "A" text node */
   height: 34px;
   justify-content: center;
   width: 34px;
+}
+
+/* Monogram glyph — same mask as .brand-mark (theme/brand.css) */
+.ob-logo-mark::before {
+  aspect-ratio: var(--brand-monogram-ratio);
+  background: currentColor;
+  content: "";
+  mask: var(--brand-monogram) center / contain no-repeat;
+  width: 58%;
+}
+
+/* High-contrast mode — see .brand-mark::before in modules/brand.css */
+@media (forced-colors: active) {
+  .ob-logo-mark {
+    border: 1px solid CanvasText;    /* gold fill is dropped; keep the shape */
+  }
+
+  .ob-logo-mark::before {
+    background: CanvasText;
+    forced-color-adjust: none;
+  }
 }
 
 .ob-logo-name {
@@ -1372,7 +1392,6 @@
 }
 
 .ob-logo-mark--sm {
-  font-size: var(--fs-xl);
   height: 30px;
   width: 30px;
 }
