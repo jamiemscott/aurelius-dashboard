@@ -272,6 +272,12 @@ html:has(.theme-checkbox:checked) .chat-wrap {
 
   .brand-sub { display: none; }
 
+  /* Name-only brand: drop back to the compact size so the
+     nav tabs keep their room. .brand prefix outranks
+     modules/brand.css, which loads after this file.          */
+  .brand .brand-text { font-size: var(--fs-2xl); }
+  .brand .brand-mark { border-radius: 8px; height: 34px; width: 34px; }
+
   /* Sidebar itself — tighter vertical padding */
   .sidebar,
   .site-sidebar { padding: 16px 10px; }
