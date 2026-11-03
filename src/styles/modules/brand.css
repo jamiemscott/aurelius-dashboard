@@ -35,10 +35,12 @@
    exactly the width of "Aurelius" in DM Serif Display:
      name width ≈ 3.68em · strap ≈ 0.28em × (11.09 + 16 × 0.128) */
 .brand-text {
+  border-inline-start: 1px solid var(--gold-text);  /* lockup divider */
   display: flex;
   flex-direction: column;
   font-size: var(--fs-display-md);     /* 28px — sets the lockup scale */
   inline-size: max-content;
+  padding-inline-start: 12px;          /* mirrors the .brand gap */
 }
 
 .brand-name {

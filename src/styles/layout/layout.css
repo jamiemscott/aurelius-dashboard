@@ -275,7 +275,7 @@ html:has(.theme-checkbox:checked) .chat-wrap {
   /* Name-only brand: drop back to the compact size so the
      nav tabs keep their room. .brand prefix outranks
      modules/brand.css, which loads after this file.          */
-  .brand .brand-text { font-size: var(--fs-2xl); }
+  .brand .brand-text { border-inline-start: 0; font-size: var(--fs-2xl); padding-inline-start: 0; }
   .brand .brand-mark { border-radius: 8px; height: 34px; width: 34px; }
 
   /* Sidebar itself — tighter vertical padding */
