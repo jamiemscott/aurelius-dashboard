@@ -4,48 +4,79 @@
  * Reads data-sg-page from <html> and injects the shared topbar + sidebar.
  * Also marks the correct topbar tab and sidebar nav item as .is-active.
  *
- * data-sg-page values: colours | typography | spacing | buttons | cards |
- *                      forms | tables | navigation | layout | transitions | data-display | onboarding | adviser | feedback | announce-bar | outsystems | footer | login | error
+ * Nav items live in NAV_GROUPS. Groups run broad → specific (Foundations,
+ * Components, Data, Layout, Pages, Platform) and items are alphabetical by
+ * label within each group. Each page's data-sg-page must match an item id,
+ * and every page in style-guide/ should appear exactly once.
  */
 
-const PAGES = [
-  { id: 'colours',      label: 'Colours',      href: 'index.html',        icon: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3" fill="currentColor"/>' },
-  { id: 'typography',   label: 'Typography',   href: 'typography.html',   icon: '<polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/>' },
-  { id: 'spacing',      label: 'Spacing',      href: 'spacing.html',      icon: '<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>' },
-  { id: 'buttons',      label: 'Buttons',      href: 'buttons.html',      icon: '<rect x="3" y="8" width="18" height="8" rx="4"/>' },
-  { id: 'cards',        label: 'Cards',        href: 'cards.html',        icon: '<rect x="2" y="4" width="20" height="16" rx="3"/><line x1="2" y1="10" x2="22" y2="10"/>' },
-  { id: 'forms',        label: 'Forms',        href: 'forms.html',        icon: '<rect x="3" y="3" width="18" height="4" rx="1"/><rect x="3" y="10" width="10" height="4" rx="1"/><rect x="3" y="17" width="14" height="4" rx="1"/>' },
-  { id: 'tables',       label: 'Tables',       href: 'tables.html',       icon: '<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/>' },
-  { id: 'navigation',   label: 'Navigation',   href: 'navigation.html',   icon: '<line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>' },
-  { id: 'layout',       label: 'Layout',       href: 'layout.html',       icon: '<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="21"/>' },
-  { id: 'transitions',  label: 'Transitions',  href: 'transitions.html',  icon: '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/><rect x="2" y="4" width="6" height="16" rx="1" opacity=".4"/>' },
-  { id: 'data-display', label: 'Data Display', href: 'data-display.html', icon: '<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>' },
-  { id: 'onboarding',   label: 'Onboarding',   href: 'onboarding.html',   icon: '<circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>' },
-  { id: 'adviser',      label: 'Adviser Chat', href: 'adviser.html',      icon: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>' },
-  { id: 'feedback',      label: 'Feedback',      href: 'feedback.html',      icon: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>' },
-  { id: 'announce-bar', label: 'Announce Bar',  href: 'announce-bar.html',  icon: '<path d="M22 8.5V15a7 7 0 0 1-7 7H9"/><path d="M3 8.5V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3.5"/><path d="M3 8.5c0 9 6 13 9 13"/><path d="M3 8.5h18"/>' },
-  { id: 'outsystems',   label: 'OutSystems',    href: 'outsystems.html',    icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>' },
-  { id: 'footer',       label: 'Footer',        href: 'footer.html',        icon: '<path d="M4 20h16"/><rect x="4" y="4" width="16" height="12" rx="2"/>' },
-  { id: 'login',        label: 'Login',         href: 'login.html',         icon: '<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>' },
-  { id: 'error',        label: 'Error Pages',   href: 'error.html',         icon: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>' },
-  // ── New pages ───────────────────────────────────────────────────────
-  { id: 'theming',      label: 'Theming',       href: 'theming.html',       icon: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>' },
-  { id: 'theme-toggle', label: 'Theme Toggle',  href: 'theme-toggle.html',  icon: '<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>' },
-  { id: 'brand',        label: 'Brand',         href: 'brand.html',         icon: '<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>' },
-  { id: 'breadcrumb',   label: 'Breadcrumb',    href: 'breadcrumb.html',    icon: '<polyline points="9 18 15 12 9 6"/>' },
-  { id: 'activity',     label: 'Activity Feed', href: 'activity.html',      icon: '<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>' },
-  { id: 'charts',       label: 'Charts',        href: 'charts.html',        icon: '<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>' },
-  { id: 'drawers',      label: 'Drawers',       href: 'drawers.html',       icon: '<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="15" y1="3" x2="15" y2="21"/>' },
-  { id: 'notifications',label: 'Notifications', href: 'notifications.html', icon: '<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>' },
-  { id: 'goals',        label: 'Goals',         href: 'goals.html',         icon: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>' },
-  { id: 'contact',      label: 'Contact Form',  href: 'contact.html',       icon: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>' },
-  { id: 'details',      label: 'My Details',    href: 'details.html',       icon: '<circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>' },
-  { id: 'progress',     label: 'Progress & Stats', href: 'progress.html',   icon: '<rect x="1" y="3" width="15" height="13"/><path d="M16 8h5"/><path d="M16 12h5"/><path d="M16 16h5"/>' },
-  { id: 'user-menu',    label: 'User Menu',     href: 'user-menu.html',     icon: '<circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/><circle cx="19" cy="19" r="3"/>' },
-  { id: 'advisor-card', label: 'Advisor Card',  href: 'advisor-card.html',  icon: '<rect x="2" y="4" width="20" height="16" rx="3"/><path d="M8 10h8M8 14h5"/>' },
-  { id: 'help',         label: 'Help Centre',   href: 'help.html',          icon: '<circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>' },
-  { id: 'ob-cta',       label: 'Onboarding CTA',href: 'ob-cta.html',        icon: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>' },
-  { id: 'add-investment',label: 'Add Investment',href: 'add-investment.html',icon: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>' },
+const NAV_GROUPS = [
+  {
+    id: 'foundations', label: 'Foundations',
+    pages: [
+      { id: 'brand',        label: 'Brand',         href: 'brand.html',         icon: '<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>' },
+      { id: 'colours',      label: 'Colours',      href: 'index.html',        icon: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3" fill="currentColor"/>' },
+      { id: 'spacing',      label: 'Spacing',      href: 'spacing.html',      icon: '<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>' },
+      { id: 'theming',      label: 'Theming',       href: 'theming.html',       icon: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>' },
+      { id: 'transitions',  label: 'Transitions',  href: 'transitions.html',  icon: '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/><rect x="2" y="4" width="6" height="16" rx="1" opacity=".4"/>' },
+      { id: 'typography',   label: 'Typography',   href: 'typography.html',   icon: '<polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/>' },
+    ],
+  },
+  {
+    id: 'components', label: 'Components',
+    pages: [
+      { id: 'advisor-card', label: 'Advisor Card',  href: 'advisor-card.html',  icon: '<rect x="2" y="4" width="20" height="16" rx="3"/><path d="M8 10h8M8 14h5"/>' },
+      { id: 'announce-bar', label: 'Announce Bar',  href: 'announce-bar.html',  icon: '<path d="M22 8.5V15a7 7 0 0 1-7 7H9"/><path d="M3 8.5V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3.5"/><path d="M3 8.5c0 9 6 13 9 13"/><path d="M3 8.5h18"/>' },
+      { id: 'breadcrumb',   label: 'Breadcrumb',    href: 'breadcrumb.html',    icon: '<polyline points="9 18 15 12 9 6"/>' },
+      { id: 'buttons',      label: 'Buttons',      href: 'buttons.html',      icon: '<rect x="3" y="8" width="18" height="8" rx="4"/>' },
+      { id: 'cards',        label: 'Cards',        href: 'cards.html',        icon: '<rect x="2" y="4" width="20" height="16" rx="3"/><line x1="2" y1="10" x2="22" y2="10"/>' },
+      { id: 'drawers',      label: 'Drawers',       href: 'drawers.html',       icon: '<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="15" y1="3" x2="15" y2="21"/>' },
+      { id: 'forms',        label: 'Forms',        href: 'forms.html',        icon: '<rect x="3" y="3" width="18" height="4" rx="1"/><rect x="3" y="10" width="10" height="4" rx="1"/><rect x="3" y="17" width="14" height="4" rx="1"/>' },
+      { id: 'notifications',label: 'Notifications', href: 'notifications.html', icon: '<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>' },
+      { id: 'ob-cta',       label: 'Onboarding CTA',href: 'ob-cta.html',        icon: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>' },
+      { id: 'theme-toggle', label: 'Theme Toggle',  href: 'theme-toggle.html',  icon: '<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>' },
+      { id: 'user-menu',    label: 'User Menu',     href: 'user-menu.html',     icon: '<circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/><circle cx="19" cy="19" r="3"/>' },
+    ],
+  },
+  {
+    id: 'data', label: 'Data',
+    pages: [
+      { id: 'activity',     label: 'Activity Feed', href: 'activity.html',      icon: '<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>' },
+      { id: 'charts',       label: 'Charts',        href: 'charts.html',        icon: '<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>' },
+      { id: 'data-display', label: 'Data Display', href: 'data-display.html', icon: '<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>' },
+      { id: 'progress',     label: 'Progress & Stats', href: 'progress.html',   icon: '<rect x="1" y="3" width="15" height="13"/><path d="M16 8h5"/><path d="M16 12h5"/><path d="M16 16h5"/>' },
+      { id: 'tables',       label: 'Tables',       href: 'tables.html',       icon: '<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/>' },
+    ],
+  },
+  {
+    id: 'layout', label: 'Layout',
+    pages: [
+      { id: 'footer',       label: 'Footer',        href: 'footer.html',        icon: '<path d="M4 20h16"/><rect x="4" y="4" width="16" height="12" rx="2"/>' },
+      { id: 'layout',       label: 'Layout',       href: 'layout.html',       icon: '<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="21"/>' },
+      { id: 'navigation',   label: 'Navigation',   href: 'navigation.html',   icon: '<line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>' },
+    ],
+  },
+  {
+    id: 'pages', label: 'Pages',
+    pages: [
+      { id: 'add-investment',label: 'Add Investment',href: 'add-investment.html',icon: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>' },
+      { id: 'adviser',      label: 'Adviser Chat', href: 'adviser.html',      icon: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>' },
+      { id: 'contact',      label: 'Contact Form',  href: 'contact.html',       icon: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>' },
+      { id: 'error',        label: 'Error Pages',   href: 'error.html',         icon: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>' },
+      { id: 'goals',        label: 'Goals',         href: 'goals.html',         icon: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>' },
+      { id: 'help',         label: 'Help Centre',   href: 'help.html',          icon: '<circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>' },
+      { id: 'login',        label: 'Login',         href: 'login.html',         icon: '<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>' },
+      { id: 'details',      label: 'My Details',    href: 'details.html',       icon: '<circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>' },
+      { id: 'onboarding',   label: 'Onboarding',   href: 'onboarding.html',   icon: '<circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>' },
+    ],
+  },
+  {
+    id: 'platform', label: 'Platform',
+    pages: [
+      { id: 'feedback',      label: 'Feedback',      href: 'feedback.html',      icon: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>' },
+      { id: 'outsystems',   label: 'OutSystems',    href: 'outsystems.html',    icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>' },
+    ],
+  },
 ];
 
 function svgIcon(paths) {
@@ -70,7 +101,7 @@ function buildTopbar(activePage) {
       <a class="tab-btn" href="../asset-allocation/index.html">Asset Allocation</a>
       <a class="tab-btn" href="../my-investments/index.html">My Investments</a>
       <a class="tab-btn" href="../capital-gains-tax/index.html">Capital Gains Tax</a>
-      <a class="tab-btn${isOnSG ? ' is-active' : ''}" href="colours.html">Style Guide</a>
+      <a class="tab-btn${isOnSG ? ' is-active' : ''}" href="index.html">Style Guide</a>
     </nav>
 
     <div class="site-controls">
@@ -91,21 +122,24 @@ function buildTopbar(activePage) {
 }
 
 function buildSidebar(activePage) {
-  const items = PAGES.map(p => {
-    const active = p.id === activePage ? ' is-active' : '';
-    return `      <a class="nav-item${active}" href="${p.href}" aria-label="${p.label}">
+  const groups = NAV_GROUPS.map(g => {
+    const items = g.pages.map(p => {
+      const active = p.id === activePage;
+      return `      <a class="nav-item${active ? ' is-active' : ''}" href="${p.href}" aria-label="${p.label}"${active ? ' aria-current="page"' : ''}>
         ${svgIcon(p.icon)}
         <span>${p.label}</span>
       </a>`;
-  }).join('\n');
+    }).join('\n');
+    return `      <div role="group" aria-labelledby="sg-nav-${g.id}">
+        <h2 id="sg-nav-${g.id}" class="sidebar-section-label">${g.label}</h2>
+${items}
+      </div>`;
+  }).join('\n\n');
 
   return `
   <aside class="sidebar" aria-label="Style guide navigation">
     <nav aria-label="Style guide sections">
-      <div role="group" aria-labelledby="sg-nav-label">
-        <h2 id="sg-nav-label" class="sidebar-section-label">Style Guide</h2>
-${items}
-      </div>
+${groups}
     </nav>
     <footer class="sidebar-footer">
       <div class="advisor-card">
