@@ -88,6 +88,12 @@
 
         <div class="adv-messages" id="plan-messages" role="log" aria-label="Conversation" aria-live="polite" aria-relevant="additions"></div>
 
+        <!-- Shown once a fund is chosen, until the orders are placed -->
+        <div class="plan-invest-bar" hidden data-invest-bar>
+          <p class="plan-invest-bar-text"><span data-invest-count>0</span> ready</p>
+          <button type="button" class="btn-primary btn-sm" data-invest>Make this investment</button>
+        </div>
+
         <details class="plan-ask" id="plan-ask">
           <summary>Ask about…</summary>
           <ul class="plan-ask-list" aria-label="Common questions">
@@ -120,6 +126,7 @@
         <div class="plan-panel-head">
           <h2 class="plan-panel-title" id="plan-panel-title">Your plan</h2>
           <span class="plan-status" id="plan-status" data-state="draft">Draft</span>
+          <button type="button" class="btn-primary btn-sm plan-invest-head" hidden data-invest-bar data-invest>Make this investment</button>
           <button type="button" class="icon-btn plan-panel-close" popovertarget="plan-panel" popovertargetaction="hide" aria-label="Close plan">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
           </button>

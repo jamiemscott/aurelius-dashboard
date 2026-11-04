@@ -41,6 +41,9 @@ const els = {
   allocLegend:$('#plan-alloc-legend'),
   periodCaption: document.querySelectorAll('[data-plan-period-long]'),
   allow:      $('#plan-allow'),
+  investBars: document.querySelectorAll('[data-invest-bar]'),
+  investCount:$('[data-invest-count]'),
+  panel:      $('#plan-panel'),
 };
 
 const state = {
@@ -103,6 +106,7 @@ const ctx = {
     return state.fund && state.plan.lines.some(l => l.key === state.fund) ? state.fund : null;
   },
   orderCount: () => orders(state.plan).length,
+  needsAccount: () => state.plan.lines.some(l => l.source === 'etf' && l.status !== 'removed' && !l.account),
   checked: () => !!state.check,
   checkAnswers: () => state.check ?? {},
   stress: () => stressTest(state.plan),
@@ -154,6 +158,7 @@ function renderPanel({ animateLines = true } = {}) {
   els.status.textContent = STATUS_TEXT[state.status];
   els.status.dataset.state = state.status;
   renderAllowances();
+  renderInvestBar();
 
   /* Resolves once the rows are in the DOM, so callers can move focus */
   const paint = () => { renderLines(); renderChanges(); };
@@ -169,6 +174,24 @@ function renderPanel({ animateLines = true } = {}) {
   paint();
   return Promise.resolve();
 }
+
+/* "Make this investment": available from the moment a fund is chosen
+   until the orders are placed (a changed plan brings it back). It
+   steps aside while the latest reply already shows the review.      */
+function renderInvestBar() {
+  const count = orders(state.plan).length;
+  const reviewing = !!els.messages.querySelector('.adv-msg:last-child :is(.plan-review, .plan-check):not([data-closed])');
+  const show = state.done.has('fund') && state.status !== 'placed' && count > 0 && !reviewing;
+  els.investBars.forEach(el => { el.hidden = !show; });
+  els.investCount.textContent = `${count} order${count === 1 ? '' : 's'}`;
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('[data-invest]') || state.busy) return;
+  /* On narrow screens the plan is a drawer: close it to show the chat */
+  if (els.panel.matches(':popover-open')) els.panel.hidePopover();
+  converse('Make this investment', 'review', { focus: true });
+});
 
 function totalMonthlyNow() { return activeLines(state.plan).reduce((a, l) => a + l.monthly, 0); }
 
@@ -643,7 +666,7 @@ function retireChips(chosen) {
 /* ── Conversation ───────────────────────────────────────── */
 const wait = ms => new Promise(r => setTimeout(r, reduceMotion.matches ? 0 : ms));
 
-async function converse(text, stepId) {
+async function converse(text, stepId, { focus = false } = {}) {
   if (state.busy) return;
   state.busy = true;
   els.form.setAttribute('aria-busy', 'true');
@@ -680,7 +703,7 @@ async function converse(text, stepId) {
   state.busy = false;
   els.form.removeAttribute('aria-busy');
   /* Chips that held focus are gone — land somewhere predictable */
-  if (hadFocusInLog || document.activeElement === document.body) {
+  if (focus || hadFocusInLog || document.activeElement === document.body) {
     const last = '.adv-msg:last-child';
     /* A review is focused as a whole, so it's read from "Your orders" */
     const target = els.messages.querySelector(`${last} .plan-review, ${last} .plan-check input, ${last} .plan-option [data-step], ${last} .adv-chip`) || els.input;
