@@ -69,7 +69,59 @@ export const CHECKS = [
     no: 'If a 25% fall would be hard to live with, a more cautious approach could fit better.',
     james: 'a 25% fall would be hard to live with' },
 ];
-import { ACCOUNTS, TAX_YEAR } from './plan-data.js';
+import { ACCOUNTS, TAX_YEAR, PLAN_START } from './plan-data.js';
+
+/* ── A goal ─────────────────────────────────────────────── */
+/* Three to pick from, chosen against this portfolio: one on track,
+   two that need more each month. Or type your own.               */
+const GOAL_PRESETS = {
+  'goal-a': { amount: 1500000, year: 2036 },
+  'goal-b': { amount: 2500000, year: 2041 },
+  'goal-c': { amount: 3000000, year: 2046 },
+};
+export const GOAL_STATE = { on: 'On track', reach: 'Within reach', off: 'Out of reach' };
+
+/* "£3m", "£2.5m", "£750k" — round figures for a goal */
+export const goalMoney = v => (v >= 1e6 ? `£${+(v / 1e6).toFixed(2)}m` : v >= 1e4 ? `£${Math.round(v / 1e3)}k` : money(v));
+export const goalLabel = g => `${goalMoney(g.amount)} by ${g.year}`;
+
+/* "my goal is £2.5m by 2045", "aiming for 3 million in 20 years" */
+export function parseGoal(text) {
+  const m = text.match(/£\s*(\d[\d,]*(?:\.\d+)?)\s*(m|mn|million|k|thousand)?\b/i)
+    || text.match(/\b(\d+(?:\.\d+)?)\s*(m|mn|million)\b/i);
+  if (!m) return null;
+  let amount = parseFloat(m[1].replace(/,/g, ''));
+  const unit = (m[2] || '').toLowerCase();
+  if (unit.startsWith('m')) amount *= 1e6;
+  else if (unit === 'k' || unit === 'thousand') amount *= 1e3;
+  if (!(amount >= 1000)) return null;
+  const y = text.match(/\b(20[2-7]\d)\b/);
+  const inYears = text.match(/\bin (\d{1,2}) years?\b/i);
+  let year = y ? +y[1] : inYears ? PLAN_START.year + +inYears[1] : 2046;
+  year = Math.min(Math.max(year, PLAN_START.year + 1), PLAN_START.year + 25);
+  return { amount, year };
+}
+
+let goalAsked = false;   /* the last goal reply asked for one */
+
+function goalReply(c, g) {
+  goalAsked = false;
+  c.setGoal(g.amount, g.year);
+  const moved = c.showGoal();
+  const s = c.goalStatus();
+  const label = goalLabel(s);
+  const lead = {
+    on: { tone: 'success', html: `<strong>On track.</strong> With your plan, the central estimate reaches ${moneyShort(s.central)} by ${s.year}, above your goal.${s.low >= s.amount ? ' Even a weaker run, at the low end of the likely range, gets there.' : ''}` },
+    reach: { tone: 'warning', html: `<strong>Within reach.</strong> The central estimate is ${moneyShort(s.central)} by ${s.year}, ${moneyShort(s.amount - s.central)} short. Better-than-expected returns would get there, but it isn’t the likely outcome.` },
+    off: { tone: 'warning', html: `<strong>Out of reach as it stands.</strong> Even the high end of the likely range, ${moneyShort(s.high)} by ${s.year}, falls short.` },
+  }[s.state];
+  const parts = [
+    { html: `Your goal: <strong>${label}</strong>. It’s on the chart as a dashed line${moved ? ', which now shows 25 years so you can see it' : ''}, and the plan is measured against it as you change things.` },
+    lead,
+  ];
+  if (s.need) parts.push({ html: `Investing about <strong>${money(s.need)} a month</strong> more into ${s.fundName} would put the central estimate on target.` });
+  return parts;
+}
 
 /* Times James offers for a call (the demo's "today" is Wednesday 4 November) */
 const JAMES_SLOTS = {
@@ -299,6 +351,46 @@ export const STEPS = {
         options: { label: 'Approaches', items: Object.keys(RISKS).map(riskOption) },
       },
     ],
+  },
+
+  goal: {
+    chip: 'Set a goal',
+    match: /\b(goal|target|aim(ing)? for|save up|want to (have|reach)|retire with)\b/i,
+    quiet: true,
+    repeatable: true,
+    run: (c, text = '') => {
+      const g = parseGoal(text);
+      if (g) return goalReply(c, g);
+      goalAsked = true;
+      return [{ html: 'What are you aiming for? Pick one of these, or type your own, like “£2.5m by 2045”.' }];
+    },
+  },
+
+  ...Object.fromEntries(Object.entries(GOAL_PRESETS).map(([id, g]) => [id, {
+    chip: goalLabel(g),
+    match: /^$/,
+    quiet: true,
+    repeatable: true,
+    run: c => goalReply(c, g),
+  }])),
+
+  'goal-close': {
+    chip: 'Close the gap',
+    match: /\b(close the gap|reach (my|the) goal|hit (my|the) goal|get there)\b/i,
+    repeatable: true,
+    run: c => {
+      const before = c.goalStatus();
+      if (!before) return [{ html: 'Set a goal first, and I’ll show what it would take to reach it.' }];
+      if (!before.need) return [{ html: `Your plan is already on track for ${goalLabel(before)}.` }];
+      const key = c.fund();
+      const prev = c.fundMonthly();
+      c.setMonthly(key, prev + before.need);
+      const s = c.goalStatus();
+      return [
+        { tone: 'success', html: `Done: <strong>${money(prev + before.need)} a month</strong> into ${c.nameOf(key)}${prev ? `, up from ${money(prev)}` : ''}.` },
+        { html: `The central estimate now reaches ${moneyShort(s.central)} by ${s.year}: <strong>${GOAL_STATE[s.state].toLowerCase()}</strong> for ${goalLabel(s)}.${c.needsAccount() ? ' You’ll choose an account for it before investing.' : ''}` },
+      ];
+    },
   },
 
   'monthly-1000': {
@@ -841,7 +933,7 @@ export function markDone(done, id) {
 
 /* Typed-message matching: specific asks first, broad words last */
 const MATCH_ORDER = [
-  'reset', 'confirm', 'james-done', 'james-new', 'james-edit', 'send-james',
+  'reset', 'confirm', 'james-done', 'james-new', 'james-edit', 'send-james', 'goal-close', 'goal',
   'account-ISA', 'account-SIPP', 'account-GIA',
   'topic-gia', 'topic-sipp', 'topic-isa',
   'share-AAPL', 'share-AZN', 'share-RR', 'shares',
@@ -870,6 +962,12 @@ export function matchStep(text, done) {
 export function nextChips(done, c, lastId) {
   /* After sending to James: change it, plan something else, or stop */
   if (lastId === 'send-james') return ['james-edit', 'james-new', 'james-done'];
+  /* Goals: pick one, then close the gap if there is one */
+  if (lastId === 'goal' || lastId?.startsWith('goal-')) {
+    if (!c.goal() || goalAsked) return Object.keys(GOAL_PRESETS);
+    const route = nextChips(done, c, null);
+    return c.goalStatus().need ? ['goal-close', ...route.slice(0, 1)] : route;
+  }
   /* After James's reply has been answered */
   if (['james-accept', 'james-keep'].includes(lastId)) return ['review', 'james-done'];
   if (lastId?.startsWith('james-book-')) return [];
@@ -949,7 +1047,7 @@ export const GREETING = (name, value) => [
 ];
 
 export const FALLBACK = [
-  { html: 'I can model a few things in this demo: a more cautious or more adventurous approach, adding a fund, choosing an ISA, pension or general account, changing what you invest each month, adding more to a holding, buying shares in a company, or removing one. I can also answer questions about costs, market falls, cash, property, shares and crypto: try <strong>Ask about</strong> below. Or one of these:' },
+  { html: 'I can model a few things in this demo: a more cautious or more adventurous approach, adding a fund, choosing an ISA, pension or general account, changing what you invest each month, adding more to a holding, buying shares in a company, or removing one. I can set a goal and show what it takes to reach it. I can also answer questions about costs, market falls, cash, property, shares and crypto: try <strong>Ask about</strong> below. Or one of these:' },
 ];
 
 function dayPart() {

@@ -73,11 +73,14 @@ export function createProjectionChart(el) {
       { type: 'line',      id: 'preview',  name: 'Preview',           className: 'plan-series-preview',  colorIndex: 0, zIndex: 3, data: [],
         visible: false, showInLegend: false, animation: false, enableMouseTracking: false,
         accessibility: { exposeAsGroupOnly: true } },
+      /* The goal: one point at its date, with a dashed line across */
+      { type: 'scatter',   id: 'goal',     name: 'Your goal',         className: 'plan-series-goal',     colorIndex: 0, zIndex: 4, data: [],
+        visible: false, showInLegend: false, marker: { enabled: true, symbol: 'diamond', radius: 6 } },
     ],
   });
 }
 
-export function updateProjectionChart(chart, plan, baseline, months) {
+export function updateProjectionChart(chart, plan, baseline, months, goal = null) {
   const step = months > 60 ? 3 : 1;   /* quarterly points beyond 5 years */
   const idx = [];
   for (let t = 0; t <= months; t += step) idx.push(t);
@@ -89,6 +92,20 @@ export function updateProjectionChart(chart, plan, baseline, months) {
   chart.xAxis[0].update({
     dateTimeLabelFormats: months <= 12 ? { month: '%b %Y' } : { month: '%b %Y', year: '%Y' },
   }, false);
+
+  /* Only drawn when its date is on the chart */
+  const y = chart.yAxis[0];
+  const show = !!goal && goal.months <= months;
+  y.removePlotLine('goal');
+  if (show) {
+    y.addPlotLine({ id: 'goal', value: goal.amount, className: 'plan-goal-line', zIndex: 3,
+      label: { text: `Goal ${goal.label}`, align: 'left', x: 4, y: -6 } });
+  }
+  y.update({ softMax: show ? goal.amount : undefined }, false);
+  const series = chart.get('goal');
+  series.setData(show ? [[monthTs(goal.months), goal.amount]] : [], false);
+  series.update({ showInLegend: show }, false);
+  series.setVisible(show, false);
   chart.redraw(animation());
 }
 

@@ -319,6 +319,38 @@ html:has(.theme-checkbox:checked) .plan-panel {
 
 .plan-section-head .plan-section-title { margin: 0; }
 
+/* ── Goal: where the plan stands against it ─────────────── */
+.plan-goal {
+  align-items: center;
+  color: var(--text-2);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: var(--fs-sm);
+  gap: 4px 8px;
+  margin: 0;
+  order: 3;
+  width: 100%;
+}
+.plan-goal[hidden] { display: none; }
+.plan-goal strong { color: var(--text-1); font-weight: var(--fw-semibold); }
+.plan-goal-label {
+  color: var(--gold-text);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+}
+.plan-goal-status {
+  border-radius: var(--radius-btn);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  padding: 2px 8px;
+}
+.plan-goal-status[data-state="on"]    { background: var(--green-dim); color: var(--green); }
+.plan-goal-status[data-state="reach"] { background: var(--gold-dim); color: var(--gold-text); }
+.plan-goal-status[data-state="off"]   { background: var(--red-dim); color: var(--red); }
+.plan-goal-detail { color: var(--text-3); }
+
 /* ── Period pills (radio group) ─────────────────────────── */
 .plan-range {
   border: 0;

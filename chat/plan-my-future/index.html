@@ -100,6 +100,7 @@
         <details class="plan-ask" id="plan-ask">
           <summary>Ask about…</summary>
           <ul class="plan-ask-list" aria-label="Common questions">
+            <li><button type="button" class="adv-chip" data-step="goal">Set a goal</button></li>
             <li><button type="button" class="adv-chip" data-step="stress">What if markets fall 25%?</button></li>
             <li><button type="button" class="adv-chip" data-step="topic-costs">What will this cost me?</button></li>
             <li><button type="button" class="adv-chip" data-step="topic-isa">What’s an ISA?</button></li>
@@ -179,6 +180,12 @@
         <section class="plan-section plan-section--proj plan-flippable" aria-labelledby="plan-time-title">
           <div class="plan-section-head">
             <h3 class="plan-section-title" id="plan-time-title">Over <span data-plan-period-long>5 years</span></h3>
+            <p class="plan-goal" data-goal hidden>
+              <span class="plan-goal-label">Goal</span>
+              <strong data-goal-text></strong>
+              <span class="plan-goal-status" data-goal-status></span>
+              <span class="plan-goal-detail" data-goal-detail></span>
+            </p>
             <fieldset class="plan-range plan-view">
               <legend class="plan-sr-only">Show the projection as</legend>
               <label><input type="radio" name="plan-view" value="chart" checked><span>Chart</span></label>
