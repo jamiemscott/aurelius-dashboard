@@ -105,21 +105,73 @@ html:has(.theme-checkbox:checked) .plan-panel {
   padding: 18px 0 12px;
 }
 
-/* Wide panel: projection across the top, then two columns */
+/* Wide panel:
+   - Summary (period + KPIs) across the top
+   - Chart/table card 2/3, allocation doughnut 1/3
+   - Holdings, changes and assumptions full width below     */
 .plan-panel-body { display: grid; }
 
 @container plan (min-width: 720px) {
   .plan-panel-body {
     column-gap: 32px;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
   }
 
-  .plan-panel-body > .plan-section--wide { grid-column: 1 / -1; }
+  .plan-panel-body > .plan-section--wide,
+  .plan-panel-body > .plan-assumptions { grid-column: 1 / -1; }
   .plan-panel-body > .plan-section:nth-child(n+2) { border-block-start: 1px solid var(--divider); }
 
-  .plan-panel-body .plan-kpis { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .plan-panel-body .plan-kpis { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-block-end: 0; }
   .plan-panel-body .plan-chart--projection { block-size: 340px; }
+
+  /* Doughnut above its legend in the narrow third */
+  .plan-panel-body .plan-alloc { align-items: stretch; flex-direction: column; }
+  .plan-panel-body .plan-chart--donut { inline-size: 100%; }
+
+  /* Holdings flow into columns across the full width */
+  .plan-panel-body .plan-lines {
+    column-gap: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  }
 }
+
+/* ── Chart ⇄ table flip card ────────────────────────────────
+   Both faces share one grid cell, so the card is as tall as
+   the taller face and nothing jumps. The Chart/Table radios
+   turn it over with :has() — no JS. Each face's visibility
+   swaps at the half-turn, so only the face showing can take
+   focus or be read by a screen reader.                       */
+.plan-flip { perspective: 1800px; }
+
+.plan-flip-inner {
+  display: grid;
+  transform-style: preserve-3d;
+  transition: rotate 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.plan-flip-face {
+  backface-visibility: hidden;
+  grid-area: 1 / 1;
+  padding: 12px 12px 8px;
+  transition: visibility 0s linear 0.3s;
+}
+
+.plan-flip-face--back {
+  padding: 8px 16px 12px;
+  rotate: y 180deg;
+  visibility: hidden;
+}
+
+.plan-flip-face--back .plan-table { margin-block-start: 0; }
+
+.plan-section--proj:has(.plan-view input[value="table"]:checked) {
+  .plan-flip-inner { rotate: y 180deg; }
+  .plan-flip-face--front { visibility: hidden; }
+  .plan-flip-face--back  { visibility: visible; }
+}
+
+/* The faces are cards; the turning card shouldn't spin its border */
+.plan-flip-face.card:hover { animation: none; }
 
 .plan-panel-title {
   color: var(--text-1);
@@ -646,6 +698,9 @@ html:has(.theme-checkbox:checked) .plan-panel {
   .plan-table-toggle::details-content,
   .plan-assumptions::details-content { transition: none; }
 
+  .plan-flip-inner,
+  .plan-flip-face { transition: none; }
+
   ::view-transition-group(*),
   ::view-transition-old(*),
   ::view-transition-new(*) { animation: none !important; }
@@ -654,7 +709,8 @@ html:has(.theme-checkbox:checked) .plan-panel {
 /* ── Forced colours (Windows High Contrast) ─────────────── */
 @media (forced-colors: active) {
   .plan-panel,
-  .plan-etf { border: 1px solid CanvasText; }
+  .plan-etf,
+  .plan-flip-face { border: 1px solid CanvasText; }
 
   .plan-range input:checked + span {
     background: Highlight;

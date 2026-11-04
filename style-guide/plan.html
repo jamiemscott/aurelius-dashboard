@@ -29,7 +29,7 @@
     <section class="sg-section" id="layout">
       <div class="sg-section-header">
         <h2 class="sg-section-title">Layout &amp; drawer</h2>
-        <p class="sg-section-desc"><code>.plan-layout</code> is a centred two-column grid, at most 1560px wide: the chat (<code>.chat-wrap.plan-chat</code>) takes a third and the plan (<code>aside.plan-panel[popover]</code>) two thirds. The chat is sticky, and its message log is the only inner scroll area. The plan never scrolls on its own: it grows with its content and the page scrolls, which avoids nested scrollbars. Once the panel is 720px or wider, <code>.plan-panel-body</code> uses a container query to lay its sections out in two columns under a full-width projection. Above 1080px, author CSS overrides the browser’s <code>[popover]</code> hiding so the panel sits inline. Below 1080px it is hidden until the <strong>View plan</strong> button (<code>popovertarget</code>) opens it as a right-hand drawer. Focus handling, Escape to close and the backdrop come from the browser, with no script.</p>
+        <p class="sg-section-desc"><code>.plan-layout</code> is a centred two-column grid, at most 1560px wide: the chat (<code>.chat-wrap.plan-chat</code>) takes a third and the plan (<code>aside.plan-panel[popover]</code>) two thirds. The chat is sticky, and its message log is the only inner scroll area. The plan never scrolls on its own: it grows with its content and the page scrolls, which avoids nested scrollbars. Once the panel is 720px or wider, <code>.plan-panel-body</code> uses a container query for a 2fr / 1fr grid: the period pills and KPIs run across the top, the chart/table flip card takes two thirds with the allocation doughnut in the last third, and holdings, changes and assumptions run full width below. Holdings rows flow into as many 320px columns as fit. Above 1080px, author CSS overrides the browser’s <code>[popover]</code> hiding so the panel sits inline. Below 1080px it is hidden until the <strong>View plan</strong> button (<code>popovertarget</code>) opens it as a right-hand drawer. Focus handling, Escape to close and the backdrop come from the browser, with no script.</p>
       </div>
       <div class="sg-code">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
@@ -74,6 +74,60 @@
   &lt;label&gt;&lt;input type="radio" name="plan-period" value="1Y"&gt;&lt;span&gt;1Y&lt;/span&gt;&lt;/label&gt;
   &lt;label&gt;&lt;input type="radio" name="plan-period" value="5Y" checked&gt;&lt;span&gt;5Y&lt;/span&gt;&lt;/label&gt;
 &lt;/fieldset&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Flip card ──────────────────────────────────────── -->
+    <section class="sg-section" id="flip-card">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Chart ⇄ table flip card</h2>
+        <p class="sg-section-desc">The projection shows as a chart or a table on the two faces of one card. A Chart/Table radio pair (styled like the period pills) turns <code>.plan-flip-inner</code> over with <code>:has()</code> and a 3D <code>rotate</code>, with no script. Both faces share one grid cell, so the card keeps the height of the taller face and nothing below it jumps. Each face’s <code>visibility</code> swaps at the half-turn, so the hidden face can’t take focus or be read. Reduced motion swaps the faces instantly; forced-colours mode gives each face a system border.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="plan-section--proj" style="inline-size:min(100%,520px)">
+          <fieldset class="plan-range plan-view" style="margin-block-end:12px">
+            <legend class="plan-sr-only">Show the projection as</legend>
+            <label><input type="radio" name="sg-view" value="chart" checked><span>Chart</span></label>
+            <label><input type="radio" name="sg-view" value="table"><span>Table</span></label>
+          </fieldset>
+          <div class="plan-flip">
+            <div class="plan-flip-inner">
+              <div class="card plan-flip-face plan-flip-face--front">
+                <svg viewBox="0 0 480 160" width="100%" height="160" role="img" aria-label="Example line chart rising over five years">
+                  <polyline points="0,140 80,124 160,112 240,92 320,76 400,52 480,30" fill="none" stroke="var(--gold-text)" stroke-width="2.5"/>
+                  <polyline points="0,140 80,132 160,126 240,116 320,108 400,98 480,88" fill="none" stroke="var(--text-3)" stroke-width="1.5" stroke-dasharray="5 4"/>
+                </svg>
+              </div>
+              <div class="card plan-flip-face plan-flip-face--back">
+                <table class="plan-table">
+                  <caption class="plan-sr-only">Example projection</caption>
+                  <thead><tr><th scope="col">Date</th><th scope="col">Today’s portfolio</th><th scope="col">With your plan</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">Nov 2027</th><td>£893,120</td><td>£908,400</td></tr>
+                    <tr><th scope="row">Nov 2029</th><td>£1,004,560</td><td>£1,062,300</td></tr>
+                    <tr><th scope="row">Nov 2031</th><td>£1,129,870</td><td>£1,241,900</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;section class="plan-section plan-section--proj"&gt;
+  &lt;fieldset class="plan-range plan-view"&gt;
+    &lt;legend class="plan-sr-only"&gt;Show the projection as&lt;/legend&gt;
+    &lt;label&gt;&lt;input type="radio" name="plan-view" value="chart" checked&gt;&lt;span&gt;Chart&lt;/span&gt;&lt;/label&gt;
+    &lt;label&gt;&lt;input type="radio" name="plan-view" value="table"&gt;&lt;span&gt;Table&lt;/span&gt;&lt;/label&gt;
+  &lt;/fieldset&gt;
+  &lt;div class="plan-flip"&gt;
+    &lt;div class="plan-flip-inner"&gt;
+      &lt;div class="card plan-flip-face plan-flip-face--front"&gt;…chart…&lt;/div&gt;
+      &lt;div class="card plan-flip-face plan-flip-face--back"&gt;…table…&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
       </div>
     </section>
 
@@ -171,7 +225,7 @@
         <ul class="plan-changes">
           <li>The conversation is a <code>role="log"</code>. Only finished replies are added to it, and the typing indicator is <code>aria-hidden</code>.</li>
           <li>Each change to the plan is announced once in a separate polite status region, outside the drawer so it’s heard even when the drawer is closed.</li>
-          <li>The Highcharts accessibility module gives the charts keyboard navigation and screen-reader descriptions. Each chart also has a “View as a table” disclosure (<code>details</code>).</li>
+          <li>The Highcharts accessibility module gives the charts keyboard navigation and screen-reader descriptions. The projection card turns over to a table with the Chart/Table radios, and the allocation chart has a “View as a table” disclosure (<code>details</code>). Only the face showing is visible to keyboards and screen readers.</li>
           <li>Chips and buttons that held focus are replaced after each reply, so focus moves to the newest chip, or the message box if there isn’t one.</li>
           <li>Reduced motion removes the typing delay and turns off message, row, drawer and disclosure animations, and chart animation.</li>
         </ul>

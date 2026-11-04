@@ -148,22 +148,38 @@
               <div class="kpi-change kpi-change--muted">8 in 10 outcomes fall here</div>
             </div>
           </div>
-
-          <div class="plan-chart plan-chart--projection" id="plan-proj-chart"></div>
-
-          <details class="plan-table-toggle">
-            <summary>View as a table</summary>
-            <div class="table-wrap">
-              <table class="plan-table" id="plan-proj-table">
-                <caption class="plan-sr-only">Projected value over <span data-plan-period-long>5 years</span></caption>
-                <thead><tr><th scope="col">Date</th><th scope="col">Today’s portfolio</th><th scope="col">With your plan</th><th scope="col">Likely range</th></tr></thead>
-                <tbody></tbody>
-              </table>
-            </div>
-          </details>
         </section>
 
-        <section class="plan-section" aria-labelledby="plan-alloc-title">
+        <section class="plan-section plan-section--proj" aria-labelledby="plan-time-title">
+          <div class="plan-section-head">
+            <h3 class="plan-section-title" id="plan-time-title">Over <span data-plan-period-long>5 years</span></h3>
+            <fieldset class="plan-range plan-view">
+              <legend class="plan-sr-only">Show the projection as</legend>
+              <label><input type="radio" name="plan-view" value="chart" checked><span>Chart</span></label>
+              <label><input type="radio" name="plan-view" value="table"><span>Table</span></label>
+            </fieldset>
+          </div>
+
+          <!-- Two faces of one card: the radios above turn it over (CSS only) -->
+          <div class="plan-flip">
+            <div class="plan-flip-inner">
+              <div class="card plan-flip-face plan-flip-face--front">
+                <div class="plan-chart plan-chart--projection" id="plan-proj-chart"></div>
+              </div>
+              <div class="card plan-flip-face plan-flip-face--back">
+                <div class="table-wrap">
+                  <table class="plan-table" id="plan-proj-table">
+                    <caption class="plan-sr-only">Projected value over <span data-plan-period-long>5 years</span></caption>
+                    <thead><tr><th scope="col">Date</th><th scope="col">Today’s portfolio</th><th scope="col">With your plan</th><th scope="col">Likely range</th></tr></thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="plan-section plan-section--alloc" aria-labelledby="plan-alloc-title">
           <h3 class="plan-section-title" id="plan-alloc-title">How it’s split</h3>
           <div class="plan-alloc">
             <div class="plan-chart plan-chart--donut" id="plan-alloc-chart"></div>
@@ -181,12 +197,12 @@
           </details>
         </section>
 
-        <section class="plan-section" aria-labelledby="plan-lines-title">
+        <section class="plan-section plan-section--wide" aria-labelledby="plan-lines-title">
           <h3 class="plan-section-title" id="plan-lines-title">Holdings</h3>
           <ul class="plan-lines" id="plan-lines"></ul>
         </section>
 
-        <section class="plan-section" aria-labelledby="plan-changes-title">
+        <section class="plan-section plan-section--wide" aria-labelledby="plan-changes-title">
           <h3 class="plan-section-title" id="plan-changes-title">
             Changes from today
             <span class="plan-count" data-plan-change-count data-count="0">0</span>
