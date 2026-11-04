@@ -8,7 +8,7 @@
 import { PERIODS, DEFAULT_PERIOD, ACCOUNTS, TAX_YEAR } from './plan-data.js';
 import {
   ETFS, createPlan, lineInfo, findLine, activeLines, addEtf, setMonthly, removeLine, restoreLine,
-  moveLump, moveAccount, settle, project, projectBaseline, allocation, totalValue, changes,
+  moveLump, moveAccount, addLump, settle, project, projectBaseline, allocation, totalValue, changes,
   taxYearUse, sippRelief, orders, orderCosts, stressTest, previewAdd, money, moneyShort, pct,
 } from './plan-model.js';
 import { STEPS, CHECKS, matchStep, markDone, nextChips, GREETING, FALLBACK } from './plan-script.js';
@@ -56,6 +56,8 @@ const state = {
   fund: null,        /* key of the plan line for the chosen fund */
   account: null,     /* where new money goes: ISA · SIPP · GIA */
   check: null,       /* answers to the quick check: { horizon, cushion, fall } */
+  target: null,      /* the line "Add more" is adding to */
+  nextTarget: null,  /* set by a holding's "Add more" button */
 };
 
 const STATUS_TEXT = { draft: 'Draft', saved: 'Saved', placed: 'Orders placed', adviser: 'With your adviser' };
@@ -106,6 +108,16 @@ const ctx = {
     return state.fund && state.plan.lines.some(l => l.key === state.fund) ? state.fund : null;
   },
   orderCount: () => orders(state.plan).length,
+  addLump: (key, amount) => addLump(state.plan, key, amount),
+  allowanceLeft: account => taxYearUse(state.plan)[account.toLowerCase()].left,
+  /* The holding to add to: one picked in the panel, else the chosen fund */
+  takeTarget: () => {
+    const exists = key => key && state.plan.lines.some(l => l.key === key && l.status !== 'removed');
+    state.target = [state.nextTarget, state.fund].find(exists) ?? null;
+    state.nextTarget = null;
+    return state.target;
+  },
+  target: () => state.target,
   needsAccount: () => state.plan.lines.some(l => l.source === 'etf' && l.status !== 'removed' && !l.account),
   checked: () => !!state.check,
   checkAnswers: () => state.check ?? {},
@@ -114,6 +126,7 @@ const ctx = {
   reset: () => {
     state.plan = createPlan(); state.done.clear(); state.status = 'draft';
     state.risk = null; state.fund = null; state.account = null; state.check = null;
+    state.target = null; state.nextTarget = null;
     setPeriod(DEFAULT_PERIOD, { silent: true });
   },
   summary: () => summary(),
@@ -210,9 +223,14 @@ function renderLines() {
     const monthly = line.monthly ? `<span class="plan-line-monthly">+ ${money(line.monthly)}/m</span>` : '';
     const action = line.status === 'removed'
       ? `<button type="button" class="plan-line-btn" data-action="restore" data-id="${line.key}">Undo<span class="plan-sr-only"> removing ${info.short}</span></button>`
-      : `<button type="button" class="plan-line-btn plan-line-btn--icon" data-action="remove" data-id="${line.key}" aria-label="Remove ${info.short} from plan">
-           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
-         </button>`;
+      : `<span class="plan-line-actions">
+           ${line.id === 'CASH' ? '' : `<button type="button" class="plan-line-btn plan-line-btn--icon" data-action="topup" data-id="${line.key}" aria-label="Add more to ${info.short}">
+             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+           </button>`}
+           <button type="button" class="plan-line-btn plan-line-btn--icon" data-action="remove" data-id="${line.key}" aria-label="Remove ${info.short} from plan">
+             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+           </button>
+         </span>`;
     li.innerHTML = `
       <span class="plan-line-swatch plan-slot-${slotOf(info)}" aria-hidden="true"></span>
       <span class="plan-line-main">
@@ -775,6 +793,14 @@ document.querySelector('.plan-panel').addEventListener('click', async e => {
   if (!btn) return;
   const { action, id } = btn.dataset;
   const info = lineInfo(findLine(state.plan, id));
+  /* "Add more" is answered in the chat, with the three ways to add */
+  if (action === 'topup') {
+    if (state.busy) return;
+    state.nextTarget = id;
+    if (els.panel.matches(':popover-open')) els.panel.hidePopover();
+    converse(`Add more to ${info.short}`, 'topup', { focus: true });
+    return;
+  }
   const index = [...els.lines.children].findIndex(li => li.contains(btn));
   if (action === 'remove') removeLine(state.plan, id); else restoreLine(state.plan, id);
   state.status = 'draft';
@@ -782,9 +808,10 @@ document.querySelector('.plan-panel').addEventListener('click', async e => {
   await renderPanel();
   /* Keep focus on the same row (now showing Undo / ×); if the row
      is gone (an added ETF), fall back to the row in its place.   */
-  const rows = [...els.lines.querySelectorAll('.plan-line-btn')];
-  const same = rows.find(r => r.dataset.id === id);
-  (same || rows[index] || rows[rows.length - 1])?.focus({ preventScroll: true });
+  const lastBtn = li => li && [...li.querySelectorAll('.plan-line-btn')].at(-1);
+  const rows = [...els.lines.children];
+  const same = rows.find(li => li.querySelector(`.plan-line-btn[data-id="${CSS.escape(id)}"]`));
+  lastBtn(same || rows[index] || rows.at(-1))?.focus({ preventScroll: true });
 });
 
 function planSentence() {
