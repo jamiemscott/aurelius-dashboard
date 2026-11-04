@@ -5,7 +5,7 @@
      match  — regex for free-typed messages
      run(c) — mutates the plan via the context and returns the
               bot's reply: an array of
-              { html, tone?, etf?, options?, review?, receipt? }
+              { html, tone?, etf?, options?, review?, receipt?, stress?, check? }
      slots  — (choice steps) the route slots a choice fills
      info   — answers a question; doesn't move the route on or
               close any open options
@@ -15,7 +15,8 @@
      repeatable — can run again once done (reviewing a changed plan)
 
    Route: start → approach → fund → account → refine the plan →
-   review → decide (place orders, send to James, or save).
+   (quick check) → review → decide (place orders, send to James,
+   or save). Reviewing asks the three check questions first, once.
    'risk', 'fund', 'account' and 'decide' are slots: any of their
    choices fills them. Choices come as option cards with plus and
    minus points, so the trade-off is visible before the pick.
@@ -24,6 +25,27 @@
    ─────────────────────────────────────────────────────────── */
 
 import { ETFS, money, moneyShort, pct, sippRelief } from './plan-model.js';
+
+/* "about 8 months", "about 2½ years" */
+function duration(months) {
+  if (months >= 300) return 'more than 25 years';
+  if (months < 12) return `${Math.max(1, months)} month${months === 1 ? '' : 's'}`;
+  const half = Math.round(months / 6) / 2;
+  const whole = Math.floor(half);
+  return `${whole}${half % 1 ? '½' : ''} year${half > 1 ? 's' : ''}`;
+}
+
+/* ── Quick check before reviewing ───────────────────────── */
+/* Three questions that make the trade-offs personal. "No" never
+   blocks: it explains the concern and points to James.          */
+export const CHECKS = [
+  { id: 'horizon', q: 'Is this money you won’t need for at least 5 years?',
+    no: 'Money needed within 5 years is often kept somewhere steadier, because a fall may not have time to recover.' },
+  { id: 'cushion', q: 'Do you have 3 to 6 months of spending in cash elsewhere?',
+    no: 'Without a cash cushion, an emergency could mean selling investments at a bad time.' },
+  { id: 'fall', q: 'Could you leave it invested through a 25% fall?',
+    no: 'If a 25% fall would be hard to live with, a more cautious approach could fit better.' },
+];
 import { ACCOUNTS, TAX_YEAR } from './plan-data.js';
 
 export const ROUTE = ['start', 'risk', 'fund', 'account', 'monthly-1000', 'add-gold', 'remove-veritas', 'grow', 'review', 'decide'];
@@ -239,9 +261,32 @@ export const STEPS = {
     match: /\b(review|invest now|go ahead|ready|make it happen)\b/i,
     quiet: true,
     repeatable: true,
-    run: c => c.orderCount()
-      ? [{ html: 'Here’s everything this plan would do, what it costs, and how it uses your allowances. Nothing happens until you place the orders.', review: true }]
-      : [{ html: 'There’s nothing to place yet: the plan matches your portfolio today. Add a fund or change an amount first.' }],
+    run: c => {
+      if (!c.orderCount()) return [{ html: 'There’s nothing to place yet: the plan matches your portfolio today. Add a fund or change an amount first.' }];
+      if (!c.checked()) return [{ html: 'Before the review, three quick questions. They help show whether this plan fits your situation.', check: true }];
+      return [{ html: 'Here’s everything this plan would do, what it costs, and how it uses your allowances. Nothing happens until you place the orders.', review: true }];
+    },
+  },
+
+  'check-done': {
+    chip: 'Continue',
+    match: /^$/,                 /* answered with the form, not by typing */
+    slots: ['review'],
+    quiet: true,
+    run: c => {
+      const answers = c.checkAnswers();
+      const concerns = CHECKS.filter(q => answers[q.id] === false);
+      if (!concerns.length) {
+        return [
+          { tone: 'success', html: 'Thanks. Those answers fit a long-term plan like this one.' },
+          { html: 'Here’s everything this plan would do, what it costs, and how it uses your allowances. Nothing happens until you place the orders.', review: true },
+        ];
+      }
+      return [
+        { tone: 'warning', html: concerns.map(q => q.no).join(' ') },
+        { html: 'You can still go ahead, or talk it through with James first. Here’s the review:', review: true },
+      ];
+    },
   },
 
   confirm: {
@@ -312,6 +357,87 @@ export const STEPS = {
     run: () => [
       { html: `A general account has no limits on how much you add or when you take it out, but it isn’t tax-sheltered. Dividends over ${money(TAX_YEAR.dividendAllowance)} and gains over ${money(TAX_YEAR.cgtAllowance)} a year are taxable.` },
       { html: 'Your Veritas fund and your cash are held here. Each April, some of it could move into your ISA using the new allowance.' },
+    ],
+  },
+
+  /* ── What if markets fall? ─────────────────────────────── */
+  stress: {
+    chip: 'What if markets fall 25%?',
+    match: /(\bcrash|\bdownturn|\bstress|\bworst case|\bcould i lose|\bhow much (could|might) i lose|\bmarkets? (fall|fell|drop|dropped|crash))/i,
+    info: true, quiet: true,
+    run: c => {
+      const r = { ...c.stress() };
+      r.recovery = duration(r.months);
+      return [
+        { html: `If shares fell 25% tomorrow, this plan would drop from ${money(r.before)} to about <strong>${money(r.after)}</strong>: a fall of ${money(r.loss)}, or ${(r.lossPct * 100).toFixed(0)}%.${r.cushioned ? ' Gold, gilts and cash would cushion part of it.' : ''}`, stress: r },
+        { html: `At the assumed growth, with your monthly amounts still going in, it would be back to today’s value in about <strong>${r.recovery}</strong>. Falls this size have happened several times in the last 25 years, and recoveries have taken anything from months to years.` },
+        { html: 'Could you leave it invested through a fall like that? If not, a more cautious approach may fit better.' },
+      ];
+    },
+  },
+
+  /* ── Other investments and common questions ─────────────── */
+  'topic-costs': {
+    chip: 'What will this cost me?',
+    match: /\b(costs?|charges?|fees?|how much does it cost)\b/i,
+    info: true, quiet: true,
+    run: c => {
+      const k = c.costs();
+      if (!k.fundCharges) return [{ html: 'Nothing has been added to the plan yet, so there are no new fund charges. The funds suggested here charge between 0.07% and 0.30% a year.' }];
+      return [
+        { html: `The funds in this plan charge between 0.07% and 0.30% a year. For the new money in this plan that’s about <strong>${money(k.fundCharges)}</strong> in the first year, plus about ${money(k.dealing)} in one-off dealing costs.` },
+        { html: 'Fund charges come out of the fund’s value, so there’s no bill to pay. Your Aurelius management fee is separate and isn’t shown in this demo.' },
+      ];
+    },
+  },
+
+  'topic-cash': {
+    chip: 'Why not keep it in cash?',
+    match: /\b(cash savings?|savings account|keep (it |this )?in cash|in the bank|interest rates?)\b/i,
+    info: true, quiet: true,
+    run: c => [
+      { html: `Cash is steady: it won’t fall in value, and savings are protected up to £120,000 per person, per bank, by the Financial Services Compensation Scheme. Your plan holds ${money(c.lumpOf('CASH'))} in cash.` },
+      { html: 'The trade-off is growth. Over long periods cash has usually grown more slowly than shares, and can lose ground to inflation. Many people keep 3 to 6 months of spending in cash and invest money they won’t need for at least 5 years.' },
+    ],
+  },
+
+  'topic-property': {
+    chip: 'What about property?',
+    match: /\b(property|properties|buy[- ]to[- ]let|real estate|reits?|landlord)\b/i,
+    info: true, quiet: true,
+    run: () => [
+      { html: 'Buying a property to let can bring rent and growth, but it puts a lot in one asset. It costs more to buy (including extra stamp duty on additional homes), rent is taxed, and it can take months to sell.' },
+      { html: 'Property funds and REITs own many buildings and can sit in an ISA or SIPP. They’re easier to buy and sell, but still rise and fall with markets. This demo doesn’t include one.' },
+    ],
+  },
+
+  'topic-shares': {
+    chip: 'What about individual shares?',
+    match: /\b(individual shares?|single (stock|shares?|compan(y|ies))|stock ?picking|particular compan(y|ies)|buy shares in)\b/i,
+    info: true, quiet: true,
+    run: () => [
+      { html: 'Individual shares put more on each company: a few can do very well, and any one can fall sharply or fail.' },
+      { html: 'A fund spreads your money across hundreds or thousands of companies, so one bad result matters less. Some people hold a small part of their portfolio in individual shares alongside funds.' },
+    ],
+  },
+
+  'topic-crypto': {
+    chip: 'What about crypto?',
+    match: /\b(crypto|cryptos|cryptocurrenc(y|ies)|bitcoin|ethereum|btc)\b/i,
+    info: true, quiet: true,
+    run: () => [
+      { html: 'Aurelius doesn’t offer cryptoassets, so they can’t be part of this plan.' },
+      { tone: 'warning', html: 'The FCA warns that cryptoassets are high risk and that you should be prepared to lose all the money you put in. Most aren’t covered by the Financial Services Compensation Scheme.' },
+    ],
+  },
+
+  'topic-timing': {
+    chip: 'Is now a good time to invest?',
+    match: /\b(good time|right time|bad time|wait(ing)? (for|until)|timing|when should i|market (is )?(too )?(high|expensive)|bubble)\b/i,
+    info: true, quiet: true,
+    run: () => [
+      { html: 'Nobody can reliably tell when markets will rise or fall. Waiting for a better moment can mean missing some of the best days, which often come soon after the worst ones.' },
+      { html: 'Investing a set amount each month spreads the price you pay: you buy more when prices are low and less when they’re high. That’s how the monthly amounts in this plan work.' },
     ],
   },
 
@@ -401,6 +527,7 @@ const MATCH_ORDER = [
   'reset', 'confirm', 'send-james',
   'account-ISA', 'account-SIPP', 'account-GIA',
   'topic-gia', 'topic-sipp', 'topic-isa',
+  'stress', 'topic-crypto', 'topic-property', 'topic-shares', 'topic-timing', 'topic-cash', 'topic-costs',
   'review', 'remove-veritas', 'monthly-1000',
   'risk-cautious', 'risk-balanced', 'risk-adventurous',
   'add-gold', 'pick-VUAG', 'pick-EQQQ', 'pick-IGLT', 'pick-SGLN', 'pick-VWRP',
@@ -423,6 +550,8 @@ export function matchStep(text, done) {
    - otherwise: the next two unfinished route steps
    (the UI drops any chip that repeats an option card above it)   */
 export function nextChips(done, c, lastId) {
+  /* The check card is the answer; nothing else to tap */
+  if (lastId === 'review' && !c.checked() && c.orderCount()) return [];
   const remaining = ROUTE.filter(id => !done.has(id) && !STEPS[id]?.skip?.(c));
   if (!remaining.length) return ['reset'];
   const next = remaining[0];
@@ -435,10 +564,13 @@ export function nextChips(done, c, lastId) {
     return ['topic-isa', 'topic-sipp'];
   }
   /* The review card holds place / send; after any change, review again */
-  if (next === 'decide') return lastId === 'review' ? ['save'] : ['review', 'save'];
+  if (next === 'decide') return ['review', 'check-done'].includes(lastId) ? ['save'] : ['review', 'save'];
   /* Never offer a step that sits beyond an unmade choice */
   const before = remaining.findIndex(id => SLOTS.has(id));
-  return (before === -1 ? remaining : remaining.slice(0, before)).slice(0, 2);
+  const route = (before === -1 ? remaining : remaining.slice(0, before)).slice(0, 2);
+  /* After the stress test, offer the cautious route alongside the next step */
+  if (lastId === 'stress' && c.risk() !== 'cautious') return ['risk-cautious', ...route.slice(0, 1)];
+  return route;
 }
 
 export const GREETING = (name, value) => [
@@ -447,7 +579,7 @@ export const GREETING = (name, value) => [
 ];
 
 export const FALLBACK = [
-  { html: 'I can model a few things in this demo: a more cautious or more adventurous approach, adding a fund, choosing an ISA, pension or general account, changing what you invest each month, or removing a holding. Try one of these:' },
+  { html: 'I can model a few things in this demo: a more cautious or more adventurous approach, adding a fund, choosing an ISA, pension or general account, changing what you invest each month, or removing a holding. I can also answer questions about costs, market falls, cash, property, shares and crypto: try <strong>Ask about</strong> below. Or one of these:' },
 ];
 
 function dayPart() {

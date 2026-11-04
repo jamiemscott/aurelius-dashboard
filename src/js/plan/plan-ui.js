@@ -9,10 +9,12 @@ import { PERIODS, DEFAULT_PERIOD, CURRENT_HOLDINGS, ACCOUNTS, TAX_YEAR } from '.
 import {
   ETFS, createPlan, lineInfo, findLine, activeLines, addEtf, setMonthly, removeLine, restoreLine,
   moveLump, moveAccount, project, projectBaseline, allocation, totalValue, changes,
-  taxYearUse, sippRelief, orders, orderCosts, money, moneyShort, pct,
+  taxYearUse, sippRelief, orders, orderCosts, stressTest, previewAdd, money, moneyShort, pct,
 } from './plan-model.js';
-import { STEPS, matchStep, markDone, nextChips, GREETING, FALLBACK } from './plan-script.js';
-import { createProjectionChart, updateProjectionChart, createAllocationChart, updateAllocationChart } from './plan-charts.js';
+import { STEPS, CHECKS, matchStep, markDone, nextChips, GREETING, FALLBACK } from './plan-script.js';
+import {
+  createProjectionChart, updateProjectionChart, createAllocationChart, updateAllocationChart, setProjectionPreview,
+} from './plan-charts.js';
 
 const USER = { name: 'Sumant', initials: 'SK' };
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
@@ -50,6 +52,7 @@ const state = {
   risk: null,        /* the approach chosen in the chat */
   fund: null,        /* key of the plan line for the chosen fund */
   account: null,     /* where new money goes: ISA · SIPP · GIA */
+  check: null,       /* answers to the quick check: { horizon, cushion, fall } */
 };
 
 const STATUS_TEXT = { draft: 'Draft', saved: 'Saved', placed: 'Orders placed', adviser: 'With your adviser' };
@@ -100,9 +103,13 @@ const ctx = {
     return state.fund && state.plan.lines.some(l => l.key === state.fund) ? state.fund : null;
   },
   orderCount: () => orders(state.plan).length,
+  checked: () => !!state.check,
+  checkAnswers: () => state.check ?? {},
+  stress: () => stressTest(state.plan),
+  costs: () => orderCosts(state.plan),
   reset: () => {
     state.plan = createPlan(); state.done.clear(); state.status = 'draft';
-    state.risk = null; state.fund = null; state.account = null;
+    state.risk = null; state.fund = null; state.account = null; state.check = null;
     setPeriod(DEFAULT_PERIOD, { silent: true });
   },
   summary: () => summary(),
@@ -352,8 +359,9 @@ function optionCards({ label, items }) {
     const action = inPlan
       ? `<span class="plan-badge plan-badge--added">In your plan</span>`
       : `<button type="button" class="btn-secondary btn-secondary--sm" data-step="${o.step}">${o.action}<span class="plan-sr-only"> ${o.title}</span></button>`;
+    const preview = e && !inPlan ? previewText(o.etf) : '';
     return `
-      <li class="plan-option"${o.risk ? ` data-risk="${o.risk}"` : ''}>
+      <li class="plan-option"${o.risk ? ` data-risk="${o.risk}"` : ''}${e && !inPlan ? ` data-etf="${o.etf}"` : ''}>
         <p class="plan-option-head">
           ${o.kicker ? `<span class="plan-option-kicker">${o.kicker}</span>` : ''}
           <span class="plan-option-title">${o.title}</span>
@@ -361,10 +369,94 @@ function optionCards({ label, items }) {
         <p class="plan-option-desc">${o.desc}</p>
         ${stats}
         <ul class="plan-points">${o.pros.map(t => point('pro', t)).join('')}${o.cons.map(t => point('con', t)).join('')}</ul>
+        ${preview}
         ${action}
       </li>`;
   };
   return `<ul class="plan-options" aria-label="${label}">${items.map(card).join('')}</ul>`;
+}
+
+/* What a fund would add, with £500 a month, at the chosen period */
+const PREVIEW_MONTHLY = 500;
+function previewProjection(id) {
+  const { months } = periodInfo();
+  return { months, proj: previewAdd(state.plan, id, { monthly: PREVIEW_MONTHLY, account: state.account, months }) };
+}
+function previewText(id) {
+  const { months, proj } = previewProjection(id);
+  const s = summary();
+  const gain = proj.central[months] - s.central;
+  return `<p class="plan-option-preview">With ${money(PREVIEW_MONTHLY)} a month: about <strong>+${moneyShort(gain)}</strong> in ${s.periodLong}. <span class="plan-option-preview-hint">Hover or focus to see it on the chart.</span></p>`;
+}
+
+/* Hovering or focusing a fund option draws it, dashed, on the chart */
+let previewing = null;
+function showPreview(id) {
+  if (id === previewing) return;
+  previewing = id;
+  if (!id) { setProjectionPreview(charts.projection, null); return; }
+  const { months, proj } = previewProjection(id);
+  setProjectionPreview(charts.projection, proj, months, ETFS[id].short);
+}
+const previewTarget = e => e.target.closest?.('.plan-option[data-etf]:not([data-chosen])')?.dataset.etf ?? null;
+els.messages.addEventListener('pointerover', e => showPreview(previewTarget(e)));
+els.messages.addEventListener('pointerleave', () => showPreview(null));
+els.messages.addEventListener('focusin', e => showPreview(previewTarget(e)));
+els.messages.addEventListener('focusout', e => { if (!els.messages.contains(e.relatedTarget)) showPreview(null); });
+
+/* A 25% fall, before and after */
+function stressCard(r) {
+  const share = v => `${Math.round((v / r.before) * 100)}%`;
+  return `
+    <div class="plan-stress">
+      <div class="plan-stress-bars" aria-hidden="true">
+        <span class="plan-stress-bar" style="--w: 100%"><span>Today</span></span>
+        <span class="plan-stress-bar plan-stress-bar--after" style="--w: ${share(r.after)}"><span>After a 25% fall</span></span>
+      </div>
+      <dl class="plan-etf-stats">
+        <div><dt>Today</dt><dd>${moneyShort(r.before)}</dd></div>
+        <div><dt>After the fall</dt><dd>${moneyShort(r.after)}</dd></div>
+        <div><dt>Back to today</dt><dd>${r.recovery}</dd></div>
+      </dl>
+    </div>`;
+}
+
+/* The quick check: three yes/no questions, answered before the review */
+let checkSeq = 0;
+function checkCard() {
+  const n = ++checkSeq;
+  const q = (c, i) => `
+    <fieldset class="plan-check-q">
+      <legend>${i + 1}. ${c.q}</legend>
+      <label><input type="radio" name="plan-check-${n}-${c.id}" value="yes"> Yes</label>
+      <label><input type="radio" name="plan-check-${n}-${c.id}" value="no"> No</label>
+    </fieldset>`;
+  return `
+    <section class="plan-check" aria-labelledby="plan-check-title-${n}">
+      <p class="plan-check-title" id="plan-check-title-${n}">Quick check</p>
+      ${CHECKS.map(q).join('')}
+      <p class="plan-check-hint" id="plan-check-hint-${n}" aria-live="polite"></p>
+      <div class="plan-check-actions">
+        <button type="button" class="btn-primary" data-step="check-done" aria-describedby="plan-check-hint-${n}">Continue to review</button>
+      </div>
+    </section>`;
+}
+
+/* Read the answers; if one is missing, say so and focus it */
+function readCheck(card) {
+  const answers = {};
+  for (const c of CHECKS) {
+    const picked = card.querySelector(`input[name$="-${c.id}"]:checked`);
+    if (!picked) {
+      const hint = card.querySelector('.plan-check-hint');
+      hint.textContent = 'Answer all three questions to continue.';
+      hint.dataset.error = '';
+      card.querySelector(`input[name$="-${c.id}"]`).focus();
+      return null;
+    }
+    answers[c.id] = picked.value === 'yes';
+  }
+  return answers;
 }
 
 /* Review and invest: every order, its costs, allowance use, and two
@@ -401,6 +493,7 @@ function reviewCard() {
   return `
     <section class="plan-review" tabindex="-1" aria-labelledby="plan-review-title-${n}">
       <p class="plan-review-title" id="plan-review-title-${n}">Your orders</p>
+      ${concernsNote()}
       <ol class="plan-orders">${list.map(o => orderRow(o)).join('')}</ol>
       <dl class="plan-review-facts">${facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>
       <p class="plan-review-docs">Before placing: the <a href="/documents/">Key Information Documents</a> for each fund${list.some(o => o.type === 'sell') ? ' and <a href="/capital-gains-tax/">your capital gains tax position</a>' : ''}.</p>
@@ -416,6 +509,12 @@ function reviewCard() {
       </div>
       <p class="plan-review-note">You’re choosing these investments yourself. Aurelius explains the options but hasn’t recommended them, and can’t say whether they suit you. James can.</p>
     </section>`;
+}
+
+function concernsNote() {
+  const answers = state.check ?? {};
+  const n = CHECKS.filter(c => answers[c.id] === false).length;
+  return n ? `<p class="plan-review-concern">Your quick check raised ${n === 1 ? 'one point' : `${n} points`} to think about. James can talk ${n === 1 ? 'it' : 'them'} through before you invest.</p>` : '';
 }
 
 /* The confirmation, with reference numbers for each order */
@@ -447,6 +546,8 @@ function botMessage(parts, chipIds = []) {
       <p class="adv-text">${p.html}</p>
       ${p.etf ? etfCard(p.etf) : ''}
       ${p.options ? optionCards(p.options) : ''}
+      ${p.stress ? stressCard(p.stress) : ''}
+      ${p.check ? checkCard() : ''}
       ${p.review ? reviewCard() : ''}
       ${p.receipt ? receiptCard() : ''}
     </div>`).join('');
@@ -518,9 +619,18 @@ function retireChips(chosen) {
       className: 'plan-review-stale', textContent: 'The plan has changed since this review.',
     }));
   });
+  els.messages.querySelectorAll('.plan-check:not([data-closed])').forEach(card => {
+    card.dataset.closed = '';
+    card.querySelectorAll('input').forEach(i => { i.disabled = true; });
+    card.querySelector('.plan-check-hint').remove();
+    card.querySelector('.plan-check-actions').replaceWith(chosen === 'check-done' ? badge('Answered') : '');
+  });
   els.messages.querySelectorAll('.plan-etf [data-step]').forEach(b => b.replaceWith(badge('In your plan')));
+  showPreview(null);
   els.messages.querySelectorAll('.plan-option [data-step]').forEach(b => {
     const option = b.closest('.plan-option');
+    delete option.dataset.etf;
+    option.querySelector('.plan-option-preview-hint')?.remove();
     if (b.dataset.step === chosen) {
       option.dataset.chosen = '';
       b.replaceWith(badge(chosen.startsWith('pick-') ? 'In your plan' : 'Chosen'));
@@ -573,7 +683,7 @@ async function converse(text, stepId) {
   if (hadFocusInLog || document.activeElement === document.body) {
     const last = '.adv-msg:last-child';
     /* A review is focused as a whole, so it's read from "Your orders" */
-    const target = els.messages.querySelector(`${last} .plan-review, ${last} .plan-option [data-step], ${last} .adv-chip`) || els.input;
+    const target = els.messages.querySelector(`${last} .plan-review, ${last} .plan-check input, ${last} .plan-option [data-step], ${last} .adv-chip`) || els.input;
     target.focus({ preventScroll: true });
   }
 }
@@ -593,7 +703,24 @@ els.messages.addEventListener('click', e => {
     review.querySelector('.plan-review-checks input:not(:checked)')?.focus();
     return;
   }
+  if (id === 'check-done') {
+    const answers = readCheck(btn.closest('.plan-check'));
+    if (!answers) return;
+    state.check = answers;
+    const said = CHECKS.map(c => (answers[c.id] ? 'Yes' : 'No')).join(', ');
+    converse(said, id);
+    return;
+  }
   converse(STEPS[id].chip, id);
+});
+
+/* "Ask about" menu beside the input */
+const askMenu = $('#plan-ask');
+askMenu?.addEventListener('click', e => {
+  const btn = e.target.closest('[data-step]');
+  if (!btn || state.busy) return;
+  askMenu.open = false;
+  converse(STEPS[btn.dataset.step].chip, btn.dataset.step);
 });
 
 /* Typed messages — Enter sends, Shift+Enter adds a line */

@@ -69,6 +69,10 @@ export function createProjectionChart(el) {
       { type: 'arearange', id: 'range',    name: 'Likely range',      className: 'plan-series-range',    colorIndex: 8, zIndex: 0, data: [] },
       { type: 'line',      id: 'baseline', name: 'Today’s portfolio', className: 'plan-series-baseline', colorIndex: 9, zIndex: 1, data: [] },
       { type: 'line',      id: 'plan',     name: 'With your plan',    className: 'plan-series-plan',     colorIndex: 0, zIndex: 2, data: [] },
+      /* Shown while a fund option is hovered or focused in the chat */
+      { type: 'line',      id: 'preview',  name: 'Preview',           className: 'plan-series-preview',  colorIndex: 0, zIndex: 3, data: [],
+        visible: false, showInLegend: false, animation: false, enableMouseTracking: false,
+        accessibility: { exposeAsGroupOnly: true } },
     ],
   });
 }
@@ -86,6 +90,24 @@ export function updateProjectionChart(chart, plan, baseline, months) {
     dateTimeLabelFormats: months <= 12 ? { month: '%b %Y' } : { month: '%b %Y', year: '%Y' },
   }, false);
   chart.redraw(animation());
+}
+
+/* A dashed "what if" line for a fund that isn't in the plan yet.
+   Pass null to clear it. No animation: it follows the pointer.     */
+export function setProjectionPreview(chart, projection, months, name) {
+  const series = chart.get('preview');
+  if (!projection) {
+    if (series.visible) { series.update({ showInLegend: false }, false); series.setVisible(false, false); chart.redraw(false); }
+    return;
+  }
+  const step = months > 60 ? 3 : 1;
+  const idx = [];
+  for (let t = 0; t <= months; t += step) idx.push(t);
+  if (idx[idx.length - 1] !== months) idx.push(months);
+  series.update({ name: `With ${name}`, showInLegend: true }, false);
+  series.setData(idx.map(t => [monthTs(t), Math.round(projection.central[t])]), false, false);
+  series.setVisible(true, false);
+  chart.redraw(false);
 }
 
 /* ── Allocation donut ───────────────────────────────────── */

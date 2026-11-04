@@ -273,3 +273,41 @@ export function pct(v, digits = 1) {
   const s = (v * 100).toFixed(digits);
   return v > 0 ? `+${s}%` : v < 0 ? `−${Math.abs(v * 100).toFixed(digits)}%` : `${s}%`;
 }
+
+/* ── Stress test: "what if markets fall?" ───────────────── */
+/* How much each asset class moves when shares fall. Rough, round
+   sensitivities for the demo, not a forecast: gold has tended to
+   hold up, gilts to fall a little, cash not at all.             */
+const STRESS_SENSITIVITY = {
+  'Global equity': 1, 'US equity': 1, 'US technology': 1.3, 'Emerging markets': 1.1,
+  Gold: -0.1, 'UK government bonds': 0.2, Cash: 0,
+};
+
+/* Shares fall by `shock` tomorrow. Returns the drop and how long the
+   plan takes to get back to today's value at its expected growth,
+   with its monthly amounts still going in.                        */
+export function stressTest(plan, shock = 0.25) {
+  const lines = activeLines(plan);
+  const before = lines.reduce((a, l) => a + l.lump, 0);
+  const values = lines.map(l => l.lump * (1 - shock * (STRESS_SENSITIVITY[lineInfo(l).assetClass] ?? 1)));
+  const after = values.reduce((a, v) => a + v, 0);
+  const growth = lines.map(l => Math.pow(1 + lineInfo(l).expectedReturn, 1 / 12));
+  const monthly = lines.map(l => l.monthly * (l.account === 'SIPP' && l.source === 'etf' ? SIPP_RELIEF : 1));
+  let months = 0;
+  const v = [...values];
+  while (v.reduce((a, x) => a + x, 0) < before && months < 300) {
+    for (let i = 0; i < v.length; i++) v[i] = v[i] * growth[i] + monthly[i];
+    months++;
+  }
+  const lossPct = (before - after) / before;
+  /* Worth saying only when the steadier holdings make a visible difference */
+  const cushioned = shock - lossPct >= 0.01;
+  return { shock, before, after, loss: before - after, lossPct, months, cushioned };
+}
+
+/* What adding a fund would do, without changing the plan */
+export function previewAdd(plan, id, { monthly = 500, account = null, months = 60 } = {}) {
+  const copy = structuredClone(plan);
+  addEtf(copy, id, { monthly, account });
+  return project(activeLines(copy), months);
+}

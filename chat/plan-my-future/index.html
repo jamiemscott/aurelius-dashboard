@@ -88,6 +88,21 @@
 
         <div class="adv-messages" id="plan-messages" role="log" aria-label="Conversation" aria-live="polite" aria-relevant="additions"></div>
 
+        <details class="plan-ask" id="plan-ask">
+          <summary>Ask about…</summary>
+          <ul class="plan-ask-list" aria-label="Common questions">
+            <li><button type="button" class="adv-chip" data-step="stress">What if markets fall 25%?</button></li>
+            <li><button type="button" class="adv-chip" data-step="topic-costs">What will this cost me?</button></li>
+            <li><button type="button" class="adv-chip" data-step="topic-isa">What’s an ISA?</button></li>
+            <li><button type="button" class="adv-chip" data-step="topic-sipp">What about my pension?</button></li>
+            <li><button type="button" class="adv-chip" data-step="topic-cash">Why not keep it in cash?</button></li>
+            <li><button type="button" class="adv-chip" data-step="topic-property">What about property?</button></li>
+            <li><button type="button" class="adv-chip" data-step="topic-shares">What about individual shares?</button></li>
+            <li><button type="button" class="adv-chip" data-step="topic-crypto">What about crypto?</button></li>
+            <li><button type="button" class="adv-chip" data-step="topic-timing">Is now a good time to invest?</button></li>
+          </ul>
+        </details>
+
         <form class="adv-input-bar" id="plan-form" aria-label="Send a message">
           <label class="plan-sr-only" for="plan-input">Message</label>
           <textarea class="adv-textarea plan-input" id="plan-input" rows="1" maxlength="500"

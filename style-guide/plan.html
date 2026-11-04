@@ -231,6 +231,50 @@
       </div>
     </section>
 
+    <!-- ── Weighing it up ─────────────────────────────────── -->
+    <section class="sg-section" id="weighing-up">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Weighing it up</h2>
+        <p class="sg-section-desc">Four patterns help the user test a plan before acting on it.</p>
+        <p class="sg-section-desc"><strong>Preview.</strong> A fund option that isn't in the plan yet says what it would add: <code>.plan-option-preview</code>, worked out with <code>previewAdd()</code> on a copy of the plan. Hovering or focusing the card draws it on the projection chart as a dashed “With …” line, and leaving the card clears it. The dashed line is extra: the sentence gives the same figure to everyone, and the hover hint is hidden on touch screens.</p>
+        <p class="sg-section-desc"><strong>Stress test.</strong> “What if markets fall 25%?” applies the fall to each holding by its sensitivity (gold, gilts and cash fall less), then works out how long a recovery would take at the assumed growth, with monthly amounts still going in. The bars are decoration (<code>aria-hidden</code>); the figures sit in a <code>&lt;dl&gt;</code>.</p>
+        <p class="sg-section-desc"><strong>Quick check.</strong> The first review asks three yes/no questions in <code>.plan-check</code>, one <code>&lt;fieldset&gt;</code> each. A “No” never blocks: it explains the concern, and the review then carries a <code>.plan-review-concern</code> note pointing to James. Continuing with a question unanswered moves focus to it, with a polite hint.</p>
+        <p class="sg-section-desc"><strong>Ask about.</strong> A <code>&lt;details&gt;</code> above the message box lists common questions (costs, market falls, ISAs, pensions, cash, property, shares, crypto, timing) as chips. They can also be typed. Answers explain and never recommend, and crypto carries the FCA's warning.</p>
+      </div>
+      <div class="sg-demo" style="max-width:380px;display:grid;gap:16px">
+        <p class="plan-option-preview">With £500 a month: about <strong>+£35k</strong> in 5 years. <span class="plan-option-preview-hint">Hover or focus to see it on the chart.</span></p>
+        <div class="plan-stress">
+          <div class="plan-stress-bars" aria-hidden="true">
+            <span class="plan-stress-bar" style="--w: 100%"><span>Today</span></span>
+            <span class="plan-stress-bar plan-stress-bar--after" style="--w: 75%"><span>After a 25% fall</span></span>
+          </div>
+          <dl class="plan-etf-stats">
+            <div><dt>Today</dt><dd>£842k</dd></div>
+            <div><dt>After the fall</dt><dd>£635k</dd></div>
+            <div><dt>Back to today</dt><dd>4 years</dd></div>
+          </dl>
+        </div>
+        <section class="plan-check" aria-labelledby="sg-check-title">
+          <p class="plan-check-title" id="sg-check-title">Quick check</p>
+          <fieldset class="plan-check-q">
+            <legend>1. Is this money you won’t need for at least 5 years?</legend>
+            <label><input type="radio" name="sg-check-horizon" value="yes"> Yes</label>
+            <label><input type="radio" name="sg-check-horizon" value="no"> No</label>
+          </fieldset>
+          <p class="plan-check-hint"></p>
+          <div class="plan-check-actions"><button type="button" class="btn-primary">Continue to review</button></div>
+        </section>
+        <p class="plan-review-concern">Your quick check raised one point to think about. James can talk it through before you invest.</p>
+        <details class="plan-ask" open>
+          <summary>Ask about…</summary>
+          <ul class="plan-ask-list" aria-label="Common questions">
+            <li><button type="button" class="adv-chip">What if markets fall 25%?</button></li>
+            <li><button type="button" class="adv-chip">What about crypto?</button></li>
+          </ul>
+        </details>
+      </div>
+    </section>
+
     <!-- ── Review and invest ──────────────────────────────── -->
     <section class="sg-section" id="review">
       <div class="sg-section-header">
