@@ -258,7 +258,7 @@ export const STEPS = {
   /* ── Review and decide ──────────────────────────────────── */
   review: {
     chip: 'Review and invest',
-    match: /\b(review|invest now|go ahead|ready|make it happen|make (this|the) investment|place (the |my )?orders?)\b/i,
+    match: /\b(review|invest now|go ahead|ready|make it happen|make (this|the) investment|place (the |these |my )?orders?|confirm|submit)\b/i,
     quiet: true,
     repeatable: true,
     run: c => {
@@ -293,7 +293,7 @@ export const STEPS = {
 
   confirm: {
     chip: 'Place these orders',
-    match: /\b(confirm|place (the |these |my )?orders?|submit)\b/i,
+    match: /^$/,                 /* only the review's button, after both ticks */
     slots: ['decide'],
     quiet: true,
     status: 'placed',

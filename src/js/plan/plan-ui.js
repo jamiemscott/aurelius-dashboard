@@ -5,10 +5,10 @@
    file only renders data and handles the conversation.
    ─────────────────────────────────────────────────────────── */
 
-import { PERIODS, DEFAULT_PERIOD, CURRENT_HOLDINGS, ACCOUNTS, TAX_YEAR } from './plan-data.js';
+import { PERIODS, DEFAULT_PERIOD, ACCOUNTS, TAX_YEAR } from './plan-data.js';
 import {
   ETFS, createPlan, lineInfo, findLine, activeLines, addEtf, setMonthly, removeLine, restoreLine,
-  moveLump, moveAccount, project, projectBaseline, allocation, totalValue, changes,
+  moveLump, moveAccount, settle, project, projectBaseline, allocation, totalValue, changes,
   taxYearUse, sippRelief, orders, orderCosts, stressTest, previewAdd, money, moneyShort, pct,
 } from './plan-model.js';
 import { STEPS, CHECKS, matchStep, markDone, nextChips, GREETING, FALLBACK } from './plan-script.js';
@@ -125,7 +125,7 @@ function periodInfo(id = state.period) { return PERIODS.find(p => p.id === id); 
 function summary() {
   const { months, long } = periodInfo();
   const p = project(activeLines(state.plan), months);
-  const b = projectBaseline(months);
+  const b = projectBaseline(state.plan, months);
   const newMoney = activeLines(state.plan).reduce((a, l) => a + l.monthly * months, 0);
   return {
     months, periodLong: long,
@@ -234,14 +234,21 @@ function slotOf(info) {
 
 function changeText(line) {
   const info = lineInfo(line);
-  if (line.status === 'removed') return `Removed ${info.short} (${money(line.lump)})`;
+  if (line.status === 'removed') {
+    if (!line.lump) return `Stopped ${money(line.held.monthly)} a month into ${info.short}`;
+    return `Removed ${info.short} (${money(line.lump)})${line.held.monthly ? `, and its ${money(line.held.monthly)} a month` : ''}`;
+  }
   if (line.status === 'added') {
     const parts = [line.lump ? money(line.lump) : null, line.monthly ? `${money(line.monthly)} a month` : null].filter(Boolean);
     const where = line.account ? ` (${ACCOUNTS[line.account].short})` : '';
     return `Added ${info.short}${where}${parts.length ? ` · ${parts.join(' + ')}` : ''}`;
   }
-  const orig = CURRENT_HOLDINGS.find(h => h.id === line.id)?.value;
-  return `${info.short}: ${money(orig)} → ${money(line.lump)}`;
+  const parts = [];
+  if (line.lump !== line.held.lump) parts.push(`${money(line.held.lump)} → ${money(line.lump)}`);
+  if (line.monthly !== line.held.monthly) {
+    parts.push(line.monthly ? `${money(line.monthly)} a month` : `stop ${money(line.held.monthly)} a month`);
+  }
+  return `${info.short}: ${parts.join(', ')}`;
 }
 
 function renderChanges() {
@@ -485,7 +492,7 @@ function readCheck(card) {
 /* Review and invest: every order, its costs, allowance use, and two
    checks before the orders can be placed (execution-only).        */
 let reviewSeq = 0;
-const ORDER_LABEL = { sell: 'Sell', buy: 'Buy', regular: 'Monthly' };
+const ORDER_LABEL = { sell: 'Sell', buy: 'Buy', regular: 'Monthly', stop: 'Stop' };
 const acctName = line => line.account ? ACCOUNTS[line.account].name : 'Account not chosen';
 
 function orderRow(o, extra = '') {
@@ -496,7 +503,7 @@ function orderRow(o, extra = '') {
         <span class="plan-order-name">${lineInfo(o.line).short}</span>
         <span class="plan-order-acct">${acctName(o.line)}${o.type === 'regular' ? ` · from ${TAX_YEAR.firstPayment}` : ''}${extra}</span>
       </span>
-      <span class="plan-order-amt">${money(o.amount)}${o.type === 'regular' ? '<span class="plan-order-per"> a month</span>' : ''}</span>
+      <span class="plan-order-amt">${money(o.amount)}${['regular', 'stop'].includes(o.type) ? '<span class="plan-order-per"> a month</span>' : ''}</span>
     </li>`;
 }
 
@@ -697,6 +704,8 @@ async function converse(text, stepId, { focus = false } = {}) {
   /* A chip that repeats an option card in the same reply is noise */
   const offered = new Set(reply.flatMap(p => p.options?.items.map(o => o.step) ?? []));
   append(botMessage(reply, nextChips(state.done, ctx, id).filter(c => !offered.has(c))));
+  /* The receipt is drawn: what was ordered is now held */
+  if (id === 'confirm') settle(state.plan);
   renderPanel();
   if (id && !STEPS[id].quiet) announcePlan();
 
