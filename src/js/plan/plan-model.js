@@ -10,7 +10,7 @@
    It is closed-form, so every demo run gives identical numbers.
    ─────────────────────────────────────────────────────────── */
 
-import { ETF_SNAPSHOT, CURRENT_HOLDINGS, ASSET_CLASS_SLOTS, TAX_YEAR, SIPP_RELIEF } from './plan-data.js';
+import { ETF_SNAPSHOT, SHARE_SNAPSHOT, CURRENT_HOLDINGS, ASSET_CLASS_SLOTS, TAX_YEAR, SIPP_RELIEF } from './plan-data.js';
 
 const Z90 = 1.2816;           /* z-score for the 10th / 90th percentile */
 const DIVERSIFICATION = 0.8;  /* holdings are correlated but not perfectly */
@@ -28,8 +28,11 @@ export function fiveYearReturn(etf) {
   return etf.price / etf.closes[0] - 1;
 }
 
-/* Enrich the ETF snapshot once with derived figures */
-export const ETFS = Object.fromEntries(ETF_SNAPSHOT.map(e => [e.id, {
+/* Enrich the snapshots once with derived figures. Company shares
+   sit alongside the ETFs (kind: 'share'), so the plan treats them
+   the same way: added lines, orders, projection.               */
+export const ETFS = Object.fromEntries([...ETF_SNAPSHOT, ...SHARE_SNAPSHOT].map(e => [e.id, {
+  kind: 'fund',
   ...e,
   volatility: annualVolatility(e.closes),
   fiveYear: fiveYearReturn(e),
@@ -212,9 +215,15 @@ export function orderCosts(plan) {
     const monthly = Math.max(0, l.monthly - l.held.monthly);
     return a + (lump + monthly * 12 * gross) * (ETFS[l.id].ocf / 100);
   }, 0);
-  const traded = orders(plan).filter(o => o.type !== 'regular').reduce((a, o) => a + o.amount, 0);
+  const trades = orders(plan).filter(o => !['regular', 'stop'].includes(o.type));
+  const traded = trades.reduce((a, o) => a + o.amount, 0);
   const dealing = traded * 0.001;   /* estimated spread and market costs, 0.1% */
-  return { fundCharges, dealing, total: fundCharges + dealing };
+  /* Buying company shares: 0.5% stamp duty on UK shares, and an
+     estimated 0.5% currency conversion on shares priced abroad  */
+  const shareBuys = trades.filter(o => o.type === 'buy' && ETFS[o.line.id]?.kind === 'share');
+  const stampDuty = shareBuys.filter(o => ETFS[o.line.id].currency === 'GBP').reduce((a, o) => a + o.amount * 0.005, 0);
+  const fx = shareBuys.filter(o => ETFS[o.line.id].currency !== 'GBP').reduce((a, o) => a + o.amount * 0.005, 0);
+  return { fundCharges, dealing, stampDuty, fx, total: fundCharges + dealing + stampDuty + fx };
 }
 
 /* ── Projection ─────────────────────────────────────────── */
@@ -312,7 +321,7 @@ export function pct(v, digits = 1) {
 /* How much each asset class moves when shares fall. Rough, round
    sensitivities for the demo, not a forecast: gold has tended to
    hold up, gilts to fall a little, cash not at all.             */
-const STRESS_SENSITIVITY = {
+const STRESS_SENSITIVITY = { 'Individual shares': 1.2,
   'Global equity': 1, 'US equity': 1, 'US technology': 1.3, 'Emerging markets': 1.1,
   Gold: -0.1, 'UK government bonds': 0.2, Cash: 0,
 };
@@ -320,6 +329,20 @@ const STRESS_SENSITIVITY = {
 /* Shares fall by `shock` tomorrow. Returns the drop and how long the
    plan takes to get back to today's value at its expected growth,
    with its monthly amounts still going in.                        */
+/* How much of a company the plan already owns through index funds */
+export function fundOverlap(plan, id) {
+  const weights = ETFS[id]?.inFunds ?? {};
+  /* One entry per fund, across the accounts it sits in */
+  const byFund = new Map();
+  for (const l of activeLines(plan)) {
+    if (l.source !== 'etf' || !weights[l.id]) continue;
+    const o = byFund.get(l.id) ?? { line: l, value: 0, weight: weights[l.id] };
+    o.value += l.lump * weights[l.id];
+    byFund.set(l.id, o);
+  }
+  return [...byFund.values()].filter(o => o.value > 0);
+}
+
 export function stressTest(plan, shock = 0.25) {
   const lines = activeLines(plan);
   const before = lines.reduce((a, l) => a + l.lump, 0);
@@ -340,8 +363,8 @@ export function stressTest(plan, shock = 0.25) {
 }
 
 /* What adding a fund would do, without changing the plan */
-export function previewAdd(plan, id, { monthly = 500, account = null, months = 60 } = {}) {
+export function previewAdd(plan, id, { lump = 0, monthly = 500, account = null, months = 60 } = {}) {
   const copy = structuredClone(plan);
-  addEtf(copy, id, { monthly, account });
+  addEtf(copy, id, { lump, monthly, account });
   return project(activeLines(copy), months);
 }
