@@ -100,6 +100,63 @@ export const ETF_SNAPSHOT = [
   },
 ];
 
+/* Individual company shares, for the "buy shares in a company"
+   demo. Same source and window as the ETFs. Apple is quoted in US
+   dollars on Nasdaq, so its figures are in dollars; AstraZeneca and
+   Rolls-Royce are London listings, converted from pence to pounds.
+   inFunds: roughly how much of each index fund the company is, to
+   show the overlap with funds already held (approximate weights). */
+export const SHARE_SNAPSHOT = [
+  {
+    id: 'AAPL', symbol: 'AAPL', kind: 'share', currency: 'USD', market: 'Nasdaq, US',
+    name: 'Apple Inc.', short: 'Apple',
+    assetClass: 'Individual shares',
+    blurb: 'Makes the iPhone, Mac and Apple Watch, and earns a growing share from services.',
+    ocf: 0, expectedReturn: 0.07, price: 331.90,
+    inFunds: { VWRP: 0.04, VUAG: 0.065, EQQQ: 0.08 },
+    closes: [
+      161.48, 173.46,
+      170.74, 161.51, 170.79, 154.20, 145.80, 133.92, 159.19, 154.22, 135.56, 150.41, 145.45, 127.66,
+      141.77, 145.06, 162.27, 166.97, 174.66, 191.14, 193.58, 185.38, 168.94, 168.50, 187.67, 190.22,
+      182.19, 178.81, 169.64, 168.50, 190.45, 208.64, 220.00, 227.11, 231.08, 224.05, 235.63, 248.63,
+      234.31, 240.37, 220.78, 211.21, 199.88, 204.18, 206.57, 231.28, 253.69, 269.37, 278.09, 271.12,
+      258.77, 263.71, 253.33, 270.86, 311.79, 289.11, 308.64, 316.85, 333.02, 344.63,
+    ],
+  },
+  {
+    id: 'AZN', symbol: 'AZN.LON', kind: 'share', currency: 'GBP', market: 'London',
+    name: 'AstraZeneca plc', short: 'AstraZeneca',
+    assetClass: 'Individual shares',
+    blurb: 'One of the UK’s largest companies: medicines for cancer, heart disease and rare conditions.',
+    ocf: 0, expectedReturn: 0.07, price: 137.60,
+    inFunds: { VWRP: 0.003 },
+    closes: [
+      74.58, 78.20,
+      77.65, 82.97, 92.80, 97.89, 95.75, 98.92, 99.32, 98.18, 91.72, 94.58, 103.00, 103.48,
+      97.68, 101.80, 105.09, 109.90, 109.10, 105.51, 104.66, 100.40, 104.55, 96.53, 95.36, 99.82,
+      98.88, 95.49, 102.13, 115.37, 116.59, 118.18, 118.30, 127.74, 111.52, 106.26, 102.13, 100.74,
+      109.17, 116.85, 109.88, 104.75, 104.67, 98.81, 110.57, 115.92, 109.94, 122.61, 137.39, 135.58,
+      133.72, 154.39, 145.93, 138.56, 137.11, 140.07, 125.49, 119.70, 122.80, 139.60,
+    ],
+  },
+  {
+    id: 'RR', symbol: 'RR.LON', kind: 'share', currency: 'GBP', market: 'London',
+    name: 'Rolls-Royce Holdings plc', short: 'Rolls-Royce',
+    assetClass: 'Individual shares',
+    blurb: 'Jet engines for airliners, plus power systems and defence. Not the car maker.',
+    ocf: 0, expectedReturn: 0.07, price: 12.61,
+    inFunds: { VWRP: 0.001 },
+    closes: [
+      1.1999, 1.2036,
+      1.1216, 1.0138, 0.9903, 0.8158, 0.8491, 0.8125, 0.8744, 0.7542, 0.6816, 0.7655, 0.8906, 0.9129,
+      1.0357, 1.4197, 1.4597, 1.4903, 1.4037, 1.4796, 1.8106, 2.1775, 2.1638, 2.1099, 2.6329, 2.9356,
+      2.9503, 3.6154, 4.1796, 4.0464, 4.4411, 4.4744, 4.4039, 4.8623, 5.1640, 5.2443, 5.4716, 5.5695,
+      5.9359, 7.2876, 7.3366, 7.4493, 8.5555, 9.5570, 10.5882, 10.6123, 11.8025, 11.5744, 10.5925, 11.4058,
+      12.0108, 13.2257, 11.2272, 11.7748, 13.3229, 14.3908, 14.6219, 15.3020, 14.6160, 12.3940,
+    ],
+  },
+];
+
 /* Today's holdings — mirrors `investments` and `topHoldings` in
    src/js/data.js so the plan starts from the same £842,340 the
    rest of the dashboard shows. These funds aren't on Alpha
@@ -155,4 +212,5 @@ export const ASSET_CLASS_SLOTS = {
   'Gold':                 4,
   'UK government bonds':  5,
   'Cash':                 6,
+  'Individual shares':    7,
 };

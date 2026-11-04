@@ -8,7 +8,7 @@
 import { PERIODS, DEFAULT_PERIOD, ACCOUNTS, TAX_YEAR } from './plan-data.js';
 import {
   ETFS, createPlan, lineInfo, findLine, activeLines, addEtf, setMonthly, removeLine, restoreLine,
-  moveLump, moveAccount, addLump, settle, project, projectBaseline, allocation, totalValue, changes,
+  moveLump, moveAccount, addLump, settle, fundOverlap, project, projectBaseline, allocation, totalValue, changes,
   taxYearUse, sippRelief, orders, orderCosts, stressTest, previewAdd, money, moneyShort, pct,
 } from './plan-model.js';
 import { STEPS, CHECKS, matchStep, markDone, nextChips, GREETING, FALLBACK } from './plan-script.js';
@@ -109,6 +109,9 @@ const ctx = {
   },
   orderCount: () => orders(state.plan).length,
   addLump: (key, amount) => addLump(state.plan, key, amount),
+  overlap: id => fundOverlap(state.plan, id),
+  totalValue: () => totalValue(state.plan),
+  fundMonthly: () => (state.fund && findLine(state.plan, state.fund)?.monthly) || 0,
   allowanceLeft: account => taxYearUse(state.plan)[account.toLowerCase()].left,
   /* The holding to add to: one picked in the panel, else the chosen fund */
   takeTarget: () => {
@@ -194,7 +197,7 @@ function renderPanel({ animateLines = true } = {}) {
 function renderInvestBar() {
   const count = orders(state.plan).length;
   const reviewing = !!els.messages.querySelector('.adv-msg:last-child :is(.plan-review, .plan-check):not([data-closed])');
-  const show = state.done.has('fund') && state.status !== 'placed' && count > 0 && !reviewing;
+  const show = state.plan.lines.some(l => l.source === 'etf') && state.status !== 'placed' && count > 0 && !reviewing;
   els.investBars.forEach(el => { el.hidden = !show; });
   els.investCount.textContent = `${count} order${count === 1 ? '' : 's'}`;
 }
@@ -370,7 +373,7 @@ function etfCard(id) {
   const pts = e.closes.map((v, i) => `${(i / (e.closes.length - 1)) * 100},${28 - ((v - min) / (max - min)) * 26}`).join(' ');
   const cta = inPlan
     ? `<span class="plan-badge plan-badge--added">In your plan</span>`
-    : `<button type="button" class="btn-secondary btn-secondary--sm" data-step="pick-${id}">Add to plan<span class="plan-sr-only"> ${e.short}</span></button>`;
+    : `<button type="button" class="btn-secondary btn-secondary--sm" data-step="${e.kind === 'share' ? 'share' : 'pick'}-${id}">Add to plan<span class="plan-sr-only"> ${e.short}</span></button>`;
   return `
     <div class="plan-etf">
       <div class="plan-etf-head">
@@ -382,9 +385,9 @@ function etfCard(id) {
         <polyline points="${pts}" vector-effect="non-scaling-stroke"/>
       </svg>
       <dl class="plan-etf-stats">
-        <div><dt>Past 5 years</dt><dd>${pct(e.fiveYear, 0)}</dd></div>
+        <div><dt>Past 5 years${e.currency === 'USD' ? ' (in $)' : ''}</dt><dd>${pct(e.fiveYear, 0)}</dd></div>
         <div><dt>Typical yearly swing</dt><dd>${(e.volatility * 100).toFixed(0)}%</dd></div>
-        <div><dt>Yearly charge</dt><dd>${e.ocf.toFixed(2)}%</dd></div>
+        <div><dt>Yearly charge</dt><dd>${e.kind === 'share' ? 'None' : `${e.ocf.toFixed(2)}%`}</dd></div>
       </dl>
       ${cta}
     </div>`;
@@ -400,9 +403,9 @@ function optionCards({ label, items }) {
     const inPlan = o.etf && findLine(state.plan, o.etf);
     const stats = e ? `
       <dl class="plan-option-stats">
-        <div><dt>Past 5 years</dt><dd>${pct(e.fiveYear, 0)}</dd></div>
+        <div><dt>Past 5 years${e.currency === 'USD' ? ' (in $)' : ''}</dt><dd>${pct(e.fiveYear, 0)}</dd></div>
         <div><dt>Yearly swing</dt><dd>${(e.volatility * 100).toFixed(0)}%</dd></div>
-        <div><dt>Charge</dt><dd>${e.ocf.toFixed(2)}%</dd></div>
+        <div><dt>Charge</dt><dd>${e.kind === 'share' ? 'None' : `${e.ocf.toFixed(2)}%`}</dd></div>
       </dl>` : '';
     const action = inPlan
       ? `<span class="plan-badge plan-badge--added">In your plan</span>`
@@ -426,15 +429,20 @@ function optionCards({ label, items }) {
 
 /* What a fund would add, with £500 a month, at the chosen period */
 const PREVIEW_MONTHLY = 500;
+const PREVIEW_SHARE = 5000;
+const previewSpec = id => (ETFS[id].kind === 'share'
+  ? { lump: PREVIEW_SHARE, monthly: 0, text: `With ${money(PREVIEW_SHARE)} now` }
+  : { lump: 0, monthly: PREVIEW_MONTHLY, text: `With ${money(PREVIEW_MONTHLY)} a month` });
 function previewProjection(id) {
   const { months } = periodInfo();
-  return { months, proj: previewAdd(state.plan, id, { monthly: PREVIEW_MONTHLY, account: state.account, months }) };
+  const { lump, monthly } = previewSpec(id);
+  return { months, proj: previewAdd(state.plan, id, { lump, monthly, account: state.account, months }) };
 }
 function previewText(id) {
   const { months, proj } = previewProjection(id);
   const s = summary();
   const gain = proj.central[months] - s.central;
-  return `<p class="plan-option-preview">With ${money(PREVIEW_MONTHLY)} a month: about <strong>+${moneyShort(gain)}</strong> in ${s.periodLong}. <span class="plan-option-preview-hint">Hover or focus to see it on the chart.</span></p>`;
+  return `<p class="plan-option-preview">${previewSpec(id).text}: about <strong>+${moneyShort(gain)}</strong> in ${s.periodLong}. <span class="plan-option-preview-hint">Hover or focus to see it on the chart.</span></p>`;
 }
 
 /* Hovering or focusing a fund option draws it, dashed, on the chart */
@@ -535,6 +543,8 @@ function reviewCard() {
   const facts = [
     ['Fund charges, first year', `about ${money(costs.fundCharges)}`],
     ['Dealing costs (estimate)', `about ${money(costs.dealing)}`],
+    costs.stampDuty ? ['Stamp duty on UK shares', `about ${money(costs.stampDuty)}`] : null,
+    costs.fx ? ['Currency conversion (estimate)', `about ${money(costs.fx)}`] : null,
     use.isa.planned ? ['ISA allowance', use.isa.left < 0 ? `${money(-use.isa.left)} over: the excess can’t go in` : `uses ${money(use.isa.planned)}, ${money(use.isa.left)} left`] : null,
     sippMonthly ? ['Pension tax relief', `${money(sippRelief(sippMonthly).atSource)} a month added, ${money(sippRelief(sippMonthly).extra)} more to claim`] : null,
   ].filter(Boolean);

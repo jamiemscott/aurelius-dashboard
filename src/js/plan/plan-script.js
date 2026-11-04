@@ -26,6 +26,26 @@
 
 import { ETFS, money, moneyShort, pct, sippRelief } from './plan-model.js';
 
+/* Company shares: trade-offs written from the snapshot, no ranking */
+const SHARE_POINTS = {
+  AAPL: {
+    match: /\b(apple|aapl)\b/i,
+    pros: [() => 'One of the world’s largest companies by value', () => 'Earns from devices and a growing services business'],
+    cons: [() => 'Priced in US dollars, so the pound’s moves matter too', () => 'Already a large part of US and global index funds'],
+  },
+  AZN: {
+    match: /\b(astra ?zeneca|azn)\b/i,
+    pros: [() => 'Listed in London and priced in pounds', () => 'Pays a dividend twice a year'],
+    cons: [() => 'Results depend on drug trials and approvals', () => '0.5% stamp duty when you buy'],
+  },
+  RR: {
+    match: /\brolls[- ]?royce\b/i,
+    pros: [e => `Up about ${Math.round(e.fiveYear * 100).toLocaleString('en-GB')}% over the past 5 years`, () => 'Recovered strongly after 2020'],
+    cons: [e => `Big swings: ${(e.volatility * 100).toFixed(0)}% typical yearly`, () => 'Fell about 80% in 2020 when flights stopped'],
+  },
+};
+const SHARE = 5000;   /* a demo amount of new money for one company */
+
 /* "about 8 months", "about 2½ years" */
 function duration(months) {
   if (months >= 300) return 'more than 25 years';
@@ -161,7 +181,7 @@ function accountOption(id, monthly) {
 
 const accountQuestion = c => ({
   html: 'Which account should it go in? Each one is taxed differently.',
-  options: { label: 'Account options', items: ['ISA', 'SIPP', 'GIA'].map(id => accountOption(id, c.monthlyOf(c.fund()) || 500)) },
+  options: { label: 'Account options', items: ['ISA', 'SIPP', 'GIA'].map(id => accountOption(id, c.fundMonthly() || 500)) },
 });
 
 /* What the account choice means, in plain figures */
@@ -222,6 +242,28 @@ function topupOptions(c, key) {
     });
   }
   return items;
+}
+
+/* New money for a company: £5,000 in the account new money goes to.
+   In an ISA it's capped at the allowance left; with none left, the
+   shares go in the general account instead, which has no limit.   */
+function shareInto(c) {
+  const account = c.account();
+  if (account !== 'ISA') return { account, amount: SHARE, note: '' };
+  const left = Math.floor(c.allowanceLeft('ISA') / 100) * 100;
+  if (left < 100) return { account: 'GIA', amount: SHARE, note: ' Your ISA allowance is used up in this plan, so these go in your general account, which has no yearly limit.' };
+  if (left < SHARE) return { account, amount: left, note: ` That’s the rest of this year’s ISA allowance.` };
+  return { account, amount: SHARE, note: '' };
+}
+
+function shareOption(id) {
+  const e = ETFS[id];
+  const p = SHARE_POINTS[id];
+  return {
+    step: `share-${id}`, etf: id, kicker: e.market, title: e.short, desc: e.blurb,
+    pros: p.pros.map(f => f(e)), cons: p.cons.map(f => f(e)),
+    action: 'Add to plan',
+  };
 }
 
 function topupReply(c, key, before, done, monthly = false) {
@@ -535,6 +577,7 @@ export const STEPS = {
     run: () => [
       { html: 'Individual shares put more on each company: a few can do very well, and any one can fall sharply or fail.' },
       { html: 'A fund spreads your money across hundreds or thousands of companies, so one bad result matters less. Some people hold a small part of their portfolio in individual shares alongside funds.' },
+      { html: 'Want to see what buying shares in one company would look like?' },
     ],
   },
 
@@ -556,6 +599,22 @@ export const STEPS = {
       { html: 'Nobody can reliably tell when markets will rise or fall. Waiting for a better moment can mean missing some of the best days, which often come soon after the worst ones.' },
       { html: 'Investing a set amount each month spreads the price you pay: you buy more when prices are low and less when they’re high. That’s how the monthly amounts in this plan work.' },
     ],
+  },
+
+  /* ── Shares in one company ─────────────────────────────── */
+  shares: {
+    chip: 'Show me some company shares',
+    match: /\b(shares? in (a |one |a single |a particular |one particular )?compan(y|ies)|buy (some )?(company )?shares|single compan(y|ies)|particular compan(y|ies)|stocks? in (a )?compan(y|ies)|individual compan(y|ies))\b/i,
+    quiet: true,
+    repeatable: true,
+    run: c => {
+      const { amount, note } = shareInto(c);
+      return [
+        { html: `Buying shares in one company puts more on how that company does. Here are three well-known ones to compare, with ${money(amount)} of new money in each case.${note} <strong>This isn’t a recommendation.</strong>` },
+        { html: 'The projection uses the same long-run 7% a year for each, so the chart can’t tell them apart. Where they differ is the swings along the way and what could go wrong.',
+          options: { label: 'Company shares', items: Object.keys(SHARE_POINTS).map(shareOption) } },
+      ];
+    },
   },
 
   reset: {
@@ -629,6 +688,41 @@ for (const id of Object.keys(ACCOUNTS)) {
   };
 }
 
+/* Adding shares in one company: the amount, how much of the
+   portfolio that is, any overlap with funds held, and the costs */
+for (const id of Object.keys(SHARE_POINTS)) {
+  STEPS[`share-${id}`] = {
+    chip: `Add ${ETFS[id].short} shares`,
+    match: SHARE_POINTS[id].match,
+    repeatable: true,
+    run: c => {
+      const e = ETFS[id];
+      const { account, amount, note } = shareInto(c);
+      const before = c.summary().central;
+      c.addEtf(id, { lump: amount, account });
+      const s = c.summary();
+      const share = amount / c.totalValue();
+      const overlap = c.overlap(id);
+      const held = overlap.reduce((a, o) => a + o.value, 0);
+      const costs = e.currency === 'GBP'
+        ? `Buying UK shares adds 0.5% stamp duty: about ${money(amount * 0.005)}.`
+        : `Shares priced in dollars need a currency conversion, estimated at 0.5% (about ${money(amount * 0.005)}). A W-8BEN form reduces the US tax taken from dividends.`;
+      const reply = [
+        { tone: 'success', html: `Added <strong>${money(amount)}</strong> of <strong>${e.short}</strong> shares${account ? ` in your ${ACCOUNTS[account].name}` : ''}. That’s ${(share * 100).toFixed(1)}% of your portfolio.${note}`, etf: id },
+        held >= 1
+          ? { html: `You already own about <strong>${money(held)}</strong> of ${e.short} through ${overlap.map(o => `${ETFS[o.line.id].short} (about ${(o.weight * 100).toFixed(1)}% of that fund)`).join(' and ')}.` }
+          : null,
+        { html: `${costs} There’s no yearly fund charge on shares. Over ${s.periodLong}, the central estimate rises by about ${moneyShort(s.central - before)}, using a long-run 7% a year rather than the past five years.` },
+        share > 0.1
+          ? { tone: 'warning', html: 'That’s more than 10% of your portfolio in one company. Many people keep any single share to a small part of what they hold.' }
+          : { tone: 'warning', html: 'One company can fall sharply, or fail, in a way a fund of thousands rarely does. This isn’t a recommendation.' },
+      ].filter(Boolean);
+      if (!account) reply.push(accountQuestion(c));
+      return reply;
+    },
+  };
+}
+
 /* Record a finished step. Choices fill their slots and can be made
    again (to change approach, add a second fund, or switch account).
    Questions don't count as progress.                              */
@@ -644,6 +738,7 @@ const MATCH_ORDER = [
   'reset', 'confirm', 'send-james',
   'account-ISA', 'account-SIPP', 'account-GIA',
   'topic-gia', 'topic-sipp', 'topic-isa',
+  'share-AAPL', 'share-AZN', 'share-RR', 'shares',
   'stress', 'topic-crypto', 'topic-property', 'topic-shares', 'topic-timing', 'topic-cash', 'topic-costs',
   'review', 'topup', 'remove-veritas', 'monthly-1000',
   'risk-cautious', 'risk-balanced', 'risk-adventurous',
@@ -685,6 +780,7 @@ export function nextChips(done, c, lastId) {
   /* Never offer a step that sits beyond an unmade choice */
   const before = remaining.findIndex(id => SLOTS.has(id));
   const route = (before === -1 ? remaining : remaining.slice(0, before)).slice(0, 2);
+  if (lastId === 'topic-shares') return ['shares', ...route.slice(0, 1)];
   /* After the stress test, offer the cautious route alongside the next step */
   if (lastId === 'stress' && c.risk() !== 'cautious') return ['risk-cautious', ...route.slice(0, 1)];
   return route;
@@ -696,7 +792,7 @@ export const GREETING = (name, value) => [
 ];
 
 export const FALLBACK = [
-  { html: 'I can model a few things in this demo: a more cautious or more adventurous approach, adding a fund, choosing an ISA, pension or general account, changing what you invest each month, adding more to a holding, or removing one. I can also answer questions about costs, market falls, cash, property, shares and crypto: try <strong>Ask about</strong> below. Or one of these:' },
+  { html: 'I can model a few things in this demo: a more cautious or more adventurous approach, adding a fund, choosing an ISA, pension or general account, changing what you invest each month, adding more to a holding, buying shares in a company, or removing one. I can also answer questions about costs, market falls, cash, property, shares and crypto: try <strong>Ask about</strong> below. Or one of these:' },
 ];
 
 function dayPart() {
