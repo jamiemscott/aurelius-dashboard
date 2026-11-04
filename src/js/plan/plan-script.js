@@ -457,7 +457,7 @@ export const STEPS = {
     run: () => [
       { tone: 'success', html: '<strong>Orders placed.</strong>', receipt: true },
       { html: `Sales and purchases go to market at the next dealing point and settle in 2 working days. Regular amounts start on ${TAX_YEAR.firstPayment}, and you can change or stop them at any time from <a href="/my-investments/">My Investments</a>.` },
-      { html: 'You chose these investments; Aurelius hasn’t recommended them. James can still review them with you at your next meeting.' },
+      { html: 'You chose these investments; Aurelius hasn’t recommended them. James can still review them with you at your next meeting. What would you like to do next?' },
     ],
   },
 
@@ -498,7 +498,14 @@ export const STEPS = {
     match: /\b(something else|another plan|new plan|separate plan|different goal|second plan)\b/i,
     quiet: true,
     run: c => {
+      const placed = c.status() === 'placed';
       const r = c.planSomethingElse();
+      if (placed) {
+        return [
+          { tone: 'success', html: `A new plan, starting from your portfolio with today’s orders included. You have ${money(r.isaLeft)} of this year’s ISA allowance left.` },
+          { html: 'How much risk feels right for this one?', options: { label: 'Approaches', items: Object.keys(RISKS).map(riskOption) } },
+        ];
+      }
       const note = r.isa || r.sipp
         ? ` ${[r.isa ? `${money(r.isa)} of your ISA allowance` : '', r.sipp ? `${money(r.sipp)} of your pension allowance` : ''].filter(Boolean).join(' and ')} is set aside in the plan with James, so this one has ${money(r.isaLeft)} of ISA allowance left.`
         : '';
@@ -513,7 +520,11 @@ export const STEPS = {
     chip: 'That’s all for now',
     match: /\b(that'?s (all|it)|all for now|nothing else|done for now|no thanks)\b/i,
     info: true, quiet: true,
-    run: c => [
+    run: c => c.status() === 'placed' ? [
+      { html: 'You’re all set. Here’s what happens next:' },
+      { html: `<strong>Today:</strong> your orders go to market at the next dealing point.<br><strong>In 2 working days:</strong> they settle, and you’ll get a contract note for each one by email.<br><strong>${TAX_YEAR.firstPayment}:</strong> the first regular payment${c.monthlyTotal() ? ` of ${money(c.monthlyTotal())}` : ''} is collected.` },
+      { html: 'You can follow it all in <a href="/my-investments/">My Investments</a>, and come back here any time to plan something new.' },
+    ] : [
       { html: `Thanks. James will look at the ${c.orderCount()} order${c.orderCount() === 1 ? '' : 's'} in your plan${c.concerns() ? ', and the points your quick check raised' : ''}. He usually replies within 2 working days, and you’ll see his reply here.` },
       { html: 'Your plan stays as you left it. Nothing is bought or sold until you, or James with your agreement, place the orders.' },
     ],
@@ -810,6 +821,8 @@ export function matchStep(text, done) {
 export function nextChips(done, c, lastId) {
   /* After sending to James: change it, plan something else, or stop */
   if (lastId === 'send-james') return ['james-edit', 'james-new', 'james-done'];
+  /* After placing orders: add more to what was bought, plan something else, or stop */
+  if (lastId === 'confirm') return ['topup', 'james-new', 'james-done'];
   if (lastId === 'james-done') return [];
   /* The check card is the answer; nothing else to tap */
   if (lastId === 'review' && !c.checked() && c.orderCount()) return [];

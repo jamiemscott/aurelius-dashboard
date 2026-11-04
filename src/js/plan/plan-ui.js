@@ -120,6 +120,8 @@ const ctx = {
   /* Returns true when James already had a version of this plan */
   sendToJames: () => { const update = state.sent; state.sent = true; return update; },
   concerns: () => CHECKS.some(c => state.check?.[c.id] === false),
+  status: () => state.status,
+  monthlyTotal: () => totalMonthlyNow(),
   /* Keep the plan with James; start a new one from what's held */
   planSomethingElse: () => {
     const use = taxYearUse(state.plan);
