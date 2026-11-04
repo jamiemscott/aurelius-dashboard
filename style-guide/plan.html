@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="plan">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan My Future — Aurelius Style Guide</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Plan My Future</h1>
+      <p class="sg-page-desc">The scripted planning chat at <a href="/chat/plan-my-future/"><code>/chat/plan-my-future</code></a>. The chat reuses <code>adv-*</code> from <code>modules/adviser.css</code>; the plan panel lives in <code>modules/plan.css</code> and its Highcharts 13 styling in <code>modules/plan-chart.css</code>. All new classes are prefixed <code>plan-</code>.</p>
+    </div>
+
+    <!-- ── Layout ─────────────────────────────────────────── -->
+    <section class="sg-section" id="layout">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Layout &amp; drawer</h2>
+        <p class="sg-section-desc"><code>.plan-layout</code> is a two-column grid: the chat (<code>.chat-wrap.plan-chat</code>) and the panel (<code>aside.plan-panel[popover]</code>). Both are sticky inside <code>.chat-main</code>. Above 1080px, author CSS overrides the browser’s <code>[popover]</code> hiding so the panel sits inline. Below 1080px it is hidden until the <strong>View plan</strong> button (<code>popovertarget</code>) opens it as a right-hand drawer. Focus handling, Escape to close and the backdrop come from the browser, with no script.</p>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;button class="btn-primary plan-panel-open" popovertarget="plan-panel"&gt;View plan&lt;/button&gt;
+
+&lt;div class="plan-layout"&gt;
+  &lt;section class="chat-wrap plan-chat"&gt;…messages, input…&lt;/section&gt;
+  &lt;aside class="plan-panel" id="plan-panel" popover aria-labelledby="plan-panel-title"&gt;
+    &lt;div class="plan-panel-head"&gt;
+      &lt;h2 class="plan-panel-title" id="plan-panel-title"&gt;Your plan&lt;/h2&gt;
+      &lt;span class="plan-status" data-state="draft"&gt;Draft&lt;/span&gt;
+      &lt;button class="icon-btn plan-panel-close" popovertarget="plan-panel" popovertargetaction="hide" aria-label="Close plan"&gt;…&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;section class="plan-section"&gt;…&lt;/section&gt;
+  &lt;/aside&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Period pills ───────────────────────────────────── -->
+    <section class="sg-section" id="periods">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Period pills</h2>
+        <p class="sg-section-desc">These look like <code>.range-pill</code> but are real radio buttons inside a <code>fieldset</code>, so arrow keys and screen-reader grouping work with no script. The periods extend the site’s 1M · 3M · 6M · 1Y forward to 3Y, 5Y and <strong>All</strong> (25 years, the plan left to grow). Targets are at least 24px tall.</p>
+      </div>
+      <div class="sg-demo">
+        <fieldset class="plan-range">
+          <legend class="plan-sr-only">Projection period</legend>
+          <label><input type="radio" name="sg-period" value="1M"><span>1M</span></label>
+          <label><input type="radio" name="sg-period" value="3M"><span>3M</span></label>
+          <label><input type="radio" name="sg-period" value="6M"><span>6M</span></label>
+          <label><input type="radio" name="sg-period" value="1Y"><span>1Y</span></label>
+          <label><input type="radio" name="sg-period" value="3Y"><span>3Y</span></label>
+          <label><input type="radio" name="sg-period" value="5Y" checked><span>5Y</span></label>
+          <label><input type="radio" name="sg-period" value="All"><span>All<span class="plan-sr-only"> (25 years, left to grow)</span></span></label>
+        </fieldset>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;fieldset class="plan-range"&gt;
+  &lt;legend class="plan-sr-only"&gt;Projection period&lt;/legend&gt;
+  &lt;label&gt;&lt;input type="radio" name="plan-period" value="1Y"&gt;&lt;span&gt;1Y&lt;/span&gt;&lt;/label&gt;
+  &lt;label&gt;&lt;input type="radio" name="plan-period" value="5Y" checked&gt;&lt;span&gt;5Y&lt;/span&gt;&lt;/label&gt;
+&lt;/fieldset&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Holdings rows ──────────────────────────────────── -->
+    <section class="sg-section" id="holdings">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Holdings rows &amp; badges</h2>
+        <p class="sg-section-desc"><code>.plan-line</code> rows show each holding’s status with <code>data-status</code> (<code>kept</code>, <code>added</code> or <code>removed</code>). Each row has a unique <code>view-transition-name</code>, so adding or removing a holding animates through the View Transitions API (turned off with reduced motion). The remove and undo buttons work without the chat. Their accessible names include the holding’s name.</p>
+      </div>
+      <div class="sg-demo" style="max-width:440px">
+        <ul class="plan-lines">
+          <li class="plan-line" data-status="kept">
+            <span class="plan-line-swatch plan-slot-0" aria-hidden="true"></span>
+            <span class="plan-line-main"><span class="plan-line-name">Artisan Global Value</span><span class="plan-line-meta">Global equity</span></span>
+            <span class="plan-line-figures"><span class="plan-line-value">£289,420</span><span class="plan-line-share">34.4%</span></span>
+            <button type="button" class="plan-line-btn plan-line-btn--icon" aria-label="Remove Artisan Global Value from plan"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
+          </li>
+          <li class="plan-line" data-status="added">
+            <span class="plan-line-swatch plan-slot-0" aria-hidden="true"></span>
+            <span class="plan-line-main"><span class="plan-line-name">Vanguard FTSE All-World <span class="plan-badge plan-badge--added">New</span></span><span class="plan-line-meta">VWRP · Global equity</span></span>
+            <span class="plan-line-figures"><span class="plan-line-value">£0</span><span class="plan-line-monthly">+ £500/m</span></span>
+            <button type="button" class="plan-line-btn plan-line-btn--icon" aria-label="Remove Vanguard FTSE All-World from plan"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
+          </li>
+          <li class="plan-line" data-status="removed">
+            <span class="plan-line-swatch plan-slot-0" aria-hidden="true"></span>
+            <span class="plan-line-main"><span class="plan-line-name">Veritas Global Focus <span class="plan-badge plan-badge--removed">Removed</span></span><span class="plan-line-meta">Global equity</span></span>
+            <span class="plan-line-figures"><span class="plan-line-value">£127,890</span></span>
+            <button type="button" class="plan-line-btn" data-action="restore">Undo<span class="plan-sr-only"> removing Veritas Global Focus</span></button>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ── ETF card ───────────────────────────────────────── -->
+    <section class="sg-section" id="etf-card">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">ETF card</h2>
+        <p class="sg-section-desc"><code>.plan-etf</code> sits inside a bot <code>.adv-bubble-inner</code>. The sparkline is plain inline SVG with <code>role="img"</code> and a text label; its stroke comes from <code>--gold-text</code>.</p>
+      </div>
+      <div class="sg-demo" style="max-width:460px">
+        <div class="plan-etf">
+          <div class="plan-etf-head"><span class="plan-etf-ticker">VWRP</span><span class="plan-etf-name">Vanguard FTSE All-World UCITS ETF (Acc)</span></div>
+          <p class="plan-etf-blurb">About 3,700 companies across developed and emerging markets in one fund.</p>
+          <svg class="plan-etf-spark" viewBox="0 0 100 30" preserveAspectRatio="none" role="img" aria-label="Price over the past 5 years, +63%"><polyline points="0,24 20,27 40,22 60,15 80,8 100,4" vector-effect="non-scaling-stroke"/></svg>
+          <dl class="plan-etf-stats">
+            <div><dt>Past 5 years</dt><dd>+63%</dd></div>
+            <div><dt>Typical yearly swing</dt><dd>12%</dd></div>
+            <div><dt>Yearly charge</dt><dd>0.22%</dd></div>
+          </dl>
+          <button type="button" class="btn-secondary btn-secondary--sm">Add to plan</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Chart tokens ───────────────────────────────────── -->
+    <section class="sg-section" id="chart-tokens">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Highcharts token bridge</h2>
+        <p class="sg-section-desc">Charts use <strong>Highcharts 13.0.0</strong>, the version OutSystems Charts (ODC) 3.12 ships, in <code>styledMode</code>. Highcharts outputs only class names. <code>.plan-chart</code> maps our tokens onto its <code>--highcharts-color-N</code> and <code>--highcharts-neutral-color-*</code> variables. It also resets Highcharts’ own <code>color-scheme: light dark</code> to <code>inherit</code>, so charts follow the site toggle rather than the OS. Each series colour reaches at least 3:1 against the card surface. Forced-colours mode switches to system colours.</p>
+      </div>
+      <div class="sg-demo">
+        <table class="plan-table">
+          <thead><tr><th scope="col">Token</th><th scope="col">Used for</th><th scope="col">Swatch</th></tr></thead>
+          <tbody>
+            <tr><th scope="row"><code>--plan-series-0</code></th><td>Global equity · “With your plan” line</td><td><span class="plan-line-swatch plan-slot-0" style="display:inline-block"></span></td></tr>
+            <tr><th scope="row"><code>--plan-series-1</code></th><td>US equity</td><td><span class="plan-line-swatch plan-slot-1" style="display:inline-block"></span></td></tr>
+            <tr><th scope="row"><code>--plan-series-2</code></th><td>US technology</td><td><span class="plan-line-swatch plan-slot-2" style="display:inline-block"></span></td></tr>
+            <tr><th scope="row"><code>--plan-series-3</code></th><td>Emerging markets</td><td><span class="plan-line-swatch plan-slot-3" style="display:inline-block"></span></td></tr>
+            <tr><th scope="row"><code>--plan-series-4</code></th><td>Gold</td><td><span class="plan-line-swatch plan-slot-4" style="display:inline-block"></span></td></tr>
+            <tr><th scope="row"><code>--plan-series-5</code></th><td>UK government bonds</td><td><span class="plan-line-swatch plan-slot-5" style="display:inline-block"></span></td></tr>
+            <tr><th scope="row"><code>--plan-series-6</code></th><td>Cash</td><td><span class="plan-line-swatch plan-slot-6" style="display:inline-block"></span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-css">.plan-chart {
+  --highcharts-background-color: transparent;
+  --highcharts-neutral-color-80: var(--text-2);
+  --highcharts-neutral-color-10: var(--divider);
+  --highcharts-color-0: var(--plan-series-0);
+}
+
+.plan-chart .highcharts-container { color-scheme: inherit; }</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Accessibility ──────────────────────────────────── -->
+    <section class="sg-section" id="accessibility">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Accessibility</h2>
+        <p class="sg-section-desc">How the page handles screen readers, keyboards and display settings.</p>
+      </div>
+      <div class="sg-demo">
+        <ul class="plan-changes">
+          <li>The conversation is a <code>role="log"</code>. Only finished replies are added to it, and the typing indicator is <code>aria-hidden</code>.</li>
+          <li>Each change to the plan is announced once in a separate polite status region, outside the drawer so it’s heard even when the drawer is closed.</li>
+          <li>The Highcharts accessibility module gives the charts keyboard navigation and screen-reader descriptions. Each chart also has a “View as a table” disclosure (<code>details</code>).</li>
+          <li>Chips and buttons that held focus are replaced after each reply, so focus moves to the newest chip, or the message box if there isn’t one.</li>
+          <li>Reduced motion removes the typing delay and turns off message, row, drawer and disclosure animations, and chart animation.</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+</body>
+</html>

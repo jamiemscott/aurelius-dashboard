@@ -65,6 +65,10 @@
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           New Conversation
         </button>
+        <a class="btn-primary" href="/chat/plan-my-future/">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/></svg>
+          Plan my future
+        </a>
       </div>
     </div>
 
@@ -390,7 +394,7 @@
 
   /* ── Suggestion chips ─────────────────────────────────────────────────── */
   document.addEventListener('click', function (e) {
-    if (e.target.classList.contains('chat-chip')) {
+    if (e.target.classList.contains('adv-chip')) {
       textarea.value = e.target.textContent;
       resizeTextarea();
       sendBtn.disabled = false;
@@ -458,7 +462,7 @@
   function appendBotMessage(text) {
     const t = now();
     const div = document.createElement('div');
-    div.className = 'chat-msg adv-msg--bot';
+    div.className = 'adv-msg adv-msg--bot';
     div.innerHTML = `
       <div class="adv-avatar adv-avatar--bot" aria-hidden="true">A</div>
       <div class="adv-bubble">

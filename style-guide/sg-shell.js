@@ -68,6 +68,7 @@ const NAV_GROUPS = [
       { id: 'login',        label: 'Login',         href: 'login.html',         icon: '<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>' },
       { id: 'details',      label: 'My Details',    href: 'details.html',       icon: '<circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>' },
       { id: 'onboarding',   label: 'Onboarding',   href: 'onboarding.html',   icon: '<circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>' },
+      { id: 'plan',         label: 'Plan My Future', href: 'plan.html',       icon: '<polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/>' },
     ],
   },
   {

@@ -1,0 +1,204 @@
+/* ─── PLAN CHARTS — HIGHCHARTS 13 STYLED MODE ────────────────
+   Highcharts runs with styledMode: true, so it outputs class
+   names only. This partial maps Aurelius tokens onto the
+   --highcharts-* variables from highcharts.css and styles the
+   plan's series. Dark/light follows the site toggle; forced
+   colours get system colours.
+
+   Series palette (asset classes) — non-text graphics, each at
+   3:1 or better against the card surface in both modes.
+   ─────────────────────────────────────────────────────────── */
+
+:root {
+  --plan-series-0: var(--gold-text);                      /* Global equity        */
+  --plan-series-1: light-dark(#2f6fd0, #60a5fa);          /* US equity            */
+  --plan-series-2: light-dark(#7c3aed, #a78bfa);          /* US technology        */
+  --plan-series-3: light-dark(#c0397a, #f472b6);          /* Emerging markets     */
+  --plan-series-4: light-dark(#8a6a00, #facc15);          /* Gold                 */
+  --plan-series-5: light-dark(#0f7f74, #2dd4bf);          /* UK government bonds  */
+  --plan-series-6: light-dark(#5b6472, #9ca3af);          /* Cash                 */
+  --plan-series-7: light-dark(#6b7280, #6b7280);          /* Other                */
+}
+
+/* Swatches used in legends and holdings rows */
+.plan-line-swatch { block-size: 10px; border-radius: 3px; inline-size: 10px; background: var(--plan-slot); }
+.plan-slot-0 { --plan-slot: var(--plan-series-0); }
+.plan-slot-1 { --plan-slot: var(--plan-series-1); }
+.plan-slot-2 { --plan-slot: var(--plan-series-2); }
+.plan-slot-3 { --plan-slot: var(--plan-series-3); }
+.plan-slot-4 { --plan-slot: var(--plan-series-4); }
+.plan-slot-5 { --plan-slot: var(--plan-series-5); }
+.plan-slot-6 { --plan-slot: var(--plan-series-6); }
+.plan-slot-7 { --plan-slot: var(--plan-series-7); }
+
+/* ── Token bridge ───────────────────────────────────────── */
+.plan-chart {
+  --highcharts-background-color: transparent;
+  --highcharts-neutral-color-100: var(--text-1);
+  --highcharts-neutral-color-80:  var(--text-2);
+  --highcharts-neutral-color-60:  var(--text-3);
+  --highcharts-neutral-color-40:  var(--text-3);
+  --highcharts-neutral-color-20:  var(--border-input);
+  --highcharts-neutral-color-10:  var(--divider);
+  --highcharts-neutral-color-5:   var(--divider);
+  --highcharts-neutral-color-3:   var(--bg-card);
+  --highcharts-color-0: var(--plan-series-0);
+  --highcharts-color-1: var(--plan-series-1);
+  --highcharts-color-2: var(--plan-series-2);
+  --highcharts-color-3: var(--plan-series-3);
+  --highcharts-color-4: var(--plan-series-4);
+  --highcharts-color-5: var(--plan-series-5);
+  --highcharts-color-6: var(--plan-series-6);
+  --highcharts-color-7: var(--plan-series-7);
+  --highcharts-color-8: var(--gold-text);                 /* likely range */
+  --highcharts-color-9: var(--text-3);                    /* today's portfolio */
+
+  inline-size: 100%;
+}
+
+/* Highcharts 13 sets color-scheme: light dark on its container,
+   which would make light-dark() follow the OS, not the site
+   toggle. Inherit the page's scheme instead.                   */
+.plan-chart .highcharts-container {
+  color-scheme: inherit;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+}
+
+.plan-chart--projection { block-size: 260px; }
+.plan-chart--donut { block-size: 180px; flex: none; inline-size: 180px; }
+
+@container plan (max-width: 360px) {
+  .plan-chart--donut { inline-size: 100%; }
+}
+
+/* ── Axes, grid, legend ─────────────────────────────────── */
+.plan-chart .highcharts-axis-labels text {
+  fill: var(--text-3);
+  font-size: 11px;
+}
+
+.plan-chart .highcharts-grid-line { stroke: var(--divider); }
+.plan-chart .highcharts-axis-line,
+.plan-chart .highcharts-tick { stroke: var(--border-input); }
+.plan-chart .highcharts-crosshair { stroke: var(--border-input); stroke-width: 1; }
+
+.plan-chart .highcharts-legend-item text {
+  fill: var(--text-2);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.plan-chart .highcharts-legend-item:hover text { fill: var(--text-1); }
+.plan-chart .highcharts-legend-item-hidden text { fill: var(--text-3); text-decoration: line-through; }
+
+/* ── Projection series ──────────────────────────────────── */
+.plan-chart .plan-series-plan .highcharts-graph {
+  stroke: var(--gold-text);
+  stroke-linecap: round;
+  stroke-width: 2.5;
+}
+
+.plan-chart .plan-series-baseline .highcharts-graph {
+  stroke: var(--text-3);
+  stroke-dasharray: 5 5;
+  stroke-width: 1.5;
+}
+
+.plan-chart .plan-series-range .highcharts-area {
+  fill: var(--gold-text);
+  fill-opacity: 0.14;
+}
+
+.plan-chart .plan-series-range .highcharts-graph { stroke: none; }
+
+/* Legend symbols mirror the series */
+.plan-chart .highcharts-legend-item.plan-series-baseline .highcharts-graph { stroke-dasharray: 4 3; }
+.plan-chart .highcharts-legend-item.plan-series-range .highcharts-point { fill-opacity: 0.35; }
+
+/* ── Donut ──────────────────────────────────────────────── */
+.plan-chart .highcharts-pie-series .highcharts-point {
+  stroke: var(--bg-card);
+  stroke-width: 2;
+  transition: fill-opacity 0.2s;
+}
+
+.plan-chart .highcharts-pie-series .highcharts-point-hover { fill-opacity: 0.85; }
+
+/* ── Tooltip (useHTML content) ──────────────────────────── */
+.plan-chart .highcharts-tooltip-box {
+  fill: var(--bg-card);
+  fill-opacity: 0.96;
+  stroke: var(--border-input);
+}
+
+.plan-chart .highcharts-tooltip,
+.plan-chart .highcharts-tooltip text { fill: var(--text-1); }
+
+.plan-tt-date {
+  color: var(--text-3);
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  margin-block-end: 4px;
+}
+
+.plan-tt-row {
+  color: var(--text-1);
+  display: flex;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  gap: 12px;
+  justify-content: space-between;
+  line-height: 1.6;
+}
+
+.plan-tt-key {
+  align-items: center;
+  color: var(--text-2);
+  display: inline-flex;
+  font-weight: 500;
+  gap: 6px;
+}
+
+.plan-tt-key::before {
+  background: currentColor;
+  block-size: 8px;
+  border-radius: 2px;
+  content: "";
+  inline-size: 8px;
+}
+
+.plan-tt-key.highcharts-color-0::before { background: var(--gold-text); }
+.plan-tt-key.highcharts-color-8::before { background: oklch(from var(--gold) l c h / 0.35); }
+.plan-tt-key.highcharts-color-9::before { background: var(--text-3); }
+
+/* Keyboard focus from the accessibility module */
+.plan-chart .highcharts-a11y-focus-indicator,
+.plan-chart .highcharts-focus-border { stroke: var(--gold-text); stroke-width: 2; }
+
+/* ── Forced colours ─────────────────────────────────────── */
+@media (forced-colors: active) {
+  .plan-chart { forced-color-adjust: none; }
+
+  .plan-chart .highcharts-axis-labels text,
+  .plan-chart .highcharts-legend-item text { fill: CanvasText; }
+  .plan-chart .highcharts-grid-line { stroke: GrayText; }
+
+  .plan-chart .plan-series-plan .highcharts-graph { stroke: Highlight; stroke-width: 3; }
+  .plan-chart .plan-series-baseline .highcharts-graph { stroke: CanvasText; }
+  .plan-chart .plan-series-range .highcharts-area { fill: Highlight; fill-opacity: 0.25; }
+
+  .plan-chart .highcharts-pie-series .highcharts-point { stroke: Canvas; }
+  .plan-chart .highcharts-color-0 { fill: Highlight; }
+  .plan-chart .highcharts-color-1 { fill: LinkText; }
+  .plan-chart .highcharts-color-2 { fill: VisitedText; }
+  .plan-chart .highcharts-color-3 { fill: ButtonText; }
+  .plan-chart .highcharts-color-4 { fill: Mark; }
+  .plan-chart .highcharts-color-5 { fill: ActiveText; }
+  .plan-chart .highcharts-color-6 { fill: GrayText; }
+
+  .plan-chart .highcharts-tooltip-box { fill: Canvas; stroke: CanvasText; }
+  .plan-tt-row, .plan-tt-key, .plan-tt-date { color: CanvasText; }
+}
