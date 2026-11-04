@@ -258,11 +258,13 @@ export const STEPS = {
   /* ── Review and decide ──────────────────────────────────── */
   review: {
     chip: 'Review and invest',
-    match: /\b(review|invest now|go ahead|ready|make it happen)\b/i,
+    match: /\b(review|invest now|go ahead|ready|make it happen|make (this|the) investment|place (the |these |my )?orders?|confirm|submit)\b/i,
     quiet: true,
     repeatable: true,
     run: c => {
       if (!c.orderCount()) return [{ html: 'There’s nothing to place yet: the plan matches your portfolio today. Add a fund or change an amount first.' }];
+      /* Jumping here early: the new money still needs an account */
+      if (c.needsAccount()) return [{ html: 'Nearly there. First, choose where the new money goes.' }, accountQuestion(c)];
       if (!c.checked()) return [{ html: 'Before the review, three quick questions. They help show whether this plan fits your situation.', check: true }];
       return [{ html: 'Here’s everything this plan would do, what it costs, and how it uses your allowances. Nothing happens until you place the orders.', review: true }];
     },
@@ -291,7 +293,7 @@ export const STEPS = {
 
   confirm: {
     chip: 'Place these orders',
-    match: /\b(confirm|place (the |these |my )?orders?|submit)\b/i,
+    match: /^$/,                 /* only the review's button, after both ticks */
     slots: ['decide'],
     quiet: true,
     status: 'placed',

@@ -5,10 +5,10 @@
    file only renders data and handles the conversation.
    ─────────────────────────────────────────────────────────── */
 
-import { PERIODS, DEFAULT_PERIOD, CURRENT_HOLDINGS, ACCOUNTS, TAX_YEAR } from './plan-data.js';
+import { PERIODS, DEFAULT_PERIOD, ACCOUNTS, TAX_YEAR } from './plan-data.js';
 import {
   ETFS, createPlan, lineInfo, findLine, activeLines, addEtf, setMonthly, removeLine, restoreLine,
-  moveLump, moveAccount, project, projectBaseline, allocation, totalValue, changes,
+  moveLump, moveAccount, settle, project, projectBaseline, allocation, totalValue, changes,
   taxYearUse, sippRelief, orders, orderCosts, stressTest, previewAdd, money, moneyShort, pct,
 } from './plan-model.js';
 import { STEPS, CHECKS, matchStep, markDone, nextChips, GREETING, FALLBACK } from './plan-script.js';
@@ -41,6 +41,9 @@ const els = {
   allocLegend:$('#plan-alloc-legend'),
   periodCaption: document.querySelectorAll('[data-plan-period-long]'),
   allow:      $('#plan-allow'),
+  investBars: document.querySelectorAll('[data-invest-bar]'),
+  investCount:$('[data-invest-count]'),
+  panel:      $('#plan-panel'),
 };
 
 const state = {
@@ -103,6 +106,7 @@ const ctx = {
     return state.fund && state.plan.lines.some(l => l.key === state.fund) ? state.fund : null;
   },
   orderCount: () => orders(state.plan).length,
+  needsAccount: () => state.plan.lines.some(l => l.source === 'etf' && l.status !== 'removed' && !l.account),
   checked: () => !!state.check,
   checkAnswers: () => state.check ?? {},
   stress: () => stressTest(state.plan),
@@ -121,7 +125,7 @@ function periodInfo(id = state.period) { return PERIODS.find(p => p.id === id); 
 function summary() {
   const { months, long } = periodInfo();
   const p = project(activeLines(state.plan), months);
-  const b = projectBaseline(months);
+  const b = projectBaseline(state.plan, months);
   const newMoney = activeLines(state.plan).reduce((a, l) => a + l.monthly * months, 0);
   return {
     months, periodLong: long,
@@ -154,6 +158,7 @@ function renderPanel({ animateLines = true } = {}) {
   els.status.textContent = STATUS_TEXT[state.status];
   els.status.dataset.state = state.status;
   renderAllowances();
+  renderInvestBar();
 
   /* Resolves once the rows are in the DOM, so callers can move focus */
   const paint = () => { renderLines(); renderChanges(); };
@@ -169,6 +174,24 @@ function renderPanel({ animateLines = true } = {}) {
   paint();
   return Promise.resolve();
 }
+
+/* "Make this investment": available from the moment a fund is chosen
+   until the orders are placed (a changed plan brings it back). It
+   steps aside while the latest reply already shows the review.      */
+function renderInvestBar() {
+  const count = orders(state.plan).length;
+  const reviewing = !!els.messages.querySelector('.adv-msg:last-child :is(.plan-review, .plan-check):not([data-closed])');
+  const show = state.done.has('fund') && state.status !== 'placed' && count > 0 && !reviewing;
+  els.investBars.forEach(el => { el.hidden = !show; });
+  els.investCount.textContent = `${count} order${count === 1 ? '' : 's'}`;
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('[data-invest]') || state.busy) return;
+  /* On narrow screens the plan is a drawer: close it to show the chat */
+  if (els.panel.matches(':popover-open')) els.panel.hidePopover();
+  converse('Make this investment', 'review', { focus: true });
+});
 
 function totalMonthlyNow() { return activeLines(state.plan).reduce((a, l) => a + l.monthly, 0); }
 
@@ -211,14 +234,21 @@ function slotOf(info) {
 
 function changeText(line) {
   const info = lineInfo(line);
-  if (line.status === 'removed') return `Removed ${info.short} (${money(line.lump)})`;
+  if (line.status === 'removed') {
+    if (!line.lump) return `Stopped ${money(line.held.monthly)} a month into ${info.short}`;
+    return `Removed ${info.short} (${money(line.lump)})${line.held.monthly ? `, and its ${money(line.held.monthly)} a month` : ''}`;
+  }
   if (line.status === 'added') {
     const parts = [line.lump ? money(line.lump) : null, line.monthly ? `${money(line.monthly)} a month` : null].filter(Boolean);
     const where = line.account ? ` (${ACCOUNTS[line.account].short})` : '';
     return `Added ${info.short}${where}${parts.length ? ` · ${parts.join(' + ')}` : ''}`;
   }
-  const orig = CURRENT_HOLDINGS.find(h => h.id === line.id)?.value;
-  return `${info.short}: ${money(orig)} → ${money(line.lump)}`;
+  const parts = [];
+  if (line.lump !== line.held.lump) parts.push(`${money(line.held.lump)} → ${money(line.lump)}`);
+  if (line.monthly !== line.held.monthly) {
+    parts.push(line.monthly ? `${money(line.monthly)} a month` : `stop ${money(line.held.monthly)} a month`);
+  }
+  return `${info.short}: ${parts.join(', ')}`;
 }
 
 function renderChanges() {
@@ -462,7 +492,7 @@ function readCheck(card) {
 /* Review and invest: every order, its costs, allowance use, and two
    checks before the orders can be placed (execution-only).        */
 let reviewSeq = 0;
-const ORDER_LABEL = { sell: 'Sell', buy: 'Buy', regular: 'Monthly' };
+const ORDER_LABEL = { sell: 'Sell', buy: 'Buy', regular: 'Monthly', stop: 'Stop' };
 const acctName = line => line.account ? ACCOUNTS[line.account].name : 'Account not chosen';
 
 function orderRow(o, extra = '') {
@@ -473,7 +503,7 @@ function orderRow(o, extra = '') {
         <span class="plan-order-name">${lineInfo(o.line).short}</span>
         <span class="plan-order-acct">${acctName(o.line)}${o.type === 'regular' ? ` · from ${TAX_YEAR.firstPayment}` : ''}${extra}</span>
       </span>
-      <span class="plan-order-amt">${money(o.amount)}${o.type === 'regular' ? '<span class="plan-order-per"> a month</span>' : ''}</span>
+      <span class="plan-order-amt">${money(o.amount)}${['regular', 'stop'].includes(o.type) ? '<span class="plan-order-per"> a month</span>' : ''}</span>
     </li>`;
 }
 
@@ -643,7 +673,7 @@ function retireChips(chosen) {
 /* ── Conversation ───────────────────────────────────────── */
 const wait = ms => new Promise(r => setTimeout(r, reduceMotion.matches ? 0 : ms));
 
-async function converse(text, stepId) {
+async function converse(text, stepId, { focus = false } = {}) {
   if (state.busy) return;
   state.busy = true;
   els.form.setAttribute('aria-busy', 'true');
@@ -674,13 +704,15 @@ async function converse(text, stepId) {
   /* A chip that repeats an option card in the same reply is noise */
   const offered = new Set(reply.flatMap(p => p.options?.items.map(o => o.step) ?? []));
   append(botMessage(reply, nextChips(state.done, ctx, id).filter(c => !offered.has(c))));
+  /* The receipt is drawn: what was ordered is now held */
+  if (id === 'confirm') settle(state.plan);
   renderPanel();
   if (id && !STEPS[id].quiet) announcePlan();
 
   state.busy = false;
   els.form.removeAttribute('aria-busy');
   /* Chips that held focus are gone — land somewhere predictable */
-  if (hadFocusInLog || document.activeElement === document.body) {
+  if (focus || hadFocusInLog || document.activeElement === document.body) {
     const last = '.adv-msg:last-child';
     /* A review is focused as a whole, so it's read from "Your orders" */
     const target = els.messages.querySelector(`${last} .plan-review, ${last} .plan-check input, ${last} .plan-option [data-step], ${last} .adv-chip`) || els.input;
