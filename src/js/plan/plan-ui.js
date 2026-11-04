@@ -430,6 +430,23 @@ $('#plan-new')?.addEventListener('click', () => {
   els.input.focus();
 });
 
+/* ── Chat height ────────────────────────────────────────── */
+/* CSS sizes the chat to the viewport; it only needs to know how far
+   the page scrolls before the chat sticks (i.e. the header above it). */
+const scroller = $('#plan-main');
+const chatWrap = $('.plan-chat');
+const chatRow = $('.plan-layout');   /* not sticky, so its position is the natural one */
+function measureChatOffset() {
+  const top = chatRow.getBoundingClientRect().top - scroller.getBoundingClientRect().top + scroller.scrollTop;
+  const stick = parseFloat(getComputedStyle(chatWrap).insetBlockStart) || 0;
+  const pad = parseFloat(getComputedStyle(scroller).paddingBlockStart) || 0;   /* sticky sits inside the padding */
+  chatWrap.style.setProperty('--plan-pad', `${Math.round(pad)}px`);
+  chatWrap.style.setProperty('--plan-chat-offset', `${Math.max(0, Math.round(top - stick - pad))}px`);
+}
+new ResizeObserver(measureChatOffset).observe($('.plan-main .page-header'));
+addEventListener('resize', measureChatOffset);
+measureChatOffset();
+
 /* ── Start ──────────────────────────────────────────────── */
 function greet() {
   append(botMessage(GREETING(USER.name, totalValue(state.plan)), ['start']));
