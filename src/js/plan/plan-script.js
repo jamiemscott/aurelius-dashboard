@@ -60,13 +60,22 @@ function duration(months) {
    blocks: it explains the concern and points to James.          */
 export const CHECKS = [
   { id: 'horizon', q: 'Is this money you won’t need for at least 5 years?',
-    no: 'Money needed within 5 years is often kept somewhere steadier, because a fall may not have time to recover.' },
+    no: 'Money needed within 5 years is often kept somewhere steadier, because a fall may not have time to recover.',
+    james: 'you might need some of this money within 5 years' },
   { id: 'cushion', q: 'Do you have 3 to 6 months of spending in cash elsewhere?',
-    no: 'Without a cash cushion, an emergency could mean selling investments at a bad time.' },
+    no: 'Without a cash cushion, an emergency could mean selling investments at a bad time.',
+    james: 'you don’t have a cash cushion yet' },
   { id: 'fall', q: 'Could you leave it invested through a 25% fall?',
-    no: 'If a 25% fall would be hard to live with, a more cautious approach could fit better.' },
+    no: 'If a 25% fall would be hard to live with, a more cautious approach could fit better.',
+    james: 'a 25% fall would be hard to live with' },
 ];
 import { ACCOUNTS, TAX_YEAR } from './plan-data.js';
+
+/* Times James offers for a call (the demo's "today" is Wednesday 4 November) */
+const JAMES_SLOTS = {
+  thu: { chip: 'Thursday at 10:00', when: 'Thursday 5 November at 10:00' },
+  fri: { chip: 'Friday at 14:30', when: 'Friday 6 November at 14:30' },
+};
 
 export const ROUTE = ['start', 'risk', 'fund', 'account', 'topup', 'monthly-1000', 'add-gold', 'remove-veritas', 'grow', 'review', 'decide'];
 const SLOTS = new Set(['risk', 'fund', 'account', 'decide']);
@@ -454,10 +463,12 @@ export const STEPS = {
     slots: ['decide'],
     quiet: true,
     status: 'placed',
-    run: () => [
+    run: c => [
       { tone: 'success', html: '<strong>Orders placed.</strong>', receipt: true },
       { html: `Sales and purchases go to market at the next dealing point and settle in 2 working days. Regular amounts start on ${TAX_YEAR.firstPayment}, and you can change or stop them at any time from <a href="/my-investments/">My Investments</a>.` },
-      { html: 'You chose these investments; Aurelius hasn’t recommended them. James can still review them with you at your next meeting. What would you like to do next?' },
+      { html: c.status() === 'approved'
+        ? 'James reviewed this plan before you placed it, and his notes are kept with it. What would you like to do next?'
+        : 'You chose these investments; Aurelius hasn’t recommended them. James can still review them with you at your next meeting. What would you like to do next?' },
     ],
   },
 
@@ -520,7 +531,10 @@ export const STEPS = {
     chip: 'That’s all for now',
     match: /\b(that'?s (all|it)|all for now|nothing else|done for now|no thanks)\b/i,
     info: true, quiet: true,
-    run: c => c.status() === 'placed' ? [
+    run: c => c.status() === 'approved' ? [
+      { html: 'Great. James’s approval stays with this plan, so you can place the orders whenever you’re ready: come back here, or use <strong>Make this investment</strong>.' },
+      { html: 'If you change anything first, James will need to see the update.' },
+    ] : c.status() === 'placed' ? [
       { html: 'You’re all set. Here’s what happens next:' },
       { html: `<strong>Today:</strong> your orders go to market at the next dealing point.<br><strong>In 2 working days:</strong> they settle, and you’ll get a contract note for each one by email.<br><strong>${TAX_YEAR.firstPayment}:</strong> the first regular payment${c.monthlyTotal() ? ` of ${money(c.monthlyTotal())}` : ''} is collected.` },
       { html: 'You can follow it all in <a href="/my-investments/">My Investments</a>, and come back here any time to plan something new.' },
@@ -529,6 +543,41 @@ export const STEPS = {
       { html: 'Your plan stays as you left it. Nothing is bought or sold until you, or James with your agreement, place the orders.' },
     ],
   },
+
+  /* ── Answering James ───────────────────────────────────── */
+  'james-accept': {
+    chip: 'Accept James’s change',
+    match: /^$/,                 /* only James's button */
+    status: 'approved',
+    run: c => {
+      const m = c.acceptJames();
+      return [
+        { tone: 'success', html: `Done: ${money(m.monthly)} a month into ${m.name} now goes into your <strong>ISA</strong>, as James suggested.` },
+        { html: 'He’s approved the plan, so it’s ready to place whenever you are.' },
+      ];
+    },
+  },
+
+  'james-keep': {
+    chip: 'Keep my version',
+    match: /^$/,
+    quiet: true,
+    status: 'approved',
+    run: () => [
+      { html: 'Kept as it is. James’s note stays with the plan, and he’s approved it either way, so it’s ready to place whenever you are.' },
+    ],
+  },
+
+  ...Object.fromEntries(Object.entries(JAMES_SLOTS).map(([key, slot]) => [`james-book-${key}`, {
+    chip: slot.chip,
+    match: /^$/,
+    quiet: true,
+    status: 'call',
+    run: () => [
+      { tone: 'success', html: `Booked: a 20-minute video call with James on <strong>${slot.when}</strong>.` },
+      { html: 'The invitation is on its way to your email. Your plan stays with him until then, and nothing is bought or sold before you’ve talked.' },
+    ],
+  }])),
 
   save: {
     chip: 'Save it for later',
@@ -821,6 +870,9 @@ export function matchStep(text, done) {
 export function nextChips(done, c, lastId) {
   /* After sending to James: change it, plan something else, or stop */
   if (lastId === 'send-james') return ['james-edit', 'james-new', 'james-done'];
+  /* After James's reply has been answered */
+  if (['james-accept', 'james-keep'].includes(lastId)) return ['review', 'james-done'];
+  if (lastId?.startsWith('james-book-')) return [];
   /* After placing orders: add more to what was bought, plan something else, or stop */
   if (lastId === 'confirm') return ['topup', 'james-new', 'james-done'];
   if (lastId === 'james-done') return [];
@@ -846,6 +898,49 @@ export function nextChips(done, c, lastId) {
   /* After the stress test, offer the cautious route alongside the next step */
   if (lastId === 'stress' && c.risk() !== 'cautious') return ['risk-cautious', ...route.slice(0, 1)];
   return route;
+}
+
+/* ── James's reply (scripted) ───────────────────────────── */
+/* In this demo James answers a few seconds after the plan is sent.
+   In order: concerns from the quick check get a call; new monthly
+   money going into the general account, with ISA room left, gets a
+   suggested change; otherwise he approves.                        */
+export const JAMES = { name: 'James Whitmore', role: 'Your adviser', initials: 'JW' };
+
+export function jamesReply(c) {
+  const answers = c.checkAnswers() ?? {};
+  const concerns = CHECKS.filter(q => answers[q.id] === false).map(q => q.james);
+  if (concerns.length) {
+    const said = concerns.length === 1 ? concerns[0] : `${concerns.slice(0, -1).join(', ')} and ${concerns.at(-1)}`;
+    return {
+      approved: false,
+      chips: Object.keys(JAMES_SLOTS).map(k => `james-book-${k}`),
+      parts: [
+        { html: `Thanks for sending this over. Your quick check said ${said}. That changes what I’d suggest, so I’d like a short call before you place anything: 20 minutes is plenty.` },
+        { html: 'Would either of these work?' },
+      ],
+    };
+  }
+  const move = c.jamesSuggestion();
+  if (move) {
+    return {
+      approved: true,
+      chips: ['james-accept', 'james-keep'],
+      parts: [
+        { html: 'I’ve looked through your plan, and it fits the approach you chose and the time you have. One change I’d suggest:' },
+        { tone: 'warning', html: `The ${money(move.monthly)} a month into ${move.name} goes into your general account, where income and gains can be taxed. You have ${money(move.isaLeft)} of ISA allowance left this year, so it could go into your ISA instead and grow tax free.` },
+        { html: 'Everything else I’m happy with. It’s your call either way.' },
+      ],
+    };
+  }
+  return {
+    approved: true,
+    chips: ['review', 'james-done'],
+    parts: [
+      { html: `I’ve looked through your plan and the ${c.orderCount()} order${c.orderCount() === 1 ? '' : 's'}. It fits the approach you chose and the time you have, and the costs are low.` },
+      { tone: 'success', html: 'I’m happy for you to go ahead. Place the orders whenever you’re ready, or message me if anything changes.' },
+    ],
+  };
 }
 
 export const GREETING = (name, value) => [
