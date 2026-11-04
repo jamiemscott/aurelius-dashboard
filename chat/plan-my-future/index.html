@@ -150,7 +150,7 @@
           </div>
         </section>
 
-        <section class="plan-section plan-section--proj" aria-labelledby="plan-time-title">
+        <section class="plan-section plan-section--proj plan-flippable" aria-labelledby="plan-time-title">
           <div class="plan-section-head">
             <h3 class="plan-section-title" id="plan-time-title">Over <span data-plan-period-long>5 years</span></h3>
             <fieldset class="plan-range plan-view">
@@ -179,22 +179,35 @@
           </div>
         </section>
 
-        <section class="plan-section plan-section--alloc" aria-labelledby="plan-alloc-title">
-          <h3 class="plan-section-title" id="plan-alloc-title">How it’s split</h3>
-          <div class="plan-alloc">
-            <div class="plan-chart plan-chart--donut" id="plan-alloc-chart"></div>
-            <ul class="plan-legend" id="plan-alloc-legend" aria-label="Allocation by asset class"></ul>
+        <section class="plan-section plan-section--alloc plan-flippable" aria-labelledby="plan-alloc-title">
+          <div class="plan-section-head">
+            <h3 class="plan-section-title" id="plan-alloc-title">How it’s split</h3>
+            <fieldset class="plan-range plan-view">
+              <legend class="plan-sr-only">Show the allocation as</legend>
+              <label><input type="radio" name="plan-alloc-view" value="chart" checked><span>Chart</span></label>
+              <label><input type="radio" name="plan-alloc-view" value="table"><span>Table</span></label>
+            </fieldset>
           </div>
-          <details class="plan-table-toggle">
-            <summary>View as a table</summary>
-            <div class="table-wrap">
-              <table class="plan-table" id="plan-alloc-table">
-                <caption class="plan-sr-only">Allocation by asset class</caption>
-                <thead><tr><th scope="col">Asset class</th><th scope="col">Value</th><th scope="col">Share</th></tr></thead>
-                <tbody></tbody>
-              </table>
+
+          <div class="plan-flip">
+            <div class="plan-flip-inner">
+              <div class="card plan-flip-face plan-flip-face--front">
+                <div class="plan-alloc">
+                  <div class="plan-chart plan-chart--donut" id="plan-alloc-chart"></div>
+                  <ul class="plan-legend" id="plan-alloc-legend" aria-label="Allocation by asset class"></ul>
+                </div>
+              </div>
+              <div class="card plan-flip-face plan-flip-face--back">
+                <div class="table-wrap">
+                  <table class="plan-table" id="plan-alloc-table">
+                    <caption class="plan-sr-only">Allocation by asset class</caption>
+                    <thead><tr><th scope="col">Asset class</th><th scope="col">Value</th><th scope="col">Share</th></tr></thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </div>
             </div>
-          </details>
+          </div>
         </section>
 
         <section class="plan-section plan-section--wide" aria-labelledby="plan-lines-title">

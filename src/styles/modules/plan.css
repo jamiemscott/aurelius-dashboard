@@ -124,6 +124,11 @@ html:has(.theme-checkbox:checked) .plan-panel {
   .plan-panel-body .plan-kpis { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-block-end: 0; }
   .plan-panel-body .plan-chart--projection { block-size: 340px; }
 
+  /* The two flip cards share a row: stretch both so their
+     bottoms line up, whichever is taller                    */
+  .plan-panel-body > .plan-flippable { display: flex; flex-direction: column; }
+  .plan-panel-body > .plan-flippable > .plan-flip { display: grid; flex: 1; }
+
   /* Doughnut above its legend in the narrow third */
   .plan-panel-body .plan-alloc { align-items: stretch; flex-direction: column; }
   .plan-panel-body .plan-chart--donut { inline-size: 100%; }
@@ -138,7 +143,8 @@ html:has(.theme-checkbox:checked) .plan-panel {
 /* ── Chart ⇄ table flip card ────────────────────────────────
    Both faces share one grid cell, so the card is as tall as
    the taller face and nothing jumps. The Chart/Table radios
-   turn it over with :has() — no JS. Each face's visibility
+   inside the same .plan-flippable section turn it over with
+   :has() — no JS. Used by the projection and the allocation. Each face's visibility
    swaps at the half-turn, so only the face showing can take
    focus or be read by a screen reader.                       */
 .plan-flip { perspective: 1800px; }
@@ -164,7 +170,7 @@ html:has(.theme-checkbox:checked) .plan-panel {
 
 .plan-flip-face--back .plan-table { margin-block-start: 0; }
 
-.plan-section--proj:has(.plan-view input[value="table"]:checked) {
+.plan-flippable:has(.plan-view input[value="table"]:checked) {
   .plan-flip-inner { rotate: y 180deg; }
   .plan-flip-face--front { visibility: hidden; }
   .plan-flip-face--back  { visibility: visible; }
@@ -538,13 +544,11 @@ html:has(.theme-checkbox:checked) .plan-panel {
 .plan-changes li[data-status="removed"]::before { background: var(--red); }
 
 /* ── Disclosures (tables, assumptions) ──────────────────── */
-.plan-table-toggle,
 .plan-assumptions {
   font-size: var(--fs-md);
   margin-block-start: 10px;
 }
 
-.plan-table-toggle summary,
 .plan-assumptions summary {
   border-radius: 6px;
   color: var(--gold-text);
@@ -555,7 +559,6 @@ html:has(.theme-checkbox:checked) .plan-panel {
   padding: 4px 2px;
 }
 
-.plan-table-toggle summary:focus-visible,
 .plan-assumptions summary:focus-visible { outline: 2px solid var(--gold-text); outline-offset: 2px; }
 
 .plan-assumptions {
@@ -578,14 +581,12 @@ html:has(.theme-checkbox:checked) .plan-panel {
 @supports (interpolate-size: allow-keywords) {
   .plan-panel { interpolate-size: allow-keywords; }
 
-  .plan-table-toggle::details-content,
   .plan-assumptions::details-content {
     block-size: 0;
     overflow: clip;
     transition: block-size 0.3s ease, content-visibility 0.3s allow-discrete;
   }
 
-  .plan-table-toggle[open]::details-content,
   .plan-assumptions[open]::details-content { block-size: auto; }
 }
 
@@ -695,7 +696,6 @@ html:has(.theme-checkbox:checked) .plan-panel {
   .plan-status,
   .plan-kpis .kpi-value { transition: none; }
 
-  .plan-table-toggle::details-content,
   .plan-assumptions::details-content { transition: none; }
 
   .plan-flip-inner,

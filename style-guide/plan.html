@@ -81,10 +81,10 @@
     <section class="sg-section" id="flip-card">
       <div class="sg-section-header">
         <h2 class="sg-section-title">Chart ⇄ table flip card</h2>
-        <p class="sg-section-desc">The projection shows as a chart or a table on the two faces of one card. A Chart/Table radio pair (styled like the period pills) turns <code>.plan-flip-inner</code> over with <code>:has()</code> and a 3D <code>rotate</code>, with no script. Both faces share one grid cell, so the card keeps the height of the taller face and nothing below it jumps. Each face’s <code>visibility</code> swaps at the half-turn, so the hidden face can’t take focus or be read. Reduced motion swaps the faces instantly; forced-colours mode gives each face a system border.</p>
+        <p class="sg-section-desc">The projection and the allocation each show as a chart or a table on the two faces of one card. A Chart/Table radio pair (styled like the period pills) inside a <code>.plan-flippable</code> section turns its <code>.plan-flip-inner</code> over with <code>:has()</code> and a 3D <code>rotate</code>, with no script. Both faces share one grid cell, so the card keeps the height of the taller face and nothing below it jumps. Each face’s <code>visibility</code> swaps at the half-turn, so the hidden face can’t take focus or be read. Reduced motion swaps the faces instantly; forced-colours mode gives each face a system border.</p>
       </div>
       <div class="sg-demo">
-        <div class="plan-section--proj" style="inline-size:min(100%,520px)">
+        <div class="plan-flippable" style="inline-size:min(100%,520px)">
           <fieldset class="plan-range plan-view" style="margin-block-end:12px">
             <legend class="plan-sr-only">Show the projection as</legend>
             <label><input type="radio" name="sg-view" value="chart" checked><span>Chart</span></label>
@@ -115,7 +115,7 @@
       </div>
       <div class="sg-code">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
-        <pre><code class="language-html">&lt;section class="plan-section plan-section--proj"&gt;
+        <pre><code class="language-html">&lt;section class="plan-section plan-flippable"&gt;
   &lt;fieldset class="plan-range plan-view"&gt;
     &lt;legend class="plan-sr-only"&gt;Show the projection as&lt;/legend&gt;
     &lt;label&gt;&lt;input type="radio" name="plan-view" value="chart" checked&gt;&lt;span&gt;Chart&lt;/span&gt;&lt;/label&gt;
@@ -225,7 +225,7 @@
         <ul class="plan-changes">
           <li>The conversation is a <code>role="log"</code>. Only finished replies are added to it, and the typing indicator is <code>aria-hidden</code>.</li>
           <li>Each change to the plan is announced once in a separate polite status region, outside the drawer so it’s heard even when the drawer is closed.</li>
-          <li>The Highcharts accessibility module gives the charts keyboard navigation and screen-reader descriptions. The projection card turns over to a table with the Chart/Table radios, and the allocation chart has a “View as a table” disclosure (<code>details</code>). Only the face showing is visible to keyboards and screen readers.</li>
+          <li>The Highcharts accessibility module gives the charts keyboard navigation and screen-reader descriptions. Both the projection and allocation cards turn over to a table with their Chart/Table radios. Only the face showing is visible to keyboards and screen readers.</li>
           <li>Chips and buttons that held focus are replaced after each reply, so focus moves to the newest chip, or the message box if there isn’t one.</li>
           <li>Reduced motion removes the typing delay and turns off message, row, drawer and disclosure animations, and chart animation.</li>
         </ul>
