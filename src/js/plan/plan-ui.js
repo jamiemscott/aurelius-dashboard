@@ -11,7 +11,7 @@ import {
   moveLump, moveAccount, addLump, settle, planFromHeld, fundOverlap, project, projectBaseline, allocation, totalValue, changes,
   taxYearUse, sippRelief, orders, orderCosts, stressTest, previewAdd, money, moneyShort, pct,
 } from './plan-model.js';
-import { STEPS, CHECKS, matchStep, markDone, nextChips, GREETING, FALLBACK } from './plan-script.js';
+import { STEPS, CHECKS, JAMES, jamesReply, matchStep, markDone, nextChips, GREETING, FALLBACK } from './plan-script.js';
 import {
   createProjectionChart, updateProjectionChart, createAllocationChart, updateAllocationChart, setProjectionPreview,
 } from './plan-charts.js';
@@ -63,7 +63,7 @@ const state = {
   nextTarget: null,  /* set by a holding's "Add more" button */
 };
 
-const STATUS_TEXT = { draft: 'Draft', saved: 'Saved', placed: 'Orders placed', adviser: 'With your adviser', changed: 'Changed since sent' };
+const STATUS_TEXT = { draft: 'Draft', saved: 'Saved', placed: 'Orders placed', adviser: 'With your adviser', changed: 'Changed since sent', approved: 'Approved by James', call: 'Call with James booked' };
 
 /* A changed plan is a new draft, or, once sent to James, "changed since sent" */
 function markChanged() {
@@ -120,6 +120,20 @@ const ctx = {
   /* Returns true when James already had a version of this plan */
   sendToJames: () => { const update = state.sent; state.sent = true; return update; },
   concerns: () => CHECKS.some(c => state.check?.[c.id] === false),
+  /* New monthly money in the general account that would fit in the ISA */
+  jamesSuggestion: () => {
+    const line = state.plan.lines.find(l => l.source === 'etf' && l.status !== 'removed' && l.account === 'GIA'
+      && l.monthly > 0 && !l.held.lump && !l.held.monthly);
+    if (!line) return null;
+    const isaLeft = taxYearUse(state.plan).isa.left;
+    if (line.lump + line.monthly * TAX_YEAR.paymentsLeft > isaLeft) return null;
+    return { key: line.key, monthly: line.monthly, name: lineInfo(line).short, isaLeft };
+  },
+  acceptJames: () => {
+    const move = ctx.jamesSuggestion();
+    moveAccount(state.plan, move.key, 'ISA');
+    return move;
+  },
   status: () => state.status,
   monthlyTotal: () => totalMonthlyNow(),
   /* Keep the plan with James; start a new one from what's held */
@@ -220,10 +234,12 @@ function renderPanel({ animateLines = true } = {}) {
 function renderInvestBar() {
   const count = orders(state.plan).length;
   const reviewing = !!els.messages.querySelector('.adv-msg:last-child :is(.plan-review, .plan-check):not([data-closed])');
-  const show = state.plan.lines.some(l => l.source === 'etf') && state.status !== 'placed' && count > 0 && !reviewing;
+  const show = state.plan.lines.some(l => l.source === 'etf') && !['placed', 'call'].includes(state.status) && count > 0 && !reviewing;
   els.investBars.forEach(el => { el.hidden = !show; });
   const changed = state.status === 'changed';
-  els.investCount.textContent = changed ? 'Changed since you sent it' : `${count} order${count === 1 ? '' : 's'} ready`;
+  els.investCount.textContent = changed ? 'Changed since you sent it'
+    : state.status === 'approved' ? `Approved by James · ${count} order${count === 1 ? '' : 's'}`
+    : `${count} order${count === 1 ? '' : 's'} ready`;
   /* One action at a time: once the plan has changed since it was sent,
      the next step is sending James the update (typing "make this
      investment" still opens the review)                            */
@@ -597,9 +613,11 @@ function reviewCard() {
       <p class="plan-review-hint" id="plan-review-hint-${n}" aria-live="polite">${unchosen ? 'Choose an account for the new money first.' : 'Tick both boxes to place the orders.'}</p>
       <div class="plan-review-actions">
         <button type="button" class="btn-primary" data-step="confirm" aria-disabled="true" aria-describedby="plan-review-hint-${n}"${unchosen ? ' data-blocked' : ''}>Place these orders</button>
-        <button type="button" class="btn-secondary" data-step="send-james">Send to James first</button>
+        ${state.status === 'approved' ? '' : '<button type="button" class="btn-secondary" data-step="send-james">Send to James first</button>'}
       </div>
-      <p class="plan-review-note">You’re choosing these investments yourself. Aurelius explains the options but hasn’t recommended them, and can’t say whether they suit you. James can.</p>
+      <p class="plan-review-note">${state.status === 'approved'
+        ? 'James has reviewed this plan and is happy for you to go ahead.'
+        : 'You’re choosing these investments yourself. Aurelius explains the options but hasn’t recommended them, and can’t say whether they suit you. James can.'}</p>
     </section>`;
 }
 
@@ -630,9 +648,11 @@ els.messages.addEventListener('change', e => {
   if (ready) review.querySelector('.plan-review-hint').textContent = 'Ready to place.';
 });
 
-function botMessage(parts, chipIds = []) {
+const AURELIUS = { name: 'Aurelius', initials: 'A' };
+
+function botMessage(parts, chipIds = [], who = AURELIUS) {
   const msg = document.createElement('div');
-  msg.className = 'adv-msg adv-msg--bot';
+  msg.className = `adv-msg adv-msg--bot${who === JAMES ? ' plan-msg--james' : ''}`;
   const bubbles = parts.map(p => `
     <div class="adv-bubble-inner${p.tone ? ` adv-bubble-inner--${p.tone}` : ''}">
       <p class="adv-text">${p.html}</p>
@@ -648,9 +668,9 @@ function botMessage(parts, chipIds = []) {
       ${chipIds.map(id => `<button type="button" class="adv-chip" data-step="${id}">${STEPS[id].chip}</button>`).join('')}
     </div>` : '';
   msg.innerHTML = `
-    <div class="adv-avatar adv-avatar--bot" aria-hidden="true">A</div>
+    <div class="adv-avatar adv-avatar--bot" aria-hidden="true">${who.initials}</div>
     <div class="adv-bubble">
-      <p class="adv-sender">Aurelius</p>
+      <p class="adv-sender">${who.name}${who.role ? ` <span class="plan-sender-role">· ${who.role}</span>` : ''}</p>
       ${bubbles}
       ${chips}
       <time class="adv-time" datetime="${isoNow()}">${timeNow()}</time>
@@ -672,12 +692,12 @@ function userMessage(text) {
   return msg;
 }
 
-function typingIndicator() {
+function typingIndicator(who = AURELIUS) {
   const msg = document.createElement('div');
-  msg.className = 'adv-msg adv-msg--bot plan-typing';
+  msg.className = `adv-msg adv-msg--bot plan-typing${who === JAMES ? ' plan-msg--james' : ''}`;
   msg.setAttribute('aria-hidden', 'true');
   msg.innerHTML = `
-    <div class="adv-avatar adv-avatar--bot">A</div>
+    <div class="adv-avatar adv-avatar--bot">${who.initials}</div>
     <div class="adv-bubble"><div class="adv-bubble-inner"><span class="adv-dots"><span></span><span></span><span></span></span></div></div>`;
   return msg;
 }
@@ -768,6 +788,7 @@ async function converse(text, stepId, { focus = false } = {}) {
   append(botMessage(reply, nextChips(state.done, ctx, id).filter(c => !offered.has(c))));
   /* The receipt is drawn: what was ordered is now held */
   if (id === 'confirm') settle(state.plan);
+  if (id === 'send-james') awaitJames();
   renderPanel();
   if (id && !STEPS[id].quiet) announcePlan();
 
@@ -779,6 +800,45 @@ async function converse(text, stepId, { focus = false } = {}) {
     /* A review is focused as a whole, so it's read from "Your orders" */
     const target = els.messages.querySelector(`${last} .plan-review, ${last} .plan-check input, ${last} .plan-option [data-step], ${last} .adv-chip`) || els.input;
     target.focus({ preventScroll: true });
+  }
+}
+
+/* ── James's reply ──────────────────────────────────────── */
+/* Scripted for the demo: a few seconds after the plan is sent. It's
+   dropped if the plan changes or a new plan starts in the meantime,
+   and waits its turn if Aurelius is mid-reply.                     */
+let jamesTimer;
+function awaitJames() {
+  clearTimeout(jamesTimer);
+  const plan = state.plan;
+  const go = () => {
+    if (state.plan !== plan || state.status !== 'adviser') return;
+    if (state.busy) { jamesTimer = setTimeout(go, 600); return; }
+    jamesReplies();
+  };
+  jamesTimer = setTimeout(go, reduceMotion.matches ? 1500 : 4000);
+}
+
+async function jamesReplies() {
+  state.busy = true;
+  els.form.setAttribute('aria-busy', 'true');
+  const hadFocusInLog = els.messages.contains(document.activeElement);
+  const typing = typingIndicator(JAMES);
+  append(typing);
+  await wait(1400);
+  typing.remove();
+
+  const reply = jamesReply(ctx);
+  retireChips(null);
+  if (reply.approved) state.status = 'approved';
+  append(botMessage(reply.parts, reply.chips, JAMES));
+  renderPanel();
+
+  state.busy = false;
+  els.form.removeAttribute('aria-busy');
+  /* Only move focus if it was on chips that have just gone */
+  if (hadFocusInLog && !els.messages.contains(document.activeElement)) {
+    els.messages.querySelector('.adv-msg:last-child .adv-chip')?.focus({ preventScroll: true });
   }
 }
 
