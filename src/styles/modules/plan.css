@@ -971,6 +971,13 @@ html:has(.theme-checkbox:checked) .plan-panel {
 }
 [data-invest-bar][hidden] { display: none; }
 .plan-invest-bar-text { color: var(--text-1); font-size: var(--fs-sm); margin: 0; }
+.plan-invest-bar-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.plan-invest-bar-actions [hidden] { display: none; }
+.plan-status[data-state="changed"] { border-color: var(--gold-text); color: var(--gold-text); }
+/* Phones: the update button says it all, so it keeps one line */
+@container plan-chat (max-width: 420px) {
+  .plan-invest-bar:has([data-send-update]:not([hidden])) .plan-invest-bar-text { display: none; }
+}
 .plan-invest-head { margin-inline-start: auto; }
 .plan-invest-head:not([hidden]) ~ .plan-panel-close { margin-inline-start: 0; }
 /* On wide screens the chat bar is enough; the head button is for the drawer */

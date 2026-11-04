@@ -90,8 +90,11 @@
 
         <!-- Shown once a fund is chosen, until the orders are placed -->
         <div class="plan-invest-bar" hidden data-invest-bar>
-          <p class="plan-invest-bar-text"><span data-invest-count>0</span> ready</p>
-          <button type="button" class="btn-primary btn-sm" data-invest>Make this investment</button>
+          <p class="plan-invest-bar-text" data-invest-count>0 orders ready</p>
+          <span class="plan-invest-bar-actions">
+            <button type="button" class="btn-primary btn-sm" hidden data-send-update>Send the update to James</button>
+            <button type="button" class="btn-primary btn-sm" data-invest>Make this investment</button>
+          </span>
         </div>
 
         <details class="plan-ask" id="plan-ask">
