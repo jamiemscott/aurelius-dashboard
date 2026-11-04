@@ -112,6 +112,14 @@
 
 .plan-chart .plan-series-range .highcharts-graph { stroke: none; }
 
+/* Preview of an option being considered: dashed, so it reads as "not yet" */
+.plan-chart .plan-series-preview .highcharts-graph {
+  stroke: var(--text-1);
+  stroke-dasharray: 6 4;
+  stroke-width: 2;
+}
+.plan-chart .highcharts-legend-item.plan-series-preview .highcharts-graph { stroke: var(--text-1); stroke-dasharray: 6 4; }
+
 /* Legend symbols mirror the series */
 .plan-chart .highcharts-legend-item.plan-series-baseline .highcharts-graph { stroke-dasharray: 4 3; }
 .plan-chart .highcharts-legend-item.plan-series-range .highcharts-point { fill-opacity: 0.35; }
@@ -189,6 +197,7 @@
   .plan-chart .plan-series-plan .highcharts-graph { stroke: Highlight; stroke-width: 3; }
   .plan-chart .plan-series-baseline .highcharts-graph { stroke: CanvasText; }
   .plan-chart .plan-series-range .highcharts-area { fill: Highlight; fill-opacity: 0.25; }
+  .plan-chart .plan-series-preview .highcharts-graph { stroke: CanvasText; }
 
   .plan-chart .highcharts-pie-series .highcharts-point { stroke: Canvas; }
   .plan-chart .highcharts-color-0 { fill: Highlight; }
