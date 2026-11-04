@@ -120,6 +120,23 @@
 }
 .plan-chart .highcharts-legend-item.plan-series-preview .highcharts-graph { stroke: var(--text-1); stroke-dasharray: 6 4; }
 
+/* The goal: a quiet dashed line, and a diamond at its date */
+.plan-chart .highcharts-plot-line.plan-goal-line {
+  stroke: var(--gold-text);
+  stroke-dasharray: 2 4;
+  stroke-width: 1.5;
+}
+.plan-chart .highcharts-plot-line-label {
+  fill: var(--gold-text);
+  font-size: 11px;
+  font-weight: 600;
+}
+.plan-chart .plan-series-goal .highcharts-point {
+  fill: var(--gold-text);
+  stroke: var(--bg-card);
+  stroke-width: 2;
+}
+
 /* Legend symbols mirror the series */
 .plan-chart .highcharts-legend-item.plan-series-baseline .highcharts-graph { stroke-dasharray: 4 3; }
 .plan-chart .highcharts-legend-item.plan-series-range .highcharts-point { fill-opacity: 0.35; }

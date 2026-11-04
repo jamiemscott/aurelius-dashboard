@@ -5,13 +5,13 @@
    file only renders data and handles the conversation.
    ─────────────────────────────────────────────────────────── */
 
-import { PERIODS, DEFAULT_PERIOD, ACCOUNTS, TAX_YEAR } from './plan-data.js';
+import { PERIODS, DEFAULT_PERIOD, ACCOUNTS, TAX_YEAR, PLAN_START } from './plan-data.js';
 import {
   ETFS, createPlan, lineInfo, findLine, activeLines, addEtf, setMonthly, removeLine, restoreLine,
   moveLump, moveAccount, addLump, settle, planFromHeld, fundOverlap, project, projectBaseline, allocation, totalValue, changes,
   taxYearUse, sippRelief, orders, orderCosts, stressTest, previewAdd, money, moneyShort, pct,
 } from './plan-model.js';
-import { STEPS, CHECKS, JAMES, jamesReply, matchStep, markDone, nextChips, GREETING, FALLBACK } from './plan-script.js';
+import { STEPS, CHECKS, JAMES, GOAL_STATE, goalLabel, jamesReply, matchStep, markDone, nextChips, GREETING, FALLBACK } from './plan-script.js';
 import {
   createProjectionChart, updateProjectionChart, createAllocationChart, updateAllocationChart, setProjectionPreview,
 } from './plan-charts.js';
@@ -43,6 +43,10 @@ const els = {
   allow:      $('#plan-allow'),
   investBars: document.querySelectorAll('[data-invest-bar]'),
   investCount:$('[data-invest-count]'),
+  goal:       $('[data-goal]'),
+  goalText:   $('[data-goal-text]'),
+  goalStatus: $('[data-goal-status]'),
+  goalDetail: $('[data-goal-detail]'),
   sendUpdate: $('[data-send-update]'),
   investMain: $('.plan-invest-bar [data-invest]'),
   panel:      $('#plan-panel'),
@@ -56,6 +60,7 @@ const state = {
   busy: false,
   risk: null,        /* the approach chosen in the chat */
   fund: null,        /* key of the plan line for the chosen fund */
+  goal: null,        /* { amount, year, months } */
   account: null,     /* where new money goes: ISA · SIPP · GIA */
   check: null,       /* answers to the quick check: { horizon, cushion, fall } */
   sent: false,       /* this plan has been sent to James */
@@ -166,11 +171,49 @@ const ctx = {
   reset: () => {
     state.plan = createPlan(); state.done.clear(); state.status = 'draft';
     state.risk = null; state.fund = null; state.account = null; state.check = null;
-    state.target = null; state.nextTarget = null; state.sent = false;
+    state.target = null; state.nextTarget = null; state.sent = false; state.goal = null;
     setPeriod(DEFAULT_PERIOD, { silent: true });
   },
   summary: () => summary(),
+  goal: () => state.goal,
+  setGoal: (amount, year) => { state.goal = { amount, year, months: (year - PLAN_START.year) * 12 }; },
+  goalStatus: () => goalStatus(),
+  /* Widen the chart to the goal's date if it's further out */
+  showGoal: () => {
+    if (!state.goal || state.goal.months <= periodInfo().months) return false;
+    setPeriod(PERIODS.find(p => p.months >= state.goal.months).id, { silent: true });
+    return true;
+  },
 };
+
+/* Where the plan stands against the goal, and the extra a month
+   into the chosen fund (or a global index fund) that would close
+   the gap on the central estimate.                               */
+function goalStatus() {
+  const g = state.goal;
+  if (!g) return null;
+  const p = project(activeLines(state.plan), g.months);
+  const central = p.central[g.months], low = p.low[g.months], high = p.high[g.months];
+  const fund = state.fund && findLine(state.plan, state.fund);
+  const e = ETFS[fund?.id ?? 'VWRP'];
+  const step = Math.pow(1 + e.expectedReturn, 1 / 12);
+  const perPound = (Math.pow(step, g.months) - 1) / (step - 1);
+  const need = central >= g.amount ? 0 : Math.ceil((g.amount - central) / perPound / 50) * 50;
+  return {
+    ...g, central, low, high, need, fundName: e.short ?? e.name,
+    state: central >= g.amount ? 'on' : high >= g.amount ? 'reach' : 'off',
+  };
+}
+
+function renderGoal() {
+  const s = goalStatus();
+  els.goal.hidden = !s;
+  if (!s) return;
+  els.goalText.textContent = goalLabel(s);
+  els.goalStatus.textContent = GOAL_STATE[s.state];
+  els.goalStatus.dataset.state = s.state;
+  els.goalDetail.textContent = `Central estimate ${moneyShort(s.central)} in ${s.year}${s.months > periodInfo().months ? ' · beyond this chart, choose All to see it' : ''}`;
+}
 
 /* ── Derived figures ────────────────────────────────────── */
 function periodInfo(id = state.period) { return PERIODS.find(p => p.id === id); }
@@ -202,7 +245,8 @@ function renderPanel({ animateLines = true } = {}) {
   els.kpiRange.textContent = `${moneyShort(s.low)} – ${moneyShort(s.high)}`;
   els.periodCaption.forEach(el => { el.textContent = s.periodLong; });
 
-  updateProjectionChart(charts.projection, s.plan, s.base, s.months);
+  updateProjectionChart(charts.projection, s.plan, s.base, s.months, state.goal && { ...state.goal, label: goalLabel(state.goal) });
+  renderGoal();
   const alloc = allocation(state.plan);
   updateAllocationChart(charts.allocation, alloc);
   renderAllocation(alloc);
@@ -409,7 +453,8 @@ function announce(text) {
 
 function announcePlan() {
   const s = summary();
-  announce(`Plan updated. In ${s.periodLong}: central estimate ${moneyShort(s.central)}, likely range ${moneyShort(s.low)} to ${moneyShort(s.high)}.`);
+  const g = goalStatus();
+  announce(`Plan updated. In ${s.periodLong}: central estimate ${moneyShort(s.central)}, likely range ${moneyShort(s.low)} to ${moneyShort(s.high)}.${g ? ` Goal ${goalLabel(g)}: ${GOAL_STATE[g.state].toLowerCase()}.` : ''}`);
 }
 
 /* ── Rendering: chat ────────────────────────────────────── */
@@ -775,7 +820,7 @@ async function converse(text, stepId, { focus = false } = {}) {
   let reply;
   if (id) {
     const step = STEPS[id];
-    reply = step.run(ctx);
+    reply = step.run(ctx, text);
     markDone(state.done, id);
     if (step.status) state.status = step.status;
     else if (!step.quiet) markChanged();
@@ -952,7 +997,7 @@ measureChatOffset();
 
 /* ── Start ──────────────────────────────────────────────── */
 function greet() {
-  append(botMessage(GREETING(USER.name, totalValue(state.plan)), ['start']));
+  append(botMessage(GREETING(USER.name, totalValue(state.plan)), ['start', 'goal']));
 }
 
 setPeriod(DEFAULT_PERIOD, { silent: true });
