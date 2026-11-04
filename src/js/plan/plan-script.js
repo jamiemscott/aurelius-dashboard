@@ -48,7 +48,7 @@ export const CHECKS = [
 ];
 import { ACCOUNTS, TAX_YEAR } from './plan-data.js';
 
-export const ROUTE = ['start', 'risk', 'fund', 'account', 'monthly-1000', 'add-gold', 'remove-veritas', 'grow', 'review', 'decide'];
+export const ROUTE = ['start', 'risk', 'fund', 'account', 'topup', 'monthly-1000', 'add-gold', 'remove-veritas', 'grow', 'review', 'decide'];
 const SLOTS = new Set(['risk', 'fund', 'account', 'decide']);
 
 const etfFacts = id => {
@@ -177,6 +177,64 @@ function accountNote(id, monthly) {
   return `Gains above ${money(TAX_YEAR.cgtAllowance)} a year and dividends above ${money(TAX_YEAR.dividendAllowance)} are taxable here. Each April you could move some into your ISA (a “Bed and ISA”).`;
 }
 
+/* ── Adding more ────────────────────────────────────────── */
+/* £5,000 at a time; in an ISA, no more than the allowance left */
+const TOPUP = 5000;
+function topupAmount(c, key) {
+  if (c.accountOf(key) !== 'ISA') return TOPUP;
+  return Math.max(0, Math.min(TOPUP, Math.floor(c.allowanceLeft('ISA') / 100) * 100));
+}
+const raisedMonthly = (c, key) => (c.monthlyOf(key) || 0) + 250;
+
+function topupOptions(c, key) {
+  const name = c.nameOf(key);
+  const account = c.accountOf(key);
+  const amount = topupAmount(c, key);
+  const capped = account === 'ISA' && amount < TOPUP;
+  const monthly = c.monthlyOf(key);
+  const up = raisedMonthly(c, key);
+  const cash = c.lumpOf('CASH');
+  const items = [];
+  if (amount >= 100) {
+    items.push({
+      step: 'topup-lump', kicker: 'One-off', title: `Add ${money(amount)} now`,
+      desc: `New money from your bank, invested in ${name} at the next dealing point.`,
+      pros: ['Invested straight away, so it has longer to grow', capped ? 'Uses the rest of this year’s ISA allowance' : 'One payment, then nothing more to do'],
+      cons: ['All bought at one day’s price', `About ${money(amount * 0.001)} in dealing costs`],
+      action: 'Add this',
+    });
+  }
+  items.push({
+    step: 'topup-monthly', kicker: 'Regular', title: `Raise to ${money(up)} a month`,
+    desc: monthly ? `Up from ${money(monthly)} a month, from ${TAX_YEAR.firstPayment}.` : `A new monthly amount, from ${TAX_YEAR.firstPayment}.`,
+    pros: ['Spreads the price you pay over time', 'Lower dealing costs than one-off buys'],
+    cons: ['Takes longer to put the money to work', account === 'ISA' ? `Uses ${money(250 * TAX_YEAR.paymentsLeft)} more ISA allowance before ${TAX_YEAR.ends}` : 'A bigger regular commitment'],
+    action: 'Raise it',
+  });
+  if (amount >= 100 && cash - amount >= 10000) {
+    const moving = account && account !== 'GIA';
+    items.push({
+      step: 'topup-cash', kicker: 'From cash', title: `Use ${money(amount)} of your cash`,
+      desc: `Cash already in your general account${moving ? `, moved into your ${ACCOUNTS[account].short}` : ''}.`,
+      pros: ['No new money needed', 'Puts cash that earns little to work'],
+      cons: [`Leaves ${money(cash - amount)} in cash for emergencies`, moving && account === 'ISA' ? 'Counts towards your ISA allowance' : 'Falls with markets, where cash wouldn’t'],
+      action: 'Use cash',
+    });
+  }
+  return items;
+}
+
+function topupReply(c, key, before, done, monthly = false) {
+  const s = c.summary();
+  const extra = monthly && c.accountOf(key) === 'SIPP'
+    ? ` With tax relief, that’s ${money(sippRelief(c.monthlyOf(key)).gross)} a month going into your pension.`
+    : '';
+  return [
+    { tone: 'success', html: done },
+    { html: `That adds about <strong>${moneyShort(s.central - before)}</strong> to the central estimate over ${s.periodLong}.${extra}` },
+  ];
+}
+
 /* ── Steps ──────────────────────────────────────────────── */
 export const STEPS = {
   start: {
@@ -205,6 +263,63 @@ export const STEPS = {
         { tone: 'success', html: `Your monthly amount into <strong>${c.nameOf(key)}</strong> is now <strong>${money(1000)}</strong>.${extra}` },
         { html: `That adds about <strong>${moneyShort(s.central - before)}</strong> to the central estimate over ${s.periodLong}. Regular amounts also smooth out the price you pay over time.` },
       ];
+    },
+  },
+
+  /* ── Adding more to a holding ───────────────────────────── */
+  topup: {
+    chip: 'Add more to my fund',
+    match: /\b(add more|top[- ]?up|put more|invest more|buy more|more (in|into|to) (it|this|my|the))\b/i,
+    quiet: true,
+    repeatable: true,
+    run: c => {
+      const key = c.takeTarget();
+      if (!key) return [{ html: 'Once a fund is in your plan, you can add more to it here: a one-off amount, a bigger monthly amount, or some of your cash. Shall we start with how much risk feels right?' }];
+      const items = topupOptions(c, key);
+      const ways = ['', 'One way', 'Two ways', 'Three ways'][items.length];
+      return [{
+        html: `${ways} to add more to <strong>${c.nameOf(key)}</strong>${c.accountOf(key) ? ` in your ${ACCOUNTS[c.accountOf(key)].name}` : ''}:`,
+        options: { label: `Ways to add more to ${c.nameOf(key)}`, items },
+      }];
+    },
+  },
+
+  'topup-lump': {
+    chip: 'Add a one-off amount',
+    match: /^$/,                 /* chosen from the option cards */
+    repeatable: true,
+    run: c => {
+      const key = c.target();
+      const amount = topupAmount(c, key);
+      const before = c.summary().central;
+      c.addLump(key, amount);
+      return topupReply(c, key, before, `Added <strong>${money(amount)}</strong> of new money to <strong>${c.nameOf(key)}</strong>.`);
+    },
+  },
+
+  'topup-monthly': {
+    chip: 'Raise the monthly amount',
+    match: /^$/,
+    repeatable: true,
+    run: c => {
+      const key = c.target();
+      const up = raisedMonthly(c, key);
+      const before = c.summary().central;
+      c.setMonthly(key, up);
+      return topupReply(c, key, before, `Your monthly amount into <strong>${c.nameOf(key)}</strong> is now <strong>${money(up)}</strong>.`, true);
+    },
+  },
+
+  'topup-cash': {
+    chip: 'Use some of my cash',
+    match: /^$/,
+    repeatable: true,
+    run: c => {
+      const key = c.target();
+      const amount = topupAmount(c, key);
+      const before = c.summary().central;
+      c.moveLump('CASH', key, amount);
+      return topupReply(c, key, before, `Moved <strong>${money(amount)}</strong> from your cash into <strong>${c.nameOf(key)}</strong>. You have ${money(c.lumpOf('CASH'))} left in cash.`);
     },
   },
 
@@ -530,7 +645,7 @@ const MATCH_ORDER = [
   'account-ISA', 'account-SIPP', 'account-GIA',
   'topic-gia', 'topic-sipp', 'topic-isa',
   'stress', 'topic-crypto', 'topic-property', 'topic-shares', 'topic-timing', 'topic-cash', 'topic-costs',
-  'review', 'remove-veritas', 'monthly-1000',
+  'review', 'topup', 'remove-veritas', 'monthly-1000',
   'risk-cautious', 'risk-balanced', 'risk-adventurous',
   'add-gold', 'pick-VUAG', 'pick-EQQQ', 'pick-IGLT', 'pick-SGLN', 'pick-VWRP',
   'grow', 'save', 'start',
@@ -581,7 +696,7 @@ export const GREETING = (name, value) => [
 ];
 
 export const FALLBACK = [
-  { html: 'I can model a few things in this demo: a more cautious or more adventurous approach, adding a fund, choosing an ISA, pension or general account, changing what you invest each month, or removing a holding. I can also answer questions about costs, market falls, cash, property, shares and crypto: try <strong>Ask about</strong> below. Or one of these:' },
+  { html: 'I can model a few things in this demo: a more cautious or more adventurous approach, adding a fund, choosing an ISA, pension or general account, changing what you invest each month, adding more to a holding, or removing one. I can also answer questions about costs, market falls, cash, property, shares and crypto: try <strong>Ask about</strong> below. Or one of these:' },
 ];
 
 function dayPart() {

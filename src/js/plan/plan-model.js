@@ -140,6 +140,13 @@ export function restoreLine(plan, key) {
   return line;
 }
 
+/* New money from the bank into a line (a one-off top-up) */
+export function addLump(plan, key, amount) {
+  const line = findLine(plan, key);
+  if (line) line.lump += amount;
+  return line;
+}
+
 /* Move money between lines (e.g. cash → gold, Veritas → tracker) */
 export function moveLump(plan, fromKey, toKey, amount) {
   const from = findLine(plan, fromKey);
@@ -154,12 +161,14 @@ export function moveLump(plan, fromKey, toKey, amount) {
    an added ETF line count as new subscriptions; SIPP figures are gross. */
 export function taxYearUse(plan) {
   /* Amounts already placed count as used; the rest is this plan */
-  const added = activeLines(plan).filter(l => l.source === 'etf');
-  const inYear = ({ lump, monthly }) => lump + monthly * TAX_YEAR.paymentsLeft;
+  /* Holdings from before this session were paid in in earlier years */
+  const added = activeLines(plan);
+  const before = l => (l.source === 'current' ? lineInfo(l).value : 0);
+  const inYear = ({ lump, monthly }, l) => lump - before(l) + monthly * TAX_YEAR.paymentsLeft;
   const sum = (account, f) => added.filter(l => l.account === account).reduce((a, l) => a + f(l), 0) * (account === 'SIPP' ? SIPP_RELIEF : 1);
   const use = (account, base) => {
-    const placed = sum(account, l => inYear(l.held));
-    const planned = sum(account, l => inYear(l) - inYear(l.held));
+    const placed = sum(account, l => inYear(l.held, l));
+    const planned = sum(account, l => inYear(l, l) - inYear(l.held, l));
     const used = base.used + placed;
     return { planned, used, limit: base.limit, left: base.limit - used - planned };
   };
@@ -183,7 +192,7 @@ export function orders(plan) {
   for (const l of removed) if (l.lump) out.push({ type: 'sell', line: l, amount: l.lump });
   for (const l of removed) if (l.held.monthly) out.push({ type: 'stop', line: l, amount: l.held.monthly });
   for (const l of activeLines(plan)) {
-    if (l.source === 'etf' && l.lump > l.held.lump) out.push({ type: 'buy', line: l, amount: l.lump - l.held.lump });
+    if (l.id !== 'CASH' && l.lump > l.held.lump) out.push({ type: 'buy', line: l, amount: l.lump - l.held.lump });
   }
   for (const l of activeLines(plan)) {
     if (l.monthly !== l.held.monthly) {
@@ -230,7 +239,7 @@ export function project(lines, months) {
   for (const line of lines) {
     const info = lineInfo(line);
     /* Pension contributions arrive with basic-rate relief added */
-    const monthly = line.monthly * (line.account === 'SIPP' && line.source === 'etf' ? SIPP_RELIEF : 1);
+    const monthly = line.monthly * (line.account === 'SIPP' ? SIPP_RELIEF : 1);
     const path = pathFor(line.lump, monthly, info.expectedReturn, months);
     for (let t = 0; t <= months; t++) {
       central[t] += path[t];
@@ -317,7 +326,7 @@ export function stressTest(plan, shock = 0.25) {
   const values = lines.map(l => l.lump * (1 - shock * (STRESS_SENSITIVITY[lineInfo(l).assetClass] ?? 1)));
   const after = values.reduce((a, v) => a + v, 0);
   const growth = lines.map(l => Math.pow(1 + lineInfo(l).expectedReturn, 1 / 12));
-  const monthly = lines.map(l => l.monthly * (l.account === 'SIPP' && l.source === 'etf' ? SIPP_RELIEF : 1));
+  const monthly = lines.map(l => l.monthly * (l.account === 'SIPP' ? SIPP_RELIEF : 1));
   let months = 0;
   const v = [...values];
   while (v.reduce((a, x) => a + x, 0) < before && months < 300) {
