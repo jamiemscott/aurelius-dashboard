@@ -55,6 +55,17 @@ export function createPlan() {
   };
 }
 
+/* A fresh plan from what's held, for planning something else while
+   another plan waits. reserved carries the allowance that plan uses. */
+export function planFromHeld(plan, reserved = {}) {
+  return {
+    reserved,
+    lines: plan.lines.filter(l => l.held.lump > 0 || l.held.monthly > 0).map(l => ({
+      ...l, status: 'kept', lump: l.held.lump, monthly: l.held.monthly, held: { ...l.held },
+    })),
+  };
+}
+
 /* Is any of this line already held (so removing it means selling)? */
 const isHeld = l => l.held.lump > 0 || l.held.monthly > 0;
 
@@ -173,7 +184,9 @@ export function taxYearUse(plan) {
     const placed = sum(account, l => inYear(l.held, l));
     const planned = sum(account, l => inYear(l, l) - inYear(l.held, l));
     const used = base.used + placed;
-    return { planned, used, limit: base.limit, left: base.limit - used - planned };
+    /* Set aside in another plan that's waiting for the adviser */
+    const reserved = plan.reserved?.[account] ?? 0;
+    return { planned, used, reserved, limit: base.limit, left: base.limit - used - reserved - planned };
   };
   return { isa: use('ISA', TAX_YEAR.isa), sipp: use('SIPP', TAX_YEAR.sipp) };
 }

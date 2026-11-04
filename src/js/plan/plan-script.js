@@ -457,7 +457,7 @@ export const STEPS = {
     run: () => [
       { tone: 'success', html: '<strong>Orders placed.</strong>', receipt: true },
       { html: `Sales and purchases go to market at the next dealing point and settle in 2 working days. Regular amounts start on ${TAX_YEAR.firstPayment}, and you can change or stop them at any time from <a href="/my-investments/">My Investments</a>.` },
-      { html: 'You chose these investments; Aurelius hasn’t recommended them. James can still review them with you at your next meeting.' },
+      { html: 'You chose these investments; Aurelius hasn’t recommended them. James can still review them with you at your next meeting. What would you like to do next?' },
     ],
   },
 
@@ -466,10 +466,67 @@ export const STEPS = {
     match: /\b(james|adviser|advisor|talk to someone|check with)\b/i,
     slots: ['decide'],
     quiet: true,
+    repeatable: true,
     status: 'adviser',
+    run: c => {
+      const update = c.sendToJames();
+      const n = c.orderCount();
+      return update
+        ? [
+          { tone: 'success', html: `Sent the updated plan to <strong>James</strong>, with ${n} order${n === 1 ? '' : 's'}. It replaces the version he had.` },
+          { html: 'Nothing has been bought or sold. Anything else?' },
+        ]
+        : [
+          { tone: 'success', html: 'Sent to <strong>James</strong>, with the plan and the orders it would place.' },
+          { html: 'Nothing has been bought or sold. He usually replies within 2 working days, and can check the plan suits your circumstances before anything is placed. What would you like to do next?' },
+        ];
+    },
+  },
+
+  /* ── After sending to James ─────────────────────────────── */
+  'james-edit': {
+    chip: 'Change this plan',
+    match: /\b(change (this|the|my) plan|edit (this|the|my) plan|make (some )?changes|keep working)\b/i,
+    info: true, quiet: true,
     run: () => [
-      { tone: 'success', html: 'Sent to <strong>James</strong>, with the plan and the orders it would place.' },
-      { html: 'Nothing has been bought or sold. He usually replies within 2 working days, and can check the plan suits your circumstances before anything is placed.' },
+      { html: 'Go ahead: anything you change is marked as changed since you sent it, and you can send James the update in one tap. He’ll always have the latest version.' },
+    ],
+  },
+
+  'james-new': {
+    chip: 'Plan something else',
+    match: /\b(something else|another plan|new plan|separate plan|different goal|second plan)\b/i,
+    quiet: true,
+    run: c => {
+      const placed = c.status() === 'placed';
+      const r = c.planSomethingElse();
+      if (placed) {
+        return [
+          { tone: 'success', html: `A new plan, starting from your portfolio with today’s orders included. You have ${money(r.isaLeft)} of this year’s ISA allowance left.` },
+          { html: 'How much risk feels right for this one?', options: { label: 'Approaches', items: Object.keys(RISKS).map(riskOption) } },
+        ];
+      }
+      const note = r.isa || r.sipp
+        ? ` ${[r.isa ? `${money(r.isa)} of your ISA allowance` : '', r.sipp ? `${money(r.sipp)} of your pension allowance` : ''].filter(Boolean).join(' and ')} is set aside in the plan with James, so this one has ${money(r.isaLeft)} of ISA allowance left.`
+        : '';
+      return [
+        { tone: 'success', html: `Your plan for James is kept as it is. This new plan starts from your portfolio today.${note}` },
+        { html: 'How much risk feels right for this one?', options: { label: 'Approaches', items: Object.keys(RISKS).map(riskOption) } },
+      ];
+    },
+  },
+
+  'james-done': {
+    chip: 'That’s all for now',
+    match: /\b(that'?s (all|it)|all for now|nothing else|done for now|no thanks)\b/i,
+    info: true, quiet: true,
+    run: c => c.status() === 'placed' ? [
+      { html: 'You’re all set. Here’s what happens next:' },
+      { html: `<strong>Today:</strong> your orders go to market at the next dealing point.<br><strong>In 2 working days:</strong> they settle, and you’ll get a contract note for each one by email.<br><strong>${TAX_YEAR.firstPayment}:</strong> the first regular payment${c.monthlyTotal() ? ` of ${money(c.monthlyTotal())}` : ''} is collected.` },
+      { html: 'You can follow it all in <a href="/my-investments/">My Investments</a>, and come back here any time to plan something new.' },
+    ] : [
+      { html: `Thanks. James will look at the ${c.orderCount()} order${c.orderCount() === 1 ? '' : 's'} in your plan${c.concerns() ? ', and the points your quick check raised' : ''}. He usually replies within 2 working days, and you’ll see his reply here.` },
+      { html: 'Your plan stays as you left it. Nothing is bought or sold until you, or James with your agreement, place the orders.' },
     ],
   },
 
@@ -735,7 +792,7 @@ export function markDone(done, id) {
 
 /* Typed-message matching: specific asks first, broad words last */
 const MATCH_ORDER = [
-  'reset', 'confirm', 'send-james',
+  'reset', 'confirm', 'james-done', 'james-new', 'james-edit', 'send-james',
   'account-ISA', 'account-SIPP', 'account-GIA',
   'topic-gia', 'topic-sipp', 'topic-isa',
   'share-AAPL', 'share-AZN', 'share-RR', 'shares',
@@ -762,6 +819,11 @@ export function matchStep(text, done) {
    - otherwise: the next two unfinished route steps
    (the UI drops any chip that repeats an option card above it)   */
 export function nextChips(done, c, lastId) {
+  /* After sending to James: change it, plan something else, or stop */
+  if (lastId === 'send-james') return ['james-edit', 'james-new', 'james-done'];
+  /* After placing orders: add more to what was bought, plan something else, or stop */
+  if (lastId === 'confirm') return ['topup', 'james-new', 'james-done'];
+  if (lastId === 'james-done') return [];
   /* The check card is the answer; nothing else to tap */
   if (lastId === 'review' && !c.checked() && c.orderCount()) return [];
   const remaining = ROUTE.filter(id => !done.has(id) && !STEPS[id]?.skip?.(c));

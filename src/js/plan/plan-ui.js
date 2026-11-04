@@ -8,7 +8,7 @@
 import { PERIODS, DEFAULT_PERIOD, ACCOUNTS, TAX_YEAR } from './plan-data.js';
 import {
   ETFS, createPlan, lineInfo, findLine, activeLines, addEtf, setMonthly, removeLine, restoreLine,
-  moveLump, moveAccount, addLump, settle, fundOverlap, project, projectBaseline, allocation, totalValue, changes,
+  moveLump, moveAccount, addLump, settle, planFromHeld, fundOverlap, project, projectBaseline, allocation, totalValue, changes,
   taxYearUse, sippRelief, orders, orderCosts, stressTest, previewAdd, money, moneyShort, pct,
 } from './plan-model.js';
 import { STEPS, CHECKS, matchStep, markDone, nextChips, GREETING, FALLBACK } from './plan-script.js';
@@ -43,6 +43,8 @@ const els = {
   allow:      $('#plan-allow'),
   investBars: document.querySelectorAll('[data-invest-bar]'),
   investCount:$('[data-invest-count]'),
+  sendUpdate: $('[data-send-update]'),
+  investMain: $('.plan-invest-bar [data-invest]'),
   panel:      $('#plan-panel'),
 };
 
@@ -56,11 +58,17 @@ const state = {
   fund: null,        /* key of the plan line for the chosen fund */
   account: null,     /* where new money goes: ISA · SIPP · GIA */
   check: null,       /* answers to the quick check: { horizon, cushion, fall } */
+  sent: false,       /* this plan has been sent to James */
   target: null,      /* the line "Add more" is adding to */
   nextTarget: null,  /* set by a holding's "Add more" button */
 };
 
-const STATUS_TEXT = { draft: 'Draft', saved: 'Saved', placed: 'Orders placed', adviser: 'With your adviser' };
+const STATUS_TEXT = { draft: 'Draft', saved: 'Saved', placed: 'Orders placed', adviser: 'With your adviser', changed: 'Changed since sent' };
+
+/* A changed plan is a new draft, or, once sent to James, "changed since sent" */
+function markChanged() {
+  state.status = state.sent ? 'changed' : 'draft';
+}
 
 const charts = {
   projection: createProjectionChart('plan-proj-chart'),
@@ -109,6 +117,21 @@ const ctx = {
   },
   orderCount: () => orders(state.plan).length,
   addLump: (key, amount) => addLump(state.plan, key, amount),
+  /* Returns true when James already had a version of this plan */
+  sendToJames: () => { const update = state.sent; state.sent = true; return update; },
+  concerns: () => CHECKS.some(c => state.check?.[c.id] === false),
+  status: () => state.status,
+  monthlyTotal: () => totalMonthlyNow(),
+  /* Keep the plan with James; start a new one from what's held */
+  planSomethingElse: () => {
+    const use = taxYearUse(state.plan);
+    const reserved = { ISA: use.isa.planned + use.isa.reserved, SIPP: use.sipp.planned + use.sipp.reserved };
+    state.plan = planFromHeld(state.plan, reserved);
+    state.done = new Set(['start']);
+    state.sent = false; state.status = 'draft';
+    state.risk = null; state.fund = null; state.account = null; state.target = null; state.nextTarget = null;
+    return { isa: reserved.ISA, sipp: reserved.SIPP, isaLeft: taxYearUse(state.plan).isa.left };
+  },
   overlap: id => fundOverlap(state.plan, id),
   totalValue: () => totalValue(state.plan),
   fundMonthly: () => (state.fund && findLine(state.plan, state.fund)?.monthly) || 0,
@@ -129,7 +152,7 @@ const ctx = {
   reset: () => {
     state.plan = createPlan(); state.done.clear(); state.status = 'draft';
     state.risk = null; state.fund = null; state.account = null; state.check = null;
-    state.target = null; state.nextTarget = null;
+    state.target = null; state.nextTarget = null; state.sent = false;
     setPeriod(DEFAULT_PERIOD, { silent: true });
   },
   summary: () => summary(),
@@ -199,8 +222,19 @@ function renderInvestBar() {
   const reviewing = !!els.messages.querySelector('.adv-msg:last-child :is(.plan-review, .plan-check):not([data-closed])');
   const show = state.plan.lines.some(l => l.source === 'etf') && state.status !== 'placed' && count > 0 && !reviewing;
   els.investBars.forEach(el => { el.hidden = !show; });
-  els.investCount.textContent = `${count} order${count === 1 ? '' : 's'}`;
+  const changed = state.status === 'changed';
+  els.investCount.textContent = changed ? 'Changed since you sent it' : `${count} order${count === 1 ? '' : 's'} ready`;
+  /* One action at a time: once the plan has changed since it was sent,
+     the next step is sending James the update (typing "make this
+     investment" still opens the review)                            */
+  els.sendUpdate.hidden = !changed;
+  els.investMain.hidden = changed;
 }
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('[data-send-update]') || state.busy) return;
+  converse('Send the update to James', 'send-james', { focus: true });
+});
 
 document.addEventListener('click', e => {
   if (!e.target.closest('[data-invest]') || state.busy) return;
@@ -287,9 +321,9 @@ function renderChanges() {
 function renderAllowances() {
   const use = taxYearUse(state.plan);
   const item = (id, title, u) => {
-    const total = u.used + u.planned;
+    const total = u.used + u.reserved + u.planned;
     const over = u.left < 0;
-    const planned = u.planned ? ` · ${money(u.planned)} in this plan` : '';
+    const planned = (u.reserved ? ` · ${money(u.reserved)} with James` : '') + (u.planned ? ` · ${money(u.planned)} in this plan` : '');
     return `
       <div class="plan-allow-item${over ? ' is-over' : ''}">
         <div class="plan-allow-head">
@@ -724,7 +758,7 @@ async function converse(text, stepId, { focus = false } = {}) {
     reply = step.run(ctx);
     markDone(state.done, id);
     if (step.status) state.status = step.status;
-    else if (!step.quiet) state.status = 'draft';   /* a changed plan is a new draft */
+    else if (!step.quiet) markChanged();
   } else {
     reply = FALLBACK;
   }
@@ -813,7 +847,7 @@ document.querySelector('.plan-panel').addEventListener('click', async e => {
   }
   const index = [...els.lines.children].findIndex(li => li.contains(btn));
   if (action === 'remove') removeLine(state.plan, id); else restoreLine(state.plan, id);
-  state.status = 'draft';
+  markChanged();
   announce(`${action === 'remove' ? 'Removed' : 'Restored'} ${info.short}. ${planSentence()}`);
   await renderPanel();
   /* Keep focus on the same row (now showing Undo / ×); if the row
