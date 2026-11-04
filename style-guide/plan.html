@@ -182,6 +182,55 @@
       </div>
     </section>
 
+    <!-- ── Option cards ───────────────────────────────────── -->
+    <section class="sg-section" id="option-cards">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Option cards</h2>
+        <p class="sg-section-desc">Choices in the chat always come as three <code>.plan-option</code> cards, each with plus and minus points, so the trade-off is visible before anything is picked. They're used for the approach (more cautious, balanced, more adventurous) and then for three funds that suit it. Fund cards add the key figures. The signs are CSS decoration with empty alt text (<code>content: "+" / ""</code>); screen readers hear “Plus:” and “Minus:” from hidden text instead. Each button's name includes the option, e.g. “Add to plan Vanguard S&amp;P 500”. Once one is picked it gets a gold outline and a badge, and the other buttons are removed. The other cards keep full contrast rather than fading. The copy explains and never ranks: no option is labelled “best”.</p>
+      </div>
+      <div class="sg-demo" style="max-width:400px">
+        <ul class="plan-options" aria-label="Example fund options">
+          <li class="plan-option" data-chosen>
+            <p class="plan-option-head"><span class="plan-option-kicker">VWRP</span><span class="plan-option-title">Vanguard FTSE All-World</span></p>
+            <p class="plan-option-desc">About 3,700 companies across developed and emerging markets in one fund.</p>
+            <dl class="plan-option-stats">
+              <div><dt>Past 5 years</dt><dd>+63%</dd></div>
+              <div><dt>Yearly swing</dt><dd>11%</dd></div>
+              <div><dt>Charge</dt><dd>0.22%</dd></div>
+            </dl>
+            <ul class="plan-points">
+              <li class="plan-point plan-point--pro"><span class="plan-sr-only">Plus: </span>Thousands of companies worldwide in one fund</li>
+              <li class="plan-point plan-point--con"><span class="plan-sr-only">Minus: </span>About 60% is in US companies</li>
+            </ul>
+            <span class="plan-badge plan-badge--added">In your plan</span>
+          </li>
+          <li class="plan-option">
+            <p class="plan-option-head"><span class="plan-option-title">More adventurous</span></p>
+            <p class="plan-option-desc">Higher-growth shares, with bigger swings.</p>
+            <ul class="plan-points">
+              <li class="plan-point plan-point--pro"><span class="plan-sr-only">Plus: </span>Highest expected growth over the long run</li>
+              <li class="plan-point plan-point--con"><span class="plan-sr-only">Minus: </span>Bigger drops, sometimes over 30% in a year</li>
+            </ul>
+            <button type="button" class="btn-secondary btn-secondary--sm">Choose<span class="plan-sr-only"> More adventurous</span></button>
+          </li>
+        </ul>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;ul class="plan-options" aria-label="Balanced fund options"&gt;
+  &lt;li class="plan-option"&gt;
+    &lt;p class="plan-option-head"&gt;&lt;span class="plan-option-kicker"&gt;VUAG&lt;/span&gt;&lt;span class="plan-option-title"&gt;Vanguard S&amp;amp;P 500&lt;/span&gt;&lt;/p&gt;
+    &lt;p class="plan-option-desc"&gt;…&lt;/p&gt;
+    &lt;ul class="plan-points"&gt;
+      &lt;li class="plan-point plan-point--pro"&gt;&lt;span class="plan-sr-only"&gt;Plus: &lt;/span&gt;…&lt;/li&gt;
+      &lt;li class="plan-point plan-point--con"&gt;&lt;span class="plan-sr-only"&gt;Minus: &lt;/span&gt;…&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;button class="btn-secondary btn-secondary--sm" data-step="pick-VUAG"&gt;Add to plan&lt;span class="plan-sr-only"&gt; Vanguard S&amp;amp;P 500&lt;/span&gt;&lt;/button&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+      </div>
+    </section>
+
     <!-- ── Chart tokens ───────────────────────────────────── -->
     <section class="sg-section" id="chart-tokens">
       <div class="sg-section-header">

@@ -10,7 +10,7 @@ import {
   ETFS, createPlan, lineInfo, findLine, activeLines, addEtf, setMonthly, removeLine, restoreLine,
   moveLump, project, projectBaseline, allocation, totalValue, changes, money, moneyShort, pct,
 } from './plan-model.js';
-import { STEPS, matchStep, nextChips, GREETING, FALLBACK } from './plan-script.js';
+import { STEPS, matchStep, markDone, nextChips, GREETING, FALLBACK } from './plan-script.js';
 import { createProjectionChart, updateProjectionChart, createAllocationChart, updateAllocationChart } from './plan-charts.js';
 
 const USER = { name: 'Sumant', initials: 'SK' };
@@ -45,6 +45,8 @@ const state = {
   done: new Set(),
   saved: false,
   busy: false,
+  risk: null,    /* the approach chosen in the chat */
+  fund: null,    /* the fund chosen from the options */
 };
 
 const charts = {
@@ -66,7 +68,17 @@ const ctx = {
   lumpOf: id => findLine(state.plan, id)?.lump ?? 0,
   setPeriod: id => setPeriod(id, { silent: true }),
   markSaved: () => { state.saved = true; },
-  reset: () => { state.plan = createPlan(); state.done.clear(); state.saved = false; setPeriod(DEFAULT_PERIOD, { silent: true }); },
+  has: id => !!findLine(state.plan, id),
+  risk: () => state.risk,
+  setRisk: key => { state.risk = key; },
+  /* Later steps build on the chosen fund; the global tracker if none */
+  fund: () => state.fund || 'VWRP',
+  setFund: id => { state.fund = id; },
+  reset: () => {
+    state.plan = createPlan(); state.done.clear(); state.saved = false;
+    state.risk = null; state.fund = null;
+    setPeriod(DEFAULT_PERIOD, { silent: true });
+  },
   summary: () => summary(),
 };
 
@@ -253,7 +265,7 @@ function etfCard(id) {
   const pts = e.closes.map((v, i) => `${(i / (e.closes.length - 1)) * 100},${28 - ((v - min) / (max - min)) * 26}`).join(' ');
   const cta = inPlan
     ? `<span class="plan-badge plan-badge--added">In your plan</span>`
-    : `<button type="button" class="btn-secondary btn-secondary--sm" data-step="add-vwrp">Add to plan</button>`;
+    : `<button type="button" class="btn-secondary btn-secondary--sm" data-step="pick-${id}">Add to plan<span class="plan-sr-only"> ${e.short}</span></button>`;
   return `
     <div class="plan-etf">
       <div class="plan-etf-head">
@@ -269,8 +281,40 @@ function etfCard(id) {
         <div><dt>Typical yearly swing</dt><dd>${(e.volatility * 100).toFixed(0)}%</dd></div>
         <div><dt>Yearly charge</dt><dd>${e.ocf.toFixed(2)}%</dd></div>
       </dl>
-      ${id === 'VWRP' ? cta : ''}
+      ${cta}
     </div>`;
+}
+
+/* Option cards: three choices, each with plus and minus points.
+   Fund options also show the key figures from the snapshot.    */
+function optionCards({ label, items }) {
+  const point = (kind, text) => `
+    <li class="plan-point plan-point--${kind}"><span class="plan-sr-only">${kind === 'pro' ? 'Plus' : 'Minus'}: </span>${text}</li>`;
+  const card = o => {
+    const e = o.etf && ETFS[o.etf];
+    const inPlan = o.etf && findLine(state.plan, o.etf);
+    const stats = e ? `
+      <dl class="plan-option-stats">
+        <div><dt>Past 5 years</dt><dd>${pct(e.fiveYear, 0)}</dd></div>
+        <div><dt>Yearly swing</dt><dd>${(e.volatility * 100).toFixed(0)}%</dd></div>
+        <div><dt>Charge</dt><dd>${e.ocf.toFixed(2)}%</dd></div>
+      </dl>` : '';
+    const action = inPlan
+      ? `<span class="plan-badge plan-badge--added">In your plan</span>`
+      : `<button type="button" class="btn-secondary btn-secondary--sm" data-step="${o.step}">${o.action}<span class="plan-sr-only"> ${o.title}</span></button>`;
+    return `
+      <li class="plan-option"${o.risk ? ` data-risk="${o.risk}"` : ''}>
+        <p class="plan-option-head">
+          ${o.kicker ? `<span class="plan-option-kicker">${o.kicker}</span>` : ''}
+          <span class="plan-option-title">${o.title}</span>
+        </p>
+        <p class="plan-option-desc">${o.desc}</p>
+        ${stats}
+        <ul class="plan-points">${o.pros.map(t => point('pro', t)).join('')}${o.cons.map(t => point('con', t)).join('')}</ul>
+        ${action}
+      </li>`;
+  };
+  return `<ul class="plan-options" aria-label="${label}">${items.map(card).join('')}</ul>`;
 }
 
 function botMessage(parts, chipIds = []) {
@@ -280,6 +324,7 @@ function botMessage(parts, chipIds = []) {
     <div class="adv-bubble-inner${p.tone ? ` adv-bubble-inner--${p.tone}` : ''}">
       <p class="adv-text">${p.html}</p>
       ${p.etf ? etfCard(p.etf) : ''}
+      ${p.options ? optionCards(p.options) : ''}
     </div>`).join('');
   const chips = chipIds.length ? `
     <div class="adv-suggestions" role="group" aria-label="Suggested replies">
@@ -326,11 +371,22 @@ function append(node) {
   els.messages.scrollTo({ top: els.messages.scrollHeight, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
 }
 
-/* Only the latest chips stay actionable */
-function retireChips() {
+/* Only the latest chips and option buttons stay actionable. The
+   option that was picked keeps a badge; the others lose their button.
+   A message we didn't recognise leaves the options open.          */
+function retireChips(chosen) {
+  const badge = text => Object.assign(document.createElement('span'), { className: 'plan-badge plan-badge--added', textContent: text });
   els.messages.querySelectorAll('.adv-suggestions').forEach(g => g.remove());
-  els.messages.querySelectorAll('.plan-etf [data-step]').forEach(b => {
-    b.replaceWith(Object.assign(document.createElement('span'), { className: 'plan-badge plan-badge--added', textContent: 'In your plan' }));
+  if (!chosen) return;
+  els.messages.querySelectorAll('.plan-etf [data-step]').forEach(b => b.replaceWith(badge('In your plan')));
+  els.messages.querySelectorAll('.plan-option [data-step]').forEach(b => {
+    const option = b.closest('.plan-option');
+    if (b.dataset.step === chosen) {
+      option.dataset.chosen = '';
+      b.replaceWith(badge(chosen.startsWith('pick-') ? 'In your plan' : 'Chosen'));
+    } else {
+      b.remove();
+    }
   });
 }
 
@@ -343,7 +399,8 @@ async function converse(text, stepId) {
   els.form.setAttribute('aria-busy', 'true');
   const hadFocusInLog = els.messages.contains(document.activeElement);
 
-  retireChips();
+  const id = stepId || matchStep(text, state.done);
+  retireChips(id);
   append(userMessage(text));
 
   const typing = typingIndicator();
@@ -352,25 +409,28 @@ async function converse(text, stepId) {
   await wait(700);
   typing.remove();
 
-  const id = stepId || matchStep(text, state.done);
   let reply;
   if (id) {
     reply = STEPS[id].run(ctx);
-    if (id !== 'reset') state.done.add(id);
+    markDone(state.done, id);
     state.saved = id === 'save';
   } else {
     reply = FALLBACK;
   }
 
-  append(botMessage(reply, nextChips(state.done)));
+  /* A chip that repeats an option card in the same reply is noise */
+  const offered = new Set(reply.flatMap(p => p.options?.items.map(o => o.step) ?? []));
+  append(botMessage(reply, nextChips(state.done, ctx).filter(c => !offered.has(c))));
   renderPanel();
-  if (id && id !== 'start') announcePlan();
+  /* Starting and choosing an approach don't change the plan */
+  if (id && id !== 'start' && !id.startsWith('risk-')) announcePlan();
 
   state.busy = false;
   els.form.removeAttribute('aria-busy');
   /* Chips that held focus are gone — land somewhere predictable */
   if (hadFocusInLog || document.activeElement === document.body) {
-    const target = els.messages.querySelector('.adv-msg:last-child .adv-chip') || els.input;
+    const last = '.adv-msg:last-child';
+    const target = els.messages.querySelector(`${last} .plan-option [data-step], ${last} .adv-chip`) || els.input;
     target.focus({ preventScroll: true });
   }
 }
