@@ -10,7 +10,7 @@
    It is closed-form, so every demo run gives identical numbers.
    ─────────────────────────────────────────────────────────── */
 
-import { ETF_SNAPSHOT, CURRENT_HOLDINGS, ASSET_CLASS_SLOTS } from './plan-data.js';
+import { ETF_SNAPSHOT, CURRENT_HOLDINGS, ASSET_CLASS_SLOTS, TAX_YEAR, SIPP_RELIEF } from './plan-data.js';
 
 const Z90 = 1.2816;           /* z-score for the 10th / 90th percentile */
 const DIVERSIFICATION = 0.8;  /* holdings are correlated but not perfectly */
@@ -36,50 +36,76 @@ export const ETFS = Object.fromEntries(ETF_SNAPSHOT.map(e => [e.id, {
 }]));
 
 /* ── Plan state ─────────────────────────────────────────── */
-/* A plan line: { id, source: 'current'|'etf', status: 'kept'|'added'|'removed',
-                  lump, monthly }  — value/assumptions come from the source. */
+/* A plan line: { key, id, source: 'current'|'etf', status: 'kept'|'added'|'removed',
+                  account: 'ISA'|'SIPP'|'GIA'|null, lump, monthly }
+   key is unique per line: an ETF can sit in more than one account
+   (e.g. the ISA for new money, the general account for sale proceeds).
+   account is null while the user hasn't chosen where new money goes. */
 export function createPlan() {
   return {
-    lines: CURRENT_HOLDINGS.map(h => ({ id: h.id, source: 'current', status: 'kept', lump: h.value, monthly: 0 })),
+    lines: CURRENT_HOLDINGS.map(h => ({
+      key: h.id, id: h.id, source: 'current', status: 'kept', account: h.account, lump: h.value, monthly: 0,
+    })),
   };
 }
+
+export const etfKey = (id, account) => `${id}-${account || 'new'}`;
 
 export function lineInfo(line) {
   return line.source === 'etf' ? ETFS[line.id] : CURRENT_HOLDINGS.find(h => h.id === line.id);
 }
 
-export function findLine(plan, id) {
-  return plan.lines.find(l => l.id === id);
+/* By key, or by ETF/holding id (the first line holding it) */
+export function findLine(plan, keyOrId) {
+  return plan.lines.find(l => l.key === keyOrId) || plan.lines.find(l => l.id === keyOrId);
 }
 
 export function activeLines(plan) {
   return plan.lines.filter(l => l.status !== 'removed');
 }
 
-/* Add an ETF (or top it up if already in the plan) */
-export function addEtf(plan, id, { lump = 0, monthly = 0 } = {}) {
-  const existing = findLine(plan, id);
+/* Add an ETF to an account (or top it up if it's already there) */
+export function addEtf(plan, id, { lump = 0, monthly = 0, account = null } = {}) {
+  const key = etfKey(id, account);
+  const existing = plan.lines.find(l => l.key === key);
   if (existing) {
     existing.status = existing.status === 'removed' ? 'added' : existing.status;
     existing.lump += lump;
     existing.monthly = monthly || existing.monthly;
     return existing;
   }
-  const line = { id, source: 'etf', status: 'added', lump, monthly };
+  const line = { key, id, source: 'etf', status: 'added', account, lump, monthly };
   plan.lines.push(line);
   return line;
 }
 
-export function setMonthly(plan, id, monthly) {
-  const line = findLine(plan, id);
+/* Move an added ETF line into another account, merging if the ETF
+   is already held there. Returns the line it ends up in.          */
+export function moveAccount(plan, key, account) {
+  const line = plan.lines.find(l => l.key === key);
+  if (!line || line.source !== 'etf' || line.account === account) return line;
+  const target = plan.lines.find(l => l.key === etfKey(line.id, account));
+  if (target) {
+    target.lump += line.lump;
+    target.monthly += line.monthly;
+    plan.lines = plan.lines.filter(l => l !== line);
+    return target;
+  }
+  line.account = account;
+  line.key = etfKey(line.id, account);
+  return line;
+}
+
+export function setMonthly(plan, key, monthly) {
+  const line = findLine(plan, key);
   if (line) line.monthly = monthly;
   return line;
 }
 
 /* Remove a line. Current holdings are marked removed (so the
    plan can show the change); added ETFs drop out entirely.   */
-export function removeLine(plan, id) {
-  const line = findLine(plan, id);
+export function removeLine(plan, key) {
+  const line = findLine(plan, key);
   if (!line) return null;
   if (line.source === 'current') {
     line.status = 'removed';
@@ -92,19 +118,70 @@ export function removeLine(plan, id) {
   return line;
 }
 
-export function restoreLine(plan, id) {
-  const line = findLine(plan, id);
+export function restoreLine(plan, key) {
+  const line = findLine(plan, key);
   if (line && line.source === 'current') line.status = 'kept';
   return line;
 }
 
 /* Move money between lines (e.g. cash → gold, Veritas → tracker) */
-export function moveLump(plan, fromId, toId, amount) {
-  const from = findLine(plan, fromId);
-  const to = findLine(plan, toId);
+export function moveLump(plan, fromKey, toKey, amount) {
+  const from = findLine(plan, fromKey);
+  const to = findLine(plan, toKey);
   if (!from || !to) return;
   from.lump -= amount;
   to.lump += amount;
+}
+
+/* ── Tax year: allowance use and pension relief ─────────── */
+/* What the plan pays into the ISA and SIPP before 5 April. Lumps into
+   an added ETF line count as new subscriptions; SIPP figures are gross. */
+export function taxYearUse(plan) {
+  const added = activeLines(plan).filter(l => l.source === 'etf');
+  const inYear = l => l.lump + l.monthly * TAX_YEAR.paymentsLeft;
+  const isa  = added.filter(l => l.account === 'ISA').reduce((a, l) => a + inYear(l), 0);
+  const sipp = added.filter(l => l.account === 'SIPP').reduce((a, l) => a + inYear(l) * SIPP_RELIEF, 0);
+  return {
+    isa:  { planned: isa,  used: TAX_YEAR.isa.used,  limit: TAX_YEAR.isa.limit,  left: TAX_YEAR.isa.limit - TAX_YEAR.isa.used - isa },
+    sipp: { planned: sipp, used: TAX_YEAR.sipp.used, limit: TAX_YEAR.sipp.limit, left: TAX_YEAR.sipp.limit - TAX_YEAR.sipp.used - sipp },
+  };
+}
+
+/* For a higher-rate taxpayer: £1 from you → £1.25 in the pension, and
+   a further 25p can be claimed back through self-assessment.         */
+export function sippRelief(monthly) {
+  const gross = monthly * SIPP_RELIEF;
+  const extra = TAX_YEAR.band === 'higher' ? gross * 0.2 : 0;
+  return { gross, atSource: gross - monthly, extra, netCost: monthly - extra };
+}
+
+/* ── Orders: what placing this plan would do ────────────── */
+/* Sells first (they fund the buys), then buys, then regular amounts.
+   Cash moving into a fund is the source of a buy, not an order.   */
+export function orders(plan) {
+  const out = [];
+  for (const l of plan.lines) {
+    if (l.source === 'current' && l.status === 'removed') out.push({ type: 'sell', line: l, amount: l.lump });
+  }
+  for (const l of activeLines(plan)) {
+    if (l.source === 'etf' && l.lump) out.push({ type: 'buy', line: l, amount: l.lump });
+  }
+  for (const l of activeLines(plan)) {
+    if (l.monthly) out.push({ type: 'regular', line: l, amount: l.monthly });
+  }
+  return out;
+}
+
+/* First-year cost estimate, in pounds, for the cost disclosure */
+export function orderCosts(plan) {
+  const etf = activeLines(plan).filter(l => l.source === 'etf');
+  const fundCharges = etf.reduce((a, l) => {
+    const gross = l.account === 'SIPP' ? SIPP_RELIEF : 1;
+    return a + (l.lump + l.monthly * 12 * gross) * (ETFS[l.id].ocf / 100);
+  }, 0);
+  const traded = orders(plan).filter(o => o.type !== 'regular').reduce((a, o) => a + o.amount, 0);
+  const dealing = traded * 0.001;   /* estimated spread and market costs, 0.1% */
+  return { fundCharges, dealing, total: fundCharges + dealing };
 }
 
 /* ── Projection ─────────────────────────────────────────── */
@@ -128,12 +205,14 @@ export function project(lines, months) {
 
   for (const line of lines) {
     const info = lineInfo(line);
-    const path = pathFor(line.lump, line.monthly, info.expectedReturn, months);
+    /* Pension contributions arrive with basic-rate relief added */
+    const monthly = line.monthly * (line.account === 'SIPP' && line.source === 'etf' ? SIPP_RELIEF : 1);
+    const path = pathFor(line.lump, monthly, info.expectedReturn, months);
     for (let t = 0; t <= months; t++) {
       central[t] += path[t];
-      paidIn[t]  += line.lump + line.monthly * t;
+      paidIn[t]  += line.lump + monthly * t;
     }
-    const weight = line.lump + line.monthly * months;
+    const weight = line.lump + monthly * months;
     weightedVol += info.volatility * weight;
     total += weight;
   }

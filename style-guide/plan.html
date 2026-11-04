@@ -231,6 +231,64 @@
       </div>
     </section>
 
+    <!-- ── Review and invest ──────────────────────────────── -->
+    <section class="sg-section" id="review">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Review and invest</h2>
+        <p class="sg-section-desc"><code>.plan-review</code> is how the chat turns a plan into a decision. It lists every order (sells first, then buys, then monthly amounts), each tagged with its account. Below that come the first-year costs in pounds, the allowance use, and links to the Key Information Documents.</p>
+        <p class="sg-section-desc">Placing orders needs two ticks. Until both are ticked, the button stays focusable with <code>aria-disabled="true"</code> rather than <code>disabled</code>, so keyboard and screen-reader users can still reach it and learn why it isn't ready. Pressing it moves focus to the first unticked box, and a polite live hint explains what's missing. New money with no account chosen also blocks it.</p>
+        <p class="sg-section-desc">After the decision, the card closes with a badge: “Orders placed”, “Sent to James” or “Saved for later”. If the plan changes instead, the card says it's out of date. The note makes the execution-only position plain. A reply taller than the log scrolls to its start, and the review takes focus as a whole.</p>
+      </div>
+      <div class="sg-demo" style="max-width:380px">
+        <section class="plan-review" aria-labelledby="sg-review-title">
+          <p class="plan-review-title" id="sg-review-title">Your orders</p>
+          <ol class="plan-orders">
+            <li class="plan-order" data-type="sell"><span class="plan-order-type">Sell</span><span class="plan-order-what"><span class="plan-order-name">Veritas Global Focus</span><span class="plan-order-acct">General account</span></span><span class="plan-order-amt">£127,890</span></li>
+            <li class="plan-order" data-type="buy"><span class="plan-order-type">Buy</span><span class="plan-order-what"><span class="plan-order-name">Vanguard FTSE All-World</span><span class="plan-order-acct">General account</span></span><span class="plan-order-amt">£127,890</span></li>
+            <li class="plan-order" data-type="regular"><span class="plan-order-type">Monthly</span><span class="plan-order-what"><span class="plan-order-name">Vanguard FTSE All-World</span><span class="plan-order-acct">Stocks &amp; Shares ISA · from 1 December 2026</span></span><span class="plan-order-amt">£1,000<span class="plan-order-per"> a month</span></span></li>
+          </ol>
+          <dl class="plan-review-facts">
+            <div><dt>Fund charges, first year</dt><dd>about £308</dd></div>
+            <div><dt>Dealing costs (estimate)</dt><dd>about £256</dd></div>
+            <div><dt>ISA allowance</dt><dd>uses £4,000, £4,240 left</dd></div>
+          </dl>
+          <fieldset class="plan-review-checks">
+            <legend>To place these orders, confirm:</legend>
+            <label><input type="checkbox"> I’ve read the Key Information Documents</label>
+            <label><input type="checkbox"> I understand the value can fall and I may get back less than I put in</label>
+          </fieldset>
+          <p class="plan-review-hint" id="sg-review-hint">Tick both boxes to place the orders.</p>
+          <div class="plan-review-actions">
+            <button type="button" class="btn-primary" aria-disabled="true" aria-describedby="sg-review-hint">Place these orders</button>
+            <button type="button" class="btn-secondary">Send to James first</button>
+          </div>
+          <p class="plan-review-note">You’re choosing these investments yourself. Aurelius explains the options but hasn’t recommended them, and can’t say whether they suit you. James can.</p>
+        </section>
+      </div>
+    </section>
+
+    <!-- ── Allowances ─────────────────────────────────────── -->
+    <section class="sg-section" id="allowances">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Allowances</h2>
+        <p class="sg-section-desc">The plan panel shows this tax year's ISA and pension allowances as native <code>&lt;meter&gt;</code> elements, styled with the WebKit and Firefox pseudo-elements. Each meter is labelled by its title and described by the figures underneath, so screen readers hear the numbers and not just a bar. Near the limit the bar uses the browser's sub-optimum state, and past the limit it turns red and says how much is over. Holdings show their account, and new money still waiting for one reads “Account to choose”. Demo accounts match the other pages: an Advised SIPP, an ISA with £8,240 left, and Veritas and cash in the general account.</p>
+      </div>
+      <div class="sg-demo" style="max-width:320px">
+        <div class="plan-allow">
+          <div class="plan-allow-item">
+            <div class="plan-allow-head"><span class="plan-allow-name" id="sg-allow-isa">ISA allowance</span><span class="plan-allow-left">£4,240 left</span></div>
+            <meter class="plan-meter" aria-labelledby="sg-allow-isa" aria-describedby="sg-allow-isa-note" min="0" max="20000" low="15000" high="19000" optimum="0" value="15760"></meter>
+            <p class="plan-allow-note" id="sg-allow-isa-note">£11,760 used · £4,000 in this plan · of £20,000</p>
+          </div>
+          <div class="plan-allow-item is-over">
+            <div class="plan-allow-head"><span class="plan-allow-name" id="sg-allow-over">ISA allowance (over)</span><span class="plan-allow-left">£1,760 over</span></div>
+            <meter class="plan-meter" aria-labelledby="sg-allow-over" min="0" max="20000" low="15000" high="19000" optimum="0" value="20000"></meter>
+            <p class="plan-allow-note">£11,760 used · £10,000 in this plan · of £20,000</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ── Chart tokens ───────────────────────────────────── -->
     <section class="sg-section" id="chart-tokens">
       <div class="sg-section-header">

@@ -133,6 +133,9 @@ html:has(.theme-checkbox:checked) .plan-panel {
   .plan-panel-body .plan-alloc { align-items: stretch; flex-direction: column; }
   .plan-panel-body .plan-chart--donut { inline-size: 100%; }
 
+  /* Changes take two thirds, allowances the last third (by default
+     they fall into the 2fr / 1fr columns in source order)          */
+
   /* Holdings flow into columns across the full width */
   .plan-panel-body .plan-lines {
     column-gap: 24px;
@@ -199,10 +202,17 @@ html:has(.theme-checkbox:checked) .plan-panel {
   transition: color 0.3s, border-color 0.3s, background 0.3s;
 }
 
-.plan-status[data-state="saved"] {
+.plan-status[data-state="saved"],
+.plan-status[data-state="placed"] {
   background: var(--green-dim);
   border-color: transparent;
   color: var(--green);
+}
+
+.plan-status[data-state="adviser"] {
+  background: var(--gold-dim);
+  border-color: transparent;
+  color: var(--gold-text);
 }
 
 .plan-panel-close,
@@ -755,6 +765,163 @@ html:has(.theme-checkbox:checked) .plan-panel {
 .plan-option .btn-secondary,
 .plan-option .plan-badge { justify-self: start; }
 
+/* New money that's still waiting for an account */
+.plan-line-todo { color: var(--gold-text); }
+
+/* ── Allowances (native <meter>) ─────────────────────────── */
+.plan-section-sub { color: var(--text-3); font-size: var(--fs-sm); font-weight: var(--fw-regular); }
+
+.plan-allow { display: grid; gap: 14px; }
+.plan-allow-item { display: grid; gap: 6px; }
+
+.plan-allow-head {
+  align-items: baseline;
+  display: flex;
+  font-size: var(--fs-md);
+  gap: 8px;
+  justify-content: space-between;
+}
+.plan-allow-name { color: var(--text-2); }
+.plan-allow-left { color: var(--text-1); font-variant-numeric: tabular-nums; font-weight: var(--fw-semibold); }
+.plan-allow-item.is-over .plan-allow-left { color: var(--red); }
+.plan-allow-note { color: var(--text-3); font-size: var(--fs-sm); margin: 0; }
+
+.plan-meter {
+  appearance: none;
+  background: oklch(from var(--text-3) l c h / 0.28);
+  block-size: 8px;
+  border: 0;
+  border-radius: 999px;
+  inline-size: 100%;
+  overflow: hidden;
+}
+.plan-meter::-webkit-meter-bar { background: oklch(from var(--text-3) l c h / 0.28); block-size: 8px; border: 0; border-radius: 999px; }
+.plan-meter::-webkit-meter-optimum-value,
+.plan-meter::-webkit-meter-suboptimum-value { background: var(--gold-text); border-radius: 999px; }
+.plan-meter::-webkit-meter-even-less-good-value { background: var(--red); border-radius: 999px; }
+.plan-meter::-moz-meter-bar { background: var(--gold-text); border-radius: 999px; }
+.plan-meter:-moz-meter-sub-sub-optimum::-moz-meter-bar { background: var(--red); }
+
+/* ── Review and invest ──────────────────────────────────── */
+.plan-review {
+  background: light-dark(var(--neutral-1), oklch(from var(--neutral-9) l c h / 0.6));
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-item);
+  display: grid;
+  gap: 12px;
+  margin-block-start: 10px;
+  padding: 14px;
+}
+
+.plan-review-title { color: var(--text-1); font-weight: var(--fw-semibold); margin: 0; }
+.plan-review:focus-visible { outline: 2px solid var(--gold-text); outline-offset: 2px; }
+.plan-review:focus:not(:focus-visible) { outline: none; }
+
+.plan-orders {
+  display: grid;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.plan-order {
+  align-items: center;
+  border-block-start: 1px solid var(--divider);
+  display: grid;
+  gap: 10px;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  padding-block: 8px;
+}
+.plan-order:first-child { border-block-start: 0; padding-block-start: 0; }
+
+.plan-order-type {
+  border-radius: var(--radius-btn);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  inline-size: 7ch;
+  letter-spacing: var(--ls-widest);
+  padding: 2px 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+.plan-order[data-type="buy"]     .plan-order-type { background: var(--green-dim); color: var(--green); }
+.plan-order[data-type="sell"]    .plan-order-type { background: var(--red-dim);   color: var(--red); }
+.plan-order[data-type="regular"] .plan-order-type { background: var(--gold-dim);  color: var(--gold-text); }
+
+.plan-order-what { display: grid; min-inline-size: 0; }
+.plan-order-name { color: var(--text-1); font-size: var(--fs-md); font-weight: var(--fw-medium); }
+.plan-order-acct { color: var(--text-3); font-size: var(--fs-sm); }
+.plan-order-amt  { color: var(--text-1); font-size: var(--fs-md); font-variant-numeric: tabular-nums; font-weight: var(--fw-semibold); text-align: end; }
+.plan-order-per  { color: var(--text-3); font-weight: var(--fw-regular); }
+
+.plan-review-facts {
+  border-block: 1px solid var(--divider);
+  display: grid;
+  font-size: var(--fs-md);
+  gap: 6px;
+  margin: 0;
+  padding-block: 10px;
+}
+.plan-review-facts div { display: flex; gap: 12px; justify-content: space-between; }
+.plan-review-facts dt { color: var(--text-2); }
+.plan-review-facts dd { color: var(--text-1); font-variant-numeric: tabular-nums; margin: 0; text-align: end; }
+
+.plan-review-docs,
+.plan-review-note { color: var(--text-2); font-size: var(--fs-md); line-height: 1.5; margin: 0; }
+.plan-review-note { color: var(--text-3); font-size: var(--fs-sm); }
+
+.plan-review-checks {
+  border: 0;
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+.plan-review-checks legend { color: var(--text-1); font-size: var(--fs-md); font-weight: var(--fw-semibold); margin-block-end: 4px; padding: 0; }
+.plan-review-checks label {
+  align-items: start;
+  color: var(--text-2);
+  cursor: pointer;
+  display: grid;
+  font-size: var(--fs-md);
+  gap: 10px;
+  grid-template-columns: 18px minmax(0, 1fr);
+  line-height: 1.4;
+}
+.plan-review-checks input { accent-color: var(--gold); block-size: 18px; inline-size: 18px; margin: 1px 0 0; }
+.plan-review-checks input:focus-visible { outline: 2px solid var(--gold-text); outline-offset: 2px; }
+
+.plan-review-hint { color: var(--text-3); font-size: var(--fs-sm); margin: 0; }
+.plan-review-hint[data-error] { color: var(--red); }
+
+.plan-review-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* Not ready yet: still focusable and announced, just visibly unavailable */
+.plan-review [aria-disabled="true"] { cursor: not-allowed; opacity: 0.55; }
+.plan-review [aria-disabled="true"]:hover { box-shadow: none; transform: none; }
+
+.plan-review[data-closed] .plan-review-checks { opacity: 0.7; }
+.plan-review .plan-badge { justify-self: start; }
+.plan-review-stale { color: var(--text-3); font-size: var(--fs-sm); margin: 0; }
+
+/* Narrow chats (phones): rich cards get more of the bubble, and each
+   order's type sits on its own line above the name and amount      */
+.plan-chat { container: plan-chat / inline-size; }
+
+@container plan-chat (max-width: 420px) {
+  .adv-bubble-inner:has(> .plan-review, > .plan-options, > .plan-orders) { padding-inline: 10px; }
+  .plan-review,
+  .plan-option { padding-inline: 10px; }
+
+  .plan-order { grid-template-columns: minmax(0, 1fr) auto; row-gap: 4px; }
+  .plan-order-type { grid-column: 1 / -1; justify-self: start; padding-inline: 6px; inline-size: auto; }
+  .plan-review-facts div { display: grid; gap: 0; }
+  .plan-review-facts dd { text-align: start; }
+}
+
+/* The receipt reuses the order rows, inside a success bubble */
+.plan-orders--receipt { margin-block-start: 10px; }
+
 /* ── View transitions (holdings rows) ───────────────────── */
 ::view-transition-group(.plan-line) {
   animation-duration: 0.35s;
@@ -788,6 +955,7 @@ html:has(.theme-checkbox:checked) .plan-panel {
   .plan-panel,
   .plan-etf,
   .plan-option,
+  .plan-review,
   .plan-flip-face { border: 1px solid CanvasText; }
 
   .plan-option[data-chosen] { border: 2px solid Highlight; }
@@ -810,4 +978,8 @@ html:has(.theme-checkbox:checked) .plan-panel {
   }
 
   .plan-etf-spark polyline { stroke: CanvasText; }
+
+  .plan-order-type { border: 1px solid CanvasText; }
+  .plan-meter { border: 1px solid CanvasText; }
+  .plan-review [aria-disabled="true"] { border-color: GrayText; color: GrayText; opacity: 1; }
 }

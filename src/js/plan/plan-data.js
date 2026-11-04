@@ -104,12 +104,32 @@ export const ETF_SNAPSHOT = [
    src/js/data.js so the plan starts from the same £842,340 the
    rest of the dashboard shows. These funds aren't on Alpha
    Vantage, so they carry stated sample assumptions.           */
+/* Accounts. Holdings are mapped so the demo agrees with the other
+   pages: the Advised SIPP, an ISA with £8,240 of allowance left,
+   and Veritas in the general account (it's on the CGT page).     */
+export const ACCOUNTS = {
+  ISA:  { id: 'ISA',  name: 'Stocks & Shares ISA', short: 'ISA' },
+  SIPP: { id: 'SIPP', name: 'Advised SIPP',        short: 'SIPP' },
+  GIA:  { id: 'GIA',  name: 'General account',     short: 'General account' },
+};
+
+/* Tax year 2026–27. Regular amounts start 1 December, so four
+   payments land before the year ends on 5 April 2027.           */
+export const TAX_YEAR = {
+  label: '2026–27', ends: '5 April 2027', firstPayment: '1 December 2026', paymentsLeft: 4,
+  isa:  { limit: 20000, used: 11760 },
+  sipp: { limit: 60000, used: 12000 },   /* gross, including tax relief */
+  dividendAllowance: 500, cgtAllowance: 3000,
+  band: 'higher',                        /* higher-rate taxpayer, as on the CGT page */
+};
+export const SIPP_RELIEF = 1.25;         /* basic-rate relief added at source: £800 → £1,000 */
+
 export const CURRENT_HOLDINGS = [
-  { id: 'ARTISAN', name: 'Artisan Partners Gbl Global Value', short: 'Artisan Global Value',   assetClass: 'Global equity',      value: 289420, expectedReturn: 0.060, volatility: 0.14, fiveYear: 0.309 },
-  { id: 'RLGE',    name: 'Royal London Gbl Eqty Divsfd Z',    short: 'Royal London Global',    assetClass: 'Global equity',      value: 218340, expectedReturn: 0.065, volatility: 0.14, fiveYear: 0.237 },
-  { id: 'JPMEM',   name: 'JPMorgan EM Income C Net Acc',      short: 'JPMorgan EM Income',     assetClass: 'Emerging markets',   value: 174890, expectedReturn: 0.070, volatility: 0.18, fiveYear: 0.149 },
-  { id: 'VERITAS', name: 'Veritas Global Focus GBP C Acc',    short: 'Veritas Global Focus',   assetClass: 'Global equity',      value: 127890, expectedReturn: 0.060, volatility: 0.15, fiveYear: -0.063 },
-  { id: 'CASH',    name: 'Cash (GBP)',                        short: 'Cash',                   assetClass: 'Cash',               value:  31800, expectedReturn: 0.030, volatility: 0.005, fiveYear: null },
+  { id: 'ARTISAN', name: 'Artisan Partners Gbl Global Value', short: 'Artisan Global Value',   assetClass: 'Global equity',      value: 289420, expectedReturn: 0.060, volatility: 0.14, fiveYear: 0.309, account: 'SIPP' },
+  { id: 'RLGE',    name: 'Royal London Gbl Eqty Divsfd Z',    short: 'Royal London Global',    assetClass: 'Global equity',      value: 218340, expectedReturn: 0.065, volatility: 0.14, fiveYear: 0.237, account: 'SIPP' },
+  { id: 'JPMEM',   name: 'JPMorgan EM Income C Net Acc',      short: 'JPMorgan EM Income',     assetClass: 'Emerging markets',   value: 174890, expectedReturn: 0.070, volatility: 0.18, fiveYear: 0.149, account: 'ISA' },
+  { id: 'VERITAS', name: 'Veritas Global Focus GBP C Acc',    short: 'Veritas Global Focus',   assetClass: 'Global equity',      value: 127890, expectedReturn: 0.060, volatility: 0.15, fiveYear: -0.063, account: 'GIA' },
+  { id: 'CASH',    name: 'Cash (GBP)',                        short: 'Cash',                   assetClass: 'Cash',               value:  31800, expectedReturn: 0.030, volatility: 0.005, fiveYear: null, account: 'GIA' },
 ];
 
 /* Projection periods — the site's 1M · 3M · 6M · 1Y pills,

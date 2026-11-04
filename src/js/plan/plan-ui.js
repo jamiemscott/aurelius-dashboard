@@ -5,10 +5,11 @@
    file only renders data and handles the conversation.
    ─────────────────────────────────────────────────────────── */
 
-import { PERIODS, DEFAULT_PERIOD, CURRENT_HOLDINGS } from './plan-data.js';
+import { PERIODS, DEFAULT_PERIOD, CURRENT_HOLDINGS, ACCOUNTS, TAX_YEAR } from './plan-data.js';
 import {
   ETFS, createPlan, lineInfo, findLine, activeLines, addEtf, setMonthly, removeLine, restoreLine,
-  moveLump, project, projectBaseline, allocation, totalValue, changes, money, moneyShort, pct,
+  moveLump, moveAccount, project, projectBaseline, allocation, totalValue, changes,
+  taxYearUse, sippRelief, orders, orderCosts, money, moneyShort, pct,
 } from './plan-model.js';
 import { STEPS, matchStep, markDone, nextChips, GREETING, FALLBACK } from './plan-script.js';
 import { createProjectionChart, updateProjectionChart, createAllocationChart, updateAllocationChart } from './plan-charts.js';
@@ -37,17 +38,21 @@ const els = {
   allocTable: $('#plan-alloc-table tbody'),
   allocLegend:$('#plan-alloc-legend'),
   periodCaption: document.querySelectorAll('[data-plan-period-long]'),
+  allow:      $('#plan-allow'),
 };
 
 const state = {
   plan: createPlan(),
   period: DEFAULT_PERIOD,
   done: new Set(),
-  saved: false,
+  status: 'draft',   /* draft · saved · placed · adviser */
   busy: false,
-  risk: null,    /* the approach chosen in the chat */
-  fund: null,    /* the fund chosen from the options */
+  risk: null,        /* the approach chosen in the chat */
+  fund: null,        /* key of the plan line for the chosen fund */
+  account: null,     /* where new money goes: ISA · SIPP · GIA */
 };
+
+const STATUS_TEXT = { draft: 'Draft', saved: 'Saved', placed: 'Orders placed', adviser: 'With your adviser' };
 
 const charts = {
   projection: createProjectionChart('plan-proj-chart'),
@@ -55,28 +60,49 @@ const charts = {
 };
 
 /* ── Context handed to script steps ─────────────────────── */
-function ensureEtf(id) {
-  return findLine(state.plan, id) || addEtf(state.plan, id, {});
+/* The chosen fund's line; the global tracker if none has been chosen
+   (or it was removed from the panel).                             */
+function fundKey() {
+  if (state.fund && state.plan.lines.some(l => l.key === state.fund)) return state.fund;
+  state.fund = addEtf(state.plan, 'VWRP', { account: state.account }).key;
+  return state.fund;
 }
 
 const ctx = {
   addEtf: (id, opts) => addEtf(state.plan, id, opts),
-  setMonthly: (id, amount) => { ensureEtf(id); setMonthly(state.plan, id, amount); },
-  moveLump: (from, to, amount) => { ensureEtf(to); moveLump(state.plan, from, to, amount); },
-  moveLumpFromRemoved: (from, to, amount) => { ensureEtf(to).lump += amount; },
-  remove: id => removeLine(state.plan, id),
-  lumpOf: id => findLine(state.plan, id)?.lump ?? 0,
+  setMonthly: (key, amount) => setMonthly(state.plan, key, amount),
+  moveLump: (from, to, amount) => moveLump(state.plan, from, to, amount),
+  moveLumpFromRemoved: (from, to, amount) => { findLine(state.plan, to).lump += amount; },
+  remove: key => removeLine(state.plan, key),
+  lumpOf: key => findLine(state.plan, key)?.lump ?? 0,
+  monthlyOf: key => findLine(state.plan, key)?.monthly ?? 0,
+  accountOf: key => findLine(state.plan, key)?.account ?? null,
+  nameOf: key => lineInfo(findLine(state.plan, key)).short,
   setPeriod: id => setPeriod(id, { silent: true }),
-  markSaved: () => { state.saved = true; },
   has: id => !!findLine(state.plan, id),
   risk: () => state.risk,
   setRisk: key => { state.risk = key; },
-  /* Later steps build on the chosen fund; the global tracker if none */
-  fund: () => state.fund || 'VWRP',
-  setFund: id => { state.fund = id; },
+  fund: () => fundKey(),
+  /* These two only read: they never add a placeholder fund */
+  fundId: () => findLine(state.plan, state.fund)?.id ?? 'VWRP',
+  fundAccount: () => (state.fund && findLine(state.plan, state.fund)?.account) ?? null,
+  setFund: key => { state.fund = key; },
+  account: () => state.account,
+  /* New money waiting for an account moves into it; returns the fund's key */
+  setAccount: account => {
+    state.account = account;
+    for (const line of [...state.plan.lines]) {
+      if (line.source === 'etf' && line.account === null) {
+        const moved = moveAccount(state.plan, line.key, account);
+        if (state.fund === line.key || state.fund === `${line.id}-new`) state.fund = moved.key;
+      }
+    }
+    return state.fund && state.plan.lines.some(l => l.key === state.fund) ? state.fund : null;
+  },
+  orderCount: () => orders(state.plan).length,
   reset: () => {
-    state.plan = createPlan(); state.done.clear(); state.saved = false;
-    state.risk = null; state.fund = null;
+    state.plan = createPlan(); state.done.clear(); state.status = 'draft';
+    state.risk = null; state.fund = null; state.account = null;
     setPeriod(DEFAULT_PERIOD, { silent: true });
   },
   summary: () => summary(),
@@ -118,8 +144,9 @@ function renderPanel({ animateLines = true } = {}) {
   renderAllocation(alloc);
   renderProjectionTable(s);
 
-  els.status.textContent = state.saved ? 'Saved' : 'Draft';
-  els.status.dataset.state = state.saved ? 'saved' : 'draft';
+  els.status.textContent = STATUS_TEXT[state.status];
+  els.status.dataset.state = state.status;
+  renderAllowances();
 
   /* Resolves once the rows are in the DOM, so callers can move focus */
   const paint = () => { renderLines(); renderChanges(); };
@@ -145,21 +172,22 @@ function renderLines() {
     const li = document.createElement('li');
     li.className = 'plan-line';
     li.dataset.status = line.status;
-    li.style.viewTransitionName = `plan-line-${line.id}`;
+    li.style.viewTransitionName = `plan-line-${line.key}`;
     const ticker = line.source === 'etf' ? `${info.id} · ` : '';
+    const account = line.account ? ACCOUNTS[line.account].short : '<span class="plan-line-todo">Account to choose</span>';
     const badge = { added: 'New', removed: 'Removed', kept: '' }[line.status];
     const share = line.status === 'removed' ? '' : `<span class="plan-line-share">${((line.lump / total) * 100).toFixed(1)}%</span>`;
     const monthly = line.monthly ? `<span class="plan-line-monthly">+ ${money(line.monthly)}/m</span>` : '';
     const action = line.status === 'removed'
-      ? `<button type="button" class="plan-line-btn" data-action="restore" data-id="${line.id}">Undo<span class="plan-sr-only"> removing ${info.short}</span></button>`
-      : `<button type="button" class="plan-line-btn plan-line-btn--icon" data-action="remove" data-id="${line.id}" aria-label="Remove ${info.short} from plan">
+      ? `<button type="button" class="plan-line-btn" data-action="restore" data-id="${line.key}">Undo<span class="plan-sr-only"> removing ${info.short}</span></button>`
+      : `<button type="button" class="plan-line-btn plan-line-btn--icon" data-action="remove" data-id="${line.key}" aria-label="Remove ${info.short} from plan">
            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
          </button>`;
     li.innerHTML = `
       <span class="plan-line-swatch plan-slot-${slotOf(info)}" aria-hidden="true"></span>
       <span class="plan-line-main">
         <span class="plan-line-name">${info.short}${badge ? ` <span class="plan-badge plan-badge--${line.status}">${badge}</span>` : ''}</span>
-        <span class="plan-line-meta">${ticker}${info.assetClass}</span>
+        <span class="plan-line-meta">${ticker}${info.assetClass} · ${account}</span>
       </span>
       <span class="plan-line-figures">
         <span class="plan-line-value">${money(line.lump)}</span>
@@ -179,7 +207,8 @@ function changeText(line) {
   if (line.status === 'removed') return `Removed ${info.short} (${money(line.lump)})`;
   if (line.status === 'added') {
     const parts = [line.lump ? money(line.lump) : null, line.monthly ? `${money(line.monthly)} a month` : null].filter(Boolean);
-    return `Added ${info.short}${parts.length ? ` · ${parts.join(' + ')}` : ''}`;
+    const where = line.account ? ` (${ACCOUNTS[line.account].short})` : '';
+    return `Added ${info.short}${where}${parts.length ? ` · ${parts.join(' + ')}` : ''}`;
   }
   const orig = CURRENT_HOLDINGS.find(h => h.id === line.id)?.value;
   return `${info.short}: ${money(orig)} → ${money(line.lump)}`;
@@ -194,6 +223,27 @@ function renderChanges() {
     return li;
   }));
   els.changeCount.forEach(el => { el.textContent = list.length; el.dataset.count = list.length; });
+}
+
+/* ISA and pension allowances for this tax year, as native <meter>s */
+function renderAllowances() {
+  const use = taxYearUse(state.plan);
+  const item = (id, title, u) => {
+    const total = u.used + u.planned;
+    const over = u.left < 0;
+    const planned = u.planned ? ` · ${money(u.planned)} in this plan` : '';
+    return `
+      <div class="plan-allow-item${over ? ' is-over' : ''}">
+        <div class="plan-allow-head">
+          <span class="plan-allow-name" id="plan-allow-${id}">${title}</span>
+          <span class="plan-allow-left">${over ? `${money(-u.left)} over` : `${money(u.left)} left`}</span>
+        </div>
+        <meter class="plan-meter" aria-labelledby="plan-allow-${id}" aria-describedby="plan-allow-${id}-note"
+          min="0" max="${u.limit}" low="${u.limit * 0.75}" high="${u.limit * 0.95}" optimum="0" value="${Math.min(total, u.limit)}"></meter>
+        <p class="plan-allow-note" id="plan-allow-${id}-note">${money(u.used)} used${planned} · of ${money(u.limit)}</p>
+      </div>`;
+  };
+  els.allow.innerHTML = item('isa', 'ISA allowance', use.isa) + item('sipp', 'Pension annual allowance', use.sipp);
 }
 
 function renderAllocation(alloc) {
@@ -317,6 +367,78 @@ function optionCards({ label, items }) {
   return `<ul class="plan-options" aria-label="${label}">${items.map(card).join('')}</ul>`;
 }
 
+/* Review and invest: every order, its costs, allowance use, and two
+   checks before the orders can be placed (execution-only).        */
+let reviewSeq = 0;
+const ORDER_LABEL = { sell: 'Sell', buy: 'Buy', regular: 'Monthly' };
+const acctName = line => line.account ? ACCOUNTS[line.account].name : 'Account not chosen';
+
+function orderRow(o, extra = '') {
+  return `
+    <li class="plan-order" data-type="${o.type}">
+      <span class="plan-order-type">${ORDER_LABEL[o.type]}</span>
+      <span class="plan-order-what">
+        <span class="plan-order-name">${lineInfo(o.line).short}</span>
+        <span class="plan-order-acct">${acctName(o.line)}${o.type === 'regular' ? ` · from ${TAX_YEAR.firstPayment}` : ''}${extra}</span>
+      </span>
+      <span class="plan-order-amt">${money(o.amount)}${o.type === 'regular' ? '<span class="plan-order-per"> a month</span>' : ''}</span>
+    </li>`;
+}
+
+function reviewCard() {
+  const n = ++reviewSeq;
+  const list = orders(state.plan);
+  const costs = orderCosts(state.plan);
+  const use = taxYearUse(state.plan);
+  const sippMonthly = activeLines(state.plan).filter(l => l.source === 'etf' && l.account === 'SIPP').reduce((a, l) => a + l.monthly, 0);
+  const unchosen = list.some(o => o.line.source === 'etf' && !o.line.account);
+  const facts = [
+    ['Fund charges, first year', `about ${money(costs.fundCharges)}`],
+    ['Dealing costs (estimate)', `about ${money(costs.dealing)}`],
+    use.isa.planned ? ['ISA allowance', use.isa.left < 0 ? `${money(-use.isa.left)} over: the excess can’t go in` : `uses ${money(use.isa.planned)}, ${money(use.isa.left)} left`] : null,
+    sippMonthly ? ['Pension tax relief', `${money(sippRelief(sippMonthly).atSource)} a month added, ${money(sippRelief(sippMonthly).extra)} more to claim`] : null,
+  ].filter(Boolean);
+  return `
+    <section class="plan-review" tabindex="-1" aria-labelledby="plan-review-title-${n}">
+      <p class="plan-review-title" id="plan-review-title-${n}">Your orders</p>
+      <ol class="plan-orders">${list.map(o => orderRow(o)).join('')}</ol>
+      <dl class="plan-review-facts">${facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>
+      <p class="plan-review-docs">Before placing: the <a href="/documents/">Key Information Documents</a> for each fund${list.some(o => o.type === 'sell') ? ' and <a href="/capital-gains-tax/">your capital gains tax position</a>' : ''}.</p>
+      <fieldset class="plan-review-checks">
+        <legend>To place these orders, confirm:</legend>
+        <label><input type="checkbox" name="plan-kid-${n}"> I’ve read the Key Information Documents</label>
+        <label><input type="checkbox" name="plan-risk-${n}"> I understand the value can fall and I may get back less than I put in</label>
+      </fieldset>
+      <p class="plan-review-hint" id="plan-review-hint-${n}" aria-live="polite">${unchosen ? 'Choose an account for the new money first.' : 'Tick both boxes to place the orders.'}</p>
+      <div class="plan-review-actions">
+        <button type="button" class="btn-primary" data-step="confirm" aria-disabled="true" aria-describedby="plan-review-hint-${n}"${unchosen ? ' data-blocked' : ''}>Place these orders</button>
+        <button type="button" class="btn-secondary" data-step="send-james">Send to James first</button>
+      </div>
+      <p class="plan-review-note">You’re choosing these investments yourself. Aurelius explains the options but hasn’t recommended them, and can’t say whether they suit you. James can.</p>
+    </section>`;
+}
+
+/* The confirmation, with reference numbers for each order */
+function receiptCard() {
+  const d = new Date();
+  const stamp = `${String(d.getFullYear()).slice(2)}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
+  const list = orders(state.plan);
+  return `
+    <ol class="plan-orders plan-orders--receipt" aria-label="Orders placed">
+      ${list.map((o, i) => orderRow(o, ` · Ref AUR-${stamp}-${String(i + 1).padStart(2, '0')}`)).join('')}
+    </ol>`;
+}
+
+/* Only a fully-ticked review can place orders */
+els.messages.addEventListener('change', e => {
+  const review = e.target.closest('.plan-review');
+  if (!review) return;
+  const btn = review.querySelector('[data-step="confirm"]');
+  const ready = [...review.querySelectorAll('.plan-review-checks input')].every(i => i.checked) && !btn.hasAttribute('data-blocked');
+  btn.setAttribute('aria-disabled', String(!ready));
+  if (ready) review.querySelector('.plan-review-hint').textContent = 'Ready to place.';
+});
+
 function botMessage(parts, chipIds = []) {
   const msg = document.createElement('div');
   msg.className = 'adv-msg adv-msg--bot';
@@ -325,6 +447,8 @@ function botMessage(parts, chipIds = []) {
       <p class="adv-text">${p.html}</p>
       ${p.etf ? etfCard(p.etf) : ''}
       ${p.options ? optionCards(p.options) : ''}
+      ${p.review ? reviewCard() : ''}
+      ${p.receipt ? receiptCard() : ''}
     </div>`).join('');
   const chips = chipIds.length ? `
     <div class="adv-suggestions" role="group" aria-label="Suggested replies">
@@ -367,8 +491,15 @@ function typingIndicator() {
 
 function append(node) {
   els.messages.append(node);
-  /* Scroll the log only — never the page around it */
-  els.messages.scrollTo({ top: els.messages.scrollHeight, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+  /* Scroll the log only — never the page around it. A reply taller
+     than the log (the review card) is shown from its start, so its
+     first lines aren't scrolled out of sight.                       */
+  const log = els.messages;
+  const tall = node.offsetHeight > log.clientHeight;
+  const top = tall
+    ? log.scrollTop + node.getBoundingClientRect().top - log.getBoundingClientRect().top - 8
+    : log.scrollHeight;
+  log.scrollTo({ top, behavior: reduceMotion.matches ? 'instant' : 'smooth' });
 }
 
 /* Only the latest chips and option buttons stay actionable. The
@@ -378,6 +509,15 @@ function retireChips(chosen) {
   const badge = text => Object.assign(document.createElement('span'), { className: 'plan-badge plan-badge--added', textContent: text });
   els.messages.querySelectorAll('.adv-suggestions').forEach(g => g.remove());
   if (!chosen) return;
+  els.messages.querySelectorAll('.plan-review:not([data-closed])').forEach(r => {
+    const outcome = { confirm: 'Orders placed', 'send-james': 'Sent to James', save: 'Saved for later' }[chosen];
+    r.dataset.closed = '';
+    r.querySelectorAll('input').forEach(i => { i.disabled = true; });
+    r.querySelector('.plan-review-hint').remove();
+    r.querySelector('.plan-review-actions').replaceWith(outcome ? badge(outcome) : Object.assign(document.createElement('p'), {
+      className: 'plan-review-stale', textContent: 'The plan has changed since this review.',
+    }));
+  });
   els.messages.querySelectorAll('.plan-etf [data-step]').forEach(b => b.replaceWith(badge('In your plan')));
   els.messages.querySelectorAll('.plan-option [data-step]').forEach(b => {
     const option = b.closest('.plan-option');
@@ -400,7 +540,8 @@ async function converse(text, stepId) {
   const hadFocusInLog = els.messages.contains(document.activeElement);
 
   const id = stepId || matchStep(text, state.done);
-  retireChips(id);
+  /* Answering a question leaves the open options (and review) as they are */
+  retireChips(id && !STEPS[id].info ? id : null);
   append(userMessage(text));
 
   const typing = typingIndicator();
@@ -411,26 +552,28 @@ async function converse(text, stepId) {
 
   let reply;
   if (id) {
-    reply = STEPS[id].run(ctx);
+    const step = STEPS[id];
+    reply = step.run(ctx);
     markDone(state.done, id);
-    state.saved = id === 'save';
+    if (step.status) state.status = step.status;
+    else if (!step.quiet) state.status = 'draft';   /* a changed plan is a new draft */
   } else {
     reply = FALLBACK;
   }
 
   /* A chip that repeats an option card in the same reply is noise */
   const offered = new Set(reply.flatMap(p => p.options?.items.map(o => o.step) ?? []));
-  append(botMessage(reply, nextChips(state.done, ctx).filter(c => !offered.has(c))));
+  append(botMessage(reply, nextChips(state.done, ctx, id).filter(c => !offered.has(c))));
   renderPanel();
-  /* Starting and choosing an approach don't change the plan */
-  if (id && id !== 'start' && !id.startsWith('risk-')) announcePlan();
+  if (id && !STEPS[id].quiet) announcePlan();
 
   state.busy = false;
   els.form.removeAttribute('aria-busy');
   /* Chips that held focus are gone — land somewhere predictable */
   if (hadFocusInLog || document.activeElement === document.body) {
     const last = '.adv-msg:last-child';
-    const target = els.messages.querySelector(`${last} .plan-option [data-step], ${last} .adv-chip`) || els.input;
+    /* A review is focused as a whole, so it's read from "Your orders" */
+    const target = els.messages.querySelector(`${last} .plan-review, ${last} .plan-option [data-step], ${last} .adv-chip`) || els.input;
     target.focus({ preventScroll: true });
   }
 }
@@ -440,6 +583,16 @@ els.messages.addEventListener('click', e => {
   const btn = e.target.closest('[data-step]');
   if (!btn || state.busy) return;
   const id = btn.dataset.step;
+  if (btn.getAttribute('aria-disabled') === 'true') {
+    const review = btn.closest('.plan-review');
+    const hint = review.querySelector('.plan-review-hint');
+    hint.textContent = btn.hasAttribute('data-blocked')
+      ? 'Choose an account for the new money first.'
+      : 'Tick both boxes first: they confirm you’ve read the documents and understand the risk.';
+    hint.dataset.error = '';
+    review.querySelector('.plan-review-checks input:not(:checked)')?.focus();
+    return;
+  }
   converse(STEPS[id].chip, id);
 });
 
@@ -465,7 +618,7 @@ document.querySelector('.plan-panel').addEventListener('click', async e => {
   const info = lineInfo(findLine(state.plan, id));
   const index = [...els.lines.children].findIndex(li => li.contains(btn));
   if (action === 'remove') removeLine(state.plan, id); else restoreLine(state.plan, id);
-  state.saved = false;
+  state.status = 'draft';
   announce(`${action === 'remove' ? 'Removed' : 'Restored'} ${info.short}. ${planSentence()}`);
   await renderPanel();
   /* Keep focus on the same row (now showing Undo / ×); if the row
