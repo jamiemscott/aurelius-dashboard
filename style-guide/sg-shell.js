@@ -16,6 +16,7 @@ const NAV_GROUPS = [
     pages: [
       { id: 'brand',        label: 'Brand',         href: 'brand.html',         icon: '<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>' },
       { id: 'colours',      label: 'Colours',      href: 'index.html',        icon: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3" fill="currentColor"/>' },
+      { id: 'resources',    label: 'Resources',    href: 'resources.html',    icon: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>' },
       { id: 'spacing',      label: 'Spacing',      href: 'spacing.html',      icon: '<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>' },
       { id: 'theming',      label: 'Theming',       href: 'theming.html',       icon: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>' },
       { id: 'transitions',  label: 'Transitions',  href: 'transitions.html',  icon: '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/><rect x="2" y="4" width="6" height="16" rx="1" opacity=".4"/>' },

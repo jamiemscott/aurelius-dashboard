@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="resources">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resources — Aurelius Style Guide</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Resources</h1>
+      <p class="sg-page-desc">Logos, icons and other assets to download and reuse. Each one shows where it lives in the repo.</p>
+    </div>
+
+    <section class="sg-section" id="logos">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Logos</h2>
+        <p class="sg-section-desc">The Aurelius logo and monogram. In the interface itself, use the <a href="brand.html"><code>.brand</code> component</a> rather than an image.</p>
+      </div>
+      <div class="sg-asset-grid">
+        <article class="sg-asset-card">
+          <div class="sg-asset-preview sg-asset-preview--light">
+            <img src="../src/images/brand/aurelius-logo-variations.png" alt="The Aurelius Wealth Management logo, on black and on white" width="1536" height="1024" loading="lazy">
+          </div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name">Logo variations</h3>
+            <p class="sg-asset-desc">The full logo on dark and on light: mark, divider, wordmark. A reference image, not for placing in layouts.</p>
+            <code class="sg-asset-path">src/images/brand/aurelius-logo-variations.png</code>
+            <div class="sg-asset-links">
+              <a class="sg-asset-link" href="../src/images/brand/aurelius-logo-variations.png" download aria-label="Download Logo variations PNG">PNG · 1.2 MB</a>
+            </div>
+          </div>
+        </article>
+        <article class="sg-asset-card">
+          <div class="sg-asset-preview sg-asset-preview--checker">
+            <img src="../src/images/brand/aurelius-monogram-amber.svg" alt="The Aurelius A monogram in amber" width="1024" height="1024" loading="lazy">
+          </div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name">Monogram, amber</h3>
+            <p class="sg-asset-desc">The A on its own in brand amber. Use the SVG or EPS wherever you can; the PNG has a transparent background.</p>
+            <code class="sg-asset-path">src/images/brand/aurelius-monogram-amber.svg</code>
+            <div class="sg-asset-links">
+              <a class="sg-asset-link" href="../src/images/brand/aurelius-monogram-amber.svg" download aria-label="Download Amber monogram SVG">SVG · 2 KB</a>
+              <a class="sg-asset-link" href="../src/images/brand/aurelius-monogram-amber.png" download aria-label="Download Amber monogram PNG">PNG · 383 KB</a>
+              <a class="sg-asset-link" href="../src/images/brand/aurelius-monogram.eps" download aria-label="Download Monogram EPS">EPS · 3 KB</a>
+            </div>
+          </div>
+        </article>
+        <article class="sg-asset-card">
+          <div class="sg-asset-preview sg-asset-preview--light">
+            <img src="../src/images/brand/aurelius-monogram.svg" alt="The Aurelius A monogram in a single colour" width="1024" height="1024" loading="lazy">
+          </div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name">Monogram, theme colour</h3>
+            <p class="sg-asset-desc">Uses <code>currentColor</code>, so it takes the colour of its surroundings when inlined. It’s the source for <code>--brand-monogram</code>, so keep the two in sync.</p>
+            <code class="sg-asset-path">src/images/brand/aurelius-monogram.svg</code>
+            <div class="sg-asset-links">
+              <a class="sg-asset-link" href="../src/images/brand/aurelius-monogram.svg" download aria-label="Download Theme colour monogram SVG">SVG · 2 KB</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="sg-section" id="icons">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Product icons</h2>
+        <p class="sg-section-desc">One set for each product, as an SVG and PNGs from 16 to 1024 pixels. The words can’t be read below about 120 pixels, so very small sizes rely on the mark.</p>
+      </div>
+      <div class="sg-asset-grid sg-asset-grid--four">
+        <article class="sg-asset-card">
+          <div class="sg-asset-preview sg-asset-preview--dark">
+            <img src="../src/images/brand/icons/app/aurelius-app-icon-512.png" alt="The Aurelius app icon: amber A on black with the wave" width="512" height="512" loading="lazy">
+          </div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name">App</h3>
+            <p class="sg-asset-desc">The main application: the mark on black with the wave.</p>
+            <code class="sg-asset-path">src/images/brand/icons/app/</code>
+            <div class="sg-asset-links">
+              <a class="sg-asset-link" href="../src/images/brand/icons/app/aurelius-app-icon.svg" download aria-label="Download App icon SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/app/aurelius-app-icon-16.png" download aria-label="Download App icon PNG, 16 pixels">16</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/app/aurelius-app-icon-32.png" download aria-label="Download App icon PNG, 32 pixels">32</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/app/aurelius-app-icon-48.png" download aria-label="Download App icon PNG, 48 pixels">48</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/app/aurelius-app-icon-120.png" download aria-label="Download App icon PNG, 120 pixels">120</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/app/aurelius-app-icon-152.png" download aria-label="Download App icon PNG, 152 pixels">152</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/app/aurelius-app-icon-167.png" download aria-label="Download App icon PNG, 167 pixels">167</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/app/aurelius-app-icon-180.png" download aria-label="Download App icon PNG, 180 pixels">180</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/app/aurelius-app-icon-192.png" download aria-label="Download App icon PNG, 192 pixels">192</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/app/aurelius-app-icon-512.png" download aria-label="Download App icon PNG, 512 pixels">512</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/app/aurelius-app-icon-1024.png" download aria-label="Download App icon PNG, 1024 pixels">1024</a>
+            </div>
+          </div>
+        </article>
+        <article class="sg-asset-card">
+          <div class="sg-asset-preview sg-asset-preview--dark">
+            <img src="../src/images/brand/icons/library/aurelius-library-icon-512.png" alt="The Library icon: amber A above the word Library, on black" width="512" height="512" loading="lazy">
+          </div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name">Library</h3>
+            <p class="sg-asset-desc">The component library: the mark and “Library” on black with the wave.</p>
+            <code class="sg-asset-path">src/images/brand/icons/library/</code>
+            <div class="sg-asset-links">
+              <a class="sg-asset-link" href="../src/images/brand/icons/library/aurelius-library-icon.svg" download aria-label="Download Library icon SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/library/aurelius-library-icon-16.png" download aria-label="Download Library icon PNG, 16 pixels">16</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/library/aurelius-library-icon-32.png" download aria-label="Download Library icon PNG, 32 pixels">32</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/library/aurelius-library-icon-48.png" download aria-label="Download Library icon PNG, 48 pixels">48</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/library/aurelius-library-icon-120.png" download aria-label="Download Library icon PNG, 120 pixels">120</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/library/aurelius-library-icon-152.png" download aria-label="Download Library icon PNG, 152 pixels">152</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/library/aurelius-library-icon-167.png" download aria-label="Download Library icon PNG, 167 pixels">167</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/library/aurelius-library-icon-180.png" download aria-label="Download Library icon PNG, 180 pixels">180</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/library/aurelius-library-icon-192.png" download aria-label="Download Library icon PNG, 192 pixels">192</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/library/aurelius-library-icon-512.png" download aria-label="Download Library icon PNG, 512 pixels">512</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/library/aurelius-library-icon-1024.png" download aria-label="Download Library icon PNG, 1024 pixels">1024</a>
+            </div>
+          </div>
+        </article>
+        <article class="sg-asset-card">
+          <div class="sg-asset-preview sg-asset-preview--light">
+            <img src="../src/images/brand/icons/library-beta/aurelius-library-beta-icon-512.png" alt="The Library Beta icon: amber A above Library and Beta, on white" width="512" height="512" loading="lazy">
+          </div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name">Library Beta</h3>
+            <p class="sg-asset-desc">The beta library: the mark, “Library” and “Beta” on white.</p>
+            <code class="sg-asset-path">src/images/brand/icons/library-beta/</code>
+            <div class="sg-asset-links">
+              <a class="sg-asset-link" href="../src/images/brand/icons/library-beta/aurelius-library-beta-icon.svg" download aria-label="Download Library Beta icon SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/library-beta/aurelius-library-beta-icon-16.png" download aria-label="Download Library Beta icon PNG, 16 pixels">16</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/library-beta/aurelius-library-beta-icon-32.png" download aria-label="Download Library Beta icon PNG, 32 pixels">32</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/library-beta/aurelius-library-beta-icon-48.png" download aria-label="Download Library Beta icon PNG, 48 pixels">48</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/library-beta/aurelius-library-beta-icon-120.png" download aria-label="Download Library Beta icon PNG, 120 pixels">120</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/library-beta/aurelius-library-beta-icon-152.png" download aria-label="Download Library Beta icon PNG, 152 pixels">152</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/library-beta/aurelius-library-beta-icon-167.png" download aria-label="Download Library Beta icon PNG, 167 pixels">167</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/library-beta/aurelius-library-beta-icon-180.png" download aria-label="Download Library Beta icon PNG, 180 pixels">180</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/library-beta/aurelius-library-beta-icon-192.png" download aria-label="Download Library Beta icon PNG, 192 pixels">192</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/library-beta/aurelius-library-beta-icon-512.png" download aria-label="Download Library Beta icon PNG, 512 pixels">512</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/library-beta/aurelius-library-beta-icon-1024.png" download aria-label="Download Library Beta icon PNG, 1024 pixels">1024</a>
+            </div>
+          </div>
+        </article>
+        <article class="sg-asset-card">
+          <div class="sg-asset-preview sg-asset-preview--light">
+            <img src="../src/images/brand/icons/style-guide/aurelius-style-guide-icon-512.png" alt="The Style Guide icon: amber A above the words Style Guide, on white" width="512" height="512" loading="lazy">
+          </div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name">Style Guide</h3>
+            <p class="sg-asset-desc">This style guide: the mark and “Style Guide” on white.</p>
+            <code class="sg-asset-path">src/images/brand/icons/style-guide/</code>
+            <div class="sg-asset-links">
+              <a class="sg-asset-link" href="../src/images/brand/icons/style-guide/aurelius-style-guide-icon.svg" download aria-label="Download Style Guide icon SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/style-guide/aurelius-style-guide-icon-16.png" download aria-label="Download Style Guide icon PNG, 16 pixels">16</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/style-guide/aurelius-style-guide-icon-32.png" download aria-label="Download Style Guide icon PNG, 32 pixels">32</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/style-guide/aurelius-style-guide-icon-48.png" download aria-label="Download Style Guide icon PNG, 48 pixels">48</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/style-guide/aurelius-style-guide-icon-120.png" download aria-label="Download Style Guide icon PNG, 120 pixels">120</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/style-guide/aurelius-style-guide-icon-152.png" download aria-label="Download Style Guide icon PNG, 152 pixels">152</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/style-guide/aurelius-style-guide-icon-167.png" download aria-label="Download Style Guide icon PNG, 167 pixels">167</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/style-guide/aurelius-style-guide-icon-180.png" download aria-label="Download Style Guide icon PNG, 180 pixels">180</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/style-guide/aurelius-style-guide-icon-192.png" download aria-label="Download Style Guide icon PNG, 192 pixels">192</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/style-guide/aurelius-style-guide-icon-512.png" download aria-label="Download Style Guide icon PNG, 512 pixels">512</a>
+              <a class="sg-asset-link" href="../src/images/brand/icons/style-guide/aurelius-style-guide-icon-1024.png" download aria-label="Download Style Guide icon PNG, 1024 pixels">1024</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="sg-section" id="assets">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Other brand assets</h2>
+        <p class="sg-section-desc">The background and browser icon the site uses.</p>
+      </div>
+      <div class="sg-asset-grid">
+        <article class="sg-asset-card sg-asset-card--wide">
+          <div class="sg-asset-preview sg-asset-preview--dark">
+            <img src="../src/images/wave.svg" alt="Fine flowing lines in amber, red and purple" width="2000" height="1125" loading="lazy">
+          </div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name">Wave</h3>
+            <p class="sg-asset-desc">The line-art background behind the page shell and the splash screen.</p>
+            <code class="sg-asset-path">src/images/wave.svg</code>
+            <div class="sg-asset-links">
+              <a class="sg-asset-link" href="../src/images/wave.svg" download aria-label="Download Wave SVG">SVG · 49 KB</a>
+            </div>
+          </div>
+        </article>
+        <article class="sg-asset-card">
+          <div class="sg-asset-preview sg-asset-preview--checker">
+            <img src="../favicon.svg" alt="The Aurelius favicon" width="512" height="512" loading="lazy">
+          </div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name">Favicon</h3>
+            <p class="sg-asset-desc">The browser tab icon, at the root of the site.</p>
+            <code class="sg-asset-path">favicon.svg</code>
+            <div class="sg-asset-links">
+              <a class="sg-asset-link" href="../favicon.svg" download aria-label="Download Favicon SVG">SVG · 2 KB</a>
+              <a class="sg-asset-link" href="../favicon.png" download aria-label="Download Favicon PNG">PNG · 22 KB</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="sg-section" id="partners">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Partner logos</h2>
+        <p class="sg-section-desc">These belong to their owners, so check their brand rules before using them anywhere new.</p>
+      </div>
+      <div class="sg-asset-grid">
+        <article class="sg-asset-card">
+          <div class="sg-asset-preview sg-asset-preview--light">
+            <img src="../src/images/os_logo_lockup_nttdata_color_main_hires.png" alt="The OutSystems and NTT DATA logos" width="500" height="45" loading="lazy">
+          </div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name">OutSystems and NTT DATA</h3>
+            <p class="sg-asset-desc">The combined lockup used in the footer, which crops it to show each logo on its own.</p>
+            <code class="sg-asset-path">src/images/os_logo_lockup_nttdata_color_main_hires.png</code>
+            <div class="sg-asset-links">
+              <a class="sg-asset-link" href="../src/images/os_logo_lockup_nttdata_color_main_hires.png" download aria-label="Download OutSystems and NTT DATA lockup PNG">PNG · 9 KB</a>
+            </div>
+          </div>
+        </article>
+        <article class="sg-asset-card">
+          <div class="sg-asset-preview sg-asset-preview--light">
+            <img src="../src/images/u-impact.png" alt="The U-Impact logo" width="246" height="71" loading="lazy">
+          </div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name">U-Impact</h3>
+            <p class="sg-asset-desc">The U-Impact logo used in the footer.</p>
+            <code class="sg-asset-path">src/images/u-impact.png</code>
+            <div class="sg-asset-links">
+              <a class="sg-asset-link" href="../src/images/u-impact.png" download aria-label="Download U-Impact PNG">PNG · 9 KB</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="sg-section" id="fonts">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Fonts</h2>
+        <p class="sg-section-desc">Both come from Google Fonts. See <a href="typography.html">Typography</a> for how they’re used.</p>
+      </div>
+      <div class="sg-demo sg-demo--col">
+        <p class="sg-asset-font sg-asset-font--serif">DM Serif Display <a class="sg-asset-link" href="https://fonts.google.com/specimen/DM+Serif+Display">Google Fonts</a></p>
+        <p class="sg-asset-font">DM Sans <a class="sg-asset-link" href="https://fonts.google.com/specimen/DM+Sans">Google Fonts</a></p>
+      </div>
+    </section>
+
+    <section class="sg-section" id="where-files-live">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Where files live</h2>
+        <p class="sg-section-desc">Brand files go in <code>src/images/brand/</code>, and a new product gets its own folder under <code>icons/</code>. File names are lowercase with hyphens, with no spaces. Add new assets to this page too.</p>
+      </div>
+      <div class="sg-code">
+        <pre><code>src/images/
+├── brand/
+│   ├── aurelius-logo-variations.png
+│   ├── aurelius-monogram.svg          theme colour, source for --brand-monogram
+│   ├── aurelius-monogram.eps
+│   ├── aurelius-monogram-amber.svg
+│   ├── aurelius-monogram-amber.png
+│   └── icons/
+│       ├── app/                       one folder per product
+│       ├── library/
+│       ├── library-beta/
+│       └── style-guide/
+├── wave.svg
+├── os_logo_lockup_nttdata_color_main_hires.png
+└── u-impact.png</code></pre>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+</body>
+</html>
