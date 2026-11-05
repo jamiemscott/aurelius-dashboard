@@ -1161,3 +1161,67 @@
   text-decoration: none;
   white-space: nowrap;
 }
+
+
+/* ── Resources: downloadable assets ───────────────────────── */
+.sg-asset-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+}
+/* Four cards: all in a row, or two by two, never three and one */
+.sg-asset-grid--four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 1300px) { .sg-asset-grid--four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 680px) { .sg-asset-grid--four { grid-template-columns: minmax(0, 1fr); } }
+.sg-asset-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.sg-asset-card--wide { grid-column: span 2; }
+@media (max-width: 680px) { .sg-asset-card--wide { grid-column: auto; } }
+.sg-asset-preview {
+  align-items: center;
+  block-size: 220px;
+  border-block-end: 1px solid var(--border);
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+}
+.sg-asset-preview img { block-size: auto; inline-size: auto; max-block-size: 100%; max-inline-size: 100%; object-fit: contain; }
+/* Fixed colours: these show what the file looks like, whatever the theme */
+.sg-asset-preview--light { background: #fff; }
+.sg-asset-preview--dark { background: #000; }
+.sg-asset-preview--checker {
+  background-color: #fff;
+  background-image: linear-gradient(45deg, #e4e4e4 25%, transparent 25%),
+                    linear-gradient(-45deg, #e4e4e4 25%, transparent 25%),
+                    linear-gradient(45deg, transparent 75%, #e4e4e4 75%),
+                    linear-gradient(-45deg, transparent 75%, #e4e4e4 75%);
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+  background-size: 16px 16px;
+}
+.sg-asset-body { display: flex; flex: 1; flex-direction: column; gap: 8px; padding: 14px 16px 16px; }
+.sg-asset-name { color: var(--text-1); font-family: var(--font-sans); font-size: var(--fs-body); font-weight: var(--fw-semibold); margin: 0; }
+.sg-asset-desc { color: var(--text-2); font-size: var(--fs-sm); margin: 0; }
+.sg-asset-path { color: var(--text-3); font-size: var(--fs-xs); overflow-wrap: anywhere; }
+.sg-asset-links { display: flex; flex-wrap: wrap; gap: 6px; margin-block-start: auto; padding-block-start: 4px; }
+.sg-asset-link {
+  align-items: center;
+  border: 1px solid var(--border-input);
+  border-radius: var(--radius-btn);
+  color: var(--gold-text);
+  display: inline-flex;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  min-block-size: 28px;
+  padding-inline: 10px;
+  text-decoration: none;
+}
+.sg-asset-link:hover { background: var(--bg-hover); }
+.sg-asset-font { align-items: center; color: var(--text-1); display: flex; flex-wrap: wrap; font-size: var(--fs-2xl); gap: 12px; margin: 0; }
+.sg-asset-font--serif { font-family: var(--font-serif); }
+.sg-asset-font .sg-asset-link { font-family: var(--font-sans); }
