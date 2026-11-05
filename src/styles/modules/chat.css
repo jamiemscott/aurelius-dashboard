@@ -63,11 +63,10 @@
   background: linear-gradient(135deg, var(--gold-dim), var(--gold-glow));
   border: 2px solid var(--gold);
   border-radius: 50%;
-  color: var(--gold);
+  color: var(--gold-text);             /* gold on dark, AA amber on light */
   display: flex;
   flex-shrink: 0;
-  font-family: var(--font-serif);
-  font-size: var(--fs-xl);             /* 16px */
+  font-size: 0;                        /* the monogram replaces the "A" (brand.css) */
   height: 38px;
   justify-content: center;
   width: 38px;

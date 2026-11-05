@@ -380,9 +380,7 @@ html:has(.theme-checkbox:checked) .adv-messages {
     oklch(from var(--seed-primary) l c h / 0.48)
   );
   color: var(--gold-text);
-  font-family: var(--font-serif);
-  font-size: 14px;
-  font-weight: var(--fw-regular);
+  font-size: 0;                        /* the monogram replaces the "A" (brand.css) */
 }
 
 .adv-avatar--user {
@@ -688,9 +686,7 @@ html:has(.theme-checkbox:checked) .adv-msg--user .adv-bubble-inner {
   border-radius: 50%;
   color: var(--gold-text);
   display: flex;
-  font-family: var(--font-serif);
-  font-size: 28px;
-  font-weight: var(--fw-regular);
+  font-size: 0;                        /* the monogram replaces the "A" (brand.css) */
   height: 64px;
   justify-content: center;
   width: 64px;

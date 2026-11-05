@@ -1019,6 +1019,7 @@ html:has(.theme-checkbox:checked) .plan-panel {
   font-weight: var(--fw-bold);
   letter-spacing: 0.05em;
 }
+.plan-msg--james .adv-avatar--bot::before { content: none; }  /* initials, not the monogram */
 /* A change of sender always shows the avatar */
 .adv-msg--bot.plan-msg--james .adv-avatar,
 .adv-msg--bot.plan-msg--james + .adv-msg--bot .adv-avatar { visibility: visible; }

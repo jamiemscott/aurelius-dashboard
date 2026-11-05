@@ -231,8 +231,7 @@
   color: #ffffff;
   display: flex;
   flex-shrink: 0;
-  font-size: 13px;
-  font-weight: var(--fw-semibold);
+  font-size: 0;                        /* the monogram replaces the "A" (brand.css) */
   height: 28px;
   justify-content: center;
   margin-block-end: 2px;
