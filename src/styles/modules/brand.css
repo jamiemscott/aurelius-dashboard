@@ -29,11 +29,28 @@
   width: 72%;
 }
 
+/* Chat avatars for Aurelius: the same glyph in a circle. Each one's
+   "A" text is a no-CSS fallback, hidden with font-size: 0.          */
+.adv-avatar--bot::before,
+.chat-avatar::before,
+.chat-empty-orb::before,
+.ava-bubble-avatar::before {
+  aspect-ratio: var(--brand-monogram-ratio);
+  background: currentColor;
+  content: "";
+  mask: var(--brand-monogram) center / contain no-repeat;
+  width: 64%;
+}
+
 /* High-contrast mode forces background-color to Canvas, which would
    erase the mask-painted glyph — paint it in a system colour instead.
    (currentColor won't do: forced-color-adjust: none unforces it too.) */
 @media (forced-colors: active) {
-  .brand-mark::before {
+  .brand-mark::before,
+  .adv-avatar--bot::before,
+  .chat-avatar::before,
+  .chat-empty-orb::before,
+  .ava-bubble-avatar::before {
     background: CanvasText;
     forced-color-adjust: none;
   }
