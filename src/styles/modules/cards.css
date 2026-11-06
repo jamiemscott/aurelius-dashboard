@@ -207,3 +207,6 @@
   .kpi-grid  { grid-template-columns: 1fr; }
   .kpi-group { grid-template-columns: 1fr 1fr; }
 }
+
+/* Vertical rhythm between stacked cards */
+.card-gap { margin-block-end: 20px; }

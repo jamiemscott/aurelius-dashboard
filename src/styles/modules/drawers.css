@@ -400,3 +400,32 @@
   flex: 1;
   height: 1px;
 }
+
+/* Drawer heading in the serif voice, used by progress and success states */
+.drawer-heading {
+  color: var(--text-1);
+  font-family: var(--font-serif);
+  font-size: var(--fs-3xl);
+  letter-spacing: var(--ls-snug);
+}
+
+/* Drawer success state */
+.drawer-success {
+  padding-block: 16px 8px;
+  text-align: center;
+}
+
+.drawer-success-title {
+  color: var(--text-1);
+  font-family: var(--font-serif);
+  font-size: var(--fs-5xl);
+  letter-spacing: var(--ls-snug);
+  margin-block-end: 8px;
+}
+
+.drawer-success-body {
+  color: var(--text-2);
+  font-size: var(--fs-ui);
+  line-height: var(--lh-relaxed);
+  margin-block: 12px 24px;
+}

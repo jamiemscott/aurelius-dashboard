@@ -135,3 +135,32 @@
 }
 
 .contact-lock-note svg { color: var(--text-3); flex-shrink: 0; }
+
+/* Section title inside a contact card */
+.contact-eyebrow {
+  color: var(--text-3);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-widest);
+  margin-block-end: 16px;
+  text-transform: uppercase;
+}
+
+.contact-subhead {
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wider);
+  margin-block-end: 2px;
+  text-transform: uppercase;
+}
+
+/* "Sent" confirmation stack */
+.contact-sending {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-block: 24px;
+  text-align: center;
+}

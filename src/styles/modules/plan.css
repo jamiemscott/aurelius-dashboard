@@ -463,6 +463,7 @@ html:has(.theme-checkbox:checked) .plan-panel {
   padding: 9px 8px;
   transition: background 0.2s;
   view-transition-class: plan-line;
+  view-transition-name: var(--plan-vt-name); /* unique per line, set from JS */
 }
 
 .plan-line:hover { background: var(--bg-hover); }

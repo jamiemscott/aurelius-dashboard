@@ -471,3 +471,56 @@
 }
 
 .det-profile-link:hover { opacity: 1; }
+
+/* Masked identifiers (NI number, UTR) */
+.det-mask { font-family: monospace; letter-spacing: 2px; }
+.det-mask--narrow { letter-spacing: 1px; }
+.det-mono-input { font-family: monospace; letter-spacing: 0.5px; }
+
+.det-code {
+  background: var(--tag-bg);
+  border-radius: 5px;
+  color: var(--text-2);
+  font-family: monospace;
+  font-size: var(--fs-md);
+  padding: 2px 8px;
+}
+
+.det-tag {
+  background: var(--tag-bg);
+  border-radius: var(--radius-btn);
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+  margin-inline-start: 4px;
+  padding: 1px 7px;
+}
+
+.det-check-label {
+  align-items: center;
+  color: var(--text-1);
+  cursor: pointer;
+  display: flex;
+  font-size: var(--fs-ui);
+  gap: 8px;
+}
+
+.det-check {
+  accent-color: var(--gold);
+  height: 15px;
+  width: 15px;
+}
+
+.det-alert {
+  align-items: flex-start;
+  background: var(--red-dim);
+  border: 1px solid color-mix(in srgb, var(--red) 20%, transparent);
+  border-radius: 8px;
+  color: var(--red);
+  display: flex;
+  font-size: var(--fs-md);
+  gap: 8px;
+  margin-block-start: 14px;
+  padding: 10px 14px;
+}
+
+.det-address { line-height: 1.8; }

@@ -449,3 +449,6 @@
 }
 
 .ava-panel-restart:hover { color: var(--text-2); }
+
+/* Unpicked chips once a question is answered */
+.ava-chip.is-dimmed { opacity: 0.35; }

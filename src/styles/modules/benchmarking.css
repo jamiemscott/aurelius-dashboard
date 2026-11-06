@@ -73,10 +73,12 @@
   color: var(--text-1);
   display: none;
   font-size: var(--fs-caption);
+  left: var(--tip-x);
   min-width: 160px;
   padding: 8px 12px;
   pointer-events: none;
   position: absolute;
+  top: var(--tip-y);
   white-space: nowrap;
   z-index: 50;
 }
@@ -125,7 +127,7 @@
 
 .bm-snapshot-row {
   background: var(--bg-card);
-  border-left: 3px solid transparent; /* colour applied via inline style */
+  border-left: 3px solid var(--dyn-border, transparent);
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -157,3 +159,5 @@
   color: var(--text-3);
   font-size: var(--fs-sm);
 }
+
+.bm-tooltip.is-visible { display: block; }

@@ -435,3 +435,11 @@ mark.hs-hl {
   justify-content: center;
   margin-block-start: 4px;
 }
+
+/* "All topics" reset link above the topic grid */
+.hs-topics-reset {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  margin: -12px 0 18px;
+}

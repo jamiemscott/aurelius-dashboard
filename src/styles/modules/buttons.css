@@ -218,3 +218,10 @@ a.btn-secondary { text-decoration: underline; text-decoration-color: transparent
 @media (max-width: 900px) {
   .ai-banner__text { display: none; }
 }
+
+/* Destructive variant: pair with .btn-secondary */
+.btn-danger,
+.btn-danger:hover {
+  border-color: color-mix(in srgb, var(--red) 30%, transparent);
+  color: var(--red);
+}
