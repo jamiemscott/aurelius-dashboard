@@ -179,7 +179,7 @@
             </div>
           </div>
           <button class="tk-delete-btn" data-action="delete" data-id="${esc(task.id)}" aria-label="Delete task: ${esc(task.name)}">
-            <svg aria-hidden="true" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-right:4px"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>Delete
+            <svg aria-hidden="true" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="tk-delete-icon"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>Delete
           </button>
         </div>
       </details>
@@ -220,8 +220,7 @@
     pages.forEach(p => {
       if (p === '…') {
         const span = document.createElement('span');
-        span.className = 'tk-pg-btn';
-        span.style.cssText = 'cursor:default;opacity:0.4';
+        span.className = 'tk-pg-btn tk-pg-btn--gap';
         span.textContent = '…';
         span.setAttribute('aria-hidden', 'true');
         container.appendChild(span);
@@ -350,17 +349,11 @@
 
     // Restore saved preference
     const saved = localStorage.getItem('aurelius-theme');
-    if (saved === 'light') {
-      document.documentElement.style.colorScheme = 'light';
-      checkbox.checked = true;
-    } else if (saved === 'dark') {
-      document.documentElement.style.colorScheme = 'dark';
-      checkbox.checked = false;
-    }
+    if (saved === 'light') checkbox.checked = true;
+    else if (saved === 'dark') checkbox.checked = false;
 
     checkbox.addEventListener('change', () => {
       const isLight = checkbox.checked;
-      document.documentElement.style.colorScheme = isLight ? 'light' : 'dark';
       localStorage.setItem('aurelius-theme', isLight ? 'light' : 'dark');
       if (live) live.textContent = isLight ? 'Light mode' : 'Dark mode';
     });

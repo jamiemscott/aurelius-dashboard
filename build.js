@@ -70,6 +70,7 @@ const PARTIALS = [
   'src/styles/state/state.css',
   // Pages — page-specific overrides
   'src/styles/pages/pages.css',
+  // Utilities — single-purpose classes; last so they follow every component
 ].map(f => path.join(ROOT, f));
 
 const OUTPUT  = path.join(ROOT, 'src', 'styles', 'bundle.css');

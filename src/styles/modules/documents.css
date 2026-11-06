@@ -98,6 +98,8 @@
 }
 
 .doc-entry-icon {
+  background: var(--doc-cat-bg);
+  color: var(--doc-cat-color);
   align-items: center;
   border-radius: 10px;
   display: flex;
@@ -147,7 +149,7 @@
   margin-block-start: 3px;
 }
 
-.doc-cat-chip { font-weight: var(--fw-medium); }
+.doc-cat-chip { color: var(--doc-cat-color); font-weight: var(--fw-medium); }
 .doc-meta-dot { opacity: 0.4; }
 
 .doc-account-chip {
@@ -392,3 +394,6 @@
   padding: 64px 24px;
   text-align: center;
 }
+
+.doc-empty-icon { margin-block-end: var(--space-m); }
+.filter-row--header { margin: 0; }

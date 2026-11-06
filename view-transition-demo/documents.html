@@ -6,6 +6,7 @@
 <title>View Transition Demo — Documents</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="demo.css">
 <style>
   @view-transition { navigation: auto; }
 
@@ -121,31 +122,31 @@
     </div>
 
     <!-- Filter bar -->
-    <div class="card card-pad" style="margin-bottom:16px;padding:14px 20px">
-      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-        <span style="font-size:13px;color:var(--text-3);margin-right:4px">Filter:</span>
-        <select style="width:auto;padding:6px 32px 6px 12px;font-size:13px">
+    <div class="card card-pad demo-filter-card">
+      <div class="demo-filter-row">
+        <span class="demo-filter-label">Filter:</span>
+        <select class="select--compact demo-select">
           <option>All Types</option>
           <option>Valuation Reports</option>
           <option>Tax Certificates</option>
           <option>Contract Notes</option>
           <option>Correspondence</option>
         </select>
-        <select style="width:auto;padding:6px 32px 6px 12px;font-size:13px">
+        <select class="select--compact demo-select">
           <option>All Years</option>
           <option>2026</option>
           <option>2025</option>
           <option>2024</option>
         </select>
-        <button class="btn-secondary" style="font-size:13px;padding:6px 16px;margin-left:auto">Mark All Read</button>
+        <button class="btn-secondary demo-btn demo-btn--end">Mark All Read</button>
       </div>
     </div>
 
     <!-- Unread section -->
-    <div class="card" style="margin-bottom:16px">
-      <div style="padding:16px 24px 12px;border-bottom:1px solid var(--divider);display:flex;align-items:center;gap:10px">
-        <h2 class="chart-title" style="margin:0">Unread</h2>
-        <span class="nav-badge" style="position:static;transform:none">3</span>
+    <div class="card demo-card">
+      <div class="demo-panel-head demo-panel-head--row">
+        <h2 class="chart-title demo-title">Unread</h2>
+        <span class="nav-badge sg-static">3</span>
       </div>
       <div class="doc-list">
 
@@ -202,8 +203,8 @@
 
     <!-- Earlier section -->
     <div class="card">
-      <div style="padding:16px 24px 12px;border-bottom:1px solid var(--divider)">
-        <h2 class="chart-title" style="margin:0">Earlier</h2>
+      <div class="demo-panel-head">
+        <h2 class="chart-title demo-title">Earlier</h2>
       </div>
       <div class="doc-list">
 
@@ -268,9 +269,9 @@
         </div>
 
       </div>
-      <div style="padding:14px 24px;border-top:1px solid var(--divider);display:flex;justify-content:space-between;align-items:center">
-        <span style="font-size:13px;color:var(--text-3)">Showing 4 of 22 earlier documents</span>
-        <button class="btn-secondary" style="font-size:13px;padding:7px 18px">Load More</button>
+      <div class="demo-panel-foot">
+        <span class="demo-panel-count">Showing 4 of 22 earlier documents</span>
+        <button class="btn-secondary demo-btn">Load More</button>
       </div>
     </div>
 

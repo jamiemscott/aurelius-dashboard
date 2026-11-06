@@ -34,27 +34,27 @@
       <div class="sg-demo sg-demo--col">
         <div class="sg-heading-row">
           <span class="sg-heading-tag">h1</span>
-          <h1 style="margin:0;line-height:var(--lh-tight)">My Portfolio Overview</h1>
+          <h1>My Portfolio Overview</h1>
         </div>
         <div class="sg-heading-row">
           <span class="sg-heading-tag">h2</span>
-          <h2 style="margin:0;line-height:var(--lh-tight)">Asset Allocation</h2>
+          <h2>Asset Allocation</h2>
         </div>
         <div class="sg-heading-row">
           <span class="sg-heading-tag">h3</span>
-          <h3 style="margin:0;line-height:var(--lh-snug)">UK Equities Breakdown</h3>
+          <h3>UK Equities Breakdown</h3>
         </div>
         <div class="sg-heading-row">
           <span class="sg-heading-tag">h4</span>
-          <h4 style="margin:0;line-height:var(--lh-snug)">Vanguard FTSE All-World</h4>
+          <h4>Vanguard FTSE All-World</h4>
         </div>
         <div class="sg-heading-row">
           <span class="sg-heading-tag">h5</span>
-          <h5 style="margin:0">Transaction reference</h5>
+          <h5>Transaction reference</h5>
         </div>
         <div class="sg-heading-row">
           <span class="sg-heading-tag">h6</span>
-          <h6 style="margin:0">Sub-category label</h6>
+          <h6>Sub-category label</h6>
         </div>
       </div>
       <div class="sg-code">
@@ -76,16 +76,16 @@
       </div>
       <div class="sg-demo sg-demo--col">
         <div>
-          <p style="color:var(--text-3);font-size:var(--fs-xs);margin:0 0 6px;text-transform:uppercase;letter-spacing:var(--ls-widest)">Display — large</p>
-          <p style="font-family:'DM Serif Display',serif;font-size:var(--fs-5xl);color:var(--text-1);line-height:var(--lh-tight);margin:0">Know Your Element</p>
+          <p class="sg-eyebrow">Display — large</p>
+          <p class="sg-display">Know Your Element</p>
         </div>
         <div>
-          <p style="color:var(--text-3);font-size:var(--fs-xs);margin:0 0 6px;text-transform:uppercase;letter-spacing:var(--ls-widest)">Display — medium</p>
-          <p style="font-family:'DM Serif Display',serif;font-size:var(--fs-3xl);color:var(--text-1);line-height:var(--lh-snug);margin:0">Portfolio at a Glance</p>
+          <p class="sg-eyebrow">Display — medium</p>
+          <p class="sg-display">Portfolio at a Glance</p>
         </div>
         <div>
-          <p style="color:var(--text-3);font-size:var(--fs-xs);margin:0 0 6px;text-transform:uppercase;letter-spacing:var(--ls-widest)">Display — italic accent</p>
-          <p style="font-family:'DM Serif Display',serif;font-style:italic;font-size:var(--fs-3xl);color:var(--gold-text);line-height:var(--lh-snug);margin:0">Your journey begins here</p>
+          <p class="sg-eyebrow">Display — italic accent</p>
+          <p class="sg-display sg-display--accent">Your journey begins here</p>
         </div>
       </div>
       <div class="sg-code">
@@ -110,21 +110,19 @@ color: var(--gold-text);</code></pre>
       </div>
       <div class="sg-demo sg-demo--col">
         <div>
-          <p style="color:var(--text-3);font-size:var(--fs-xs);margin:0 0 8px;text-transform:uppercase;letter-spacing:var(--ls-widest)">Body — <code>--fs-body</code></p>
-          <p style="font-size:var(--fs-body);color:var(--text-2);line-height:var(--lh-relaxed);max-width:60ch;margin:0">Your portfolio has grown by 12.4% over the past twelve months, outperforming the FTSE 100 benchmark by 2.1 percentage points. The primary driver has been your global equity allocation, which returned 18.2% during the period — supported by strong performance in US technology and emerging market holdings.</p>
+          <p class="sg-eyebrow">Body — <code>--fs-body</code></p>
+          <p class="sg-copy sg-copy--measure">Your portfolio has grown by 12.4% over the past twelve months, outperforming the FTSE 100 benchmark by 2.1 percentage points. The primary driver has been your global equity allocation, which returned 18.2% during the period — supported by strong performance in US technology and emerging market holdings.</p>
         </div>
         <div>
-          <p style="color:var(--text-3);font-size:var(--fs-xs);margin:0 0 8px;text-transform:uppercase;letter-spacing:var(--ls-widest)">Body small — <code>--fs-body-sm</code></p>
-          <p style="font-size:var(--fs-body-sm);color:var(--text-2);line-height:var(--lh-relaxed);max-width:60ch;margin:0">Capital at risk. Past performance is not a reliable indicator of future results. The value of investments and the income from them can fall as well as rise. You may get back less than you invest.</p>
+          <p class="sg-eyebrow">Body small — <code>--fs-body-sm</code></p>
+          <p class="sg-copy sg-copy--measure sg-copy--small">Capital at risk. Past performance is not a reliable indicator of future results. The value of investments and the income from them can fall as well as rise. You may get back less than you invest.</p>
         </div>
       </div>
       <div class="sg-code">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
         <pre><code class="language-html">&lt;p&gt;Standard body copy — readable at any length.&lt;/p&gt;
 
-&lt;p style="font-size:var(--fs-body-sm)"&gt;
-  Smaller body — disclaimers, supporting copy.
-&lt;/p&gt;</code></pre>
+&lt;p&gt;&lt;small&gt;Smaller body — disclaimers, supporting copy.&lt;/small&gt;&lt;/p&gt;</code></pre>
       </div>
     </section>
 
@@ -135,11 +133,11 @@ color: var(--gold-text);</code></pre>
         <p class="sg-section-desc">Semantic inline elements for emphasis, importance, annotation, and decoration. Always use the semantically correct element — e.g. <code>&lt;strong&gt;</code> for importance, <code>&lt;em&gt;</code> for stress emphasis. Never use <code>&lt;b&gt;</code> or <code>&lt;i&gt;</code> as style-only substitutes.</p>
       </div>
       <div class="sg-demo sg-demo--col">
-        <p style="font-size:var(--fs-body);color:var(--text-2);line-height:var(--lh-relaxed);margin:0">
-          This is <strong>strong importance</strong> — use for critical values, warnings, or key facts. This is <em>stress emphasis</em> — use for a change in meaning or tone. This text contains a <a href="#inline-elements" style="color:var(--gold-text);text-decoration:underline;text-underline-offset:3px">hyperlink to another section</a> which inherits the brand colour. Here is a <code style="background:var(--bg-input);border-radius:4px;padding:1px 5px;font-size:var(--fs-ui);color:var(--gold-text)">inline code snippet</code> for technical references. Use <mark style="background:var(--gold-dim);color:var(--text-1);border-radius:2px;padding:0 3px">highlighted text</mark> sparingly for search result matches. The <abbr title="Financial Conduct Authority" style="text-decoration:underline dotted;text-underline-offset:3px;cursor:help">FCA</abbr> abbreviation element includes a tooltip via <code>title</code>.
+        <p class="sg-copy">
+          This is <strong>strong importance</strong> — use for critical values, warnings, or key facts. This is <em>stress emphasis</em> — use for a change in meaning or tone. This text contains a <a href="#inline-elements" class="sg-sample-link">hyperlink to another section</a> which inherits the brand colour. Here is a <code class="sg-sample-code">inline code snippet</code> for technical references. Use <mark class="sg-sample-mark">highlighted text</mark> sparingly for search result matches. The <abbr title="Financial Conduct Authority">FCA</abbr> abbreviation element includes a tooltip via <code>title</code>.
         </p>
-        <p style="font-size:var(--fs-body);color:var(--text-2);line-height:var(--lh-relaxed);margin:0">
-          Use <small style="font-size:var(--fs-sm);color:var(--text-3)">small text</small> for legal copy and fine print. Numeric data uses <span style="font-variant-numeric:tabular-nums;font-weight:var(--fw-semibold);color:var(--text-1)">tabular-nums</span> for column alignment. Strikethrough <del style="color:var(--text-3)">£1,200.00</del> shows removed values; <ins style="color:var(--green);text-decoration:none;font-weight:var(--fw-medium)">£1,350.00</ins> shows replacements.
+        <p class="sg-copy">
+          Use <small class="sg-sample-small">small text</small> for legal copy and fine print. Numeric data uses <span class="sg-sample-tabular">tabular-nums</span> for column alignment. Strikethrough <del class="sg-sample-del">£1,200.00</del> shows removed values; <ins class="sg-sample-ins">£1,350.00</ins> shows replacements.
         </p>
       </div>
       <div class="sg-code">
@@ -153,7 +151,7 @@ color: var(--gold-text);</code></pre>
 &lt;small&gt;Legal / fine print&lt;/small&gt;
 &lt;del&gt;Removed value&lt;/del&gt;
 &lt;ins&gt;Replacement value&lt;/ins&gt;
-&lt;span style="font-variant-numeric:tabular-nums"&gt;£1,284,500&lt;/span&gt;</code></pre>
+&lt;span class="kpi-value"&gt;£1,284,500&lt;/span&gt;</code></pre>
       </div>
     </section>
 
@@ -165,19 +163,19 @@ color: var(--gold-text);</code></pre>
       </div>
       <div class="sg-demo sg-demo--col">
         <div>
-          <p style="color:var(--text-3);font-size:var(--fs-xs);margin:0 0 8px;text-transform:uppercase;letter-spacing:var(--ls-widest)">Body link — in running text</p>
-          <p style="font-size:var(--fs-body);color:var(--text-2);line-height:var(--lh-relaxed);margin:0">View your <a href="#links" style="color:var(--gold-text);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--gold-glow)">full transaction history</a> or <a href="#links" style="color:var(--gold-text);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--gold-glow)">download your annual statement</a> for a complete breakdown of activity during the period.</p>
+          <p class="sg-eyebrow">Body link — in running text</p>
+          <p class="sg-copy">View your <a href="#links" class="sg-sample-link">full transaction history</a> or <a href="#links" class="sg-sample-link">download your annual statement</a> for a complete breakdown of activity during the period.</p>
         </div>
         <div>
-          <p style="color:var(--text-3);font-size:var(--fs-xs);margin:0 0 8px;text-transform:uppercase;letter-spacing:var(--ls-widest)">Standalone action link</p>
-          <a href="#links" style="display:inline-flex;align-items:center;gap:6px;color:var(--gold-text);font-size:var(--fs-body);font-weight:var(--fw-medium);text-decoration:none">
+          <p class="sg-eyebrow">Standalone action link</p>
+          <a href="#links" class="sg-sample-link sg-sample-link--action">
             View all holdings
             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
           </a>
         </div>
         <div>
-          <p style="color:var(--text-3);font-size:var(--fs-xs);margin:0 0 8px;text-transform:uppercase;letter-spacing:var(--ls-widest)">External link</p>
-          <a href="#links" style="display:inline-flex;align-items:center;gap:5px;color:var(--gold-text);font-size:var(--fs-body);text-decoration:underline;text-underline-offset:3px">
+          <p class="sg-eyebrow">External link</p>
+          <a href="#links" class="sg-sample-link">
             FCA Register
             <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-label="(opens in new tab)"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           </a>
@@ -203,10 +201,10 @@ color: var(--gold-text);</code></pre>
         <p class="sg-section-desc">Use for items without a meaningful order — feature lists, benefit summaries, navigation links. Default browser bullets are styled via the global base CSS. Nested lists are supported up to two levels deep. Avoid more than ~7 items; consider grouping or a table instead.</p>
       </div>
       <div class="sg-demo">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;max-width:640px">
+        <div class="sg-cols-2 sg-fit-wide">
           <div>
-            <p style="color:var(--text-3);font-size:var(--fs-xs);margin:0 0 12px;text-transform:uppercase;letter-spacing:var(--ls-widest)">Flat list</p>
-            <ul style="color:var(--text-2);font-size:var(--fs-body);line-height:var(--lh-relaxed);padding-left:20px;margin:0">
+            <p class="sg-eyebrow">Flat list</p>
+            <ul class="sg-copy">
               <li>Global equities</li>
               <li>Fixed income</li>
               <li>Alternatives</li>
@@ -214,10 +212,10 @@ color: var(--gold-text);</code></pre>
             </ul>
           </div>
           <div>
-            <p style="color:var(--text-3);font-size:var(--fs-xs);margin:0 0 12px;text-transform:uppercase;letter-spacing:var(--ls-widest)">Nested list</p>
-            <ul style="color:var(--text-2);font-size:var(--fs-body);line-height:var(--lh-relaxed);padding-left:20px;margin:0">
+            <p class="sg-eyebrow">Nested list</p>
+            <ul class="sg-copy">
               <li>Equities
-                <ul style="margin-top:4px">
+                <ul class="sg-list-nested">
                   <li>UK</li>
                   <li>US</li>
                   <li>Emerging markets</li>
@@ -251,11 +249,11 @@ color: var(--gold-text);</code></pre>
         <p class="sg-section-desc">Use when sequence matters — steps in a process, ranked items, numbered instructions. The counter is rendered by the browser. Use <code>start</code> and <code>reversed</code> attributes when the numbering should not begin at 1.</p>
       </div>
       <div class="sg-demo">
-        <ol style="color:var(--text-2);font-size:var(--fs-body);line-height:var(--lh-relaxed);padding-left:24px;margin:0;max-width:480px">
-          <li style="margin-bottom:6px">Select a funding source from your linked accounts</li>
-          <li style="margin-bottom:6px">Enter the amount you wish to transfer</li>
-          <li style="margin-bottom:6px">Review the transaction summary and applicable fees</li>
-          <li style="margin-bottom:6px">Confirm your identity with two-factor authentication</li>
+        <ol class="sg-copy sg-fit-form">
+          <li>Select a funding source from your linked accounts</li>
+          <li>Enter the amount you wish to transfer</li>
+          <li>Review the transaction summary and applicable fees</li>
+          <li>Confirm your identity with two-factor authentication</li>
           <li>Funds are credited within 2–3 business days</li>
         </ol>
       </div>
@@ -277,15 +275,15 @@ color: var(--gold-text);</code></pre>
         <p class="sg-section-desc">The semantically correct element for key/value pairs — transaction summaries, metadata panels, glossary entries. The <code>.review-row</code> pattern in the forms module builds on <code>&lt;dl&gt;</code> structure. Use <code>&lt;dt&gt;</code> for the term/label and <code>&lt;dd&gt;</code> for the value.</p>
       </div>
       <div class="sg-demo">
-        <dl style="display:grid;grid-template-columns:max-content 1fr;gap:8px 24px;margin:0;max-width:400px">
-          <dt style="color:var(--text-3);font-size:var(--fs-sm);font-weight:var(--fw-medium)">Account type</dt>
-          <dd style="color:var(--text-1);font-size:var(--fs-sm);margin:0">Stocks &amp; Shares ISA</dd>
-          <dt style="color:var(--text-3);font-size:var(--fs-sm);font-weight:var(--fw-medium)">Provider</dt>
-          <dd style="color:var(--text-1);font-size:var(--fs-sm);margin:0">Aurelius Wealth Management</dd>
-          <dt style="color:var(--text-3);font-size:var(--fs-sm);font-weight:var(--fw-medium)">Annual allowance</dt>
-          <dd style="color:var(--text-1);font-size:var(--fs-sm);margin:0">£20,000</dd>
-          <dt style="color:var(--text-3);font-size:var(--fs-sm);font-weight:var(--fw-medium)">Subscribed YTD</dt>
-          <dd style="color:var(--text-1);font-size:var(--fs-sm);font-weight:var(--fw-semibold);margin:0">£14,500</dd>
+        <dl class="sg-sample-dl">
+          <dt class="sg-sample-dt">Account type</dt>
+          <dd class="sg-sample-dd">Stocks &amp; Shares ISA</dd>
+          <dt class="sg-sample-dt">Provider</dt>
+          <dd class="sg-sample-dd">Aurelius Wealth Management</dd>
+          <dt class="sg-sample-dt">Annual allowance</dt>
+          <dd class="sg-sample-dd">£20,000</dd>
+          <dt class="sg-sample-dt">Subscribed YTD</dt>
+          <dd class="sg-sample-dd sg-sample-dd--total">£14,500</dd>
         </dl>
       </div>
       <div class="sg-code">
@@ -307,9 +305,9 @@ color: var(--gold-text);</code></pre>
         <p class="sg-section-desc">Used for attributed quotations — adviser commentary, market outlooks, client testimonials. Always include a <code>&lt;cite&gt;</code> element for attribution. The gold left border visually anchors the quote to the brand. Keep quotes concise — two to three sentences maximum.</p>
       </div>
       <div class="sg-demo">
-        <blockquote style="border-left:3px solid var(--gold);padding:4px 0 4px 20px;margin:0;max-width:560px">
-          <p style="color:var(--text-1);font-size:var(--fs-body);font-style:italic;line-height:var(--lh-relaxed);margin:0 0 10px">"Despite ongoing volatility in global markets, your portfolio's diversification strategy has provided meaningful downside protection while still participating in the equity market's recovery. The long-term positioning remains well aligned with your stated objectives."</p>
-          <cite style="color:var(--text-3);font-size:var(--fs-sm);font-style:normal;font-weight:var(--fw-medium)">— Sarah Mitchell, Portfolio Adviser · Q1 2024 Review</cite>
+        <blockquote class="sg-sample-quote">
+          <p class="sg-sample-quote-text">"Despite ongoing volatility in global markets, your portfolio's diversification strategy has provided meaningful downside protection while still participating in the equity market's recovery. The long-term positioning remains well aligned with your stated objectives."</p>
+          <cite class="sg-sample-cite">— Sarah Mitchell, Portfolio Adviser · Q1 2024 Review</cite>
         </blockquote>
       </div>
       <div class="sg-code">
@@ -330,16 +328,16 @@ color: var(--gold-text);</code></pre>
       </div>
       <div class="sg-demo sg-demo--col">
         <div>
-          <p style="color:var(--text-3);font-size:var(--fs-xs);margin:0 0 8px;text-transform:uppercase;letter-spacing:var(--ls-widest)">Inline code</p>
-          <p style="font-size:var(--fs-body);color:var(--text-2);margin:0">Apply <code style="background:var(--bg-input);border-radius:4px;padding:1px 6px;font-size:var(--fs-ui);color:var(--gold-text)">--gold-text</code> for accessible brand colour on any surface, and <code style="background:var(--bg-input);border-radius:4px;padding:1px 6px;font-size:var(--fs-ui);color:var(--gold-text)">.kpi-card.is-featured</code> for the hero metric tile.</p>
+          <p class="sg-eyebrow">Inline code</p>
+          <p class="sg-copy">Apply <code class="sg-sample-code">--gold-text</code> for accessible brand colour on any surface, and <code class="sg-sample-code">.kpi-card.is-featured</code> for the hero metric tile.</p>
         </div>
         <div>
-          <p style="color:var(--text-3);font-size:var(--fs-xs);margin:0 0 8px;text-transform:uppercase;letter-spacing:var(--ls-widest)">Keyboard input — <code style="font-size:10px">&lt;kbd&gt;</code></p>
-          <p style="font-size:var(--fs-body);color:var(--text-2);margin:0">Press <kbd style="background:var(--bg-input);border:1px solid var(--border);border-radius:4px;padding:2px 7px;font-size:var(--fs-sm);font-family:ui-monospace,monospace;color:var(--text-1)">Space</kbd> to grab, <kbd style="background:var(--bg-input);border:1px solid var(--border);border-radius:4px;padding:2px 7px;font-size:var(--fs-sm);font-family:ui-monospace,monospace;color:var(--text-1)">↑</kbd> / <kbd style="background:var(--bg-input);border:1px solid var(--border);border-radius:4px;padding:2px 7px;font-size:var(--fs-sm);font-family:ui-monospace,monospace;color:var(--text-1)">↓</kbd> to reorder, <kbd style="background:var(--bg-input);border:1px solid var(--border);border-radius:4px;padding:2px 7px;font-size:var(--fs-sm);font-family:ui-monospace,monospace;color:var(--text-1)">Enter</kbd> to drop.</p>
+          <p class="sg-eyebrow">Keyboard input — <code class="sg-caption">&lt;kbd&gt;</code></p>
+          <p class="sg-copy">Press <kbd class="sg-sample-kbd">Space</kbd> to grab, <kbd class="sg-sample-kbd">↑</kbd> / <kbd class="sg-sample-kbd">↓</kbd> to reorder, <kbd class="sg-sample-kbd">Enter</kbd> to drop.</p>
         </div>
         <div>
-          <p style="color:var(--text-3);font-size:var(--fs-xs);margin:0 0 8px;text-transform:uppercase;letter-spacing:var(--ls-widest)">Code block</p>
-          <pre style="background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-item);padding:16px 20px;margin:0;overflow:auto"><code style="font-family:ui-monospace,monospace;font-size:12.5px;line-height:1.65;color:var(--text-2)">const kpiCard = document.querySelector('.kpi-card.is-featured');
+          <p class="sg-eyebrow">Code block</p>
+          <pre class="sg-sample-pre"><code>const kpiCard = document.querySelector('.kpi-card.is-featured');
 kpiCard.querySelector('.kpi-value').textContent = formatCurrency(total);</code></pre>
         </div>
       </div>
@@ -366,18 +364,18 @@ kpiCard.querySelector('.kpi-value').textContent = formatCurrency(total);</code><
       </div>
       <div class="sg-demo">
         <div class="sg-type-scale">
-          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-kpi-hero</code></span><span class="sg-type-specimen" style="font-size:var(--fs-kpi-hero);font-weight:var(--fw-semibold)">£1,284,500</span></div>
-          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-page-title</code></span><span class="sg-type-specimen" style="font-size:var(--fs-page-title);font-weight:var(--fw-semibold)">My Portfolio</span></div>
-          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-display-sm</code></span><span class="sg-type-specimen" style="font-size:var(--fs-display-sm)">Portfolio at a Glance</span></div>
-          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-section-title</code></span><span class="sg-type-specimen" style="font-size:var(--fs-section-title);font-weight:var(--fw-semibold)">Recent Transactions</span></div>
-          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-panel-title</code></span><span class="sg-type-specimen" style="font-size:var(--fs-panel-title);font-weight:var(--fw-semibold)">Asset Allocation</span></div>
-          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-data-lg</code></span><span class="sg-type-specimen" style="font-size:var(--fs-data-lg);font-variant-numeric:tabular-nums">£284,500</span></div>
-          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-body</code></span><span class="sg-type-specimen" style="font-size:var(--fs-body)">Standard body copy — readable at comfortable measure</span></div>
-          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-body-sm</code></span><span class="sg-type-specimen" style="font-size:var(--fs-body-sm)">Secondary body — supporting copy and card descriptions</span></div>
-          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-nav</code></span><span class="sg-type-specimen" style="font-size:var(--fs-nav);font-weight:var(--fw-medium)">My Investments</span></div>
-          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-btn</code></span><span class="sg-type-specimen" style="font-size:var(--fs-btn);font-weight:var(--fw-medium)">Save Changes</span></div>
-          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-caption</code></span><span class="sg-type-specimen" style="font-size:var(--fs-caption)">Chart caption / helper annotation</span></div>
-          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-meta</code></span><span class="sg-type-specimen" style="font-size:var(--fs-meta);color:var(--text-3)">Updated 3 minutes ago</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-kpi-hero</code></span><span class="sg-type-specimen sg-type-specimen--display-md sg-type-specimen--strong">£1,284,500</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-page-title</code></span><span class="sg-type-specimen sg-type-specimen--display-md sg-type-specimen--strong">My Portfolio</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-display-sm</code></span><span class="sg-type-specimen sg-type-specimen--display-sm">Portfolio at a Glance</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-section-title</code></span><span class="sg-type-specimen sg-type-specimen--5xl sg-type-specimen--strong">Recent Transactions</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-panel-title</code></span><span class="sg-type-specimen sg-type-specimen--lg sg-type-specimen--strong">Asset Allocation</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-data-lg</code></span><span class="sg-type-specimen sg-type-specimen--6xl sg-type-specimen--figures">£284,500</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-body</code></span><span class="sg-type-specimen sg-type-specimen--body">Standard body copy — readable at comfortable measure</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-body-sm</code></span><span class="sg-type-specimen sg-type-specimen--md">Secondary body — supporting copy and card descriptions</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-nav</code></span><span class="sg-type-specimen sg-type-specimen--ui sg-type-specimen--medium">My Investments</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-btn</code></span><span class="sg-type-specimen sg-type-specimen--ui sg-type-specimen--medium">Save Changes</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-caption</code></span><span class="sg-type-specimen sg-type-specimen--md">Chart caption / helper annotation</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-meta</code></span><span class="sg-type-specimen sg-type-specimen--sm sg-type-specimen--muted">Updated 3 minutes ago</span></div>
         </div>
       </div>
     </section>
@@ -389,10 +387,10 @@ kpiCard.querySelector('.kpi-value').textContent = formatCurrency(total);</code><
         <p class="sg-section-desc">Four weight tokens. Use <code>--fw-regular</code> for body, <code>--fw-medium</code> for labels and nav, <code>--fw-semibold</code> for headings and data values. <code>--fw-bold</code> is available for strong emphasis but use sparingly to preserve its impact.</p>
       </div>
       <div class="sg-demo sg-demo--col">
-        <div class="sg-heading-row"><span class="sg-heading-tag"><code style="font-size:10px">--fw-regular</code></span><span style="font-size:var(--fs-xl);font-weight:var(--fw-regular)">Aurelius Wealth Management — 400</span></div>
-        <div class="sg-heading-row"><span class="sg-heading-tag"><code style="font-size:10px">--fw-medium</code></span><span style="font-size:var(--fs-xl);font-weight:var(--fw-medium)">Aurelius Wealth Management — 500</span></div>
-        <div class="sg-heading-row"><span class="sg-heading-tag"><code style="font-size:10px">--fw-semibold</code></span><span style="font-size:var(--fs-xl);font-weight:var(--fw-semibold)">Aurelius Wealth Management — 600</span></div>
-        <div class="sg-heading-row"><span class="sg-heading-tag"><code style="font-size:10px">--fw-bold</code></span><span style="font-size:var(--fs-xl);font-weight:var(--fw-bold)">Aurelius Wealth Management — 700</span></div>
+        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="sg-caption">--fw-regular</code></span><span class="sg-type-weight sg-type-weight--regular">Aurelius Wealth Management — 400</span></div>
+        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="sg-caption">--fw-medium</code></span><span class="sg-type-weight sg-type-weight--medium">Aurelius Wealth Management — 500</span></div>
+        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="sg-caption">--fw-semibold</code></span><span class="sg-type-weight sg-type-weight--semibold">Aurelius Wealth Management — 600</span></div>
+        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="sg-caption">--fw-bold</code></span><span class="sg-type-weight sg-type-weight--bold">Aurelius Wealth Management — 700</span></div>
       </div>
     </section>
 
@@ -403,14 +401,14 @@ kpiCard.querySelector('.kpi-value').textContent = formatCurrency(total);</code><
         <p class="sg-section-desc">Tracking and leading tokens. <code>--ls-widest</code> is reserved exclusively for all-caps labels and kickers — never apply wide tracking to lowercase body text. <code>--lh-none</code> is for single-line data values only.</p>
       </div>
       <div class="sg-demo sg-demo--col">
-        <div class="sg-heading-row"><span class="sg-heading-tag"><code style="font-size:10px">--ls-widest</code></span><span style="font-size:var(--fs-sm);letter-spacing:var(--ls-widest);text-transform:uppercase;color:var(--gold-text);font-weight:var(--fw-bold)">Style Guide</span></div>
-        <div class="sg-heading-row"><span class="sg-heading-tag"><code style="font-size:10px">--ls-wider</code></span><span style="font-size:var(--fs-md);letter-spacing:var(--ls-wider);text-transform:uppercase;font-weight:var(--fw-medium)">Section Label</span></div>
-        <div class="sg-heading-row"><span class="sg-heading-tag"><code style="font-size:10px">--ls-heading</code></span><span style="font-size:var(--fs-xl);letter-spacing:var(--ls-heading)">My Investments</span></div>
-        <div class="sg-heading-row"><span class="sg-heading-tag"><code style="font-size:10px">--ls-display</code></span><span style="font-size:var(--fs-3xl);letter-spacing:var(--ls-display);font-family:'DM Serif Display',serif">Aurelius</span></div>
-        <div style="height:1px;background:var(--divider);margin:8px 0"></div>
-        <div class="sg-heading-row"><span class="sg-heading-tag"><code style="font-size:10px">--lh-tight</code></span><span style="font-size:var(--fs-lg);line-height:var(--lh-tight)">Headings and<br>display text</span></div>
-        <div class="sg-heading-row"><span class="sg-heading-tag"><code style="font-size:10px">--lh-normal</code></span><span style="font-size:var(--fs-lg);line-height:var(--lh-normal)">Standard body<br>and UI copy</span></div>
-        <div class="sg-heading-row"><span class="sg-heading-tag"><code style="font-size:10px">--lh-relaxed</code></span><span style="font-size:var(--fs-lg);line-height:var(--lh-relaxed)">Long-form reading<br>and descriptions</span></div>
+        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="sg-caption">--ls-widest</code></span><span class="sg-type-track sg-type-track--widest">Style Guide</span></div>
+        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="sg-caption">--ls-wider</code></span><span class="sg-type-track sg-type-track--wider">Section Label</span></div>
+        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="sg-caption">--ls-heading</code></span><span class="sg-type-track sg-type-track--heading">My Investments</span></div>
+        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="sg-caption">--ls-display</code></span><span class="sg-type-track sg-type-track--display">Aurelius</span></div>
+        <div class="sg-rule"></div>
+        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="sg-caption">--lh-tight</code></span><span class="sg-type-leading sg-type-leading--tight">Headings and<br>display text</span></div>
+        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="sg-caption">--lh-normal</code></span><span class="sg-type-leading sg-type-leading--normal">Standard body<br>and UI copy</span></div>
+        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="sg-caption">--lh-relaxed</code></span><span class="sg-type-leading sg-type-leading--relaxed">Long-form reading<br>and descriptions</span></div>
       </div>
     </section>
 

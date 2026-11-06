@@ -48,23 +48,23 @@
         <!-- Element chips -->
         <div class="ob-el-chips" role="list" aria-label="Five investment elements">
           <div class="ob-el-chip" role="listitem">
-            <div class="ob-el-chip-dot" style="background: var(--el-water)" aria-hidden="true"></div>
+            <div class="ob-el-chip-dot ob-el--water" aria-hidden="true"></div>
             <span class="ob-el-chip-label">Water</span>
           </div>
           <div class="ob-el-chip" role="listitem">
-            <div class="ob-el-chip-dot" style="background: var(--el-wood)" aria-hidden="true"></div>
+            <div class="ob-el-chip-dot ob-el--wood" aria-hidden="true"></div>
             <span class="ob-el-chip-label">Wood</span>
           </div>
           <div class="ob-el-chip" role="listitem">
-            <div class="ob-el-chip-dot" style="background: var(--el-fire)" aria-hidden="true"></div>
+            <div class="ob-el-chip-dot ob-el--fire" aria-hidden="true"></div>
             <span class="ob-el-chip-label">Fire</span>
           </div>
           <div class="ob-el-chip" role="listitem">
-            <div class="ob-el-chip-dot" style="background: var(--el-earth)" aria-hidden="true"></div>
+            <div class="ob-el-chip-dot ob-el--earth" aria-hidden="true"></div>
             <span class="ob-el-chip-label">Earth</span>
           </div>
           <div class="ob-el-chip" role="listitem">
-            <div class="ob-el-chip-dot" style="background: var(--el-metal)" aria-hidden="true"></div>
+            <div class="ob-el-chip-dot ob-el--metal" aria-hidden="true"></div>
             <span class="ob-el-chip-label">Metal</span>
           </div>
         </div>
@@ -191,11 +191,11 @@
         aria-valuemin="0"
         aria-valuemax="100"
       >
-        <div class="ob-progress__fill" id="pf1" style="--ob-pct: 0%; background: var(--el-water)"></div>
+        <div class="ob-progress__fill ob-el--water" id="pf1"></div>
       </div>
 
       <div class="ob-qb">
-        <p class="ob-eyebrow" style="color: var(--el-water)">Water · Foundation</p>
+        <p class="ob-eyebrow ob-el--water">Water · Foundation</p>
         <h2 class="ob-heading">Where are you in life?</h2>
         <p class="ob-subtext">Turn the dial to your current stage</p>
 
@@ -233,7 +233,7 @@
               font-family="DM Sans, sans-serif"
               font-weight="500"
               fill="var(--gold)"
-              style="pointer-events:none"
+              class="ob-dial-tick-label"
             ></text>
           </svg>
 
@@ -292,22 +292,22 @@
         aria-valuemin="0"
         aria-valuemax="100"
       >
-        <div class="ob-progress__fill" id="pf2" style="--ob-pct: 0%; background: var(--el-water)"></div>
+        <div class="ob-progress__fill ob-el--water" id="pf2"></div>
       </div>
 
       <div class="ob-qb">
-        <p class="ob-eyebrow" style="color: var(--el-water)">Water · Temperament</p>
+        <p class="ob-eyebrow ob-el--water">Water · Temperament</p>
         <h2 class="ob-heading">Your relationship with risk</h2>
         <p class="ob-subtext">Slide to position — the scenario updates in real time</p>
 
         <!-- Spectrum slider — custom visual over native range -->
         <div class="ob-spec-wrap" id="risk-wrap">
           <div class="ob-spec-track" aria-hidden="true">
-            <div class="ob-spec-seg" style="background: light-dark(#bfd4ee, #1a2d4a)"></div>
-            <div class="ob-spec-seg" style="background: light-dark(#b8d8d8, #1a3040)"></div>
-            <div class="ob-spec-seg" style="background: light-dark(#c0dfc4, #1e2e1e)"></div>
-            <div class="ob-spec-seg" style="background: light-dark(#e8d4b8, #3a2008)"></div>
-            <div class="ob-spec-seg" style="background: light-dark(#edd4c4, #3a1408)"></div>
+            <div class="ob-spec-seg"></div>
+            <div class="ob-spec-seg"></div>
+            <div class="ob-spec-seg"></div>
+            <div class="ob-spec-seg"></div>
+            <div class="ob-spec-seg"></div>
           </div>
 
           <!-- Accessible native range (visually hidden, manages keyboard/AT) -->
@@ -319,7 +319,7 @@
             step="1"
             value="2"
             aria-label="Risk tolerance — use arrow keys to change"
-            style="position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer;z-index:4"
+            class="ob-spec-range"
           >
 
           <!-- Visual thumb (synced by JS) -->
@@ -388,11 +388,11 @@
         aria-valuemin="0"
         aria-valuemax="100"
       >
-        <div class="ob-progress__fill" id="pf3" style="--ob-pct: 0%; background: var(--el-fire)"></div>
+        <div class="ob-progress__fill ob-el--fire" id="pf3"></div>
       </div>
 
       <div class="ob-qb">
-        <p class="ob-eyebrow" style="color: var(--el-fire)">Fire · Intelligence</p>
+        <p class="ob-eyebrow ob-el--fire">Fire · Intelligence</p>
         <h2 class="ob-heading">How do you decide?</h2>
         <p class="ob-subtext">Swipe right to affirm, left to decline</p>
 
@@ -488,11 +488,11 @@
         aria-valuemin="0"
         aria-valuemax="100"
       >
-        <div class="ob-progress__fill" id="pf4" style="--ob-pct: 0%; background: var(--el-earth)"></div>
+        <div class="ob-progress__fill ob-el--earth" id="pf4"></div>
       </div>
 
       <div class="ob-qb">
-        <p class="ob-eyebrow" style="color: var(--el-earth)">Earth · Values</p>
+        <p class="ob-eyebrow ob-el--earth">Earth · Values</p>
         <h2 class="ob-heading">Order your wealth objectives</h2>
         <p class="ob-subtext">Drag to rank — primary objective at the top</p>
 
@@ -581,11 +581,11 @@
         aria-valuemin="0"
         aria-valuemax="100"
       >
-        <div class="ob-progress__fill" id="pf5" style="--ob-pct: 0%; background: var(--el-metal)"></div>
+        <div class="ob-progress__fill ob-el--metal" id="pf5"></div>
       </div>
 
       <div class="ob-qb">
-        <p class="ob-eyebrow" style="color: var(--el-metal)">Metal · Refinement</p>
+        <p class="ob-eyebrow ob-el--metal">Metal · Refinement</p>
         <h2 class="ob-heading">Your investment knowledge</h2>
         <p class="ob-subtext">Tap each concept to cycle your confidence level</p>
 
@@ -644,11 +644,11 @@
         aria-valuemin="0"
         aria-valuemax="100"
       >
-        <div class="ob-progress__fill" id="pf6" style="--ob-pct: 0%; background: var(--el-water)"></div>
+        <div class="ob-progress__fill ob-el--water" id="pf6"></div>
       </div>
 
       <div class="ob-qb">
-        <p class="ob-eyebrow" style="color: var(--el-water)">Water · Flow</p>
+        <p class="ob-eyebrow ob-el--water">Water · Flow</p>
         <h2 class="ob-heading">Your investable capital</h2>
         <p class="ob-subtext">Indicate your available capital today</p>
 

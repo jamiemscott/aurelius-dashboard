@@ -1,0 +1,47 @@
+/* View transition demo pages only. Not part of the bundle. */
+
+.demo-select { font-size: var(--fs-ui); width: auto; }
+.demo-title { margin: 0; }
+.demo-title--spaced { margin-block-end: var(--space-l); }
+.demo-card { margin-block-end: var(--space-base); }
+.demo-card-top { margin-block-start: 0; }
+.demo-filter-card { margin-block-end: var(--space-base); padding: var(--space-base) var(--space-l); }
+.demo-filter-row { align-items: center; display: flex; flex-wrap: wrap; gap: var(--space-m); }
+.demo-filter-label { color: var(--text-3); font-size: var(--fs-ui); margin-inline-end: var(--space-xs); }
+.demo-btn { font-size: var(--fs-ui); padding: var(--space-s) var(--space-base); }
+.demo-btn--end { margin-inline-start: auto; }
+
+.demo-panel-head { border-block-end: 1px solid var(--divider); padding: var(--space-base) var(--space-l) var(--space-m); }
+.demo-panel-head--row { align-items: center; display: flex; gap: var(--space-m); }
+
+.demo-panel-head--split {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-l) var(--space-l) var(--space-base);
+}
+
+.demo-panel-foot {
+  align-items: center;
+  border-block-start: 1px solid var(--divider);
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-base) var(--space-l);
+}
+
+.demo-panel-count { color: var(--text-3); font-size: var(--fs-ui); }
+.demo-actions { display: flex; gap: var(--space-s); }
+.demo-scroll { overflow-x: auto; }
+.demo-section-head { align-items: center; display: flex; justify-content: space-between; margin-block-end: var(--space-l); }
+.demo-kpi-grid { margin-block-end: var(--space-l); }
+.demo-item-name { color: var(--text-1); font-weight: var(--fw-medium); }
+.demo-item-meta { color: var(--text-3); font-size: var(--fs-md); }
+.demo-num { font-weight: var(--fw-semibold); }
+
+.demo-chart { align-items: flex-end; display: flex; gap: var(--space-xs); height: 220px; margin-block-start: var(--space-base); padding-inline: var(--space-xs); }
+.demo-chart-svg { height: 100%; width: 100%; }
+.demo-stack--roomy { display: flex; flex-direction: column; gap: var(--space-base); }
+.demo-bar-head { display: flex; font-size: var(--fs-ui); justify-content: space-between; margin-block-end: var(--space-s); }
+.demo-bar-name { color: var(--text-2); }
+.demo-bar-value { color: var(--text-1); font-weight: var(--fw-semibold); }
+.demo-fill { background: var(--demo-bar-color, var(--gold)); width: var(--demo-bar-pct); }

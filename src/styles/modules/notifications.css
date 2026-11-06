@@ -168,13 +168,20 @@
 /* ── Notification item ── */
 .np-item {
   animation: fade-in-up 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: calc(var(--i, 0) * 55ms);   /* stagger via inline --i */
+  animation-delay: calc(var(--i, 0) * 55ms);   /* stagger, indexed by position below */
   border-radius: var(--radius-item);
   display: flex;
   gap: 0;
   overflow: hidden;
   position: relative;
 }
+
+.np-item:nth-child(2) { --i: 1; }
+.np-item:nth-child(3) { --i: 2; }
+.np-item:nth-child(4) { --i: 3; }
+.np-item:nth-child(5) { --i: 4; }
+.np-item:nth-child(6) { --i: 5; }
+.np-item:nth-child(n + 7) { --i: 6; }
 
 /* Colored left accent stripe */
 .np-item::before {
@@ -307,3 +314,6 @@
 
 /* ── Trigger button: hide gold dot when all read ── */
 #notif-btn.has-no-unread .notif-dot { display: none; }
+
+/* Positions .notif-dot against the control it belongs to */
+.notif-host { display: inline-flex; position: relative; }

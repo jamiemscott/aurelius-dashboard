@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const trackW = wrap.clientWidth;
     const thumbW = 52;
     const left   = pct * (trackW - thumbW) + thumbW / 2;
-    thumb.style.left = left + 'px';
+    thumb.style.setProperty('--ob-thumb-x', left + 'px');
   }
 
   function setRisk(index) {

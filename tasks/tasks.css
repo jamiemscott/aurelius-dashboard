@@ -591,6 +591,8 @@
   padding: 10px 16px;
 }
 
+.tk-pg-btn--gap { cursor: default; opacity: 0.4; }
+
 .tk-pg-btn {
   align-items: center;
   background: transparent;
@@ -720,3 +722,5 @@
     content: none;
   }
 }
+
+.tk-delete-icon { margin-inline-end: var(--space-xs); }

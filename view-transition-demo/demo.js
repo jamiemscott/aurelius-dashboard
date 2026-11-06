@@ -12,14 +12,10 @@
   if (!checkbox) return;
 
   const saved = localStorage.getItem('aurelius-theme');
-  if (saved === 'light') {
-    document.documentElement.style.colorScheme = 'light';
-    checkbox.checked = true;
-  }
+  if (saved === 'light') checkbox.checked = true;
 
   checkbox.addEventListener('change', () => {
     const isLight = checkbox.checked;
-    document.documentElement.style.colorScheme = isLight ? 'light' : 'dark';
     localStorage.setItem('aurelius-theme', isLight ? 'light' : 'dark');
     if (live) live.textContent = isLight ? 'Light mode' : 'Dark mode';
   });

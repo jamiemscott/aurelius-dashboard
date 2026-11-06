@@ -31,43 +31,43 @@
         <h2 class="sg-section-title">Progress Items (<code>.progress-item</code>)</h2>
         <p class="sg-section-desc">Each progress item is a flex row: a coloured dot (<code>.progress-dot</code>), a label (<code>.progress-label</code>), the percentage bar (<code>.progress-bar-wrap</code> containing <code>.progress-bar-track</code> and <code>.progress-bar-fill</code>), and a percentage text (<code>.progress-pct</code>). The fill width is set as an inline style on <code>.progress-bar-fill</code>.</p>
       </div>
-      <div class="sg-demo" style="max-width:480px">
+      <div class="sg-demo sg-fit-form">
         <div class="progress-item">
-          <div class="progress-dot" style="background:var(--gold)"></div>
+          <div class="progress-dot" style="--progress-color:var(--gold)"></div>
           <div class="progress-label">Global Equity</div>
           <div class="progress-bar-wrap">
             <div class="progress-bar-track">
-              <div class="progress-bar-fill" style="width:60%;background:var(--gold)"></div>
+              <div class="progress-bar-fill" style="--progress-color:var(--gold);--progress-pct:60%"></div>
             </div>
           </div>
           <div class="progress-pct">60%</div>
         </div>
         <div class="progress-item">
-          <div class="progress-dot" style="background:var(--el-water)"></div>
+          <div class="progress-dot" style="--progress-color:var(--el-water)"></div>
           <div class="progress-label">Fixed Income</div>
           <div class="progress-bar-wrap">
             <div class="progress-bar-track">
-              <div class="progress-bar-fill" style="width:25%;background:var(--el-water)"></div>
+              <div class="progress-bar-fill" style="--progress-color:var(--el-water);--progress-pct:25%"></div>
             </div>
           </div>
           <div class="progress-pct">25%</div>
         </div>
         <div class="progress-item">
-          <div class="progress-dot" style="background:var(--el-wood)"></div>
+          <div class="progress-dot" style="--progress-color:var(--el-wood)"></div>
           <div class="progress-label">Alternatives</div>
           <div class="progress-bar-wrap">
             <div class="progress-bar-track">
-              <div class="progress-bar-fill" style="width:10%;background:var(--el-wood)"></div>
+              <div class="progress-bar-fill" style="--progress-color:var(--el-wood);--progress-pct:10%"></div>
             </div>
           </div>
           <div class="progress-pct">10%</div>
         </div>
         <div class="progress-item">
-          <div class="progress-dot" style="background:var(--el-earth)"></div>
+          <div class="progress-dot" style="--progress-color:var(--el-earth)"></div>
           <div class="progress-label">Cash</div>
           <div class="progress-bar-wrap">
             <div class="progress-bar-track">
-              <div class="progress-bar-fill" style="width:5%;background:var(--el-earth)"></div>
+              <div class="progress-bar-fill" style="--progress-color:var(--el-earth);--progress-pct:5%"></div>
             </div>
           </div>
           <div class="progress-pct">5%</div>
@@ -76,12 +76,12 @@
       <div class="sg-code">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
         <pre><code class="language-html">&lt;div class="progress-item"&gt;
-  &lt;div class="progress-dot" style="background:var(--gold)"&gt;&lt;/div&gt;
+  &lt;div class="progress-dot" style="--progress-color:var(--gold)"&gt;&lt;/div&gt;
   &lt;div class="progress-label"&gt;Global Equity&lt;/div&gt;
   &lt;div class="progress-bar-wrap"&gt;
     &lt;div class="progress-bar-track"&gt;
-      &lt;!-- Set width as inline style --&gt;
-      &lt;div class="progress-bar-fill" style="width:60%;background:var(--gold)"&gt;&lt;/div&gt;
+      &lt;!-- Set the value and colour through custom properties --&gt;
+      &lt;div class="progress-bar-fill" style="--progress-pct:60%;--progress-color:var(--gold)"&gt;&lt;/div&gt;
     &lt;/div&gt;
   &lt;/div&gt;
   &lt;div class="progress-pct"&gt;60%&lt;/div&gt;
@@ -148,19 +148,19 @@
         <h2 class="sg-section-title">Token Reference</h2>
       </div>
       <div class="sg-demo sg-demo--tight">
-        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md)">
+        <table class="sg-table">
           <thead>
-            <tr style="border-bottom:1px solid var(--border);color:var(--text-3);text-align:left">
-              <th style="padding:8px 12px 8px 0;font-weight:var(--fw-semibold)">Token</th>
-              <th style="padding:8px 0;font-weight:var(--fw-semibold)">Purpose</th>
+            <tr>
+              <th>Token</th>
+              <th>Purpose</th>
             </tr>
           </thead>
-          <tbody style="color:var(--text-2)">
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--progress-bg</code></td><td style="padding:8px 0">Progress track background (maps to <code>--bg-hover</code>)</td></tr>
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--fs-xs</code> (10px)</td><td style="padding:8px 0">Stat chip label (uppercase + letter-spacing)</td></tr>
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--ls-wider</code></td><td style="padding:8px 0">Letter spacing on stat chip label</td></tr>
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--green / --red / --gold-text</code></td><td style="padding:8px 0">is-green / is-red / is-gold value modifiers</td></tr>
-            <tr><td style="padding:8px 12px 8px 0"><code>--divider</code></td><td style="padding:8px 0">Separator between stat chips in a row</td></tr>
+          <tbody>
+            <tr><td><code>--progress-bg</code></td><td>Progress track background (maps to <code>--bg-hover</code>)</td></tr>
+            <tr><td><code>--fs-xs</code> (10px)</td><td>Stat chip label (uppercase + letter-spacing)</td></tr>
+            <tr><td><code>--ls-wider</code></td><td>Letter spacing on stat chip label</td></tr>
+            <tr><td><code>--green / --red / --gold-text</code></td><td>is-green / is-red / is-gold value modifiers</td></tr>
+            <tr><td><code>--divider</code></td><td>Separator between stat chips in a row</td></tr>
           </tbody>
         </table>
       </div>
@@ -174,11 +174,11 @@
       <div class="sg-do-dont">
         <div class="sg-do">
           <div class="sg-do-label">Do</div>
-          <div class="sg-do-body"><p style="color:var(--text-2);font-size:var(--fs-sm);margin:0">Always set the fill width as an inline <code>style</code> attribute so OutSystems can drive it from data. Never hardcode the width in a modifier class.</p></div>
+          <div class="sg-do-body"><p class="sg-note">Always set the fill width as an inline <code>style</code> attribute so OutSystems can drive it from data. Never hardcode the width in a modifier class.</p></div>
         </div>
         <div class="sg-dont">
           <div class="sg-dont-label">Don't</div>
-          <div class="sg-dont-body"><p style="color:var(--text-2);font-size:var(--fs-sm);margin:0">Don't use more than 5–6 stat chips in a single <code>.stat-row</code> — they become too dense on tablet breakpoints. Split into two rows or use a grid if more are needed.</p></div>
+          <div class="sg-dont-body"><p class="sg-note">Don't use more than 5–6 stat chips in a single <code>.stat-row</code> — they become too dense on tablet breakpoints. Split into two rows or use a grid if more are needed.</p></div>
         </div>
       </div>
     </section>
@@ -189,7 +189,24 @@
         <h2 class="sg-section-title">Accessibility Notes</h2>
       </div>
       <div class="sg-demo sg-demo--col">
-        <p style="margin:0;color:var(--text-2);font-size:var(--fs-body)">Progress bars should use <code>role="progressbar"</code>, <code>aria-valuenow</code>, <code>aria-valuemin="0"</code>, and <code>aria-valuemax="100"</code> on the fill element. This allows screen readers to announce the allocation. Stat chip colour modifiers (green/red) must not be the only way to convey direction — the sign character (+ or −) must always be present in the value text.</p>
+        <p class="sg-copy">Progress bars should use <code>role="progressbar"</code>, <code>aria-valuenow</code>, <code>aria-valuemin="0"</code>, and <code>aria-valuemax="100"</code> on the fill element. This allows screen readers to announce the allocation. Stat chip colour modifiers (green/red) must not be the only way to convey direction — the sign character (+ or −) must always be present in the value text.</p>
+      </div>
+    </section>
+
+    <!-- ── Supporting classes ─────────────────────────────── -->
+    <section class="sg-section" id="supporting-classes">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Supporting Classes</h2>
+        <p class="sg-section-desc">Named parts of this component, each defined with it. On an OutSystems UI widget, add the class to the widget's <strong>Style Classes</strong> property, next to any classes it already has. Layout changes at breakpoints live in the class, so don't add extra classes per screen size.</p>
+      </div>
+      <div class="sg-demo sg-demo--flush">
+        <table class="sg-table sg-table--roomy">
+          <thead><tr><th>Class</th><th>Role</th><th>Apply to</th></tr></thead>
+          <tbody>
+            <tr><td class="sg-token">.progress-bar-fill + --progress-pct, --progress-color</td><td>Fill width and colour are data, so the class reads them from properties</td><td>Container; set the properties in Attributes as a <code>style</code> value</td></tr>
+            <tr><td class="sg-token">.progress-dot + --progress-color</td><td>Marker colour is passed in</td><td>Container; set the property in Attributes as a <code>style</code> value</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
 

@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     circle.setAttribute('cy', y.toFixed(1));
     circle.setAttribute('r', '4.5');
     circle.setAttribute('fill', 'rgba(255,255,255,0.07)');
-    circle.style.cursor = 'pointer';
+    circle.classList.add('ob-dial-tick');
     circle.addEventListener('click', () => setDial(i));
     ticksG.appendChild(circle);
   });
@@ -103,10 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update pips
     const pips = pipsEl.querySelectorAll('.ob-pip');
     pips.forEach((p, j) => {
-      p.className = 'ob-pip' + (j < idx ? ' ob-pip--done' : j === idx ? ' ob-pip--curr' : '');
-      if (j === idx) p.style.background = 'var(--el-water)';
-      else if (j < idx) p.style.background = 'color-mix(in srgb, var(--el-water) 27%, transparent)';
-      else p.style.background = '';
+      p.className = 'ob-pip ob-pip--water' + (j < idx ? ' ob-pip--done' : j === idx ? ' ob-pip--curr' : '');
     });
 
     // Update ARIA

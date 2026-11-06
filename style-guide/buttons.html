@@ -30,7 +30,7 @@
       <div class="sg-section-header">
         <h2 class="sg-section-title">Primary Button</h2>
         <p class="sg-section-desc">The highest-emphasis action on a page. Use for the single most important CTA — e.g. "Save Changes", "Continue", "Add Funds". Never place more than one <code>.btn-primary</code> in the same visible context. The gold fill communicates the brand's primary action colour.</p>
-        <p class="sg-section-desc" style="margin-top:8px"><strong>Hover:</strong> lifts 1px with a gold glow shadow, and an animated underline drops in (1px → 2px thick, 1px → 3px offset) matching the text colour. Respects <code>prefers-reduced-motion</code> — underline still appears but without the animated offset transition.</p>
+        <p class="sg-section-desc"><strong>Hover:</strong> lifts 1px with a gold glow shadow, and an animated underline drops in (1px → 2px thick, 1px → 3px offset) matching the text colour. Respects <code>prefers-reduced-motion</code> — underline still appears but without the animated offset transition.</p>
       </div>
       <div class="sg-demo sg-demo--center">
         <button class="btn-primary">Save Changes</button>
@@ -46,7 +46,7 @@
       <div class="sg-section-header">
         <h2 class="sg-section-title">Secondary Button</h2>
         <p class="sg-section-desc">A lower-emphasis alternative. Use alongside a primary button for cancel/back actions, or as the sole action when no primary CTA is needed. The outlined treatment signals secondary intent without visual competition.</p>
-        <p class="sg-section-desc" style="margin-top:8px"><strong>Hover:</strong> background fills with a gold tint layered over the solid card surface (so the background image never bleeds through), and an animated gold underline drops in matching the primary button pattern.</p>
+        <p class="sg-section-desc"><strong>Hover:</strong> background fills with a gold tint layered over the solid card surface (so the background image never bleeds through), and an animated gold underline drops in matching the primary button pattern.</p>
       </div>
       <div class="sg-demo sg-demo--center">
         <button class="btn-secondary">Cancel</button>
@@ -64,14 +64,14 @@
         <p class="sg-section-desc">The canonical two-button pattern: primary right, secondary left. Always position the primary action to the right so users read secondary → primary and confirm deliberately. Use a flex row with a <code>gap</code> of <code>var(--pad)</code>.</p>
       </div>
       <div class="sg-demo sg-demo--center">
-        <div style="display:flex;gap:var(--pad)">
+        <div class="sg-row">
           <button class="btn-secondary">Back</button>
           <button class="btn-primary">Continue</button>
         </div>
       </div>
       <div class="sg-code">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
-        <pre><code class="language-html">&lt;div style="display:flex;gap:var(--pad)"&gt;
+        <pre><code class="language-html">&lt;div class="action-row"&gt;
   &lt;button class="btn-secondary"&gt;Back&lt;/button&gt;
   &lt;button class="btn-primary"&gt;Continue&lt;/button&gt;
 &lt;/div&gt;</code></pre>
@@ -238,7 +238,7 @@
       <div class="sg-section-header">
         <h2 class="sg-section-title">AI Promotional Banner — <code>.ai-banner</code></h2>
         <p class="sg-section-desc">A full-width gradient card promoting the Aurelius AI agent. Sits between the page header and the KPI strip on My Overview. Shares the same blue→violet gradient as <code>.btn-ai</code>. Dismissable for the session via JS — on dismiss the banner hides and the <code>.btn-ai</code> in <code>.header-actions</code> is revealed. The description text (<code>.ai-banner__text</code>) collapses below 900px to keep the banner compact on smaller viewports.</p>
-        <p class="sg-section-desc" style="margin-top:8px"><strong>Button visibility rule:</strong> when the banner is shown the header <code>.btn-ai</code> must be hidden (<code>style="display:none"</code>), since both serve the same purpose. They are mutually exclusive — never display both simultaneously.</p>
+        <p class="sg-section-desc"><strong>Button visibility rule:</strong> when the banner is shown the header <code>.btn-ai</code> must be hidden (the <code>hidden</code> attribute), since both serve the same purpose. They are mutually exclusive — never display both simultaneously.</p>
       </div>
       <div class="sg-demo">
         <div class="ai-banner" id="sg-ai-banner">
@@ -287,7 +287,7 @@
 &lt;/div&gt;
 
 &lt;!-- .btn-ai in header-actions: hidden while banner is visible --&gt;
-&lt;a class="btn-ai" href="/chat/" aria-label="Ask Aurelius AI" style="display:none"&gt;
+&lt;a class="btn-ai" href="/chat/" aria-label="Ask Aurelius AI" hidden&gt;
   &lt;!-- icon --&gt;
   &lt;span class="btn-ai-label"&gt;Ask Aurelius AI&lt;/span&gt;
 &lt;/a&gt;
@@ -299,8 +299,8 @@
   var dismiss   = document.getElementById('ai-banner-dismiss');
   var headerBtn = document.querySelector('.header-actions .btn-ai');
   if (!banner || !dismiss) return;
-  function showButton() { if (headerBtn) headerBtn.style.display = 'inline-flex'; }
-  function hideButton() { if (headerBtn) headerBtn.style.display = 'none'; }
+  function showButton() { if (headerBtn) headerBtn.hidden = false; }
+  function hideButton() { if (headerBtn) headerBtn.hidden = true; }
   if (sessionStorage.getItem('ai-banner-dismissed')) {
     banner.hidden = true;
     showButton();
@@ -324,7 +324,7 @@
         <p class="sg-section-desc">When a gold button needs context-specific sizing or layout (e.g. full-width in a sidebar panel, smaller padding in a compact card), add a modifier class alongside <code>.btn-primary</code>. The modifier class must <strong>only</strong> contain layout/sizing overrides — never re-declare colour, font-family, cursor, or hover states. Gold styling always comes from <code>.btn-primary</code>.</p>
       </div>
       <div class="sg-demo sg-demo--grid">
-        <div style="width:180px">
+        <div class="sg-flex-fill">
           <button class="btn-primary ob-cta__btn">Begin Assessment</button>
         </div>
         <button class="btn-primary contact-btn">Message Adviser</button>
@@ -337,46 +337,46 @@
 &lt;!-- Compact sidebar button --&gt;
 &lt;button class="btn-primary contact-btn" popovertarget="adviser-drawer"&gt;Message Adviser&lt;/button&gt;</code></pre>
       </div>
-      <div class="sg-section-header" style="margin-top:24px">
+      <div class="sg-section-header">
         <p class="sg-section-desc"><strong>Registered modifiers:</strong></p>
-        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md);margin-top:8px">
+        <table class="sg-table">
           <thead>
-            <tr style="border-bottom:1px solid var(--border);text-align:left;color:var(--text-3)">
-              <th style="padding:6px 12px 6px 0">Class</th>
-              <th style="padding:6px 12px">Overrides</th>
-              <th style="padding:6px 0">Used in</th>
+            <tr>
+              <th>Class</th>
+              <th>Overrides</th>
+              <th>Used in</th>
             </tr>
           </thead>
-          <tbody style="color:var(--text-2)">
-            <tr style="border-bottom:1px solid var(--divider)">
-              <td style="padding:8px 12px 8px 0"><code>.contact-btn</code></td>
-              <td style="padding:8px 12px">Smaller font + padding, top margin</td>
-              <td style="padding:8px 0">Sidebar adviser card</td>
-            </tr>
-            <tr style="border-bottom:1px solid var(--divider)">
-              <td style="padding:8px 12px 8px 0"><code>.ob-cta__btn</code></td>
-              <td style="padding:8px 12px">Full-width block, smaller padding</td>
-              <td style="padding:8px 0">Sidebar CTA panel</td>
-            </tr>
-            <tr style="border-bottom:1px solid var(--divider)">
-              <td style="padding:8px 12px 8px 0"><code>.chat-bubble-btn</code></td>
-              <td style="padding:8px 12px">Fixed position, circular, z-index</td>
-              <td style="padding:8px 0">Floating chat FAB</td>
-            </tr>
-            <tr style="border-bottom:1px solid var(--divider)">
-              <td style="padding:8px 12px 8px 0"><code>.chat-send-btn</code></td>
-              <td style="padding:8px 12px">Circular, fixed 36px dimensions</td>
-              <td style="padding:8px 0">Chat input send button</td>
-            </tr>
-            <tr style="border-bottom:1px solid var(--divider)">
-              <td style="padding:8px 12px 8px 0"><code>.ob-btn</code></td>
-              <td style="padding:8px 12px">Uppercase, wide tracking, full-width, larger padding</td>
-              <td style="padding:8px 0">Onboarding flow</td>
+          <tbody>
+            <tr>
+              <td><code>.contact-btn</code></td>
+              <td>Smaller font + padding, top margin</td>
+              <td>Sidebar adviser card</td>
             </tr>
             <tr>
-              <td style="padding:8px 12px 8px 0"><code>.hs-contact-cta</code></td>
-              <td style="padding:8px 12px">Layout modifier only — stretch + top margin; all CTAs use btn-primary as base</td>
-              <td style="padding:8px 0">Help page contact CTAs</td>
+              <td><code>.ob-cta__btn</code></td>
+              <td>Full-width block, smaller padding</td>
+              <td>Sidebar CTA panel</td>
+            </tr>
+            <tr>
+              <td><code>.chat-bubble-btn</code></td>
+              <td>Fixed position, circular, z-index</td>
+              <td>Floating chat FAB</td>
+            </tr>
+            <tr>
+              <td><code>.chat-send-btn</code></td>
+              <td>Circular, fixed 36px dimensions</td>
+              <td>Chat input send button</td>
+            </tr>
+            <tr>
+              <td><code>.ob-btn</code></td>
+              <td>Uppercase, wide tracking, full-width, larger padding</td>
+              <td>Onboarding flow</td>
+            </tr>
+            <tr>
+              <td><code>.hs-contact-cta</code></td>
+              <td>Layout modifier only — stretch + top margin; all CTAs use btn-primary as base</td>
+              <td>Help page contact CTAs</td>
             </tr>
           </tbody>
         </table>
@@ -392,22 +392,38 @@
       <div class="sg-do-dont">
         <div class="sg-do">
           <div class="sg-do-label">Do</div>
-          <div class="sg-demo" style="flex-direction:column;gap:12px;align-items:flex-start">
+          <div class="sg-demo sg-demo--col">
             <div><button class="btn-primary">Save Changes</button></div>
-            <p style="color:var(--text-2);font-size:var(--fs-sm)">One primary action per context. Clear, verb-led label.</p>
+            <p class="sg-note">One primary action per context. Clear, verb-led label.</p>
           </div>
         </div>
         <div class="sg-dont">
           <div class="sg-dont-label">Don't</div>
-          <div class="sg-demo" style="flex-direction:column;gap:12px;align-items:flex-start">
-            <div style="display:flex;gap:8px">
+          <div class="sg-demo sg-demo--col">
+            <div class="sg-row">
               <button class="btn-primary">Submit</button>
               <button class="btn-primary">Save</button>
               <button class="btn-primary">OK</button>
             </div>
-            <p style="color:var(--text-2);font-size:var(--fs-sm)">Multiple primary buttons compete for attention and confuse users.</p>
+            <p class="sg-note">Multiple primary buttons compete for attention and confuse users.</p>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ── Supporting classes ─────────────────────────────── -->
+    <section class="sg-section" id="supporting-classes">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Supporting Classes</h2>
+        <p class="sg-section-desc">Named parts of this component, each defined with it. On an OutSystems UI widget, add the class to the widget's <strong>Style Classes</strong> property, next to any classes it already has. Layout changes at breakpoints live in the class, so don't add extra classes per screen size.</p>
+      </div>
+      <div class="sg-demo sg-demo--flush">
+        <table class="sg-table sg-table--roomy">
+          <thead><tr><th>Class</th><th>Role</th><th>Apply to</th></tr></thead>
+          <tbody>
+            <tr><td class="sg-token">.action-row</td><td>Row of related actions with the standard gap</td><td>Container around the Buttons</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
 

@@ -79,9 +79,9 @@
         <p class="sg-section-desc">Coloured pulsing dots for live status indicators (e.g. account standing, session activity). Three colour states: green (good), gold (pending/warning), red (problem). Each has a matching CSS glow via box-shadow.</p>
       </div>
       <div class="sg-demo sg-demo--row">
-        <span style="display:flex;align-items:center;gap:8px;font-size:var(--fs-ui);color:var(--text-2)"><span class="det-status-dot" style="background:var(--green);box-shadow:0 0 0 3px color-mix(in oklch,var(--green) 25%,transparent)"></span> Active</span>
-        <span style="display:flex;align-items:center;gap:8px;font-size:var(--fs-ui);color:var(--text-2)"><span class="det-status-dot" style="background:var(--gold);box-shadow:0 0 0 3px color-mix(in oklch,var(--gold) 25%,transparent)"></span> Pending</span>
-        <span style="display:flex;align-items:center;gap:8px;font-size:var(--fs-ui);color:var(--text-2)"><span class="det-status-dot" style="background:var(--red);box-shadow:0 0 0 3px color-mix(in oklch,var(--red) 25%,transparent)"></span> Issue</span>
+        <span class="sg-row sg-copy"><span class="det-status-dot green"></span> Active</span>
+        <span class="sg-row sg-copy"><span class="det-status-dot gold"></span> Pending</span>
+        <span class="sg-row sg-copy"><span class="det-status-dot red"></span> Issue</span>
       </div>
     </section>
 
@@ -92,11 +92,11 @@
         <p class="sg-section-desc">A pure CSS toggle switch built with a checkbox + label pattern. The <code>.det-toggle-row</code> arranges the label text on the left and the toggle on the right. The checked state turns the track gold. Use inside <code>.det-notif-wrap</code> for notification preference grids.</p>
       </div>
       <div class="sg-demo">
-        <div class="det-section" style="max-width:400px">
+        <div class="det-section sg-fit-card">
           <div class="det-toggle-row">
             <div>
-              <div style="color:var(--text-1);font-size:var(--fs-ui)">Email notifications</div>
-              <div style="color:var(--text-3);font-size:var(--fs-sm)">Portfolio updates and reports</div>
+              <div class="sg-item-value">Email notifications</div>
+              <div class="sg-meta">Portfolio updates and reports</div>
             </div>
             <label class="det-toggle">
               <input type="checkbox" checked aria-label="Email notifications">
@@ -105,8 +105,8 @@
           </div>
           <div class="det-toggle-row">
             <div>
-              <div style="color:var(--text-1);font-size:var(--fs-ui)">SMS alerts</div>
-              <div style="color:var(--text-3);font-size:var(--fs-sm)">Security events only</div>
+              <div class="sg-item-value">SMS alerts</div>
+              <div class="sg-meta">Security events only</div>
             </div>
             <label class="det-toggle">
               <input type="checkbox" aria-label="SMS alerts">
@@ -137,17 +137,17 @@
         <p class="sg-section-desc">Displays active login sessions with device info, location, last-seen time, and a revoke button. Combine with <code>.det-status-badge</code> for "Current session" / "Active" labelling.</p>
       </div>
       <div class="sg-demo">
-        <div class="det-section" style="max-width:520px">
+        <div class="det-section sg-fit-form">
           <div class="det-session-row">
             <div>
-              <div style="color:var(--text-1);font-size:var(--fs-ui);font-weight:var(--fw-medium)">MacBook Pro — Chrome 120 <span class="det-status-badge" style="background:var(--green-dim);color:var(--green);font-size:var(--fs-xs);border-radius:4px;padding:2px 6px;margin-left:6px">Current</span></div>
-              <div style="color:var(--text-3);font-size:var(--fs-sm)">London, UK · Active now</div>
+              <div class="sg-item-title">MacBook Pro — Chrome 120 <span class="det-status-badge">Current</span></div>
+              <div class="sg-meta">London, UK · Active now</div>
             </div>
           </div>
           <div class="det-session-row">
             <div>
-              <div style="color:var(--text-1);font-size:var(--fs-ui);font-weight:var(--fw-medium)">iPhone 15 — Safari</div>
-              <div style="color:var(--text-3);font-size:var(--fs-sm)">London, UK · 2 hours ago</div>
+              <div class="sg-item-title">iPhone 15 — Safari</div>
+              <div class="sg-meta">London, UK · 2 hours ago</div>
             </div>
             <button class="det-revoke-btn">Revoke</button>
           </div>
@@ -181,27 +181,27 @@
         <h2 class="sg-section-title">Investor Profile Card (<code>.det-profile-card</code>)</h2>
         <p class="sg-section-desc">A full-width card with a gold <code>border-block-start</code> accent that summarises the user's KYC status, risk profile, and 2FA status in a flex row. Displayed at the top of the <code>.details-hero-row</code>.</p>
       </div>
-      <div class="sg-demo" style="max-width:560px">
-        <div class="det-profile-card" style="background:var(--bg-card);border-radius:var(--radius-card);border-top:2px solid var(--gold);padding:20px 24px;display:flex;gap:32px;flex-wrap:wrap">
+      <div class="sg-demo sg-fit-wide">
+        <div class="det-profile-card">
           <div>
-            <div class="det-kyc-status" style="display:flex;align-items:center;gap:6px">
-              <span style="width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block"></span>
-              <span style="color:var(--text-2);font-size:var(--fs-sm);text-transform:uppercase;letter-spacing:var(--ls-wider);font-weight:var(--fw-semibold)">KYC Verified</span>
+            <div class="det-kyc-status">
+              <span class="sg-dot" style="--swatch:var(--green)"></span>
+              <span class="sg-eyebrow">KYC Verified</span>
             </div>
-            <div style="color:var(--text-3);font-size:var(--fs-xs);margin-top:2px">Verified 14 Jan 2023</div>
+            <div class="sg-caption">Verified 14 Jan 2023</div>
           </div>
           <div>
-            <div style="display:flex;align-items:center;gap:6px">
-              <span style="color:var(--gold);font-size:var(--fs-sm);font-weight:var(--fw-semibold)">Balanced</span>
+            <div class="sg-row">
+              <span class="sg-accent">Balanced</span>
             </div>
-            <div style="color:var(--text-3);font-size:var(--fs-xs);margin-top:2px">Risk Profile</div>
+            <div class="sg-caption">Risk Profile</div>
           </div>
           <div>
-            <div class="det-twofa-status" style="display:flex;align-items:center;gap:6px">
-              <span style="width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block"></span>
-              <span style="color:var(--text-2);font-size:var(--fs-sm);font-weight:var(--fw-semibold)">2FA Enabled</span>
+            <div class="det-twofa-status">
+              <span class="sg-dot" style="--swatch:var(--green)"></span>
+              <span class="sg-note">2FA Enabled</span>
             </div>
-            <div style="color:var(--text-3);font-size:var(--fs-xs);margin-top:2px">Authenticator app</div>
+            <div class="sg-caption">Authenticator app</div>
           </div>
         </div>
       </div>
@@ -213,11 +213,11 @@
         <h2 class="sg-section-title">Danger Zone (<code>.det-danger-zone</code>)</h2>
         <p class="sg-section-desc">A section for destructive account actions — close account, delete data. Uses a red-dim tinted background and a subtle red border. Danger links (<code>.det-danger-link</code>) are red-coloured text-only buttons.</p>
       </div>
-      <div class="sg-demo" style="max-width:480px">
-        <div class="det-danger-zone" style="background:var(--red-dim);border:1px solid color-mix(in oklch,var(--red) 25%,transparent);border-radius:var(--radius-card);padding:16px 20px">
-          <div style="color:var(--red);font-size:var(--fs-ui);font-weight:var(--fw-semibold);margin-bottom:4px">Danger Zone</div>
-          <div style="color:var(--text-2);font-size:var(--fs-sm);margin-bottom:12px">These actions are permanent and cannot be undone.</div>
-          <button class="det-danger-link" style="color:var(--red);background:none;border:none;font-size:var(--fs-ui);cursor:pointer;padding:0;text-decoration:underline">Close my account</button>
+      <div class="sg-demo sg-fit-form">
+        <div class="det-danger-zone">
+          <div class="sg-value-down">Danger Zone</div>
+          <div class="sg-note">These actions are permanent and cannot be undone.</div>
+          <button class="det-danger-link">Close my account</button>
         </div>
       </div>
     </section>
@@ -228,19 +228,19 @@
         <h2 class="sg-section-title">Token Reference</h2>
       </div>
       <div class="sg-demo sg-demo--tight">
-        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md)">
+        <table class="sg-table">
           <thead>
-            <tr style="border-bottom:1px solid var(--border);color:var(--text-3);text-align:left">
-              <th style="padding:8px 12px 8px 0;font-weight:var(--fw-semibold)">Token</th>
-              <th style="padding:8px 0;font-weight:var(--fw-semibold)">Purpose</th>
+            <tr>
+              <th>Token</th>
+              <th>Purpose</th>
             </tr>
           </thead>
-          <tbody style="color:var(--text-2)">
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--border-input</code></td><td style="padding:8px 0">Editable input/select border (WCAG 1.4.11)</td></tr>
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--gold</code></td><td style="padding:8px 0">Profile card top accent, toggle checked state</td></tr>
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--green / --green-dim</code></td><td style="padding:8px 0">KYC verified, 2FA enabled, active session status</td></tr>
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--red / --red-dim</code></td><td style="padding:8px 0">Danger zone, problem status, revoke actions</td></tr>
-            <tr><td style="padding:8px 12px 8px 0"><code>148px</code></td><td style="padding:8px 0">Hard-coded min-width on <code>.det-field-label</code> — aligns all labels in a section.</td></tr>
+          <tbody>
+            <tr><td><code>--border-input</code></td><td>Editable input/select border (WCAG 1.4.11)</td></tr>
+            <tr><td><code>--gold</code></td><td>Profile card top accent, toggle checked state</td></tr>
+            <tr><td><code>--green / --green-dim</code></td><td>KYC verified, 2FA enabled, active session status</td></tr>
+            <tr><td><code>--red / --red-dim</code></td><td>Danger zone, problem status, revoke actions</td></tr>
+            <tr><td><code>148px</code></td><td>Hard-coded min-width on <code>.det-field-label</code> — aligns all labels in a section.</td></tr>
           </tbody>
         </table>
       </div>
@@ -252,7 +252,32 @@
         <h2 class="sg-section-title">Accessibility Notes</h2>
       </div>
       <div class="sg-demo sg-demo--col">
-        <p style="margin:0;color:var(--text-2);font-size:var(--fs-body)">Toggle switches must use <code>role="switch"</code> and <code>aria-checked</code> if built with divs; the checkbox+label pattern is preferred as it is natively accessible. Status dots use colour + text — never colour alone (WCAG 1.4.1). Revoke session buttons must have descriptive labels: <code>aria-label="Revoke session: iPhone 15 Safari"</code>. Danger zone actions should use a confirmation dialog to prevent accidental activation.</p>
+        <p class="sg-copy">Toggle switches must use <code>role="switch"</code> and <code>aria-checked</code> if built with divs; the checkbox+label pattern is preferred as it is natively accessible. Status dots use colour + text — never colour alone (WCAG 1.4.1). Revoke session buttons must have descriptive labels: <code>aria-label="Revoke session: iPhone 15 Safari"</code>. Danger zone actions should use a confirmation dialog to prevent accidental activation.</p>
+      </div>
+    </section>
+
+    <!-- ── Supporting classes ─────────────────────────────── -->
+    <section class="sg-section" id="supporting-classes">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Supporting Classes</h2>
+        <p class="sg-section-desc">Named parts of this component, each defined with it. On an OutSystems UI widget, add the class to the widget's <strong>Style Classes</strong> property, next to any classes it already has. Layout changes at breakpoints live in the class, so don't add extra classes per screen size.</p>
+      </div>
+      <div class="sg-demo sg-demo--flush">
+        <table class="sg-table sg-table--roomy">
+          <thead><tr><th>Class</th><th>Role</th><th>Apply to</th></tr></thead>
+          <tbody>
+            <tr><td class="sg-token">.det-section-foot</td><td>Divided footer row at the end of a details section</td><td>Container inside the section</td></tr>
+            <tr><td class="sg-token">.det-section-btn</td><td>Full-width, centred action in a section footer</td><td>Button, alongside its button class</td></tr>
+            <tr><td class="sg-token">.det-rm-name / .det-rm-email</td><td>Relationship manager name and email lines</td><td>Expression, or Text in a Container</td></tr>
+            <tr><td class="sg-token">.det-toggle-row--stacked</td><td>Spacing between stacked toggle rows</td><td>Container, alongside <code>.det-toggle-row</code></td></tr>
+            <tr><td class="sg-token">.det-corr-note / --linked</td><td>Correspondence note; <code>--linked</code> adds the icon row layout</td><td>Container</td></tr>
+            <tr><td class="sg-token">.det-twofa-main / -title / -sub</td><td>Two-factor summary: icon row, title and supporting line</td><td>Container, then Expressions inside it</td></tr>
+            <tr><td class="sg-token">.det-field-secondary</td><td>Muted value within a field row</td><td>Expression</td></tr>
+            <tr><td class="sg-token">.det-history-table / .det-history-meta</td><td>Compact login history table and its muted metadata cells</td><td>Table widget / cell Container</td></tr>
+            <tr><td class="sg-token">.det-alert-icon</td><td>Keeps an alert icon at full size, aligned to the first text line</td><td>Icon widget</td></tr>
+            <tr><td class="sg-token">.det-comm-fields</td><td>Spacing above the communication fields</td><td>Container</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
 

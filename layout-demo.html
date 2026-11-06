@@ -6,6 +6,7 @@
 <title>Aurelius — Layout Demo · shell--no-sidebar</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="src/styles/bundle.css">
+<link rel="stylesheet" href="layout-demo.css">
 </head>
 <body>
 
@@ -63,13 +64,13 @@
     </div>
 
     <!-- ── Modifier annotation ─────────────── -->
-    <div class="card" style="margin-bottom: 20px; border-left: 3px solid var(--brand-gold); padding: 20px 24px;">
-      <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 8px;">How to use</p>
-      <p style="font-family: 'DM Mono', monospace; font-size: 0.875rem; color: var(--text);">
+    <div class="card demo-howto">
+      <p class="demo-howto-label">How to use</p>
+      <p class="demo-howto-code">
         &lt;div class="<strong>shell shell--no-sidebar</strong>"&gt;
       </p>
-      <p style="font-size: 0.8125rem; color: var(--text-muted); margin-top: 10px; line-height: 1.6;">
-        Add <code style="background: var(--bg-input); padding: 1px 6px; border-radius: 4px;">shell--no-sidebar</code> alongside <code style="background: var(--bg-input); padding: 1px 6px; border-radius: 4px;">shell</code> to switch the grid from a two-column layout (sidebar + main) to a single full-width column. The topbar still spans the full viewport. Any <code style="background: var(--bg-input); padding: 1px 6px; border-radius: 4px;">.sidebar</code> element present in the DOM is automatically hidden.
+      <p class="demo-howto-note">
+        Add <code class="demo-code">shell--no-sidebar</code> alongside <code class="demo-code">shell</code> to switch the grid from a two-column layout (sidebar + main) to a single full-width column. The topbar still spans the full viewport. Any <code class="demo-code">.sidebar</code> element present in the DOM is automatically hidden.
       </p>
     </div>
 
@@ -94,79 +95,79 @@
 
     <!-- ── Two-col content ─────────────────── -->
     <div class="two-col">
-      <div class="card" style="padding: 24px;">
-        <p class="page-subtitle" style="margin-bottom: 16px;">Asset Allocation</p>
-        <div style="display: flex; flex-direction: column; gap: 12px;">
+      <div class="card demo-card-pad">
+        <p class="page-subtitle demo-subtitle">Asset Allocation</p>
+        <div class="demo-stack">
           <div>
-            <div style="display: flex; justify-content: space-between; font-size: 0.8125rem; margin-bottom: 6px;">
-              <span style="color: var(--text);">Global Equities</span>
-              <span style="color: var(--text-muted);">55%</span>
+            <div class="demo-bar-head">
+              <span class="demo-item-value">Global Equities</span>
+              <span class="demo-bar-pct">55%</span>
             </div>
-            <div style="height: 6px; background: var(--bg-input); border-radius: 3px; overflow: hidden;">
-              <div style="height: 100%; width: 55%; background: var(--brand-gold); border-radius: 3px; transition: width 0.6s ease;"></div>
+            <div class="demo-bar">
+              <div class="demo-bar-fill" style="--demo-bar-pct:55%"></div>
             </div>
           </div>
           <div>
-            <div style="display: flex; justify-content: space-between; font-size: 0.8125rem; margin-bottom: 6px;">
-              <span style="color: var(--text);">Bonds &amp; Fixed Income</span>
-              <span style="color: var(--text-muted);">25%</span>
+            <div class="demo-bar-head">
+              <span class="demo-item-value">Bonds &amp; Fixed Income</span>
+              <span class="demo-bar-pct">25%</span>
             </div>
-            <div style="height: 6px; background: var(--bg-input); border-radius: 3px; overflow: hidden;">
-              <div style="height: 100%; width: 25%; background: var(--brand-gold); border-radius: 3px; transition: width 0.6s ease;"></div>
-            </div>
-          </div>
-          <div>
-            <div style="display: flex; justify-content: space-between; font-size: 0.8125rem; margin-bottom: 6px;">
-              <span style="color: var(--text);">Alternatives</span>
-              <span style="color: var(--text-muted);">12%</span>
-            </div>
-            <div style="height: 6px; background: var(--bg-input); border-radius: 3px; overflow: hidden;">
-              <div style="height: 100%; width: 12%; background: var(--brand-gold); border-radius: 3px; transition: width 0.6s ease;"></div>
+            <div class="demo-bar">
+              <div class="demo-bar-fill" style="--demo-bar-pct:25%"></div>
             </div>
           </div>
           <div>
-            <div style="display: flex; justify-content: space-between; font-size: 0.8125rem; margin-bottom: 6px;">
-              <span style="color: var(--text);">Cash &amp; Equivalents</span>
-              <span style="color: var(--text-muted);">8%</span>
+            <div class="demo-bar-head">
+              <span class="demo-item-value">Alternatives</span>
+              <span class="demo-bar-pct">12%</span>
             </div>
-            <div style="height: 6px; background: var(--bg-input); border-radius: 3px; overflow: hidden;">
-              <div style="height: 100%; width: 8%; background: var(--brand-gold); border-radius: 3px; transition: width 0.6s ease;"></div>
+            <div class="demo-bar">
+              <div class="demo-bar-fill" style="--demo-bar-pct:12%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="demo-bar-head">
+              <span class="demo-item-value">Cash &amp; Equivalents</span>
+              <span class="demo-bar-pct">8%</span>
+            </div>
+            <div class="demo-bar">
+              <div class="demo-bar-fill" style="--demo-bar-pct:8%"></div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="card" style="padding: 24px;">
-        <p class="page-subtitle" style="margin-bottom: 16px;">Recent Activity</p>
-        <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px;">
-          <li style="display: flex; justify-content: space-between; align-items: flex-start; font-size: 0.8125rem; padding-bottom: 14px; border-bottom: 1px solid var(--border);">
+      <div class="card demo-card-pad">
+        <p class="page-subtitle demo-subtitle">Recent Activity</p>
+        <ul class="demo-item-list">
+          <li class="demo-item-row">
             <div>
-              <div style="color: var(--text); font-weight: 500;">Vanguard FTSE All-World ETF</div>
-              <div style="color: var(--text-muted); margin-top: 2px;">Buy · 24 units</div>
+              <div class="demo-item-name">Vanguard FTSE All-World ETF</div>
+              <div class="demo-item-sub">Buy · 24 units</div>
             </div>
-            <div style="text-align: right;">
-              <div style="color: var(--text);">£3,204.00</div>
-              <div style="color: var(--text-muted); margin-top: 2px;">28 Mar 2026</div>
+            <div class="demo-item-end">
+              <div class="demo-item-value">£3,204.00</div>
+              <div class="demo-item-sub">28 Mar 2026</div>
             </div>
           </li>
-          <li style="display: flex; justify-content: space-between; align-items: flex-start; font-size: 0.8125rem; padding-bottom: 14px; border-bottom: 1px solid var(--border);">
+          <li class="demo-item-row">
             <div>
-              <div style="color: var(--text); font-weight: 500;">iShares Corp Bond ETF</div>
-              <div style="color: var(--text-muted); margin-top: 2px;">Dividend received</div>
+              <div class="demo-item-name">iShares Corp Bond ETF</div>
+              <div class="demo-item-sub">Dividend received</div>
             </div>
-            <div style="text-align: right;">
-              <div style="color: var(--success, #4ade80);">+£142.50</div>
-              <div style="color: var(--text-muted); margin-top: 2px;">15 Mar 2026</div>
+            <div class="demo-item-end">
+              <div class="demo-gain">+£142.50</div>
+              <div class="demo-item-sub">15 Mar 2026</div>
             </div>
           </li>
-          <li style="display: flex; justify-content: space-between; align-items: flex-start; font-size: 0.8125rem;">
+          <li class="demo-item-row demo-item-row--last">
             <div>
-              <div style="color: var(--text); font-weight: 500;">Cash Deposit</div>
-              <div style="color: var(--text-muted); margin-top: 2px;">Bank transfer</div>
+              <div class="demo-item-name">Cash Deposit</div>
+              <div class="demo-item-sub">Bank transfer</div>
             </div>
-            <div style="text-align: right;">
-              <div style="color: var(--success, #4ade80);">+£5,000.00</div>
-              <div style="color: var(--text-muted); margin-top: 2px;">1 Mar 2026</div>
+            <div class="demo-item-end">
+              <div class="demo-gain">+£5,000.00</div>
+              <div class="demo-item-sub">1 Mar 2026</div>
             </div>
           </li>
         </ul>

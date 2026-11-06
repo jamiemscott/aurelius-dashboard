@@ -435,3 +435,23 @@ mark.hs-hl {
   justify-content: center;
   margin-block-start: 4px;
 }
+
+/* "All topics" reset link above the topic grid */
+.hs-topics-reset {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  margin: -12px 0 18px;
+}
+
+.hs-topics-reset-btn {
+  background: none;
+  border: 0;
+  color: var(--text-3);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: var(--fs-sm);
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

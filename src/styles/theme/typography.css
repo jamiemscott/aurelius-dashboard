@@ -189,6 +189,7 @@ p + p { margin-block-start: 0.75em; }
 
 /* ── Inline elements ───────────────────────────────────────────── */
 strong, b { color: var(--text-1); font-weight: var(--fw-semibold); }
+abbr[title] { cursor: help; }
 em, i     { font-style: italic; }
 
 small {

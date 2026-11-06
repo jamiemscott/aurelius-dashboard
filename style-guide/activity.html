@@ -123,20 +123,20 @@
         <h2 class="sg-section-title">Token Reference</h2>
       </div>
       <div class="sg-demo sg-demo--tight">
-        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md)">
+        <table class="sg-table">
           <thead>
-            <tr style="border-bottom:1px solid var(--border);color:var(--text-3);text-align:left">
-              <th style="padding:8px 12px 8px 0;font-weight:var(--fw-semibold)">Token</th>
-              <th style="padding:8px 12px;font-weight:var(--fw-semibold)">Purpose</th>
+            <tr>
+              <th>Token</th>
+              <th>Purpose</th>
             </tr>
           </thead>
-          <tbody style="color:var(--text-2)">
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--green-dim / --green</code></td><td style="padding:8px 0">Buy icon background and text (is-buy)</td></tr>
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--red-dim / --red</code></td><td style="padding:8px 0">Sell icon background and text (is-sell)</td></tr>
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--gold-dim / --gold-text</code></td><td style="padding:8px 0">Dividend icon background and text (is-div)</td></tr>
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--divider</code></td><td style="padding:8px 0">Bottom border separating activity items</td></tr>
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--fs-ui</code> (13px)</td><td style="padding:8px 0">Activity title and amount font size</td></tr>
-            <tr><td style="padding:8px 12px 8px 0"><code>--fs-sm</code> (11px)</td><td style="padding:8px 0">Activity timestamp font size</td></tr>
+          <tbody>
+            <tr><td><code>--green-dim / --green</code></td><td>Buy icon background and text (is-buy)</td></tr>
+            <tr><td><code>--red-dim / --red</code></td><td>Sell icon background and text (is-sell)</td></tr>
+            <tr><td><code>--gold-dim / --gold-text</code></td><td>Dividend icon background and text (is-div)</td></tr>
+            <tr><td><code>--divider</code></td><td>Bottom border separating activity items</td></tr>
+            <tr><td><code>--fs-ui</code> (13px)</td><td>Activity title and amount font size</td></tr>
+            <tr><td><code>--fs-sm</code> (11px)</td><td>Activity timestamp font size</td></tr>
           </tbody>
         </table>
       </div>
@@ -151,13 +151,13 @@
         <div class="sg-do">
           <div class="sg-do-label">Do</div>
           <div class="sg-do-body">
-            <p style="color:var(--text-2);font-size:var(--fs-sm);margin:0">Always use <code>is-positive</code> / <code>is-negative</code> on amounts. Green for money received, red for money paid out — consistent with financial convention.</p>
+            <p class="sg-note">Always use <code>is-positive</code> / <code>is-negative</code> on amounts. Green for money received, red for money paid out — consistent with financial convention.</p>
           </div>
         </div>
         <div class="sg-dont">
           <div class="sg-dont-label">Don't</div>
           <div class="sg-dont-body">
-            <p style="color:var(--text-2);font-size:var(--fs-sm);margin:0">Don't use the activity icon classes (<code>is-buy</code>, <code>is-sell</code>, <code>is-div</code>) outside of <code>.activity-icon</code> elements — they set background and colour together and will produce unexpected results elsewhere.</p>
+            <p class="sg-note">Don't use the activity icon classes (<code>is-buy</code>, <code>is-sell</code>, <code>is-div</code>) outside of <code>.activity-icon</code> elements — they set background and colour together and will produce unexpected results elsewhere.</p>
           </div>
         </div>
       </div>
@@ -169,7 +169,23 @@
         <h2 class="sg-section-title">Accessibility Notes</h2>
       </div>
       <div class="sg-demo sg-demo--col">
-        <p style="margin:0;color:var(--text-2);font-size:var(--fs-body)">Icons are decorative (<code>aria-hidden="true"</code>) — the activity title conveys the transaction type in text. Positive/negative amounts use colour alone for emphasis; screen readers still read the full amount string including the sign character (+ or −). Wrap the feed in a <code>role="feed"</code> region if it can be dynamically updated to support live regions.</p>
+        <p class="sg-copy">Icons are decorative (<code>aria-hidden="true"</code>) — the activity title conveys the transaction type in text. Positive/negative amounts use colour alone for emphasis; screen readers still read the full amount string including the sign character (+ or −). Wrap the feed in a <code>role="feed"</code> region if it can be dynamically updated to support live regions.</p>
+      </div>
+    </section>
+
+    <!-- ── Supporting classes ─────────────────────────────── -->
+    <section class="sg-section" id="supporting-classes">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Supporting Classes</h2>
+        <p class="sg-section-desc">Named parts of this component, each defined with it. On an OutSystems UI widget, add the class to the widget's <strong>Style Classes</strong> property, next to any classes it already has. Layout changes at breakpoints live in the class, so don't add extra classes per screen size.</p>
+      </div>
+      <div class="sg-demo sg-demo--flush">
+        <table class="sg-table sg-table--roomy">
+          <thead><tr><th>Class</th><th>Role</th><th>Apply to</th></tr></thead>
+          <tbody>
+            <tr><td class="sg-token">.activity-figures</td><td>Keeps amount and date together at the end of a row</td><td>Container</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
 

@@ -33,14 +33,14 @@
       </div>
       <div class="sg-demo">
         <div class="sg-token-grid">
-          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--gold)"></div><div class="sg-token-info"><div class="sg-token-name">--gold</div><div class="sg-token-value">Primary action</div></div></div>
-          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--gold-soft)"></div><div class="sg-token-info"><div class="sg-token-name">--gold-soft</div><div class="sg-token-value">Secondary / soft gold</div></div></div>
-          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--gold-text)"></div><div class="sg-token-info"><div class="sg-token-name">--gold-text</div><div class="sg-token-value">AA text on surfaces</div></div></div>
-          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--gold-dim)"></div><div class="sg-token-info"><div class="sg-token-name">--gold-dim</div><div class="sg-token-value">Tinted fill / bg</div></div></div>
-          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--gold-glow)"></div><div class="sg-token-info"><div class="sg-token-name">--gold-glow</div><div class="sg-token-value">Hover glow</div></div></div>
-          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--brand-300)"></div><div class="sg-token-info"><div class="sg-token-name">--brand-300</div><div class="sg-token-value">Scale step 300</div></div></div>
-          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--brand-500)"></div><div class="sg-token-info"><div class="sg-token-name">--brand-500</div><div class="sg-token-value">Seed (≈ #F5A623)</div></div></div>
-          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--brand-700)"></div><div class="sg-token-info"><div class="sg-token-name">--brand-700</div><div class="sg-token-value">WCAG-AA on white</div></div></div>
+          <div class="sg-token-chip"><div class="sg-token-swatch" style="--swatch:var(--gold)"></div><div class="sg-token-info"><div class="sg-token-name">--gold</div><div class="sg-token-value">Primary action</div></div></div>
+          <div class="sg-token-chip"><div class="sg-token-swatch" style="--swatch:var(--gold-soft)"></div><div class="sg-token-info"><div class="sg-token-name">--gold-soft</div><div class="sg-token-value">Secondary / soft gold</div></div></div>
+          <div class="sg-token-chip"><div class="sg-token-swatch" style="--swatch:var(--gold-text)"></div><div class="sg-token-info"><div class="sg-token-name">--gold-text</div><div class="sg-token-value">AA text on surfaces</div></div></div>
+          <div class="sg-token-chip"><div class="sg-token-swatch" style="--swatch:var(--gold-dim)"></div><div class="sg-token-info"><div class="sg-token-name">--gold-dim</div><div class="sg-token-value">Tinted fill / bg</div></div></div>
+          <div class="sg-token-chip"><div class="sg-token-swatch" style="--swatch:var(--gold-glow)"></div><div class="sg-token-info"><div class="sg-token-name">--gold-glow</div><div class="sg-token-value">Hover glow</div></div></div>
+          <div class="sg-token-chip"><div class="sg-token-swatch" style="--swatch:var(--brand-300)"></div><div class="sg-token-info"><div class="sg-token-name">--brand-300</div><div class="sg-token-value">Scale step 300</div></div></div>
+          <div class="sg-token-chip"><div class="sg-token-swatch" style="--swatch:var(--brand-500)"></div><div class="sg-token-info"><div class="sg-token-name">--brand-500</div><div class="sg-token-value">Seed (≈ #F5A623)</div></div></div>
+          <div class="sg-token-chip"><div class="sg-token-swatch" style="--swatch:var(--brand-700)"></div><div class="sg-token-info"><div class="sg-token-name">--brand-700</div><div class="sg-token-value">WCAG-AA on white</div></div></div>
         </div>
       </div>
       <div class="sg-code">
@@ -60,19 +60,19 @@ background: var(--gold);          /* solid gold — buttons only */</code></pre>
         <p class="sg-section-desc">Three surface layers build depth. <code>--bg</code> is the page canvas, <code>--bg-card</code> lifts panels and cards, <code>--bg-hover</code> and <code>--bg-input</code> are for interactive and form states. All resolve correctly in both light and dark via <code>light-dark()</code>.</p>
       </div>
       <div class="sg-demo sg-demo--col">
-        <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-item); padding:16px; color:var(--text-2); font-size:var(--fs-sm)">
+        <div class="sg-panel sg-panel--canvas sg-note">
           <code>--bg</code> — Page canvas
         </div>
-        <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-item); padding:16px; color:var(--text-2); font-size:var(--fs-sm)">
+        <div class="sg-panel sg-panel--card sg-note">
           <code>--bg-card</code> — Card / panel surface
         </div>
-        <div style="background:var(--bg-hover); border:1px solid var(--border); border-radius:var(--radius-item); padding:16px; color:var(--text-2); font-size:var(--fs-sm)">
+        <div class="sg-panel sg-panel--raised sg-note">
           <code>--bg-hover</code> — Hover state / interactive element
         </div>
-        <div style="background:var(--bg-input); border:1px solid var(--border); border-radius:var(--radius-item); padding:16px; color:var(--text-2); font-size:var(--fs-sm)">
+        <div class="sg-panel sg-note">
           <code>--bg-input</code> — Form input background
         </div>
-        <div style="background:var(--bg-dark); border:1px solid var(--border); border-radius:var(--radius-item); padding:16px; color:var(--text-2); font-size:var(--fs-sm)">
+        <div class="sg-panel sg-panel--dark sg-note">
           <code>--bg-dark</code> — Dark chrome (header, sidebar rail)
         </div>
       </div>
@@ -85,9 +85,9 @@ background: var(--gold);          /* solid gold — buttons only */</code></pre>
         <p class="sg-section-desc">Three text levels create visual hierarchy. All pass WCAG AA (4.5:1) on their paired background. Never use <code>--text-3</code> for body copy — it is for decorative labels only.</p>
       </div>
       <div class="sg-demo sg-demo--col">
-        <p style="color:var(--text-1); font-size:var(--fs-body); margin:0"><strong style="font-family:ui-monospace;font-size:11px;color:var(--text-3)">--text-1</strong>  Primary — headings, values, strong emphasis</p>
-        <p style="color:var(--text-2); font-size:var(--fs-body); margin:0"><strong style="font-family:ui-monospace;font-size:11px;color:var(--text-3)">--text-2</strong>  Secondary — body copy, descriptions, sub-labels</p>
-        <p style="color:var(--text-3); font-size:var(--fs-body); margin:0"><strong style="font-family:ui-monospace;font-size:11px;color:var(--text-3)">--text-3</strong>  Tertiary — captions, timestamps, decorative labels</p>
+        <p class="sg-item-value"><strong class="sg-token-meta">--text-1</strong>  Primary — headings, values, strong emphasis</p>
+        <p class="sg-copy"><strong class="sg-token-meta">--text-2</strong>  Secondary — body copy, descriptions, sub-labels</p>
+        <p class="sg-meta"><strong class="sg-token-meta">--text-3</strong>  Tertiary — captions, timestamps, decorative labels</p>
       </div>
     </section>
 
@@ -98,8 +98,8 @@ background: var(--gold);          /* solid gold — buttons only */</code></pre>
         <p class="sg-section-desc"><code>--border</code> is for card outlines and interactive element edges. <code>--divider</code> is lighter — for internal row separators and subtle rules. Both are pure black/white alpha, intentionally hue-neutral.</p>
       </div>
       <div class="sg-demo sg-demo--col">
-        <div style="border:1px solid var(--border); border-radius:var(--radius-item); padding:16px; color:var(--text-2); font-size:var(--fs-sm)"><code>--border</code> — Card edges, input outlines, interactive borders</div>
-        <div style="border-top:1px solid var(--divider); padding-top:12px; color:var(--text-2); font-size:var(--fs-sm)"><code>--divider</code> — Internal rows, section separators</div>
+        <div class="sg-panel sg-panel--outline sg-note"><code>--border</code> — Card edges, input outlines, interactive borders</div>
+        <div class="sg-note"><code>--divider</code> — Internal rows, section separators</div>
       </div>
     </section>
 
@@ -111,14 +111,14 @@ background: var(--gold);          /* solid gold — buttons only */</code></pre>
       </div>
       <div class="sg-demo">
         <div class="sg-token-grid">
-          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--status-success)"></div><div class="sg-token-info"><div class="sg-token-name">--status-success</div><div class="sg-token-value">Success · gain · alias: --green</div></div></div>
-          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--status-success-dim)"></div><div class="sg-token-info"><div class="sg-token-name">--status-success-dim</div><div class="sg-token-value">Success background · alias: --green-dim</div></div></div>
-          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--status-error)"></div><div class="sg-token-info"><div class="sg-token-name">--status-error</div><div class="sg-token-value">Error · loss · alias: --red</div></div></div>
-          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--status-error-dim)"></div><div class="sg-token-info"><div class="sg-token-name">--status-error-dim</div><div class="sg-token-value">Error background · alias: --red-dim</div></div></div>
-          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--status-warning)"></div><div class="sg-token-info"><div class="sg-token-name">--status-warning</div><div class="sg-token-value">Warning · attention required</div></div></div>
-          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--status-warning-dim)"></div><div class="sg-token-info"><div class="sg-token-name">--status-warning-dim</div><div class="sg-token-value">Warning background</div></div></div>
-          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--status-info)"></div><div class="sg-token-info"><div class="sg-token-name">--status-info</div><div class="sg-token-value">Informational · neutral notice</div></div></div>
-          <div class="sg-token-chip"><div class="sg-token-swatch" style="background:var(--status-info-dim)"></div><div class="sg-token-info"><div class="sg-token-name">--status-info-dim</div><div class="sg-token-value">Info background</div></div></div>
+          <div class="sg-token-chip"><div class="sg-token-swatch" style="--swatch:var(--status-success)"></div><div class="sg-token-info"><div class="sg-token-name">--status-success</div><div class="sg-token-value">Success · gain · alias: --green</div></div></div>
+          <div class="sg-token-chip"><div class="sg-token-swatch" style="--swatch:var(--status-success-dim)"></div><div class="sg-token-info"><div class="sg-token-name">--status-success-dim</div><div class="sg-token-value">Success background · alias: --green-dim</div></div></div>
+          <div class="sg-token-chip"><div class="sg-token-swatch" style="--swatch:var(--status-error)"></div><div class="sg-token-info"><div class="sg-token-name">--status-error</div><div class="sg-token-value">Error · loss · alias: --red</div></div></div>
+          <div class="sg-token-chip"><div class="sg-token-swatch" style="--swatch:var(--status-error-dim)"></div><div class="sg-token-info"><div class="sg-token-name">--status-error-dim</div><div class="sg-token-value">Error background · alias: --red-dim</div></div></div>
+          <div class="sg-token-chip"><div class="sg-token-swatch" style="--swatch:var(--status-warning)"></div><div class="sg-token-info"><div class="sg-token-name">--status-warning</div><div class="sg-token-value">Warning · attention required</div></div></div>
+          <div class="sg-token-chip"><div class="sg-token-swatch" style="--swatch:var(--status-warning-dim)"></div><div class="sg-token-info"><div class="sg-token-name">--status-warning-dim</div><div class="sg-token-value">Warning background</div></div></div>
+          <div class="sg-token-chip"><div class="sg-token-swatch" style="--swatch:var(--status-info)"></div><div class="sg-token-info"><div class="sg-token-name">--status-info</div><div class="sg-token-value">Informational · neutral notice</div></div></div>
+          <div class="sg-token-chip"><div class="sg-token-swatch" style="--swatch:var(--status-info-dim)"></div><div class="sg-token-info"><div class="sg-token-name">--status-info-dim</div><div class="sg-token-value">Info background</div></div></div>
         </div>
       </div>
       <div class="sg-code">
@@ -151,48 +151,48 @@ color: var(--red);     background: var(--red-dim);</code></pre>
       <div class="sg-demo">
         <div class="sg-element-grid">
           <div class="sg-element-card">
-            <div class="sg-element-orb" style="background:var(--el-water)"></div>
+            <div class="sg-element-orb sg-el--water"></div>
             <div class="sg-element-name">Water</div>
             <div class="sg-element-role">Foundation · Flow</div>
-            <div style="margin-top:8px;display:flex;gap:6px;justify-content:center">
-              <div class="sg-token-swatch" style="background:var(--el-water);width:24px;height:24px;border-radius:4px"></div>
-              <div class="sg-token-swatch" style="background:var(--el-water-bg);width:24px;height:24px;border-radius:4px"></div>
+            <div class="sg-row sg-row--center">
+              <div class="sg-token-swatch sg-token-swatch--small" style="--swatch:var(--el-water)"></div>
+              <div class="sg-token-swatch sg-token-swatch--small" style="--swatch:var(--el-water-bg)"></div>
             </div>
           </div>
           <div class="sg-element-card">
-            <div class="sg-element-orb" style="background:var(--el-wood)"></div>
+            <div class="sg-element-orb sg-el--wood"></div>
             <div class="sg-element-name">Wood</div>
             <div class="sg-element-role">Growth · Values</div>
-            <div style="margin-top:8px;display:flex;gap:6px;justify-content:center">
-              <div class="sg-token-swatch" style="background:var(--el-wood);width:24px;height:24px;border-radius:4px"></div>
-              <div class="sg-token-swatch" style="background:var(--el-wood-bg);width:24px;height:24px;border-radius:4px"></div>
+            <div class="sg-row sg-row--center">
+              <div class="sg-token-swatch sg-token-swatch--small" style="--swatch:var(--el-wood)"></div>
+              <div class="sg-token-swatch sg-token-swatch--small" style="--swatch:var(--el-wood-bg)"></div>
             </div>
           </div>
           <div class="sg-element-card">
-            <div class="sg-element-orb" style="background:var(--el-fire)"></div>
+            <div class="sg-element-orb sg-el--fire"></div>
             <div class="sg-element-name">Fire</div>
             <div class="sg-element-role">Intelligence</div>
-            <div style="margin-top:8px;display:flex;gap:6px;justify-content:center">
-              <div class="sg-token-swatch" style="background:var(--el-fire);width:24px;height:24px;border-radius:4px"></div>
-              <div class="sg-token-swatch" style="background:var(--el-fire-bg);width:24px;height:24px;border-radius:4px"></div>
+            <div class="sg-row sg-row--center">
+              <div class="sg-token-swatch sg-token-swatch--small" style="--swatch:var(--el-fire)"></div>
+              <div class="sg-token-swatch sg-token-swatch--small" style="--swatch:var(--el-fire-bg)"></div>
             </div>
           </div>
           <div class="sg-element-card">
-            <div class="sg-element-orb" style="background:var(--el-earth)"></div>
+            <div class="sg-element-orb sg-el--earth"></div>
             <div class="sg-element-name">Earth</div>
             <div class="sg-element-role">Values · Anchor</div>
-            <div style="margin-top:8px;display:flex;gap:6px;justify-content:center">
-              <div class="sg-token-swatch" style="background:var(--el-earth);width:24px;height:24px;border-radius:4px"></div>
-              <div class="sg-token-swatch" style="background:var(--el-earth-bg);width:24px;height:24px;border-radius:4px"></div>
+            <div class="sg-row sg-row--center">
+              <div class="sg-token-swatch sg-token-swatch--small" style="--swatch:var(--el-earth)"></div>
+              <div class="sg-token-swatch sg-token-swatch--small" style="--swatch:var(--el-earth-bg)"></div>
             </div>
           </div>
           <div class="sg-element-card">
-            <div class="sg-element-orb" style="background:var(--el-metal)"></div>
+            <div class="sg-element-orb sg-el--metal"></div>
             <div class="sg-element-name">Metal</div>
             <div class="sg-element-role">Refinement</div>
-            <div style="margin-top:8px;display:flex;gap:6px;justify-content:center">
-              <div class="sg-token-swatch" style="background:var(--el-metal);width:24px;height:24px;border-radius:4px"></div>
-              <div class="sg-token-swatch" style="background:var(--el-metal-bg);width:24px;height:24px;border-radius:4px"></div>
+            <div class="sg-row sg-row--center">
+              <div class="sg-token-swatch sg-token-swatch--small" style="--swatch:var(--el-metal)"></div>
+              <div class="sg-token-swatch sg-token-swatch--small" style="--swatch:var(--el-metal-bg)"></div>
             </div>
           </div>
         </div>
@@ -207,21 +207,21 @@ color: var(--red);     background: var(--red-dim);</code></pre>
       </div>
       <div class="sg-demo">
         <div class="sg-colour-row">
-          <div class="sg-colour-row-swatch" style="background:var(--neutral-0)" title="--neutral-0"></div>
-          <div class="sg-colour-row-swatch" style="background:var(--neutral-1)" title="--neutral-1"></div>
-          <div class="sg-colour-row-swatch" style="background:var(--neutral-2)" title="--neutral-2"></div>
-          <div class="sg-colour-row-swatch" style="background:var(--neutral-3)" title="--neutral-3"></div>
-          <div class="sg-colour-row-swatch" style="background:var(--neutral-4)" title="--neutral-4"></div>
-          <div class="sg-colour-row-swatch" style="background:var(--neutral-5)" title="--neutral-5"></div>
-          <div class="sg-colour-row-swatch" style="background:var(--neutral-6)" title="--neutral-6"></div>
-          <div class="sg-colour-row-swatch" style="background:var(--neutral-7)" title="--neutral-7"></div>
-          <div class="sg-colour-row-swatch" style="background:var(--neutral-8)" title="--neutral-8"></div>
-          <div class="sg-colour-row-swatch" style="background:var(--neutral-9)" title="--neutral-9"></div>
-          <div class="sg-colour-row-swatch" style="background:var(--neutral-10)" title="--neutral-10"></div>
+          <div class="sg-colour-row-swatch" style="--swatch:var(--neutral-0)" title="--neutral-0"></div>
+          <div class="sg-colour-row-swatch" style="--swatch:var(--neutral-1)" title="--neutral-1"></div>
+          <div class="sg-colour-row-swatch" style="--swatch:var(--neutral-2)" title="--neutral-2"></div>
+          <div class="sg-colour-row-swatch" style="--swatch:var(--neutral-3)" title="--neutral-3"></div>
+          <div class="sg-colour-row-swatch" style="--swatch:var(--neutral-4)" title="--neutral-4"></div>
+          <div class="sg-colour-row-swatch" style="--swatch:var(--neutral-5)" title="--neutral-5"></div>
+          <div class="sg-colour-row-swatch" style="--swatch:var(--neutral-6)" title="--neutral-6"></div>
+          <div class="sg-colour-row-swatch" style="--swatch:var(--neutral-7)" title="--neutral-7"></div>
+          <div class="sg-colour-row-swatch" style="--swatch:var(--neutral-8)" title="--neutral-8"></div>
+          <div class="sg-colour-row-swatch" style="--swatch:var(--neutral-9)" title="--neutral-9"></div>
+          <div class="sg-colour-row-swatch" style="--swatch:var(--neutral-10)" title="--neutral-10"></div>
         </div>
-        <div style="display:flex;justify-content:space-between;margin-top:6px">
-          <span style="color:var(--text-3);font-size:var(--fs-xs);font-family:ui-monospace,monospace">--neutral-0</span>
-          <span style="color:var(--text-3);font-size:var(--fs-xs);font-family:ui-monospace,monospace">--neutral-10</span>
+        <div class="sg-row sg-row--split">
+          <span class="sg-token-meta">--neutral-0</span>
+          <span class="sg-token-meta">--neutral-10</span>
         </div>
       </div>
     </section>

@@ -44,7 +44,7 @@
           </div>
           <div class="sg-field">
             <label for="f-text-3">Account name (focus state)</label>
-            <input id="f-text-3" type="text" value="Stocks &amp; Shares ISA" class="sg-is-focused" style="border-color:var(--gold-glow);outline:2px solid var(--gold-dim)">
+            <input id="f-text-3" type="text" value="Stocks &amp; Shares ISA" class="sg-is-focused sg-outline">
           </div>
           <div class="sg-field">
             <label for="f-text-4">Account name (disabled)</label>
@@ -52,7 +52,7 @@
           </div>
           <div class="sg-field">
             <label for="f-text-5">Sort code (error state)</label>
-            <input id="f-text-5" type="text" value="12-34" aria-invalid="true" aria-describedby="f-text-5-err" style="border-color:var(--red)">
+            <input id="f-text-5" type="text" value="12-34" aria-invalid="true" aria-describedby="f-text-5-err" class="sg-input-invalid">
             <p class="sg-field-error" id="f-text-5-err" role="alert">Enter a valid 6-digit sort code (e.g. 12-34-56)</p>
           </div>
         </div>
@@ -142,7 +142,7 @@
         <div class="sg-form-grid sg-form-grid--single">
           <div class="sg-field">
             <label for="f-textarea">Investment goals</label>
-            <textarea id="f-textarea" rows="4" placeholder="Describe your long-term investment objectives and any specific considerations your adviser should be aware of…" aria-describedby="f-textarea-hint" style="width:100%;box-sizing:border-box;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-item);padding:10px 14px;font-size:var(--fs-input);color:var(--text-1);font-family:var(--font-sans);line-height:var(--lh-relaxed);resize:vertical;box-shadow:var(--shadow-inner);outline:none"></textarea>
+            <textarea id="f-textarea" rows="4" placeholder="Describe your long-term investment objectives and any specific considerations your adviser should be aware of…" aria-describedby="f-textarea-hint" class="sg-field-control"></textarea>
             <p class="sg-field-hint" id="f-textarea-hint">Maximum 500 characters. This information will be shared with your assigned adviser.</p>
           </div>
         </div>
@@ -171,7 +171,7 @@
         <div class="sg-form-grid">
           <div class="sg-field">
             <label for="f-select">Account type</label>
-            <select id="f-select" style="width:100%;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-item);padding:10px 14px;font-size:var(--fs-input);color:var(--text-1);font-family:var(--font-sans);box-shadow:var(--shadow-inner);outline:none;cursor:pointer;appearance:auto">
+            <select id="f-select" class="sg-field-control">
               <option value="" disabled selected>Select account type…</option>
               <option value="isa">Stocks &amp; Shares ISA</option>
               <option value="sipp">Self-Invested Personal Pension (SIPP)</option>
@@ -181,7 +181,7 @@
           </div>
           <div class="sg-field">
             <label for="f-select-pre">Risk profile</label>
-            <select id="f-select-pre" style="width:100%;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-item);padding:10px 14px;font-size:var(--fs-input);color:var(--text-1);font-family:var(--font-sans);box-shadow:var(--shadow-inner);outline:none;cursor:pointer;appearance:auto">
+            <select id="f-select-pre" class="sg-field-control">
               <option value="1">1 — Very cautious</option>
               <option value="2">2 — Cautious</option>
               <option value="3" selected>3 — Balanced</option>
@@ -191,7 +191,7 @@
           </div>
           <div class="sg-field">
             <label for="f-select-disabled">Account (disabled)</label>
-            <select id="f-select-disabled" disabled style="width:100%;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-item);padding:10px 14px;font-size:var(--fs-input);color:var(--text-3);font-family:var(--font-sans);box-shadow:var(--shadow-inner);outline:none;cursor:not-allowed;appearance:auto;opacity:0.5">
+            <select id="f-select-disabled" disabled class="sg-field-control sg-field-control--disabled">
               <option>Growth Portfolio</option>
             </select>
           </div>
@@ -216,35 +216,35 @@
         <p class="sg-section-desc">For binary true/false choices or selecting one or more items from a set. Each checkbox must have its own associated <code>&lt;label&gt;</code>. Group related checkboxes in a <code>&lt;fieldset&gt;</code> with a <code>&lt;legend&gt;</code>. The browser handles checked/focus states — do not override with custom elements that break AT.</p>
       </div>
       <div class="sg-demo sg-demo--col">
-        <fieldset style="border:none;padding:0;margin:0">
-          <legend style="color:var(--text-1);font-size:var(--fs-body);font-weight:var(--fw-medium);margin-bottom:12px">Notification preferences</legend>
+        <fieldset class="sg-fieldset">
+          <legend class="sg-legend">Notification preferences</legend>
           <div class="sg-check-group">
             <div class="sg-check-row">
-              <input type="checkbox" id="f-chk-1" checked style="accent-color:var(--gold);width:16px;height:16px;flex-shrink:0;cursor:pointer">
-              <label for="f-chk-1" style="cursor:pointer">
-                <span style="color:var(--text-1);font-size:var(--fs-body);font-weight:var(--fw-medium)">Portfolio alerts</span>
-                <span style="display:block;color:var(--text-3);font-size:var(--fs-sm)">Notify me when my portfolio value changes by more than 5%</span>
+              <input type="checkbox" id="f-chk-1" checked class="sg-check">
+              <label for="f-chk-1" class="sg-choice">
+                <span class="sg-item-title">Portfolio alerts</span>
+                <span class="sg-meta sg-meta--block">Notify me when my portfolio value changes by more than 5%</span>
               </label>
             </div>
             <div class="sg-check-row">
-              <input type="checkbox" id="f-chk-2" checked style="accent-color:var(--gold);width:16px;height:16px;flex-shrink:0;cursor:pointer">
-              <label for="f-chk-2" style="cursor:pointer">
-                <span style="color:var(--text-1);font-size:var(--fs-body);font-weight:var(--fw-medium)">Monthly statements</span>
-                <span style="display:block;color:var(--text-3);font-size:var(--fs-sm)">Receive a monthly summary of portfolio activity by email</span>
+              <input type="checkbox" id="f-chk-2" checked class="sg-check">
+              <label for="f-chk-2" class="sg-choice">
+                <span class="sg-item-title">Monthly statements</span>
+                <span class="sg-meta sg-meta--block">Receive a monthly summary of portfolio activity by email</span>
               </label>
             </div>
             <div class="sg-check-row">
-              <input type="checkbox" id="f-chk-3" style="accent-color:var(--gold);width:16px;height:16px;flex-shrink:0;cursor:pointer">
-              <label for="f-chk-3" style="cursor:pointer">
-                <span style="color:var(--text-1);font-size:var(--fs-body);font-weight:var(--fw-medium)">Marketing communications</span>
-                <span style="display:block;color:var(--text-3);font-size:var(--fs-sm)">Receive updates about new products, investment opportunities, and market insights</span>
+              <input type="checkbox" id="f-chk-3" class="sg-check">
+              <label for="f-chk-3" class="sg-choice">
+                <span class="sg-item-title">Marketing communications</span>
+                <span class="sg-meta sg-meta--block">Receive updates about new products, investment opportunities, and market insights</span>
               </label>
             </div>
             <div class="sg-check-row">
-              <input type="checkbox" id="f-chk-4" disabled style="width:16px;height:16px;flex-shrink:0;cursor:not-allowed;opacity:0.5">
-              <label for="f-chk-4" style="cursor:not-allowed;opacity:0.5">
-                <span style="color:var(--text-1);font-size:var(--fs-body);font-weight:var(--fw-medium)">Regulatory notices (required)</span>
-                <span style="display:block;color:var(--text-3);font-size:var(--fs-sm)">Mandatory regulatory and compliance notifications — cannot be disabled</span>
+              <input type="checkbox" id="f-chk-4" disabled class="sg-check sg-check--disabled">
+              <label for="f-chk-4" class="sg-choice sg-choice--disabled">
+                <span class="sg-item-title">Regulatory notices (required)</span>
+                <span class="sg-meta sg-meta--block">Mandatory regulatory and compliance notifications — cannot be disabled</span>
               </label>
             </div>
           </div>
@@ -277,24 +277,24 @@
         <p class="sg-section-desc">For mutually exclusive choices where only one option can be selected. All radio buttons in a group must share the same <code>name</code> attribute. Always wrap in a <code>&lt;fieldset&gt;</code> + <code>&lt;legend&gt;</code> for proper screen reader grouping. Keyboard: arrow keys move between options.</p>
       </div>
       <div class="sg-demo sg-demo--col">
-        <fieldset style="border:none;padding:0;margin:0">
-          <legend style="color:var(--text-1);font-size:var(--fs-body);font-weight:var(--fw-medium);margin-bottom:12px">Withdrawal frequency</legend>
+        <fieldset class="sg-fieldset">
+          <legend class="sg-legend">Withdrawal frequency</legend>
           <div class="sg-check-group">
             <div class="sg-check-row">
-              <input type="radio" id="f-rad-1" name="frequency" value="monthly" checked style="accent-color:var(--gold);width:16px;height:16px;flex-shrink:0;cursor:pointer">
-              <label for="f-rad-1" style="color:var(--text-1);font-size:var(--fs-body);cursor:pointer">Monthly</label>
+              <input type="radio" id="f-rad-1" name="frequency" value="monthly" checked class="sg-check">
+              <label for="f-rad-1" class="sg-choice">Monthly</label>
             </div>
             <div class="sg-check-row">
-              <input type="radio" id="f-rad-2" name="frequency" value="quarterly" style="accent-color:var(--gold);width:16px;height:16px;flex-shrink:0;cursor:pointer">
-              <label for="f-rad-2" style="color:var(--text-1);font-size:var(--fs-body);cursor:pointer">Quarterly</label>
+              <input type="radio" id="f-rad-2" name="frequency" value="quarterly" class="sg-check">
+              <label for="f-rad-2" class="sg-choice">Quarterly</label>
             </div>
             <div class="sg-check-row">
-              <input type="radio" id="f-rad-3" name="frequency" value="annually" style="accent-color:var(--gold);width:16px;height:16px;flex-shrink:0;cursor:pointer">
-              <label for="f-rad-3" style="color:var(--text-1);font-size:var(--fs-body);cursor:pointer">Annually</label>
+              <input type="radio" id="f-rad-3" name="frequency" value="annually" class="sg-check">
+              <label for="f-rad-3" class="sg-choice">Annually</label>
             </div>
             <div class="sg-check-row">
-              <input type="radio" id="f-rad-4" name="frequency" value="manual" disabled style="width:16px;height:16px;flex-shrink:0;cursor:not-allowed;opacity:0.5">
-              <label for="f-rad-4" style="color:var(--text-3);font-size:var(--fs-body);cursor:not-allowed">On demand (unavailable for this account type)</label>
+              <input type="radio" id="f-rad-4" name="frequency" value="manual" disabled class="sg-check sg-check--disabled">
+              <label for="f-rad-4" class="sg-choice sg-choice--disabled">On demand (unavailable for this account type)</label>
             </div>
           </div>
         </fieldset>
@@ -323,43 +323,43 @@
         <p class="sg-section-desc">A checkbox styled as an on/off toggle for boolean form settings. Always add <code>role="switch"</code> on the <code>&lt;input&gt;</code> so screen readers announce "on" / "off" rather than "checked" / "unchecked". The <code>.switch-track</code> sibling is purely decorative — keep it <code>aria-hidden="true"</code>. Defined in <code>modules/forms.css</code>. Not to be confused with <code>.theme-toggle</code>, which is a separate component that controls the global color-scheme.</p>
       </div>
       <div class="sg-demo">
-        <div style="display:flex;flex-direction:column;gap:16px;max-width:440px">
+        <div class="sg-stack sg-fit-form">
 
           <!-- On -->
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+          <div class="sg-row sg-row--split">
             <div>
-              <p style="margin:0;color:var(--text-1);font-size:var(--fs-body);font-weight:var(--fw-medium)">Auto-rebalancing</p>
-              <p style="margin:0;color:var(--text-3);font-size:var(--fs-sm)">Automatically rebalance portfolio quarterly</p>
+              <p class="sg-item-title">Auto-rebalancing</p>
+              <p class="sg-meta">Automatically rebalance portfolio quarterly</p>
             </div>
-            <label class="switch" for="f-switch-1" style="flex-shrink:0">
+            <label class="switch" for="f-switch-1">
               <input type="checkbox" id="f-switch-1" role="switch" aria-label="Auto-rebalancing" checked>
               <span class="switch-track" aria-hidden="true"></span>
             </label>
           </div>
 
-          <div style="height:1px;background:var(--divider)"></div>
+          <div class="sg-rule"></div>
 
           <!-- Off -->
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+          <div class="sg-row sg-row--split">
             <div>
-              <p style="margin:0;color:var(--text-1);font-size:var(--fs-body);font-weight:var(--fw-medium)">Dividend reinvestment</p>
-              <p style="margin:0;color:var(--text-3);font-size:var(--fs-sm)">Automatically reinvest dividend income</p>
+              <p class="sg-item-title">Dividend reinvestment</p>
+              <p class="sg-meta">Automatically reinvest dividend income</p>
             </div>
-            <label class="switch" for="f-switch-2" style="flex-shrink:0">
+            <label class="switch" for="f-switch-2">
               <input type="checkbox" id="f-switch-2" role="switch" aria-label="Dividend reinvestment">
               <span class="switch-track" aria-hidden="true"></span>
             </label>
           </div>
 
-          <div style="height:1px;background:var(--divider)"></div>
+          <div class="sg-rule"></div>
 
           <!-- Disabled -->
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+          <div class="sg-row sg-row--split">
             <div>
-              <p style="margin:0;color:var(--text-1);font-size:var(--fs-body);font-weight:var(--fw-medium)">Regulatory notices</p>
-              <p style="margin:0;color:var(--text-3);font-size:var(--fs-sm)">Mandatory compliance notifications — cannot be disabled</p>
+              <p class="sg-item-title">Regulatory notices</p>
+              <p class="sg-meta">Mandatory compliance notifications — cannot be disabled</p>
             </div>
-            <label class="switch" for="f-switch-3" style="flex-shrink:0">
+            <label class="switch" for="f-switch-3">
               <input type="checkbox" id="f-switch-3" role="switch" aria-label="Regulatory notices" checked disabled>
               <span class="switch-track" aria-hidden="true"></span>
             </label>
@@ -406,33 +406,33 @@
         <p class="sg-section-desc">For selecting a value within a defined range. Always show the current value visibly — the native <code>&lt;input type="range"&gt;</code> renders no output element. Set <code>min</code>, <code>max</code>, and <code>step</code> explicitly. Update <code>aria-valuenow</code> and <code>aria-valuetext</code> dynamically as the value changes.</p>
       </div>
       <div class="sg-demo">
-        <div style="display:flex;flex-direction:column;gap:24px;max-width:480px">
+        <div class="sg-stack sg-stack--loose sg-fit-form">
           <div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
-              <label for="f-range-1" style="color:var(--text-2);font-size:var(--fs-input-label);font-weight:var(--fw-medium)">Investment horizon</label>
-              <span style="color:var(--text-1);font-size:var(--fs-sm);font-weight:var(--fw-semibold)" id="f-range-1-val">10 years</span>
+            <div class="sg-row sg-row--split">
+              <label for="f-range-1" class="sg-field-label">Investment horizon</label>
+              <span class="sg-item-title" id="f-range-1-val">10 years</span>
             </div>
             <input id="f-range-1" type="range" min="1" max="30" step="1" value="10"
-              style="width:100%;accent-color:var(--gold);cursor:pointer"
+              class="sg-range"
               aria-valuemin="1" aria-valuemax="30" aria-valuenow="10" aria-valuetext="10 years"
               oninput="document.getElementById('f-range-1-val').textContent=this.value+' year'+(this.value==1?'':'s')">
-            <div style="display:flex;justify-content:space-between;margin-top:4px">
-              <span style="color:var(--text-3);font-size:var(--fs-xs)">1 year</span>
-              <span style="color:var(--text-3);font-size:var(--fs-xs)">30 years</span>
+            <div class="sg-row sg-row--split">
+              <span class="sg-caption">1 year</span>
+              <span class="sg-caption">30 years</span>
             </div>
           </div>
           <div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
-              <label for="f-range-2" style="color:var(--text-2);font-size:var(--fs-input-label);font-weight:var(--fw-medium)">Monthly contribution</label>
-              <span style="color:var(--text-1);font-size:var(--fs-sm);font-weight:var(--fw-semibold)" id="f-range-2-val">£500</span>
+            <div class="sg-row sg-row--split">
+              <label for="f-range-2" class="sg-field-label">Monthly contribution</label>
+              <span class="sg-item-title" id="f-range-2-val">£500</span>
             </div>
             <input id="f-range-2" type="range" min="0" max="2000" step="50" value="500"
-              style="width:100%;accent-color:var(--gold);cursor:pointer"
+              class="sg-range"
               aria-valuemin="0" aria-valuemax="2000" aria-valuenow="500" aria-valuetext="£500"
               oninput="document.getElementById('f-range-2-val').textContent='£'+Number(this.value).toLocaleString()">
-            <div style="display:flex;justify-content:space-between;margin-top:4px">
-              <span style="color:var(--text-3);font-size:var(--fs-xs)">£0</span>
-              <span style="color:var(--text-3);font-size:var(--fs-xs)">£2,000</span>
+            <div class="sg-row sg-row--split">
+              <span class="sg-caption">£0</span>
+              <span class="sg-caption">£2,000</span>
             </div>
           </div>
         </div>
@@ -458,14 +458,14 @@
         <p class="sg-section-desc">For document upload — statements, identification, mandates. Constrain accepted types with the <code>accept</code> attribute. The native input is visually hidden and triggered by a styled <code>&lt;label&gt;</code> button, but the real <code>&lt;input&gt;</code> must remain in the DOM for keyboard and AT access.</p>
       </div>
       <div class="sg-demo">
-        <div style="display:flex;flex-direction:column;gap:12px;max-width:400px">
+        <div class="sg-stack sg-stack--tight sg-fit-card">
           <div class="sg-field">
-            <label for="f-file" style="color:var(--text-2);font-size:var(--fs-input-label);font-weight:var(--fw-medium);display:block;margin-bottom:6px">Upload bank statement</label>
-            <label for="f-file" style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:var(--bg-input);border:1px dashed var(--border);border-radius:var(--radius-item);cursor:pointer;color:var(--text-2);font-size:var(--fs-sm);font-weight:var(--fw-medium);transition:border-color 0.15s">
+            <label for="f-file" class="sg-field-label">Upload bank statement</label>
+            <label for="f-file" class="file-upload">
               <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
               Choose file or drag &amp; drop
             </label>
-            <input id="f-file" type="file" accept=".pdf,.jpg,.png" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0">
+            <input id="f-file" type="file" accept=".pdf,.jpg,.png" class="file-upload-input">
             <p class="sg-field-hint">PDF, JPG or PNG · Max 10MB</p>
           </div>
         </div>
@@ -483,7 +483,7 @@
   id="statement"
   type="file"
   accept=".pdf,.jpg,.png"
-  style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)"
+  class="file-upload-input"
 &gt;</code></pre>
       </div>
     </section>
@@ -495,9 +495,9 @@
         <p class="sg-section-desc">Group related form controls with <code>&lt;fieldset&gt;</code> + <code>&lt;legend&gt;</code>. This is mandatory for radio groups and checkbox groups — it tells screen readers the group name. For visual sections without a group of related inputs, use a plain <code>&lt;div&gt;</code> with a heading instead. The default browser border on <code>&lt;fieldset&gt;</code> should be reset in CSS.</p>
       </div>
       <div class="sg-demo">
-        <form style="display:flex;flex-direction:column;gap:24px;max-width:480px">
-          <fieldset style="border:1px solid var(--border);border-radius:var(--radius-card);padding:20px 20px 16px;margin:0">
-            <legend style="color:var(--text-1);font-size:var(--fs-panel-title);font-weight:var(--fw-semibold);padding:0 6px;margin-left:-6px">Personal details</legend>
+        <form class="sg-stack sg-stack--loose sg-fit-form">
+          <fieldset class="sg-fieldset sg-fieldset--framed">
+            <legend class="sg-legend sg-legend--framed">Personal details</legend>
             <div class="sg-form-grid">
               <div class="sg-field">
                 <label for="f-fn">First name</label>
@@ -509,20 +509,20 @@
               </div>
             </div>
           </fieldset>
-          <fieldset style="border:1px solid var(--border);border-radius:var(--radius-card);padding:20px 20px 16px;margin:0">
-            <legend style="color:var(--text-1);font-size:var(--fs-panel-title);font-weight:var(--fw-semibold);padding:0 6px;margin-left:-6px">Contact preferences</legend>
+          <fieldset class="sg-fieldset sg-fieldset--framed">
+            <legend class="sg-legend sg-legend--framed">Contact preferences</legend>
             <div class="sg-check-group">
               <div class="sg-check-row">
-                <input type="radio" id="f-pref-email" name="contact-pref" value="email" checked style="accent-color:var(--gold);width:16px;height:16px;flex-shrink:0">
-                <label for="f-pref-email" style="color:var(--text-1);font-size:var(--fs-body)">Email</label>
+                <input type="radio" id="f-pref-email" name="contact-pref" value="email" checked class="sg-check">
+                <label for="f-pref-email" class="sg-choice">Email</label>
               </div>
               <div class="sg-check-row">
-                <input type="radio" id="f-pref-phone" name="contact-pref" value="phone" style="accent-color:var(--gold);width:16px;height:16px;flex-shrink:0">
-                <label for="f-pref-phone" style="color:var(--text-1);font-size:var(--fs-body)">Phone</label>
+                <input type="radio" id="f-pref-phone" name="contact-pref" value="phone" class="sg-check">
+                <label for="f-pref-phone" class="sg-choice">Phone</label>
               </div>
               <div class="sg-check-row">
-                <input type="radio" id="f-pref-post" name="contact-pref" value="post" style="accent-color:var(--gold);width:16px;height:16px;flex-shrink:0">
-                <label for="f-pref-post" style="color:var(--text-1);font-size:var(--fs-body)">Post</label>
+                <input type="radio" id="f-pref-post" name="contact-pref" value="post" class="sg-check">
+                <label for="f-pref-post" class="sg-choice">Post</label>
               </div>
             </div>
           </fieldset>
@@ -671,9 +671,9 @@
         <p class="sg-section-desc">A summary panel before confirming a transaction. Label/value rows use <code>.review-row</code>. The total row uses <code>.review-row--total</code>. Wrap in a <code>&lt;dl&gt;</code> for semantic key/value structure.</p>
       </div>
       <div class="sg-demo">
-        <div class="review-card" style="max-width:400px">
+        <div class="review-card sg-fit-card">
           <div class="form-section-hd">Transaction Summary</div>
-          <dl style="margin:0">
+          <dl>
             <div class="review-row"><dt class="review-row-label">Payment method</dt><dd class="review-row-value">Bank Transfer</dd></div>
             <div class="review-row"><dt class="review-row-label">Amount</dt><dd class="review-row-value">£5,000.00</dd></div>
             <div class="review-row"><dt class="review-row-label">Destination</dt><dd class="review-row-value">Stocks &amp; Shares ISA</dd></div>
@@ -728,6 +728,23 @@
     &lt;span class="form-ref-value"&gt;AW-2024-00847&lt;/span&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Supporting classes ─────────────────────────────── -->
+    <section class="sg-section" id="supporting-classes">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Supporting Classes</h2>
+        <p class="sg-section-desc">Named parts of this component, each defined with it. On an OutSystems UI widget, add the class to the widget's <strong>Style Classes</strong> property, next to any classes it already has. Layout changes at breakpoints live in the class, so don't add extra classes per screen size.</p>
+      </div>
+      <div class="sg-demo sg-demo--flush">
+        <table class="sg-table sg-table--roomy">
+          <thead><tr><th>Class</th><th>Role</th><th>Apply to</th></tr></thead>
+          <tbody>
+            <tr><td class="sg-token">.form-success-link</td><td>Centred link in a success state</td><td>Link, alongside its button class</td></tr>
+            <tr><td class="sg-token">.file-upload / .file-upload-input</td><td>Dashed drop zone with a visually hidden native input</td><td>Container / Upload widget</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
 

@@ -35,7 +35,7 @@
         <h2 class="sg-section-title">Goal Card (<code>.gl-card</code>)</h2>
         <p class="sg-section-desc">The primary goal display unit. Each card shows a CSS conic-gradient progress ring with an emoji and percentage overlay, a name, saved/target amounts, monthly contribution, and a status badge. Cards are arranged in a responsive auto-fill grid (<code>.gl-grid</code>). Each card has a 3px top colour accent from <code>--gl-color</code>.</p>
       </div>
-      <div class="sg-demo sg-gl-demo" style="max-width:320px">
+      <div class="sg-demo sg-gl-demo sg-fit-card">
         <div class="gl-card" style="--gl-color:#22C55E">
           <div class="gl-card-arc-wrap">
             <div class="gl-ring-wrap">
@@ -124,29 +124,29 @@
       <div class="sg-section-header">
         <h2 class="sg-section-title">CSS Progress Ring</h2>
         <p class="sg-section-desc">The ring is a pure CSS conic-gradient — no SVG, no JavaScript. The <code>--gl-pct</code> custom property is registered via <code>@property</code> with <code>syntax: '&lt;number&gt;'</code>, making it animatable. Set it on the element as an inline style — the ring fills from 0 to the target value on mount.</p>
-        <p class="sg-section-desc" style="margin-top:8px">The <code>--gl-color</code> property sets both the ring fill colour and the card's top accent. Pass any valid CSS colour — the goals system uses status-appropriate colours (green for savings, gold for default, etc.).</p>
+        <p class="sg-section-desc">The <code>--gl-color</code> property sets both the ring fill colour and the card's top accent. Pass any valid CSS colour — the goals system uses status-appropriate colours (green for savings, gold for default, etc.).</p>
       </div>
       <div class="sg-demo sg-demo--grid">
-        <div style="text-align:center">
-          <div class="gl-ring-wrap" style="display:inline-block">
+        <div class="sg-centered">
+          <div class="gl-ring-wrap">
             <div class="gl-progress-ring" style="--gl-pct:25;--gl-color:var(--el-water)"></div>
             <div class="gl-ring-content"><span class="gl-ring-emoji">✈️</span><span class="gl-ring-pct">25%</span></div>
           </div>
-          <div style="color:var(--text-3);font-size:var(--fs-xs);margin-top:8px">25% — Behind</div>
+          <div class="sg-caption">25% — Behind</div>
         </div>
-        <div style="text-align:center">
-          <div class="gl-ring-wrap" style="display:inline-block">
+        <div class="sg-centered">
+          <div class="gl-ring-wrap">
             <div class="gl-progress-ring" style="--gl-pct:72;--gl-color:#22C55E"></div>
             <div class="gl-ring-content"><span class="gl-ring-emoji">🏡</span><span class="gl-ring-pct">72%</span></div>
           </div>
-          <div style="color:var(--text-3);font-size:var(--fs-xs);margin-top:8px">72% — On track</div>
+          <div class="sg-caption">72% — On track</div>
         </div>
-        <div style="text-align:center">
-          <div class="gl-ring-wrap" style="display:inline-block">
+        <div class="sg-centered">
+          <div class="gl-ring-wrap">
             <div class="gl-progress-ring" style="--gl-pct:100;--gl-color:var(--gold)"></div>
             <div class="gl-ring-content"><span class="gl-ring-emoji">🎓</span><span class="gl-ring-pct">100%</span></div>
           </div>
-          <div style="color:var(--text-3);font-size:var(--fs-xs);margin-top:8px">100% — Complete</div>
+          <div class="sg-caption">100% — Complete</div>
         </div>
       </div>
     </section>
@@ -157,7 +157,7 @@
         <h2 class="sg-section-title">Add Goal Card (<code>.gl-add-card</code>)</h2>
         <p class="sg-section-desc">A dashed-border placeholder card that sits at the end of the goal grid. On hover, the dashed border becomes solid gold and the icon background fills. Opens the <code>.gl-drawer</code> to create a new goal.</p>
       </div>
-      <div class="sg-demo" style="max-width:280px">
+      <div class="sg-demo sg-fit-sidebar">
         <button class="gl-add-card">
           <div class="gl-add-icon">
             <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -184,19 +184,19 @@
         <h2 class="sg-section-title">Token Reference</h2>
       </div>
       <div class="sg-demo sg-demo--tight">
-        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md)">
+        <table class="sg-table">
           <thead>
-            <tr style="border-bottom:1px solid var(--border);color:var(--text-3);text-align:left">
-              <th style="padding:8px 12px 8px 0;font-weight:var(--fw-semibold)">Token</th>
-              <th style="padding:8px 0;font-weight:var(--fw-semibold)">Purpose</th>
+            <tr>
+              <th>Token</th>
+              <th>Purpose</th>
             </tr>
           </thead>
-          <tbody style="color:var(--text-2)">
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--gl-pct</code></td><td style="padding:8px 0">Animatable progress percentage (0–100). Set via inline style.</td></tr>
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--gl-color</code></td><td style="padding:8px 0">Goal-specific colour: ring fill, card top accent, saved amount text.</td></tr>
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--gl-slider-pct</code></td><td style="padding:8px 0">Inline custom property for the adjust-panel range slider fill.</td></tr>
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--border</code></td><td style="padding:8px 0">Ring track (unfilled portion of the conic-gradient).</td></tr>
-            <tr><td style="padding:8px 12px 8px 0"><code>--font-serif</code></td><td style="padding:8px 0">Goal name, ring percentage, hero headings.</td></tr>
+          <tbody>
+            <tr><td><code>--gl-pct</code></td><td>Animatable progress percentage (0–100). Set via inline style.</td></tr>
+            <tr><td><code>--gl-color</code></td><td>Goal-specific colour: ring fill, card top accent, saved amount text.</td></tr>
+            <tr><td><code>--gl-slider-pct</code></td><td>Inline custom property for the adjust-panel range slider fill.</td></tr>
+            <tr><td><code>--border</code></td><td>Ring track (unfilled portion of the conic-gradient).</td></tr>
+            <tr><td><code>--font-serif</code></td><td>Goal name, ring percentage, hero headings.</td></tr>
           </tbody>
         </table>
       </div>
@@ -208,7 +208,7 @@
         <h2 class="sg-section-title">Accessibility Notes</h2>
       </div>
       <div class="sg-demo sg-demo--col">
-        <p style="margin:0;color:var(--text-2);font-size:var(--fs-body)">Progress rings are purely visual — always include a text fallback via the <code>.gl-ring-pct</code> percentage inside the ring. Goal names use <code>&lt;h3&gt;</code> inside the grid (grid is inside a <code>&lt;main&gt;</code> with an <code>&lt;h1&gt;</code> page title). The "Adjust" interaction must be accessible via keyboard. Status badges use colour + text — WCAG 1.4.1. Reduced-motion: the ring transition is wrapped in <code>@media (prefers-reduced-motion: no-preference)</code> — at rest the ring still renders at its final value, just without the animation.</p>
+        <p class="sg-copy">Progress rings are purely visual — always include a text fallback via the <code>.gl-ring-pct</code> percentage inside the ring. Goal names use <code>&lt;h3&gt;</code> inside the grid (grid is inside a <code>&lt;main&gt;</code> with an <code>&lt;h1&gt;</code> page title). The "Adjust" interaction must be accessible via keyboard. Status badges use colour + text — WCAG 1.4.1. Reduced-motion: the ring transition is wrapped in <code>@media (prefers-reduced-motion: no-preference)</code> — at rest the ring still renders at its final value, just without the animation.</p>
       </div>
     </section>
 

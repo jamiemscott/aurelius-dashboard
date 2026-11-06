@@ -32,14 +32,14 @@
         <p class="sg-section-desc">The theme system has three layers: the <code>color-scheme</code> property tells the browser which palette to use, <code>light-dark()</code> picks the correct value automatically, and a hidden checkbox + <code>:has()</code> selector toggles between modes without JavaScript writing to the DOM.</p>
       </div>
       <div class="sg-demo sg-demo--col">
-        <div style="background:var(--bg-input);border-radius:var(--radius-item);padding:16px 20px">
-          <p style="margin:0;color:var(--text-2);font-size:var(--fs-body);line-height:var(--lh-relaxed)"><strong style="color:var(--text-1)">Step 1 — Default dark mode.</strong> <code>:root { color-scheme: dark; }</code> tells the browser to treat all <code>light-dark()</code> calls as "resolve to the dark value". This is set in <code>theme/colours.css</code> before any token definitions.</p>
+        <div class="sg-panel">
+          <p class="sg-copy"><strong>Step 1 — Default dark mode.</strong> <code>:root { color-scheme: dark; }</code> tells the browser to treat all <code>light-dark()</code> calls as "resolve to the dark value". This is set in <code>theme/colours.css</code> before any token definitions.</p>
         </div>
-        <div style="background:var(--bg-input);border-radius:var(--radius-item);padding:16px 20px">
-          <p style="margin:0;color:var(--text-2);font-size:var(--fs-body);line-height:var(--lh-relaxed)"><strong style="color:var(--text-1)">Step 2 — Light mode override.</strong> When the hidden <code>.theme-checkbox</code> is checked, <code>html:has(.theme-checkbox:checked) { color-scheme: light; }</code> switches the resolver. Every <code>light-dark()</code> value in every token immediately resolves to its light variant — no class toggling on individual elements needed.</p>
+        <div class="sg-panel">
+          <p class="sg-copy"><strong>Step 2 — Light mode override.</strong> When the hidden <code>.theme-checkbox</code> is checked, <code>html:has(.theme-checkbox:checked) { color-scheme: light; }</code> switches the resolver. Every <code>light-dark()</code> value in every token immediately resolves to its light variant — no class toggling on individual elements needed.</p>
         </div>
-        <div style="background:var(--bg-input);border-radius:var(--radius-item);padding:16px 20px">
-          <p style="margin:0;color:var(--text-2);font-size:var(--fs-body);line-height:var(--lh-relaxed)"><strong style="color:var(--text-1)">Step 3 — Tokens resolve automatically.</strong> Any token defined with <code>light-dark()</code> works in both modes with no extra code. Example: <code>--bg: light-dark(var(--neutral-1), var(--neutral-10))</code> resolves to light grey in light mode, dark navy in dark mode.</p>
+        <div class="sg-panel">
+          <p class="sg-copy"><strong>Step 3 — Tokens resolve automatically.</strong> Any token defined with <code>light-dark()</code> works in both modes with no extra code. Example: <code>--bg: light-dark(var(--neutral-1), var(--neutral-10))</code> resolves to light grey in light mode, dark navy in dark mode.</p>
         </div>
       </div>
       <div class="sg-code">
@@ -62,10 +62,10 @@ html:has(.theme-checkbox:checked) { color-scheme: light; } /* light on toggle */
       <div class="sg-section-header">
         <h2 class="sg-section-title">The Hidden Checkbox Pattern</h2>
         <p class="sg-section-desc">The theme toggle uses a visually hidden <code>&lt;input type="checkbox"&gt;</code> with class <code>.theme-checkbox</code>. A visible <code>&lt;label for="theme-checkbox"&gt;</code> styled as a toggle switch triggers it. The <code>:has()</code> selector on the <code>&lt;html&gt;</code> element detects the checked state and switches <code>color-scheme</code> — no JavaScript DOM manipulation required for the theme switch itself.</p>
-        <p class="sg-section-desc" style="margin-top:8px">The checkbox must remain in the DOM at all viewport sizes, even when the visual toggle label is hidden via CSS (<code>display:none</code> below 1100px). The user menu "Appearance" item uses <code>for="theme-checkbox"</code> to link to the same input, so the toggle still works on mobile via the dropdown.</p>
+        <p class="sg-section-desc">The checkbox must remain in the DOM at all viewport sizes, even when the visual toggle label is hidden via CSS (<code>display:none</code> below 1100px). The user menu "Appearance" item uses <code>for="theme-checkbox"</code> to link to the same input, so the toggle still works on mobile via the dropdown.</p>
       </div>
       <div class="sg-demo">
-        <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+        <div class="sg-row sg-row--wrap">
           <div class="theme-switcher">
             <input type="checkbox" role="switch" id="sg-theme-demo" class="theme-checkbox" aria-label="Colour theme">
             <label class="theme-toggle" for="sg-theme-demo" aria-hidden="true">
@@ -73,7 +73,7 @@ html:has(.theme-checkbox:checked) { color-scheme: light; } /* light on toggle */
               <span class="theme-label-light">Light</span>
             </label>
           </div>
-          <p style="color:var(--text-3);font-size:var(--fs-sm);margin:0">Toggle above controls the entire page theme</p>
+          <p class="sg-meta">Toggle above controls the entire page theme</p>
         </div>
       </div>
       <div class="sg-code">
@@ -123,7 +123,7 @@ html:has(.theme-checkbox:checked) { color-scheme: light; } /* light on toggle */
       <div class="sg-section-header">
         <h2 class="sg-section-title">Gradient-Safe Tokens (<code>--card-fill</code>)</h2>
         <p class="sg-section-desc">CSS gradient functions (<code>linear-gradient</code>, <code>conic-gradient</code>) do not resolve <code>light-dark()</code> inside their color stops. This is a browser limitation. To use a theme-aware colour as a gradient stop, you must use a <code>:has()</code> override rather than <code>light-dark()</code> directly.</p>
-        <p class="sg-section-desc" style="margin-top:8px"><code>--card-fill</code> and <code>--card-fill-glass</code> are the established pattern. They mirror <code>--bg-card</code> but are defined without <code>light-dark()</code> wrapper:</p>
+        <p class="sg-section-desc"><code>--card-fill</code> and <code>--card-fill-glass</code> are the established pattern. They mirror <code>--bg-card</code> but are defined without <code>light-dark()</code> wrapper:</p>
       </div>
       <div class="sg-code">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
@@ -144,8 +144,8 @@ html:has(.theme-checkbox:checked) {
   background: linear-gradient(135deg, var(--card-fill), transparent);
 }</code></pre>
       </div>
-      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-item);padding:14px 18px;margin-top:0">
-        <p style="margin:0;color:var(--status-warning);font-size:var(--fs-sm);font-weight:var(--fw-semibold)">⚠️ Never use <code>light-dark()</code> directly inside <code>linear-gradient()</code> or <code>conic-gradient()</code> — use <code>--card-fill</code> or define a new gradient-safe token following this pattern.</p>
+      <div class="sg-panel sg-panel--card">
+        <p class="sg-meta">⚠️ Never use <code>light-dark()</code> directly inside <code>linear-gradient()</code> or <code>conic-gradient()</code> — use <code>--card-fill</code> or define a new gradient-safe token following this pattern.</p>
       </div>
     </section>
 
@@ -191,34 +191,34 @@ html:has(.theme-checkbox:checked) {
         <p class="sg-section-desc">These tokens control the theming mechanism itself, not colours.</p>
       </div>
       <div class="sg-demo sg-demo--tight">
-        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md)">
+        <table class="sg-table">
           <thead>
-            <tr style="border-bottom:1px solid var(--border);color:var(--text-3);text-align:left">
-              <th style="padding:8px 12px 8px 0;font-weight:var(--fw-semibold)">Token / Selector</th>
-              <th style="padding:8px 12px;font-weight:var(--fw-semibold)">Value</th>
-              <th style="padding:8px 0;font-weight:var(--fw-semibold)">Purpose</th>
+            <tr>
+              <th>Token / Selector</th>
+              <th>Value</th>
+              <th>Purpose</th>
             </tr>
           </thead>
-          <tbody style="color:var(--text-2)">
-            <tr style="border-bottom:1px solid var(--divider)">
-              <td style="padding:9px 12px 9px 0"><code>:root { color-scheme: dark }</code></td>
-              <td style="padding:9px 12px">dark</td>
-              <td style="padding:9px 0">Sets dark as the default mode for all <code>light-dark()</code> resolution</td>
-            </tr>
-            <tr style="border-bottom:1px solid var(--divider)">
-              <td style="padding:9px 12px 9px 0"><code>html:has(.theme-checkbox:checked)</code></td>
-              <td style="padding:9px 12px">color-scheme: light</td>
-              <td style="padding:9px 0">Switches to light mode when the toggle checkbox is checked</td>
-            </tr>
-            <tr style="border-bottom:1px solid var(--divider)">
-              <td style="padding:9px 12px 9px 0"><code>--card-fill</code></td>
-              <td style="padding:9px 12px">var(--neutral-8) / var(--neutral-0)</td>
-              <td style="padding:9px 0">Gradient-safe card fill; mirrors --bg-card without light-dark()</td>
+          <tbody>
+            <tr>
+              <td><code>:root { color-scheme: dark }</code></td>
+              <td>dark</td>
+              <td>Sets dark as the default mode for all <code>light-dark()</code> resolution</td>
             </tr>
             <tr>
-              <td style="padding:9px 12px 9px 0"><code>--card-fill-glass</code></td>
-              <td style="padding:9px 12px">oklch(…/0.60)</td>
-              <td style="padding:9px 0">Semi-transparent dark version for glassmorphism with backdrop-filter</td>
+              <td><code>html:has(.theme-checkbox:checked)</code></td>
+              <td>color-scheme: light</td>
+              <td>Switches to light mode when the toggle checkbox is checked</td>
+            </tr>
+            <tr>
+              <td><code>--card-fill</code></td>
+              <td>var(--neutral-8) / var(--neutral-0)</td>
+              <td>Gradient-safe card fill; mirrors --bg-card without light-dark()</td>
+            </tr>
+            <tr>
+              <td><code>--card-fill-glass</code></td>
+              <td>oklch(…/0.60)</td>
+              <td>Semi-transparent dark version for glassmorphism with backdrop-filter</td>
             </tr>
           </tbody>
         </table>
@@ -234,15 +234,15 @@ html:has(.theme-checkbox:checked) {
         <div class="sg-do">
           <div class="sg-do-label">Do</div>
           <div class="sg-do-body">
-            <p style="color:var(--text-2);font-size:var(--fs-sm);margin:0 0 8px">Use <code>light-dark()</code> for all theme-aware values:</p>
-            <code style="display:block;font-size:11px;color:var(--text-1);background:var(--bg-input);padding:8px 12px;border-radius:6px">--my-token: light-dark(#eee, #111);</code>
+            <p class="sg-note">Use <code>light-dark()</code> for all theme-aware values:</p>
+            <code class="sg-panel sg-item-value">--my-token: light-dark(#eee, #111);</code>
           </div>
         </div>
         <div class="sg-dont">
           <div class="sg-dont-label">Don't</div>
           <div class="sg-dont-body">
-            <p style="color:var(--text-2);font-size:var(--fs-sm);margin:0 0 8px">Hard-code dark hex values in component files:</p>
-            <code style="display:block;font-size:11px;color:var(--text-1);background:var(--bg-input);padding:8px 12px;border-radius:6px">.my-component { background: #2A2E35; }</code>
+            <p class="sg-note">Hard-code dark hex values in component files:</p>
+            <code class="sg-panel sg-item-value">.my-component { background: #2A2E35; }</code>
           </div>
         </div>
       </div>
@@ -255,16 +255,16 @@ html:has(.theme-checkbox:checked) {
       </div>
       <div class="sg-demo sg-demo--col">
         <div>
-          <p style="color:var(--text-2);font-size:var(--fs-body);margin:0"><strong style="color:var(--text-1)">ARIA role="switch"</strong> — The hidden checkbox uses <code>role="switch"</code> to communicate its toggle behaviour to screen readers. The checked state (on/off) is announced automatically.</p>
+          <p class="sg-copy"><strong>ARIA role="switch"</strong> — The hidden checkbox uses <code>role="switch"</code> to communicate its toggle behaviour to screen readers. The checked state (on/off) is announced automatically.</p>
         </div>
         <div>
-          <p style="color:var(--text-2);font-size:var(--fs-body);margin:0"><strong style="color:var(--text-1)">Live region</strong> — A visually hidden <code>.theme-live</code> element with <code>aria-live="polite"</code> and <code>aria-atomic="true"</code> announces "Dark mode" or "Light mode" when the toggle fires. Populated by JavaScript in <code>sg-shell.js</code>.</p>
+          <p class="sg-copy"><strong>Live region</strong> — A visually hidden <code>.theme-live</code> element with <code>aria-live="polite"</code> and <code>aria-atomic="true"</code> announces "Dark mode" or "Light mode" when the toggle fires. Populated by JavaScript in <code>sg-shell.js</code>.</p>
         </div>
         <div>
-          <p style="color:var(--text-2);font-size:var(--fs-body);margin:0"><strong style="color:var(--text-1)">Contrast ratios</strong> — All text tokens (<code>--text-1</code>, <code>--text-2</code>, <code>--text-3</code>) pass WCAG AA (4.5:1) on their paired background in both light and dark modes. The <code>--gold-text</code> token is specifically calibrated (≈#A05607 in light, gold in dark) to maintain AA compliance on all surface colours.</p>
+          <p class="sg-copy"><strong>Contrast ratios</strong> — All text tokens (<code>--text-1</code>, <code>--text-2</code>, <code>--text-3</code>) pass WCAG AA (4.5:1) on their paired background in both light and dark modes. The <code>--gold-text</code> token is specifically calibrated (≈#A05607 in light, gold in dark) to maintain AA compliance on all surface colours.</p>
         </div>
         <div>
-          <p style="color:var(--text-2);font-size:var(--fs-body);margin:0"><strong style="color:var(--text-1)">prefers-color-scheme</strong> — The current system does not yet auto-respond to <code>prefers-color-scheme: light</code>. The product defaults to dark and requires explicit user action. This is a known gap — a future enhancement would sync the default to the OS preference on first load.</p>
+          <p class="sg-copy"><strong>prefers-color-scheme</strong> — The current system does not yet auto-respond to <code>prefers-color-scheme: light</code>. The product defaults to dark and requires explicit user action. This is a known gap — a future enhancement would sync the default to the OS preference on first load.</p>
         </div>
       </div>
     </section>

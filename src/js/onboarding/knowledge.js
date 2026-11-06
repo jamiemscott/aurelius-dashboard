@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
   LEGEND_LABELS.forEach((label, i) => {
     const item = document.createElement('div');
     item.className = 'ob-kleg-item';
-    item.innerHTML = `<div class="ob-kleg-dot" style="background:${COLORS[i]}"></div><span>${label}</span>`;
+    item.innerHTML = `<div class="ob-kleg-dot" style="--ob-kleg-color:${COLORS[i]}"></div><span>${label}</span>`;
     legend.appendChild(item);
   });
 
@@ -67,11 +67,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function _updateCard(card, i, level) {
     const color = COLORS[level];
-    card.style.borderColor = level ? color : '';
+    card.classList.toggle('is-rated', level > 0);
+    card.style.setProperty('--ob-kc-color', color);
 
     const pips = card.querySelectorAll('.ob-kpip');
     pips.forEach((pip, j) => {
-      pip.style.background = j < level ? color : 'var(--border)';
+      pip.classList.toggle('is-filled', j < level);
     });
 
     card.querySelector('.ob-klbl').textContent = LEVELS[level];

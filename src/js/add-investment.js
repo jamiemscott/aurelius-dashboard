@@ -668,7 +668,6 @@ function renderSmartCard(inv) {
     `<span class="ais-trust-signal">${trustIcon(s.icon)}${s.text}</span>`
   ).join('');
 
-  const logoStyle = `background:${inv.logoColor};color:#fff;`;
 
   return `
     <li class="ais-result-card" role="listitem" data-smart-id="${inv.id}">
@@ -677,7 +676,7 @@ function renderSmartCard(inv) {
               onclick="selectSmartFund('${inv.id}')">
 
         <div class="ais-result-top">
-          <div class="ais-result-logo" style="${logoStyle}" aria-hidden="true">${inv.logoInitials}</div>
+          <div class="ais-result-logo" style="--ais-logo-color:${inv.logoColor}" aria-hidden="true">${inv.logoInitials}</div>
           <div class="ais-result-header">
             <div class="ais-result-name">${inv.name}</div>
             <div class="ais-result-meta">

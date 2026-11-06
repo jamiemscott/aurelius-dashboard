@@ -6,6 +6,7 @@
 <title>View Transition Demo — Overview</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="demo.css">
 <style>
   /* Inline opt-in — belt-and-suspenders alongside bundle.css */
   @view-transition { navigation: auto; }
@@ -157,7 +158,7 @@
         <div class="card kpi-card">
           <div class="kpi-label">Cash Balance</div>
           <div class="kpi-value">£31,800</div>
-          <div class="kpi-change" style="color:var(--text-3)">3.77% of portfolio</div>
+          <div class="kpi-change kpi-change--muted">3.77% of portfolio</div>
         </div>
       </div>
     </div>
@@ -178,8 +179,8 @@
           </div>
         </div>
         <!-- Decorative placeholder chart -->
-        <div style="height:220px;display:flex;align-items:flex-end;gap:4px;padding:0 4px 0 4px;margin-top:16px">
-          <svg viewBox="0 0 600 200" preserveAspectRatio="none" style="width:100%;height:100%" aria-hidden="true">
+        <div class="demo-chart">
+          <svg viewBox="0 0 600 200" preserveAspectRatio="none" class="demo-chart-svg" aria-hidden="true">
             <defs>
               <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stop-color="var(--gold)" stop-opacity="0.25"/>
@@ -193,45 +194,45 @@
       </div>
 
       <div class="card card-pad">
-        <h2 class="chart-title" style="margin-bottom:20px">Asset Allocation</h2>
-        <div style="display:flex;flex-direction:column;gap:14px">
+        <h2 class="chart-title demo-title demo-title--spaced">Asset Allocation</h2>
+        <div class="demo-stack demo-stack--roomy">
           <div>
-            <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px">
-              <span style="color:var(--text-2)">Equities</span>
-              <span style="color:var(--text-1);font-weight:600">62%</span>
+            <div class="demo-bar-head">
+              <span class="demo-bar-name">Equities</span>
+              <span class="demo-bar-value">62%</span>
             </div>
-            <div class="progress-track"><div class="progress-fill" style="width:62%"></div></div>
+            <div class="progress-track"><div class="progress-fill demo-fill" style="--demo-bar-pct:62%"></div></div>
           </div>
           <div>
-            <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px">
-              <span style="color:var(--text-2)">Fixed Income</span>
-              <span style="color:var(--text-1);font-weight:600">18%</span>
+            <div class="demo-bar-head">
+              <span class="demo-bar-name">Fixed Income</span>
+              <span class="demo-bar-value">18%</span>
             </div>
-            <div class="progress-track"><div class="progress-fill" style="width:18%;background:var(--el-water)"></div></div>
+            <div class="progress-track"><div class="progress-fill demo-fill" style="--demo-bar-pct:18%;--demo-bar-color:var(--el-water)"></div></div>
           </div>
           <div>
-            <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px">
-              <span style="color:var(--text-2)">Property</span>
-              <span style="color:var(--text-1);font-weight:600">12%</span>
+            <div class="demo-bar-head">
+              <span class="demo-bar-name">Property</span>
+              <span class="demo-bar-value">12%</span>
             </div>
-            <div class="progress-track"><div class="progress-fill" style="width:12%;background:var(--el-earth)"></div></div>
+            <div class="progress-track"><div class="progress-fill demo-fill" style="--demo-bar-pct:12%;--demo-bar-color:var(--el-earth)"></div></div>
           </div>
           <div>
-            <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px">
-              <span style="color:var(--text-2)">Cash &amp; Other</span>
-              <span style="color:var(--text-1);font-weight:600">8%</span>
+            <div class="demo-bar-head">
+              <span class="demo-bar-name">Cash &amp; Other</span>
+              <span class="demo-bar-value">8%</span>
             </div>
-            <div class="progress-track"><div class="progress-fill" style="width:8%;background:var(--el-aether)"></div></div>
+            <div class="progress-track"><div class="progress-fill demo-fill" style="--demo-bar-pct:8%;--demo-bar-color:var(--el-aether)"></div></div>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Recent activity -->
-    <div class="card card-pad" style="margin-top:0">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+    <div class="card card-pad demo-card-top">
+      <div class="demo-section-head">
         <h2 class="chart-title">Recent Activity</h2>
-        <a class="btn-secondary" href="investments.html" style="font-size:12px;padding:6px 14px">View All</a>
+        <a class="btn-secondary demo-btn" href="investments.html">View All</a>
       </div>
       <div class="activity-list">
         <div class="activity-item">

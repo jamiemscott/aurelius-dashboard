@@ -32,7 +32,7 @@
         <p class="sg-section-desc">A <code>&lt;button class="avatar"&gt;</code> in the topbar right zone. On hover, a gold ring appears via <code>box-shadow</code>. This is the popover trigger — it should have <code>popovertarget="user-menu"</code> or an OutSystems click handler.</p>
       </div>
       <div class="sg-demo sg-demo--center">
-        <button class="avatar" aria-label="Open user menu" style="background:var(--gold-dim);border:2px solid var(--gold);border-radius:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;color:var(--gold-text);font-size:var(--fs-ui);font-weight:var(--fw-semibold);cursor:pointer;transition:box-shadow 0.15s">JS</button>
+        <button class="avatar" aria-label="Open user menu">JS</button>
       </div>
     </section>
 
@@ -42,8 +42,8 @@
         <h2 class="sg-section-title">Menu Panel (<code>.user-menu</code>)</h2>
         <p class="sg-section-desc">The dropdown panel. Closed state: <code>opacity:0; scale(0.95); pointer-events:none</code>. Open state: <code>opacity:1; scale(1)</code> via <code>:popover-open</code> or <code>.is-open</code>. Uses <code>transform-origin: top right</code> so it scales from the avatar. Sections are separated by <code>.um-divider</code>. Danger items use <code>.um-item--danger</code>.</p>
       </div>
-      <div class="sg-demo" style="padding:0;overflow:visible;max-width:280px;margin-inline:auto">
-        <div class="user-menu" style="position:relative;inset:auto;opacity:1;transform:none;pointer-events:all;width:264px">
+      <div class="sg-demo sg-fit-sidebar sg-fit-center sg-demo--flush sg-demo--overflow">
+        <div class="user-menu sg-static sg-menu-panel">
           <div class="um-header">
             <div class="um-avatar">JS</div>
             <div>
@@ -120,8 +120,8 @@
         <p class="sg-section-desc">A small inline badge on the Security menu item. Two variants: <code>.um-2fa-pill--on</code> (green, 2FA enabled) and <code>.um-2fa-pill--off</code> (red, 2FA disabled). This gives at-a-glance security status without navigating to the security page.</p>
       </div>
       <div class="sg-demo sg-demo--row">
-        <span class="um-2fa-pill um-2fa-pill--on" style="background:var(--green-dim);color:var(--green);border-radius:4px;padding:2px 6px;font-size:var(--fs-xs);font-weight:var(--fw-semibold)">2FA On</span>
-        <span class="um-2fa-pill um-2fa-pill--off" style="background:var(--red-dim);color:var(--red);border-radius:4px;padding:2px 6px;font-size:var(--fs-xs);font-weight:var(--fw-semibold)">2FA Off</span>
+        <span class="um-2fa-pill um-2fa-pill--on">2FA On</span>
+        <span class="um-2fa-pill um-2fa-pill--off">2FA Off</span>
       </div>
     </section>
 
@@ -131,20 +131,20 @@
         <h2 class="sg-section-title">Token Reference</h2>
       </div>
       <div class="sg-demo sg-demo--tight">
-        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md)">
+        <table class="sg-table">
           <thead>
-            <tr style="border-bottom:1px solid var(--border);color:var(--text-3);text-align:left">
-              <th style="padding:8px 12px 8px 0;font-weight:var(--fw-semibold)">Token</th>
-              <th style="padding:8px 0;font-weight:var(--fw-semibold)">Purpose</th>
+            <tr>
+              <th>Token</th>
+              <th>Purpose</th>
             </tr>
           </thead>
-          <tbody style="color:var(--text-2)">
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--bg-card</code></td><td style="padding:8px 0">Menu panel background</td></tr>
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--border</code></td><td style="padding:8px 0">Menu panel border</td></tr>
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--gold-dim / --gold</code></td><td style="padding:8px 0">Avatar background and border</td></tr>
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--bg-hover</code></td><td style="padding:8px 0">Menu item hover background</td></tr>
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--red</code></td><td style="padding:8px 0">Danger menu item text colour</td></tr>
-            <tr><td style="padding:8px 12px 8px 0"><code>--shadow-xl</code></td><td style="padding:8px 0">Elevated panel shadow</td></tr>
+          <tbody>
+            <tr><td><code>--bg-card</code></td><td>Menu panel background</td></tr>
+            <tr><td><code>--border</code></td><td>Menu panel border</td></tr>
+            <tr><td><code>--gold-dim / --gold</code></td><td>Avatar background and border</td></tr>
+            <tr><td><code>--bg-hover</code></td><td>Menu item hover background</td></tr>
+            <tr><td><code>--red</code></td><td>Danger menu item text colour</td></tr>
+            <tr><td><code>--shadow-xl</code></td><td>Elevated panel shadow</td></tr>
           </tbody>
         </table>
       </div>
@@ -156,7 +156,7 @@
         <h2 class="sg-section-title">Accessibility Notes</h2>
       </div>
       <div class="sg-demo sg-demo--col">
-        <p style="margin:0;color:var(--text-2);font-size:var(--fs-body)">The menu panel uses <code>role="menu"</code> with <code>role="menuitem"</code> on each interactive item. Avatar trigger has <code>aria-label="Open user menu"</code> and <code>aria-expanded</code> toggled by JS. The native Popover API handles focus management; on OutSystems, manually move focus to the first menu item on open and return focus to the avatar on close. <kbd>Escape</kbd> must close the menu. Arrow keys should navigate between items (ARIA APG menu pattern).</p>
+        <p class="sg-copy">The menu panel uses <code>role="menu"</code> with <code>role="menuitem"</code> on each interactive item. Avatar trigger has <code>aria-label="Open user menu"</code> and <code>aria-expanded</code> toggled by JS. The native Popover API handles focus management; on OutSystems, manually move focus to the first menu item on open and return focus to the avatar on close. <kbd>Escape</kbd> must close the menu. Arrow keys should navigate between items (ARIA APG menu pattern).</p>
       </div>
     </section>
 
