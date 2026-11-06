@@ -55,11 +55,26 @@ document.addEventListener('DOMContentLoaded', () => {
     pipsEl.innerHTML = '';
     CARDS.forEach((_, i) => {
       const pip = document.createElement('div');
-      pip.className = 'ob-pip' + (i < idx ? ' ob-pip--done' : i === idx ? ' ob-pip--curr' : '');
-      if (i === idx)      pip.style.background = 'var(--el-fire)';
-      else if (i < idx)   pip.style.background = 'color-mix(in srgb, var(--el-fire) 27%, transparent)';
+      pip.className = 'ob-pip ob-pip--fire' + (i < idx ? ' ob-pip--done' : i === idx ? ' ob-pip--curr' : '');
       pipsEl.appendChild(pip);
     });
+  }
+
+  /* Drag position and vote strength are runtime values: CSS consumes them */
+  function dragTo(x, rot) {
+    card.style.setProperty('--ob-swipe-x', `${x}px`);
+    card.style.setProperty('--ob-swipe-rot', `${rot}deg`);
+  }
+
+  function setVotes(yes, no) {
+    voteYes.style.setProperty('--ob-vote', String(yes));
+    voteNo.style.setProperty('--ob-vote', String(no));
+  }
+
+  function resetCard() {
+    card.classList.remove('is-dragging', 'is-settling', 'is-leaving');
+    dragTo(0, 0);
+    setVotes(0, 0);
   }
 
   function setCard() {
@@ -68,11 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
       titleEl.textContent  = 'All statements reviewed';
       bodyEl.textContent   = 'Your decision intelligence has been captured across five dimensions.';
       eyebrow.textContent  = 'Complete';
-      card.style.transition = '';
-      card.style.transform  = '';
-      card.style.opacity    = '1';
-      voteYes.style.opacity = '0';
-      voteNo.style.opacity  = '0';
+      resetCard();
       foot.hidden = false;
       statusEl.textContent = 'All five statements reviewed. Press Continue to proceed.';
       buildPips();
@@ -83,11 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     eyebrow.textContent  = c.k;
     titleEl.textContent  = c.t;
     bodyEl.textContent   = c.b;
-    card.style.transition = '';
-    card.style.transform  = '';
-    card.style.opacity    = '1';
-    voteYes.style.opacity = '0';
-    voteNo.style.opacity  = '0';
+    resetCard();
 
     // Announce new card to screen readers
     statusEl.textContent = '';
@@ -103,9 +110,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (!prefersReduced) {
-      card.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-      card.style.transform  = `translateX(${dir * 360}px) rotate(${dir * 7}deg)`;
-      card.style.opacity    = '0';
+      card.classList.remove('is-dragging', 'is-settling');
+      card.classList.add('is-leaving');
+      dragTo(dir * 360, dir * 7);
     }
 
     scores.push(affirm);
@@ -132,16 +139,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function getX(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
 
-  card.addEventListener('mousedown',  e => { dragging = true; startX = currentX = getX(e); card.style.transition = 'none'; });
-  card.addEventListener('touchstart', e => { dragging = true; startX = currentX = getX(e); card.style.transition = 'none'; }, { passive: true });
+  card.addEventListener('mousedown',  e => { dragging = true; startX = currentX = getX(e); card.classList.remove('is-settling'); card.classList.add('is-dragging'); });
+  card.addEventListener('touchstart', e => { dragging = true; startX = currentX = getX(e); card.classList.remove('is-settling'); card.classList.add('is-dragging'); }, { passive: true });
 
   function onMove(e) {
     if (!dragging) return;
     currentX = getX(e);
     const dx = currentX - startX;
-    card.style.transform = `translateX(${dx}px) rotate(${dx * 0.03}deg)`;
-    voteYes.style.opacity = dx >  35 ? String(Math.min(1, (dx - 35) / 55))  : '0';
-    voteNo.style.opacity  = dx < -35 ? String(Math.min(1, (-dx - 35) / 55)) : '0';
+    dragTo(dx, dx * 0.03);
+    setVotes(dx > 35 ? Math.min(1, (dx - 35) / 55) : 0, dx < -35 ? Math.min(1, (-dx - 35) / 55) : 0);
   }
 
   function onEnd() {
@@ -151,10 +157,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (Math.abs(dx) > 88) {
       swipeOut(dx > 0);
     } else {
-      card.style.transition = 'transform 0.25s ease';
-      card.style.transform  = '';
-      voteYes.style.opacity = '0';
-      voteNo.style.opacity  = '0';
+      card.classList.remove('is-dragging');
+      card.classList.add('is-settling');
+      dragTo(0, 0);
+      setVotes(0, 0);
     }
   }
 

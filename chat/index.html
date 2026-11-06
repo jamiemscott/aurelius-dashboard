@@ -265,7 +265,7 @@
       <!-- Input bar -->
       <div class="adv-input-bar" role="region" aria-label="Send a message">
         <textarea
-          class="adv-textarea"
+          class="adv-textarea u-h-dyn"
           id="chat-input"
           placeholder="Ask your adviser anything…"
           rows="1"
@@ -373,8 +373,8 @@
   const sendBtn  = document.getElementById('chat-send');
 
   function resizeTextarea() {
-    textarea.style.height = 'auto';
-    textarea.style.height = Math.min(textarea.scrollHeight, 140) + 'px';
+    textarea.style.setProperty('--dyn-h', 'auto');
+    textarea.style.setProperty('--dyn-h', Math.min(textarea.scrollHeight, 140) + 'px');
   }
 
   textarea.addEventListener('input', function () {
@@ -421,17 +421,17 @@
 
     /* Clear input */
     textarea.value = '';
-    textarea.style.height = 'auto';
+    textarea.style.setProperty('--dyn-h', 'auto');
     sendBtn.disabled = true;
 
     /* Show typing indicator */
     const typing = document.getElementById('adv-typing');
-    if (typing) typing.style.display = 'flex';
+    if (typing) typing.hidden = false;
     scrollToBottom();
 
     /* Simulate bot reply after delay */
     setTimeout(() => {
-      if (typing) typing.style.display = 'none';
+      if (typing) typing.hidden = true;
       appendBotMessage('Thanks for your message. This is a design mock — connect me to a real LLM to generate live responses.');
       scrollToBottom();
     }, 1800);

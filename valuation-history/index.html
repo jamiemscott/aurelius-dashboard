@@ -106,7 +106,7 @@
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/><line x1="12" y1="3" x2="12" y2="7"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="3" y1="12" x2="7" y2="12"/><line x1="17" y1="12" x2="21" y2="12"/><line x1="5.64" y1="5.64" x2="8.46" y2="8.46"/><line x1="15.54" y1="15.54" x2="18.36" y2="18.36"/><line x1="18.36" y1="5.64" x2="15.54" y2="8.46"/><line x1="8.46" y1="15.54" x2="5.64" y2="18.36"/></svg>
           <span class="btn-ai-label">Ask Aurelius AI</span>
         </a>
-        <div class="filter-row" style="margin:0">
+        <div class="filter-row u-m-0">
           <select class="filter-select" aria-label="Account filter"><option>All Accounts</option><option>Advised SIPP</option><option>ISA</option></select>
           <select class="filter-select" aria-label="Date range"><option>06-Nov-2025 to 06-Feb-2026</option><option>1 Year</option><option>All Time</option></select>
         </div>
@@ -116,11 +116,11 @@
 
     <div class="hist-stats">
       <div class="card kpi-card featured"><div class="kpi-label">Current Value</div><div class="kpi-value">£842,340</div><div class="kpi-change up"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>+£47,890 (6M)</div></div>
-      <div class="card kpi-card"><div class="kpi-label">Period High</div><div class="kpi-value">£869,200</div><div style="font-size:12px;color:var(--text-3);margin-top:4px">15 Jan 2026</div></div>
-      <div class="card kpi-card"><div class="kpi-label">Period Low</div><div class="kpi-value">£771,440</div><div style="font-size:12px;color:var(--text-3);margin-top:4px">12 Nov 2025</div></div>
+      <div class="card kpi-card"><div class="kpi-label">Period High</div><div class="kpi-value">£869,200</div><div class="u-fs-md u-text-3 u-mt-xs">15 Jan 2026</div></div>
+      <div class="card kpi-card"><div class="kpi-label">Period Low</div><div class="kpi-value">£771,440</div><div class="u-fs-md u-text-3 u-mt-xs">12 Nov 2025</div></div>
     </div>
 
-    <div class="card card-pad" style="margin-bottom:20px">
+    <div class="card card-pad card-gap">
       <div class="chart-header">
         <div><h2 class="chart-title">Portfolio Value Over Time</h2><div class="chart-subtitle">Total portfolio · GBP</div></div>
         <div class="range-pills">
@@ -364,7 +364,7 @@
     <ul class="np-list" role="list" id="notif-list">
 
       <!-- 1. Portfolio milestone — UNREAD -->
-      <li class="np-item" data-type="portfolio" data-unread style="--i:0">
+      <li class="np-item" data-type="portfolio" data-unread>
         <button class="np-item-btn" aria-label="Mark as read: Portfolio milestone reached">
           <span class="np-icon" aria-hidden="true">
             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
@@ -380,7 +380,7 @@
       </li>
 
       <!-- 2. Adviser message — UNREAD -->
-      <li class="np-item" data-type="adviser" data-unread style="--i:1">
+      <li class="np-item" data-type="adviser" data-unread>
         <button class="np-item-btn" aria-label="Mark as read: Message from James Whitmore">
           <span class="np-icon" aria-hidden="true">
             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -396,7 +396,7 @@
       </li>
 
       <!-- 3. Security alert — UNREAD -->
-      <li class="np-item" data-type="security" data-unread style="--i:2">
+      <li class="np-item" data-type="security" data-unread>
         <button class="np-item-btn" aria-label="Mark as read: New sign-in detected">
           <span class="np-icon" aria-hidden="true">
             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -412,7 +412,7 @@
       </li>
 
       <!-- 4. Document ready — READ -->
-      <li class="np-item" data-type="document" style="--i:3">
+      <li class="np-item" data-type="document">
         <button class="np-item-btn" aria-label="Annual statement ready">
           <span class="np-icon" aria-hidden="true">
             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
@@ -427,7 +427,7 @@
       </li>
 
       <!-- 5. ISA allowance warning — READ -->
-      <li class="np-item" data-type="tax" style="--i:4">
+      <li class="np-item" data-type="tax">
         <button class="np-item-btn" aria-label="ISA allowance expiring soon">
           <span class="np-icon" aria-hidden="true">
             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
@@ -442,7 +442,7 @@
       </li>
 
       <!-- 6. Dividend received — READ -->
-      <li class="np-item" data-type="dividend" style="--i:5">
+      <li class="np-item" data-type="dividend">
         <button class="np-item-btn" aria-label="Dividend received">
           <span class="np-icon" aria-hidden="true">
             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>

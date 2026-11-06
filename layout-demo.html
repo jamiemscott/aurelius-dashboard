@@ -63,13 +63,13 @@
     </div>
 
     <!-- ── Modifier annotation ─────────────── -->
-    <div class="card" style="margin-bottom: 20px; border-left: 3px solid var(--brand-gold); padding: 20px 24px;">
-      <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 8px;">How to use</p>
-      <p style="font-family: 'DM Mono', monospace; font-size: 0.875rem; color: var(--text);">
+    <div class="card u-mb-l u-border-accent u-p-l">
+      <p class="u-fs-md u-uppercase u-ls-wider u-text-3 u-mb-s">How to use</p>
+      <p class="u-font-mono u-fs-body u-text-1">
         &lt;div class="<strong>shell shell--no-sidebar</strong>"&gt;
       </p>
-      <p style="font-size: 0.8125rem; color: var(--text-muted); margin-top: 10px; line-height: 1.6;">
-        Add <code style="background: var(--bg-input); padding: 1px 6px; border-radius: 4px;">shell--no-sidebar</code> alongside <code style="background: var(--bg-input); padding: 1px 6px; border-radius: 4px;">shell</code> to switch the grid from a two-column layout (sidebar + main) to a single full-width column. The topbar still spans the full viewport. Any <code style="background: var(--bg-input); padding: 1px 6px; border-radius: 4px;">.sidebar</code> element present in the DOM is automatically hidden.
+      <p class="u-fs-ui u-text-3 u-mt-m u-lh-relaxed">
+        Add <code class="u-bg-input u-py-2xs u-px-s u-radius-xs">shell--no-sidebar</code> alongside <code class="u-bg-input u-py-2xs u-px-s u-radius-xs">shell</code> to switch the grid from a two-column layout (sidebar + main) to a single full-width column. The topbar still spans the full viewport. Any <code class="u-bg-input u-py-2xs u-px-s u-radius-xs">.sidebar</code> element present in the DOM is automatically hidden.
       </p>
     </div>
 
@@ -94,79 +94,79 @@
 
     <!-- ── Two-col content ─────────────────── -->
     <div class="two-col">
-      <div class="card" style="padding: 24px;">
-        <p class="page-subtitle" style="margin-bottom: 16px;">Asset Allocation</p>
-        <div style="display: flex; flex-direction: column; gap: 12px;">
+      <div class="card u-p-l">
+        <p class="page-subtitle u-mb-base">Asset Allocation</p>
+        <div class="u-flex u-flex-col u-gap-m">
           <div>
-            <div style="display: flex; justify-content: space-between; font-size: 0.8125rem; margin-bottom: 6px;">
-              <span style="color: var(--text);">Global Equities</span>
-              <span style="color: var(--text-muted);">55%</span>
+            <div class="u-flex u-justify-between u-fs-ui u-mb-s">
+              <span class="u-text-1">Global Equities</span>
+              <span class="u-text-3">55%</span>
             </div>
-            <div style="height: 6px; background: var(--bg-input); border-radius: 3px; overflow: hidden;">
-              <div style="height: 100%; width: 55%; background: var(--brand-gold); border-radius: 3px; transition: width 0.6s ease;"></div>
+            <div class="u-h-dyn u-bg-input u-radius-xs u-overflow-hidden" style="--dyn-h:6px">
+              <div class="u-h-full u-w-dyn u-bg-gold u-radius-xs" style="--dyn-w:55%"></div>
             </div>
           </div>
           <div>
-            <div style="display: flex; justify-content: space-between; font-size: 0.8125rem; margin-bottom: 6px;">
-              <span style="color: var(--text);">Bonds &amp; Fixed Income</span>
-              <span style="color: var(--text-muted);">25%</span>
+            <div class="u-flex u-justify-between u-fs-ui u-mb-s">
+              <span class="u-text-1">Bonds &amp; Fixed Income</span>
+              <span class="u-text-3">25%</span>
             </div>
-            <div style="height: 6px; background: var(--bg-input); border-radius: 3px; overflow: hidden;">
-              <div style="height: 100%; width: 25%; background: var(--brand-gold); border-radius: 3px; transition: width 0.6s ease;"></div>
-            </div>
-          </div>
-          <div>
-            <div style="display: flex; justify-content: space-between; font-size: 0.8125rem; margin-bottom: 6px;">
-              <span style="color: var(--text);">Alternatives</span>
-              <span style="color: var(--text-muted);">12%</span>
-            </div>
-            <div style="height: 6px; background: var(--bg-input); border-radius: 3px; overflow: hidden;">
-              <div style="height: 100%; width: 12%; background: var(--brand-gold); border-radius: 3px; transition: width 0.6s ease;"></div>
+            <div class="u-h-dyn u-bg-input u-radius-xs u-overflow-hidden" style="--dyn-h:6px">
+              <div class="u-h-full u-w-dyn u-bg-gold u-radius-xs" style="--dyn-w:25%"></div>
             </div>
           </div>
           <div>
-            <div style="display: flex; justify-content: space-between; font-size: 0.8125rem; margin-bottom: 6px;">
-              <span style="color: var(--text);">Cash &amp; Equivalents</span>
-              <span style="color: var(--text-muted);">8%</span>
+            <div class="u-flex u-justify-between u-fs-ui u-mb-s">
+              <span class="u-text-1">Alternatives</span>
+              <span class="u-text-3">12%</span>
             </div>
-            <div style="height: 6px; background: var(--bg-input); border-radius: 3px; overflow: hidden;">
-              <div style="height: 100%; width: 8%; background: var(--brand-gold); border-radius: 3px; transition: width 0.6s ease;"></div>
+            <div class="u-h-dyn u-bg-input u-radius-xs u-overflow-hidden" style="--dyn-h:6px">
+              <div class="u-h-full u-w-dyn u-bg-gold u-radius-xs" style="--dyn-w:12%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="u-flex u-justify-between u-fs-ui u-mb-s">
+              <span class="u-text-1">Cash &amp; Equivalents</span>
+              <span class="u-text-3">8%</span>
+            </div>
+            <div class="u-h-dyn u-bg-input u-radius-xs u-overflow-hidden" style="--dyn-h:6px">
+              <div class="u-h-full u-w-dyn u-bg-gold u-radius-xs" style="--dyn-w:8%"></div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="card" style="padding: 24px;">
-        <p class="page-subtitle" style="margin-bottom: 16px;">Recent Activity</p>
-        <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px;">
-          <li style="display: flex; justify-content: space-between; align-items: flex-start; font-size: 0.8125rem; padding-bottom: 14px; border-bottom: 1px solid var(--border);">
+      <div class="card u-p-l">
+        <p class="page-subtitle u-mb-base">Recent Activity</p>
+        <ul class="u-list-none u-flex u-flex-col u-gap-base">
+          <li class="u-flex u-justify-between u-items-start u-fs-ui u-pb-base u-border-b-strong">
             <div>
-              <div style="color: var(--text); font-weight: 500;">Vanguard FTSE All-World ETF</div>
-              <div style="color: var(--text-muted); margin-top: 2px;">Buy · 24 units</div>
+              <div class="u-text-1 u-fw-medium">Vanguard FTSE All-World ETF</div>
+              <div class="u-text-3 u-mt-2xs">Buy · 24 units</div>
             </div>
-            <div style="text-align: right;">
-              <div style="color: var(--text);">£3,204.00</div>
-              <div style="color: var(--text-muted); margin-top: 2px;">28 Mar 2026</div>
+            <div class="u-text-right">
+              <div class="u-text-1">£3,204.00</div>
+              <div class="u-text-3 u-mt-2xs">28 Mar 2026</div>
             </div>
           </li>
-          <li style="display: flex; justify-content: space-between; align-items: flex-start; font-size: 0.8125rem; padding-bottom: 14px; border-bottom: 1px solid var(--border);">
+          <li class="u-flex u-justify-between u-items-start u-fs-ui u-pb-base u-border-b-strong">
             <div>
-              <div style="color: var(--text); font-weight: 500;">iShares Corp Bond ETF</div>
-              <div style="color: var(--text-muted); margin-top: 2px;">Dividend received</div>
+              <div class="u-text-1 u-fw-medium">iShares Corp Bond ETF</div>
+              <div class="u-text-3 u-mt-2xs">Dividend received</div>
             </div>
-            <div style="text-align: right;">
-              <div style="color: var(--success, #4ade80);">+£142.50</div>
-              <div style="color: var(--text-muted); margin-top: 2px;">15 Mar 2026</div>
+            <div class="u-text-right">
+              <div class="u-text-green">+£142.50</div>
+              <div class="u-text-3 u-mt-2xs">15 Mar 2026</div>
             </div>
           </li>
-          <li style="display: flex; justify-content: space-between; align-items: flex-start; font-size: 0.8125rem;">
+          <li class="u-flex u-justify-between u-items-start u-fs-ui">
             <div>
-              <div style="color: var(--text); font-weight: 500;">Cash Deposit</div>
-              <div style="color: var(--text-muted); margin-top: 2px;">Bank transfer</div>
+              <div class="u-text-1 u-fw-medium">Cash Deposit</div>
+              <div class="u-text-3 u-mt-2xs">Bank transfer</div>
             </div>
-            <div style="text-align: right;">
-              <div style="color: var(--success, #4ade80);">+£5,000.00</div>
-              <div style="color: var(--text-muted); margin-top: 2px;">1 Mar 2026</div>
+            <div class="u-text-right">
+              <div class="u-text-green">+£5,000.00</div>
+              <div class="u-text-3 u-mt-2xs">1 Mar 2026</div>
             </div>
           </li>
         </ul>

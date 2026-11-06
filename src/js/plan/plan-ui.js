@@ -312,7 +312,7 @@ function renderLines() {
     const li = document.createElement('li');
     li.className = 'plan-line';
     li.dataset.status = line.status;
-    li.style.viewTransitionName = `plan-line-${line.key}`;
+    li.style.setProperty('--plan-vt-name', `plan-line-${line.key}`);
     const ticker = line.source === 'etf' ? `${info.id} · ` : '';
     const account = line.account ? ACCOUNTS[line.account].short : '<span class="plan-line-todo">Account to choose</span>';
     const badge = { added: 'New', removed: 'Removed', kept: '' }[line.status];

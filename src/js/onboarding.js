@@ -102,20 +102,20 @@ export function completeStep(from, to, title, sub) {
   sol.setAttribute('role', 'status');
   sol.setAttribute('aria-live', 'assertive');
   sol.innerHTML = `
-    <div class="ob-sol__icon" style="border: 1px solid ${color}55">
+    <div class="ob-sol__icon" style="--dyn-border:${color}">
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
         <circle cx="14" cy="14" r="11" stroke="${color}" stroke-width="1"/>
         <path d="M8 14l4 4 8-8" stroke="${color}" stroke-width="1.5"
               stroke-linecap="round" stroke-linejoin="round"
               stroke-dasharray="0 24"
-              style="animation: ob-check-draw 0.4s 0.1s ease forwards"/>
+              class="ob-sol__check"/>
       </svg>
     </div>
     <div class="ob-sol__title">${title}</div>
     <div class="ob-sol__sub">${sub}</div>
   `;
 
-  screen.style.position = 'relative';
+  screen.classList.add('u-relative');
   screen.appendChild(sol);
 
   setTimeout(() => {

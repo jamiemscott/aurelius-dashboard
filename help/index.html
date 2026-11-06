@@ -154,9 +154,9 @@
         </div>
 
         <!-- "All topics" reset link -->
-        <div style="margin: -12px 0 18px; display: flex; align-items: center; gap: 10px;">
+        <div class="hs-topics-reset">
           <button onclick="selectAllTopics()"
-                  style="background:transparent;border:none;color:var(--text-3);font-family:var(--font-sans);font-size:var(--fs-sm);cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:2px;"
+                  class="u-bg-none u-border-0 u-text-3 u-font-sans u-fs-sm u-pointer u-p-0 u-underline"
                   aria-label="Show all help topics">
             ← All topics
           </button>
@@ -391,7 +391,7 @@
   </div>
   <div class="np-body">
     <ul class="np-list" role="list" id="notif-list">
-      <li class="np-item" data-type="portfolio" data-unread style="--i:0">
+      <li class="np-item" data-type="portfolio" data-unread>
         <button class="np-item-btn" aria-label="Mark as read: Portfolio milestone reached">
           <span class="np-icon" aria-hidden="true"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
           <span class="np-content">
@@ -403,7 +403,7 @@
         </button>
         <button class="np-dismiss" aria-label="Dismiss notification">&#x2715;</button>
       </li>
-      <li class="np-item" data-type="adviser" data-unread style="--i:1">
+      <li class="np-item" data-type="adviser" data-unread>
         <button class="np-item-btn" aria-label="Mark as read: Message from James Whitmore">
           <span class="np-icon" aria-hidden="true"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
           <span class="np-content">
@@ -415,7 +415,7 @@
         </button>
         <button class="np-dismiss" aria-label="Dismiss notification">&#x2715;</button>
       </li>
-      <li class="np-item" data-type="security" data-unread style="--i:2">
+      <li class="np-item" data-type="security" data-unread>
         <button class="np-item-btn" aria-label="Mark as read: New sign-in detected">
           <span class="np-icon" aria-hidden="true"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
           <span class="np-content">

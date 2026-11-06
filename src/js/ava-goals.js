@@ -326,11 +326,11 @@ function avaHandleChip(questionId, value, label) {
   chips.forEach(function(c) {
     c.classList.remove('is-selected');
     c.setAttribute('disabled', '');
-    c.style.opacity = c.dataset.avaValue === value ? '1' : '0.35';
+    c.classList.toggle('is-dimmed', c.dataset.avaValue !== value);
   });
   /* Highlight the picked one */
   var picked = document.querySelector('[data-ava-chip="' + questionId + '"][data-ava-value="' + value + '"]');
-  if (picked) { picked.classList.add('is-selected'); picked.style.opacity = '1'; }
+  if (picked) { picked.classList.add('is-selected'); }
 
   /* Record answer */
   avaState.answers[questionId] = value;
