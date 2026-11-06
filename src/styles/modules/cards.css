@@ -210,3 +210,25 @@
 
 /* Vertical rhythm between stacked cards */
 .card-gap { margin-block-end: 20px; }
+
+.kpi-note {
+  color: var(--text-3);
+  font-size: var(--fs-md);
+  margin-block-start: var(--space-xs);
+}
+
+/* Small status label: gains, losses, supported or not */
+.status-tag {
+  align-items: center;
+  background: var(--tag-bg);
+  border-radius: var(--radius-btn);
+  color: var(--text-2);
+  display: inline-flex;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  gap: var(--space-xs);
+  padding: 2px var(--space-m);
+}
+
+.status-tag--up { background: var(--green-dim); color: var(--green); }
+.status-tag--down { background: var(--red-dim); color: var(--red); }

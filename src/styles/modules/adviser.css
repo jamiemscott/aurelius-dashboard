@@ -613,6 +613,7 @@ html:has(.theme-checkbox:checked) .adv-msg--user .adv-bubble-inner {
 }
 
 .adv-textarea {
+  height: var(--adv-input-h, auto);
   background: var(--bg-input);
   border: 1px solid var(--border-input);
   border-radius: 12px;
@@ -782,3 +783,7 @@ html:has(.theme-checkbox:checked) .adv-msg--user .adv-bubble-inner {
   height: 16px;
   width: 16px;
 }
+
+.adv-send-another { margin-block-start: var(--space-s); }
+.adv-drawer-required { color: var(--red); }
+.adv-drawer-optional { color: var(--text-3); font-weight: var(--fw-regular); }

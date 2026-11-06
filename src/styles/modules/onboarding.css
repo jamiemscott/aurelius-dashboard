@@ -140,6 +140,7 @@
 }
 
 .ob-progress__fill {
+  background: var(--ob-el);
   height: 1px;
   width: var(--ob-pct, 0%);
 }
@@ -163,6 +164,7 @@
 .ob-qb::-webkit-scrollbar { display: none; }
 
 .ob-eyebrow {
+  color: var(--ob-el);
   font-size: var(--fs-xs);
   font-weight: var(--fw-medium);
   letter-spacing: 0.21em;
@@ -308,7 +310,7 @@
 
 .ob-sol__icon {
   align-items: center;
-  border: 1px solid color-mix(in srgb, var(--dyn-border, var(--gold)) 33%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ob-sol-color, var(--gold)) 33%, transparent);
   border-radius: 50%;
   display: flex;
   height: 64px;
@@ -751,6 +753,8 @@
   height: 3px;
 }
 
+.ob-kpip.is-filled { background: var(--ob-kc-color); }
+
 @media (prefers-reduced-motion: no-preference) {
   .ob-kpip {
     transition: background 0.1s;
@@ -782,6 +786,7 @@
 }
 
 .ob-kleg-dot {
+  background: var(--ob-kleg-color);
   border-radius: 2px;
   flex-shrink: 0;
   height: 7px;
@@ -932,6 +937,7 @@
 }
 
 .ob-dom-accent {
+  background: var(--ob-dom-color);
   align-self: stretch;
   border-radius: 2px;
   flex-shrink: 0;
@@ -939,6 +945,7 @@
 }
 
 .ob-dom-el-label {
+  color: var(--ob-dom-color, var(--text-2));
   font-size: var(--fs-xs);
   font-weight: var(--fw-medium);
   letter-spacing: 0.18em;
@@ -991,9 +998,10 @@
 }
 
 .ob-elbar-fill {
+  background: var(--ob-elbar-color);
   border-radius: 2px;
   height: 100%;
-  width: 0%;
+  width: var(--ob-elbar-pct, 0%);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -1003,7 +1011,7 @@
 }
 
 .ob-elbar-pct {
-  color: var(--text-2);
+  color: var(--ob-elbar-color, var(--text-2));
   flex-shrink: 0;
   font-size: var(--fs-sm);
   font-variant-numeric: tabular-nums;
@@ -1404,6 +1412,7 @@
 }
 
 .ob-el-chip-dot {
+  background: var(--ob-el);
   border-radius: 50%;
   flex-shrink: 0;
   height: 5px;
@@ -1518,3 +1527,15 @@
     font-size: 32px;
   }
 }
+
+/* Element theming: set on any element-coloured part; the part reads --ob-el */
+.ob-el--water { --ob-el: var(--el-water); }
+.ob-el--wood  { --ob-el: var(--el-wood); }
+.ob-el--fire  { --ob-el: var(--el-fire); }
+.ob-el--earth { --ob-el: var(--el-earth); }
+.ob-el--metal { --ob-el: var(--el-metal); }
+
+.ob-screen--sol-host { position: relative; }
+.ob-dial-tick { cursor: pointer; }
+.ob-dial-tick-label { pointer-events: none; }
+.ob-kc.is-rated { border-color: var(--ob-kc-color); }

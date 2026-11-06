@@ -123,14 +123,14 @@
         <h2 class="sg-section-title">Token Reference</h2>
       </div>
       <div class="sg-demo sg-demo--tight">
-        <table class="sg-table u-fs-md">
+        <table class="sg-table">
           <thead>
-            <tr class="u-text-3">
+            <tr>
               <th>Token</th>
               <th>Purpose</th>
             </tr>
           </thead>
-          <tbody class="u-text-2">
+          <tbody>
             <tr><td><code>--green-dim / --green</code></td><td>Buy icon background and text (is-buy)</td></tr>
             <tr><td><code>--red-dim / --red</code></td><td>Sell icon background and text (is-sell)</td></tr>
             <tr><td><code>--gold-dim / --gold-text</code></td><td>Dividend icon background and text (is-div)</td></tr>
@@ -151,13 +151,13 @@
         <div class="sg-do">
           <div class="sg-do-label">Do</div>
           <div class="sg-do-body">
-            <p class="u-text-2 u-fs-sm u-m-0">Always use <code>is-positive</code> / <code>is-negative</code> on amounts. Green for money received, red for money paid out — consistent with financial convention.</p>
+            <p class="sg-note">Always use <code>is-positive</code> / <code>is-negative</code> on amounts. Green for money received, red for money paid out — consistent with financial convention.</p>
           </div>
         </div>
         <div class="sg-dont">
           <div class="sg-dont-label">Don't</div>
           <div class="sg-dont-body">
-            <p class="u-text-2 u-fs-sm u-m-0">Don't use the activity icon classes (<code>is-buy</code>, <code>is-sell</code>, <code>is-div</code>) outside of <code>.activity-icon</code> elements — they set background and colour together and will produce unexpected results elsewhere.</p>
+            <p class="sg-note">Don't use the activity icon classes (<code>is-buy</code>, <code>is-sell</code>, <code>is-div</code>) outside of <code>.activity-icon</code> elements — they set background and colour together and will produce unexpected results elsewhere.</p>
           </div>
         </div>
       </div>
@@ -169,7 +169,23 @@
         <h2 class="sg-section-title">Accessibility Notes</h2>
       </div>
       <div class="sg-demo sg-demo--col">
-        <p class="u-m-0 u-text-2 u-fs-body">Icons are decorative (<code>aria-hidden="true"</code>) — the activity title conveys the transaction type in text. Positive/negative amounts use colour alone for emphasis; screen readers still read the full amount string including the sign character (+ or −). Wrap the feed in a <code>role="feed"</code> region if it can be dynamically updated to support live regions.</p>
+        <p class="sg-copy">Icons are decorative (<code>aria-hidden="true"</code>) — the activity title conveys the transaction type in text. Positive/negative amounts use colour alone for emphasis; screen readers still read the full amount string including the sign character (+ or −). Wrap the feed in a <code>role="feed"</code> region if it can be dynamically updated to support live regions.</p>
+      </div>
+    </section>
+
+    <!-- ── Supporting classes ─────────────────────────────── -->
+    <section class="sg-section" id="supporting-classes">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Supporting Classes</h2>
+        <p class="sg-section-desc">Named parts of this component, each defined with it. On an OutSystems UI widget, add the class to the widget's <strong>Style Classes</strong> property, next to any classes it already has. Layout changes at breakpoints live in the class, so don't add extra classes per screen size.</p>
+      </div>
+      <div class="sg-demo sg-demo--flush">
+        <table class="sg-table sg-table--roomy">
+          <thead><tr><th>Class</th><th>Role</th><th>Apply to</th></tr></thead>
+          <tbody>
+            <tr><td class="sg-token">.activity-figures</td><td>Keeps amount and date together at the end of a row</td><td>Container</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
 

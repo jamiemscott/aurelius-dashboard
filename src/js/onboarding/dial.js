@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     circle.setAttribute('cy', y.toFixed(1));
     circle.setAttribute('r', '4.5');
     circle.setAttribute('fill', 'rgba(255,255,255,0.07)');
-    circle.classList.add('u-pointer');
+    circle.classList.add('ob-dial-tick');
     circle.addEventListener('click', () => setDial(i));
     ticksG.appendChild(circle);
   });

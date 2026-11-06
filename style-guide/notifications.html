@@ -32,43 +32,43 @@
         <p class="sg-section-desc">Each notification item receives a <code>data-type</code> attribute that controls its colour palette via CSS custom property overrides. Six types are defined, each with its own <code>--notif-color</code> and <code>--notif-bg</code>.</p>
       </div>
       <div class="sg-demo sg-demo--tight">
-        <table class="sg-table u-fs-md">
+        <table class="sg-table">
           <thead>
-            <tr class="u-text-3">
+            <tr>
               <th>data-type</th>
               <th>Color</th>
               <th>Meaning</th>
             </tr>
           </thead>
-          <tbody class="u-text-2">
+          <tbody>
             <tr>
               <td><code>portfolio</code></td>
-              <td><span class="u-size-dot-m u-inline-block u-radius-circle u-bg-green u-me-s"></span>Green</td>
+              <td><span class="sg-dot" style="--swatch:var(--green)"></span>Green</td>
               <td>Portfolio performance updates</td>
             </tr>
             <tr>
               <td><code>adviser</code></td>
-              <td><span class="u-size-dot-m u-inline-block u-radius-circle u-bg-gold u-me-s"></span>Gold</td>
+              <td><span class="sg-dot" style="--swatch:var(--gold)"></span>Gold</td>
               <td>Messages from your adviser</td>
             </tr>
             <tr>
               <td><code>document</code></td>
-              <td><span class="u-size-dot-m u-inline-block u-radius-circle u-bg-dyn u-me-s" style="--dyn-bg:#818CF8"></span>Indigo</td>
+              <td><span class="sg-dot" style="--swatch:#818CF8"></span>Indigo</td>
               <td>New documents, statements, reports</td>
             </tr>
             <tr>
               <td><code>tax</code></td>
-              <td><span class="u-size-dot-m u-inline-block u-radius-circle u-bg-dyn u-me-s" style="--dyn-bg:#FBBF24"></span>Amber</td>
+              <td><span class="sg-dot" style="--swatch:#FBBF24"></span>Amber</td>
               <td>Tax reporting, CGT notices</td>
             </tr>
             <tr>
               <td><code>security</code></td>
-              <td><span class="u-size-dot-m u-inline-block u-radius-circle u-bg-red u-me-s"></span>Red</td>
+              <td><span class="sg-dot" style="--swatch:var(--red)"></span>Red</td>
               <td>Login alerts, security events</td>
             </tr>
             <tr>
               <td><code>dividend</code></td>
-              <td><span class="u-size-dot-m u-inline-block u-radius-circle u-bg-dyn u-me-s" style="--dyn-bg:#38BDF8"></span>Sky blue</td>
+              <td><span class="sg-dot" style="--swatch:#38BDF8"></span>Sky blue</td>
               <td>Dividend payments received</td>
             </tr>
           </tbody>
@@ -82,7 +82,7 @@
         <h2 class="sg-section-title">Notification Items</h2>
         <p class="sg-section-desc">Each <code>.np-item</code> has a left accent stripe (3px, from <code>--notif-color</code>), an icon chip (<code>.np-icon</code>), a content block, and an optional unread dot. Unread items receive <code>data-unread</code> which intensifies the accent and adds a tinted background wash.</p>
       </div>
-      <div class="sg-demo u-p-m">
+      <div class="sg-demo">
         <ul class="np-list">
           <li class="np-item" data-type="portfolio" data-unread>
             <button class="np-item-btn">
@@ -210,7 +210,23 @@
         <h2 class="sg-section-title">Accessibility Notes</h2>
       </div>
       <div class="sg-demo sg-demo--col">
-        <p class="u-m-0 u-text-2 u-fs-body">The panel is a <code>role="dialog" aria-modal="true"</code> element. The unread count badge uses <code>aria-live="polite"</code> so screen readers announce changes. The "mark all read" button is hidden via CSS <code>display:none</code> when there are no unread items (using <code>:not(:has([data-unread]))</code>) — no JavaScript required. Dismiss buttons have descriptive <code>aria-label</code> attributes. Keyboard: <kbd>Escape</kbd> closes the panel.</p>
+        <p class="sg-copy">The panel is a <code>role="dialog" aria-modal="true"</code> element. The unread count badge uses <code>aria-live="polite"</code> so screen readers announce changes. The "mark all read" button is hidden via CSS <code>display:none</code> when there are no unread items (using <code>:not(:has([data-unread]))</code>) — no JavaScript required. Dismiss buttons have descriptive <code>aria-label</code> attributes. Keyboard: <kbd>Escape</kbd> closes the panel.</p>
+      </div>
+    </section>
+
+    <!-- ── Supporting classes ─────────────────────────────── -->
+    <section class="sg-section" id="supporting-classes">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Supporting Classes</h2>
+        <p class="sg-section-desc">Named parts of this component, each defined with it. On an OutSystems UI widget, add the class to the widget's <strong>Style Classes</strong> property, next to any classes it already has. Layout changes at breakpoints live in the class, so don't add extra classes per screen size.</p>
+      </div>
+      <div class="sg-demo sg-demo--flush">
+        <table class="sg-table sg-table--roomy">
+          <thead><tr><th>Class</th><th>Role</th><th>Apply to</th></tr></thead>
+          <tbody>
+            <tr><td class="sg-token">.notif-host</td><td>Positioning context for the bell and its count badge</td><td>Container around the bell</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
 

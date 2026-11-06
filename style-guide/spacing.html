@@ -34,31 +34,31 @@
       <div class="sg-demo">
         <div class="sg-space-scale">
           <div class="sg-space-row">
-            <div class="sg-space-bar u-w-dyn u-bg-gold" style="--dyn-w:calc(var(--pad) * 0.25)"></div>
+            <div class="sg-space-bar" style="--space-value:calc(var(--pad) * 0.25)"></div>
             <div class="sg-space-info"><code>calc(var(--pad) * 0.25)</code><span class="sg-space-use">Micro gap — icon to label</span></div>
           </div>
           <div class="sg-space-row">
-            <div class="sg-space-bar u-w-dyn u-bg-gold" style="--dyn-w:calc(var(--pad) * 0.5)"></div>
+            <div class="sg-space-bar" style="--space-value:calc(var(--pad) * 0.5)"></div>
             <div class="sg-space-info"><code>calc(var(--pad) * 0.5)</code><span class="sg-space-use">Tight gap — inline elements</span></div>
           </div>
           <div class="sg-space-row">
-            <div class="sg-space-bar u-w-dyn u-bg-gold" style="--dyn-w:var(--pad)"></div>
+            <div class="sg-space-bar" style="--space-value:var(--pad)"></div>
             <div class="sg-space-info"><code>var(--pad)</code><span class="sg-space-use">Base unit — card padding, list gaps</span></div>
           </div>
           <div class="sg-space-row">
-            <div class="sg-space-bar u-w-dyn u-bg-gold" style="--dyn-w:calc(var(--pad) * 1.5)"></div>
+            <div class="sg-space-bar" style="--space-value:calc(var(--pad) * 1.5)"></div>
             <div class="sg-space-info"><code>calc(var(--pad) * 1.5)</code><span class="sg-space-use">Section row gaps</span></div>
           </div>
           <div class="sg-space-row">
-            <div class="sg-space-bar u-w-dyn u-bg-gold" style="--dyn-w:calc(var(--pad) * 2)"></div>
+            <div class="sg-space-bar" style="--space-value:calc(var(--pad) * 2)"></div>
             <div class="sg-space-info"><code>calc(var(--pad) * 2)</code><span class="sg-space-use">Card-to-card spacing</span></div>
           </div>
           <div class="sg-space-row">
-            <div class="sg-space-bar u-w-dyn u-bg-gold" style="--dyn-w:calc(var(--pad) * 3)"></div>
+            <div class="sg-space-bar" style="--space-value:calc(var(--pad) * 3)"></div>
             <div class="sg-space-info"><code>calc(var(--pad) * 3)</code><span class="sg-space-use">Section-to-section vertical rhythm</span></div>
           </div>
           <div class="sg-space-row">
-            <div class="sg-space-bar u-w-dyn u-bg-gold" style="--dyn-w:calc(var(--pad) * 4)"></div>
+            <div class="sg-space-bar" style="--space-value:calc(var(--pad) * 4)"></div>
             <div class="sg-space-info"><code>calc(var(--pad) * 4)</code><span class="sg-space-use">Page-level top/bottom padding</span></div>
           </div>
         </div>
@@ -82,21 +82,21 @@ margin-bottom: calc(var(--pad) * 2);   /* between sections */</code></pre>
       <div class="sg-demo">
         <div class="sg-token-grid">
           <div class="sg-token-chip sg-token-chip--dim">
-            <div class="sg-token-swatch sg-token-swatch--dim u-bg-gold-dim u-flex u-items-center u-justify-center u-text-gold u-fw-semibold u-fs-xs">H</div>
+            <div class="sg-token-swatch sg-token-swatch--dim" style="--swatch:var(--gold-dim)">H</div>
             <div class="sg-token-info">
               <div class="sg-token-name">--topbar-h</div>
               <div class="sg-token-value">Top bar height</div>
             </div>
           </div>
           <div class="sg-token-chip sg-token-chip--dim">
-            <div class="sg-token-swatch sg-token-swatch--dim u-bg-gold-dim u-flex u-items-center u-justify-center u-text-gold u-fw-semibold u-fs-xs">W</div>
+            <div class="sg-token-swatch sg-token-swatch--dim" style="--swatch:var(--gold-dim)">W</div>
             <div class="sg-token-info">
               <div class="sg-token-name">--sidebar-w</div>
               <div class="sg-token-value">Sidebar width</div>
             </div>
           </div>
           <div class="sg-token-chip sg-token-chip--dim">
-            <div class="sg-token-swatch sg-token-swatch--dim u-bg-gold-dim u-flex u-items-center u-justify-center u-text-gold u-fw-semibold u-fs-xs">P</div>
+            <div class="sg-token-swatch sg-token-swatch--dim" style="--swatch:var(--gold-dim)">P</div>
             <div class="sg-token-info">
               <div class="sg-token-name">--pad</div>
               <div class="sg-token-value">Base spacing unit</div>
@@ -121,19 +121,19 @@ padding-left: var(--sidebar-w);   /* offset main content area */</code></pre>
       </div>
       <div class="sg-demo sg-demo--grid">
         <div class="sg-radius-sample">
-          <div class="sg-radius-box u-radius-pill u-bg-gold-dim u-border u-border-gold"></div>
+          <div class="sg-radius-box sg-radius-box--pill"></div>
           <div class="sg-radius-label"><code>--radius-btn</code><span>Buttons &amp; pills</span></div>
         </div>
         <div class="sg-radius-sample">
-          <div class="sg-radius-box u-radius-card u-bg-gold-dim u-border u-border-gold"></div>
+          <div class="sg-radius-box sg-radius-box--card"></div>
           <div class="sg-radius-label"><code>--radius-card</code><span>Cards &amp; panels</span></div>
         </div>
         <div class="sg-radius-sample">
-          <div class="sg-radius-box u-radius-item u-bg-gold-dim u-border u-border-gold"></div>
+          <div class="sg-radius-box sg-radius-box--item"></div>
           <div class="sg-radius-label"><code>--radius-item</code><span>List items &amp; chips</span></div>
         </div>
         <div class="sg-radius-sample">
-          <div class="sg-radius-box u-radius-0 u-bg-gold-dim u-border u-border-gold"></div>
+          <div class="sg-radius-box sg-radius-box--square"></div>
           <div class="sg-radius-label"><code>0</code><span>Table cells (no rounding)</span></div>
         </div>
       </div>
@@ -154,64 +154,64 @@ border-radius: 50%;                  /* avatars, circular indicators */</code></
       </div>
 
       <!-- Scale swatches -->
-      <div class="sg-demo u-overflow-x-auto">
-        <div class="u-grid u-grid-dyn u-gap-l u-py-s u-px-xs" style="--dyn-cols:repeat(auto-fill,minmax(140px,1fr))">
+      <div class="sg-demo sg-demo--scroll">
+        <div class="sg-cols-auto">
 
           <div class="sg-shadow-sample">
-            <div class="sg-shadow-box u-shadow-xs u-radius-item u-bg-card">
-              <span class="u-text-3 u-fs-xs">xs</span>
+            <div class="sg-shadow-box sg-shadow-box--xs">
+              <span class="sg-caption">xs</span>
             </div>
-            <div class="sg-radius-label u-mt-base">
+            <div class="sg-radius-label">
               <code>--shadow-xs</code>
               <span>Inputs, chips</span>
             </div>
           </div>
 
           <div class="sg-shadow-sample">
-            <div class="sg-shadow-box u-shadow-s u-radius-item u-bg-card">
-              <span class="u-text-3 u-fs-xs">s</span>
+            <div class="sg-shadow-box sg-shadow-box--s">
+              <span class="sg-caption">s</span>
             </div>
-            <div class="sg-radius-label u-mt-base">
+            <div class="sg-radius-label">
               <code>--shadow-s</code>
               <span>Tab pills, badges</span>
             </div>
           </div>
 
           <div class="sg-shadow-sample">
-            <div class="sg-shadow-box u-shadow-m u-radius-card u-bg-card">
-              <span class="u-text-3 u-fs-xs">m</span>
+            <div class="sg-shadow-box sg-shadow-box--m">
+              <span class="sg-caption">m</span>
             </div>
-            <div class="sg-radius-label u-mt-base">
+            <div class="sg-radius-label">
               <code>--shadow-m</code>
-              <span>Cards, panels <em class="u-text-accent u-not-italic">← --shadow-card</em></span>
+              <span>Cards, panels <em class="sg-accent">← --shadow-card</em></span>
             </div>
           </div>
 
           <div class="sg-shadow-sample">
-            <div class="sg-shadow-box u-shadow-l u-radius-card u-bg-card">
-              <span class="u-text-3 u-fs-xs">l</span>
+            <div class="sg-shadow-box sg-shadow-box--l">
+              <span class="sg-caption">l</span>
             </div>
-            <div class="sg-radius-label u-mt-base">
+            <div class="sg-radius-label">
               <code>--shadow-l</code>
               <span>Drawers, popovers</span>
             </div>
           </div>
 
           <div class="sg-shadow-sample">
-            <div class="sg-shadow-box u-shadow-xl u-radius-card u-bg-card">
-              <span class="u-text-3 u-fs-xs">xl</span>
+            <div class="sg-shadow-box sg-shadow-box--xl">
+              <span class="sg-caption">xl</span>
             </div>
-            <div class="sg-radius-label u-mt-base">
+            <div class="sg-radius-label">
               <code>--shadow-xl</code>
               <span>Modals, overlays</span>
             </div>
           </div>
 
           <div class="sg-shadow-sample">
-            <div class="sg-shadow-box u-shadow-inner u-radius-item u-bg-input">
-              <span class="u-text-3 u-fs-xs">inner</span>
+            <div class="sg-shadow-box sg-shadow-box--inner">
+              <span class="sg-caption">inner</span>
             </div>
-            <div class="sg-radius-label u-mt-base">
+            <div class="sg-radius-label">
               <code>--shadow-inner</code>
               <span>Sunken inputs</span>
             </div>
@@ -221,56 +221,56 @@ border-radius: 50%;                  /* avatars, circular indicators */</code></
       </div>
 
       <!-- Token reference table -->
-      <div class="sg-demo u-p-0 u-overflow-hidden u-mt-0">
-        <table class="sg-table sg-table--roomy u-fs-sm">
+      <div class="sg-demo sg-demo--flush">
+        <table class="sg-table sg-table--roomy">
           <thead>
             <tr>
-              <th class="u-text-2 u-nowrap">Token</th>
-              <th class="u-text-2">Light value</th>
-              <th class="u-text-2">Dark value</th>
+              <th>Token</th>
+              <th>Light value</th>
+              <th>Dark value</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="u-nowrap"><code>--shadow-xs</code></td>
-              <td class="u-text-2">0 1px 3px rgba(0,0,0,0.07)</td>
-              <td class="u-text-2">0 1px 3px rgba(0,0,0,0.22)</td>
+              <td><code>--shadow-xs</code></td>
+              <td>0 1px 3px rgba(0,0,0,0.07)</td>
+              <td>0 1px 3px rgba(0,0,0,0.22)</td>
             </tr>
             <tr>
-              <td class="u-nowrap"><code>--shadow-s</code></td>
-              <td class="u-text-2">0 2px 8px rgba(0,0,0,0.08)</td>
-              <td class="u-text-2">0 2px 8px rgba(0,0,0,0.26)</td>
+              <td><code>--shadow-s</code></td>
+              <td>0 2px 8px rgba(0,0,0,0.08)</td>
+              <td>0 2px 8px rgba(0,0,0,0.26)</td>
             </tr>
             <tr>
-              <td class="u-nowrap"><code>--shadow-m</code> <span class="u-text-accent u-fs-xs">← --shadow-card</span></td>
-              <td class="u-text-2">0 4px 16px rgba(0,0,0,0.10)</td>
-              <td class="u-text-2">0 4px 18px rgba(0,0,0,0.30)</td>
+              <td><code>--shadow-m</code> <span class="sg-caption sg-caption--accent">← --shadow-card</span></td>
+              <td>0 4px 16px rgba(0,0,0,0.10)</td>
+              <td>0 4px 18px rgba(0,0,0,0.30)</td>
             </tr>
             <tr>
-              <td class="u-nowrap"><code>--shadow-l</code></td>
-              <td class="u-text-2">0 8px 28px rgba(0,0,0,0.12)</td>
-              <td class="u-text-2">0 8px 28px rgba(0,0,0,0.36)</td>
+              <td><code>--shadow-l</code></td>
+              <td>0 8px 28px rgba(0,0,0,0.12)</td>
+              <td>0 8px 28px rgba(0,0,0,0.36)</td>
             </tr>
             <tr>
-              <td class="u-nowrap"><code>--shadow-xl</code></td>
-              <td class="u-text-2">0 16px 40px rgba(0,0,0,0.14)</td>
-              <td class="u-text-2">0 16px 40px rgba(0,0,0,0.44)</td>
+              <td><code>--shadow-xl</code></td>
+              <td>0 16px 40px rgba(0,0,0,0.14)</td>
+              <td>0 16px 40px rgba(0,0,0,0.44)</td>
             </tr>
             <tr>
-              <td class="u-nowrap"><code>--shadow-inner</code></td>
-              <td class="u-text-2">inset 0 1px 0 rgba(255,255,255,0.80)</td>
-              <td class="u-text-2">inset 0 1px 0 rgba(255,255,255,0.04)</td>
+              <td><code>--shadow-inner</code></td>
+              <td>inset 0 1px 0 rgba(255,255,255,0.80)</td>
+              <td>inset 0 1px 0 rgba(255,255,255,0.04)</td>
             </tr>
             <tr>
-              <td class="u-nowrap"><code>--shadow-none</code></td>
-              <td class="u-text-2" colspan="2">none — explicit shadow reset</td>
+              <td><code>--shadow-none</code></td>
+              <td colspan="2">none — explicit shadow reset</td>
             </tr>
           </tbody>
         </table>
       </div>
 
       <!-- OutSystems note -->
-      <div class="sg-callout sg-callout--warn u-mt-m">
+      <div class="sg-callout sg-callout--warn">
         <strong>OutSystems</strong> — OSUI uses <code>--shadow-none</code> through <code>--shadow-xl</code> natively. These tokens map directly so OS components inherit the Aurelius scale automatically. Do <em>not</em> redefine shadow values inside <code>osui-bridge.css</code> — the bridge loads after <code>colours.css</code> and would silently overwrite the adaptive <code>light-dark()</code> values with flat RGBA.
       </div>
 
@@ -293,14 +293,14 @@ box-shadow: var(--shadow-none);    /* explicit shadow reset */</code></pre>
         <p class="sg-section-desc"><code>--border</code> defines the standard 1px rule for card edges, input outlines, and interactive state rings. <code>--divider</code> is lighter — use it for internal table rows, section separators, and list item dividers. Neither should appear on body-level elements (only on elevated surfaces).</p>
       </div>
       <div class="sg-demo">
-        <div class="u-flex u-flex-col u-gap-l">
-          <div class="u-p-l u-border u-radius-card u-text-2 u-fs-sm">
+        <div class="sg-stack sg-stack--loose">
+          <div class="sg-panel sg-panel--outline sg-note">
             <code>border: 1px solid var(--border)</code> — card and input outlines
           </div>
-          <div class="u-pb-l u-border-b">
-            <span class="u-text-2 u-fs-sm"><code>border-bottom: 1px solid var(--divider)</code> — row and section dividers</span>
+          <div class="sg-block">
+            <span class="sg-note"><code>border-bottom: 1px solid var(--divider)</code> — row and section dividers</span>
           </div>
-          <div class="u-p-l u-border u-border-gold u-radius-card u-text-2 u-fs-sm">
+          <div class="sg-panel sg-panel--accent sg-note">
             <code>border: 1px solid var(--gold-glow)</code> — focus/selected state borders
           </div>
         </div>

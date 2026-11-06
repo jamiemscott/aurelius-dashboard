@@ -1,0 +1,33 @@
+/* Layout demo page only. Not part of the bundle. */
+
+.demo-howto { border-inline-start: 3px solid var(--gold); margin-block-end: var(--space-l); padding: var(--space-l); }
+.demo-howto-label { color: var(--text-3); font-size: var(--fs-md); letter-spacing: var(--ls-wider); margin-block-end: var(--space-s); text-transform: uppercase; }
+.demo-howto-code { color: var(--text-1); font-family: var(--font-mono); font-size: var(--fs-body); }
+.demo-howto-note { color: var(--text-3); font-size: var(--fs-ui); line-height: var(--lh-relaxed); margin-block-start: var(--space-m); }
+.demo-code { background: var(--bg-input); border-radius: 4px; padding: 2px var(--space-s); }
+.demo-card-pad { padding: var(--space-l); }
+.demo-subtitle { margin-block-end: var(--space-base); }
+.demo-stack { display: flex; flex-direction: column; gap: var(--space-m); }
+
+.demo-bar-head { display: flex; font-size: var(--fs-ui); justify-content: space-between; margin-block-end: var(--space-s); }
+.demo-item-value { color: var(--text-1); }
+.demo-bar-pct { color: var(--text-3); }
+.demo-bar { background: var(--bg-input); border-radius: 4px; height: 6px; overflow: hidden; }
+.demo-bar-fill { background: var(--gold); border-radius: 4px; height: 100%; width: var(--demo-bar-pct); }
+
+.demo-item-list { display: flex; flex-direction: column; gap: var(--space-base); list-style: none; }
+
+.demo-item-row {
+  align-items: flex-start;
+  border-block-end: 1px solid var(--divider);
+  display: flex;
+  font-size: var(--fs-ui);
+  justify-content: space-between;
+  padding-block-end: var(--space-base);
+}
+
+.demo-item-row--last { border-block-end: 0; padding-block-end: 0; }
+.demo-item-name { color: var(--text-1); font-weight: var(--fw-medium); }
+.demo-item-sub { color: var(--text-3); margin-block-start: 2px; }
+.demo-item-end { text-align: end; }
+.demo-gain { color: var(--green); }

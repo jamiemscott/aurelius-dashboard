@@ -35,31 +35,31 @@
         <p class="sg-section-desc">Before looking at individual fixes, it helps to understand why OS overrides are tricky in the first place.</p>
       </div>
 
-      <div class="sg-demo u-p-l u-flex u-flex-col u-gap-base">
+      <div class="sg-demo sg-demo--col">
 
-        <div class="u-grid u-grid-2 u-gap-m">
-          <div class="u-bg-red-dim u-border u-border-dyn u-radius-item u-p-base" style="--dyn-border:color-mix(in srgb, var(--red) 25%, transparent)">
-            <p class="u-text-red u-fs-xs u-fw-bold u-ls-widest u-uppercase u-mb-s">Problem</p>
-            <p class="u-text-1 u-fs-ui u-lh-snug">OS wraps our entire <code>bundle.css</code> inside <code>@layer theme.theme</code> at runtime. OS's own <code>_Basic_</code> stylesheet is <strong>unlayered</strong>. In the normal cascade, unlayered CSS beats all layered CSS regardless of specificity.</p>
+        <div class="sg-cols-2">
+          <div class="sg-panel sg-panel--problem">
+            <p class="sg-eyebrow sg-eyebrow--problem">Problem</p>
+            <p class="sg-item-value">OS wraps our entire <code>bundle.css</code> inside <code>@layer theme.theme</code> at runtime. OS's own <code>_Basic_</code> stylesheet is <strong>unlayered</strong>. In the normal cascade, unlayered CSS beats all layered CSS regardless of specificity.</p>
           </div>
-          <div class="u-bg-green-dim u-border u-border-dyn u-radius-item u-p-base" style="--dyn-border:color-mix(in srgb, var(--green) 25%, transparent)">
-            <p class="u-text-green u-fs-xs u-fw-bold u-ls-widest u-uppercase u-mb-s">Solution</p>
-            <p class="u-text-1 u-fs-ui u-lh-snug"><code>!important</code> reverses the layer order. A <code>!important</code> declaration inside a layer beats a regular unlayered declaration. Use it <strong>only</strong> on properties where <code>_Basic_</code> is known to set a competing value.</p>
+          <div class="sg-panel sg-panel--solution">
+            <p class="sg-eyebrow sg-eyebrow--solution">Solution</p>
+            <p class="sg-item-value"><code>!important</code> reverses the layer order. A <code>!important</code> declaration inside a layer beats a regular unlayered declaration. Use it <strong>only</strong> on properties where <code>_Basic_</code> is known to set a competing value.</p>
           </div>
         </div>
 
-        <div class="u-bg-card u-border u-radius-item u-p-base">
-          <p class="u-text-2 u-fs-xs u-fw-bold u-ls-widest u-uppercase u-mb-m">Cascade priority — normal declarations (low → high)</p>
-          <div class="u-flex u-items-center u-gap-0 u-fs-ui">
-            <div class="u-bg-hover u-radius-start u-py-s u-px-base u-text-2">Our layered CSS<br><span class="u-fs-xs u-text-3">@layer theme.theme</span></div>
-            <div class="u-text-3 u-py-0 u-px-s">→</div>
-            <div class="u-bg-gold-dim u-border u-border-gold u-radius-end u-py-s u-px-base u-text-1 u-fw-semibold">OS _Basic_ CSS<br><span class="u-fs-xs u-text-2 u-fw-regular">unlayered — wins</span></div>
+        <div class="sg-panel sg-panel--card">
+          <p class="sg-eyebrow">Cascade priority — normal declarations (low → high)</p>
+          <div class="sg-row sg-copy">
+            <div class="sg-panel sg-panel--raised sg-item-detail">Our layered CSS<br><span class="sg-caption">@layer theme.theme</span></div>
+            <div class="sg-muted">→</div>
+            <div class="sg-panel sg-panel--accent sg-item-title">OS _Basic_ CSS<br><span class="sg-caption">unlayered — wins</span></div>
           </div>
-          <p class="u-text-2 u-fs-xs u-fw-bold u-ls-widest u-uppercase u-mb-m u-mt-base">Cascade priority — <code>!important</code> declarations (reversed)</p>
-          <div class="u-flex u-items-center u-gap-0 u-fs-ui">
-            <div class="u-bg-hover u-radius-start u-py-s u-px-base u-text-2">OS _Basic_ <code>!important</code><br><span class="u-fs-xs u-text-3">unlayered — loses</span></div>
-            <div class="u-text-3 u-py-0 u-px-s">→</div>
-            <div class="u-bg-green-dim u-border u-border-dyn u-radius-end u-py-s u-px-base u-text-1 u-fw-semibold" style="--dyn-border:color-mix(in srgb, var(--green) 25%, transparent)">Our layered <code>!important</code><br><span class="u-fs-xs u-text-green u-fw-regular">wins</span></div>
+          <p class="sg-eyebrow">Cascade priority — <code>!important</code> declarations (reversed)</p>
+          <div class="sg-row sg-copy">
+            <div class="sg-panel sg-panel--raised sg-item-detail">OS _Basic_ <code>!important</code><br><span class="sg-caption">unlayered — loses</span></div>
+            <div class="sg-muted">→</div>
+            <div class="sg-panel sg-panel--solution sg-item-title">Our layered <code>!important</code><br><span class="sg-caption">wins</span></div>
           </div>
         </div>
 
@@ -76,7 +76,6 @@
 /* Rule of thumb: only use !important when _Basic_ is known
    to set the same property. Keep the surface area minimal. */</code></pre>
       </div>
-      <p class="sg-section-desc u-mt-base">The <a href="utilities.html">utility layer</a> is the one deliberate exception to the rule of thumb. A utility can land on any widget, so all of its declarations use <code>!important</code>. That also lets utilities replace inline styles one for one on OSUI components.</p>
     </section>
 
 
@@ -89,8 +88,8 @@
         <p class="sg-section-desc">OS components reference their own CSS custom property vocabulary (<code>--color-primary</code>, <code>--font-size-base</code>, etc.). The token bridge in <code>src/styles/theme/osui-bridge.css</code> maps every OSUI variable to the nearest Aurelius token so OS components automatically adopt the Aurelius visual language without touching OS source files. The bridge is a one-way adapter — only OSUI variables are declared here, Aurelius tokens are never modified.</p>
       </div>
 
-      <div class="sg-demo u-p-0 u-overflow-hidden">
-        <table class="table u-m-0 u-radius-card">
+      <div class="sg-demo sg-demo--flush">
+        <table class="table">
           <thead>
             <tr>
               <th>OSUI variable</th>
@@ -139,8 +138,8 @@
         <p class="sg-section-desc">OS frequently wraps elements in extra <code>&lt;div&gt;</code> or <code>&lt;span&gt;</code> containers that it cannot be told to remove. When these wrappers become flex or grid children they disrupt layout — they consume space and the intended child element is no longer a direct participant in the parent's layout context. <code>display: contents</code> removes the wrapper from the layout tree entirely while leaving its children in place, as if the wrapper element never existed.</p>
       </div>
 
-      <div class="sg-demo u-p-0 u-overflow-hidden">
-        <table class="table u-m-0 u-radius-card">
+      <div class="sg-demo sg-demo--flush">
+        <table class="table">
           <thead>
             <tr>
               <th>Location</th>
@@ -217,7 +216,7 @@
       </div>
 
       <div class="sg-demo">
-        <p class="u-text-2 u-fs-ui">OS injects classes like <code>ThemeGrid_MarginGutter</code>, <code>ThemeGrid_Row</code>, and similar siblings on block elements throughout the page. Without this reset they add inconsistent horizontal margins that interfere with the topbar pill, sidebar, and card layouts.</p>
+        <p class="sg-copy">OS injects classes like <code>ThemeGrid_MarginGutter</code>, <code>ThemeGrid_Row</code>, and similar siblings on block elements throughout the page. Without this reset they add inconsistent horizontal margins that interfere with the topbar pill, sidebar, and card layouts.</p>
       </div>
     </section>
 
@@ -231,8 +230,8 @@
         <p class="sg-section-desc">OS wraps every <code>&lt;select&gt;</code> in a <code>&lt;div class="dropdown-container"&gt;</code> and renders a chevron arrow via a <code>::after</code> pseudo-element on that wrapper. Our <code>&lt;select&gt;</code> already has its own SVG arrow baked into the <code>background-image</code>, so the OS arrow creates a double-arrow. The fix is two rules: make the wrapper fill available space, and suppress the pseudo-element arrow.</p>
       </div>
 
-      <div class="sg-demo u-p-0 u-overflow-hidden">
-        <table class="table u-m-0 u-radius-card">
+      <div class="sg-demo sg-demo--flush">
+        <table class="table">
           <thead>
             <tr>
               <th>Root cause</th>
@@ -294,15 +293,15 @@
         <p class="sg-section-desc">OS generates system feedback messages (error, success, warning, info) with its own markup and colour scheme. We override the entire visual treatment while keeping the OS class names intact. See the <a href="feedback.html">Feedback Messages</a> style guide page for full variant documentation.</p>
       </div>
 
-      <div class="sg-demo u-flex u-flex-col u-gap-m u-p-l">
-        <div class="feedback-message feedback-message-error sg-static"   role="alert"><span class="u-shrink-0 u-fs-lg u-lh-snug u-ms-s u-text-red">✕</span><div class="feedback-message-text">Error — action failed</div></div>
-        <div class="feedback-message feedback-message-success sg-static" role="alert"><span class="u-shrink-0 u-fs-lg u-lh-snug u-ms-s u-text-green">✓</span><div class="feedback-message-text">Success — changes saved</div></div>
-        <div class="feedback-message feedback-message-warning sg-static" role="alert"><span class="u-shrink-0 u-fs-lg u-lh-snug u-ms-s u-text-accent">⚠</span><div class="feedback-message-text">Warning — session expiring</div></div>
-        <div class="feedback-message feedback-message-info sg-static"    role="alert"><span class="u-shrink-0 u-fs-lg u-lh-snug u-ms-s u-text-dyn" style="--dyn-text:var(--gold-soft)">ℹ</span><div class="feedback-message-text">Info — prices are end of day</div></div>
+      <div class="sg-demo sg-demo--col">
+        <div class="feedback-message feedback-message-error sg-static"   role="alert"><span class="sg-status-icon sg-status-icon--error">✕</span><div class="feedback-message-text">Error — action failed</div></div>
+        <div class="feedback-message feedback-message-success sg-static" role="alert"><span class="sg-status-icon sg-status-icon--success">✓</span><div class="feedback-message-text">Success — changes saved</div></div>
+        <div class="feedback-message feedback-message-warning sg-static" role="alert"><span class="sg-status-icon sg-status-icon--warning">⚠</span><div class="feedback-message-text">Warning — session expiring</div></div>
+        <div class="feedback-message feedback-message-info sg-static"    role="alert"><span class="sg-status-icon sg-status-icon--info">ℹ</span><div class="feedback-message-text">Info — prices are end of day</div></div>
       </div>
 
-      <div class="sg-demo u-p-0 u-overflow-hidden">
-        <table class="table u-m-0 u-radius-card">
+      <div class="sg-demo sg-demo--flush">
+        <table class="table">
           <thead>
             <tr>
               <th>Root cause</th>
@@ -366,26 +365,26 @@
         <p class="sg-section-desc">When a new OS conflict surfaces, follow this decision tree to choose the right approach and the right file.</p>
       </div>
 
-      <div class="sg-demo u-p-l u-flex u-flex-col u-gap-m u-fs-ui u-lh-snug">
+      <div class="sg-demo sg-demo--col">
 
-        <div class="u-flex u-gap-m u-items-start">
-          <div class="u-size-icon-m u-bg-gold-dim u-radius-circle u-flex u-items-center u-justify-center u-shrink-0 u-fw-bold u-fs-xs u-text-gold">1</div>
-          <div><strong>Is it a token mapping?</strong> (OS variable → Aurelius value)<br><span class="u-text-2">→ Add to <code>:root</code> in <code>osui-bridge.css</code>. No <code>!important</code> needed.</span></div>
+        <div class="sg-row sg-row--top">
+          <div class="sg-row sg-row--center sg-panel sg-panel--accent sg-caption sg-caption--accent">1</div>
+          <div><strong>Is it a token mapping?</strong> (OS variable → Aurelius value)<br><span class="sg-item-detail">→ Add to <code>:root</code> in <code>osui-bridge.css</code>. No <code>!important</code> needed.</span></div>
         </div>
 
-        <div class="u-flex u-gap-m u-items-start">
-          <div class="u-size-icon-m u-bg-gold-dim u-radius-circle u-flex u-items-center u-justify-center u-shrink-0 u-fw-bold u-fs-xs u-text-gold">2</div>
-          <div><strong>Is it a global structural fix?</strong> (ThemeGrid, InlineSVG, ThemeSwitcher, Footer)<br><span class="u-text-2">→ Add to <code>osui-bridge.css</code> below the token block. May need <code>!important</code>.</span></div>
+        <div class="sg-row sg-row--top">
+          <div class="sg-row sg-row--center sg-panel sg-panel--accent sg-caption sg-caption--accent">2</div>
+          <div><strong>Is it a global structural fix?</strong> (ThemeGrid, InlineSVG, ThemeSwitcher, Footer)<br><span class="sg-item-detail">→ Add to <code>osui-bridge.css</code> below the token block. May need <code>!important</code>.</span></div>
         </div>
 
-        <div class="u-flex u-gap-m u-items-start">
-          <div class="u-size-icon-m u-bg-gold-dim u-radius-circle u-flex u-items-center u-justify-center u-shrink-0 u-fw-bold u-fs-xs u-text-gold">3</div>
-          <div><strong>Is it scoped to a specific component?</strong> (adviser chat selects, feedback messages)<br><span class="u-text-2">→ Add to the component's module file (e.g. <code>modules/adviser.css</code>, <code>modules/feedback.css</code>) in a clearly labelled OS compat block.</span></div>
+        <div class="sg-row sg-row--top">
+          <div class="sg-row sg-row--center sg-panel sg-panel--accent sg-caption sg-caption--accent">3</div>
+          <div><strong>Is it scoped to a specific component?</strong> (adviser chat selects, feedback messages)<br><span class="sg-item-detail">→ Add to the component's module file (e.g. <code>modules/adviser.css</code>, <code>modules/feedback.css</code>) in a clearly labelled OS compat block.</span></div>
         </div>
 
-        <div class="u-flex u-gap-m u-items-start">
-          <div class="u-size-icon-m u-bg-gold-dim u-radius-circle u-flex u-items-center u-justify-center u-shrink-0 u-fw-bold u-fs-xs u-text-gold">4</div>
-          <div><strong>Does it need <code>!important</code>?</strong><br><span class="u-text-2">Only if <code>_Basic_</code> sets the same property. Use DevTools to confirm: if OS is winning and our rule is being overridden, <code>!important</code> is the fix. Document why in a comment.</span></div>
+        <div class="sg-row sg-row--top">
+          <div class="sg-row sg-row--center sg-panel sg-panel--accent sg-caption sg-caption--accent">4</div>
+          <div><strong>Does it need <code>!important</code>?</strong><br><span class="sg-item-detail">Only if <code>_Basic_</code> sets the same property. Use DevTools to confirm: if OS is winning and our rule is being overridden, <code>!important</code> is the fix. Document why in a comment.</span></div>
         </div>
 
       </div>
@@ -423,8 +422,8 @@
         <p class="sg-section-desc">Where every OS override lives in the SMACSS architecture.</p>
       </div>
 
-      <div class="sg-demo u-p-0 u-overflow-hidden">
-        <table class="table u-m-0 u-radius-card">
+      <div class="sg-demo sg-demo--flush">
+        <table class="table">
           <thead>
             <tr>
               <th>File</th>
@@ -450,6 +449,21 @@
             </tr>
           </tbody>
         </table>
+      </div>
+    </section>
+
+    <!-- ── Component classes on widgets ───────────────────── -->
+    <section class="sg-section" id="component-classes">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Component Classes on Widgets</h2>
+        <p class="sg-section-desc">Aurelius has no utility classes. Each class belongs to a component, is named for its role and lives in that component's partial, so its name stays true when its values change. Breakpoints and states are handled inside the class with media queries and state selectors, not with extra classes in the markup.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="sg-stack">
+          <p class="sg-copy"><strong>Add a class.</strong> Put it in the widget's <strong>Style Classes</strong> property, keeping any classes the widget already has. Each component page lists its classes under Supporting Classes.</p>
+          <p class="sg-copy"><strong>Pass a runtime value.</strong> Set a custom property and let the class read it, such as <code>--progress-pct</code> on <code>.progress-bar-fill</code>. Use the widget's <strong>Attributes</strong> with a <code>style</code> value, or set it from JavaScript. Don't set the visual property itself.</p>
+          <p class="sg-copy"><strong>Add <code>!important</code> only with evidence.</strong> Component classes don't carry it by default. Use it only where DevTools shows <code>_Basic_</code> winning on that property. The base layer adds one general rule, <code>[hidden] { display: none !important; }</code>, because a component's own <code>display</code> would otherwise reveal hidden content.</p>
+        </div>
       </div>
     </section>
 

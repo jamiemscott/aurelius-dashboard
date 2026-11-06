@@ -79,8 +79,8 @@ export function buildAndComplete() {
   const el     = ELDATA[domKey];
 
   // Dominant element banner
-  document.getElementById('dom-accent').style.setProperty('--dyn-bg', el.color);
-  document.getElementById('dom-el-label').style.setProperty('--dyn-text', el.color);
+  document.getElementById('dom-accent').style.setProperty('--ob-dom-color', el.color);
+  document.getElementById('dom-el-label').style.setProperty('--ob-dom-color', el.color);
   document.getElementById('dom-name').textContent            = `${RISK_NAMES[S.risk]} · ${el.name} Type`;
   document.getElementById('dom-desc').textContent            = el.desc;
 
@@ -100,11 +100,11 @@ export function buildAndComplete() {
       <div class="ob-elbar-outer" role="progressbar"
            aria-label="${data.name} element score"
            aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100">
-        <div class="ob-elbar-fill u-w-dyn u-bg-dyn"
-             style="--dyn-w:0%;--dyn-bg:${data.color}"
+        <div class="ob-elbar-fill"
+             style="--ob-elbar-color:${data.color}"
              data-target="${pct}"></div>
       </div>
-      <span class="ob-elbar-pct u-text-dyn" style="--dyn-text:${data.color}">${pct}%</span>
+      <span class="ob-elbar-pct" style="--ob-elbar-color:${data.color}">${pct}%</span>
     `;
     barsEl.appendChild(row);
   });
@@ -113,7 +113,7 @@ export function buildAndComplete() {
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       barsEl.querySelectorAll('.ob-elbar-fill').forEach(fill => {
-        fill.style.setProperty('--dyn-w', fill.dataset.target + '%');
+        fill.style.setProperty('--ob-elbar-pct', fill.dataset.target + '%');
       });
     });
   });

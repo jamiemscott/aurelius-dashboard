@@ -722,3 +722,5 @@
     content: none;
   }
 }
+
+.tk-delete-icon { margin-inline-end: var(--space-xs); }

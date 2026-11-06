@@ -524,3 +524,39 @@
 }
 
 .det-address { line-height: 1.8; }
+
+.det-section-foot {
+  border-block-start: 1px solid var(--divider);
+  margin-block-start: var(--space-base);
+  padding-block-start: var(--space-base);
+}
+
+.det-section-btn { justify-content: center; width: 100%; }
+
+.det-rm-name { color: var(--text-1); font-size: var(--fs-ui); font-weight: var(--fw-medium); }
+.det-rm-email { color: var(--text-3); font-size: var(--fs-sm); margin-block-start: 2px; }
+
+.det-toggle-row--stacked { margin-block-end: var(--space-m); }
+
+.det-corr-note { color: var(--text-3); font-size: var(--fs-md); }
+
+.det-corr-note--linked {
+  align-items: center;
+  display: flex;
+  gap: var(--space-s);
+  margin-block-start: var(--space-m);
+}
+
+.det-twofa-main { align-items: center; display: flex; flex: 1; gap: var(--space-m); }
+.det-twofa-title { font-size: var(--fs-ui); font-weight: var(--fw-semibold); }
+.det-twofa-status.is-on .det-twofa-title { color: var(--green); }
+.det-twofa-status.is-off .det-twofa-title { color: var(--red); }
+.det-twofa-sub { color: var(--text-3); font-size: var(--fs-sm); margin-block-start: 2px; }
+
+.det-field-secondary { color: var(--text-2); }
+
+.det-history-table { font-size: var(--fs-md); }
+.det-history-table .det-history-meta { color: var(--text-2); }
+
+.det-alert-icon { flex-shrink: 0; margin-block-start: 2px; }
+.det-comm-fields { margin-block-start: var(--space-xs); }

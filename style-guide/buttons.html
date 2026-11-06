@@ -30,7 +30,7 @@
       <div class="sg-section-header">
         <h2 class="sg-section-title">Primary Button</h2>
         <p class="sg-section-desc">The highest-emphasis action on a page. Use for the single most important CTA — e.g. "Save Changes", "Continue", "Add Funds". Never place more than one <code>.btn-primary</code> in the same visible context. The gold fill communicates the brand's primary action colour.</p>
-        <p class="sg-section-desc u-mt-s"><strong>Hover:</strong> lifts 1px with a gold glow shadow, and an animated underline drops in (1px → 2px thick, 1px → 3px offset) matching the text colour. Respects <code>prefers-reduced-motion</code> — underline still appears but without the animated offset transition.</p>
+        <p class="sg-section-desc"><strong>Hover:</strong> lifts 1px with a gold glow shadow, and an animated underline drops in (1px → 2px thick, 1px → 3px offset) matching the text colour. Respects <code>prefers-reduced-motion</code> — underline still appears but without the animated offset transition.</p>
       </div>
       <div class="sg-demo sg-demo--center">
         <button class="btn-primary">Save Changes</button>
@@ -46,7 +46,7 @@
       <div class="sg-section-header">
         <h2 class="sg-section-title">Secondary Button</h2>
         <p class="sg-section-desc">A lower-emphasis alternative. Use alongside a primary button for cancel/back actions, or as the sole action when no primary CTA is needed. The outlined treatment signals secondary intent without visual competition.</p>
-        <p class="sg-section-desc u-mt-s"><strong>Hover:</strong> background fills with a gold tint layered over the solid card surface (so the background image never bleeds through), and an animated gold underline drops in matching the primary button pattern.</p>
+        <p class="sg-section-desc"><strong>Hover:</strong> background fills with a gold tint layered over the solid card surface (so the background image never bleeds through), and an animated gold underline drops in matching the primary button pattern.</p>
       </div>
       <div class="sg-demo sg-demo--center">
         <button class="btn-secondary">Cancel</button>
@@ -64,14 +64,14 @@
         <p class="sg-section-desc">The canonical two-button pattern: primary right, secondary left. Always position the primary action to the right so users read secondary → primary and confirm deliberately. Use a flex row with a <code>gap</code> of <code>var(--pad)</code>.</p>
       </div>
       <div class="sg-demo sg-demo--center">
-        <div class="u-flex u-gap-l">
+        <div class="sg-row">
           <button class="btn-secondary">Back</button>
           <button class="btn-primary">Continue</button>
         </div>
       </div>
       <div class="sg-code">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
-        <pre><code class="language-html">&lt;div class="u-flex u-gap-l"&gt;
+        <pre><code class="language-html">&lt;div class="action-row"&gt;
   &lt;button class="btn-secondary"&gt;Back&lt;/button&gt;
   &lt;button class="btn-primary"&gt;Continue&lt;/button&gt;
 &lt;/div&gt;</code></pre>
@@ -238,7 +238,7 @@
       <div class="sg-section-header">
         <h2 class="sg-section-title">AI Promotional Banner — <code>.ai-banner</code></h2>
         <p class="sg-section-desc">A full-width gradient card promoting the Aurelius AI agent. Sits between the page header and the KPI strip on My Overview. Shares the same blue→violet gradient as <code>.btn-ai</code>. Dismissable for the session via JS — on dismiss the banner hides and the <code>.btn-ai</code> in <code>.header-actions</code> is revealed. The description text (<code>.ai-banner__text</code>) collapses below 900px to keep the banner compact on smaller viewports.</p>
-        <p class="sg-section-desc u-mt-s"><strong>Button visibility rule:</strong> when the banner is shown the header <code>.btn-ai</code> must be hidden (the <code>hidden</code> attribute), since both serve the same purpose. They are mutually exclusive — never display both simultaneously.</p>
+        <p class="sg-section-desc"><strong>Button visibility rule:</strong> when the banner is shown the header <code>.btn-ai</code> must be hidden (the <code>hidden</code> attribute), since both serve the same purpose. They are mutually exclusive — never display both simultaneously.</p>
       </div>
       <div class="sg-demo">
         <div class="ai-banner" id="sg-ai-banner">
@@ -324,7 +324,7 @@
         <p class="sg-section-desc">When a gold button needs context-specific sizing or layout (e.g. full-width in a sidebar panel, smaller padding in a compact card), add a modifier class alongside <code>.btn-primary</code>. The modifier class must <strong>only</strong> contain layout/sizing overrides — never re-declare colour, font-family, cursor, or hover states. Gold styling always comes from <code>.btn-primary</code>.</p>
       </div>
       <div class="sg-demo sg-demo--grid">
-        <div class="u-w-dyn" style="--dyn-w:180px">
+        <div class="sg-flex-fill">
           <button class="btn-primary ob-cta__btn">Begin Assessment</button>
         </div>
         <button class="btn-primary contact-btn">Message Adviser</button>
@@ -337,17 +337,17 @@
 &lt;!-- Compact sidebar button --&gt;
 &lt;button class="btn-primary contact-btn" popovertarget="adviser-drawer"&gt;Message Adviser&lt;/button&gt;</code></pre>
       </div>
-      <div class="sg-section-header u-mt-l">
+      <div class="sg-section-header">
         <p class="sg-section-desc"><strong>Registered modifiers:</strong></p>
-        <table class="sg-table u-fs-md u-mt-s">
+        <table class="sg-table">
           <thead>
-            <tr class="u-text-3">
+            <tr>
               <th>Class</th>
               <th>Overrides</th>
               <th>Used in</th>
             </tr>
           </thead>
-          <tbody class="u-text-2">
+          <tbody>
             <tr>
               <td><code>.contact-btn</code></td>
               <td>Smaller font + padding, top margin</td>
@@ -392,22 +392,38 @@
       <div class="sg-do-dont">
         <div class="sg-do">
           <div class="sg-do-label">Do</div>
-          <div class="sg-demo u-flex-col u-gap-m u-items-start">
+          <div class="sg-demo sg-demo--col">
             <div><button class="btn-primary">Save Changes</button></div>
-            <p class="u-text-2 u-fs-sm">One primary action per context. Clear, verb-led label.</p>
+            <p class="sg-note">One primary action per context. Clear, verb-led label.</p>
           </div>
         </div>
         <div class="sg-dont">
           <div class="sg-dont-label">Don't</div>
-          <div class="sg-demo u-flex-col u-gap-m u-items-start">
-            <div class="u-flex u-gap-s">
+          <div class="sg-demo sg-demo--col">
+            <div class="sg-row">
               <button class="btn-primary">Submit</button>
               <button class="btn-primary">Save</button>
               <button class="btn-primary">OK</button>
             </div>
-            <p class="u-text-2 u-fs-sm">Multiple primary buttons compete for attention and confuse users.</p>
+            <p class="sg-note">Multiple primary buttons compete for attention and confuse users.</p>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ── Supporting classes ─────────────────────────────── -->
+    <section class="sg-section" id="supporting-classes">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Supporting Classes</h2>
+        <p class="sg-section-desc">Named parts of this component, each defined with it. On an OutSystems UI widget, add the class to the widget's <strong>Style Classes</strong> property, next to any classes it already has. Layout changes at breakpoints live in the class, so don't add extra classes per screen size.</p>
+      </div>
+      <div class="sg-demo sg-demo--flush">
+        <table class="sg-table sg-table--roomy">
+          <thead><tr><th>Class</th><th>Role</th><th>Apply to</th></tr></thead>
+          <tbody>
+            <tr><td class="sg-token">.action-row</td><td>Row of related actions with the standard gap</td><td>Container around the Buttons</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
 

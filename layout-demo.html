@@ -6,6 +6,7 @@
 <title>Aurelius — Layout Demo · shell--no-sidebar</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="src/styles/bundle.css">
+<link rel="stylesheet" href="layout-demo.css">
 </head>
 <body>
 
@@ -63,13 +64,13 @@
     </div>
 
     <!-- ── Modifier annotation ─────────────── -->
-    <div class="card u-mb-l u-border-accent u-p-l">
-      <p class="u-fs-md u-uppercase u-ls-wider u-text-3 u-mb-s">How to use</p>
-      <p class="u-font-mono u-fs-body u-text-1">
+    <div class="card demo-howto">
+      <p class="demo-howto-label">How to use</p>
+      <p class="demo-howto-code">
         &lt;div class="<strong>shell shell--no-sidebar</strong>"&gt;
       </p>
-      <p class="u-fs-ui u-text-3 u-mt-m u-lh-relaxed">
-        Add <code class="u-bg-input u-py-2xs u-px-s u-radius-xs">shell--no-sidebar</code> alongside <code class="u-bg-input u-py-2xs u-px-s u-radius-xs">shell</code> to switch the grid from a two-column layout (sidebar + main) to a single full-width column. The topbar still spans the full viewport. Any <code class="u-bg-input u-py-2xs u-px-s u-radius-xs">.sidebar</code> element present in the DOM is automatically hidden.
+      <p class="demo-howto-note">
+        Add <code class="demo-code">shell--no-sidebar</code> alongside <code class="demo-code">shell</code> to switch the grid from a two-column layout (sidebar + main) to a single full-width column. The topbar still spans the full viewport. Any <code class="demo-code">.sidebar</code> element present in the DOM is automatically hidden.
       </p>
     </div>
 
@@ -94,79 +95,79 @@
 
     <!-- ── Two-col content ─────────────────── -->
     <div class="two-col">
-      <div class="card u-p-l">
-        <p class="page-subtitle u-mb-base">Asset Allocation</p>
-        <div class="u-flex u-flex-col u-gap-m">
+      <div class="card demo-card-pad">
+        <p class="page-subtitle demo-subtitle">Asset Allocation</p>
+        <div class="demo-stack">
           <div>
-            <div class="u-flex u-justify-between u-fs-ui u-mb-s">
-              <span class="u-text-1">Global Equities</span>
-              <span class="u-text-3">55%</span>
+            <div class="demo-bar-head">
+              <span class="demo-item-value">Global Equities</span>
+              <span class="demo-bar-pct">55%</span>
             </div>
-            <div class="u-h-dyn u-bg-input u-radius-xs u-overflow-hidden" style="--dyn-h:6px">
-              <div class="u-h-full u-w-dyn u-bg-gold u-radius-xs" style="--dyn-w:55%"></div>
+            <div class="demo-bar">
+              <div class="demo-bar-fill" style="--demo-bar-pct:55%"></div>
             </div>
           </div>
           <div>
-            <div class="u-flex u-justify-between u-fs-ui u-mb-s">
-              <span class="u-text-1">Bonds &amp; Fixed Income</span>
-              <span class="u-text-3">25%</span>
+            <div class="demo-bar-head">
+              <span class="demo-item-value">Bonds &amp; Fixed Income</span>
+              <span class="demo-bar-pct">25%</span>
             </div>
-            <div class="u-h-dyn u-bg-input u-radius-xs u-overflow-hidden" style="--dyn-h:6px">
-              <div class="u-h-full u-w-dyn u-bg-gold u-radius-xs" style="--dyn-w:25%"></div>
-            </div>
-          </div>
-          <div>
-            <div class="u-flex u-justify-between u-fs-ui u-mb-s">
-              <span class="u-text-1">Alternatives</span>
-              <span class="u-text-3">12%</span>
-            </div>
-            <div class="u-h-dyn u-bg-input u-radius-xs u-overflow-hidden" style="--dyn-h:6px">
-              <div class="u-h-full u-w-dyn u-bg-gold u-radius-xs" style="--dyn-w:12%"></div>
+            <div class="demo-bar">
+              <div class="demo-bar-fill" style="--demo-bar-pct:25%"></div>
             </div>
           </div>
           <div>
-            <div class="u-flex u-justify-between u-fs-ui u-mb-s">
-              <span class="u-text-1">Cash &amp; Equivalents</span>
-              <span class="u-text-3">8%</span>
+            <div class="demo-bar-head">
+              <span class="demo-item-value">Alternatives</span>
+              <span class="demo-bar-pct">12%</span>
             </div>
-            <div class="u-h-dyn u-bg-input u-radius-xs u-overflow-hidden" style="--dyn-h:6px">
-              <div class="u-h-full u-w-dyn u-bg-gold u-radius-xs" style="--dyn-w:8%"></div>
+            <div class="demo-bar">
+              <div class="demo-bar-fill" style="--demo-bar-pct:12%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="demo-bar-head">
+              <span class="demo-item-value">Cash &amp; Equivalents</span>
+              <span class="demo-bar-pct">8%</span>
+            </div>
+            <div class="demo-bar">
+              <div class="demo-bar-fill" style="--demo-bar-pct:8%"></div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="card u-p-l">
-        <p class="page-subtitle u-mb-base">Recent Activity</p>
-        <ul class="u-list-none u-flex u-flex-col u-gap-base">
-          <li class="u-flex u-justify-between u-items-start u-fs-ui u-pb-base u-border-b-strong">
+      <div class="card demo-card-pad">
+        <p class="page-subtitle demo-subtitle">Recent Activity</p>
+        <ul class="demo-item-list">
+          <li class="demo-item-row">
             <div>
-              <div class="u-text-1 u-fw-medium">Vanguard FTSE All-World ETF</div>
-              <div class="u-text-3 u-mt-2xs">Buy · 24 units</div>
+              <div class="demo-item-name">Vanguard FTSE All-World ETF</div>
+              <div class="demo-item-sub">Buy · 24 units</div>
             </div>
-            <div class="u-text-right">
-              <div class="u-text-1">£3,204.00</div>
-              <div class="u-text-3 u-mt-2xs">28 Mar 2026</div>
+            <div class="demo-item-end">
+              <div class="demo-item-value">£3,204.00</div>
+              <div class="demo-item-sub">28 Mar 2026</div>
             </div>
           </li>
-          <li class="u-flex u-justify-between u-items-start u-fs-ui u-pb-base u-border-b-strong">
+          <li class="demo-item-row">
             <div>
-              <div class="u-text-1 u-fw-medium">iShares Corp Bond ETF</div>
-              <div class="u-text-3 u-mt-2xs">Dividend received</div>
+              <div class="demo-item-name">iShares Corp Bond ETF</div>
+              <div class="demo-item-sub">Dividend received</div>
             </div>
-            <div class="u-text-right">
-              <div class="u-text-green">+£142.50</div>
-              <div class="u-text-3 u-mt-2xs">15 Mar 2026</div>
+            <div class="demo-item-end">
+              <div class="demo-gain">+£142.50</div>
+              <div class="demo-item-sub">15 Mar 2026</div>
             </div>
           </li>
-          <li class="u-flex u-justify-between u-items-start u-fs-ui">
+          <li class="demo-item-row demo-item-row--last">
             <div>
-              <div class="u-text-1 u-fw-medium">Cash Deposit</div>
-              <div class="u-text-3 u-mt-2xs">Bank transfer</div>
+              <div class="demo-item-name">Cash Deposit</div>
+              <div class="demo-item-sub">Bank transfer</div>
             </div>
-            <div class="u-text-right">
-              <div class="u-text-green">+£5,000.00</div>
-              <div class="u-text-3 u-mt-2xs">1 Mar 2026</div>
+            <div class="demo-item-end">
+              <div class="demo-gain">+£5,000.00</div>
+              <div class="demo-item-sub">1 Mar 2026</div>
             </div>
           </li>
         </ul>

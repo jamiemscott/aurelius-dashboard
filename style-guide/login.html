@@ -139,21 +139,21 @@
       </div>
       <div class="sg-demo sg-demo--col">
         <div class="field">
-          <label for="sg-email">Email address <span class="u-text-red" aria-hidden="true">*</span></label>
+          <label for="sg-email">Email address <span class="sg-value-down" aria-hidden="true">*</span></label>
           <input type="email" id="sg-email" placeholder="your@email.com" autocomplete="off">
         </div>
         <div class="field">
-          <label for="sg-password">Password <span class="u-text-red" aria-hidden="true">*</span></label>
+          <label for="sg-password">Password <span class="sg-value-down" aria-hidden="true">*</span></label>
           <input type="password" id="sg-password" placeholder="••••••••••••" autocomplete="off">
         </div>
-        <div class="u-flex u-items-center u-justify-between u-flex-wrap u-gap-m">
-          <label class="u-flex u-items-center u-gap-s u-text-2 u-fs-md u-pointer">
-            <input type="checkbox" class="u-accent u-w-dyn u-h-dyn" style="--dyn-w:14px;--dyn-h:14px">
+        <div class="sg-row sg-row--split sg-row--wrap">
+          <label class="sg-choice">
+            <input type="checkbox" class="sg-check">
             Remember this device
           </label>
-          <a href="#" class="u-text-gold u-fs-md u-fw-medium u-no-underline">Forgot password?</a>
+          <a href="#" class="sg-accent">Forgot password?</a>
         </div>
-        <button class="btn-primary u-w-full u-h-dyn u-justify-center" style="--dyn-h:48px">Sign in to Aurelius</button>
+        <button class="btn-primary sg-btn-full">Sign in to Aurelius</button>
       </div>
       <div class="sg-code">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
@@ -365,14 +365,14 @@
         <p class="sg-section-desc">Requirements for the login page to meet WCAG 2.1 AA and FCA accessibility guidance.</p>
       </div>
       <div class="sg-demo">
-        <ul class="u-text-2 u-fs-body u-lh-relaxed u-ps-list u-m-0">
-          <li class="u-mb-m"><strong class="u-text-1">Labelled inputs.</strong> Every input has a visible <code>&lt;label&gt;</code> associated via <code>for</code>/<code>id</code>. Required fields carry <code>aria-required="true"</code> and a visual asterisk (<code>aria-hidden="true"</code> so it is not double-announced).</li>
-          <li class="u-mb-m"><strong class="u-text-1">Password toggle.</strong> Uses <code>aria-label</code> ("Show password" / "Hide password"), <code>aria-pressed</code>, and <code>aria-controls</code> pointing to the input. An <code>.sr-only</code> hint describes the toggle to assistive technology.</li>
-          <li class="u-mb-m"><strong class="u-text-1">Focus indicators.</strong> All interactive elements have <code>:focus-visible</code> outlines keyed to <code>var(--gold)</code>. The outline is never suppressed.</li>
-          <li class="u-mb-m"><strong class="u-text-1">Decorative panel.</strong> <code>.utility-brand</code> carries <code>aria-hidden="true"</code> and <code>role="presentation"</code> so screen readers skip it entirely.</li>
-          <li class="u-mb-m"><strong class="u-text-1">Risk warning.</strong> Marked with <code>role="note"</code> and a descriptive <code>aria-label</code> so AT users hear it in the document structure.</li>
-          <li class="u-mb-m"><strong class="u-text-1">No colour-only information.</strong> The asterisk on required fields, the risk icon, and the FCA badge all have text or ARIA equivalents.</li>
-          <li><strong class="u-text-1">Keyboard navigation.</strong> Tab order: email → password → show/hide → remember → forgot → submit → contact. No focus traps.</li>
+        <ul class="sg-copy">
+          <li><strong>Labelled inputs.</strong> Every input has a visible <code>&lt;label&gt;</code> associated via <code>for</code>/<code>id</code>. Required fields carry <code>aria-required="true"</code> and a visual asterisk (<code>aria-hidden="true"</code> so it is not double-announced).</li>
+          <li><strong>Password toggle.</strong> Uses <code>aria-label</code> ("Show password" / "Hide password"), <code>aria-pressed</code>, and <code>aria-controls</code> pointing to the input. An <code>.sr-only</code> hint describes the toggle to assistive technology.</li>
+          <li><strong>Focus indicators.</strong> All interactive elements have <code>:focus-visible</code> outlines keyed to <code>var(--gold)</code>. The outline is never suppressed.</li>
+          <li><strong>Decorative panel.</strong> <code>.utility-brand</code> carries <code>aria-hidden="true"</code> and <code>role="presentation"</code> so screen readers skip it entirely.</li>
+          <li><strong>Risk warning.</strong> Marked with <code>role="note"</code> and a descriptive <code>aria-label</code> so AT users hear it in the document structure.</li>
+          <li><strong>No colour-only information.</strong> The asterisk on required fields, the risk icon, and the FCA badge all have text or ARIA equivalents.</li>
+          <li><strong>Keyboard navigation.</strong> Tab order: email → password → show/hide → remember → forgot → submit → contact. No focus traps.</li>
         </ul>
       </div>
     </section>

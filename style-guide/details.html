@@ -79,9 +79,9 @@
         <p class="sg-section-desc">Coloured pulsing dots for live status indicators (e.g. account standing, session activity). Three colour states: green (good), gold (pending/warning), red (problem). Each has a matching CSS glow via box-shadow.</p>
       </div>
       <div class="sg-demo sg-demo--row">
-        <span class="u-flex u-items-center u-gap-s u-fs-ui u-text-2"><span class="det-status-dot u-bg-green u-shadow-dyn" style="--dyn-shadow:0 0 0 3px color-mix(in oklch,var(--green) 25%,transparent)"></span> Active</span>
-        <span class="u-flex u-items-center u-gap-s u-fs-ui u-text-2"><span class="det-status-dot u-bg-gold u-shadow-dyn" style="--dyn-shadow:0 0 0 3px color-mix(in oklch,var(--gold) 25%,transparent)"></span> Pending</span>
-        <span class="u-flex u-items-center u-gap-s u-fs-ui u-text-2"><span class="det-status-dot u-bg-red u-shadow-dyn" style="--dyn-shadow:0 0 0 3px color-mix(in oklch,var(--red) 25%,transparent)"></span> Issue</span>
+        <span class="sg-row sg-copy"><span class="det-status-dot green"></span> Active</span>
+        <span class="sg-row sg-copy"><span class="det-status-dot gold"></span> Pending</span>
+        <span class="sg-row sg-copy"><span class="det-status-dot red"></span> Issue</span>
       </div>
     </section>
 
@@ -92,11 +92,11 @@
         <p class="sg-section-desc">A pure CSS toggle switch built with a checkbox + label pattern. The <code>.det-toggle-row</code> arranges the label text on the left and the toggle on the right. The checked state turns the track gold. Use inside <code>.det-notif-wrap</code> for notification preference grids.</p>
       </div>
       <div class="sg-demo">
-        <div class="det-section u-max-w-s">
+        <div class="det-section sg-fit-card">
           <div class="det-toggle-row">
             <div>
-              <div class="u-text-1 u-fs-ui">Email notifications</div>
-              <div class="u-text-3 u-fs-sm">Portfolio updates and reports</div>
+              <div class="sg-item-value">Email notifications</div>
+              <div class="sg-meta">Portfolio updates and reports</div>
             </div>
             <label class="det-toggle">
               <input type="checkbox" checked aria-label="Email notifications">
@@ -105,8 +105,8 @@
           </div>
           <div class="det-toggle-row">
             <div>
-              <div class="u-text-1 u-fs-ui">SMS alerts</div>
-              <div class="u-text-3 u-fs-sm">Security events only</div>
+              <div class="sg-item-value">SMS alerts</div>
+              <div class="sg-meta">Security events only</div>
             </div>
             <label class="det-toggle">
               <input type="checkbox" aria-label="SMS alerts">
@@ -137,17 +137,17 @@
         <p class="sg-section-desc">Displays active login sessions with device info, location, last-seen time, and a revoke button. Combine with <code>.det-status-badge</code> for "Current session" / "Active" labelling.</p>
       </div>
       <div class="sg-demo">
-        <div class="det-section u-max-w-m">
+        <div class="det-section sg-fit-form">
           <div class="det-session-row">
             <div>
-              <div class="u-text-1 u-fs-ui u-fw-medium">MacBook Pro — Chrome 120 <span class="det-status-badge u-bg-green-dim u-text-green u-fs-xs u-radius-xs u-py-2xs u-px-s u-ms-s">Current</span></div>
-              <div class="u-text-3 u-fs-sm">London, UK · Active now</div>
+              <div class="sg-item-title">MacBook Pro — Chrome 120 <span class="det-status-badge">Current</span></div>
+              <div class="sg-meta">London, UK · Active now</div>
             </div>
           </div>
           <div class="det-session-row">
             <div>
-              <div class="u-text-1 u-fs-ui u-fw-medium">iPhone 15 — Safari</div>
-              <div class="u-text-3 u-fs-sm">London, UK · 2 hours ago</div>
+              <div class="sg-item-title">iPhone 15 — Safari</div>
+              <div class="sg-meta">London, UK · 2 hours ago</div>
             </div>
             <button class="det-revoke-btn">Revoke</button>
           </div>
@@ -181,27 +181,27 @@
         <h2 class="sg-section-title">Investor Profile Card (<code>.det-profile-card</code>)</h2>
         <p class="sg-section-desc">A full-width card with a gold <code>border-block-start</code> accent that summarises the user's KYC status, risk profile, and 2FA status in a flex row. Displayed at the top of the <code>.details-hero-row</code>.</p>
       </div>
-      <div class="sg-demo u-max-w-l">
-        <div class="det-profile-card u-bg-card u-radius-card u-border-t-accent u-p-l u-flex u-gap-xl u-flex-wrap">
+      <div class="sg-demo sg-fit-wide">
+        <div class="det-profile-card">
           <div>
-            <div class="det-kyc-status u-flex u-items-center u-gap-s">
-              <span class="u-size-dot-s u-radius-circle u-bg-green u-inline-block"></span>
-              <span class="u-text-2 u-fs-sm u-uppercase u-ls-wider u-fw-semibold">KYC Verified</span>
+            <div class="det-kyc-status">
+              <span class="sg-dot" style="--swatch:var(--green)"></span>
+              <span class="sg-eyebrow">KYC Verified</span>
             </div>
-            <div class="u-text-3 u-fs-xs u-mt-2xs">Verified 14 Jan 2023</div>
+            <div class="sg-caption">Verified 14 Jan 2023</div>
           </div>
           <div>
-            <div class="u-flex u-items-center u-gap-s">
-              <span class="u-text-accent u-fs-sm u-fw-semibold">Balanced</span>
+            <div class="sg-row">
+              <span class="sg-accent">Balanced</span>
             </div>
-            <div class="u-text-3 u-fs-xs u-mt-2xs">Risk Profile</div>
+            <div class="sg-caption">Risk Profile</div>
           </div>
           <div>
-            <div class="det-twofa-status u-flex u-items-center u-gap-s">
-              <span class="u-size-dot-s u-radius-circle u-bg-green u-inline-block"></span>
-              <span class="u-text-2 u-fs-sm u-fw-semibold">2FA Enabled</span>
+            <div class="det-twofa-status">
+              <span class="sg-dot" style="--swatch:var(--green)"></span>
+              <span class="sg-note">2FA Enabled</span>
             </div>
-            <div class="u-text-3 u-fs-xs u-mt-2xs">Authenticator app</div>
+            <div class="sg-caption">Authenticator app</div>
           </div>
         </div>
       </div>
@@ -213,11 +213,11 @@
         <h2 class="sg-section-title">Danger Zone (<code>.det-danger-zone</code>)</h2>
         <p class="sg-section-desc">A section for destructive account actions — close account, delete data. Uses a red-dim tinted background and a subtle red border. Danger links (<code>.det-danger-link</code>) are red-coloured text-only buttons.</p>
       </div>
-      <div class="sg-demo u-max-w-m">
-        <div class="det-danger-zone u-bg-red-dim u-border u-border-dyn u-radius-card u-py-base u-px-l" style="--dyn-border:color-mix(in oklch,var(--red) 25%,transparent)">
-          <div class="u-text-red u-fs-ui u-fw-semibold u-mb-xs">Danger Zone</div>
-          <div class="u-text-2 u-fs-sm u-mb-m">These actions are permanent and cannot be undone.</div>
-          <button class="det-danger-link u-text-red u-bg-none u-border-0 u-fs-ui u-pointer u-p-0 u-underline">Close my account</button>
+      <div class="sg-demo sg-fit-form">
+        <div class="det-danger-zone">
+          <div class="sg-value-down">Danger Zone</div>
+          <div class="sg-note">These actions are permanent and cannot be undone.</div>
+          <button class="det-danger-link">Close my account</button>
         </div>
       </div>
     </section>
@@ -228,14 +228,14 @@
         <h2 class="sg-section-title">Token Reference</h2>
       </div>
       <div class="sg-demo sg-demo--tight">
-        <table class="sg-table u-fs-md">
+        <table class="sg-table">
           <thead>
-            <tr class="u-text-3">
+            <tr>
               <th>Token</th>
               <th>Purpose</th>
             </tr>
           </thead>
-          <tbody class="u-text-2">
+          <tbody>
             <tr><td><code>--border-input</code></td><td>Editable input/select border (WCAG 1.4.11)</td></tr>
             <tr><td><code>--gold</code></td><td>Profile card top accent, toggle checked state</td></tr>
             <tr><td><code>--green / --green-dim</code></td><td>KYC verified, 2FA enabled, active session status</td></tr>
@@ -252,7 +252,32 @@
         <h2 class="sg-section-title">Accessibility Notes</h2>
       </div>
       <div class="sg-demo sg-demo--col">
-        <p class="u-m-0 u-text-2 u-fs-body">Toggle switches must use <code>role="switch"</code> and <code>aria-checked</code> if built with divs; the checkbox+label pattern is preferred as it is natively accessible. Status dots use colour + text — never colour alone (WCAG 1.4.1). Revoke session buttons must have descriptive labels: <code>aria-label="Revoke session: iPhone 15 Safari"</code>. Danger zone actions should use a confirmation dialog to prevent accidental activation.</p>
+        <p class="sg-copy">Toggle switches must use <code>role="switch"</code> and <code>aria-checked</code> if built with divs; the checkbox+label pattern is preferred as it is natively accessible. Status dots use colour + text — never colour alone (WCAG 1.4.1). Revoke session buttons must have descriptive labels: <code>aria-label="Revoke session: iPhone 15 Safari"</code>. Danger zone actions should use a confirmation dialog to prevent accidental activation.</p>
+      </div>
+    </section>
+
+    <!-- ── Supporting classes ─────────────────────────────── -->
+    <section class="sg-section" id="supporting-classes">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Supporting Classes</h2>
+        <p class="sg-section-desc">Named parts of this component, each defined with it. On an OutSystems UI widget, add the class to the widget's <strong>Style Classes</strong> property, next to any classes it already has. Layout changes at breakpoints live in the class, so don't add extra classes per screen size.</p>
+      </div>
+      <div class="sg-demo sg-demo--flush">
+        <table class="sg-table sg-table--roomy">
+          <thead><tr><th>Class</th><th>Role</th><th>Apply to</th></tr></thead>
+          <tbody>
+            <tr><td class="sg-token">.det-section-foot</td><td>Divided footer row at the end of a details section</td><td>Container inside the section</td></tr>
+            <tr><td class="sg-token">.det-section-btn</td><td>Full-width, centred action in a section footer</td><td>Button, alongside its button class</td></tr>
+            <tr><td class="sg-token">.det-rm-name / .det-rm-email</td><td>Relationship manager name and email lines</td><td>Expression, or Text in a Container</td></tr>
+            <tr><td class="sg-token">.det-toggle-row--stacked</td><td>Spacing between stacked toggle rows</td><td>Container, alongside <code>.det-toggle-row</code></td></tr>
+            <tr><td class="sg-token">.det-corr-note / --linked</td><td>Correspondence note; <code>--linked</code> adds the icon row layout</td><td>Container</td></tr>
+            <tr><td class="sg-token">.det-twofa-main / -title / -sub</td><td>Two-factor summary: icon row, title and supporting line</td><td>Container, then Expressions inside it</td></tr>
+            <tr><td class="sg-token">.det-field-secondary</td><td>Muted value within a field row</td><td>Expression</td></tr>
+            <tr><td class="sg-token">.det-history-table / .det-history-meta</td><td>Compact login history table and its muted metadata cells</td><td>Table widget / cell Container</td></tr>
+            <tr><td class="sg-token">.det-alert-icon</td><td>Keeps an alert icon at full size, aligned to the first text line</td><td>Icon widget</td></tr>
+            <tr><td class="sg-token">.det-comm-fields</td><td>Spacing above the communication fields</td><td>Container</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
 

@@ -34,27 +34,27 @@
       <div class="sg-demo sg-demo--col">
         <div class="sg-heading-row">
           <span class="sg-heading-tag">h1</span>
-          <h1 class="u-m-0 u-lh-tight">My Portfolio Overview</h1>
+          <h1>My Portfolio Overview</h1>
         </div>
         <div class="sg-heading-row">
           <span class="sg-heading-tag">h2</span>
-          <h2 class="u-m-0 u-lh-tight">Asset Allocation</h2>
+          <h2>Asset Allocation</h2>
         </div>
         <div class="sg-heading-row">
           <span class="sg-heading-tag">h3</span>
-          <h3 class="u-m-0 u-lh-snug">UK Equities Breakdown</h3>
+          <h3>UK Equities Breakdown</h3>
         </div>
         <div class="sg-heading-row">
           <span class="sg-heading-tag">h4</span>
-          <h4 class="u-m-0 u-lh-snug">Vanguard FTSE All-World</h4>
+          <h4>Vanguard FTSE All-World</h4>
         </div>
         <div class="sg-heading-row">
           <span class="sg-heading-tag">h5</span>
-          <h5 class="u-m-0">Transaction reference</h5>
+          <h5>Transaction reference</h5>
         </div>
         <div class="sg-heading-row">
           <span class="sg-heading-tag">h6</span>
-          <h6 class="u-m-0">Sub-category label</h6>
+          <h6>Sub-category label</h6>
         </div>
       </div>
       <div class="sg-code">
@@ -76,16 +76,16 @@
       </div>
       <div class="sg-demo sg-demo--col">
         <div>
-          <p class="u-text-3 u-fs-xs u-m-0 u-mb-s u-uppercase u-ls-widest">Display — large</p>
-          <p class="u-font-serif u-fs-5xl u-text-1 u-lh-tight u-m-0">Know Your Element</p>
+          <p class="sg-eyebrow">Display — large</p>
+          <p class="sg-display">Know Your Element</p>
         </div>
         <div>
-          <p class="u-text-3 u-fs-xs u-m-0 u-mb-s u-uppercase u-ls-widest">Display — medium</p>
-          <p class="u-font-serif u-fs-3xl u-text-1 u-lh-snug u-m-0">Portfolio at a Glance</p>
+          <p class="sg-eyebrow">Display — medium</p>
+          <p class="sg-display">Portfolio at a Glance</p>
         </div>
         <div>
-          <p class="u-text-3 u-fs-xs u-m-0 u-mb-s u-uppercase u-ls-widest">Display — italic accent</p>
-          <p class="u-font-serif u-italic u-fs-3xl u-text-gold u-lh-snug u-m-0">Your journey begins here</p>
+          <p class="sg-eyebrow">Display — italic accent</p>
+          <p class="sg-display sg-display--accent">Your journey begins here</p>
         </div>
       </div>
       <div class="sg-code">
@@ -110,21 +110,19 @@ color: var(--gold-text);</code></pre>
       </div>
       <div class="sg-demo sg-demo--col">
         <div>
-          <p class="u-text-3 u-fs-xs u-m-0 u-mb-s u-uppercase u-ls-widest">Body — <code>--fs-body</code></p>
-          <p class="u-fs-body u-text-2 u-lh-relaxed u-measure u-m-0">Your portfolio has grown by 12.4% over the past twelve months, outperforming the FTSE 100 benchmark by 2.1 percentage points. The primary driver has been your global equity allocation, which returned 18.2% during the period — supported by strong performance in US technology and emerging market holdings.</p>
+          <p class="sg-eyebrow">Body — <code>--fs-body</code></p>
+          <p class="sg-copy sg-copy--measure">Your portfolio has grown by 12.4% over the past twelve months, outperforming the FTSE 100 benchmark by 2.1 percentage points. The primary driver has been your global equity allocation, which returned 18.2% during the period — supported by strong performance in US technology and emerging market holdings.</p>
         </div>
         <div>
-          <p class="u-text-3 u-fs-xs u-m-0 u-mb-s u-uppercase u-ls-widest">Body small — <code>--fs-body-sm</code></p>
-          <p class="u-fs-md u-text-2 u-lh-relaxed u-measure u-m-0">Capital at risk. Past performance is not a reliable indicator of future results. The value of investments and the income from them can fall as well as rise. You may get back less than you invest.</p>
+          <p class="sg-eyebrow">Body small — <code>--fs-body-sm</code></p>
+          <p class="sg-copy sg-copy--measure sg-copy--small">Capital at risk. Past performance is not a reliable indicator of future results. The value of investments and the income from them can fall as well as rise. You may get back less than you invest.</p>
         </div>
       </div>
       <div class="sg-code">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
         <pre><code class="language-html">&lt;p&gt;Standard body copy — readable at any length.&lt;/p&gt;
 
-&lt;p class="u-fs-md"&gt;
-  Smaller body — disclaimers, supporting copy.
-&lt;/p&gt;</code></pre>
+&lt;p&gt;&lt;small&gt;Smaller body — disclaimers, supporting copy.&lt;/small&gt;&lt;/p&gt;</code></pre>
       </div>
     </section>
 
@@ -135,11 +133,11 @@ color: var(--gold-text);</code></pre>
         <p class="sg-section-desc">Semantic inline elements for emphasis, importance, annotation, and decoration. Always use the semantically correct element — e.g. <code>&lt;strong&gt;</code> for importance, <code>&lt;em&gt;</code> for stress emphasis. Never use <code>&lt;b&gt;</code> or <code>&lt;i&gt;</code> as style-only substitutes.</p>
       </div>
       <div class="sg-demo sg-demo--col">
-        <p class="u-fs-body u-text-2 u-lh-relaxed u-m-0">
-          This is <strong>strong importance</strong> — use for critical values, warnings, or key facts. This is <em>stress emphasis</em> — use for a change in meaning or tone. This text contains a <a href="#inline-elements" class="u-text-gold u-underline">hyperlink to another section</a> which inherits the brand colour. Here is a <code class="u-bg-input u-radius-xs u-py-2xs u-px-xs u-fs-ui u-text-gold">inline code snippet</code> for technical references. Use <mark class="u-bg-gold-dim u-text-1 u-radius-xs u-py-0 u-px-2xs">highlighted text</mark> sparingly for search result matches. The <abbr title="Financial Conduct Authority">FCA</abbr> abbreviation element includes a tooltip via <code>title</code>.
+        <p class="sg-copy">
+          This is <strong>strong importance</strong> — use for critical values, warnings, or key facts. This is <em>stress emphasis</em> — use for a change in meaning or tone. This text contains a <a href="#inline-elements" class="sg-sample-link">hyperlink to another section</a> which inherits the brand colour. Here is a <code class="sg-sample-code">inline code snippet</code> for technical references. Use <mark class="sg-sample-mark">highlighted text</mark> sparingly for search result matches. The <abbr title="Financial Conduct Authority">FCA</abbr> abbreviation element includes a tooltip via <code>title</code>.
         </p>
-        <p class="u-fs-body u-text-2 u-lh-relaxed u-m-0">
-          Use <small class="u-fs-sm u-text-3">small text</small> for legal copy and fine print. Numeric data uses <span class="u-tabular u-fw-semibold u-text-1">tabular-nums</span> for column alignment. Strikethrough <del class="u-text-3">£1,200.00</del> shows removed values; <ins class="u-text-green u-no-underline u-fw-medium">£1,350.00</ins> shows replacements.
+        <p class="sg-copy">
+          Use <small class="sg-sample-small">small text</small> for legal copy and fine print. Numeric data uses <span class="sg-sample-tabular">tabular-nums</span> for column alignment. Strikethrough <del class="sg-sample-del">£1,200.00</del> shows removed values; <ins class="sg-sample-ins">£1,350.00</ins> shows replacements.
         </p>
       </div>
       <div class="sg-code">
@@ -153,7 +151,7 @@ color: var(--gold-text);</code></pre>
 &lt;small&gt;Legal / fine print&lt;/small&gt;
 &lt;del&gt;Removed value&lt;/del&gt;
 &lt;ins&gt;Replacement value&lt;/ins&gt;
-&lt;span class="u-tabular"&gt;£1,284,500&lt;/span&gt;</code></pre>
+&lt;span class="kpi-value"&gt;£1,284,500&lt;/span&gt;</code></pre>
       </div>
     </section>
 
@@ -165,19 +163,19 @@ color: var(--gold-text);</code></pre>
       </div>
       <div class="sg-demo sg-demo--col">
         <div>
-          <p class="u-text-3 u-fs-xs u-m-0 u-mb-s u-uppercase u-ls-widest">Body link — in running text</p>
-          <p class="u-fs-body u-text-2 u-lh-relaxed u-m-0">View your <a href="#links" class="u-text-gold u-underline">full transaction history</a> or <a href="#links" class="u-text-gold u-underline">download your annual statement</a> for a complete breakdown of activity during the period.</p>
+          <p class="sg-eyebrow">Body link — in running text</p>
+          <p class="sg-copy">View your <a href="#links" class="sg-sample-link">full transaction history</a> or <a href="#links" class="sg-sample-link">download your annual statement</a> for a complete breakdown of activity during the period.</p>
         </div>
         <div>
-          <p class="u-text-3 u-fs-xs u-m-0 u-mb-s u-uppercase u-ls-widest">Standalone action link</p>
-          <a href="#links" class="u-inline-flex u-items-center u-gap-s u-text-gold u-fs-body u-fw-medium u-no-underline">
+          <p class="sg-eyebrow">Standalone action link</p>
+          <a href="#links" class="sg-sample-link sg-sample-link--action">
             View all holdings
             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
           </a>
         </div>
         <div>
-          <p class="u-text-3 u-fs-xs u-m-0 u-mb-s u-uppercase u-ls-widest">External link</p>
-          <a href="#links" class="u-inline-flex u-items-center u-gap-xs u-text-gold u-fs-body u-underline">
+          <p class="sg-eyebrow">External link</p>
+          <a href="#links" class="sg-sample-link">
             FCA Register
             <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-label="(opens in new tab)"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           </a>
@@ -203,10 +201,10 @@ color: var(--gold-text);</code></pre>
         <p class="sg-section-desc">Use for items without a meaningful order — feature lists, benefit summaries, navigation links. Default browser bullets are styled via the global base CSS. Nested lists are supported up to two levels deep. Avoid more than ~7 items; consider grouping or a table instead.</p>
       </div>
       <div class="sg-demo">
-        <div class="u-grid u-grid-2 u-gap-xl u-max-w-l">
+        <div class="sg-cols-2 sg-fit-wide">
           <div>
-            <p class="u-text-3 u-fs-xs u-m-0 u-mb-m u-uppercase u-ls-widest">Flat list</p>
-            <ul class="u-text-2 u-fs-body u-lh-relaxed u-ps-list u-m-0">
+            <p class="sg-eyebrow">Flat list</p>
+            <ul class="sg-copy">
               <li>Global equities</li>
               <li>Fixed income</li>
               <li>Alternatives</li>
@@ -214,10 +212,10 @@ color: var(--gold-text);</code></pre>
             </ul>
           </div>
           <div>
-            <p class="u-text-3 u-fs-xs u-m-0 u-mb-m u-uppercase u-ls-widest">Nested list</p>
-            <ul class="u-text-2 u-fs-body u-lh-relaxed u-ps-list u-m-0">
+            <p class="sg-eyebrow">Nested list</p>
+            <ul class="sg-copy">
               <li>Equities
-                <ul class="u-mt-xs">
+                <ul class="sg-list-nested">
                   <li>UK</li>
                   <li>US</li>
                   <li>Emerging markets</li>
@@ -251,11 +249,11 @@ color: var(--gold-text);</code></pre>
         <p class="sg-section-desc">Use when sequence matters — steps in a process, ranked items, numbered instructions. The counter is rendered by the browser. Use <code>start</code> and <code>reversed</code> attributes when the numbering should not begin at 1.</p>
       </div>
       <div class="sg-demo">
-        <ol class="u-text-2 u-fs-body u-lh-relaxed u-ps-list u-m-0 u-max-w-m">
-          <li class="u-mb-s">Select a funding source from your linked accounts</li>
-          <li class="u-mb-s">Enter the amount you wish to transfer</li>
-          <li class="u-mb-s">Review the transaction summary and applicable fees</li>
-          <li class="u-mb-s">Confirm your identity with two-factor authentication</li>
+        <ol class="sg-copy sg-fit-form">
+          <li>Select a funding source from your linked accounts</li>
+          <li>Enter the amount you wish to transfer</li>
+          <li>Review the transaction summary and applicable fees</li>
+          <li>Confirm your identity with two-factor authentication</li>
           <li>Funds are credited within 2–3 business days</li>
         </ol>
       </div>
@@ -277,15 +275,15 @@ color: var(--gold-text);</code></pre>
         <p class="sg-section-desc">The semantically correct element for key/value pairs — transaction summaries, metadata panels, glossary entries. The <code>.review-row</code> pattern in the forms module builds on <code>&lt;dl&gt;</code> structure. Use <code>&lt;dt&gt;</code> for the term/label and <code>&lt;dd&gt;</code> for the value.</p>
       </div>
       <div class="sg-demo">
-        <dl class="u-grid u-grid-label u-gap-m u-m-0 u-max-w-s">
-          <dt class="u-text-3 u-fs-sm u-fw-medium">Account type</dt>
-          <dd class="u-text-1 u-fs-sm u-m-0">Stocks &amp; Shares ISA</dd>
-          <dt class="u-text-3 u-fs-sm u-fw-medium">Provider</dt>
-          <dd class="u-text-1 u-fs-sm u-m-0">Aurelius Wealth Management</dd>
-          <dt class="u-text-3 u-fs-sm u-fw-medium">Annual allowance</dt>
-          <dd class="u-text-1 u-fs-sm u-m-0">£20,000</dd>
-          <dt class="u-text-3 u-fs-sm u-fw-medium">Subscribed YTD</dt>
-          <dd class="u-text-1 u-fs-sm u-fw-semibold u-m-0">£14,500</dd>
+        <dl class="sg-sample-dl">
+          <dt class="sg-sample-dt">Account type</dt>
+          <dd class="sg-sample-dd">Stocks &amp; Shares ISA</dd>
+          <dt class="sg-sample-dt">Provider</dt>
+          <dd class="sg-sample-dd">Aurelius Wealth Management</dd>
+          <dt class="sg-sample-dt">Annual allowance</dt>
+          <dd class="sg-sample-dd">£20,000</dd>
+          <dt class="sg-sample-dt">Subscribed YTD</dt>
+          <dd class="sg-sample-dd sg-sample-dd--total">£14,500</dd>
         </dl>
       </div>
       <div class="sg-code">
@@ -307,9 +305,9 @@ color: var(--gold-text);</code></pre>
         <p class="sg-section-desc">Used for attributed quotations — adviser commentary, market outlooks, client testimonials. Always include a <code>&lt;cite&gt;</code> element for attribution. The gold left border visually anchors the quote to the brand. Keep quotes concise — two to three sentences maximum.</p>
       </div>
       <div class="sg-demo">
-        <blockquote class="u-border-accent u-py-xs u-ps-list u-m-0 u-max-w-l">
-          <p class="u-text-1 u-fs-body u-italic u-lh-relaxed u-m-0 u-mb-m">"Despite ongoing volatility in global markets, your portfolio's diversification strategy has provided meaningful downside protection while still participating in the equity market's recovery. The long-term positioning remains well aligned with your stated objectives."</p>
-          <cite class="u-text-3 u-fs-sm u-not-italic u-fw-medium">— Sarah Mitchell, Portfolio Adviser · Q1 2024 Review</cite>
+        <blockquote class="sg-sample-quote">
+          <p class="sg-sample-quote-text">"Despite ongoing volatility in global markets, your portfolio's diversification strategy has provided meaningful downside protection while still participating in the equity market's recovery. The long-term positioning remains well aligned with your stated objectives."</p>
+          <cite class="sg-sample-cite">— Sarah Mitchell, Portfolio Adviser · Q1 2024 Review</cite>
         </blockquote>
       </div>
       <div class="sg-code">
@@ -330,16 +328,16 @@ color: var(--gold-text);</code></pre>
       </div>
       <div class="sg-demo sg-demo--col">
         <div>
-          <p class="u-text-3 u-fs-xs u-m-0 u-mb-s u-uppercase u-ls-widest">Inline code</p>
-          <p class="u-fs-body u-text-2 u-m-0">Apply <code class="u-bg-input u-radius-xs u-py-2xs u-px-s u-fs-ui u-text-gold">--gold-text</code> for accessible brand colour on any surface, and <code class="u-bg-input u-radius-xs u-py-2xs u-px-s u-fs-ui u-text-gold">.kpi-card.is-featured</code> for the hero metric tile.</p>
+          <p class="sg-eyebrow">Inline code</p>
+          <p class="sg-copy">Apply <code class="sg-sample-code">--gold-text</code> for accessible brand colour on any surface, and <code class="sg-sample-code">.kpi-card.is-featured</code> for the hero metric tile.</p>
         </div>
         <div>
-          <p class="u-text-3 u-fs-xs u-m-0 u-mb-s u-uppercase u-ls-widest">Keyboard input — <code class="u-fs-xs">&lt;kbd&gt;</code></p>
-          <p class="u-fs-body u-text-2 u-m-0">Press <kbd class="u-bg-input u-border u-radius-xs u-py-2xs u-px-s u-fs-sm u-font-mono u-text-1">Space</kbd> to grab, <kbd class="u-bg-input u-border u-radius-xs u-py-2xs u-px-s u-fs-sm u-font-mono u-text-1">↑</kbd> / <kbd class="u-bg-input u-border u-radius-xs u-py-2xs u-px-s u-fs-sm u-font-mono u-text-1">↓</kbd> to reorder, <kbd class="u-bg-input u-border u-radius-xs u-py-2xs u-px-s u-fs-sm u-font-mono u-text-1">Enter</kbd> to drop.</p>
+          <p class="sg-eyebrow">Keyboard input — <code class="sg-caption">&lt;kbd&gt;</code></p>
+          <p class="sg-copy">Press <kbd class="sg-sample-kbd">Space</kbd> to grab, <kbd class="sg-sample-kbd">↑</kbd> / <kbd class="sg-sample-kbd">↓</kbd> to reorder, <kbd class="sg-sample-kbd">Enter</kbd> to drop.</p>
         </div>
         <div>
-          <p class="u-text-3 u-fs-xs u-m-0 u-mb-s u-uppercase u-ls-widest">Code block</p>
-          <pre class="u-bg-input u-border u-radius-item u-py-base u-px-l u-m-0 u-overflow-auto"><code class="u-font-mono u-fs-md u-lh-relaxed u-text-2">const kpiCard = document.querySelector('.kpi-card.is-featured');
+          <p class="sg-eyebrow">Code block</p>
+          <pre class="sg-sample-pre"><code>const kpiCard = document.querySelector('.kpi-card.is-featured');
 kpiCard.querySelector('.kpi-value').textContent = formatCurrency(total);</code></pre>
         </div>
       </div>
@@ -366,18 +364,18 @@ kpiCard.querySelector('.kpi-value').textContent = formatCurrency(total);</code><
       </div>
       <div class="sg-demo">
         <div class="sg-type-scale">
-          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-kpi-hero</code></span><span class="sg-type-specimen u-fs-display-md u-fw-semibold">£1,284,500</span></div>
-          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-page-title</code></span><span class="sg-type-specimen u-fs-display-md u-fw-semibold">My Portfolio</span></div>
-          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-display-sm</code></span><span class="sg-type-specimen u-fs-display-sm">Portfolio at a Glance</span></div>
-          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-section-title</code></span><span class="sg-type-specimen u-fs-5xl u-fw-semibold">Recent Transactions</span></div>
-          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-panel-title</code></span><span class="sg-type-specimen u-fs-lg u-fw-semibold">Asset Allocation</span></div>
-          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-data-lg</code></span><span class="sg-type-specimen u-fs-6xl u-tabular">£284,500</span></div>
-          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-body</code></span><span class="sg-type-specimen u-fs-body">Standard body copy — readable at comfortable measure</span></div>
-          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-body-sm</code></span><span class="sg-type-specimen u-fs-md">Secondary body — supporting copy and card descriptions</span></div>
-          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-nav</code></span><span class="sg-type-specimen u-fs-ui u-fw-medium">My Investments</span></div>
-          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-btn</code></span><span class="sg-type-specimen u-fs-ui u-fw-medium">Save Changes</span></div>
-          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-caption</code></span><span class="sg-type-specimen u-fs-md">Chart caption / helper annotation</span></div>
-          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-meta</code></span><span class="sg-type-specimen u-fs-sm u-text-3">Updated 3 minutes ago</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-kpi-hero</code></span><span class="sg-type-specimen sg-type-specimen--display-md sg-type-specimen--strong">£1,284,500</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-page-title</code></span><span class="sg-type-specimen sg-type-specimen--display-md sg-type-specimen--strong">My Portfolio</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-display-sm</code></span><span class="sg-type-specimen sg-type-specimen--display-sm">Portfolio at a Glance</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-section-title</code></span><span class="sg-type-specimen sg-type-specimen--5xl sg-type-specimen--strong">Recent Transactions</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-panel-title</code></span><span class="sg-type-specimen sg-type-specimen--lg sg-type-specimen--strong">Asset Allocation</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-data-lg</code></span><span class="sg-type-specimen sg-type-specimen--6xl sg-type-specimen--figures">£284,500</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-body</code></span><span class="sg-type-specimen sg-type-specimen--body">Standard body copy — readable at comfortable measure</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-body-sm</code></span><span class="sg-type-specimen sg-type-specimen--md">Secondary body — supporting copy and card descriptions</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-nav</code></span><span class="sg-type-specimen sg-type-specimen--ui sg-type-specimen--medium">My Investments</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-btn</code></span><span class="sg-type-specimen sg-type-specimen--ui sg-type-specimen--medium">Save Changes</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-caption</code></span><span class="sg-type-specimen sg-type-specimen--md">Chart caption / helper annotation</span></div>
+          <div class="sg-type-row"><span class="sg-type-label"><code>--fs-meta</code></span><span class="sg-type-specimen sg-type-specimen--sm sg-type-specimen--muted">Updated 3 minutes ago</span></div>
         </div>
       </div>
     </section>
@@ -389,10 +387,10 @@ kpiCard.querySelector('.kpi-value').textContent = formatCurrency(total);</code><
         <p class="sg-section-desc">Four weight tokens. Use <code>--fw-regular</code> for body, <code>--fw-medium</code> for labels and nav, <code>--fw-semibold</code> for headings and data values. <code>--fw-bold</code> is available for strong emphasis but use sparingly to preserve its impact.</p>
       </div>
       <div class="sg-demo sg-demo--col">
-        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="u-fs-xs">--fw-regular</code></span><span class="u-fs-xl u-fw-regular">Aurelius Wealth Management — 400</span></div>
-        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="u-fs-xs">--fw-medium</code></span><span class="u-fs-xl u-fw-medium">Aurelius Wealth Management — 500</span></div>
-        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="u-fs-xs">--fw-semibold</code></span><span class="u-fs-xl u-fw-semibold">Aurelius Wealth Management — 600</span></div>
-        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="u-fs-xs">--fw-bold</code></span><span class="u-fs-xl u-fw-bold">Aurelius Wealth Management — 700</span></div>
+        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="sg-caption">--fw-regular</code></span><span class="sg-type-weight sg-type-weight--regular">Aurelius Wealth Management — 400</span></div>
+        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="sg-caption">--fw-medium</code></span><span class="sg-type-weight sg-type-weight--medium">Aurelius Wealth Management — 500</span></div>
+        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="sg-caption">--fw-semibold</code></span><span class="sg-type-weight sg-type-weight--semibold">Aurelius Wealth Management — 600</span></div>
+        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="sg-caption">--fw-bold</code></span><span class="sg-type-weight sg-type-weight--bold">Aurelius Wealth Management — 700</span></div>
       </div>
     </section>
 
@@ -403,14 +401,14 @@ kpiCard.querySelector('.kpi-value').textContent = formatCurrency(total);</code><
         <p class="sg-section-desc">Tracking and leading tokens. <code>--ls-widest</code> is reserved exclusively for all-caps labels and kickers — never apply wide tracking to lowercase body text. <code>--lh-none</code> is for single-line data values only.</p>
       </div>
       <div class="sg-demo sg-demo--col">
-        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="u-fs-xs">--ls-widest</code></span><span class="u-fs-sm u-ls-widest u-uppercase u-text-gold u-fw-bold">Style Guide</span></div>
-        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="u-fs-xs">--ls-wider</code></span><span class="u-fs-md u-ls-wider u-uppercase u-fw-medium">Section Label</span></div>
-        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="u-fs-xs">--ls-heading</code></span><span class="u-fs-xl u-ls-heading">My Investments</span></div>
-        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="u-fs-xs">--ls-display</code></span><span class="u-fs-3xl u-ls-display u-font-serif">Aurelius</span></div>
-        <div class="u-h-dyn u-bg-divider u-m-0 u-mt-s u-mb-s" style="--dyn-h:1px"></div>
-        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="u-fs-xs">--lh-tight</code></span><span class="u-fs-lg u-lh-tight">Headings and<br>display text</span></div>
-        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="u-fs-xs">--lh-normal</code></span><span class="u-fs-lg u-lh-normal">Standard body<br>and UI copy</span></div>
-        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="u-fs-xs">--lh-relaxed</code></span><span class="u-fs-lg u-lh-relaxed">Long-form reading<br>and descriptions</span></div>
+        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="sg-caption">--ls-widest</code></span><span class="sg-type-track sg-type-track--widest">Style Guide</span></div>
+        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="sg-caption">--ls-wider</code></span><span class="sg-type-track sg-type-track--wider">Section Label</span></div>
+        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="sg-caption">--ls-heading</code></span><span class="sg-type-track sg-type-track--heading">My Investments</span></div>
+        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="sg-caption">--ls-display</code></span><span class="sg-type-track sg-type-track--display">Aurelius</span></div>
+        <div class="sg-rule"></div>
+        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="sg-caption">--lh-tight</code></span><span class="sg-type-leading sg-type-leading--tight">Headings and<br>display text</span></div>
+        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="sg-caption">--lh-normal</code></span><span class="sg-type-leading sg-type-leading--normal">Standard body<br>and UI copy</span></div>
+        <div class="sg-heading-row"><span class="sg-heading-tag"><code class="sg-caption">--lh-relaxed</code></span><span class="sg-type-leading sg-type-leading--relaxed">Long-form reading<br>and descriptions</span></div>
       </div>
     </section>
 

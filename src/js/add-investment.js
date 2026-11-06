@@ -676,7 +676,7 @@ function renderSmartCard(inv) {
               onclick="selectSmartFund('${inv.id}')">
 
         <div class="ais-result-top">
-          <div class="ais-result-logo u-bg-dyn" style="--dyn-bg:${inv.logoColor}" aria-hidden="true">${inv.logoInitials}</div>
+          <div class="ais-result-logo" style="--ais-logo-color:${inv.logoColor}" aria-hidden="true">${inv.logoInitials}</div>
           <div class="ais-result-header">
             <div class="ais-result-name">${inv.name}</div>
             <div class="ais-result-meta">

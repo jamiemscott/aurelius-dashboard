@@ -100,41 +100,41 @@
         <p class="sg-section-desc">A proportional fill bar for communicating allocation percentages or progress toward a goal. Always use a native <code>&lt;progress&gt;</code> element or a <code>&lt;div role="progressbar"&gt;</code> with <code>aria-valuenow</code>, <code>aria-valuemin</code>, and <code>aria-valuemax</code>. Never convey completeness with colour alone — include a visible percentage label.</p>
       </div>
       <div class="sg-demo">
-        <div class="u-flex u-flex-col u-gap-l">
+        <div class="sg-stack sg-stack--loose">
           <div>
-            <div class="u-flex u-justify-between u-mb-s">
-              <span class="u-text-2 u-fs-sm">UK Equities</span>
-              <span class="u-text-1 u-fs-sm u-fw-semibold">37.4%</span>
+            <div class="sg-row sg-row--split">
+              <span class="sg-note">UK Equities</span>
+              <span class="sg-item-title">37.4%</span>
             </div>
-            <div role="progressbar" aria-valuenow="37" aria-valuemin="0" aria-valuemax="100" aria-label="UK Equities: 37.4%" class="u-h-dyn u-bg-dyn u-radius-pill u-overflow-hidden" style="--dyn-h:8px;--dyn-bg:var(--progress-bg)">
-              <div class="u-h-full u-w-dyn u-bg-gold u-radius-pill" style="--dyn-w:37.4%"></div>
+            <div role="progressbar" aria-valuenow="37" aria-valuemin="0" aria-valuemax="100" aria-label="UK Equities: 37.4%" class="progress-bar-track">
+              <div class="progress-bar-fill" style="--progress-color:var(--gold);--progress-pct:37.4%"></div>
             </div>
           </div>
           <div>
-            <div class="u-flex u-justify-between u-mb-s">
-              <span class="u-text-2 u-fs-sm">US Equities</span>
-              <span class="u-text-1 u-fs-sm u-fw-semibold">24.1%</span>
+            <div class="sg-row sg-row--split">
+              <span class="sg-note">US Equities</span>
+              <span class="sg-item-title">24.1%</span>
             </div>
-            <div role="progressbar" aria-valuenow="24" aria-valuemin="0" aria-valuemax="100" aria-label="US Equities: 24.1%" class="u-h-dyn u-bg-dyn u-radius-pill u-overflow-hidden" style="--dyn-h:8px;--dyn-bg:var(--progress-bg)">
-              <div class="u-h-full u-w-dyn u-bg-water u-radius-pill" style="--dyn-w:24.1%"></div>
-            </div>
-          </div>
-          <div>
-            <div class="u-flex u-justify-between u-mb-s">
-              <span class="u-text-2 u-fs-sm">Bonds</span>
-              <span class="u-text-1 u-fs-sm u-fw-semibold">15.8%</span>
-            </div>
-            <div role="progressbar" aria-valuenow="16" aria-valuemin="0" aria-valuemax="100" aria-label="Bonds: 15.8%" class="u-h-dyn u-bg-dyn u-radius-pill u-overflow-hidden" style="--dyn-h:8px;--dyn-bg:var(--progress-bg)">
-              <div class="u-h-full u-w-dyn u-bg-wood u-radius-pill" style="--dyn-w:15.8%"></div>
+            <div role="progressbar" aria-valuenow="24" aria-valuemin="0" aria-valuemax="100" aria-label="US Equities: 24.1%" class="progress-bar-track">
+              <div class="ob-elbar-fill" style="--ob-elbar-color:var(--el-water);--ob-elbar-pct:24.1%"></div>
             </div>
           </div>
           <div>
-            <div class="u-flex u-justify-between u-mb-s">
-              <span class="u-text-2 u-fs-sm">Cash</span>
-              <span class="u-text-1 u-fs-sm u-fw-semibold">6.6%</span>
+            <div class="sg-row sg-row--split">
+              <span class="sg-note">Bonds</span>
+              <span class="sg-item-title">15.8%</span>
             </div>
-            <div role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="100" aria-label="Cash: 6.6%" class="u-h-dyn u-bg-dyn u-radius-pill u-overflow-hidden" style="--dyn-h:8px;--dyn-bg:var(--progress-bg)">
-              <div class="u-h-full u-w-dyn u-bg-earth u-radius-pill" style="--dyn-w:6.6%"></div>
+            <div role="progressbar" aria-valuenow="16" aria-valuemin="0" aria-valuemax="100" aria-label="Bonds: 15.8%" class="progress-bar-track">
+              <div class="ob-elbar-fill" style="--ob-elbar-color:var(--el-wood);--ob-elbar-pct:15.8%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="sg-row sg-row--split">
+              <span class="sg-note">Cash</span>
+              <span class="sg-item-title">6.6%</span>
+            </div>
+            <div role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="100" aria-label="Cash: 6.6%" class="progress-bar-track">
+              <div class="ob-elbar-fill" style="--ob-elbar-color:var(--el-earth);--ob-elbar-pct:6.6%"></div>
             </div>
           </div>
         </div>
@@ -146,8 +146,8 @@
   aria-valuemin="0"
   aria-valuemax="100"
   aria-label="UK Equities: 37.4%"
-  class="u-h-dyn u-bg-dyn u-radius-pill u-overflow-hidden" style="--dyn-h:8px;--dyn-bg:var(--progress-bg)"&gt;
-  &lt;div class="u-h-full u-w-dyn u-bg-gold u-radius-pill" style="--dyn-w:37.4%"&gt;&lt;/div&gt;
+  class="progress-bar-track"&gt;
+  &lt;div class="progress-bar-fill" style="--progress-pct:37.4%;--progress-color:var(--gold)"&gt;&lt;/div&gt;
 &lt;/div&gt;</code></pre>
       </div>
     </section>
@@ -159,27 +159,27 @@
         <p class="sg-section-desc">Inline pill tags for gain/loss status in tables and detail views. Use <code>--green</code>/<code>--green-dim</code> for gains and <code>--red</code>/<code>--red-dim</code> for losses. Include a directional prefix (<code>+</code> or <code>−</code>) and a textual label — never use colour alone to communicate direction.</p>
       </div>
       <div class="sg-demo sg-demo--grid">
-        <span class="u-inline-flex u-items-center u-gap-xs u-py-2xs u-px-m u-bg-green-dim u-text-green u-radius-pill u-fs-sm u-fw-medium">
+        <span class="status-tag status-tag--up">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
           +4.2% Gain
         </span>
-        <span class="u-inline-flex u-items-center u-gap-xs u-py-2xs u-px-m u-bg-red-dim u-text-red u-radius-pill u-fs-sm u-fw-medium">
+        <span class="status-tag status-tag--down">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
           −1.4% Loss
         </span>
-        <span class="u-inline-flex u-items-center u-gap-xs u-py-2xs u-px-m u-bg-dyn u-text-2 u-radius-pill u-fs-sm u-fw-medium" style="--dyn-bg:var(--tag-bg)">
+        <span class="status-tag">
           Neutral
         </span>
       </div>
       <div class="sg-code">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
         <pre><code class="language-html">&lt;!-- Gain tag --&gt;
-&lt;span class="u-bg-green-dim u-text-green u-py-2xs u-px-m u-radius-pill"&gt;
+&lt;span class="status-tag status-tag--up"&gt;
   +4.2% Gain
 &lt;/span&gt;
 
 &lt;!-- Loss tag --&gt;
-&lt;span class="u-bg-red-dim u-text-red u-py-2xs u-px-m u-radius-pill"&gt;
+&lt;span class="status-tag status-tag--down"&gt;
   −1.4% Loss
 &lt;/span&gt;</code></pre>
       </div>
@@ -192,62 +192,61 @@
         <p class="sg-section-desc">Used on the onboarding results screen to display the five elemental alignment scores. Each bar uses the element's colour token for its fill and its background token for the track. The fill width is set dynamically by JS via <code>style.width</code>. Include <code>aria-label</code> on the bar with the element name and percentage.</p>
       </div>
       <div class="sg-demo">
-        <div class="u-flex u-flex-col u-gap-base u-max-w-m">
-          <div class="u-flex u-items-center u-gap-base">
-            <span class="u-w-dyn u-text-water u-fs-sm u-fw-medium u-shrink-0" style="--dyn-w:56px">Water</span>
-            <div class="u-flex-1 u-h-dyn u-bg-water-dim u-radius-pill u-overflow-hidden" style="--dyn-h:10px">
-              <div class="u-h-full u-w-dyn u-bg-water u-radius-pill" style="--dyn-w:84%"></div>
+        <div class="sg-stack sg-fit-form">
+          <div class="sg-row">
+            <span class="ob-elbar-name">Water</span>
+            <div class="ob-elbar-outer">
+              <div class="ob-elbar-fill" style="--ob-elbar-color:var(--el-water);--ob-elbar-pct:84%"></div>
             </div>
-            <span class="u-w-dyn u-text-right u-text-2 u-fs-sm u-fw-semibold u-tabular" style="--dyn-w:36px">84%</span>
+            <span class="sg-bar-value">84%</span>
           </div>
-          <div class="u-flex u-items-center u-gap-base">
-            <span class="u-w-dyn u-text-wood u-fs-sm u-fw-medium u-shrink-0" style="--dyn-w:56px">Wood</span>
-            <div class="u-flex-1 u-h-dyn u-bg-wood-dim u-radius-pill u-overflow-hidden" style="--dyn-h:10px">
-              <div class="u-h-full u-w-dyn u-bg-wood u-radius-pill" style="--dyn-w:62%"></div>
+          <div class="sg-row">
+            <span class="ob-elbar-name">Wood</span>
+            <div class="ob-elbar-outer">
+              <div class="ob-elbar-fill" style="--ob-elbar-color:var(--el-wood);--ob-elbar-pct:62%"></div>
             </div>
-            <span class="u-w-dyn u-text-right u-text-2 u-fs-sm u-fw-semibold u-tabular" style="--dyn-w:36px">62%</span>
+            <span class="sg-bar-value">62%</span>
           </div>
-          <div class="u-flex u-items-center u-gap-base">
-            <span class="u-w-dyn u-text-fire u-fs-sm u-fw-medium u-shrink-0" style="--dyn-w:56px">Fire</span>
-            <div class="u-flex-1 u-h-dyn u-bg-fire-dim u-radius-pill u-overflow-hidden" style="--dyn-h:10px">
-              <div class="u-h-full u-w-dyn u-bg-fire u-radius-pill" style="--dyn-w:45%"></div>
+          <div class="sg-row">
+            <span class="ob-elbar-name">Fire</span>
+            <div class="ob-elbar-outer">
+              <div class="ob-elbar-fill" style="--ob-elbar-color:var(--el-fire);--ob-elbar-pct:45%"></div>
             </div>
-            <span class="u-w-dyn u-text-right u-text-2 u-fs-sm u-fw-semibold u-tabular" style="--dyn-w:36px">45%</span>
+            <span class="sg-bar-value">45%</span>
           </div>
-          <div class="u-flex u-items-center u-gap-base">
-            <span class="u-w-dyn u-text-earth u-fs-sm u-fw-medium u-shrink-0" style="--dyn-w:56px">Earth</span>
-            <div class="u-flex-1 u-h-dyn u-bg-earth-dim u-radius-pill u-overflow-hidden" style="--dyn-h:10px">
-              <div class="u-h-full u-w-dyn u-bg-earth u-radius-pill" style="--dyn-w:38%"></div>
+          <div class="sg-row">
+            <span class="ob-elbar-name">Earth</span>
+            <div class="ob-elbar-outer">
+              <div class="ob-elbar-fill" style="--ob-elbar-color:var(--el-earth);--ob-elbar-pct:38%"></div>
             </div>
-            <span class="u-w-dyn u-text-right u-text-2 u-fs-sm u-fw-semibold u-tabular" style="--dyn-w:36px">38%</span>
+            <span class="sg-bar-value">38%</span>
           </div>
-          <div class="u-flex u-items-center u-gap-base">
-            <span class="u-w-dyn u-text-metal u-fs-sm u-fw-medium u-shrink-0" style="--dyn-w:56px">Metal</span>
-            <div class="u-flex-1 u-h-dyn u-bg-metal-dim u-radius-pill u-overflow-hidden" style="--dyn-h:10px">
-              <div class="u-h-full u-w-dyn u-bg-metal u-radius-pill" style="--dyn-w:21%"></div>
+          <div class="sg-row">
+            <span class="ob-elbar-name">Metal</span>
+            <div class="ob-elbar-outer">
+              <div class="ob-elbar-fill" style="--ob-elbar-color:var(--el-metal);--ob-elbar-pct:21%"></div>
             </div>
-            <span class="u-w-dyn u-text-right u-text-2 u-fs-sm u-fw-semibold u-tabular" style="--dyn-w:36px">21%</span>
+            <span class="sg-bar-value">21%</span>
           </div>
         </div>
       </div>
       <div class="sg-code">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
         <pre><code class="language-html">&lt;!-- Elemental score bar pattern --&gt;
-&lt;div class="u-flex u-items-center u-gap-base"&gt;
-  &lt;span class="u-text-water"&gt;Water&lt;/span&gt;
+&lt;div class="ob-elbar-row"&gt;
+  &lt;span class="ob-elbar-name"&gt;Water&lt;/span&gt;
   &lt;div role="progressbar"
     aria-valuenow="84" aria-valuemin="0" aria-valuemax="100"
     aria-label="Water: 84%"
-    class="u-flex-1 u-h-dyn u-bg-water-dim u-radius-pill u-overflow-hidden" style="--dyn-h:10px"&gt;
-    &lt;div class="ob-elbar-fill u-h-full u-w-dyn u-bg-water u-radius-pill"
-      style="--dyn-w:0%"&gt;
+    class="ob-elbar-outer"&gt;
+    &lt;div class="ob-elbar-fill" style="--ob-elbar-color:var(--el-water)"&gt;
     &lt;/div&gt;
   &lt;/div&gt;
   &lt;span&gt;84%&lt;/span&gt;
 &lt;/div&gt;
 
 &lt;!-- JS animates the fill width on results:
-  bar.style.setProperty('--dyn-w', score + '%');
+  bar.style.setProperty('--ob-elbar-pct', score + '%');
 --&gt;</code></pre>
       </div>
     </section>
@@ -259,20 +258,20 @@
         <p class="sg-section-desc">A small circular indicator overlaid on a nav or action element to signal an unread notification — without a numeric count. Use when the exact number is unavailable or irrelevant. Always accompany with a visually hidden <code>aria-label</code> update on the parent element (e.g. "Settings, 1 new notification").</p>
       </div>
       <div class="sg-demo sg-demo--grid">
-        <div class="u-relative u-inline-flex">
+        <div class="notif-host">
           <button class="icon-btn" aria-label="Settings, 1 new notification">
             <svg aria-hidden="true" focusable="false" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="8" cy="6" r="2" fill="var(--bg-card)" stroke="currentColor" stroke-width="1.7"/><circle cx="16" cy="12" r="2" fill="var(--bg-card)" stroke="currentColor" stroke-width="1.7"/><circle cx="10" cy="18" r="2" fill="var(--bg-card)" stroke="currentColor" stroke-width="1.7"/></svg>
           </button>
           <span class="notif-dot" aria-hidden="true"></span>
         </div>
-        <div class="u-relative u-inline-flex">
+        <div class="notif-host">
           <button class="avatar" aria-label="Account, new message">SK</button>
           <span class="notif-dot" aria-hidden="true"></span>
         </div>
       </div>
       <div class="sg-code">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
-        <pre><code class="language-html">&lt;div class="u-relative u-inline-flex"&gt;
+        <pre><code class="language-html">&lt;div class="notif-host"&gt;
   &lt;button class="icon-btn" aria-label="Settings, 1 new notification"&gt;
     &lt;svg aria-hidden="true"&gt;&lt;!-- icon --&gt;&lt;/svg&gt;
   &lt;/button&gt;
@@ -309,6 +308,26 @@
   &lt;/div&gt;
   &lt;!-- .gold / .green / .red on .stat-chip-value for colour variants --&gt;
 &lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Supporting classes ─────────────────────────────── -->
+    <section class="sg-section" id="supporting-classes">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Supporting Classes</h2>
+        <p class="sg-section-desc">Named parts of this component, each defined with it. On an OutSystems UI widget, add the class to the widget's <strong>Style Classes</strong> property, next to any classes it already has. Layout changes at breakpoints live in the class, so don't add extra classes per screen size.</p>
+      </div>
+      <div class="sg-demo sg-demo--flush">
+        <table class="sg-table sg-table--roomy">
+          <thead><tr><th>Class</th><th>Role</th><th>Apply to</th></tr></thead>
+          <tbody>
+            <tr><td class="sg-token">.kpi-note</td><td>Supporting line beneath a KPI value</td><td>Expression</td></tr>
+            <tr><td class="sg-token">.status-tag / --up / --down</td><td>Status pill, with gain and loss variants</td><td>Expression or Tag</td></tr>
+            <tr><td class="sg-token">.doc-empty-icon</td><td>Spacing beneath the Documents empty state icon</td><td>Icon</td></tr>
+            <tr><td class="sg-token">.filter-row--header</td><td>Filter row inside a page header, without its margin</td><td>Container, alongside <code>.filter-row</code></td></tr>
+            <tr><td class="sg-token">.tk-delete-icon</td><td>Delete icon in the Tasks list</td><td>Icon</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
 

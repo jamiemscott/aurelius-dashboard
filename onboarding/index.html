@@ -48,23 +48,23 @@
         <!-- Element chips -->
         <div class="ob-el-chips" role="list" aria-label="Five investment elements">
           <div class="ob-el-chip" role="listitem">
-            <div class="ob-el-chip-dot u-bg-water" aria-hidden="true"></div>
+            <div class="ob-el-chip-dot ob-el--water" aria-hidden="true"></div>
             <span class="ob-el-chip-label">Water</span>
           </div>
           <div class="ob-el-chip" role="listitem">
-            <div class="ob-el-chip-dot u-bg-wood" aria-hidden="true"></div>
+            <div class="ob-el-chip-dot ob-el--wood" aria-hidden="true"></div>
             <span class="ob-el-chip-label">Wood</span>
           </div>
           <div class="ob-el-chip" role="listitem">
-            <div class="ob-el-chip-dot u-bg-fire" aria-hidden="true"></div>
+            <div class="ob-el-chip-dot ob-el--fire" aria-hidden="true"></div>
             <span class="ob-el-chip-label">Fire</span>
           </div>
           <div class="ob-el-chip" role="listitem">
-            <div class="ob-el-chip-dot u-bg-earth" aria-hidden="true"></div>
+            <div class="ob-el-chip-dot ob-el--earth" aria-hidden="true"></div>
             <span class="ob-el-chip-label">Earth</span>
           </div>
           <div class="ob-el-chip" role="listitem">
-            <div class="ob-el-chip-dot u-bg-metal" aria-hidden="true"></div>
+            <div class="ob-el-chip-dot ob-el--metal" aria-hidden="true"></div>
             <span class="ob-el-chip-label">Metal</span>
           </div>
         </div>
@@ -191,11 +191,11 @@
         aria-valuemin="0"
         aria-valuemax="100"
       >
-        <div class="ob-progress__fill u-bg-water" id="pf1"></div>
+        <div class="ob-progress__fill ob-el--water" id="pf1"></div>
       </div>
 
       <div class="ob-qb">
-        <p class="ob-eyebrow u-text-water">Water · Foundation</p>
+        <p class="ob-eyebrow ob-el--water">Water · Foundation</p>
         <h2 class="ob-heading">Where are you in life?</h2>
         <p class="ob-subtext">Turn the dial to your current stage</p>
 
@@ -233,7 +233,7 @@
               font-family="DM Sans, sans-serif"
               font-weight="500"
               fill="var(--gold)"
-              class="u-no-events"
+              class="ob-dial-tick-label"
             ></text>
           </svg>
 
@@ -292,11 +292,11 @@
         aria-valuemin="0"
         aria-valuemax="100"
       >
-        <div class="ob-progress__fill u-bg-water" id="pf2"></div>
+        <div class="ob-progress__fill ob-el--water" id="pf2"></div>
       </div>
 
       <div class="ob-qb">
-        <p class="ob-eyebrow u-text-water">Water · Temperament</p>
+        <p class="ob-eyebrow ob-el--water">Water · Temperament</p>
         <h2 class="ob-heading">Your relationship with risk</h2>
         <p class="ob-subtext">Slide to position — the scenario updates in real time</p>
 
@@ -388,11 +388,11 @@
         aria-valuemin="0"
         aria-valuemax="100"
       >
-        <div class="ob-progress__fill u-bg-fire" id="pf3"></div>
+        <div class="ob-progress__fill ob-el--fire" id="pf3"></div>
       </div>
 
       <div class="ob-qb">
-        <p class="ob-eyebrow u-text-fire">Fire · Intelligence</p>
+        <p class="ob-eyebrow ob-el--fire">Fire · Intelligence</p>
         <h2 class="ob-heading">How do you decide?</h2>
         <p class="ob-subtext">Swipe right to affirm, left to decline</p>
 
@@ -488,11 +488,11 @@
         aria-valuemin="0"
         aria-valuemax="100"
       >
-        <div class="ob-progress__fill u-bg-earth" id="pf4"></div>
+        <div class="ob-progress__fill ob-el--earth" id="pf4"></div>
       </div>
 
       <div class="ob-qb">
-        <p class="ob-eyebrow u-text-earth">Earth · Values</p>
+        <p class="ob-eyebrow ob-el--earth">Earth · Values</p>
         <h2 class="ob-heading">Order your wealth objectives</h2>
         <p class="ob-subtext">Drag to rank — primary objective at the top</p>
 
@@ -581,11 +581,11 @@
         aria-valuemin="0"
         aria-valuemax="100"
       >
-        <div class="ob-progress__fill u-bg-metal" id="pf5"></div>
+        <div class="ob-progress__fill ob-el--metal" id="pf5"></div>
       </div>
 
       <div class="ob-qb">
-        <p class="ob-eyebrow u-text-metal">Metal · Refinement</p>
+        <p class="ob-eyebrow ob-el--metal">Metal · Refinement</p>
         <h2 class="ob-heading">Your investment knowledge</h2>
         <p class="ob-subtext">Tap each concept to cycle your confidence level</p>
 
@@ -644,11 +644,11 @@
         aria-valuemin="0"
         aria-valuemax="100"
       >
-        <div class="ob-progress__fill u-bg-water" id="pf6"></div>
+        <div class="ob-progress__fill ob-el--water" id="pf6"></div>
       </div>
 
       <div class="ob-qb">
-        <p class="ob-eyebrow u-text-water">Water · Flow</p>
+        <p class="ob-eyebrow ob-el--water">Water · Flow</p>
         <h2 class="ob-heading">Your investable capital</h2>
         <p class="ob-subtext">Indicate your available capital today</p>
 
@@ -715,9 +715,9 @@
 
         <!-- Dominant element banner (populated by JS) -->
         <div class="ob-dom-banner" id="dom-banner">
-          <div class="ob-dom-accent u-bg-dyn" id="dom-accent" aria-hidden="true"></div>
+          <div class="ob-dom-accent" id="dom-accent" aria-hidden="true"></div>
           <div>
-            <p class="ob-dom-el-label u-text-dyn" id="dom-el-label">Dominant Element</p>
+            <p class="ob-dom-el-label" id="dom-el-label">Dominant Element</p>
             <div class="ob-dom-name" id="dom-name">—</div>
             <p class="ob-dom-desc" id="dom-desc">—</p>
           </div>

@@ -270,7 +270,7 @@ function buildPerfChartWithBenchmarks(svgId, w, h) {
 
       /* Portfolio row */
       rowsHtml += '<div class="bm-tooltip-row">' +
-        '<div class="bm-tooltip-dot u-bg-gold"></div>' +
+        '<div class="bm-tooltip-dot"></div>' +
         '<span class="bm-tooltip-label">Portfolio</span>' +
         '<span class="bm-tooltip-val">' + (portSlice[idx] >= 0 ? '+' : '') + portSlice[idx].toFixed(1) + '%</span>' +
         '</div>';
@@ -280,7 +280,7 @@ function buildPerfChartWithBenchmarks(svgId, w, h) {
         var bm = benchmarkData[key];
         var val = bm.pts.slice(offset)[idx];
         rowsHtml += '<div class="bm-tooltip-row">' +
-          '<div class="bm-tooltip-dot u-bg-dyn" style="--dyn-bg:' + bm.color + '"></div>' +
+          '<div class="bm-tooltip-dot" style="--bm-color:' + bm.color + '"></div>' +
           '<span class="bm-tooltip-label">' + bm.label + '</span>' +
           '<span class="bm-tooltip-val">' + (val >= 0 ? '+' : '') + val.toFixed(1) + '%</span>' +
           '</div>';
@@ -411,7 +411,7 @@ function buildLegend(containerId, data) {
   if (!el) return;
   el.innerHTML = data.map(d => `
     <div class="legend-item">
-      <div class="legend-dot u-bg-dyn" style="--dyn-bg:${d.color}"></div>
+      <div class="legend-dot" style="--legend-color:${d.color}"></div>
       <span class="legend-label">${d.label}</span>
       <span class="legend-pct">${d.pct.toFixed(2)}%</span>
     </div>
@@ -425,14 +425,14 @@ function buildProgressList(containerId, data, totalValue) {
     const val = totalValue ? `£${Math.round(totalValue * d.pct / 100).toLocaleString()}` : '';
     return `
     <div class="progress-item">
-      <div class="progress-dot u-bg-dyn" style="--dyn-bg:${d.color}"></div>
+      <div class="progress-dot" style="--progress-color:${d.color}"></div>
       <div class="progress-label">
         <div class="progress-name">${d.label}</div>
         <div class="progress-sub">${val}</div>
       </div>
       <div class="progress-bar-wrap">
         <div class="progress-bar-track">
-          <div class="progress-bar-fill u-w-dyn u-bg-dyn" style="--dyn-w:${d.pct}%;--dyn-bg:${d.color}"></div>
+          <div class="progress-bar-fill" style="--progress-pct:${d.pct}%;--progress-color:${d.color}"></div>
         </div>
       </div>
       <div class="progress-pct">${d.pct.toFixed(2)}%</div>
@@ -475,7 +475,7 @@ function buildActivityFeed() {
         <div class="activity-title">${a.title}</div>
         <div class="activity-sub">${a.sub}</div>
       </div>
-      <div class="u-text-right u-shrink-0">
+      <div class="activity-figures">
         <div class="activity-amount ${a.pos ? 'is-positive' : ''}">${a.amount}</div>
         <div class="activity-time">${a.time}</div>
       </div>
@@ -607,7 +607,7 @@ function renderDocList() {
   if (filtered.length === 0) {
     html = `
       <div class="doc-empty">
-        <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" class="u-mb-m"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" class="doc-empty-icon"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
         <div>No documents found</div>
       </div>`;
   }
@@ -621,11 +621,11 @@ function renderDocEntry(doc, isUnread) {
   return `
     <div class="doc-entry ${isUnread ? 'is-unread' : ''}" onclick="markDocRead(${doc.id})">
       <div class="doc-entry-dot ${isUnread ? 'is-on' : ''}"></div>
-      <div class="doc-entry-icon u-text-dyn u-bg-dyn" style="--dyn-text:${cat.color};--dyn-bg:${cat.bg}">${DOC_ICONS[doc.category]}</div>
+      <div class="doc-entry-icon" style="--doc-cat-color:${cat.color};--doc-cat-bg:${cat.bg}">${DOC_ICONS[doc.category]}</div>
       <div class="doc-entry-body">
         <div class="doc-entry-name">${doc.name}${isUnread ? ' <span class="doc-new-tag">NEW</span>' : ''}</div>
         <div class="doc-entry-meta">
-          <span class="doc-cat-chip u-text-dyn" style="--dyn-text:${cat.color}">${cat.label}</span>
+          <span class="doc-cat-chip" style="--doc-cat-color:${cat.color}">${cat.label}</span>
           <span class="doc-meta-dot">·</span>
           <span class="doc-account-chip">${doc.account}</span>
         </div>
@@ -862,7 +862,7 @@ function detSectionHd(title, sub, id, isEditing) {
 
 function detRow(label, readHtml, editEl) {
   var content = (editEl !== undefined)
-    ? `<div class="det-field-val u-flex-1">${editEl}</div>`
+    ? `<div class="det-field-val">${editEl}</div>`
     : `<div class="det-field-val${!readHtml ? ' muted' : ''}">${readHtml || 'Not provided'}</div>`;
   return `<div class="det-field-row"><div class="det-field-label">${label}</div>${content}</div>`;
 }
@@ -963,8 +963,8 @@ function renderPersonalTab() {
             ${detRow('Expiry Date', d.kycExpiry)}
             ${detRow('KYC Status', `<span class="det-hero-badge is-verified"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Verified</span>`)}
           </div>
-          <div class="u-mt-base u-pt-base u-border-t">
-            <button class="btn-secondary btn-sm u-w-full u-justify-center">
+          <div class="det-section-foot">
+            <button class="btn-secondary btn-sm det-section-btn">
               <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
               Upload New Document
             </button>
@@ -979,7 +979,7 @@ function renderPersonalTab() {
             ${detRow('Client Since', d.clientSince)}
             ${detRow('Account Tier', `<span class="det-hero-badge is-platinum">★ ${d.tier}</span>`)}
             ${detRow('Next Review', d.nextReview)}
-            ${detRow('Relationship Manager', `<div><div class="u-fs-ui u-fw-medium u-text-1">${d.adviser}</div><div class="u-fs-sm u-text-3 u-mt-2xs">${d.adviserEmail}</div></div>`)}
+            ${detRow('Relationship Manager', `<div><div class="det-rm-name">${d.adviser}</div><div class="det-rm-email">${d.adviserEmail}</div></div>`)}
           </div>
         </div>
       </div>
@@ -1071,7 +1071,7 @@ function renderContactTab() {
           <div class="det-section-hd">
             <div><div class="det-section-title">Correspondence Address</div></div>
           </div>
-          <div class="det-toggle-row ${d.corrSameAsReg?'u-mb-0':'u-mb-m'}">
+          <div class="det-toggle-row${d.corrSameAsReg?'':' det-toggle-row--stacked'}">
             <span class="det-toggle-label">Same as registered address</span>
             <label class="det-toggle">
               <input type="checkbox" ${d.corrSameAsReg?'checked':''} onchange="toggleCorrSame()">
@@ -1079,11 +1079,11 @@ function renderContactTab() {
             </label>
           </div>
           ${d.corrSameAsReg
-            ? `<div class="u-fs-md u-text-3 u-mt-m u-flex u-items-center u-gap-s">
+            ? `<div class="det-corr-note det-corr-note--linked">
                 <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                 Using registered address
                </div>`
-            : `<div class="u-fs-md u-text-3">Add a different address below if required.</div>`}
+            : `<div class="det-corr-note">Add a different address below if required.</div>`}
         </div>
       </div>
     </div>`;
@@ -1130,11 +1130,11 @@ function renderSecurityTab() {
           <div><div class="det-section-title">Two-Factor Authentication</div><div class="det-section-sub">Enhanced account security</div></div>
         </div>
         <div class="det-twofa-status ${d.twoFA ? 'is-on' : 'is-off'}">
-          <div class="u-flex u-items-center u-flex-1 u-gap-m">
+          <div class="det-twofa-main">
             <div class="det-status-dot ${d.twoFA ? 'green' : 'red'}"></div>
             <div>
-              <div class="u-fs-ui u-fw-semibold ${d.twoFA?'u-text-green':'u-text-red'}">${d.twoFA ? 'Enabled' : 'Disabled'}</div>
-              <div class="u-fs-sm u-text-3 u-mt-2xs">${d.twoFA ? d.twoFAMethod : 'Your account is less secure — enable 2FA now'}</div>
+              <div class="det-twofa-title">${d.twoFA ? 'Enabled' : 'Disabled'}</div>
+              <div class="det-twofa-sub">${d.twoFA ? d.twoFAMethod : 'Your account is less secure — enable 2FA now'}</div>
             </div>
           </div>
           <label class="det-toggle">
@@ -1144,10 +1144,10 @@ function renderSecurityTab() {
         </div>
         <div class="det-field-list">
           ${detRow('Method', d.twoFAMethod)}
-          ${detRow('Backup Codes', `<span class="u-text-2">8 of 10 remaining</span>`)}
+          ${detRow('Backup Codes', `<span class="det-field-secondary">8 of 10 remaining</span>`)}
           ${detRow('Last Used', d.twoFALastUsed)}
         </div>
-        <div class="u-mt-base u-pt-base u-border-t">
+        <div class="det-section-foot">
           <button class="btn-secondary btn-sm">Manage 2FA Settings</button>
         </div>
       </div>
@@ -1177,7 +1177,7 @@ function renderSecurityTab() {
         <div><div class="det-section-title">Recent Login History</div><div class="det-section-sub">Last 5 access events</div></div>
       </div>
       <div class="table-wrap">
-        <table class="u-fs-md" aria-label="Login history">
+        <table class="det-history-table" aria-label="Login history">
           <thead>
             <tr>
               <th>Date &amp; Time</th>
@@ -1189,9 +1189,9 @@ function renderSecurityTab() {
           <tbody>
             ${d.loginHistory.map(function(l) {
               return `<tr>
-                <td class="u-text-2">${l.date}</td>
+                <td class="det-history-meta">${l.date}</td>
                 <td>${l.device}</td>
-                <td class="u-text-2">${l.location}</td>
+                <td class="det-history-meta">${l.location}</td>
                 <td><span class="det-status-badge is-${l.status}">${l.status === 'success' ? '✓ Success' : '✕ Failed'}</span></td>
               </tr>`;
             }).join('')}
@@ -1200,7 +1200,7 @@ function renderSecurityTab() {
       </div>
       ${failedLogin ? `
         <div class="det-alert">
-          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="u-shrink-0 u-mt-2xs"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="det-alert-icon"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
           A failed login attempt was detected on 22 Feb 2026 from Paris, France. If this wasn't you, please contact your adviser immediately.
         </div>` : ''}
     </div>`;
@@ -1279,7 +1279,7 @@ function renderPrefsTab() {
   `;
 
   return `
-    <div class="det-section u-mb-base">
+    <div class="det-section">
       <div class="det-section-hd">
         <div><div class="det-section-title">Notification Preferences</div><div class="det-section-sub">Choose how you receive alerts and updates</div></div>
       </div>
@@ -1299,7 +1299,7 @@ function renderPrefsTab() {
             <span class="det-toggle-slider"></span>
           </label>
         </div>
-        <div class="det-field-list u-mt-xs">${commFields}</div>
+        <div class="det-field-list det-comm-fields">${commFields}</div>
       </div>
 
       <div class="det-section">
@@ -1336,7 +1336,7 @@ function renderPrefsTab() {
             <span class="det-toggle-slider"></span>
           </label>
         </div>
-        <div class="u-mt-base u-pt-base u-border-t">
+        <div class="det-section-foot">
           <button class="btn-secondary btn-sm">
             <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Export My Data (GDPR)
@@ -1392,7 +1392,7 @@ function renderContactHero() {
         <div class="contact-action-title">Call Us</div>
         <div class="contact-action-sub">0800 123 4567</div>
         <div class="contact-action-desc">Freephone Client Services line, available Monday to Friday, 8am – 6pm.</div>
-        <button class="btn-secondary btn-sm u-w-fit" onclick="alert('Call 0800 123 4567')">Call Now</button>
+        <button class="btn-secondary btn-sm contact-action-btn" onclick="alert('Call 0800 123 4567')">Call Now</button>
       </div>
       <div class="contact-action-tile">
         <div class="contact-action-icon">
@@ -1403,7 +1403,7 @@ function renderContactHero() {
         <div class="contact-action-title">Message Your Adviser</div>
         <div class="contact-action-sub">${d.adviser}</div>
         <div class="contact-action-desc">Send a secure, encrypted message directly to your dedicated relationship manager.</div>
-        <button class="btn-secondary btn-sm u-w-fit" onclick="contactScrollToForm('message')">Send Message</button>
+        <button class="btn-secondary btn-sm contact-action-btn" onclick="contactScrollToForm('message')">Send Message</button>
       </div>
       <div class="contact-action-tile">
         <div class="contact-action-icon">
@@ -1414,7 +1414,7 @@ function renderContactHero() {
         <div class="contact-action-title">Schedule a Meeting</div>
         <div class="contact-action-sub">Request a Callback</div>
         <div class="contact-action-desc">We'll call you back at a time that suits your schedule, typically within 2 business hours.</div>
-        <button class="btn-secondary btn-sm u-w-fit" onclick="contactScrollToForm('callback')">Request Callback</button>
+        <button class="btn-secondary btn-sm contact-action-btn" onclick="contactScrollToForm('callback')">Request Callback</button>
       </div>
     </div>`;
 }
@@ -1450,7 +1450,7 @@ function renderContactStrip() {
           <div class="contact-avail-dot"></div>
           Available today &nbsp;·&nbsp; Mon–Fri, 9am – 5pm
         </div>
-        <div class="u-mt-base">
+        <div class="contact-adviser-action">
           <button class="btn-secondary btn-sm" onclick="contactScrollToForm('adviser')">Send a Message</button>
         </div>
       </div>
@@ -1458,7 +1458,7 @@ function renderContactStrip() {
       <div class="card card-pad">
         <div class="contact-eyebrow">London Office</div>
         <div class="contact-office-addr">
-          <strong class="u-text-1">Aurelius Wealth Management</strong><br>
+          <strong>Aurelius Wealth Management</strong><br>
           One Cavendish Square<br>
           London, W1G 0LD<br>
           United Kingdom
@@ -1487,12 +1487,12 @@ function renderContactStrip() {
         <div class="contact-hours-row"><span class="contact-hours-day">Friday</span><span class="contact-hours-time">8:00 am – 5:00 pm</span></div>
         <div class="contact-hours-row"><span class="contact-hours-day">Saturday</span><span class="contact-hours-closed">Closed</span></div>
         <div class="contact-hours-row"><span class="contact-hours-day">Sunday</span><span class="contact-hours-closed">Closed</span></div>
-        <div class="contact-hours-row u-fs-sm u-text-3 u-border-b-0 u-pt-xs">All times GMT / BST</div>
+        <div class="contact-hours-row contact-hours-note">All times GMT / BST</div>
         <div class="contact-emergency">
           <div class="contact-emerg-dot"></div>
           <div>
-            <strong class="u-text-1">24/7 Emergency Line</strong><br>
-            <span class="u-font-serif u-text-accent">0800 999 8765</span>
+            <strong>24/7 Emergency Line</strong><br>
+            <span class="contact-emerg-phone">0800 999 8765</span>
           </div>
         </div>
       </div>
@@ -1516,16 +1516,16 @@ function renderContactMain() {
           <div class="contact-subhead">Getting There</div>
           <div class="contact-getting-row">
             <span class="contact-getting-icon">🚇</span>
-            <span><strong class="u-text-1">Oxford Circus</strong> (2 min walk) · Victoria, Central, Bakerloo lines<br>
-            <strong class="u-text-1">Bond Street</strong> (5 min walk) · Central, Jubilee lines</span>
+            <span><strong>Oxford Circus</strong> (2 min walk) · Victoria, Central, Bakerloo lines<br>
+            <strong>Bond Street</strong> (5 min walk) · Central, Jubilee lines</span>
           </div>
           <div class="contact-getting-row">
             <span class="contact-getting-icon">🚌</span>
-            <span>Routes <strong class="u-text-1">10, 55, 98, C2</strong> — Oxford Street stop (2 min walk)</span>
+            <span>Routes <strong>10, 55, 98, C2</strong> — Oxford Street stop (2 min walk)</span>
           </div>
           <div class="contact-getting-row">
             <span class="contact-getting-icon">🅿</span>
-            <span><strong class="u-text-1">Q-Park Cavendish Square</strong>, NCP on Wimpole Street</span>
+            <span><strong>Q-Park Cavendish Square</strong>, NCP on Wimpole Street</span>
           </div>
         </div>
       </div>
@@ -1552,9 +1552,9 @@ function renderContactForm() {
     <div class="contact-form-overlay">
       <div class="contact-spinner"></div>
       <div class="drawer-heading">Sending securely…</div>
-      <div class="u-fs-md u-text-3">Please wait a moment</div>
+      <div class="contact-sending-note">Please wait a moment</div>
     </div>` : ''}
-    <div class="u-flex u-flex-col u-gap-base">
+    <div class="contact-form-fields">
       <div>
         <label class="adv-drawer-label">Enquiry Type</label>
         <select class="det-select" id="cf-type" onchange="contactState.formData.type=this.value">
@@ -1592,8 +1592,8 @@ function renderContactForm() {
           <button class="contact-seg-btn ${fd.urgency==='urgent'?'is-active':''}" onclick="setContactUrgency('urgent')">Urgent</button>
         </div>
       </div>
-      <button class="btn-primary u-w-full u-justify-center" onclick="submitContactForm()">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="u-me-s"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"/></svg>
+      <button class="btn-primary contact-submit" onclick="submitContactForm()">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="contact-submit-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"/></svg>
         Send Enquiry Securely
       </button>
       <div class="contact-lock-note">
@@ -1815,7 +1815,7 @@ function renderAdviserForm() {
           Your reference: <strong>${adviserMsgState.ref}</strong><br>
           James Whitmore will respond within 1 business day.
         </div>
-        <button class="btn-secondary u-mt-s" onclick="resetAdviserMsg()">
+        <button class="btn-secondary adv-send-another" onclick="resetAdviserMsg()">
           Send Another Message
         </button>
       </div>`;
@@ -1829,11 +1829,11 @@ function renderAdviserForm() {
     { val: 'urgent',  label: 'Urgent' },
   ];
 
-  el.classList.add('u-relative');
+  el.classList.add('contact-form-host');
   el.innerHTML = `
     <div>
       <label class="adv-drawer-label">Enquiry Type</label>
-      <select class="det-select u-w-full">
+      <select class="det-select">
         <option>Investment Query</option>
         <option>Account Administration</option>
         <option>Tax &amp; Planning</option>
@@ -1844,12 +1844,12 @@ function renderAdviserForm() {
     </div>
     <div>
       <label class="adv-drawer-label">Subject</label>
-      <input class="det-input u-w-full u-border-box"
+      <input class="det-input"
              placeholder="Brief subject of your message" />
     </div>
     <div>
       <label class="adv-drawer-label">Message</label>
-      <textarea class="contact-textarea u-w-full u-border-box" rows="6"
+      <textarea class="contact-textarea" rows="6"
                 maxlength="1000"
                 placeholder="Type your message to James Whitmore…"
                 oninput="document.getElementById('adv-char').textContent=this.value.length+'/1000'">
@@ -1865,7 +1865,7 @@ function renderAdviserForm() {
         ).join('')}
       </div>
     </div>
-    <button class="btn-primary u-w-full u-mt-xs"
+    <button class="btn-primary drawer-submit"
             onclick="submitAdviserMsg()">Send Secure Message</button>
     <div class="contact-lock-note">
       <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
@@ -1878,7 +1878,7 @@ function renderAdviserForm() {
   /* ── Sending overlay ── */
   if (adviserMsgState.status === 'sending') {
     const overlay = document.createElement('div');
-    overlay.className = 'contact-form-overlay u-radius-0';
+    overlay.className = 'contact-form-overlay contact-form-overlay--drawer';
     overlay.innerHTML = `
       <div class="contact-spinner"></div>
       <div class="drawer-heading">
@@ -1927,7 +1927,7 @@ function renderAddInvestmentForm() {
   if (addInvestmentState.status === 'sent') {
     el.innerHTML = `
       <div class="drawer-success">
-        <div class="contact-sent-icon u-mx-auto u-mt-0 u-mb-base">
+        <div class="contact-sent-icon">
           <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
             <polyline points="20 6 9 17 4 12"/>
           </svg>
@@ -1939,7 +1939,7 @@ function renderAddInvestmentForm() {
         <div class="drawer-success-body">
           James Whitmore will review your investment instruction<br>within 1 business day.
         </div>
-        <button class="btn-secondary u-w-full" onclick="resetAddInvestment()">
+        <button class="btn-secondary drawer-reset" onclick="resetAddInvestment()">
           Submit Another
         </button>
       </div>`;
@@ -1965,21 +1965,21 @@ function renderAddInvestmentForm() {
     <!-- SECTION 1: Security -->
     <div class="add-inv-section">Security</div>
 
-    <div class="u-flex u-flex-col u-gap-m">
+    <div class="drawer-fields">
       <div>
-        <label class="adv-drawer-label">Fund / Security Name <span class="u-text-red">*</span></label>
-        <input id="inv-name" class="det-input u-w-full u-border-box"
+        <label class="adv-drawer-label">Fund / Security Name <span class="adv-drawer-required">*</span></label>
+        <input id="inv-name" class="det-input"
                placeholder="e.g. Artisan Partners Global Value" />
       </div>
       <div>
         <label class="adv-drawer-label">ISIN</label>
-        <input id="inv-isin" class="det-input det-mono-input u-w-full u-border-box"
+        <input id="inv-isin" class="det-input det-mono-input"
                placeholder="e.g. GB00B7FQLH15" maxlength="12" />
       </div>
       <div class="add-inv-row-2">
         <div>
           <label class="adv-drawer-label">Asset Type</label>
-          <select id="inv-type" class="det-select u-w-full">
+          <select id="inv-type" class="det-select">
             <option>GBP Mutual Fund</option>
             <option>ETF</option>
             <option>UK Equity</option>
@@ -1991,7 +1991,7 @@ function renderAddInvestmentForm() {
         </div>
         <div>
           <label class="adv-drawer-label">Currency</label>
-          <select id="inv-currency" class="det-select u-w-full">
+          <select id="inv-currency" class="det-select">
             <option>GBP</option>
             <option>USD</option>
             <option>EUR</option>
@@ -2014,7 +2014,7 @@ function renderAddInvestmentForm() {
     <!-- SECTION 3: Trade Details -->
     <div class="add-inv-section">Trade Details</div>
 
-    <div class="u-flex u-flex-col u-gap-m">
+    <div class="drawer-fields">
       <div>
         <label class="adv-drawer-label">Investment Method</label>
         <div class="contact-seg">
@@ -2028,20 +2028,20 @@ function renderAddInvestmentForm() {
       ${addInvestmentState.method === 'amount' ? `
       <div>
         <label class="adv-drawer-label">Investment Amount (£)</label>
-        <input id="inv-amount" class="det-input u-w-full u-border-box" type="number" min="0" step="0.01"
+        <input id="inv-amount" class="det-input" type="number" min="0" step="0.01"
                placeholder="e.g. 10000"
                oninput="updateInvSummary()" />
       </div>` : `
       <div>
         <label class="adv-drawer-label">Number of Units</label>
-        <input id="inv-units" class="det-input u-w-full u-border-box" type="number" min="0" step="0.0001"
+        <input id="inv-units" class="det-input" type="number" min="0" step="0.0001"
                placeholder="e.g. 430.00"
                oninput="updateInvSummary()" />
       </div>`}
 
       <div>
         <label class="adv-drawer-label">Unit Price (pence)</label>
-        <input id="inv-price" class="det-input u-w-full u-border-box" type="number" min="0" step="0.01"
+        <input id="inv-price" class="det-input" type="number" min="0" step="0.01"
                placeholder="e.g. 23.29"
                oninput="updateInvSummary()" />
       </div>
@@ -2051,12 +2051,12 @@ function renderAddInvestmentForm() {
       <div class="add-inv-row-2">
         <div>
           <label class="adv-drawer-label">Trade Date</label>
-          <input id="inv-date" class="det-input u-w-full u-border-box" type="date"
+          <input id="inv-date" class="det-input" type="date"
                  value="${today}" />
         </div>
         <div>
           <label class="adv-drawer-label">Dealing Instruction</label>
-          <select id="inv-dealing" class="det-select u-w-full">
+          <select id="inv-dealing" class="det-select">
             <option>Market Order</option>
             <option>Limit Order</option>
           </select>
@@ -2068,13 +2068,13 @@ function renderAddInvestmentForm() {
     <div class="add-inv-section">Additional Instructions</div>
 
     <div>
-      <textarea id="inv-notes" class="contact-textarea u-w-full u-border-box" rows="4"
+      <textarea id="inv-notes" class="contact-textarea" rows="4"
                 maxlength="500" placeholder="Any specific instructions for your adviser…"
                 oninput="document.getElementById('inv-char').textContent=this.value.length+'/500'"></textarea>
       <div class="contact-char-count" id="inv-char">0/500</div>
     </div>
 
-    <button class="btn-primary u-w-full u-mt-xs"
+    <button class="btn-primary drawer-submit"
             onclick="submitAddInvestment()">Submit Investment Instruction</button>
 
     <div class="contact-lock-note">
@@ -2088,7 +2088,7 @@ function renderAddInvestmentForm() {
   /* ── Sending overlay ── */
   if (addInvestmentState.status === 'sending') {
     const overlay = document.createElement('div');
-    overlay.className = 'contact-form-overlay u-radius-0';
+    overlay.className = 'contact-form-overlay contact-form-overlay--drawer';
     overlay.innerHTML = `
       <div class="contact-spinner"></div>
       <div class="drawer-heading">
@@ -2120,7 +2120,7 @@ function updateInvSummary() {
             <div class="add-inv-summary-label">Estimated Units</div>
             <div class="add-inv-summary-val">${estUnits}</div>
           </div>
-          <div class="u-text-right">
+          <div class="add-inv-summary-end">
             <div class="add-inv-summary-label">At Price</div>
             <div class="add-inv-summary-val">${price}p</div>
           </div>
@@ -2133,7 +2133,7 @@ function updateInvSummary() {
             <div class="add-inv-summary-label">Estimated Cost</div>
             <div class="add-inv-summary-val">£${estCost}</div>
           </div>
-          <div class="u-text-right">
+          <div class="add-inv-summary-end">
             <div class="add-inv-summary-label">At Price</div>
             <div class="add-inv-summary-val">${price}p</div>
           </div>
@@ -2191,7 +2191,7 @@ function renderAddFundForm() {
   if (addFundState.status === 'sent') {
     el.innerHTML = `
       <div class="drawer-success">
-        <div class="contact-sent-icon u-mx-auto u-mt-0 u-mb-base">
+        <div class="contact-sent-icon">
           <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
             <polyline points="20 6 9 17 4 12"/>
           </svg>
@@ -2203,7 +2203,7 @@ function renderAddFundForm() {
         <div class="drawer-success-body">
           James Whitmore will review and action your instruction<br>within 1 business day. A confirmation note will be<br>added to your Document Library.
         </div>
-        <button class="btn-secondary u-w-full" onclick="resetAddFund()">
+        <button class="btn-secondary drawer-reset" onclick="resetAddFund()">
           Submit Another Instruction
         </button>
       </div>`;
@@ -2243,32 +2243,32 @@ function renderAddFundForm() {
     <!-- SECTION 1: Fund Details -->
     <div class="add-inv-section">Fund Details</div>
 
-    <div class="u-flex u-flex-col u-gap-m">
+    <div class="drawer-fields">
       <div>
-        <label class="adv-drawer-label">Fund / Security Name <span class="u-text-red">*</span></label>
-        <input id="fund-name" class="det-input u-w-full u-border-box"
+        <label class="adv-drawer-label">Fund / Security Name <span class="adv-drawer-required">*</span></label>
+        <input id="fund-name" class="det-input"
                placeholder="e.g. Artisan Partners Global Value" />
       </div>
       <div class="add-inv-row-2">
         <div>
           <label class="adv-drawer-label">ISIN</label>
-          <input id="fund-isin" class="det-input det-mono-input u-w-full u-border-box"
+          <input id="fund-isin" class="det-input det-mono-input"
                  placeholder="e.g. GB00B7FQLH15" maxlength="12" />
         </div>
         <div>
           <label class="adv-drawer-label">SEDOL</label>
-          <input id="fund-sedol" class="det-input det-mono-input u-w-full u-border-box"
+          <input id="fund-sedol" class="det-input det-mono-input"
                  placeholder="e.g. B7FQLH1" maxlength="7" />
         </div>
       </div>
       <div>
         <label class="adv-drawer-label">Fund House / Manager</label>
-        <input id="fund-house" class="det-input u-w-full u-border-box"
+        <input id="fund-house" class="det-input"
                placeholder="e.g. Artisan Partners" />
       </div>
       <div>
         <label class="adv-drawer-label">Share Class</label>
-        <input id="fund-shareclass" class="det-input u-w-full u-border-box"
+        <input id="fund-shareclass" class="det-input"
                placeholder="e.g. Z GBP Accumulation" />
       </div>
     </div>
@@ -2276,11 +2276,11 @@ function renderAddFundForm() {
     <!-- SECTION 2: Classification -->
     <div class="add-inv-section">Classification</div>
 
-    <div class="u-flex u-flex-col u-gap-m">
+    <div class="drawer-fields">
       <div class="add-inv-row-2">
         <div>
           <label class="adv-drawer-label">Asset Class</label>
-          <select id="fund-assetclass" class="det-select u-w-full">
+          <select id="fund-assetclass" class="det-select">
             <option>Equity</option>
             <option>Fixed Income</option>
             <option>Multi-Asset</option>
@@ -2291,7 +2291,7 @@ function renderAddFundForm() {
         </div>
         <div>
           <label class="adv-drawer-label">Currency</label>
-          <select id="fund-currency" class="det-select u-w-full">
+          <select id="fund-currency" class="det-select">
             <option>GBP</option>
             <option>USD</option>
             <option>EUR</option>
@@ -2302,7 +2302,7 @@ function renderAddFundForm() {
       </div>
       <div>
         <label class="adv-drawer-label">Geographic Focus</label>
-        <select id="fund-geo" class="det-select u-w-full">
+        <select id="fund-geo" class="det-select">
           <option>Global</option>
           <option>UK</option>
           <option>North America</option>
@@ -2318,7 +2318,7 @@ function renderAddFundForm() {
     <!-- SECTION 3: Transaction Type -->
     <div class="add-inv-section">Transaction Type</div>
 
-    <div class="contact-seg u-flex-wrap">
+    <div class="contact-seg">
       ${txOpts.map(o =>
         `<button class="contact-seg-btn${addFundState.txType === o.val ? ' is-active' : ''}"
                  onclick="setFundTxType('${o.val}')">${o.label}</button>`
@@ -2326,29 +2326,29 @@ function renderAddFundForm() {
     </div>
 
     ${addFundState.txType === 'switch' ? `
-    <div class="u-mt-m">
+    <div class="drawer-tx-detail">
       <label class="adv-drawer-label">Switch From (Existing Holding)</label>
-      <select id="fund-switch-from" class="det-select u-w-full">
+      <select id="fund-switch-from" class="det-select">
         ${holdingOptions}
       </select>
     </div>` : ''}
 
     ${addFundState.txType === 'transfer' ? `
-    <div class="u-flex u-flex-col u-gap-m u-mt-m">
+    <div class="drawer-fields drawer-tx-detail">
       <div>
         <label class="adv-drawer-label">Transferring Provider</label>
-        <input id="fund-transfer-provider" class="det-input u-w-full u-border-box"
+        <input id="fund-transfer-provider" class="det-input"
                placeholder="e.g. Hargreaves Lansdown" />
       </div>
       <div class="add-inv-row-2">
         <div>
           <label class="adv-drawer-label">Approx. Transfer Value (£)</label>
-          <input id="fund-transfer-value" class="det-input u-w-full u-border-box" type="number" min="0"
+          <input id="fund-transfer-value" class="det-input" type="number" min="0"
                  placeholder="e.g. 50,000" />
         </div>
         <div>
           <label class="adv-drawer-label">Transfer Type</label>
-          <select id="fund-transfer-type" class="det-select u-w-full">
+          <select id="fund-transfer-type" class="det-select">
             <option>In-Specie (as is)</option>
             <option>Cash Transfer</option>
           </select>
@@ -2370,7 +2370,7 @@ function renderAddFundForm() {
     <!-- SECTION 5: Trade Execution -->
     <div class="add-inv-section">Trade Execution</div>
 
-    <div class="u-flex u-flex-col u-gap-m">
+    <div class="drawer-fields">
       <div>
         <label class="adv-drawer-label">Investment Method</label>
         <div class="contact-seg">
@@ -2384,20 +2384,20 @@ function renderAddFundForm() {
       ${addFundState.method === 'amount' ? `
       <div>
         <label class="adv-drawer-label">Investment Amount (£)</label>
-        <input id="fund-amount" class="det-input u-w-full u-border-box" type="number" min="0" step="0.01"
+        <input id="fund-amount" class="det-input" type="number" min="0" step="0.01"
                placeholder="e.g. 25,000"
                oninput="updateFundSummary()" />
       </div>` : `
       <div>
         <label class="adv-drawer-label">Number of Units</label>
-        <input id="fund-units" class="det-input u-w-full u-border-box" type="number" min="0" step="0.0001"
+        <input id="fund-units" class="det-input" type="number" min="0" step="0.0001"
                placeholder="e.g. 1,000.00"
                oninput="updateFundSummary()" />
       </div>`}
 
       <div>
-        <label class="adv-drawer-label">Unit Price (pence) <span class="u-text-3 u-fw-regular">— optional, for limit orders</span></label>
-        <input id="fund-price" class="det-input u-w-full u-border-box" type="number" min="0" step="0.01"
+        <label class="adv-drawer-label">Unit Price (pence) <span class="adv-drawer-optional">— optional, for limit orders</span></label>
+        <input id="fund-price" class="det-input" type="number" min="0" step="0.01"
                placeholder="e.g. 2,329.00"
                oninput="updateFundSummary()" />
       </div>
@@ -2407,12 +2407,12 @@ function renderAddFundForm() {
       <div class="add-inv-row-2">
         <div>
           <label class="adv-drawer-label">Trade Date</label>
-          <input id="fund-date" class="det-input u-w-full u-border-box" type="date"
+          <input id="fund-date" class="det-input" type="date"
                  value="${today}" />
         </div>
         <div>
           <label class="adv-drawer-label">Settlement</label>
-          <select id="fund-settlement" class="det-select u-w-full">
+          <select id="fund-settlement" class="det-select">
             <option>Standard (T+2)</option>
             <option>Next Dealing Day</option>
             <option>Specific Date</option>
@@ -2421,7 +2421,7 @@ function renderAddFundForm() {
       </div>
       <div>
         <label class="adv-drawer-label">Instruction Type</label>
-        <select id="fund-instruction" class="det-select u-w-full">
+        <select id="fund-instruction" class="det-select">
           <option>Best Execution</option>
           <option>Market Order</option>
           <option>Limit Order</option>
@@ -2434,22 +2434,22 @@ function renderAddFundForm() {
     <!-- SECTION 5: Regular Savings -->
     <div class="add-inv-section">Regular Savings</div>
 
-    <div class="u-flex u-flex-col u-gap-m">
+    <div class="drawer-fields">
       <div class="add-inv-row-2">
         <div>
           <label class="adv-drawer-label">Monthly Amount (£)</label>
-          <input id="fund-regular-amount" class="det-input u-w-full u-border-box" type="number" min="0"
+          <input id="fund-regular-amount" class="det-input" type="number" min="0"
                  placeholder="e.g. 500" />
         </div>
         <div>
           <label class="adv-drawer-label">Start Date</label>
-          <input id="fund-regular-start" class="det-input u-w-full u-border-box" type="date"
+          <input id="fund-regular-start" class="det-input" type="date"
                  value="${today}" />
         </div>
       </div>
       <div>
         <label class="adv-drawer-label">Payment Method</label>
-        <select id="fund-payment" class="det-select u-w-full">
+        <select id="fund-payment" class="det-select">
           <option>Direct Debit</option>
           <option>Standing Order</option>
           <option>Cash Balance</option>
@@ -2463,18 +2463,18 @@ function renderAddFundForm() {
     <div class="add-fund-risk-strip">
       <div>
         <div class="add-inv-summary-label">Current Risk Profile</div>
-        <div class="u-fs-ui u-fw-semibold u-text-1 u-mt-2xs">Balanced Growth · Level 5 of 10</div>
+        <div class="add-fund-risk-name">Balanced Growth · Level 5 of 10</div>
       </div>
       <div class="add-fund-risk-bar">
-        <div class="add-fund-risk-fill u-w-dyn" style="--dyn-w:50%"></div>
+        <div class="add-fund-risk-fill" style="--risk-pct:50%"></div>
       </div>
     </div>
 
     <label class="add-fund-checkbox-row">
-      <input type="checkbox" class="u-accent u-size-icon-s u-shrink-0 u-mt-2xs"
+      <input type="checkbox" class="add-fund-check"
              ${addFundState.suitability ? 'checked' : ''}
              onchange="addFundState.suitability=this.checked" />
-      <span class="u-fs-md u-text-2 u-lh-normal">
+      <span class="add-fund-check-text">
         I confirm this fund aligns with my investment objectives and risk profile as documented in my most recent Suitability Report.
       </span>
     </label>
@@ -2483,13 +2483,13 @@ function renderAddFundForm() {
     <div class="add-inv-section">Additional Notes</div>
 
     <div>
-      <textarea id="fund-notes" class="contact-textarea u-w-full u-border-box" rows="4"
+      <textarea id="fund-notes" class="contact-textarea" rows="4"
                 maxlength="500" placeholder="Any specific instructions or considerations for your adviser…"
                 oninput="document.getElementById('fund-char').textContent=this.value.length+'/500'"></textarea>
       <div class="contact-char-count" id="fund-char">0/500</div>
     </div>
 
-    <button class="btn-primary u-w-full u-mt-xs"
+    <button class="btn-primary drawer-submit"
             onclick="submitAddFund()">Submit Dealing Instruction</button>
 
     <div class="contact-lock-note">
@@ -2503,7 +2503,7 @@ function renderAddFundForm() {
   /* ── Sending overlay ── */
   if (addFundState.status === 'sending') {
     const overlay = document.createElement('div');
-    overlay.className = 'contact-form-overlay u-radius-0';
+    overlay.className = 'contact-form-overlay contact-form-overlay--drawer';
     overlay.innerHTML = `
       <div class="contact-spinner"></div>
       <div class="drawer-heading">
@@ -2531,14 +2531,14 @@ function updateFundSummary() {
       wrap.innerHTML = `
         <div class="add-inv-summary">
           <div><div class="add-inv-summary-label">Estimated Units</div><div class="add-inv-summary-val">${estUnits}</div></div>
-          <div class="u-text-right"><div class="add-inv-summary-label">At Price</div><div class="add-inv-summary-val">${price}p</div></div>
+          <div class="add-inv-summary-end"><div class="add-inv-summary-label">At Price</div><div class="add-inv-summary-val">${price}p</div></div>
         </div>`;
     } else {
       const estCost = (primary * pricePounds).toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       wrap.innerHTML = `
         <div class="add-inv-summary">
           <div><div class="add-inv-summary-label">Estimated Cost</div><div class="add-inv-summary-val">£${estCost}</div></div>
-          <div class="u-text-right"><div class="add-inv-summary-label">At Price</div><div class="add-inv-summary-val">${price}p</div></div>
+          <div class="add-inv-summary-end"><div class="add-inv-summary-label">At Price</div><div class="add-inv-summary-val">${price}p</div></div>
         </div>`;
     }
   } else {
@@ -2856,7 +2856,7 @@ function renderAddFundsPage() {
             'Estimated arrival: <strong>' + m.arrival + '</strong>' +
           '</div>' +
           '<div class="form-success-actions">' +
-            '<a href="/my-investments/" class="btn-primary u-text-center u-no-underline u-flex u-items-center u-justify-center u-gap-s">' +
+            '<a href="/my-investments/" class="btn-primary form-success-link">' +
               '<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>' +
               'Back to My Investments' +
             '</a>' +

@@ -31,3 +31,5 @@
 .activity-amount.is-positive { color: var(--green); }
 .activity-amount.is-negative { color: var(--red); }
 .activity-time { color: var(--text-3); font-size: var(--fs-sm); margin-block-start: 2px; text-align: end; }
+
+.activity-figures { flex-shrink: 0; text-align: end; }

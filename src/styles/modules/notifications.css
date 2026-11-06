@@ -314,3 +314,6 @@
 
 /* ── Trigger button: hide gold dot when all read ── */
 #notif-btn.has-no-unread .notif-dot { display: none; }
+
+/* Positions .notif-dot against the control it belongs to */
+.notif-host { display: inline-flex; position: relative; }

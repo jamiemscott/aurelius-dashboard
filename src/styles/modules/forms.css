@@ -634,3 +634,40 @@ select {
 
 /* Compact select for filter rows */
 .select--compact { padding: 6px 32px 6px 12px; }
+
+.form-success-link {
+  align-items: center;
+  display: flex;
+  gap: var(--space-s);
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* File upload: a label styled as the control, with the native input hidden but
+   still focusable and announced. */
+.file-upload {
+  align-items: center;
+  background: var(--bg-input);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-item);
+  color: var(--text-2);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  gap: var(--space-s);
+  padding: var(--space-s) var(--space-base);
+}
+
+.file-upload:has(.file-upload-input:focus-visible) { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+.file-upload-input {
+  border: 0;
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}

@@ -265,7 +265,7 @@
       <!-- Input bar -->
       <div class="adv-input-bar" role="region" aria-label="Send a message">
         <textarea
-          class="adv-textarea u-h-dyn"
+          class="adv-textarea"
           id="chat-input"
           placeholder="Ask your adviser anything…"
           rows="1"
@@ -373,8 +373,8 @@
   const sendBtn  = document.getElementById('chat-send');
 
   function resizeTextarea() {
-    textarea.style.setProperty('--dyn-h', 'auto');
-    textarea.style.setProperty('--dyn-h', Math.min(textarea.scrollHeight, 140) + 'px');
+    textarea.style.setProperty('--adv-input-h', 'auto');
+    textarea.style.setProperty('--adv-input-h', Math.min(textarea.scrollHeight, 140) + 'px');
   }
 
   textarea.addEventListener('input', function () {
@@ -421,7 +421,7 @@
 
     /* Clear input */
     textarea.value = '';
-    textarea.style.setProperty('--dyn-h', 'auto');
+    textarea.style.setProperty('--adv-input-h', 'auto');
     sendBtn.disabled = true;
 
     /* Show typing indicator */

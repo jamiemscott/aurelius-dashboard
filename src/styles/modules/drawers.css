@@ -151,6 +151,7 @@
 
 .add-fund-risk-fill {
   background: var(--gold);
+  width: var(--risk-pct, 0%);
   border-radius: 999px;
   height: 100%;
 }
@@ -429,3 +430,28 @@
   line-height: var(--lh-relaxed);
   margin-block: 12px 24px;
 }
+
+.drawer-fields { display: flex; flex-direction: column; gap: var(--space-m); }
+.drawer-tx-detail { margin-block-start: var(--space-m); }
+.drawer-submit { margin-block-start: var(--space-xs); width: 100%; }
+.drawer-reset { width: 100%; }
+.drawer-success .contact-sent-icon { margin: 0 auto var(--space-base); }
+
+.add-inv-summary-end { text-align: end; }
+
+.add-fund-risk-name {
+  color: var(--text-1);
+  font-size: var(--fs-ui);
+  font-weight: var(--fw-semibold);
+  margin-block-start: 2px;
+}
+
+.add-fund-check {
+  accent-color: var(--gold);
+  flex-shrink: 0;
+  height: 16px;
+  margin-block-start: 2px;
+  width: 16px;
+}
+
+.add-fund-check-text { color: var(--text-2); font-size: var(--fs-md); line-height: var(--lh-normal); }

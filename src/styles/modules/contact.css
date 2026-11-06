@@ -164,3 +164,23 @@
   padding-block: 24px;
   text-align: center;
 }
+
+.contact-action-btn { width: fit-content; }
+.contact-adviser-action { margin-block-start: var(--space-base); }
+
+:is(.contact-office-addr, .contact-emergency, .contact-getting-row) strong { color: var(--text-1); }
+
+.contact-hours-row.contact-hours-note {
+  border-block-end: 0;
+  color: var(--text-3);
+  font-size: var(--fs-sm);
+  padding-block-start: var(--space-xs);
+}
+
+.contact-emerg-phone { color: var(--gold); font-family: var(--font-serif); }
+.contact-sending-note { color: var(--text-3); font-size: var(--fs-md); }
+.contact-form-fields { display: flex; flex-direction: column; gap: var(--space-base); }
+.contact-form-host { position: relative; }
+.contact-form-overlay--drawer { border-radius: 0; }
+.contact-submit { justify-content: center; width: 100%; }
+.contact-submit-icon { margin-inline-end: var(--space-s); }

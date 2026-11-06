@@ -21,7 +21,6 @@ const NAV_GROUPS = [
       { id: 'theming',      label: 'Theming',       href: 'theming.html',       icon: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>' },
       { id: 'transitions',  label: 'Transitions',  href: 'transitions.html',  icon: '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/><rect x="2" y="4" width="6" height="16" rx="1" opacity=".4"/>' },
       { id: 'typography',   label: 'Typography',   href: 'typography.html',   icon: '<polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/>' },
-      { id: 'utilities',    label: 'Utilities',    href: 'utilities.html',    icon: '<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>' },
     ],
   },
   {

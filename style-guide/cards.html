@@ -32,10 +32,10 @@
         <p class="sg-section-desc">The foundational surface for any grouped content. The <code>.card</code> class provides background, shadow, radius, and padding. Pair with <code>.card-pad</code> if you need consistent inner spacing without overriding the base. Use <code>.card</code> as a layout container — never style inner content via the card class itself.</p>
       </div>
       <div class="sg-demo">
-        <div class="card card-pad u-max-w-s">
-          <h3 class="u-text-1 u-fs-5xl u-fw-semibold u-m-0 u-mb-s">Recent Activity</h3>
-          <p class="u-text-2 u-fs-body u-m-0 u-mb-base">Your last three portfolio movements are shown below.</p>
-          <div class="u-border-t u-pt-m u-text-3 u-fs-sm">No recent transactions</div>
+        <div class="card card-pad sg-fit-card">
+          <h3 class="sg-glyph">Recent Activity</h3>
+          <p class="sg-copy">Your last three portfolio movements are shown below.</p>
+          <div class="sg-meta">No recent transactions</div>
         </div>
       </div>
       <div class="sg-code">
@@ -54,7 +54,7 @@
         <p class="sg-section-desc">A compact metric tile showing a label, primary value, and an optional change indicator. Used in grids of 2–4 across the dashboard overview. The <code>.kpi-change</code> element takes <code>.is-up</code> or <code>.is-down</code> state classes for colour. <code>.kpi-change-period</code> provides soft context text.</p>
       </div>
       <div class="sg-demo">
-        <div class="kpi-grid u-grid-dyn" style="--dyn-cols:repeat(auto-fill,minmax(180px,1fr))">
+        <div class="kpi-grid sg-kpi-grid--auto">
           <div class="kpi-card">
             <div class="kpi-label">Total Portfolio</div>
             <div class="kpi-value">£1,284,500</div>
@@ -108,8 +108,8 @@
       </div>
       <div class="sg-demo">
         <div class="kpi-group">
-          <div class="u-text-3 u-fs-xs u-ls-widest u-uppercase u-mb-m">Equity Breakdown</div>
-          <div class="kpi-grid u-grid-3">
+          <div class="sg-eyebrow">Equity Breakdown</div>
+          <div class="kpi-grid sg-kpi-grid--three">
             <div class="kpi-card">
               <div class="kpi-label">UK Equities</div>
               <div class="kpi-value">£480,000</div>
@@ -147,7 +147,7 @@
         <p class="sg-section-desc">The hero metric tile. Use exactly once per page to highlight the most important portfolio number. The <code>.is-featured</code> modifier scales up the value, adds a gold accent, and gives the card extra weight. Never feature more than one KPI simultaneously.</p>
       </div>
       <div class="sg-demo">
-        <div class="kpi-card is-featured u-max-w-s">
+        <div class="kpi-card is-featured sg-fit-card">
           <div class="kpi-label">Total Portfolio Value</div>
           <div class="kpi-value">£1,284,500</div>
           <div class="kpi-change is-up">+£142,380 (12.4%) <span class="kpi-change-period">since inception</span></div>
@@ -173,7 +173,7 @@
         <h2 class="sg-section-title">Advisor Card</h2>
         <p class="sg-section-desc">The advisor card appears in the sidebar footer — it is a fixed branding component, not a reusable card variant. The structure uses <code>.advisor-card</code>, <code>.advisor-label</code>, <code>.advisor-name</code>, and <code>.advisor-contact</code> elements. Do not use this pattern outside the sidebar footer.</p>
       </div>
-      <div class="sg-demo u-max-w-xs">
+      <div class="sg-demo sg-fit-sidebar">
         <div class="advisor-card">
           <div class="advisor-label">Your Adviser</div>
           <div class="advisor-name">Sarah Mitchell</div>

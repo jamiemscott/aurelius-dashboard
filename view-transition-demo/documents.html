@@ -6,6 +6,7 @@
 <title>View Transition Demo — Documents</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="demo.css">
 <style>
   @view-transition { navigation: auto; }
 
@@ -121,30 +122,30 @@
     </div>
 
     <!-- Filter bar -->
-    <div class="card card-pad u-mb-base u-py-base u-px-l">
-      <div class="u-flex u-gap-m u-flex-wrap u-items-center">
-        <span class="u-fs-ui u-text-3 u-me-xs">Filter:</span>
-        <select class="u-w-auto select--compact u-fs-ui">
+    <div class="card card-pad demo-filter-card">
+      <div class="demo-filter-row">
+        <span class="demo-filter-label">Filter:</span>
+        <select class="select--compact demo-select">
           <option>All Types</option>
           <option>Valuation Reports</option>
           <option>Tax Certificates</option>
           <option>Contract Notes</option>
           <option>Correspondence</option>
         </select>
-        <select class="u-w-auto select--compact u-fs-ui">
+        <select class="select--compact demo-select">
           <option>All Years</option>
           <option>2026</option>
           <option>2025</option>
           <option>2024</option>
         </select>
-        <button class="btn-secondary u-fs-ui u-py-s u-px-base u-ms-auto">Mark All Read</button>
+        <button class="btn-secondary demo-btn demo-btn--end">Mark All Read</button>
       </div>
     </div>
 
     <!-- Unread section -->
-    <div class="card u-mb-base">
-      <div class="u-pt-base u-pb-m u-px-l u-border-b u-flex u-items-center u-gap-m">
-        <h2 class="chart-title u-m-0">Unread</h2>
+    <div class="card demo-card">
+      <div class="demo-panel-head demo-panel-head--row">
+        <h2 class="chart-title demo-title">Unread</h2>
         <span class="nav-badge sg-static">3</span>
       </div>
       <div class="doc-list">
@@ -202,8 +203,8 @@
 
     <!-- Earlier section -->
     <div class="card">
-      <div class="u-pt-base u-pb-m u-px-l u-border-b">
-        <h2 class="chart-title u-m-0">Earlier</h2>
+      <div class="demo-panel-head">
+        <h2 class="chart-title demo-title">Earlier</h2>
       </div>
       <div class="doc-list">
 
@@ -268,9 +269,9 @@
         </div>
 
       </div>
-      <div class="u-py-base u-px-l u-border-t u-flex u-justify-between u-items-center">
-        <span class="u-fs-ui u-text-3">Showing 4 of 22 earlier documents</span>
-        <button class="btn-secondary u-fs-ui u-py-s u-px-base">Load More</button>
+      <div class="demo-panel-foot">
+        <span class="demo-panel-count">Showing 4 of 22 earlier documents</span>
+        <button class="btn-secondary demo-btn">Load More</button>
       </div>
     </div>
 

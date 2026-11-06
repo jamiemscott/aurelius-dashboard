@@ -1007,6 +1007,7 @@
 }
 
 .ais-result-logo {
+  background: var(--ais-logo-color);
   align-items: center;
   border-radius: 10px;
   color: #fff;

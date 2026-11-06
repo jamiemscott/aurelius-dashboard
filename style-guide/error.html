@@ -82,15 +82,15 @@
         <h2 class="sg-section-title">404 — Page Not Found</h2>
         <p class="sg-section-desc">Used when a route or URL does not exist, or a resource has been removed. The primary action returns the user to the dashboard; the secondary action links to client services.</p>
       </div>
-      <div class="sg-demo sg-demo--col u-max-w-s">
+      <div class="sg-demo sg-demo--col sg-fit-card">
 
         <!-- Error code -->
         <p class="error-page-code" aria-hidden="true">404</p>
-        <h2 class="utility-heading u-mb-s">Page not found.</h2>
-        <p class="utility-sub u-mb-0">The page you're looking for doesn't exist or may have been moved. Check the address or return to your dashboard.</p>
+        <h2 class="utility-heading">Page not found.</h2>
+        <p class="utility-sub">The page you're looking for doesn't exist or may have been moved. Check the address or return to your dashboard.</p>
 
         <div class="error-page-actions">
-          <a href="../index.html" class="login-submit u-flex u-items-center u-justify-center u-no-underline">Return to dashboard</a>
+          <a href="../index.html" class="login-submit">Return to dashboard</a>
           <div class="login-divider" role="separator" aria-hidden="true">or</div>
           <a href="mailto:clientservices@aureliuswm.co.uk" class="login-support">
             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
@@ -133,11 +133,11 @@
         <h2 class="sg-section-title">500 — Service Unavailable</h2>
         <p class="sg-section-desc">Used when an unexpected server-side error occurs or a downstream service is temporarily unavailable. The messaging reassures the user the problem is not on their side and suggests retrying. Swap the code text and copy in the panel body only — everything else stays identical.</p>
       </div>
-      <div class="sg-demo sg-demo--col u-max-w-s">
+      <div class="sg-demo sg-demo--col sg-fit-card">
 
         <p class="error-page-code" aria-hidden="true">500</p>
-        <h2 class="utility-heading u-mb-s">Something went wrong.</h2>
-        <p class="utility-sub u-mb-0">We've encountered an unexpected problem on our end. Our team has been notified. Please try again in a moment.</p>
+        <h2 class="utility-heading">Something went wrong.</h2>
+        <p class="utility-sub">We've encountered an unexpected problem on our end. Our team has been notified. Please try again in a moment.</p>
 
         <div class="error-page-actions">
           <button type="button" class="login-submit" onclick="window.location.reload()">Try again</button>
@@ -184,18 +184,18 @@
         <h2 class="sg-section-title">Error Code — <code>.error-page-code</code></h2>
         <p class="sg-section-desc">A large italic serif number in <code>var(--gold)</code> that anchors the layout visually. It is marked <code>aria-hidden="true"</code> because the heading below it already names the error state — screen readers should not read a raw number as the page title. <code>clamp(72px, 9vw, 112px)</code> scales it proportionally between narrow mobile and wide desktop panels.</p>
       </div>
-      <div class="sg-demo u-gap-xl u-flex-wrap">
+      <div class="sg-demo sg-demo--grid">
         <div>
-          <p class="sg-label u-mb-m">404</p>
-          <p class="error-page-code u-m-0" aria-hidden="true">404</p>
+          <p class="sg-label">404</p>
+          <p class="error-page-code" aria-hidden="true">404</p>
         </div>
         <div>
-          <p class="sg-label u-mb-m">500</p>
-          <p class="error-page-code u-m-0" aria-hidden="true">500</p>
+          <p class="sg-label">500</p>
+          <p class="error-page-code" aria-hidden="true">500</p>
         </div>
         <div>
-          <p class="sg-label u-mb-m">503</p>
-          <p class="error-page-code u-m-0" aria-hidden="true">503</p>
+          <p class="sg-label">503</p>
+          <p class="error-page-code" aria-hidden="true">503</p>
         </div>
       </div>
       <div class="sg-code">
@@ -235,23 +235,23 @@ a.login-submit {
         <h2 class="sg-section-title">Class Reference</h2>
         <p class="sg-section-desc">Error pages introduce two new classes. All other classes (<code>.utility-*</code>, <code>.login-submit</code>, <code>.login-support</code>, <code>.login-divider</code>) are shared with the login module.</p>
       </div>
-      <div class="sg-demo u-p-0 u-overflow-hidden">
+      <div class="sg-demo sg-demo--flush">
         <table class="sg-table sg-table--roomy">
           <thead>
             <tr>
-              <th class="u-text-3 u-fs-xs u-ls-wide u-uppercase">Class</th>
-              <th class="u-text-3 u-fs-xs u-ls-wide u-uppercase">Source</th>
-              <th class="u-text-3 u-fs-xs u-ls-wide u-uppercase">Purpose</th>
+              <th>Class</th>
+              <th>Source</th>
+              <th>Purpose</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td class="u-font-mono u-fs-md u-text-gold">.error-page-code</td><td class="u-text-3 u-fs-xs">login.css</td><td class="u-text-2">Large italic serif HTTP error number in brand gold; <code>aria-hidden="true"</code></td></tr>
-            <tr><td class="u-font-mono u-fs-md u-text-gold">.error-page-actions</td><td class="u-text-3 u-fs-xs">login.css</td><td class="u-text-2">Flex column stack for primary + secondary recovery actions</td></tr>
-            <tr><td class="u-font-mono u-fs-md u-text-gold">.utility-heading</td><td class="u-text-3 u-fs-xs">login.css</td><td class="u-text-2">Shared: large serif italic heading for all utility pages</td></tr>
-            <tr><td class="u-font-mono u-fs-md u-text-gold">.utility-sub</td><td class="u-text-3 u-fs-xs">login.css</td><td class="u-text-2">Shared: secondary descriptor text below the heading</td></tr>
-            <tr><td class="u-font-mono u-fs-md u-text-gold">.login-submit</td><td class="u-text-3 u-fs-xs">login.css</td><td class="u-text-2">Shared: full-width gold primary CTA; also works on <code>&lt;a&gt;</code> elements</td></tr>
-            <tr><td class="u-font-mono u-fs-md u-text-gold">.login-support</td><td class="u-text-3 u-fs-xs">login.css</td><td class="u-text-2">Shared: full-width outlined secondary link with optional leading icon</td></tr>
-            <tr><td class="u-font-mono u-fs-md u-text-gold">.login-divider</td><td class="u-text-3 u-fs-xs">login.css</td><td class="u-text-2">Shared: horizontal rule with centred "or" label between actions</td></tr>
+            <tr><td class="sg-token">.error-page-code</td><td class="sg-caption">login.css</td><td>Large italic serif HTTP error number in brand gold; <code>aria-hidden="true"</code></td></tr>
+            <tr><td class="sg-token">.error-page-actions</td><td class="sg-caption">login.css</td><td>Flex column stack for primary + secondary recovery actions</td></tr>
+            <tr><td class="sg-token">.utility-heading</td><td class="sg-caption">login.css</td><td>Shared: large serif italic heading for all utility pages</td></tr>
+            <tr><td class="sg-token">.utility-sub</td><td class="sg-caption">login.css</td><td>Shared: secondary descriptor text below the heading</td></tr>
+            <tr><td class="sg-token">.login-submit</td><td class="sg-caption">login.css</td><td>Shared: full-width gold primary CTA; also works on <code>&lt;a&gt;</code> elements</td></tr>
+            <tr><td class="sg-token">.login-support</td><td class="sg-caption">login.css</td><td>Shared: full-width outlined secondary link with optional leading icon</td></tr>
+            <tr><td class="sg-token">.login-divider</td><td class="sg-caption">login.css</td><td>Shared: horizontal rule with centred "or" label between actions</td></tr>
           </tbody>
         </table>
       </div>
@@ -263,12 +263,12 @@ a.login-submit {
         <h2 class="sg-section-title">Accessibility Notes</h2>
       </div>
       <div class="sg-demo">
-        <ul class="u-text-2 u-fs-body u-lh-relaxed u-ps-list u-m-0">
-          <li class="u-mb-m"><strong class="u-text-1">Error code is decorative.</strong> The numeric code (<code>.error-page-code</code>) is marked <code>aria-hidden="true"</code>. Screen readers should hear the <code>&lt;h1&gt;</code> heading as the page title, not a bare number.</li>
-          <li class="u-mb-m"><strong class="u-text-1">Page title.</strong> Set <code>&lt;title&gt;</code> to something meaningful, e.g. <em>"Page Not Found — Aurelius"</em>. This is what screen readers announce first and what appears in the browser tab.</li>
-          <li class="u-mb-m"><strong class="u-text-1">Recovery link wording.</strong> Link text must be self-descriptive without surrounding context — "Return to dashboard" and "Contact client services" both work in isolation. Avoid "click here".</li>
-          <li class="u-mb-m"><strong class="u-text-1">Focus order.</strong> Tab order follows DOM order: wordmark → theme toggle → primary action → secondary action → footer links. No focus traps.</li>
-          <li><strong class="u-text-1">Risk warning retained.</strong> The FCA investment risk warning is required on all pages accessible to retail clients — including error screens.</li>
+        <ul class="sg-copy">
+          <li><strong>Error code is decorative.</strong> The numeric code (<code>.error-page-code</code>) is marked <code>aria-hidden="true"</code>. Screen readers should hear the <code>&lt;h1&gt;</code> heading as the page title, not a bare number.</li>
+          <li><strong>Page title.</strong> Set <code>&lt;title&gt;</code> to something meaningful, e.g. <em>"Page Not Found — Aurelius"</em>. This is what screen readers announce first and what appears in the browser tab.</li>
+          <li><strong>Recovery link wording.</strong> Link text must be self-descriptive without surrounding context — "Return to dashboard" and "Contact client services" both work in isolation. Avoid "click here".</li>
+          <li><strong>Focus order.</strong> Tab order follows DOM order: wordmark → theme toggle → primary action → secondary action → footer links. No focus traps.</li>
+          <li><strong>Risk warning retained.</strong> The FCA investment risk warning is required on all pages accessible to retail clients — including error screens.</li>
         </ul>
       </div>
     </section>

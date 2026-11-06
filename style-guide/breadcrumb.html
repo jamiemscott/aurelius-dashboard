@@ -33,26 +33,26 @@
       </div>
       <div class="sg-demo sg-demo--col">
         <nav aria-label="Breadcrumb">
-          <ol class="breadcrumb u-list-none u-p-0 u-m-0">
-            <li><a href="#" class="u-text-3 u-fs-md u-no-underline">My Investments</a></li>
+          <ol class="breadcrumb">
+            <li><a href="#" class="sg-meta">My Investments</a></li>
             <li class="breadcrumb-sep" aria-hidden="true">/</li>
-            <li><a href="#" class="u-text-3 u-fs-md u-no-underline">Portfolios</a></li>
+            <li><a href="#" class="sg-meta">Portfolios</a></li>
             <li class="breadcrumb-sep" aria-hidden="true">/</li>
             <li class="breadcrumb-current" aria-current="page">Add Investment</li>
           </ol>
         </nav>
-        <div class="u-mt-s u-flex u-gap-l u-flex-wrap">
-          <div class="u-flex u-items-center u-gap-s">
-            <div class="u-w-dyn u-h-dyn u-radius-circle u-bg-dyn u-dimmed" style="--dyn-w:12px;--dyn-h:12px;--dyn-bg:var(--text-3)"></div>
-            <span class="u-text-3 u-fs-xs">.breadcrumb — flex row, text-3, 12px</span>
+        <div class="sg-row sg-row--wrap">
+          <div class="sg-row">
+            <div class="sg-panel"></div>
+            <span class="sg-caption">.breadcrumb — flex row, text-3, 12px</span>
           </div>
-          <div class="u-flex u-items-center u-gap-s">
-            <div class="u-w-dyn u-h-dyn u-radius-circle u-bg-gold" style="--dyn-w:12px;--dyn-h:12px"></div>
-            <span class="u-text-3 u-fs-xs">.breadcrumb-sep — opacity: 0.4</span>
+          <div class="sg-row">
+            <div class="sg-flex-fill"></div>
+            <span class="sg-caption">.breadcrumb-sep — opacity: 0.4</span>
           </div>
-          <div class="u-flex u-items-center u-gap-s">
-            <div class="u-w-dyn u-h-dyn u-radius-circle u-bg-dyn" style="--dyn-w:12px;--dyn-h:12px;--dyn-bg:var(--text-2)"></div>
-            <span class="u-text-3 u-fs-xs">.breadcrumb-current — text-2, no link</span>
+          <div class="sg-row">
+            <div class="sg-panel"></div>
+            <span class="sg-caption">.breadcrumb-current — text-2, no link</span>
           </div>
         </div>
       </div>
@@ -65,11 +65,11 @@
         <p class="sg-section-desc">Place the breadcrumb <em>inside</em> the left column of <code>.page-header</code>, immediately above the <code>.page-title</code>. The 4px bottom margin on <code>.breadcrumb</code> provides the correct gap to the heading.</p>
       </div>
       <div class="sg-demo">
-        <div class="page-header u-m-0">
+        <div class="page-header">
           <div>
             <nav aria-label="Breadcrumb">
-              <ol class="breadcrumb u-list-none u-p-0 u-m-0">
-                <li><a href="#" class="u-text-3 u-fs-md u-no-underline">My Investments</a></li>
+              <ol class="breadcrumb">
+                <li><a href="#" class="sg-meta">My Investments</a></li>
                 <li class="breadcrumb-sep" aria-hidden="true">/</li>
                 <li class="breadcrumb-current" aria-current="page">Add Investment</li>
               </ol>
@@ -84,7 +84,7 @@
         <pre><code class="language-html">&lt;div class="page-header"&gt;
   &lt;div&gt;
     &lt;nav aria-label="Breadcrumb"&gt;
-      &lt;ol class="breadcrumb u-list-none u-p-0 u-m-0"&gt;
+      &lt;ol class="breadcrumb"&gt;
         &lt;li&gt;&lt;a href="/my-investments/"&gt;My Investments&lt;/a&gt;&lt;/li&gt;
         &lt;li class="breadcrumb-sep" aria-hidden="true"&gt;/&lt;/li&gt;
         &lt;li class="breadcrumb-current" aria-current="page"&gt;Add Investment&lt;/li&gt;
@@ -103,15 +103,15 @@
         <h2 class="sg-section-title">Token Reference</h2>
       </div>
       <div class="sg-demo sg-demo--tight">
-        <table class="sg-table u-fs-md">
+        <table class="sg-table">
           <thead>
-            <tr class="u-text-3">
+            <tr>
               <th>Token</th>
               <th>Value</th>
               <th>Purpose</th>
             </tr>
           </thead>
-          <tbody class="u-text-2">
+          <tbody>
             <tr>
               <td><code>--text-3</code></td>
               <td>Tertiary text</td>
@@ -146,10 +146,10 @@
         <div class="sg-do">
           <div class="sg-do-label">Do</div>
           <div class="sg-do-body">
-            <p class="u-text-2 u-fs-sm u-m-0 u-mb-s">Mark the current page with <code>aria-current="page"</code> and <code>.breadcrumb-current</code> — never make it a link.</p>
+            <p class="sg-note">Mark the current page with <code>aria-current="page"</code> and <code>.breadcrumb-current</code> — never make it a link.</p>
             <nav aria-label="Breadcrumb">
-              <ol class="breadcrumb u-list-none u-p-0 u-m-0">
-                <li><a href="#" class="u-text-3 u-fs-md u-no-underline">Parent</a></li>
+              <ol class="breadcrumb">
+                <li><a href="#" class="sg-meta">Parent</a></li>
                 <li class="breadcrumb-sep" aria-hidden="true">/</li>
                 <li class="breadcrumb-current" aria-current="page">Current Page</li>
               </ol>
@@ -159,8 +159,8 @@
         <div class="sg-dont">
           <div class="sg-dont-label">Don't</div>
           <div class="sg-dont-body">
-            <p class="u-text-2 u-fs-sm u-m-0 u-mb-s">Don't show a breadcrumb for top-level pages — it adds no navigational value when there's only one level.</p>
-            <ol class="breadcrumb u-list-none u-p-0 u-m-0">
+            <p class="sg-note">Don't show a breadcrumb for top-level pages — it adds no navigational value when there's only one level.</p>
+            <ol class="breadcrumb">
               <li class="breadcrumb-current" aria-current="page">My Overview</li>
             </ol>
           </div>
@@ -174,7 +174,7 @@
         <h2 class="sg-section-title">Accessibility Notes</h2>
       </div>
       <div class="sg-demo sg-demo--col">
-        <p class="u-m-0 u-text-2 u-fs-body">Wrap the breadcrumb in a <code>&lt;nav aria-label="Breadcrumb"&gt;</code> landmark so screen readers announce the region. Use an ordered list (<code>&lt;ol&gt;</code>) to convey hierarchy. Mark separators with <code>aria-hidden="true"</code> — they are decorative. Mark the current item with <code>aria-current="page"</code>. WCAG 2.4.8 (Location) — Level AAA.</p>
+        <p class="sg-copy">Wrap the breadcrumb in a <code>&lt;nav aria-label="Breadcrumb"&gt;</code> landmark so screen readers announce the region. Use an ordered list (<code>&lt;ol&gt;</code>) to convey hierarchy. Mark separators with <code>aria-hidden="true"</code> — they are decorative. Mark the current item with <code>aria-current="page"</code>. WCAG 2.4.8 (Location) — Level AAA.</p>
       </div>
     </section>
 

@@ -81,24 +81,24 @@
         <h2 class="sg-section-title">Fund Selection Card (<code>.ai-fund-card</code>)</h2>
         <p class="sg-section-desc">A clickable card for selecting a fund in step 1. Default state has <code>--border-input</code> border. Selected state (<code>.is-selected</code>) upgrades to a gold border with a gold checkmark (<code>.ai-fund-checkmark</code>). Fund stats are in <code>.ai-fund-stats</code>.</p>
       </div>
-      <div class="sg-demo u-grid u-grid-2 u-gap-m u-max-w-l">
-        <div class="ai-fund-card u-border u-border-dyn u-radius-card u-p-base u-pointer" style="--dyn-border:var(--border-input)">
-          <div class="u-text-1 u-fs-ui u-fw-semibold">Vanguard FTSE All-World ETF</div>
-          <div class="u-text-3 u-fs-sm u-m-0 u-mt-xs u-mb-m">Global Equity · VWRL</div>
-          <div class="ai-fund-stats u-grid u-grid-2 u-gap-s">
-            <div><div class="u-text-3 u-fs-xs u-uppercase">OCF</div><div class="u-text-1 u-fs-ui">0.22%</div></div>
-            <div><div class="u-text-3 u-fs-xs u-uppercase">5Y Return</div><div class="u-text-green u-fs-ui">+68.4%</div></div>
+      <div class="sg-demo sg-fit-wide sg-cols-2">
+        <div class="ai-fund-card">
+          <div class="sg-item-title">Vanguard FTSE All-World ETF</div>
+          <div class="sg-meta">Global Equity · VWRL</div>
+          <div class="ai-fund-stats">
+            <div><div class="sg-eyebrow">OCF</div><div class="sg-item-value">0.22%</div></div>
+            <div><div class="sg-eyebrow">5Y Return</div><div class="sg-value-up">+68.4%</div></div>
           </div>
         </div>
-        <div class="ai-fund-card is-selected u-border u-border-dyn u-radius-card u-p-base u-pointer u-relative" style="--dyn-border:var(--gold)">
-          <div class="ai-fund-checkmark u-absolute u-corner u-w-dyn u-h-dyn u-radius-circle u-bg-gold u-flex u-items-center u-justify-center" style="--dyn-w:18px;--dyn-h:18px">
+        <div class="ai-fund-card is-selected">
+          <div class="ai-fund-checkmark">
             <svg width="10" height="10" fill="none" stroke="#0B0D10" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
           </div>
-          <div class="u-text-1 u-fs-ui u-fw-semibold">iShares Core S&amp;P 500 ETF</div>
-          <div class="u-text-3 u-fs-sm u-m-0 u-mt-xs u-mb-m">US Equity · CSPX</div>
-          <div class="ai-fund-stats u-grid u-grid-2 u-gap-s">
-            <div><div class="u-text-3 u-fs-xs u-uppercase">OCF</div><div class="u-text-1 u-fs-ui">0.07%</div></div>
-            <div><div class="u-text-3 u-fs-xs u-uppercase">5Y Return</div><div class="u-text-green u-fs-ui">+94.1%</div></div>
+          <div class="sg-item-title">iShares Core S&amp;P 500 ETF</div>
+          <div class="sg-meta">US Equity · CSPX</div>
+          <div class="ai-fund-stats">
+            <div><div class="sg-eyebrow">OCF</div><div class="sg-item-value">0.07%</div></div>
+            <div><div class="sg-eyebrow">5Y Return</div><div class="sg-value-up">+94.1%</div></div>
           </div>
         </div>
       </div>
@@ -111,11 +111,11 @@
         <p class="sg-section-desc">Horizontal scrolling pill filters for narrowing fund results by asset class, region, or risk level. Active chip (<code>.is-active</code>) uses gold background and dark text.</p>
       </div>
       <div class="sg-demo sg-demo--row">
-        <button class="ai-chip is-active u-bg-gold u-text-dyn u-border-0 u-radius-pill u-py-xs u-px-m u-fs-sm u-fw-semibold u-pointer u-nowrap" style="--dyn-text:#0B0D10">All</button>
-        <button class="ai-chip u-bg-card u-text-2 u-border u-radius-pill u-py-xs u-px-m u-fs-sm u-pointer u-nowrap">Global Equity</button>
-        <button class="ai-chip u-bg-card u-text-2 u-border u-radius-pill u-py-xs u-px-m u-fs-sm u-pointer u-nowrap">Fixed Income</button>
-        <button class="ai-chip u-bg-card u-text-2 u-border u-radius-pill u-py-xs u-px-m u-fs-sm u-pointer u-nowrap">US Equity</button>
-        <button class="ai-chip u-bg-card u-text-2 u-border u-radius-pill u-py-xs u-px-m u-fs-sm u-pointer u-nowrap">Alternatives</button>
+        <button class="ai-chip is-active">All</button>
+        <button class="ai-chip">Global Equity</button>
+        <button class="ai-chip">Fixed Income</button>
+        <button class="ai-chip">US Equity</button>
+        <button class="ai-chip">Alternatives</button>
       </div>
     </section>
 
@@ -125,30 +125,30 @@
         <h2 class="sg-section-title">AI Smart Search (<code>.ais-*</code>)</h2>
         <p class="sg-section-desc">The <code>.ais-*</code> prefix is for the AI-powered conversational fund-finding mode. A mode toggle (<code>.ais-mode-toggle</code>) switches between "Browse" and "AI Search". The prompt bar (<code>.ais-prompt-input</code> + <code>.ais-prompt-send</code>) accepts natural language. A thinking animation (<code>.ais-thinking-dots</code>) shows while the AI responds. Results appear as <code>.ais-result-card</code> with a match pill (<code>.ais-match-pill</code>).</p>
       </div>
-      <div class="sg-demo u-max-w-l">
+      <div class="sg-demo sg-fit-wide">
         <!-- Mode toggle -->
-        <div class="ais-mode-toggle u-flex u-bg-input u-radius-pill u-p-2xs u-w-fit u-mb-base">
-          <button class="ais-mode-btn u-py-xs u-px-base u-radius-card u-border-0 u-bg-none u-text-2 u-fs-sm u-pointer">Browse</button>
-          <button class="ais-mode-btn is-active u-py-xs u-px-base u-radius-card u-border-0 u-bg-gold u-text-dyn u-fs-sm u-fw-semibold u-pointer" style="--dyn-text:#0B0D10">AI Search</button>
+        <div class="ais-mode-toggle">
+          <button class="ais-mode-btn">Browse</button>
+          <button class="ais-mode-btn is-active">AI Search</button>
         </div>
         <!-- Prompt bar -->
-        <div class="u-flex u-gap-s u-items-end u-mb-base">
-          <textarea class="ais-prompt-input u-flex-1 u-bg-input u-border u-border-dyn u-radius-item u-py-m u-px-base u-text-1 u-fs-ui u-resize-none" rows="2" placeholder="E.g. "I want low-cost global equity exposure"…" style="--dyn-border:var(--border-input)"></textarea>
-          <button class="ais-prompt-send u-w-dyn u-h-dyn u-radius-circle u-bg-gold u-border-0 u-pointer u-flex u-items-center u-justify-center u-shrink-0" style="--dyn-w:42px;--dyn-h:42px">
+        <div class="sg-row">
+          <textarea class="ais-prompt-input" rows="2" placeholder="E.g. "I want low-cost global equity exposure"…"></textarea>
+          <button class="ais-prompt-send">
             <svg width="16" height="16" fill="none" stroke="#0B0D10" stroke-width="2.5" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
           </button>
         </div>
         <!-- Result card -->
-        <div class="ais-result-card u-bg-card u-border u-radius-card u-p-base">
-          <div class="u-flex u-justify-between u-items-start u-mb-m">
+        <div class="ais-result-card">
+          <div class="sg-row sg-row--split sg-row--top">
             <div>
-              <div class="u-text-1 u-fs-ui u-fw-semibold">Vanguard FTSE All-World ETF</div>
-              <div class="u-text-3 u-fs-sm">Global Equity · VWRL · OCF 0.22%</div>
+              <div class="sg-item-title">Vanguard FTSE All-World ETF</div>
+              <div class="sg-meta">Global Equity · VWRL · OCF 0.22%</div>
             </div>
-            <span class="ais-match-pill u-bg-green-dim u-text-green u-radius-item u-py-2xs u-px-s u-fs-xs u-fw-semibold u-nowrap">98% match</span>
+            <span class="ais-match-pill">98% match</span>
           </div>
-          <p class="u-text-2 u-fs-sm u-m-0 u-mb-m">Broad global diversification across 3,700+ stocks. Low cost and tax-efficient. Ideal for long-term buy-and-hold investors seeking market-rate returns.</p>
-          <button class="btn-primary u-w-full">Select This Fund</button>
+          <p class="sg-note">Broad global diversification across 3,700+ stocks. Low cost and tax-efficient. Ideal for long-term buy-and-hold investors seeking market-rate returns.</p>
+          <button class="btn-primary sg-btn-full">Select This Fund</button>
         </div>
       </div>
     </section>
@@ -159,15 +159,15 @@
         <h2 class="sg-section-title">Confirmation Step (<code>.ai-confirm-wrap</code>)</h2>
         <p class="sg-section-desc">The final step success state. An animated SVG check mark uses <code>stroke-dashoffset</code> animation — the circle draws in, then the tick draws in. The confirmation panel appears below once the animation completes.</p>
       </div>
-      <div class="sg-demo sg-demo--col u-items-center u-text-center u-max-w-s u-mx-auto">
-        <div class="ai-confirm-wrap u-flex u-flex-col u-items-center u-gap-m">
+      <div class="sg-demo sg-demo--col sg-fit-card sg-fit-center sg-demo--centered-text">
+        <div class="ai-confirm-wrap">
           <svg class="ai-check-svg" width="64" height="64" viewBox="0 0 64 64" fill="none" aria-hidden="true">
             <circle cx="32" cy="32" r="28" stroke="var(--green)" stroke-width="3" stroke-dasharray="176" stroke-dashoffset="0" opacity="0.3"/>
             <circle cx="32" cy="32" r="28" stroke="var(--green)" stroke-width="3" stroke-dasharray="176" stroke-dashoffset="0"/>
             <polyline points="20 33 28 41 44 24" stroke="var(--green)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          <div class="u-font-serif u-fs-5xl u-text-1">Investment placed</div>
-          <p class="u-text-2 u-fs-ui u-m-0">Your investment in iShares Core S&amp;P 500 ETF has been queued for the next trading window.</p>
+          <div class="sg-display">Investment placed</div>
+          <p class="sg-copy">Your investment in iShares Core S&amp;P 500 ETF has been queued for the next trading window.</p>
         </div>
       </div>
     </section>
@@ -178,25 +178,25 @@
         <h2 class="sg-section-title">Order Summary (<code>.ai-order-summary</code>)</h2>
         <p class="sg-section-desc">A sticky right-column panel that appears during the Amount and Review steps. Uses <code>position: sticky; top: calc(var(--topbar-h) + 24px)</code> so it scrolls with the page but locks to the viewport top. Contains a <code>.ai-review-table</code> for the key/value breakdown and an acknowledgement checkbox row (<code>.ai-ack-row</code>).</p>
       </div>
-      <div class="sg-demo u-max-w-xs">
-        <div class="ai-order-summary u-bg-card u-border u-border-gold u-border-t-accent u-radius-card u-p-base">
-          <div class="u-text-1 u-fs-ui u-fw-semibold u-mb-m">Order Summary</div>
+      <div class="sg-demo sg-fit-sidebar">
+        <div class="ai-order-summary">
+          <div class="sg-item-title">Order Summary</div>
           <div class="ai-review-table">
-            <div class="ai-review-row u-flex u-justify-between u-py-s u-px-0 u-border-b u-fs-sm">
-              <span class="u-text-3">Fund</span><span class="u-text-1">CSPX</span>
+            <div class="ai-review-row">
+              <span class="sg-muted">Fund</span><span class="sg-item-value">CSPX</span>
             </div>
-            <div class="ai-review-row u-flex u-justify-between u-py-s u-px-0 u-border-b u-fs-sm">
-              <span class="u-text-3">Amount</span><span class="u-text-1">£2,500.00</span>
+            <div class="ai-review-row">
+              <span class="sg-muted">Amount</span><span class="sg-item-value">£2,500.00</span>
             </div>
-            <div class="ai-review-row u-flex u-justify-between u-py-s u-px-0 u-border-b u-fs-sm">
-              <span class="u-text-3">Account</span><span class="u-text-1">Stocks &amp; Shares ISA</span>
+            <div class="ai-review-row">
+              <span class="sg-muted">Account</span><span class="sg-item-value">Stocks &amp; Shares ISA</span>
             </div>
-            <div class="ai-review-row u-flex u-justify-between u-pt-s u-pb-0 u-px-0 u-fs-ui">
-              <span class="u-text-1 u-fw-semibold">Total</span><span class="u-text-1 u-fw-semibold">£2,500.00</span>
+            <div class="ai-review-row">
+              <span class="sg-item-title">Total</span><span class="sg-item-title">£2,500.00</span>
             </div>
           </div>
-          <div class="ai-ack-row u-flex u-gap-s u-items-start u-mt-base u-fs-sm u-text-2">
-            <input type="checkbox" id="sg-ack" class="u-mt-2xs u-shrink-0">
+          <div class="ai-ack-row">
+            <input type="checkbox" id="sg-ack" class="sg-check">
             <label for="sg-ack">I confirm I have read the Key Investor Information Document (KIID)</label>
           </div>
         </div>
@@ -209,14 +209,14 @@
         <h2 class="sg-section-title">Token Reference</h2>
       </div>
       <div class="sg-demo sg-demo--tight">
-        <table class="sg-table u-fs-md">
+        <table class="sg-table">
           <thead>
-            <tr class="u-text-3">
+            <tr>
               <th>Token / Value</th>
               <th>Purpose</th>
             </tr>
           </thead>
-          <tbody class="u-text-2">
+          <tbody>
             <tr><td><code>--gold</code></td><td>Active step dot, selected fund border, active chip, send button</td></tr>
             <tr><td><code>--border-input</code></td><td>Default fund card border, prompt textarea border</td></tr>
             <tr><td><code>--green / --green-dim</code></td><td>Confirmation checkmark, match pill background</td></tr>
@@ -233,7 +233,7 @@
         <h2 class="sg-section-title">Accessibility Notes</h2>
       </div>
       <div class="sg-demo sg-demo--col">
-        <p class="u-m-0 u-text-2 u-fs-body">The step bar uses <code>role="list"</code> with <code>aria-current="step"</code> on the active step. Fund cards are <code>&lt;button&gt;</code> elements with <code>aria-pressed</code> for selection state. Filter chips use <code>aria-pressed</code>. The smart search prompt is a <code>&lt;textarea&gt;</code> with a visible label. The KIID acknowledgement checkbox must have an associated <code>&lt;label&gt;</code> — regulatory content must be readable, not hidden behind a tooltip. Confirmation success state must move focus to the confirmation heading.</p>
+        <p class="sg-copy">The step bar uses <code>role="list"</code> with <code>aria-current="step"</code> on the active step. Fund cards are <code>&lt;button&gt;</code> elements with <code>aria-pressed</code> for selection state. Filter chips use <code>aria-pressed</code>. The smart search prompt is a <code>&lt;textarea&gt;</code> with a visible label. The KIID acknowledgement checkbox must have an associated <code>&lt;label&gt;</code> — regulatory content must be readable, not hidden behind a tooltip. Confirmation success state must move focus to the confirmation heading.</p>
       </div>
     </section>
 

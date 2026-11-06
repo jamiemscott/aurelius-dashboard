@@ -31,18 +31,18 @@
         <h2 class="sg-section-title">Anatomy (<code>.ob-cta</code>)</h2>
         <p class="sg-section-desc">The card renders inside the sidebar below the nav and adviser card. A dismiss button (<code>.ob-cta__dismiss</code>) is absolutely positioned in the top-right corner, requiring <code>padding-inline-end: 18px</code> on <code>.ob-cta__top</code> for clearance. The CTA button uses <code>.ob-cta__btn</code> modifier — reduced size, full width.</p>
       </div>
-      <div class="sg-demo sg-demo--center u-max-w-xs u-mx-auto">
-        <div class="ob-cta u-relative u-bg-gold-dim u-border u-border-gold u-radius-item u-p-m u-mb-base">
-          <button class="ob-cta__dismiss u-absolute u-corner u-bg-none u-border-0 u-text-3 u-pointer u-fs-xl u-lh-none" aria-label="Dismiss">×</button>
-          <div class="ob-cta__top u-flex u-gap-m u-items-start u-pe-base">
-            <div class="ob-cta__icon u-fs-5xl u-shrink-0">🎯</div>
+      <div class="sg-demo sg-demo--center sg-fit-sidebar sg-fit-center">
+        <div class="ob-cta">
+          <button class="ob-cta__dismiss" aria-label="Dismiss">×</button>
+          <div class="ob-cta__top">
+            <div class="ob-cta__icon">🎯</div>
             <div class="ob-cta__copy">
-              <div class="ob-cta__eyebrow u-text-accent u-fs-xs u-fw-semibold u-uppercase u-ls-wider">Getting started</div>
-              <div class="ob-cta__title u-text-1 u-fs-ui u-fw-semibold u-m-0 u-mt-2xs u-mb-2xs">Set your first goal</div>
-              <div class="ob-cta__sub u-text-2 u-fs-sm">Tell us what you're saving for</div>
+              <div class="ob-cta__eyebrow">Getting started</div>
+              <div class="ob-cta__title">Set your first goal</div>
+              <div class="ob-cta__sub">Tell us what you're saving for</div>
             </div>
           </div>
-          <button class="btn-primary ob-cta__btn u-w-full u-mt-m u-fs-md u-py-s u-px-m">Get Started</button>
+          <button class="btn-primary ob-cta__btn sg-btn-full">Get Started</button>
         </div>
       </div>
       <div class="sg-code">
@@ -75,12 +75,12 @@
       </div>
       <div class="sg-demo sg-demo--grid">
         <div>
-          <p class="u-text-3 u-fs-xs u-m-0 u-mb-s">Standard</p>
+          <p class="sg-caption">Standard</p>
           <button class="btn-primary">Get Started</button>
         </div>
         <div>
-          <p class="u-text-3 u-fs-xs u-m-0 u-mb-s">With .ob-cta__btn</p>
-          <button class="btn-primary ob-cta__btn u-fs-md u-py-s u-px-m">Get Started</button>
+          <p class="sg-caption">With .ob-cta__btn</p>
+          <button class="btn-primary ob-cta__btn">Get Started</button>
         </div>
       </div>
     </section>
@@ -92,14 +92,14 @@
         <p class="sg-section-desc">The card adapts at two breakpoints before disappearing entirely:</p>
       </div>
       <div class="sg-demo sg-demo--tight">
-        <table class="sg-table u-fs-md">
+        <table class="sg-table">
           <thead>
-            <tr class="u-text-3">
+            <tr>
               <th>Breakpoint</th>
               <th>Behaviour</th>
             </tr>
           </thead>
-          <tbody class="u-text-2">
+          <tbody>
             <tr><td>&gt;1280px</td><td>Full card with eyebrow, title, sub, and CTA button</td></tr>
             <tr><td>≤1280px</td><td>Eyebrow and sub hidden; title smaller; CTA remains</td></tr>
             <tr><td>≤900px</td><td>Entire <code>.ob-cta</code> hidden with <code>display: none</code> (icon rail — no sidebar text)</td></tr>
@@ -114,14 +114,14 @@
         <h2 class="sg-section-title">Token Reference</h2>
       </div>
       <div class="sg-demo sg-demo--tight">
-        <table class="sg-table u-fs-md">
+        <table class="sg-table">
           <thead>
-            <tr class="u-text-3">
+            <tr>
               <th>Token</th>
               <th>Purpose</th>
             </tr>
           </thead>
-          <tbody class="u-text-2">
+          <tbody>
             <tr><td><code>--gold-dim</code></td><td>Card background</td></tr>
             <tr><td><code>--gold-glow</code></td><td>Card border</td></tr>
             <tr><td><code>--radius-item</code></td><td>Card corner radius</td></tr>
@@ -140,11 +140,11 @@
       <div class="sg-do-dont">
         <div class="sg-do">
           <div class="sg-do-label">Do</div>
-          <div class="sg-do-body"><p class="u-text-2 u-fs-sm u-m-0">Show the CTA only when there is a specific onboarding action the user hasn't yet completed. Once dismissed or completed, remove it from the sidebar.</p></div>
+          <div class="sg-do-body"><p class="sg-note">Show the CTA only when there is a specific onboarding action the user hasn't yet completed. Once dismissed or completed, remove it from the sidebar.</p></div>
         </div>
         <div class="sg-dont">
           <div class="sg-dont-label">Don't</div>
-          <div class="sg-dont-body"><p class="u-text-2 u-fs-sm u-m-0">Don't stack multiple <code>.ob-cta</code> cards — the sidebar has limited height. If multiple prompts are needed, use a single rotating card or a progress-step bar instead.</p></div>
+          <div class="sg-dont-body"><p class="sg-note">Don't stack multiple <code>.ob-cta</code> cards — the sidebar has limited height. If multiple prompts are needed, use a single rotating card or a progress-step bar instead.</p></div>
         </div>
       </div>
     </section>
@@ -155,7 +155,7 @@
         <h2 class="sg-section-title">Accessibility Notes</h2>
       </div>
       <div class="sg-demo sg-demo--col">
-        <p class="u-m-0 u-text-2 u-fs-body">The dismiss button must have a descriptive <code>aria-label</code> — "Dismiss this prompt" rather than just "Dismiss". The card is a <code>&lt;div&gt;</code> (not a live region) unless the content changes dynamically, in which case use <code>aria-live="polite"</code>. The CTA button's purpose must be clear from its text label alone — avoid generic labels like "Click here".</p>
+        <p class="sg-copy">The dismiss button must have a descriptive <code>aria-label</code> — "Dismiss this prompt" rather than just "Dismiss". The card is a <code>&lt;div&gt;</code> (not a live region) unless the content changes dynamically, in which case use <code>aria-live="polite"</code>. The CTA button's purpose must be clear from its text label alone — avoid generic labels like "Click here".</p>
       </div>
     </section>
 
