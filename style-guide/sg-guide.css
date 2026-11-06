@@ -1800,4 +1800,4 @@ select.sg-field-control { appearance: auto; cursor: pointer; }
 .sg-type-track--heading { font-size: var(--fs-xl); letter-spacing: var(--ls-heading); }
 
 .sg-demo--stage .contact-form-wrap { min-block-size: 120px; position: relative; }
-.sg-demo--stage .contact-form-overlay { inset: 0; }
+.sg-demo--stage .contact-form-overlay { inset: 0; padding-block: 0; }
