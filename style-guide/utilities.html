@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="utilities">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Utilities — Aurelius Style Guide</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Utilities</h1>
+      <p class="sg-page-desc">Small, single-purpose classes that replace <code>style="…"</code>. Apply them to a component or an OSUI widget to adjust it without new CSS. Each one reads a design token, so it follows the theme in light and dark. They live in <code>src/styles/modules/utilities.css</code>.</p>
+    </div>
+
+    <section class="sg-section" id="when">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">When to use which</h2>
+        <p class="sg-section-desc">Reach for the most specific thing that already exists.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="sg-table u-fs-md" aria-label="Choosing between components, utilities and runtime values">
+          <thead><tr class="u-text-3"><th scope="col">You need</th><th scope="col">Use</th></tr></thead>
+          <tbody>
+            <tr><td class="u-text-1">A pattern with a name: card, button, drawer</td><td class="u-text-2">The component class from its page in this guide.</td></tr>
+            <tr><td class="u-text-1">A small adjustment to a component</td><td class="u-text-2">A utility, such as <code>u-mb-l</code> or <code>u-w-full</code>.</td></tr>
+            <tr><td class="u-text-1">The same four or more utilities repeated</td><td class="u-text-2">A new component class in the right partial. Repetition means the pattern has earned a name.</td></tr>
+            <tr><td class="u-text-1">A value only known at runtime</td><td class="u-text-2">A <code>--dyn-*</code> custom property and its class. See Runtime values below.</td></tr>
+            <tr><td class="u-text-1">A value that is not on the scale</td><td class="u-text-2">Use the nearest step. If the design truly needs it, change the component, not the page.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="sg-section" id="apply">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Applying them</h2>
+        <p class="sg-section-desc">Stack classes in the markup. They have no dependencies and order in the attribute does not matter.</p>
+      </div>
+      <div class="sg-demo sg-demo--col">
+        <div class="u-flex u-items-center u-justify-between u-gap-base u-bg-input u-radius-item u-p-base">
+          <span class="u-text-1 u-fs-body u-fw-medium">Portfolio value</span>
+          <span class="u-text-gold u-font-serif u-fs-3xl u-tabular">£842,300</span>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-markup">&lt;div class="u-flex u-items-center u-justify-between u-gap-base u-bg-input u-radius-item u-p-base"&gt;
+  &lt;span class="u-text-1 u-fs-body u-fw-medium"&gt;Portfolio value&lt;/span&gt;
+  &lt;span class="u-text-gold u-font-serif u-fs-3xl u-tabular"&gt;£842,300&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <section class="sg-section" id="osui">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">On OSUI components</h2>
+        <p class="sg-section-desc">Every OSUI widget takes extra classes, so the same utilities work on Buttons, Containers, Cards and Inputs. Use Style Classes on a Container, and ExtendedClass on widgets and blocks that expose it. Keep the widget’s own classes and add utilities after them.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="sg-table u-fs-md" aria-label="Utilities on OSUI widgets">
+          <thead><tr class="u-text-3"><th scope="col">Widget</th><th scope="col">Property</th><th scope="col">Example value</th></tr></thead>
+          <tbody>
+            <tr><td class="u-text-1">Container</td><td class="u-text-2">Style Classes</td><td class="u-font-mono u-text-gold">"card card-pad u-mb-l"</td></tr>
+            <tr><td class="u-text-1">Button</td><td class="u-text-2">Style Classes</td><td class="u-font-mono u-text-gold">"btn btn-primary u-w-full"</td></tr>
+            <tr><td class="u-text-1">Input</td><td class="u-text-2">Style Classes</td><td class="u-font-mono u-text-gold">"form-control u-w-full"</td></tr>
+            <tr><td class="u-text-1">Expression</td><td class="u-text-2">Style Classes</td><td class="u-font-mono u-text-gold">"u-text-3 u-fs-sm"</td></tr>
+            <tr><td class="u-text-1">Block with ExtendedClass</td><td class="u-text-2">ExtendedClass</td><td class="u-font-mono u-text-gold">"u-mt-base"</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="sg-section-desc u-mt-base"><strong>Why utilities use <code>!important</code>.</strong> OutSystems wraps <code>bundle.css</code> in <code>@layer theme.theme</code> at runtime and leaves its own <code>_Basic_</code> stylesheet unlayered, so a normal declaration in a utility would lose to <code>_Basic_</code>. <code>!important</code> reverses the layer order and lets a utility win on any widget, as the inline style it replaces did. See <a href="outsystems.html#layer-cascade">OutSystems Integration</a>. The rule applies to this layer only. Components keep to the usual rule: <code>!important</code> only where <code>_Basic_</code> competes.</p>
+    </section>
+
+    <section class="sg-section" id="runtime">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Runtime values</h2>
+        <p class="sg-section-desc">Some values only exist at runtime: a progress percentage, a series colour from data. Set a <code>--dyn-*</code> custom property and add the class that consumes it. The style attribute then carries data only, and the CSS stays in the bundle. These properties do not inherit, so a value on a parent cannot leak into a nested element.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="u-h-dyn u-bg-input u-radius-pill u-overflow-hidden" style="--dyn-h:8px">
+          <div class="u-h-full u-w-dyn u-bg-dyn u-radius-pill" style="--dyn-w:62%;--dyn-bg:var(--el-water)"></div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-markup">&lt;!-- HTML or a JS template --&gt;
+&lt;div class="u-h-full u-w-dyn u-bg-dyn" style="--dyn-w:62%;--dyn-bg:var(--el-water)"&gt;&lt;/div&gt;
+
+&lt;!-- JS update --&gt;
+bar.style.setProperty('--dyn-w', score + '%');
+
+&lt;!-- OutSystems: add a style attribute with an expression --&gt;
+"--dyn-w:" + Score + "%"</code></pre>
+      </div>
+      <div class="table-wrap u-mt-base">
+        <table class="sg-table u-fs-md" aria-label="Runtime custom properties">
+          <thead><tr class="u-text-3"><th scope="col">Property</th><th scope="col">Consumed by</th></tr></thead>
+          <tbody>
+            <tr><td class="u-font-mono u-text-gold">--dyn-text</td><td class="u-font-mono u-text-2">.u-text-dyn</td></tr>
+            <tr><td class="u-font-mono u-text-gold">--dyn-bg</td><td class="u-font-mono u-text-2">.u-bg-dyn</td></tr>
+            <tr><td class="u-font-mono u-text-gold">--dyn-border</td><td class="u-font-mono u-text-2">.u-border-dyn, .u-border-accent, .u-border-t-accent, .u-border-b-dashed, .u-border-e-dashed</td></tr>
+            <tr><td class="u-font-mono u-text-gold">--dyn-shadow</td><td class="u-font-mono u-text-2">.u-shadow-dyn</td></tr>
+            <tr><td class="u-font-mono u-text-gold">--dyn-w, --dyn-h</td><td class="u-font-mono u-text-2">.u-w-dyn, .u-h-dyn</td></tr>
+            <tr><td class="u-font-mono u-text-gold">--dyn-min-w, --dyn-min-h</td><td class="u-font-mono u-text-2">.u-min-w-dyn, .u-min-h-dyn</td></tr>
+            <tr><td class="u-font-mono u-text-gold">--dyn-x</td><td class="u-font-mono u-text-2">.u-left-dyn</td></tr>
+            <tr><td class="u-font-mono u-text-gold">--dyn-cols</td><td class="u-font-mono u-text-2">.u-grid-dyn</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="sg-section" id="hidden">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Showing and hiding</h2>
+        <p class="sg-section-desc">Use the native <code>hidden</code> attribute, and <code>el.hidden = true</code> from JS. The theme makes it win over a component’s own <code>display</code>, so nothing needs <code>display:none</code>. In OutSystems, prefer an If widget when the content should not render at all.</p>
+      </div>
+    </section>
+
+    <section class="sg-section" id="text-colour">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Text colour</h2>
+        <p class="sg-section-desc">Theme-aware text colours. Each follows light and dark automatically because it reads a token.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="sg-table u-fs-md" aria-label="Text colour utilities">
+          <thead><tr class="u-text-3"><th scope="col">Class</th><th scope="col">Sets</th></tr></thead>
+          <tbody>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-text-1</td><td class="u-font-mono u-text-2">color: var(--text-1);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-text-2</td><td class="u-font-mono u-text-2">color: var(--text-2);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-text-3</td><td class="u-font-mono u-text-2">color: var(--text-3);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-text-gold</td><td class="u-font-mono u-text-2">color: var(--gold-text);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-text-accent</td><td class="u-font-mono u-text-2">color: var(--gold);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-text-green</td><td class="u-font-mono u-text-2">color: var(--green);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-text-red</td><td class="u-font-mono u-text-2">color: var(--red);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-text-water</td><td class="u-font-mono u-text-2">color: var(--el-water);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-text-wood</td><td class="u-font-mono u-text-2">color: var(--el-wood);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-text-fire</td><td class="u-font-mono u-text-2">color: var(--el-fire);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-text-earth</td><td class="u-font-mono u-text-2">color: var(--el-earth);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-text-metal</td><td class="u-font-mono u-text-2">color: var(--el-metal);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-text-dyn</td><td class="u-font-mono u-text-2">color: var(--dyn-text);</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="sg-section" id="type">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Type</h2>
+        <p class="sg-section-desc">The type scale, weights, families, leading and tracking, one property per class.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="sg-table u-fs-md" aria-label="Type utilities">
+          <thead><tr class="u-text-3"><th scope="col">Class</th><th scope="col">Sets</th></tr></thead>
+          <tbody>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-fs-2xs</td><td class="u-font-mono u-text-2">font-size: var(--fs-2xs);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-fs-xs</td><td class="u-font-mono u-text-2">font-size: var(--fs-xs);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-fs-sm</td><td class="u-font-mono u-text-2">font-size: var(--fs-sm);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-fs-md</td><td class="u-font-mono u-text-2">font-size: var(--fs-md);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-fs-ui</td><td class="u-font-mono u-text-2">font-size: var(--fs-ui);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-fs-body</td><td class="u-font-mono u-text-2">font-size: var(--fs-body);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-fs-lg</td><td class="u-font-mono u-text-2">font-size: var(--fs-lg);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-fs-xl</td><td class="u-font-mono u-text-2">font-size: var(--fs-xl);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-fs-2xl</td><td class="u-font-mono u-text-2">font-size: var(--fs-2xl);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-fs-3xl</td><td class="u-font-mono u-text-2">font-size: var(--fs-3xl);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-fs-4xl</td><td class="u-font-mono u-text-2">font-size: var(--fs-4xl);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-fs-5xl</td><td class="u-font-mono u-text-2">font-size: var(--fs-5xl);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-fs-6xl</td><td class="u-font-mono u-text-2">font-size: var(--fs-6xl);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-fs-display-sm</td><td class="u-font-mono u-text-2">font-size: var(--fs-display-sm);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-fs-display-md</td><td class="u-font-mono u-text-2">font-size: var(--fs-display-md);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-fw-regular</td><td class="u-font-mono u-text-2">font-weight: var(--fw-regular);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-fw-medium</td><td class="u-font-mono u-text-2">font-weight: var(--fw-medium);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-fw-semibold</td><td class="u-font-mono u-text-2">font-weight: var(--fw-semibold);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-fw-bold</td><td class="u-font-mono u-text-2">font-weight: var(--fw-bold);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-font-sans</td><td class="u-font-mono u-text-2">font-family: var(--font-sans);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-font-serif</td><td class="u-font-mono u-text-2">font-family: var(--font-serif);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-font-mono</td><td class="u-font-mono u-text-2">font-family: ui-monospace, 'Cascadia Code', monospace;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-lh-none</td><td class="u-font-mono u-text-2">line-height: var(--lh-none);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-lh-tight</td><td class="u-font-mono u-text-2">line-height: var(--lh-tight);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-lh-snug</td><td class="u-font-mono u-text-2">line-height: var(--lh-snug);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-lh-normal</td><td class="u-font-mono u-text-2">line-height: var(--lh-normal);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-lh-relaxed</td><td class="u-font-mono u-text-2">line-height: var(--lh-relaxed);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-lh-loose</td><td class="u-font-mono u-text-2">line-height: var(--lh-loose);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-ls-display</td><td class="u-font-mono u-text-2">letter-spacing: var(--ls-display);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-ls-heading</td><td class="u-font-mono u-text-2">letter-spacing: var(--ls-heading);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-ls-snug</td><td class="u-font-mono u-text-2">letter-spacing: var(--ls-snug);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-ls-wide</td><td class="u-font-mono u-text-2">letter-spacing: var(--ls-wide);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-ls-wider</td><td class="u-font-mono u-text-2">letter-spacing: var(--ls-wider);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-ls-widest</td><td class="u-font-mono u-text-2">letter-spacing: var(--ls-widest);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-uppercase</td><td class="u-font-mono u-text-2">text-transform: uppercase;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-italic</td><td class="u-font-mono u-text-2">font-style: italic;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-not-italic</td><td class="u-font-mono u-text-2">font-style: normal;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-underline</td><td class="u-font-mono u-text-2">text-decoration: underline; text-underline-offset: 2px;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-no-underline</td><td class="u-font-mono u-text-2">text-decoration: none;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-tabular</td><td class="u-font-mono u-text-2">font-variant-numeric: tabular-nums;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-nowrap</td><td class="u-font-mono u-text-2">white-space: nowrap;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-pre-wrap</td><td class="u-font-mono u-text-2">white-space: pre-wrap;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-text-left</td><td class="u-font-mono u-text-2">text-align: start;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-text-center</td><td class="u-font-mono u-text-2">text-align: center;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-text-right</td><td class="u-font-mono u-text-2">text-align: end;</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="sg-section" id="surface">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Surface</h2>
+        <p class="sg-section-desc">Backgrounds, including the five element colours and their dim tints.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="sg-table u-fs-md" aria-label="Surface utilities">
+          <thead><tr class="u-text-3"><th scope="col">Class</th><th scope="col">Sets</th></tr></thead>
+          <tbody>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-bg-canvas</td><td class="u-font-mono u-text-2">background: var(--bg);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-bg-card</td><td class="u-font-mono u-text-2">background: var(--bg-card);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-bg-hover</td><td class="u-font-mono u-text-2">background: var(--bg-hover);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-bg-input</td><td class="u-font-mono u-text-2">background: var(--bg-input);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-bg-dark</td><td class="u-font-mono u-text-2">background: var(--bg-dark);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-bg-gold</td><td class="u-font-mono u-text-2">background: var(--gold);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-bg-gold-dim</td><td class="u-font-mono u-text-2">background: var(--gold-dim);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-bg-green</td><td class="u-font-mono u-text-2">background: var(--green);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-bg-green-dim</td><td class="u-font-mono u-text-2">background: var(--green-dim);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-bg-red</td><td class="u-font-mono u-text-2">background: var(--red);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-bg-red-dim</td><td class="u-font-mono u-text-2">background: var(--red-dim);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-bg-divider</td><td class="u-font-mono u-text-2">background: var(--divider);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-bg-water</td><td class="u-font-mono u-text-2">background: var(--el-water);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-bg-wood</td><td class="u-font-mono u-text-2">background: var(--el-wood);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-bg-fire</td><td class="u-font-mono u-text-2">background: var(--el-fire);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-bg-earth</td><td class="u-font-mono u-text-2">background: var(--el-earth);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-bg-metal</td><td class="u-font-mono u-text-2">background: var(--el-metal);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-bg-water-dim</td><td class="u-font-mono u-text-2">background: var(--el-water-bg);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-bg-wood-dim</td><td class="u-font-mono u-text-2">background: var(--el-wood-bg);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-bg-fire-dim</td><td class="u-font-mono u-text-2">background: var(--el-fire-bg);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-bg-earth-dim</td><td class="u-font-mono u-text-2">background: var(--el-earth-bg);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-bg-metal-dim</td><td class="u-font-mono u-text-2">background: var(--el-metal-bg);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-bg-none</td><td class="u-font-mono u-text-2">background: none;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-bg-dyn</td><td class="u-font-mono u-text-2">background: var(--dyn-bg);</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="sg-section" id="border-and-radius">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Border and radius</h2>
+        <p class="sg-section-desc">Hairlines, accents and corner radii. <code>u-border-accent</code> and <code>u-border-t-accent</code> default to gold; set <code>--dyn-border</code> to recolour them.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="sg-table u-fs-md" aria-label="Border and radius utilities">
+          <thead><tr class="u-text-3"><th scope="col">Class</th><th scope="col">Sets</th></tr></thead>
+          <tbody>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-border</td><td class="u-font-mono u-text-2">border: 1px solid var(--border);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-border-0</td><td class="u-font-mono u-text-2">border: none;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-border-t</td><td class="u-font-mono u-text-2">border-block-start: 1px solid var(--divider);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-border-b</td><td class="u-font-mono u-text-2">border-block-end: 1px solid var(--divider);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-border-b-strong</td><td class="u-font-mono u-text-2">border-block-end: 1px solid var(--border);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-border-b-0</td><td class="u-font-mono u-text-2">border-block-end: none;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-border-gold</td><td class="u-font-mono u-text-2">border-color: var(--gold-glow);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-border-dashed</td><td class="u-font-mono u-text-2">border-style: dashed;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-border-b-dashed</td><td class="u-font-mono u-text-2">border-block-end: 1px dashed var(--dyn-border, var(--border));</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-border-e-dashed</td><td class="u-font-mono u-text-2">border-inline-end: 1px dashed var(--dyn-border, var(--border));</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-border-accent</td><td class="u-font-mono u-text-2">border-inline-start: 3px solid var(--dyn-border, var(--gold));</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-border-t-accent</td><td class="u-font-mono u-text-2">border-block-start: 2px solid var(--dyn-border, var(--gold));</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-border-dyn</td><td class="u-font-mono u-text-2">border-color: var(--dyn-border);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-radius-0</td><td class="u-font-mono u-text-2">border-radius: 0;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-radius-xs</td><td class="u-font-mono u-text-2">border-radius: 4px;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-radius-item</td><td class="u-font-mono u-text-2">border-radius: var(--radius-item);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-radius-card</td><td class="u-font-mono u-text-2">border-radius: var(--radius-card);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-radius-pill</td><td class="u-font-mono u-text-2">border-radius: var(--radius-btn);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-radius-circle</td><td class="u-font-mono u-text-2">border-radius: 50%;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-radius-start</td><td class="u-font-mono u-text-2">border-radius: 4px 0 0 4px;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-radius-end</td><td class="u-font-mono u-text-2">border-radius: 0 4px 4px 0;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-shadow-xs</td><td class="u-font-mono u-text-2">box-shadow: var(--shadow-xs);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-shadow-s</td><td class="u-font-mono u-text-2">box-shadow: var(--shadow-s);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-shadow-m</td><td class="u-font-mono u-text-2">box-shadow: var(--shadow-m);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-shadow-l</td><td class="u-font-mono u-text-2">box-shadow: var(--shadow-l);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-shadow-xl</td><td class="u-font-mono u-text-2">box-shadow: var(--shadow-xl);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-shadow-inner</td><td class="u-font-mono u-text-2">box-shadow: var(--shadow-inner);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-shadow-dyn</td><td class="u-font-mono u-text-2">box-shadow: var(--dyn-shadow);</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="sg-section" id="display-and-flex">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Display and flex</h2>
+        <p class="sg-section-desc">Layout primitives. Gaps use the OSUI spacing tokens, so they match OSUI widgets.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="sg-table u-fs-md" aria-label="Display and flex utilities">
+          <thead><tr class="u-text-3"><th scope="col">Class</th><th scope="col">Sets</th></tr></thead>
+          <tbody>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-block</td><td class="u-font-mono u-text-2">display: block;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-inline-block</td><td class="u-font-mono u-text-2">display: inline-block;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-flex</td><td class="u-font-mono u-text-2">display: flex;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-inline-flex</td><td class="u-font-mono u-text-2">display: inline-flex;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-grid</td><td class="u-font-mono u-text-2">display: grid;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-flex-col</td><td class="u-font-mono u-text-2">flex-direction: column;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-flex-wrap</td><td class="u-font-mono u-text-2">flex-wrap: wrap;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-flex-1</td><td class="u-font-mono u-text-2">flex: 1;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-shrink-0</td><td class="u-font-mono u-text-2">flex-shrink: 0;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-min-w-0</td><td class="u-font-mono u-text-2">min-width: 0;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-items-start</td><td class="u-font-mono u-text-2">align-items: flex-start;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-items-center</td><td class="u-font-mono u-text-2">align-items: center;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-items-end</td><td class="u-font-mono u-text-2">align-items: flex-end;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-items-baseline</td><td class="u-font-mono u-text-2">align-items: baseline;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-items-stretch</td><td class="u-font-mono u-text-2">align-items: stretch;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-justify-start</td><td class="u-font-mono u-text-2">justify-content: flex-start;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-justify-center</td><td class="u-font-mono u-text-2">justify-content: center;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-justify-end</td><td class="u-font-mono u-text-2">justify-content: flex-end;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-justify-between</td><td class="u-font-mono u-text-2">justify-content: space-between;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-gap-0</td><td class="u-font-mono u-text-2">gap: 0;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-gap-2xs</td><td class="u-font-mono u-text-2">gap: 2px;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-gap-xs</td><td class="u-font-mono u-text-2">gap: var(--space-xs);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-gap-s</td><td class="u-font-mono u-text-2">gap: var(--space-s);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-gap-m</td><td class="u-font-mono u-text-2">gap: var(--space-m);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-gap-base</td><td class="u-font-mono u-text-2">gap: var(--space-base);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-gap-l</td><td class="u-font-mono u-text-2">gap: var(--space-l);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-gap-xl</td><td class="u-font-mono u-text-2">gap: var(--space-xl);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-grid-2</td><td class="u-font-mono u-text-2">grid-template-columns: repeat(2, minmax(0, 1fr));</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-grid-3</td><td class="u-font-mono u-text-2">grid-template-columns: repeat(3, minmax(0, 1fr));</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-grid-4</td><td class="u-font-mono u-text-2">grid-template-columns: repeat(4, minmax(0, 1fr));</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-grid-label</td><td class="u-font-mono u-text-2">grid-template-columns: max-content 1fr;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-grid-dyn</td><td class="u-font-mono u-text-2">grid-template-columns: var(--dyn-cols);</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="sg-section" id="margin">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Margin</h2>
+        <p class="sg-section-desc">Block and inline margins from the spacing scale: xs 4, s 8, m 12, base 16, l 24, xl 32.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="sg-table u-fs-md" aria-label="Margin utilities">
+          <thead><tr class="u-text-3"><th scope="col">Class</th><th scope="col">Sets</th></tr></thead>
+          <tbody>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-m-0</td><td class="u-font-mono u-text-2">margin: 0;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-mx-auto</td><td class="u-font-mono u-text-2">margin-inline: auto;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-mt-0</td><td class="u-font-mono u-text-2">margin-block-start: 0;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-mb-0</td><td class="u-font-mono u-text-2">margin-block-end: 0;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-mt-2xs</td><td class="u-font-mono u-text-2">margin-block-start: 2px;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-mb-2xs</td><td class="u-font-mono u-text-2">margin-block-end: 2px;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-mt-xs</td><td class="u-font-mono u-text-2">margin-block-start: var(--space-xs);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-mt-s</td><td class="u-font-mono u-text-2">margin-block-start: var(--space-s);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-mt-m</td><td class="u-font-mono u-text-2">margin-block-start: var(--space-m);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-mt-base</td><td class="u-font-mono u-text-2">margin-block-start: var(--space-base);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-mt-l</td><td class="u-font-mono u-text-2">margin-block-start: var(--space-l);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-mt-xl</td><td class="u-font-mono u-text-2">margin-block-start: var(--space-xl);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-mb-xs</td><td class="u-font-mono u-text-2">margin-block-end: var(--space-xs);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-mb-s</td><td class="u-font-mono u-text-2">margin-block-end: var(--space-s);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-mb-m</td><td class="u-font-mono u-text-2">margin-block-end: var(--space-m);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-mb-base</td><td class="u-font-mono u-text-2">margin-block-end: var(--space-base);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-mb-l</td><td class="u-font-mono u-text-2">margin-block-end: var(--space-l);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-mb-xl</td><td class="u-font-mono u-text-2">margin-block-end: var(--space-xl);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-ms-xs</td><td class="u-font-mono u-text-2">margin-inline-start: var(--space-xs);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-ms-s</td><td class="u-font-mono u-text-2">margin-inline-start: var(--space-s);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-ms-m</td><td class="u-font-mono u-text-2">margin-inline-start: var(--space-m);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-me-xs</td><td class="u-font-mono u-text-2">margin-inline-end: var(--space-xs);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-me-s</td><td class="u-font-mono u-text-2">margin-inline-end: var(--space-s);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-me-m</td><td class="u-font-mono u-text-2">margin-inline-end: var(--space-m);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-ms-auto</td><td class="u-font-mono u-text-2">margin-inline-start: auto;</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="sg-section" id="padding">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Padding</h2>
+        <p class="sg-section-desc">The same scale for padding. Use <code>u-p-*</code>, <code>u-px-*</code> or <code>u-py-*</code> before reaching for single sides.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="sg-table u-fs-md" aria-label="Padding utilities">
+          <thead><tr class="u-text-3"><th scope="col">Class</th><th scope="col">Sets</th></tr></thead>
+          <tbody>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-p-0</td><td class="u-font-mono u-text-2">padding: 0;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-p-xs</td><td class="u-font-mono u-text-2">padding: var(--space-xs);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-p-s</td><td class="u-font-mono u-text-2">padding: var(--space-s);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-p-m</td><td class="u-font-mono u-text-2">padding: var(--space-m);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-p-base</td><td class="u-font-mono u-text-2">padding: var(--space-base);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-p-l</td><td class="u-font-mono u-text-2">padding: var(--space-l);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-p-xl</td><td class="u-font-mono u-text-2">padding: var(--space-xl);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-px-0</td><td class="u-font-mono u-text-2">padding-inline: 0;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-px-xs</td><td class="u-font-mono u-text-2">padding-inline: var(--space-xs);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-px-s</td><td class="u-font-mono u-text-2">padding-inline: var(--space-s);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-px-m</td><td class="u-font-mono u-text-2">padding-inline: var(--space-m);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-px-base</td><td class="u-font-mono u-text-2">padding-inline: var(--space-base);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-px-l</td><td class="u-font-mono u-text-2">padding-inline: var(--space-l);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-px-xl</td><td class="u-font-mono u-text-2">padding-inline: var(--space-xl);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-p-2xs</td><td class="u-font-mono u-text-2">padding: 2px;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-px-2xs</td><td class="u-font-mono u-text-2">padding-inline: 2px;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-py-0</td><td class="u-font-mono u-text-2">padding-block: 0;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-py-2xs</td><td class="u-font-mono u-text-2">padding-block: 2px;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-py-xs</td><td class="u-font-mono u-text-2">padding-block: var(--space-xs);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-py-s</td><td class="u-font-mono u-text-2">padding-block: var(--space-s);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-py-m</td><td class="u-font-mono u-text-2">padding-block: var(--space-m);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-py-base</td><td class="u-font-mono u-text-2">padding-block: var(--space-base);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-py-l</td><td class="u-font-mono u-text-2">padding-block: var(--space-l);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-py-xl</td><td class="u-font-mono u-text-2">padding-block: var(--space-xl);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-pb-0</td><td class="u-font-mono u-text-2">padding-block-end: 0;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-pt-xs</td><td class="u-font-mono u-text-2">padding-block-start: var(--space-xs);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-pt-s</td><td class="u-font-mono u-text-2">padding-block-start: var(--space-s);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-pt-m</td><td class="u-font-mono u-text-2">padding-block-start: var(--space-m);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-pt-base</td><td class="u-font-mono u-text-2">padding-block-start: var(--space-base);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-pt-l</td><td class="u-font-mono u-text-2">padding-block-start: var(--space-l);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-pb-s</td><td class="u-font-mono u-text-2">padding-block-end: var(--space-s);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-pb-m</td><td class="u-font-mono u-text-2">padding-block-end: var(--space-m);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-pb-base</td><td class="u-font-mono u-text-2">padding-block-end: var(--space-base);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-pb-l</td><td class="u-font-mono u-text-2">padding-block-end: var(--space-l);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-pe-base</td><td class="u-font-mono u-text-2">padding-inline-end: var(--space-base);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-pe-l</td><td class="u-font-mono u-text-2">padding-inline-end: var(--space-l);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-pe-xl</td><td class="u-font-mono u-text-2">padding-inline-end: var(--space-xl);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-ps-list</td><td class="u-font-mono u-text-2">padding-inline-start: 1.25em;</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="sg-section" id="size">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Size</h2>
+        <p class="sg-section-desc">Widths, heights, reading measures and square marks.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="sg-table u-fs-md" aria-label="Size utilities">
+          <thead><tr class="u-text-3"><th scope="col">Class</th><th scope="col">Sets</th></tr></thead>
+          <tbody>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-w-full</td><td class="u-font-mono u-text-2">width: 100%;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-w-fit</td><td class="u-font-mono u-text-2">width: fit-content;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-w-auto</td><td class="u-font-mono u-text-2">width: auto;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-h-full</td><td class="u-font-mono u-text-2">height: 100%;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-h-auto</td><td class="u-font-mono u-text-2">height: auto;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-w-dyn</td><td class="u-font-mono u-text-2">width: var(--dyn-w);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-h-dyn</td><td class="u-font-mono u-text-2">height: var(--dyn-h);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-min-w-dyn</td><td class="u-font-mono u-text-2">min-width: var(--dyn-min-w);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-min-h-dyn</td><td class="u-font-mono u-text-2">min-height: var(--dyn-min-h);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-max-h-0</td><td class="u-font-mono u-text-2">max-height: 0;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-measure</td><td class="u-font-mono u-text-2">max-width: 60ch;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-max-w-xs</td><td class="u-font-mono u-text-2">max-width: 280px;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-max-w-s</td><td class="u-font-mono u-text-2">max-width: 360px;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-max-w-m</td><td class="u-font-mono u-text-2">max-width: 480px;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-max-w-l</td><td class="u-font-mono u-text-2">max-width: 640px;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-size-dot-xs</td><td class="u-font-mono u-text-2">width: 5px; height: 5px;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-size-dot-s</td><td class="u-font-mono u-text-2">width: 8px; height: 8px;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-size-dot-m</td><td class="u-font-mono u-text-2">width: 10px; height: 10px;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-size-icon-s</td><td class="u-font-mono u-text-2">width: 16px; height: 16px;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-size-icon-m</td><td class="u-font-mono u-text-2">width: 24px; height: 24px;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-sr-only</td><td class="u-font-mono u-text-2">position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-spinner</td><td class="u-font-mono u-text-2">width: 28px; height: 28px; border: 3px solid var(--border); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.7s linear infinite;</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="sg-section" id="position">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Position</h2>
+        <p class="sg-section-desc">Positioning and overflow, plus the screen-reader-only and spinner helpers.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="sg-table u-fs-md" aria-label="Position utilities">
+          <thead><tr class="u-text-3"><th scope="col">Class</th><th scope="col">Sets</th></tr></thead>
+          <tbody>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-relative</td><td class="u-font-mono u-text-2">position: relative;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-absolute</td><td class="u-font-mono u-text-2">position: absolute;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-inset-0</td><td class="u-font-mono u-text-2">inset: 0;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-overflow-hidden</td><td class="u-font-mono u-text-2">overflow: hidden;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-overflow-auto</td><td class="u-font-mono u-text-2">overflow: auto;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-overflow-visible</td><td class="u-font-mono u-text-2">overflow: visible;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-overflow-x-auto</td><td class="u-font-mono u-text-2">overflow-x: auto;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-left-dyn</td><td class="u-font-mono u-text-2">left: var(--dyn-x);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-corner</td><td class="u-font-mono u-text-2">top: var(--space-s); right: var(--space-s);</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="sg-section" id="behaviour">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Behaviour</h2>
+        <p class="sg-section-desc">Interaction and box-model switches.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="sg-table u-fs-md" aria-label="Behaviour utilities">
+          <thead><tr class="u-text-3"><th scope="col">Class</th><th scope="col">Sets</th></tr></thead>
+          <tbody>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-border-box</td><td class="u-font-mono u-text-2">box-sizing: border-box;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-pointer</td><td class="u-font-mono u-text-2">cursor: pointer;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-no-events</td><td class="u-font-mono u-text-2">pointer-events: none;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-accent</td><td class="u-font-mono u-text-2">accent-color: var(--gold);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-list-none</td><td class="u-font-mono u-text-2">list-style: none;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-align-middle</td><td class="u-font-mono u-text-2">vertical-align: middle;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-not-allowed</td><td class="u-font-mono u-text-2">cursor: not-allowed;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-resize-none</td><td class="u-font-mono u-text-2">resize: none;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-rotate-180</td><td class="u-font-mono u-text-2">transform: rotate(180deg);</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-dimmed</td><td class="u-font-mono u-text-2">opacity: 0.5;</td></tr>
+            <tr><td class="u-font-mono u-text-gold u-nowrap">.u-invisible</td><td class="u-font-mono u-text-2">visibility: hidden;</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="sg-section" id="supporting">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Component classes added with this layer</h2>
+        <p class="sg-section-desc">Repeated inline patterns that earned a name. They live in their component’s partial.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="sg-table u-fs-md" aria-label="Supporting component classes">
+          <thead><tr class="u-text-3"><th scope="col">Class</th><th scope="col">Area</th><th scope="col">Use</th><th scope="col">On OSUI</th></tr></thead>
+          <tbody>
+            <tr><td class="u-font-mono u-text-gold">.card-gap</td><td class="u-text-2">Cards</td><td class="u-text-2">Vertical rhythm between stacked cards.</td><td class="u-text-2">Add to a Container styled as a card.</td></tr>
+            <tr><td class="u-font-mono u-text-gold">.btn-danger</td><td class="u-text-2">Buttons</td><td class="u-text-2">Destructive variant, paired with <code>.btn-secondary</code>.</td><td class="u-text-2">Add to the Button widget’s Style Classes.</td></tr>
+            <tr><td class="u-font-mono u-text-gold">.select--compact</td><td class="u-text-2">Forms</td><td class="u-text-2">Tighter padding for selects in filter rows.</td><td class="u-text-2">Add to a Dropdown’s ExtendedClass, with <code>u-w-auto u-fs-ui</code>.</td></tr>
+            <tr><td class="u-font-mono u-text-gold">.contact-eyebrow, .contact-subhead</td><td class="u-text-2">Contact</td><td class="u-text-2">Section titles inside contact cards.</td><td class="u-text-2">Add to an Expression or Text inside the card.</td></tr>
+            <tr><td class="u-font-mono u-text-gold">.contact-sending</td><td class="u-text-2">Contact</td><td class="u-text-2">Centred stack for the sent state.</td><td class="u-text-2">Add to the Container wrapping the icon and message.</td></tr>
+            <tr><td class="u-font-mono u-text-gold">.drawer-heading</td><td class="u-text-2">Drawers</td><td class="u-text-2">Serif heading used by progress and success states.</td><td class="u-text-2">Add to a Text inside the Sidebar or drawer.</td></tr>
+            <tr><td class="u-font-mono u-text-gold">.drawer-success, .drawer-success-title, .drawer-success-body</td><td class="u-text-2">Drawers</td><td class="u-text-2">Success state layout, title and body copy.</td><td class="u-text-2">Add to the Container and Text widgets of the success state.</td></tr>
+            <tr><td class="u-font-mono u-text-gold">.det-mask, .det-mask--narrow</td><td class="u-text-2">My Details</td><td class="u-text-2">Masked identifiers such as NI number and UTR.</td><td class="u-text-2">Add to the Expression holding the masked value.</td></tr>
+            <tr><td class="u-font-mono u-text-gold">.det-mono-input</td><td class="u-text-2">My Details</td><td class="u-text-2">Monospace entry for ISIN and SEDOL fields.</td><td class="u-text-2">Add to the Input widget.</td></tr>
+            <tr><td class="u-font-mono u-text-gold">.det-code, .det-tag</td><td class="u-text-2">My Details</td><td class="u-text-2">Client number chip and small “Primary” tag.</td><td class="u-text-2">Add to an Expression or Tag widget.</td></tr>
+            <tr><td class="u-font-mono u-text-gold">.det-check-label, .det-check</td><td class="u-text-2">My Details</td><td class="u-text-2">Inline checkbox row and its gold check.</td><td class="u-text-2">Add to the Label and Checkbox widgets.</td></tr>
+            <tr><td class="u-font-mono u-text-gold">.det-alert</td><td class="u-text-2">My Details</td><td class="u-text-2">Inline red warning. Use a Feedback Message for page-level alerts.</td><td class="u-text-2">Add to a Container.</td></tr>
+            <tr><td class="u-font-mono u-text-gold">.det-address</td><td class="u-text-2">My Details</td><td class="u-text-2">Open leading for multi-line postal addresses.</td><td class="u-text-2">Add to the Container holding the address.</td></tr>
+            <tr><td class="u-font-mono u-text-gold">.hs-topics-reset</td><td class="u-text-2">Help Centre</td><td class="u-text-2">Row holding the “All topics” link.</td><td class="u-text-2">Add to a Container above the topic grid.</td></tr>
+            <tr><td class="u-font-mono u-text-gold">.ob-spec-range</td><td class="u-text-2">Onboarding</td><td class="u-text-2">Native range laid invisibly over a custom track.</td><td class="u-text-2">Add to a Range Slider’s input when a custom track is drawn behind it.</td></tr>
+            <tr><td class="u-font-mono u-text-gold">.ava-chip.is-dimmed</td><td class="u-text-2">Goals</td><td class="u-text-2">Unpicked chips once a question is answered.</td><td class="u-text-2">Toggle <code>is-dimmed</code> from the screen action.</td></tr>
+            <tr><td class="u-font-mono u-text-gold">.tk-pg-btn--gap</td><td class="u-text-2">Tasks</td><td class="u-text-2">Non-interactive ellipsis in pagination.</td><td class="u-text-2">Add to the Text standing in for skipped pages.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+</body>
+</html>

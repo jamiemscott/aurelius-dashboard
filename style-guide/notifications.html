@@ -32,44 +32,44 @@
         <p class="sg-section-desc">Each notification item receives a <code>data-type</code> attribute that controls its colour palette via CSS custom property overrides. Six types are defined, each with its own <code>--notif-color</code> and <code>--notif-bg</code>.</p>
       </div>
       <div class="sg-demo sg-demo--tight">
-        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md)">
+        <table class="sg-table u-fs-md">
           <thead>
-            <tr style="border-bottom:1px solid var(--border);color:var(--text-3);text-align:left">
-              <th style="padding:8px 12px 8px 0;font-weight:var(--fw-semibold)">data-type</th>
-              <th style="padding:8px 12px;font-weight:var(--fw-semibold)">Color</th>
-              <th style="padding:8px 0;font-weight:var(--fw-semibold)">Meaning</th>
+            <tr class="u-text-3">
+              <th>data-type</th>
+              <th>Color</th>
+              <th>Meaning</th>
             </tr>
           </thead>
-          <tbody style="color:var(--text-2)">
-            <tr style="border-bottom:1px solid var(--divider)">
-              <td style="padding:8px 12px 8px 0"><code>portfolio</code></td>
-              <td style="padding:8px 12px"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--green);margin-right:6px"></span>Green</td>
-              <td style="padding:8px 0">Portfolio performance updates</td>
-            </tr>
-            <tr style="border-bottom:1px solid var(--divider)">
-              <td style="padding:8px 12px 8px 0"><code>adviser</code></td>
-              <td style="padding:8px 12px"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--gold);margin-right:6px"></span>Gold</td>
-              <td style="padding:8px 0">Messages from your adviser</td>
-            </tr>
-            <tr style="border-bottom:1px solid var(--divider)">
-              <td style="padding:8px 12px 8px 0"><code>document</code></td>
-              <td style="padding:8px 12px"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#818CF8;margin-right:6px"></span>Indigo</td>
-              <td style="padding:8px 0">New documents, statements, reports</td>
-            </tr>
-            <tr style="border-bottom:1px solid var(--divider)">
-              <td style="padding:8px 12px 8px 0"><code>tax</code></td>
-              <td style="padding:8px 12px"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#FBBF24;margin-right:6px"></span>Amber</td>
-              <td style="padding:8px 0">Tax reporting, CGT notices</td>
-            </tr>
-            <tr style="border-bottom:1px solid var(--divider)">
-              <td style="padding:8px 12px 8px 0"><code>security</code></td>
-              <td style="padding:8px 12px"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--red);margin-right:6px"></span>Red</td>
-              <td style="padding:8px 0">Login alerts, security events</td>
+          <tbody class="u-text-2">
+            <tr>
+              <td><code>portfolio</code></td>
+              <td><span class="u-size-dot-m u-inline-block u-radius-circle u-bg-green u-me-s"></span>Green</td>
+              <td>Portfolio performance updates</td>
             </tr>
             <tr>
-              <td style="padding:8px 12px 8px 0"><code>dividend</code></td>
-              <td style="padding:8px 12px"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#38BDF8;margin-right:6px"></span>Sky blue</td>
-              <td style="padding:8px 0">Dividend payments received</td>
+              <td><code>adviser</code></td>
+              <td><span class="u-size-dot-m u-inline-block u-radius-circle u-bg-gold u-me-s"></span>Gold</td>
+              <td>Messages from your adviser</td>
+            </tr>
+            <tr>
+              <td><code>document</code></td>
+              <td><span class="u-size-dot-m u-inline-block u-radius-circle u-bg-dyn u-me-s" style="--dyn-bg:#818CF8"></span>Indigo</td>
+              <td>New documents, statements, reports</td>
+            </tr>
+            <tr>
+              <td><code>tax</code></td>
+              <td><span class="u-size-dot-m u-inline-block u-radius-circle u-bg-dyn u-me-s" style="--dyn-bg:#FBBF24"></span>Amber</td>
+              <td>Tax reporting, CGT notices</td>
+            </tr>
+            <tr>
+              <td><code>security</code></td>
+              <td><span class="u-size-dot-m u-inline-block u-radius-circle u-bg-red u-me-s"></span>Red</td>
+              <td>Login alerts, security events</td>
+            </tr>
+            <tr>
+              <td><code>dividend</code></td>
+              <td><span class="u-size-dot-m u-inline-block u-radius-circle u-bg-dyn u-me-s" style="--dyn-bg:#38BDF8"></span>Sky blue</td>
+              <td>Dividend payments received</td>
             </tr>
           </tbody>
         </table>
@@ -82,9 +82,9 @@
         <h2 class="sg-section-title">Notification Items</h2>
         <p class="sg-section-desc">Each <code>.np-item</code> has a left accent stripe (3px, from <code>--notif-color</code>), an icon chip (<code>.np-icon</code>), a content block, and an optional unread dot. Unread items receive <code>data-unread</code> which intensifies the accent and adds a tinted background wash.</p>
       </div>
-      <div class="sg-demo" style="padding:12px">
+      <div class="sg-demo u-p-m">
         <ul class="np-list">
-          <li class="np-item" data-type="portfolio" data-unread style="--i:0">
+          <li class="np-item" data-type="portfolio" data-unread>
             <button class="np-item-btn">
               <div class="np-icon">
                 <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
@@ -97,7 +97,7 @@
               <div class="np-unread-dot" aria-hidden="true"></div>
             </button>
           </li>
-          <li class="np-item" data-type="adviser" style="--i:1">
+          <li class="np-item" data-type="adviser">
             <button class="np-item-btn">
               <div class="np-icon">
                 <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -109,7 +109,7 @@
               </div>
             </button>
           </li>
-          <li class="np-item" data-type="document" style="--i:2">
+          <li class="np-item" data-type="document">
             <button class="np-item-btn">
               <div class="np-icon">
                 <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
@@ -126,7 +126,7 @@
       <div class="sg-code">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
         <pre><code class="language-html">&lt;!-- Unread item (add data-unread) --&gt;
-&lt;li class="np-item" data-type="portfolio" data-unread style="--i:0"&gt;
+&lt;li class="np-item" data-type="portfolio" data-unread&gt;
   &lt;button class="np-item-btn"&gt;
     &lt;div class="np-icon"&gt;&lt;!-- type icon --&gt;&lt;/div&gt;
     &lt;div class="np-content"&gt;
@@ -139,7 +139,7 @@
 &lt;/li&gt;
 
 &lt;!-- Read item (no data-unread, no .np-unread-dot) --&gt;
-&lt;li class="np-item" data-type="adviser" style="--i:1"&gt;
+&lt;li class="np-item" data-type="adviser"&gt;
   &lt;button class="np-item-btn"&gt;
     &lt;div class="np-icon"&gt;&lt;!-- icon --&gt;&lt;/div&gt;
     &lt;div class="np-content"&gt;
@@ -210,7 +210,7 @@
         <h2 class="sg-section-title">Accessibility Notes</h2>
       </div>
       <div class="sg-demo sg-demo--col">
-        <p style="margin:0;color:var(--text-2);font-size:var(--fs-body)">The panel is a <code>role="dialog" aria-modal="true"</code> element. The unread count badge uses <code>aria-live="polite"</code> so screen readers announce changes. The "mark all read" button is hidden via CSS <code>display:none</code> when there are no unread items (using <code>:not(:has([data-unread]))</code>) — no JavaScript required. Dismiss buttons have descriptive <code>aria-label</code> attributes. Keyboard: <kbd>Escape</kbd> closes the panel.</p>
+        <p class="u-m-0 u-text-2 u-fs-body">The panel is a <code>role="dialog" aria-modal="true"</code> element. The unread count badge uses <code>aria-live="polite"</code> so screen readers announce changes. The "mark all read" button is hidden via CSS <code>display:none</code> when there are no unread items (using <code>:not(:has([data-unread]))</code>) — no JavaScript required. Dismiss buttons have descriptive <code>aria-label</code> attributes. Keyboard: <kbd>Escape</kbd> closes the panel.</p>
       </div>
     </section>
 

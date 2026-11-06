@@ -34,8 +34,8 @@
         <h2 class="sg-section-title">Complete Interface Preview</h2>
         <p class="sg-section-desc">A fully assembled mock showing all components in context — context bar, session divider, bot and user messages, suggestion chips, typing indicator, and the input bar. The interface is constrained here to show the layout; in production it sits inside <code>.shell--no-sidebar .chat-main</code> and fills the viewport height.</p>
       </div>
-      <div class="sg-demo sg-demo--flush" style="overflow:hidden;border-radius:var(--radius-card)">
-        <div style="display:flex;flex-direction:column;height:600px;max-width:680px;margin:0 auto">
+      <div class="sg-demo sg-demo--flush u-overflow-hidden u-radius-card">
+        <div class="u-flex u-flex-col u-h-dyn u-max-w-l u-mt-0 u-mb-0 u-mx-auto" style="--dyn-h:600px">
 
           <!-- Context bar -->
           <div class="chat-context" role="region" aria-label="Chat settings">
@@ -131,7 +131,7 @@
 
           <!-- Input bar -->
           <div class="adv-input-bar" role="region" aria-label="Send a message">
-            <textarea class="adv-textarea" rows="1" placeholder="Ask your adviser anything…" aria-label="Message" style="height:auto"></textarea>
+            <textarea class="adv-textarea u-h-auto" rows="1" placeholder="Ask your adviser anything…" aria-label="Message"></textarea>
             <button class="adv-send-btn" aria-label="Send message" disabled>
               <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
             </button>
@@ -152,12 +152,12 @@
       </div>
       <!-- Layout diagram -->
       <div class="sg-demo">
-        <div style="border:1px solid var(--border);border-radius:var(--radius-card);overflow:hidden;max-width:500px;margin:0 auto">
+        <div class="u-border u-radius-card u-overflow-hidden u-max-w-m u-mt-0 u-mb-0 u-mx-auto">
           <div class="sg-layout-topbar">Topbar — <code>.shell--no-sidebar</code></div>
-          <div style="display:flex;flex-direction:column;min-height:180px">
-            <div style="background:light-dark(rgba(74,143,232,0.06),rgba(74,143,232,0.06));border:1px dashed var(--el-water-bg);border-radius:0;padding:12px;flex:1;display:flex;flex-direction:column;gap:6px;align-items:center;justify-content:center">
-              <span style="color:var(--el-water);font-size:var(--fs-xs);font-weight:var(--fw-semibold);letter-spacing:var(--ls-wide);text-transform:uppercase">.chat-main</span>
-              <div style="border:1px dashed var(--border);border-radius:var(--radius-item);padding:10px 20px;background:var(--bg-hover);color:var(--text-3);font-size:var(--fs-xs);letter-spacing:var(--ls-wide);text-transform:uppercase">.chat-wrap — max-width: 760px</div>
+          <div class="u-flex u-flex-col u-min-h-dyn" style="--dyn-min-h:180px">
+            <div class="u-bg-dyn u-border u-border-dashed u-border-dyn u-radius-0 u-p-m u-flex-1 u-flex u-flex-col u-gap-s u-items-center u-justify-center" style="--dyn-bg:light-dark(rgba(74,143,232,0.06),rgba(74,143,232,0.06));--dyn-border:var(--el-water-bg)">
+              <span class="u-text-water u-fs-xs u-fw-semibold u-ls-wide u-uppercase">.chat-main</span>
+              <div class="u-border u-border-dashed u-radius-item u-py-m u-px-l u-bg-hover u-text-3 u-fs-xs u-ls-wide u-uppercase">.chat-wrap — max-width: 760px</div>
             </div>
           </div>
         </div>
@@ -185,7 +185,7 @@
         <p class="sg-section-desc">A sticky bar at the top of the chat that lets the user set session-level parameters before asking questions. On mobile it stacks vertically; above 480px it flows into a row. Each field wraps a label and a <code>&lt;select&gt;</code> in a <code>.chat-context-field</code> flex column. The styled custom arrow is a background-image SVG; the native browser arrow is suppressed with <code>appearance: none</code>.</p>
       </div>
       <div class="sg-demo">
-        <div class="chat-context" style="border-radius:var(--radius-item)">
+        <div class="chat-context u-radius-item">
           <div class="chat-context-field">
             <label class="chat-select-label" for="sg-profile">Investor Profile</label>
             <select class="chat-select" id="sg-profile">
@@ -235,7 +235,7 @@
         <h2 class="sg-section-title">Avatars — <code>.adv-avatar</code></h2>
         <p class="sg-section-desc">Two variants distinguish the sender of each message. The bot avatar (<code>.adv-avatar--bot</code>) shows the Aurelius monogram on a gold-dim background, painted with the <code>--brand-monogram</code> mask just like the brand mark. The "A" in the markup is a no-CSS fallback, hidden with <code>font-size: 0</code>. The user avatar (<code>.adv-avatar--user</code>) shows initials in a neutral treatment. On consecutive messages from the same sender, the avatar is set to <code>visibility: hidden</code> to avoid visual clutter while preserving the column width.</p>
       </div>
-      <div class="sg-demo sg-demo--grid" style="align-items:center">
+      <div class="sg-demo sg-demo--grid u-items-center">
         <div class="sg-variant-group">
           <div class="adv-avatar adv-avatar--bot">A</div>
           <span class="sg-demo-label">Bot — <code>.adv-avatar--bot</code></span>
@@ -245,7 +245,7 @@
           <span class="sg-demo-label">User — <code>.adv-avatar--user</code></span>
         </div>
         <div class="sg-variant-group">
-          <div class="adv-avatar adv-avatar--bot" style="visibility:hidden"></div>
+          <div class="adv-avatar adv-avatar--bot u-invisible"></div>
           <span class="sg-demo-label">Hidden repeat<br><code>visibility: hidden</code></span>
         </div>
       </div>
@@ -282,7 +282,7 @@
         </div>
         <!-- Consecutive bot — avatar hidden -->
         <div class="adv-msg adv-msg--bot">
-          <div class="adv-avatar adv-avatar--bot" style="visibility:hidden" aria-hidden="true">A</div>
+          <div class="adv-avatar adv-avatar--bot u-invisible" aria-hidden="true">A</div>
           <div class="adv-bubble">
             <div class="adv-bubble-inner">
               <p class="adv-text">A consecutive bot message — avatar hidden, spacing collapsed to 4px.</p>
@@ -337,26 +337,26 @@
         <h2 class="sg-section-title">Bubbles — <code>.adv-bubble-inner</code></h2>
         <p class="sg-section-desc">Bubble shape is controlled by <code>border-radius</code> — the "pinched" corner (4px) is always top-left, pointing toward the avatar on the left. Bot bubbles use <code>--bg-card</code> with a neutral border; user bubbles use <code>--gold-dim</code> with a gold glow border. Both use the same padding and the same <code>border-radius: 4px 16px 16px 16px</code>. Never apply colours to <code>.adv-bubble-inner</code> directly — colours are inherited from the <code>.adv-msg--bot</code> / <code>.adv-msg--user</code> parent selector.</p>
       </div>
-      <div class="sg-demo sg-demo--grid" style="align-items:flex-start">
-        <div class="sg-variant-group" style="align-items:flex-start">
-          <div class="adv-msg adv-msg--bot" style="max-width:260px">
+      <div class="sg-demo sg-demo--grid u-items-start">
+        <div class="sg-variant-group u-items-start">
+          <div class="adv-msg adv-msg--bot u-max-w-xs">
             <div class="adv-bubble">
               <div class="adv-bubble-inner">
                 <p class="adv-text">Bot bubble — <code>border-radius: 4px 16px 16px 16px</code></p>
               </div>
             </div>
           </div>
-          <span class="sg-demo-label" style="text-align:left">Bot — <code>.adv-msg--bot</code></span>
+          <span class="sg-demo-label u-text-left">Bot — <code>.adv-msg--bot</code></span>
         </div>
-        <div class="sg-variant-group" style="align-items:flex-end">
-          <div class="adv-msg adv-msg--user" style="max-width:260px">
+        <div class="sg-variant-group u-items-end">
+          <div class="adv-msg adv-msg--user u-max-w-xs">
             <div class="adv-bubble">
               <div class="adv-bubble-inner">
                 <p class="adv-text">User bubble — <code>border-radius: 4px 16px 16px 16px</code></p>
               </div>
             </div>
           </div>
-          <span class="sg-demo-label" style="text-align:left">User — <code>.adv-msg--user</code></span>
+          <span class="sg-demo-label u-text-left">User — <code>.adv-msg--user</code></span>
         </div>
       </div>
       <div class="sg-code">
@@ -384,7 +384,7 @@
         <!-- Error -->
         <div>
           <p class="sg-label">Error — <code>.adv-bubble-inner--error</code></p>
-          <div class="adv-msg adv-msg--bot" style="max-width:520px">
+          <div class="adv-msg adv-msg--bot u-max-w-m">
             <div class="adv-avatar adv-avatar--bot" aria-hidden="true">A</div>
             <div class="adv-bubble">
               <div class="adv-bubble-inner adv-bubble-inner--error" role="alert">
@@ -398,7 +398,7 @@
         <!-- Warning -->
         <div>
           <p class="sg-label">Warning — <code>.adv-bubble-inner--warning</code></p>
-          <div class="adv-msg adv-msg--bot" style="max-width:520px">
+          <div class="adv-msg adv-msg--bot u-max-w-m">
             <div class="adv-avatar adv-avatar--bot" aria-hidden="true">A</div>
             <div class="adv-bubble">
               <div class="adv-bubble-inner adv-bubble-inner--warning">
@@ -412,7 +412,7 @@
         <!-- Success -->
         <div>
           <p class="sg-label">Success — <code>.adv-bubble-inner--success</code></p>
-          <div class="adv-msg adv-msg--bot" style="max-width:520px">
+          <div class="adv-msg adv-msg--bot u-max-w-m">
             <div class="adv-avatar adv-avatar--bot" aria-hidden="true">A</div>
             <div class="adv-bubble">
               <div class="adv-bubble-inner adv-bubble-inner--success">
@@ -426,7 +426,7 @@
         <!-- Info -->
         <div>
           <p class="sg-label">Info — <code>.adv-bubble-inner--info</code></p>
-          <div class="adv-msg adv-msg--bot" style="max-width:520px">
+          <div class="adv-msg adv-msg--bot u-max-w-m">
             <div class="adv-avatar adv-avatar--bot" aria-hidden="true">A</div>
             <div class="adv-bubble">
               <div class="adv-bubble-inner adv-bubble-inner--info">
@@ -472,7 +472,7 @@
         <p class="sg-section-desc"><code>.adv-text</code> is the prose wrapper inside a bubble. It supports paragraph stacking (each <code>&lt;p&gt;</code> has 8px bottom margin, cleared on the last child), <code>&lt;strong&gt;</code> for emphasis, and <code>&lt;code&gt;</code> for inline identifiers — ticker symbols, account numbers, function names. Never use <code>&lt;br&gt;</code> to separate thoughts; use separate <code>&lt;p&gt;</code> elements instead.</p>
       </div>
       <div class="sg-demo sg-demo--col">
-        <div class="adv-msg adv-msg--bot" style="max-width:520px">
+        <div class="adv-msg adv-msg--bot u-max-w-m">
           <div class="adv-avatar adv-avatar--bot" aria-hidden="true">A</div>
           <div class="adv-bubble">
             <div class="adv-bubble-inner">
@@ -507,7 +507,7 @@
         <div class="adv-divider" role="separator">
           <span class="adv-divider-label">Today</span>
         </div>
-        <div class="adv-divider" role="separator" style="margin-top:16px">
+        <div class="adv-divider u-mt-base" role="separator">
           <span class="adv-divider-label">12 April 2026</span>
         </div>
       </div>
@@ -529,7 +529,7 @@
         <p class="sg-section-desc">Short-cut prompt buttons rendered below a bot message to guide the user towards common follow-up questions. They sit inside an <code>.adv-suggestions</code> flex-wrap container. Clicking a chip should populate the textarea with the chip's text — never submit automatically. Chips disappear or deactivate once the user has typed a custom message. Each chip must be a <code>&lt;button&gt;</code> for keyboard and AT access.</p>
       </div>
       <div class="sg-demo">
-        <div class="adv-msg adv-msg--bot" style="max-width:540px">
+        <div class="adv-msg adv-msg--bot u-max-w-l">
           <div class="adv-avatar adv-avatar--bot" aria-hidden="true">A</div>
           <div class="adv-bubble">
             <div class="adv-bubble-inner">
@@ -606,8 +606,8 @@
         <!-- Enabled state -->
         <div>
           <p class="sg-label">Default — empty, send disabled</p>
-          <div class="adv-input-bar" style="border-radius:var(--radius-item);border:1px solid var(--border)">
-            <textarea class="adv-textarea" rows="1" placeholder="Ask your adviser anything…" aria-label="Message" style="height:auto"></textarea>
+          <div class="adv-input-bar u-radius-item u-border">
+            <textarea class="adv-textarea u-h-auto" rows="1" placeholder="Ask your adviser anything…" aria-label="Message"></textarea>
             <button class="adv-send-btn" aria-label="Send message" disabled>
               <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
             </button>
@@ -615,8 +615,8 @@
         </div>
         <div>
           <p class="sg-label">Filled — send enabled</p>
-          <div class="adv-input-bar" style="border-radius:var(--radius-item);border:1px solid var(--border)">
-            <textarea class="adv-textarea" rows="1" aria-label="Message" style="height:auto">Tell me about my ISA allowance this year.</textarea>
+          <div class="adv-input-bar u-radius-item u-border">
+            <textarea class="adv-textarea u-h-auto" rows="1" aria-label="Message">Tell me about my ISA allowance this year.</textarea>
             <button class="adv-send-btn" aria-label="Send message">
               <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
             </button>
@@ -652,7 +652,7 @@
         <h2 class="sg-section-title">Empty State — <code>.chat-empty</code></h2>
         <p class="sg-section-desc">Displayed when there are no messages yet — replaces the <code>.adv-messages</code> content. Centred vertically and horizontally using flex. The orb echoes the brand mark with the gold-dim palette. Below the heading and subtext, a 2-column starter grid (<code>.chat-starter-grid</code>) provides clickable prompt tiles that populate the textarea when clicked. Hide the empty state and show the messages list as soon as the first message is sent.</p>
       </div>
-      <div class="sg-demo" style="min-height:440px;display:flex;align-items:center;justify-content:center">
+      <div class="sg-demo u-min-h-dyn u-flex u-items-center u-justify-center" style="--dyn-min-h:440px">
         <div class="chat-empty">
           <div class="chat-empty-orb" aria-hidden="true">A</div>
           <div>
@@ -710,9 +710,9 @@
         <h2 class="sg-section-title">Scroll to Bottom — <code>.chat-scroll-btn</code></h2>
         <p class="sg-section-desc">A floating circular button that appears when the user has scrolled up and there are newer messages below. It is absolutely positioned within the <code>.chat-wrap</code> container (which must have <code>position: relative</code>). The button starts at <code>opacity: 0; pointer-events: none</code> and transitions to visible via the <code>.is-visible</code> state class, toggled by a scroll event listener in JavaScript.</p>
       </div>
-      <div class="sg-demo" style="position:relative;min-height:80px;display:flex;align-items:center;justify-content:flex-end;padding-right:60px">
-        <p style="color:var(--text-3);font-size:var(--fs-sm);flex:1">Scroll position indicator area</p>
-        <button class="chat-scroll-btn is-visible" style="position:static;margin-left:auto" aria-label="Scroll to latest message">
+      <div class="sg-demo u-relative u-min-h-dyn u-flex u-items-center u-justify-end u-pe-xl" style="--dyn-min-h:80px">
+        <p class="u-text-3 u-fs-sm u-flex-1">Scroll position indicator area</p>
+        <button class="chat-scroll-btn is-visible sg-static u-ms-auto" aria-label="Scroll to latest message">
           <svg aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
       </div>
@@ -749,9 +749,9 @@
       </div>
 
       <!-- Fix 1 -->
-      <h3 style="color:var(--text-1);font-size:var(--fs-xl);font-weight:var(--fw-semibold);margin:0 0 8px">Fix 1 — Textarea span wrapper</h3>
-      <p style="color:var(--text-2);font-size:var(--fs-body);line-height:var(--lh-relaxed);max-width:600px;margin:0 0 16px">OutSystems wraps the <code>&lt;textarea&gt;</code> in an auto-generated <code>&lt;span&gt;</code> that cannot be removed. This makes the span the flex child instead of the textarea, collapsing the input to its intrinsic width. <code>display: contents</code> makes the span invisible to the flex algorithm so the textarea participates directly.</p>
-      <div class="sg-code" style="margin-bottom:32px">
+      <h3 class="u-text-1 u-fs-xl u-fw-semibold u-m-0 u-mb-s">Fix 1 — Textarea span wrapper</h3>
+      <p class="u-text-2 u-fs-body u-lh-relaxed u-max-w-l u-m-0 u-mb-base">OutSystems wraps the <code>&lt;textarea&gt;</code> in an auto-generated <code>&lt;span&gt;</code> that cannot be removed. This makes the span the flex child instead of the textarea, collapsing the input to its intrinsic width. <code>display: contents</code> makes the span invisible to the flex algorithm so the textarea participates directly.</p>
+      <div class="sg-code u-mb-xl">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
         <pre><code class="language-css">/* OS injects: &lt;span&gt;&lt;textarea&gt;&lt;/textarea&gt;&lt;/span&gt; */
 .adv-input-bar > span {
@@ -760,9 +760,9 @@
       </div>
 
       <!-- Fix 2 -->
-      <h3 style="color:var(--text-1);font-size:var(--fs-xl);font-weight:var(--fw-semibold);margin:0 0 8px">Fix 2 — Dropdown container arrow</h3>
-      <p style="color:var(--text-2);font-size:var(--fs-body);line-height:var(--lh-relaxed);max-width:600px;margin:0 0 16px">OS wraps <code>&lt;select&gt;</code> in a <code>div.dropdown-container</code> and renders its chevron via <code>::after</code> using an icon font variable (<code>content: var(--osui-icon-arrow-down)</code>). This creates a second arrow alongside our <code>background-image</code> chevron. We suppress the pseudo-element and give the wrapper <code>flex: 1</code> so the select inside it fills the column width.</p>
-      <div class="sg-code" style="margin-bottom:32px">
+      <h3 class="u-text-1 u-fs-xl u-fw-semibold u-m-0 u-mb-s">Fix 2 — Dropdown container arrow</h3>
+      <p class="u-text-2 u-fs-body u-lh-relaxed u-max-w-l u-m-0 u-mb-base">OS wraps <code>&lt;select&gt;</code> in a <code>div.dropdown-container</code> and renders its chevron via <code>::after</code> using an icon font variable (<code>content: var(--osui-icon-arrow-down)</code>). This creates a second arrow alongside our <code>background-image</code> chevron. We suppress the pseudo-element and give the wrapper <code>flex: 1</code> so the select inside it fills the column width.</p>
+      <div class="sg-code u-mb-xl">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
         <pre><code class="language-css">/* OS injects: &lt;div class="dropdown-container"&gt;&lt;select&gt;…&lt;/select&gt;&lt;/div&gt; */
 .chat-context-field .dropdown-container {
@@ -777,8 +777,8 @@
       </div>
 
       <!-- Fix 3 -->
-      <h3 style="color:var(--text-1);font-size:var(--fs-xl);font-weight:var(--fw-semibold);margin:0 0 8px">Fix 3 — Sibling icon fallbacks</h3>
-      <p style="color:var(--text-2);font-size:var(--fs-body);line-height:var(--lh-relaxed);max-width:600px;margin:0 0 16px">Additional fallback selectors cover sibling icon elements that different OS widget versions may inject alongside the <code>&lt;select&gt;</code>. Scoped to <code>.chat-context-field</code> to avoid hiding elements elsewhere on the page.</p>
+      <h3 class="u-text-1 u-fs-xl u-fw-semibold u-m-0 u-mb-s">Fix 3 — Sibling icon fallbacks</h3>
+      <p class="u-text-2 u-fs-body u-lh-relaxed u-max-w-l u-m-0 u-mb-base">Additional fallback selectors cover sibling icon elements that different OS widget versions may inject alongside the <code>&lt;select&gt;</code>. Scoped to <code>.chat-context-field</code> to avoid hiding elements elsewhere on the page.</p>
       <div class="sg-code">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
         <pre><code class="language-css">.chat-context-field select ~ svg,
@@ -802,48 +802,48 @@
         <p class="sg-section-desc">All classes in <code>modules/adviser.css</code> and the layout additions in <code>layout/layout.css</code>.</p>
       </div>
       <div class="sg-demo sg-demo--flush">
-        <table style="width:100%;border-collapse:collapse">
+        <table class="sg-table sg-table--roomy">
           <thead>
             <tr>
-              <th style="padding:10px 16px;text-align:left;font-size:var(--fs-xs);font-weight:var(--fw-semibold);letter-spacing:var(--ls-widest);text-transform:uppercase;color:var(--text-3);border-bottom:1px solid var(--border)">Class</th>
-              <th style="padding:10px 16px;text-align:left;font-size:var(--fs-xs);font-weight:var(--fw-semibold);letter-spacing:var(--ls-widest);text-transform:uppercase;color:var(--text-3);border-bottom:1px solid var(--border)">File</th>
-              <th style="padding:10px 16px;text-align:left;font-size:var(--fs-xs);font-weight:var(--fw-semibold);letter-spacing:var(--ls-widest);text-transform:uppercase;color:var(--text-3);border-bottom:1px solid var(--border)">Purpose</th>
+              <th class="u-fs-xs u-ls-widest u-uppercase u-text-3">Class</th>
+              <th class="u-fs-xs u-ls-widest u-uppercase u-text-3">File</th>
+              <th class="u-fs-xs u-ls-widest u-uppercase u-text-3">Purpose</th>
             </tr>
           </thead>
-          <tbody style="font-size:var(--fs-body)">
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.chat-main</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">layout.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Add to <code>.main</code> — removes padding, enables flex column</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.chat-wrap</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">layout.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Centring container, max-width 760px above 768px</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.chat-context</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Sticky top bar, flex row above 480px</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.chat-context-field</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Label + select wrapper, flex column, flex: 1</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.chat-select-label</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Uppercase eyebrow label above each select</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.chat-select</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Styled select with custom SVG arrow, appearance reset</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-messages</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Scrollable message list, flex: 1, smooth scroll</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-divider</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Session/date divider with flanking hairlines</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-msg</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Message row — avatar + bubble, flex row</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-msg--bot</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Left-aligned bot message, margin-right: auto</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-msg--user</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Right-aligned user message row — margin-left: auto, avatar stays left of bubble</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-avatar</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">32×32 circular avatar base</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-avatar--bot</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Gold-dim serif "A" — Aurelius brand mark</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-avatar--user</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Neutral uppercase initials</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-bubble</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Bubble column — inner + meta stack</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-bubble-inner</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Coloured surface with asymmetric border-radius</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-bubble-inner--error</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Status modifier — red tint; use <code>role="alert"</code></td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-bubble-inner--warning</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Status modifier — gold tint; partial or cautionary data</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-bubble-inner--success</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Status modifier — green tint; confirmed action</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-bubble-inner--info</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Status modifier — blue tint; neutral notice or system info</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-text</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Prose wrapper — p, strong, code support</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-sender</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Bot sender name — first message in a group only</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-time</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Timestamp below bubble; right-aligned for user</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-suggestions</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Flex-wrap chip row inside a bubble</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-chip</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Suggested prompt button; gold hover</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-dots</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Typing indicator — three bouncing dots</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-input-bar</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Sticky footer — textarea + send button row</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-textarea</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Auto-resize textarea, flex: 1, max-height 140px</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.adv-send-btn</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">42×42 circular gold send button</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.chat-empty</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Centred empty state — replaces message list</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.chat-starter-grid</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">2-col prompt tile grid, max-width 440px</td></tr>
-            <tr><td style="padding:10px 16px;border-bottom:1px solid var(--divider);font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.chat-starter</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;border-bottom:1px solid var(--divider);color:var(--text-2)">Prompt tile button; gold hover</td></tr>
-            <tr><td style="padding:10px 16px;font-family:ui-monospace,monospace;font-size:12px;color:var(--gold-text)">.chat-scroll-btn</td><td style="padding:10px 16px;color:var(--text-3);font-size:var(--fs-xs)">adviser.css</td><td style="padding:10px 16px;color:var(--text-2)">Floating scroll-to-bottom button; shown via <code>.is-visible</code></td></tr>
+          <tbody class="u-fs-body">
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.chat-main</td><td class="u-text-3 u-fs-xs">layout.css</td><td class="u-text-2">Add to <code>.main</code> — removes padding, enables flex column</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.chat-wrap</td><td class="u-text-3 u-fs-xs">layout.css</td><td class="u-text-2">Centring container, max-width 760px above 768px</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.chat-context</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Sticky top bar, flex row above 480px</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.chat-context-field</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Label + select wrapper, flex column, flex: 1</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.chat-select-label</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Uppercase eyebrow label above each select</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.chat-select</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Styled select with custom SVG arrow, appearance reset</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.adv-messages</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Scrollable message list, flex: 1, smooth scroll</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.adv-divider</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Session/date divider with flanking hairlines</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.adv-msg</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Message row — avatar + bubble, flex row</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.adv-msg--bot</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Left-aligned bot message, margin-right: auto</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.adv-msg--user</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Right-aligned user message row — margin-left: auto, avatar stays left of bubble</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.adv-avatar</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">32×32 circular avatar base</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.adv-avatar--bot</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Gold-dim serif "A" — Aurelius brand mark</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.adv-avatar--user</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Neutral uppercase initials</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.adv-bubble</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Bubble column — inner + meta stack</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.adv-bubble-inner</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Coloured surface with asymmetric border-radius</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.adv-bubble-inner--error</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Status modifier — red tint; use <code>role="alert"</code></td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.adv-bubble-inner--warning</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Status modifier — gold tint; partial or cautionary data</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.adv-bubble-inner--success</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Status modifier — green tint; confirmed action</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.adv-bubble-inner--info</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Status modifier — blue tint; neutral notice or system info</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.adv-text</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Prose wrapper — p, strong, code support</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.adv-sender</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Bot sender name — first message in a group only</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.adv-time</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Timestamp below bubble; right-aligned for user</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.adv-suggestions</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Flex-wrap chip row inside a bubble</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.adv-chip</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Suggested prompt button; gold hover</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.adv-dots</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Typing indicator — three bouncing dots</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.adv-input-bar</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Sticky footer — textarea + send button row</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.adv-textarea</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Auto-resize textarea, flex: 1, max-height 140px</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.adv-send-btn</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">42×42 circular gold send button</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.chat-empty</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Centred empty state — replaces message list</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.chat-starter-grid</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">2-col prompt tile grid, max-width 440px</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.chat-starter</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Prompt tile button; gold hover</td></tr>
+            <tr><td class="u-font-mono u-fs-md u-text-gold">.chat-scroll-btn</td><td class="u-text-3 u-fs-xs">adviser.css</td><td class="u-text-2">Floating scroll-to-bottom button; shown via <code>.is-visible</code></td></tr>
           </tbody>
         </table>
       </div>

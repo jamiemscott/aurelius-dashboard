@@ -430,6 +430,55 @@
 .sg-demo th:first-child   { color: var(--text-1); font-weight: var(--fw-medium); }
 
 
+/* ─── REFERENCE TABLE ─────────────────────────────────────────────────────────
+   Tables that document classes and tokens. Rows carry the rules, so cells only
+   need a utility when one column reads differently (u-font-mono, u-text-gold).
+   .sg-table sets the geometry; the first-child rules above still set emphasis. */
+.sg-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.sg-table thead tr { border-bottom: 1px solid var(--border); text-align: left; }
+.sg-table tbody tr { border-bottom: 1px solid var(--divider); cursor: auto; }
+.sg-table tbody tr:last-child { border-bottom: none; }
+
+/* Prose columns: override the data-table defaults (end-aligned, no wrapping) */
+.sg-table thead th,
+.sg-demo .sg-table thead th {
+  font-weight: var(--fw-semibold);
+  padding: 8px 12px 8px 0;
+  text-align: left;
+}
+
+.sg-table tbody td,
+.sg-demo .sg-table tbody td {
+  padding: 8px 12px 8px 0;
+  text-align: left;
+  white-space: normal;
+}
+
+.sg-table :is(thead th, tbody td):last-child { padding-inline-end: 0; }
+
+.sg-table.sg-table--roomy :is(thead th, tbody td) { padding: 10px 16px; }
+.sg-table.sg-table--inset :is(thead th, tbody td) { padding: 8px 12px; }
+
+
+/* ─── DEMO HELPERS ────────────────────────────────────────────────────────────
+   Pin a normally floating component (menu, tooltip, badge) into the page flow
+   so the guide can show it. !important because the component's own positioning
+   is what is being overridden, and its selectors vary. */
+.sg-static {
+  inset: auto !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  position: relative !important;
+  transform: none !important;
+}
+
+.sg-outline { outline: 2px solid var(--gold-dim); }
+
+
 /* ─── LAYOUT DIAGRAM ──────────────────────────────────────────────────────── */
 .sg-layout-diagram {
   border: 1px solid var(--border);

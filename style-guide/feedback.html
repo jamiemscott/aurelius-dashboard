@@ -62,9 +62,9 @@
 
       <div class="sg-demo">
         <!-- Simulate in-page — wrapper is normally position:fixed in production -->
-        <div style="position:relative; min-height: 60px;">
-          <div class="feedback-message feedback-message-error" role="alert" style="position:relative; top:auto; left:auto; transform:none; max-width:480px;">
-            <i class="fa fa-times-circle" aria-hidden="true" style="font-style:normal; font-size:15px; line-height:1.4; margin-left:6px; color:var(--red);">✕</i>
+        <div class="u-relative u-min-h-dyn" style="--dyn-min-h:60px">
+          <div class="feedback-message feedback-message-error sg-static u-max-w-m" role="alert">
+            <i class="fa fa-times-circle u-not-italic u-fs-lg u-lh-snug u-ms-s u-text-red" aria-hidden="true">✕</i>
             <div class="feedback-message-text">There was a problem. Please contact the administrator.</div>
           </div>
         </div>
@@ -90,8 +90,8 @@
       </div>
 
       <div class="sg-demo">
-        <div class="feedback-message feedback-message-success" role="alert" style="position:relative; top:auto; left:auto; transform:none; max-width:480px;">
-          <i class="fa fa-check-circle" aria-hidden="true" style="font-style:normal; font-size:15px; line-height:1.4; margin-left:6px; color:var(--green);">✓</i>
+        <div class="feedback-message feedback-message-success sg-static u-max-w-m" role="alert">
+          <i class="fa fa-check-circle u-not-italic u-fs-lg u-lh-snug u-ms-s u-text-green" aria-hidden="true">✓</i>
           <div class="feedback-message-text">Your changes have been saved successfully.</div>
         </div>
       </div>
@@ -116,8 +116,8 @@
       </div>
 
       <div class="sg-demo">
-        <div class="feedback-message feedback-message-warning" role="alert" style="position:relative; top:auto; left:auto; transform:none; max-width:480px;">
-          <i class="fa fa-exclamation-triangle" aria-hidden="true" style="font-style:normal; font-size:15px; line-height:1.4; margin-left:6px; color:var(--gold);">⚠</i>
+        <div class="feedback-message feedback-message-warning sg-static u-max-w-m" role="alert">
+          <i class="fa fa-exclamation-triangle u-not-italic u-fs-lg u-lh-snug u-ms-s u-text-accent" aria-hidden="true">⚠</i>
           <div class="feedback-message-text">Your session will expire in 5 minutes. Please save your work.</div>
         </div>
       </div>
@@ -142,8 +142,8 @@
       </div>
 
       <div class="sg-demo">
-        <div class="feedback-message feedback-message-info" role="alert" style="position:relative; top:auto; left:auto; transform:none; max-width:480px;">
-          <i class="fa fa-info-circle" aria-hidden="true" style="font-style:normal; font-size:15px; line-height:1.4; margin-left:6px; color:var(--gold-soft);">ℹ</i>
+        <div class="feedback-message feedback-message-info sg-static u-max-w-m" role="alert">
+          <i class="fa fa-info-circle u-not-italic u-fs-lg u-lh-snug u-ms-s u-text-dyn" aria-hidden="true" style="--dyn-text:var(--gold-soft)">ℹ</i>
           <div class="feedback-message-text">Prices shown are as at previous business day close.</div>
         </div>
       </div>
@@ -167,21 +167,21 @@
         <p class="sg-section-desc">All four variants side by side for comparison. In production each message appears as a single fixed banner — only one is shown at a time by OutSystems.</p>
       </div>
 
-      <div class="sg-demo sg-demo--grid" style="flex-direction:column; gap:10px; align-items:stretch;">
-        <div class="feedback-message feedback-message-error" role="alert" style="position:relative; top:auto; left:auto; transform:none;">
-          <i aria-hidden="true" style="font-style:normal; font-size:15px; line-height:1.4; margin-left:6px; color:var(--red);">✕</i>
+      <div class="sg-demo sg-demo--grid u-flex-col u-gap-m u-items-stretch">
+        <div class="feedback-message feedback-message-error sg-static" role="alert">
+          <i aria-hidden="true" class="u-not-italic u-fs-lg u-lh-snug u-ms-s u-text-red">✕</i>
           <div class="feedback-message-text"><strong>Error</strong> — There was a problem. Please contact the administrator.</div>
         </div>
-        <div class="feedback-message feedback-message-success" role="alert" style="position:relative; top:auto; left:auto; transform:none;">
-          <i aria-hidden="true" style="font-style:normal; font-size:15px; line-height:1.4; margin-left:6px; color:var(--green);">✓</i>
+        <div class="feedback-message feedback-message-success sg-static" role="alert">
+          <i aria-hidden="true" class="u-not-italic u-fs-lg u-lh-snug u-ms-s u-text-green">✓</i>
           <div class="feedback-message-text"><strong>Success</strong> — Your changes have been saved successfully.</div>
         </div>
-        <div class="feedback-message feedback-message-warning" role="alert" style="position:relative; top:auto; left:auto; transform:none;">
-          <i aria-hidden="true" style="font-style:normal; font-size:15px; line-height:1.4; margin-left:6px; color:var(--gold);">⚠</i>
+        <div class="feedback-message feedback-message-warning sg-static" role="alert">
+          <i aria-hidden="true" class="u-not-italic u-fs-lg u-lh-snug u-ms-s u-text-accent">⚠</i>
           <div class="feedback-message-text"><strong>Warning</strong> — Your session will expire in 5 minutes. Please save your work.</div>
         </div>
-        <div class="feedback-message feedback-message-info" role="alert" style="position:relative; top:auto; left:auto; transform:none;">
-          <i aria-hidden="true" style="font-style:normal; font-size:15px; line-height:1.4; margin-left:6px; color:var(--gold-soft);">ℹ</i>
+        <div class="feedback-message feedback-message-info sg-static" role="alert">
+          <i aria-hidden="true" class="u-not-italic u-fs-lg u-lh-snug u-ms-s u-text-dyn" style="--dyn-text:var(--gold-soft)">ℹ</i>
           <div class="feedback-message-text"><strong>Info</strong> — Prices shown are as at previous business day close.</div>
         </div>
       </div>
@@ -227,8 +227,8 @@
         <p class="sg-section-desc">Each variant sets three local custom properties (<code>--fb-color</code>, <code>--fb-bg</code>, <code>--fb-border</code>) that feed the shared base rules. Changing a status colour at the theme level automatically propagates to these messages.</p>
       </div>
 
-      <div class="sg-demo" style="padding:0; overflow:hidden;">
-        <table class="table" style="margin:0; border-radius:var(--radius-card);">
+      <div class="sg-demo u-p-0 u-overflow-hidden">
+        <table class="table u-m-0 u-radius-card">
           <thead>
             <tr>
               <th>Variant class</th>
@@ -277,8 +277,8 @@
         <p class="sg-section-desc">OS ships its own stylesheet for <code>.feedback-message</code>. These override patterns ensure our rules take precedence.</p>
       </div>
 
-      <div class="sg-demo" style="padding:0; overflow:hidden;">
-        <table class="table" style="margin:0; border-radius:var(--radius-card);">
+      <div class="sg-demo u-p-0 u-overflow-hidden">
+        <table class="table u-m-0 u-radius-card">
           <thead>
             <tr>
               <th>OS behaviour</th>
@@ -317,8 +317,8 @@
         <p class="sg-section-desc">All classes are OS-owned — they appear in the generated markup and cannot be renamed. Source: <code>src/styles/modules/feedback.css</code>.</p>
       </div>
 
-      <div class="sg-demo" style="padding:0; overflow:hidden;">
-        <table class="table" style="margin:0; border-radius:var(--radius-card);">
+      <div class="sg-demo u-p-0 u-overflow-hidden">
+        <table class="table u-m-0 u-radius-card">
           <thead>
             <tr>
               <th>Class</th>

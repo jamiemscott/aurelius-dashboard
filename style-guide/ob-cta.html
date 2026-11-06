@@ -31,18 +31,18 @@
         <h2 class="sg-section-title">Anatomy (<code>.ob-cta</code>)</h2>
         <p class="sg-section-desc">The card renders inside the sidebar below the nav and adviser card. A dismiss button (<code>.ob-cta__dismiss</code>) is absolutely positioned in the top-right corner, requiring <code>padding-inline-end: 18px</code> on <code>.ob-cta__top</code> for clearance. The CTA button uses <code>.ob-cta__btn</code> modifier — reduced size, full width.</p>
       </div>
-      <div class="sg-demo sg-demo--center" style="max-width:200px;margin-inline:auto">
-        <div class="ob-cta" style="position:relative;background:var(--gold-dim);border:1px solid var(--gold-glow);border-radius:var(--radius-item);padding:12px;margin:0 2px 16px">
-          <button class="ob-cta__dismiss" aria-label="Dismiss" style="position:absolute;top:8px;right:8px;background:none;border:none;color:var(--text-3);cursor:pointer;font-size:16px;line-height:1">×</button>
-          <div class="ob-cta__top" style="display:flex;gap:10px;align-items:flex-start;padding-inline-end:18px">
-            <div class="ob-cta__icon" style="font-size:22px;flex-shrink:0">🎯</div>
+      <div class="sg-demo sg-demo--center u-max-w-xs u-mx-auto">
+        <div class="ob-cta u-relative u-bg-gold-dim u-border u-border-gold u-radius-item u-p-m u-mb-base">
+          <button class="ob-cta__dismiss u-absolute u-corner u-bg-none u-border-0 u-text-3 u-pointer u-fs-xl u-lh-none" aria-label="Dismiss">×</button>
+          <div class="ob-cta__top u-flex u-gap-m u-items-start u-pe-base">
+            <div class="ob-cta__icon u-fs-5xl u-shrink-0">🎯</div>
             <div class="ob-cta__copy">
-              <div class="ob-cta__eyebrow" style="color:var(--gold);font-size:var(--fs-xs);font-weight:var(--fw-semibold);text-transform:uppercase;letter-spacing:var(--ls-wider)">Getting started</div>
-              <div class="ob-cta__title" style="color:var(--text-1);font-size:var(--fs-ui);font-weight:var(--fw-semibold);margin:2px 0">Set your first goal</div>
-              <div class="ob-cta__sub" style="color:var(--text-2);font-size:var(--fs-sm)">Tell us what you're saving for</div>
+              <div class="ob-cta__eyebrow u-text-accent u-fs-xs u-fw-semibold u-uppercase u-ls-wider">Getting started</div>
+              <div class="ob-cta__title u-text-1 u-fs-ui u-fw-semibold u-m-0 u-mt-2xs u-mb-2xs">Set your first goal</div>
+              <div class="ob-cta__sub u-text-2 u-fs-sm">Tell us what you're saving for</div>
             </div>
           </div>
-          <button class="btn-primary ob-cta__btn" style="width:100%;margin-top:10px;font-size:var(--fs-md);padding:7px 12px">Get Started</button>
+          <button class="btn-primary ob-cta__btn u-w-full u-mt-m u-fs-md u-py-s u-px-m">Get Started</button>
         </div>
       </div>
       <div class="sg-code">
@@ -75,12 +75,12 @@
       </div>
       <div class="sg-demo sg-demo--grid">
         <div>
-          <p style="color:var(--text-3);font-size:var(--fs-xs);margin:0 0 6px">Standard</p>
+          <p class="u-text-3 u-fs-xs u-m-0 u-mb-s">Standard</p>
           <button class="btn-primary">Get Started</button>
         </div>
         <div>
-          <p style="color:var(--text-3);font-size:var(--fs-xs);margin:0 0 6px">With .ob-cta__btn</p>
-          <button class="btn-primary ob-cta__btn" style="font-size:var(--fs-md);padding:7px 12px">Get Started</button>
+          <p class="u-text-3 u-fs-xs u-m-0 u-mb-s">With .ob-cta__btn</p>
+          <button class="btn-primary ob-cta__btn u-fs-md u-py-s u-px-m">Get Started</button>
         </div>
       </div>
     </section>
@@ -92,17 +92,17 @@
         <p class="sg-section-desc">The card adapts at two breakpoints before disappearing entirely:</p>
       </div>
       <div class="sg-demo sg-demo--tight">
-        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md)">
+        <table class="sg-table u-fs-md">
           <thead>
-            <tr style="border-bottom:1px solid var(--border);color:var(--text-3);text-align:left">
-              <th style="padding:8px 12px 8px 0;font-weight:var(--fw-semibold)">Breakpoint</th>
-              <th style="padding:8px 0;font-weight:var(--fw-semibold)">Behaviour</th>
+            <tr class="u-text-3">
+              <th>Breakpoint</th>
+              <th>Behaviour</th>
             </tr>
           </thead>
-          <tbody style="color:var(--text-2)">
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0">&gt;1280px</td><td style="padding:8px 0">Full card with eyebrow, title, sub, and CTA button</td></tr>
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0">≤1280px</td><td style="padding:8px 0">Eyebrow and sub hidden; title smaller; CTA remains</td></tr>
-            <tr><td style="padding:8px 12px 8px 0">≤900px</td><td style="padding:8px 0">Entire <code>.ob-cta</code> hidden with <code>display: none</code> (icon rail — no sidebar text)</td></tr>
+          <tbody class="u-text-2">
+            <tr><td>&gt;1280px</td><td>Full card with eyebrow, title, sub, and CTA button</td></tr>
+            <tr><td>≤1280px</td><td>Eyebrow and sub hidden; title smaller; CTA remains</td></tr>
+            <tr><td>≤900px</td><td>Entire <code>.ob-cta</code> hidden with <code>display: none</code> (icon rail — no sidebar text)</td></tr>
           </tbody>
         </table>
       </div>
@@ -114,19 +114,19 @@
         <h2 class="sg-section-title">Token Reference</h2>
       </div>
       <div class="sg-demo sg-demo--tight">
-        <table style="width:100%;border-collapse:collapse;font-size:var(--fs-md)">
+        <table class="sg-table u-fs-md">
           <thead>
-            <tr style="border-bottom:1px solid var(--border);color:var(--text-3);text-align:left">
-              <th style="padding:8px 12px 8px 0;font-weight:var(--fw-semibold)">Token</th>
-              <th style="padding:8px 0;font-weight:var(--fw-semibold)">Purpose</th>
+            <tr class="u-text-3">
+              <th>Token</th>
+              <th>Purpose</th>
             </tr>
           </thead>
-          <tbody style="color:var(--text-2)">
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--gold-dim</code></td><td style="padding:8px 0">Card background</td></tr>
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--gold-glow</code></td><td style="padding:8px 0">Card border</td></tr>
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--radius-item</code></td><td style="padding:8px 0">Card corner radius</td></tr>
-            <tr style="border-bottom:1px solid var(--divider)"><td style="padding:8px 12px 8px 0"><code>--fs-md</code> (12px)</td><td style="padding:8px 0">ob-cta__btn reduced font size</td></tr>
-            <tr><td style="padding:8px 12px 8px 0"><code>18px</code></td><td style="padding:8px 0">Hard-coded padding-inline-end on ob-cta__top to clear dismiss button</td></tr>
+          <tbody class="u-text-2">
+            <tr><td><code>--gold-dim</code></td><td>Card background</td></tr>
+            <tr><td><code>--gold-glow</code></td><td>Card border</td></tr>
+            <tr><td><code>--radius-item</code></td><td>Card corner radius</td></tr>
+            <tr><td><code>--fs-md</code> (12px)</td><td>ob-cta__btn reduced font size</td></tr>
+            <tr><td><code>18px</code></td><td>Hard-coded padding-inline-end on ob-cta__top to clear dismiss button</td></tr>
           </tbody>
         </table>
       </div>
@@ -140,11 +140,11 @@
       <div class="sg-do-dont">
         <div class="sg-do">
           <div class="sg-do-label">Do</div>
-          <div class="sg-do-body"><p style="color:var(--text-2);font-size:var(--fs-sm);margin:0">Show the CTA only when there is a specific onboarding action the user hasn't yet completed. Once dismissed or completed, remove it from the sidebar.</p></div>
+          <div class="sg-do-body"><p class="u-text-2 u-fs-sm u-m-0">Show the CTA only when there is a specific onboarding action the user hasn't yet completed. Once dismissed or completed, remove it from the sidebar.</p></div>
         </div>
         <div class="sg-dont">
           <div class="sg-dont-label">Don't</div>
-          <div class="sg-dont-body"><p style="color:var(--text-2);font-size:var(--fs-sm);margin:0">Don't stack multiple <code>.ob-cta</code> cards — the sidebar has limited height. If multiple prompts are needed, use a single rotating card or a progress-step bar instead.</p></div>
+          <div class="sg-dont-body"><p class="u-text-2 u-fs-sm u-m-0">Don't stack multiple <code>.ob-cta</code> cards — the sidebar has limited height. If multiple prompts are needed, use a single rotating card or a progress-step bar instead.</p></div>
         </div>
       </div>
     </section>
@@ -155,7 +155,7 @@
         <h2 class="sg-section-title">Accessibility Notes</h2>
       </div>
       <div class="sg-demo sg-demo--col">
-        <p style="margin:0;color:var(--text-2);font-size:var(--fs-body)">The dismiss button must have a descriptive <code>aria-label</code> — "Dismiss this prompt" rather than just "Dismiss". The card is a <code>&lt;div&gt;</code> (not a live region) unless the content changes dynamically, in which case use <code>aria-live="polite"</code>. The CTA button's purpose must be clear from its text label alone — avoid generic labels like "Click here".</p>
+        <p class="u-m-0 u-text-2 u-fs-body">The dismiss button must have a descriptive <code>aria-label</code> — "Dismiss this prompt" rather than just "Dismiss". The card is a <code>&lt;div&gt;</code> (not a live region) unless the content changes dynamically, in which case use <code>aria-live="polite"</code>. The CTA button's purpose must be clear from its text label alone — avoid generic labels like "Click here".</p>
       </div>
     </section>
 

@@ -84,8 +84,8 @@
         <p class="sg-section-desc">The projection and the allocation each show as a chart or a table on the two faces of one card. A Chart/Table radio pair (styled like the period pills) inside a <code>.plan-flippable</code> section turns its <code>.plan-flip-inner</code> over with <code>:has()</code> and a 3D <code>rotate</code>, with no script. Both faces share one grid cell, so the card keeps the height of the taller face and nothing below it jumps. Each face’s <code>visibility</code> swaps at the half-turn, so the hidden face can’t take focus or be read. Reduced motion swaps the faces instantly; forced-colours mode gives each face a system border.</p>
       </div>
       <div class="sg-demo">
-        <div class="plan-flippable" style="inline-size:min(100%,520px)">
-          <fieldset class="plan-range plan-view" style="margin-block-end:12px">
+        <div class="plan-flippable u-w-full u-max-w-m">
+          <fieldset class="plan-range plan-view u-mb-m">
             <legend class="plan-sr-only">Show the projection as</legend>
             <label><input type="radio" name="sg-view" value="chart" checked><span>Chart</span></label>
             <label><input type="radio" name="sg-view" value="table"><span>Table</span></label>
@@ -138,7 +138,7 @@
         <p class="sg-section-desc"><code>.plan-line</code> rows show each holding’s status with <code>data-status</code> (<code>kept</code>, <code>added</code> or <code>removed</code>). Each row has a unique <code>view-transition-name</code>, so adding or removing a holding animates through the View Transitions API (turned off with reduced motion). The remove and undo buttons work without the chat. Their accessible names include the holding’s name.</p>
         <p class="sg-section-desc"><strong>Add more.</strong> Every holding except cash has a <strong>+</strong> button (“Add more to …”). It answers in the chat with up to three option cards: a one-off amount of new money, a bigger monthly amount, or some of your cash. In an ISA the one-off amount is capped at the allowance left, and the cash option only appears if at least £10,000 would stay in cash. The buttons sit together in <code>.plan-line-actions</code>. After placing orders, a top-up shows as one new Buy order.</p>
       </div>
-      <div class="sg-demo" style="max-width:440px">
+      <div class="sg-demo u-max-w-m">
         <ul class="plan-lines">
           <li class="plan-line" data-status="kept">
             <span class="plan-line-swatch plan-slot-0" aria-hidden="true"></span>
@@ -168,7 +168,7 @@
         <h2 class="sg-section-title">ETF card</h2>
         <p class="sg-section-desc"><code>.plan-etf</code> sits inside a bot <code>.adv-bubble-inner</code>. The sparkline is plain inline SVG with <code>role="img"</code> and a text label; its stroke comes from <code>--gold-text</code>.</p>
       </div>
-      <div class="sg-demo" style="max-width:460px">
+      <div class="sg-demo u-max-w-m">
         <div class="plan-etf">
           <div class="plan-etf-head"><span class="plan-etf-ticker">VWRP</span><span class="plan-etf-name">Vanguard FTSE All-World UCITS ETF (Acc)</span></div>
           <p class="plan-etf-blurb">About 3,700 companies across developed and emerging markets in one fund.</p>
@@ -189,7 +189,7 @@
         <h2 class="sg-section-title">Option cards</h2>
         <p class="sg-section-desc">Choices in the chat always come as three <code>.plan-option</code> cards, each with plus and minus points, so the trade-off is visible before anything is picked. They're used for the approach (more cautious, balanced, more adventurous) and then for three funds that suit it. Fund cards add the key figures. The signs are CSS decoration with empty alt text (<code>content: "+" / ""</code>); screen readers hear “Plus:” and “Minus:” from hidden text instead. Each button's name includes the option, e.g. “Add to plan Vanguard S&amp;P 500”. Once one is picked it gets a gold outline and a badge, and the other buttons are removed. The other cards keep full contrast rather than fading. The copy explains and never ranks: no option is labelled “best”.</p>
       </div>
-      <div class="sg-demo" style="max-width:400px">
+      <div class="sg-demo u-max-w-s">
         <ul class="plan-options" aria-label="Example fund options">
           <li class="plan-option" data-chosen>
             <p class="plan-option-head"><span class="plan-option-kicker">VWRP</span><span class="plan-option-title">Vanguard FTSE All-World</span></p>
@@ -243,7 +243,7 @@
         <p class="sg-section-desc"><strong>Shares in one company.</strong> “Show me some company shares”, or typing a company name (Apple, AstraZeneca, Rolls-Royce), shows the same option cards as funds, with the market as the kicker and “Charge: None”. Apple's figures are in US dollars and say so. Adding one reports what percentage of the portfolio it is, how much of the company the user already owns through index funds (<code>fundOverlap()</code>), stamp duty or currency costs, and a warning that one company can fall sharply. Above 10% of the portfolio the warning says so. Every share reply says “This isn’t a recommendation”. A full ISA sends shares to the general account. Prices come from the same Alpha Vantage snapshot as the funds (<code>SHARE_SNAPSHOT</code>), and all three use the same long-run 7% a year, which the chat explains.</p>
         <p class="sg-section-desc"><strong>Ask about.</strong> A <code>&lt;details&gt;</code> above the message box lists common questions (costs, market falls, ISAs, pensions, cash, property, shares, crypto, timing) as chips. They can also be typed. Answers explain and never recommend, and crypto carries the FCA's warning.</p>
       </div>
-      <div class="sg-demo" style="max-width:380px;display:grid;gap:16px">
+      <div class="sg-demo u-max-w-s u-grid u-gap-base">
         <p class="plan-option-preview">With £500 a month: about <strong>+£35k</strong> in 5 years. <span class="plan-option-preview-hint">Hover or focus to see it on the chart.</span></p>
         <div class="plan-stress">
           <div class="plan-stress-bars" aria-hidden="true">
@@ -284,14 +284,14 @@
         <p class="sg-section-desc"><code>.plan-review</code> is how the chat turns a plan into a decision. It lists every order (sells first, then buys, then monthly amounts), each tagged with its account. Below that come the first-year costs in pounds, the allowance use, and links to the Key Information Documents.</p>
         <p class="sg-section-desc">Placing orders needs two ticks. Until both are ticked, the button stays focusable with <code>aria-disabled="true"</code> rather than <code>disabled</code>, so keyboard and screen-reader users can still reach it and learn why it isn't ready. Pressing it moves focus to the first unticked box, and a polite live hint explains what's missing. New money with no account chosen also blocks it.</p>
         <p class="sg-section-desc"><strong>Make this investment.</strong> Once a fund is chosen, a <code>.plan-invest-bar</code> between the conversation and the message box jumps straight to the review from any point. In the narrow drawer the same button sits in the plan's header and closes the drawer first. If the new money has no account yet, it asks for one before the quick check. It steps aside while the latest reply shows the check or review, hides once the orders are placed, and comes back when the plan changes. Typing “make this investment” or “place my orders” does the same.</p>
-        <div class="plan-invest-bar" style="margin-block-end:12px"><p class="plan-invest-bar-text">2 orders ready</p><button type="button" class="btn-primary btn-sm">Make this investment</button></div>
+        <div class="plan-invest-bar u-mb-m"><p class="plan-invest-bar-text">2 orders ready</p><button type="button" class="btn-primary btn-sm">Make this investment</button></div>
         <p class="sg-section-desc"><strong>After sending to James.</strong> Three chips follow: <em>Change this plan</em>, <em>Plan something else</em> and <em>That’s all for now</em>. Any change after sending sets the status to “Changed since sent” (<code>data-state="changed"</code>), and the bar then offers one action, <strong>Send the update to James</strong>, which replaces the version he has. On phones the bar drops its text so the button keeps one line. <em>Plan something else</em> keeps the sent plan and starts a new one from what's held (<code>planFromHeld()</code>); the allowance the first plan uses is set aside (<code>plan.reserved</code>) and the meters show it as “with James”. <em>That’s all for now</em> says what James will look at and when he usually replies.</p>
         <p class="sg-section-desc"><strong>A goal.</strong> <em>Set a goal</em> (on the greeting, in <em>Ask about…</em>, or typed, e.g. “£2.5m by 2045” or “3 million in 20 years”, parsed by <code>parseGoal()</code>) puts a dashed gold line across the projection (<code>.plan-goal-line</code>) with a diamond at its date (<code>.plan-series-goal</code>), and widens the chart to 25 years if the date is further out. Under the title, <code>.plan-goal</code> shows the goal, a status (<code>data-state</code> <code>on</code> “On track”: central estimate reaches it; <code>reach</code> “Within reach”: only the high end does; <code>off</code> “Out of reach”) and the central estimate at that date; it updates with every change. If the goal is short, <em>Close the gap</em> adds the monthly amount that puts the central estimate on target, rounded up to £50.</p>
         <p class="sg-section-desc"><strong>James's reply.</strong> A few seconds after the plan is sent (<code>awaitJames()</code>), James answers in the chat with his own avatar (initials in sans, neutral circle, <code>.plan-msg--james</code>) and a sender line with his role. The reply is scripted (<code>jamesReply()</code>), in this order: if the quick check raised concerns, he names them and offers two call slots, and booking one sets “Call with James booked” and hides the invest bar; if new monthly money goes into the general account and fits in the ISA, he suggests moving it (<em>Accept James’s change</em> / <em>Keep my version</em>); otherwise he approves. Approval sets “Approved by James” (<code>data-state="approved"</code>), the review drops <em>Send to James first</em>, and the receipt says he reviewed it. A reply is dropped if the plan changes before it arrives; any change after approval makes it “Changed since sent” again.</p>
         <p class="sg-section-desc"><strong>After placing orders.</strong> The same idea follows the receipt: <em>Add more to my fund</em>, <em>Plan something else</em> (a new plan from the portfolio with today's orders included) and <em>That’s all for now</em>, which sets out what happens next: the dealing point, settlement and contract notes in 2 working days, the first regular payment, and where to follow it in My Investments.</p>
         <p class="sg-section-desc">After the decision, the card closes with a badge: “Orders placed”, “Sent to James” or “Saved for later”. If the plan changes instead, the card says it's out of date. The note makes the execution-only position plain. A reply taller than the log scrolls to its start, and the review takes focus as a whole.</p>
       </div>
-      <div class="sg-demo" style="max-width:380px">
+      <div class="sg-demo u-max-w-s">
         <section class="plan-review" aria-labelledby="sg-review-title">
           <p class="plan-review-title" id="sg-review-title">Your orders</p>
           <ol class="plan-orders">
@@ -325,7 +325,7 @@
         <h2 class="sg-section-title">Allowances</h2>
         <p class="sg-section-desc">The plan panel shows this tax year's ISA and pension allowances as native <code>&lt;meter&gt;</code> elements, styled with the WebKit and Firefox pseudo-elements. Each meter is labelled by its title and described by the figures underneath, so screen readers hear the numbers and not just a bar. Near the limit the bar uses the browser's sub-optimum state, and past the limit it turns red and says how much is over. Holdings show their account, and new money still waiting for one reads “Account to choose”. Demo accounts match the other pages: an Advised SIPP, an ISA with £8,240 left, and Veritas and cash in the general account.</p>
       </div>
-      <div class="sg-demo" style="max-width:320px">
+      <div class="sg-demo u-max-w-s">
         <div class="plan-allow">
           <div class="plan-allow-item">
             <div class="plan-allow-head"><span class="plan-allow-name" id="sg-allow-isa">ISA allowance</span><span class="plan-allow-left">£4,240 left</span></div>
@@ -351,13 +351,13 @@
         <table class="plan-table">
           <thead><tr><th scope="col">Token</th><th scope="col">Used for</th><th scope="col">Swatch</th></tr></thead>
           <tbody>
-            <tr><th scope="row"><code>--plan-series-0</code></th><td>Global equity · “With your plan” line</td><td><span class="plan-line-swatch plan-slot-0" style="display:inline-block"></span></td></tr>
-            <tr><th scope="row"><code>--plan-series-1</code></th><td>US equity</td><td><span class="plan-line-swatch plan-slot-1" style="display:inline-block"></span></td></tr>
-            <tr><th scope="row"><code>--plan-series-2</code></th><td>US technology</td><td><span class="plan-line-swatch plan-slot-2" style="display:inline-block"></span></td></tr>
-            <tr><th scope="row"><code>--plan-series-3</code></th><td>Emerging markets</td><td><span class="plan-line-swatch plan-slot-3" style="display:inline-block"></span></td></tr>
-            <tr><th scope="row"><code>--plan-series-4</code></th><td>Gold</td><td><span class="plan-line-swatch plan-slot-4" style="display:inline-block"></span></td></tr>
-            <tr><th scope="row"><code>--plan-series-5</code></th><td>UK government bonds</td><td><span class="plan-line-swatch plan-slot-5" style="display:inline-block"></span></td></tr>
-            <tr><th scope="row"><code>--plan-series-6</code></th><td>Cash</td><td><span class="plan-line-swatch plan-slot-6" style="display:inline-block"></span></td></tr>
+            <tr><th scope="row"><code>--plan-series-0</code></th><td>Global equity · “With your plan” line</td><td><span class="plan-line-swatch plan-slot-0 u-inline-block"></span></td></tr>
+            <tr><th scope="row"><code>--plan-series-1</code></th><td>US equity</td><td><span class="plan-line-swatch plan-slot-1 u-inline-block"></span></td></tr>
+            <tr><th scope="row"><code>--plan-series-2</code></th><td>US technology</td><td><span class="plan-line-swatch plan-slot-2 u-inline-block"></span></td></tr>
+            <tr><th scope="row"><code>--plan-series-3</code></th><td>Emerging markets</td><td><span class="plan-line-swatch plan-slot-3 u-inline-block"></span></td></tr>
+            <tr><th scope="row"><code>--plan-series-4</code></th><td>Gold</td><td><span class="plan-line-swatch plan-slot-4 u-inline-block"></span></td></tr>
+            <tr><th scope="row"><code>--plan-series-5</code></th><td>UK government bonds</td><td><span class="plan-line-swatch plan-slot-5 u-inline-block"></span></td></tr>
+            <tr><th scope="row"><code>--plan-series-6</code></th><td>Cash</td><td><span class="plan-line-swatch plan-slot-6 u-inline-block"></span></td></tr>
           </tbody>
         </table>
       </div>
