@@ -5,17 +5,17 @@
 
    Several OSUI menu rules use long selectors such as
    .layout:not(.layout-side) .app-menu-links a.active, so these
-   overrides repeat the same selector after .aurelius.
+   overrides repeat the same selector with :root in front.
    ───────────────────────────────────────────────────────────────── */
 
 /* ─── HEADER ──────────────────────────────────────────────────────── */
-.aurelius .header {
+:root .header {
   background-color: var(--header-color);
   border-block-end: 1px solid var(--border);
   box-shadow: none;
 }
 
-.aurelius :is(.header-title, .app-name) {
+:root :is(.header-title, .app-name) {
   color: var(--text-1);
   font-family: var(--font-serif);
   font-size: var(--fs-2xl);
@@ -24,7 +24,7 @@
 
 
 /* ─── MENU LINKS ──────────────────────────────────────────────────── */
-.aurelius .app-menu-links a {
+:root .app-menu-links a {
   color: var(--text-2);
   font-size: var(--fs-ui);
   font-weight: var(--fw-medium);
@@ -32,102 +32,102 @@
   transition: color 0.2s, background-color 0.2s, border-color 0.2s;
 }
 
-.aurelius .app-menu-links a:is(:hover, .active) {
+:root .app-menu-links a:is(:hover, .active) {
   color: var(--gold-text);
   text-decoration: none;
 }
 
-.aurelius .layout:not(.layout-side) .app-menu-links a.active {
+:root .layout:not(.layout-side) .app-menu-links a.active {
   border-block-end-color: var(--gold);
 }
 
 /* Side menu: Aurelius sidebar rail with a soft gold pill for the
    active item instead of OSUI's left border. */
-.aurelius .layout-side .app-menu-content {
+:root .layout-side .app-menu-content {
   background-color: var(--bg-dark);
   border-inline-end: 1px solid var(--border);
 }
 
-.aurelius :is(.layout-side, .menu-visible) .app-menu-links a {
+:root :is(.layout-side, .menu-visible) .app-menu-links a {
   border-inline-start: 0;
   border-radius: var(--radius-item);
   margin-inline: var(--space-s);
   padding: 10px var(--space-base);
 }
 
-.aurelius :is(.layout-side, .menu-visible) .app-menu-links a:hover {
+:root :is(.layout-side, .menu-visible) .app-menu-links a:hover {
   background-color: var(--bg-hover);
 }
 
-.aurelius .layout-side .app-menu-links a.active {
+:root .layout-side .app-menu-links a.active {
   background-color: var(--gold-dim);
   border-inline-start: 0;
 }
 
-.aurelius .app-login-info {
+:root .app-login-info {
   border-block-start: 1px solid var(--border);
   color: var(--text-2);
 }
 
 
 /* ─── SUBMENU ─────────────────────────────────────────────────────── */
-.aurelius .osui-submenu__items {
+:root .osui-submenu__items {
   background-color: var(--bg-card);
   border-color: var(--border-card);
   border-radius: var(--radius-item);
   box-shadow: var(--shadow-l);
 }
 
-.aurelius .osui-submenu__items a {
+:root .osui-submenu__items a {
   color: var(--text-2);
 }
 
-.aurelius .osui-submenu__items a:is(:hover, .active) {
+:root .osui-submenu__items a:is(:hover, .active) {
   background-color: var(--gold-dim);
   color: var(--gold-text);
 }
 
 
 /* ─── TABS ────────────────────────────────────────────────────────── */
-.aurelius .osui-tabs {
+:root .osui-tabs {
   --tabs-indicator-size: 2px;
 }
 
-.aurelius .osui-tabs__header-item {
+:root .osui-tabs__header-item {
   color: var(--text-2);
   font-size: var(--fs-ui);
   font-weight: var(--fw-medium);
 }
 
-.aurelius .osui-tabs__header-item:hover:not(.osui-tabs--is-active) {
+:root .osui-tabs__header-item:hover:not(.osui-tabs--is-active) {
   color: var(--text-1);
 }
 
-.aurelius .osui-tabs__header-item.osui-tabs--is-active {
+:root .osui-tabs__header-item.osui-tabs--is-active {
   color: var(--gold-text);
   text-shadow: none;
 }
 
-.aurelius .osui-tabs__header__indicator {
+:root .osui-tabs__header__indicator {
   background-color: var(--gold);
 }
 
 
 /* ─── BREADCRUMBS ─────────────────────────────────────────────────── */
-.aurelius .breadcrumbs-item {
+:root .breadcrumbs-item {
   color: var(--text-3);
   font-size: var(--fs-md);
 }
 
-.aurelius .breadcrumbs-item a {
+:root .breadcrumbs-item a {
   color: var(--text-2);
 }
 
-.aurelius .breadcrumbs-item a:hover {
+:root .breadcrumbs-item a:hover {
   color: var(--gold-text);
 }
 
-.aurelius .breadcrumbs-item:last-child {
+:root .breadcrumbs-item:last-child {
   color: var(--text-1);
 }
 
@@ -135,13 +135,13 @@
 /* ─── LOGIN SCREEN ────────────────────────────────────────────────────
    OSUI fills the login backdrop with the primary colour. Aurelius
    uses the page canvas with a faint gold glow behind the form.    */
-.aurelius .login-screen {
+:root .login-screen {
   background:
     radial-gradient(ellipse 60% 50% at 70% 20%, var(--gold-dim), transparent 70%),
     var(--bg);
 }
 
-.aurelius .login-form {
+:root .login-form {
   background-color: var(--bg-card);
   border: 1px solid var(--border-card);
   border-radius: var(--radius-card);

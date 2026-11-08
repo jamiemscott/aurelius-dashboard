@@ -3,11 +3,11 @@
    ───────────────────────────────────────────────────────────────── */
 
 /* ─── POPUP ───────────────────────────────────────────────────────── */
-.aurelius .popup-backdrop {
+:root .popup-backdrop {
   backdrop-filter: blur(4px);
 }
 
-.aurelius .popup-dialog {
+:root .popup-dialog {
   background-color: var(--bg-card);
   border: 1px solid var(--border-card);
   border-radius: var(--radius-card);
@@ -17,16 +17,16 @@
 
 
 /* ─── SIDEBAR & NOTIFICATION ──────────────────────────────────────── */
-.aurelius :is(.osui-sidebar, .osui-notification) {
+:root :is(.osui-sidebar, .osui-notification) {
   background-color: var(--bg-card);
   color: var(--text-1);
 }
 
-.aurelius .osui-sidebar {
+:root .osui-sidebar {
   border-inline-start: 1px solid var(--border-card);
 }
 
-.aurelius .osui-notification {
+:root .osui-notification {
   border-color: var(--border-card);
   border-radius: var(--radius-item);
 }
@@ -36,7 +36,7 @@
    The OSUI toast (Message action). Ported from the dashboard's
    modules/feedback.css: card surface, a tinted wash and a 3px accent
    bar in the status colour. Each variant sets one colour.          */
-.aurelius .feedback-message {
+:root .feedback-message {
   --feedback-colour: var(--color-info);
 
   background:
@@ -53,7 +53,7 @@
   overflow: hidden;   /* clips the accent bar to the radius; ODC positions the toast (fixed) */
 }
 
-.aurelius .feedback-message::before {
+:root .feedback-message::before {
   background: var(--feedback-colour);
   content: '';
   inset-block: 0;
@@ -62,29 +62,29 @@
   width: 3px;
 }
 
-.aurelius .feedback-message-success { --feedback-colour: var(--color-success); }
-.aurelius .feedback-message-error   { --feedback-colour: var(--color-error); }
-.aurelius .feedback-message-warning { --feedback-colour: var(--color-warning); }
-.aurelius .feedback-message-info    { --feedback-colour: var(--color-info); }
+:root .feedback-message-success { --feedback-colour: var(--color-success); }
+:root .feedback-message-error   { --feedback-colour: var(--color-error); }
+:root .feedback-message-warning { --feedback-colour: var(--color-warning); }
+:root .feedback-message-info    { --feedback-colour: var(--color-info); }
 
-.aurelius .feedback-message :is(.fa, .icon) {
+:root .feedback-message :is(.fa, .icon) {
   color: var(--feedback-colour);
 }
 
-.aurelius .feedback-message-text {
+:root .feedback-message-text {
   color: var(--text-1);
 }
 
 
 /* ─── POPOVER (ODC) ───────────────────────────────────────────────── */
-.aurelius .pop-comp-wrapper,
-.aurelius .pop-comp-arrow::before {
+:root .pop-comp-wrapper,
+:root .pop-comp-arrow::before {
   background-color: var(--bg-card);
   box-shadow: var(--shadow-l);
   color: var(--text-1);
 }
 
-.aurelius .pop-comp-wrapper {
+:root .pop-comp-wrapper {
   border: 1px solid var(--border-card);
   border-radius: var(--radius-item);
 }

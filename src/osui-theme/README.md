@@ -8,7 +8,7 @@ It replaces the bridge approach (`src/styles/theme/osui-bridge.css`, plus `bundl
 
 | File | What it does |
 | --- | --- |
-| `tokens.css` | Aurelius seeds, scales and semantic tokens, scoped to `.aurelius`. Also the colour-scheme states. |
+| `tokens.css` | Aurelius seeds, scales and semantic tokens, set on `:root`. Also the colour-scheme states. |
 | `osui-variables.css` | Sets OSUI's own variables (`--color-*`, `--font-size-*`, `--border-radius-*`, `--shadow-*`) from the tokens. **Most of the theme happens here.** |
 | `base.css` | Font, headings, links, focus, scrollbars. |
 | `widgets/*.css` | Aurelius details OSUI's variables can't express: pill buttons, the gradient card edge, input focus ring, tinted alerts and toasts, the menu, tabs, and so on. |
@@ -27,8 +27,8 @@ node build.js
 - **Checked against OutSystems UI 2.19.2**, the version deployed to nttdatauk-dev. That isn't 2.27; several values in `osui-bridge.css` don't match 2.19.2 (for example `--space-m` is 24px).
 - **OSUI 2.19 paints nearly everything through its variables.** Only about 20 rules outside Flatpickr hardcode a colour. So setting the variables restyles widgets, patterns and OSUI's utility classes (`.background-primary`, `.text-neutral-7` and so on) with no class changes in ODC.
 - **The neutral scale is mapped by role, not mirrored.** OSUI uses `--color-neutral-0` as the widget surface, 4 for borders, 9–10 for text. Dark mode maps each role to its Aurelius equivalent: card grey surfaces, quiet borders, light text. There's a comment table at the top of `osui-variables.css`.
-- **Everything is scoped under `.aurelius`.**
-- **No `@layer`.** OSUI's stylesheet is unlayered, and unlayered CSS always beats layered CSS. So the theme stays unlayered and wins by loading after OSUI, plus the extra `.aurelius` class. Where OSUI uses a longer selector, the override repeats it.
+- **No opt-in class.** Every rule starts with `:root`, so any app whose theme is based on this one gets the Aurelius look with no class to add.
+- **No `@layer`.** OSUI's stylesheet is unlayered, and unlayered CSS always beats layered CSS. So the theme stays unlayered and wins by loading after OSUI, plus the `:root` prefix, which adds one pseudo-class of specificity. Where OSUI uses a longer selector, the override repeats it with `:root` in front.
 - **Light and dark use `light-dark()` throughout.** No token is redeclared per mode. Tints use `color-mix(in oklab, …)`, because `oklch` shifts the hue towards lavender when mixing a status colour with the blue-grey neutrals.
 
 ## Applying it in ODC (for you to run)
@@ -42,15 +42,14 @@ node build.js
    - Add the dependency on the Beta library's Aurelius theme.
    - Set the **LiveStyleGuide** theme's base theme to **Aurelius**. The style guide keeps its own chrome CSS on top.
    - Publish.
-4. **Add the `.aurelius` class to `<body>`**, for example in the layout's OnReady with `document.body.classList.add('aurelius')`, or use `<html>`.
-   - It has to be `body` or `html`, not a layout container: the date picker and Virtual Select attach their popups to `<body>`.
-5. **Set the colour scheme** with a state class on the same element:
+4. **Check the stylesheet is loading.** In the published app's `<head>`, a `WealthManagement_Lib_Beta…css` file should appear between `OutSystemsUI.OutSystemsUI…css` and the LiveStyleGuide stylesheets. If it's missing, the base theme or the dependency hasn't taken effect yet.
+5. **Optionally, set the colour scheme** with a state class on `<html>` or `<body>`, for example in the app's OnApplicationReady with `document.body.classList.add('is-light')`:
 
-   | Classes | Mode |
+   | Class | Mode |
    | --- | --- |
-   | `.aurelius` | dark (the Aurelius default) |
-   | `.aurelius.is-light` | light |
-   | `.aurelius.is-system` | follows the device setting |
+   | none | dark (the Aurelius default) |
+   | `.is-light` | light |
+   | `.is-system` | follows the device setting |
 
 ## Checking it locally
 

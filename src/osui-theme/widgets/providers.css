@@ -4,11 +4,11 @@
    variables, but the calendar surface is still white from the
    library's own CSS.
 
-   Flatpickr and Virtual Select attach their popups to <body>, so these
-   rules only apply when .aurelius is on <html> or <body>.
+   Flatpickr and Virtual Select attach their popups to <body>; the
+   :root prefix still reaches them there.
    ───────────────────────────────────────────────────────────────── */
 
-.aurelius .flatpickr-calendar {
+:root .flatpickr-calendar {
   background-color: var(--bg-card);
   border-color: var(--border-card);
   border-radius: var(--radius-item);
@@ -16,40 +16,40 @@
   font-family: var(--font-sans);
 }
 
-.aurelius .flatpickr-calendar :is(.flatpickr-month, .flatpickr-weekdays, .flatpickr-time) {
+:root .flatpickr-calendar :is(.flatpickr-month, .flatpickr-weekdays, .flatpickr-time) {
   background-color: transparent;
   color: var(--text-1);
 }
 
-.aurelius .flatpickr-day:hover {
+:root .flatpickr-day:hover {
   background-color: var(--bg-hover);
   border-color: transparent;
 }
 
-.aurelius .flatpickr-day:is(.selected, .startRange, .endRange),
-.aurelius .flatpickr-day:is(.selected, .startRange, .endRange):hover {
+:root .flatpickr-day:is(.selected, .startRange, .endRange),
+:root .flatpickr-day:is(.selected, .startRange, .endRange):hover {
   background-color: var(--gold);
   border-color: var(--gold);
   color: var(--on-gold);
 }
 
-.aurelius .flatpickr-day.inRange {
+:root .flatpickr-day.inRange {
   background-color: var(--gold-dim);
   border-color: transparent;
   box-shadow: -5px 0 0 var(--gold-dim), 5px 0 0 var(--gold-dim);
 }
 
-.aurelius .flatpickr-day.today {
+:root .flatpickr-day.today {
   border-color: var(--gold-glow);
 }
 
 
 /* ─── NOUISLIDER (Range Slider) ───────────────────────────────────── */
-.aurelius .noUi-connect {
+:root .noUi-connect {
   background-color: var(--gold);
 }
 
-.aurelius .noUi-handle {
+:root .noUi-handle {
   background-color: var(--neutral-0);
   border-color: var(--gold);
   box-shadow: var(--shadow-s);

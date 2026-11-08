@@ -50,7 +50,7 @@
     .th-static-feedback .feedback-message { animation: none; inset: auto; margin: 0; min-width: 0; position: relative; transform: none; }
   </style>
 </head>
-<body class="aurelius">
+<body>
 
   <!-- ─── LAYOUT TOP: header + menu ─────────────────────────────── -->
   <div class="layout layout-top">
@@ -269,7 +269,7 @@
   </div>
 
   <script>
-    // Harness only: swaps the colour-scheme state class on .aurelius
+    // Harness only: swaps the colour-scheme state class on <body>
     document.querySelectorAll('[data-mode]').forEach(button => {
       button.addEventListener('click', () => {
         document.body.classList.remove('is-light', 'is-system');

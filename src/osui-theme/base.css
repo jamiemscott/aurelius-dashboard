@@ -1,25 +1,25 @@
 /* ─── AURELIUS OSUI THEME — BASE ─────────────────────────────────────
    Page-level type and colour. OSUI sets its font stack on <html>, so
-   .aurelius restates the family wherever the class sits (html or
-   body) and everything inside inherits it.
+   :root restates the family there and everything inherits it.
 
    SPECIFICITY NOTE
    ────────────────
    OSUI's stylesheet is unlayered, and unlayered CSS beats anything
    inside an @layer. This theme is therefore unlayered too, and wins
    by loading after OSUI (ODC injects the theme after OutSystemsUI.css)
-   plus the extra .aurelius class. Where OSUI uses a longer selector,
-   the override mirrors it with .aurelius in front.
+   with a :root prefix, which adds one pseudo-class of specificity
+   over OSUI's matching selector. Where OSUI uses a longer selector,
+   the override mirrors it with :root in front.
    ───────────────────────────────────────────────────────────────── */
 
-.aurelius {
+:root {
   accent-color: var(--gold);
   background-color: var(--color-background-body);
   color: var(--text-1);
   font-family: var(--font-sans);
 }
 
-.aurelius ::selection {
+:root ::selection {
   background: var(--gold-glow);
   color: var(--text-1);
 }
@@ -28,7 +28,7 @@
 /* ─── HEADINGS ──────────────────────────────────────────────────────
    OSUI sizes headings from --font-size-h*; Aurelius sets h1–h3 in
    the serif at regular weight, h4–h6 in the sans.                  */
-.aurelius :is(h1, h2, h3, .heading1, .heading2, .heading3, .font-size-display) {
+:root :is(h1, h2, h3, .heading1, .heading2, .heading3, .font-size-display) {
   color: var(--text-1);
   font-family: var(--font-serif);
   font-weight: var(--fw-regular);
@@ -36,11 +36,11 @@
   line-height: var(--lh-tight);
 }
 
-.aurelius :is(h1, .heading1, .font-size-display) {
+:root :is(h1, .heading1, .font-size-display) {
   letter-spacing: var(--ls-heading);
 }
 
-.aurelius :is(h4, h5, h6, .heading4, .heading5, .heading6) {
+:root :is(h4, h5, h6, .heading4, .heading5, .heading6) {
   color: var(--text-1);
   font-family: var(--font-sans);
   font-weight: var(--fw-semibold);
@@ -51,8 +51,8 @@
 /* ─── LINKS ─────────────────────────────────────────────────────────
    OSUI colours links with --color-primary. Gold fails contrast as
    text on light surfaces, so links take --gold-text instead.      */
-.aurelius a,
-.aurelius a:visited {
+:root a,
+:root a:visited {
   color: var(--gold-text);
   text-decoration-color: transparent;
   text-decoration-line: underline;
@@ -61,21 +61,21 @@
   transition: color 0.2s, text-decoration-color 0.2s;
 }
 
-.aurelius a:hover {
+:root a:hover {
   color: var(--gold-text);
   text-decoration-color: currentColor;
 }
 
 
 /* ─── FOCUS ─────────────────────────────────────────────────────── */
-.aurelius :focus-visible {
+:root :focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 2px;
 }
 
 
 /* ─── SCROLLBARS ────────────────────────────────────────────────── */
-.aurelius {
+:root {
   scrollbar-color: var(--color-neutral-5) transparent;
   scrollbar-width: thin;
 }
@@ -83,9 +83,9 @@
 
 /* ─── REDUCED MOTION ────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .aurelius *,
-  .aurelius *::before,
-  .aurelius *::after {
+  :root *,
+  :root *::before,
+  :root *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }

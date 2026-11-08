@@ -1,5 +1,6 @@
 /* ─── AURELIUS OSUI THEME — TOKENS ───────────────────────────────────
-   The Aurelius primitive and semantic tokens, scoped to .aurelius.
+   The Aurelius primitive and semantic tokens, set on :root, so any app
+   whose theme is based on this one picks them up.
 
    These are the theme's private vocabulary. Widgets never read them
    directly where an OSUI variable exists: osui-variables.css feeds
@@ -13,21 +14,27 @@
    COLOUR SCHEME
    ─────────────
    Dark is the Aurelius default. The OutSystems app chooses the mode
-   with a state class on the same element as .aurelius:
-     .aurelius             → dark  (default)
-     .aurelius.is-light    → light
-     .aurelius.is-system   → follow the device setting
+   with a state class on <html> or <body>:
+     (no class)   → dark  (default)
+     .is-light    → light
+     .is-system   → follow the device setting
    light-dark() resolves from color-scheme, so no token is redeclared
    per mode.
    ───────────────────────────────────────────────────────────────── */
 
-.aurelius           { color-scheme: dark; }
-.aurelius.is-light  { color-scheme: light; }
-.aurelius.is-system { color-scheme: light dark; }
+:root { color-scheme: dark; }
+
+:root:is(.is-light, :has(> body.is-light)) {
+  color-scheme: light;
+}
+
+:root:is(.is-system, :has(> body.is-system)) {
+  color-scheme: light dark;
+}
 
 
 /* ─── SEEDS ─────────────────────────────────────────────────────── */
-.aurelius {
+:root {
   --seed-primary:   #F5A623;   /* brand gold                   */
   --seed-secondary: #FFB547;   /* soft gold                    */
   --seed-neutral:   #6B6F76;   /* blue-grey base for neutrals  */
@@ -35,7 +42,7 @@
 
 
 /* ─── BRAND SCALE ───────────────────────────────────────────────── */
-.aurelius {
+:root {
   --brand-50:  oklch(from var(--seed-primary) 0.97 calc(c * 0.08) h);
   --brand-100: oklch(from var(--seed-primary) 0.94 calc(c * 0.15) h);
   --brand-200: oklch(from var(--seed-primary) 0.89 calc(c * 0.35) h);
@@ -55,7 +62,7 @@
 
 
 /* ─── NEUTRAL SCALE (0 = lightest, 10 = darkest) ────────────────── */
-.aurelius {
+:root {
   --neutral-0:  oklch(from var(--seed-neutral) 0.99 calc(c * 0.10) h);  /* ≈ #FFFFFF */
   --neutral-1:  oklch(from var(--seed-neutral) 0.97 calc(c * 0.28) h);  /* ≈ #F4F5F7 */
   --neutral-2:  oklch(from var(--seed-neutral) 0.95 calc(c * 0.36) h);  /* ≈ #F0F1F4 */
@@ -71,7 +78,7 @@
 
 
 /* ─── STATUS ────────────────────────────────────────────────────── */
-.aurelius {
+:root {
   --status-success:       light-dark(#15803D, #22C55E);
   --status-success-alpha: oklch(from #22C55E l c h / 0.12);
   --status-error:         light-dark(#DC2626, #EF4444);
@@ -84,7 +91,7 @@
 
 
 /* ─── SEMANTIC COLOUR ───────────────────────────────────────────── */
-.aurelius {
+:root {
   /* Brand */
   --gold:      var(--brand-500);
   --gold-soft: var(--seed-secondary);
@@ -114,7 +121,7 @@
 
 
 /* ─── SHAPE & SPACE ─────────────────────────────────────────────── */
-.aurelius {
+:root {
   --pad:         24px;
   --radius-btn:  999px;
   --radius-card: 16px;
@@ -128,7 +135,7 @@
    geometry and switches its colour. (The dashboard's colours.css
    wraps whole shadow values in light-dark(), which the spec does not
    allow — worth fixing there too.)                                 */
-.aurelius {
+:root {
   --shadow-ink-xs: light-dark(rgb(0 0 0 / 0.07), rgb(0 0 0 / 0.22));
   --shadow-ink-s:  light-dark(rgb(0 0 0 / 0.08), rgb(0 0 0 / 0.26));
   --shadow-ink-m:  light-dark(rgb(0 0 0 / 0.10), rgb(0 0 0 / 0.30));
@@ -141,7 +148,7 @@
 
 
 /* ─── TYPE ──────────────────────────────────────────────────────── */
-.aurelius {
+:root {
   --font-sans:  'DM Sans', system-ui, sans-serif;
   --font-serif: 'DM Serif Display', Georgia, serif;
 

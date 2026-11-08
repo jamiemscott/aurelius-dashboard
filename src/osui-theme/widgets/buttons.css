@@ -10,7 +10,7 @@
    becomes the Aurelius secondary (ghost gold) with no extra class.
    ───────────────────────────────────────────────────────────────── */
 
-.aurelius .btn {
+:root .btn {
   background-color: var(--bg-card);
   border: var(--border-size-s) solid light-dark(oklch(from var(--brand-700) l c h / 0.30), var(--gold-glow));
   border-radius: var(--radius-btn);
@@ -34,7 +34,7 @@
   white-space: nowrap;
 }
 
-.aurelius .btn:hover {
+:root .btn:hover {
   background-color: color-mix(in oklab, var(--bg-card), var(--gold) 8%);
   text-decoration-color: currentColor;
   text-decoration-thickness: 2px;
@@ -43,20 +43,20 @@
 
 /* OSUI darkens every button on press with a brightness filter;
    Aurelius presses with a small scale instead. */
-.aurelius .btn:hover:active {
+:root .btn:hover:active {
   filter: none;
   transform: scale(0.98);
 }
 
 
 /* ─── PRIMARY ───────────────────────────────────────────────────── */
-.aurelius .btn-primary {
+:root .btn-primary {
   background-color: var(--gold);
   border-color: var(--gold);
   color: var(--on-gold);
 }
 
-.aurelius .btn-primary:hover {
+:root .btn-primary:hover {
   background-color: var(--gold);
   box-shadow: var(--shadow-glow);
   color: var(--on-gold);
@@ -65,33 +65,33 @@
 
 
 /* ─── CANCEL — quiet neutral ghost ──────────────────────────────── */
-.aurelius .btn-cancel {
+:root .btn-cancel {
   background-color: transparent;
   border-color: var(--border-input);
   color: var(--text-2);
 }
 
-.aurelius .btn-cancel:hover {
+:root .btn-cancel:hover {
   background-color: var(--bg-hover);
   color: var(--text-1);
 }
 
 
 /* ─── SUCCESS / ERROR — status fills ────────────────────────────── */
-.aurelius :is(.btn-success, .btn-error) {
+:root :is(.btn-success, .btn-error) {
   color: var(--neutral-0);
 }
 
-.aurelius .btn-success { background-color: var(--color-success); border-color: var(--color-success); }
-.aurelius .btn-error   { background-color: var(--color-error);   border-color: var(--color-error); }
+:root .btn-success { background-color: var(--color-success); border-color: var(--color-success); }
+:root .btn-error   { background-color: var(--color-error);   border-color: var(--color-error); }
 
-.aurelius :is(.btn-success, .btn-error):hover {
+:root :is(.btn-success, .btn-error):hover {
   box-shadow: var(--shadow-s);
 }
 
 
 /* ─── DISABLED ──────────────────────────────────────────────────── */
-.aurelius .btn[disabled] {
+:root .btn[disabled] {
   background-color: var(--bg-input);
   border-color: var(--divider);
   box-shadow: none;
@@ -100,12 +100,12 @@
 
 
 /* ─── SIZES ─────────────────────────────────────────────────────── */
-.aurelius .btn-small {
+:root .btn-small {
   font-size: var(--fs-md);
   padding-inline: 14px;
 }
 
-.aurelius .btn-large {
+:root .btn-large {
   font-size: var(--fs-lg);
   padding-inline: 28px;
 }
@@ -113,7 +113,7 @@
 
 /* ─── BUTTON GROUP ──────────────────────────────────────────────────
    A segmented pill: the group carries the shape, items sit inside. */
-.aurelius .button-group-item {
+:root .button-group-item {
   background-color: var(--bg-card);
   border-color: var(--border-input);
   color: var(--text-2);
@@ -121,10 +121,10 @@
   font-weight: var(--fw-medium);
 }
 
-.aurelius .button-group-item:first-child { border-start-start-radius: var(--radius-btn); border-end-start-radius: var(--radius-btn); }
-.aurelius .button-group-item:last-child  { border-start-end-radius: var(--radius-btn);   border-end-end-radius: var(--radius-btn); }
+:root .button-group-item:first-child { border-start-start-radius: var(--radius-btn); border-end-start-radius: var(--radius-btn); }
+:root .button-group-item:last-child  { border-start-end-radius: var(--radius-btn);   border-end-end-radius: var(--radius-btn); }
 
-.aurelius .button-group-selected-item {
+:root .button-group-selected-item {
   background-color: var(--gold);
   border-color: var(--gold);
   color: var(--on-gold);

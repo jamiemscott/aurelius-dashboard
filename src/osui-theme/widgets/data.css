@@ -6,14 +6,14 @@
 /* ─── TABLE ───────────────────────────────────────────────────────────
    Aurelius tables sit on the card surface with hairline row dividers
    and small uppercase column labels.                               */
-.aurelius .table {
+:root .table {
   background-color: var(--bg-card);
   border-color: var(--border-card);
   border-radius: var(--radius-item);
   overflow: hidden;
 }
 
-.aurelius .table-header th {
+:root .table-header th {
   background-color: var(--bg-card);
   border-block-end-color: var(--divider);
   color: var(--text-3);
@@ -23,7 +23,7 @@
   text-transform: uppercase;
 }
 
-.aurelius .table-row td {
+:root .table-row td {
   background-color: var(--bg-card);
   border-block-end-color: var(--divider);
   color: var(--text-1);
@@ -31,28 +31,28 @@
   transition: background-color 0.15s;
 }
 
-.aurelius .table-row:hover td {
+:root .table-row:hover td {
   background-color: var(--bg-hover);
 }
 
-.aurelius .table-row:last-child td {
+:root .table-row:last-child td {
   border-block-end: 0;
 }
 
 
 /* ─── LIST ────────────────────────────────────────────────────────── */
-.aurelius .list .list-item {
+:root .list .list-item {
   background-color: var(--bg-card);
 }
 
-.aurelius .list-item {
+:root .list-item {
   border-block-end-color: var(--divider);
   color: var(--text-1);
 }
 
 
 /* ─── PAGINATION ──────────────────────────────────────────────────── */
-.aurelius .pagination-button {
+:root .pagination-button {
   background-color: transparent;
   border-color: var(--border-input);
   border-radius: var(--radius-btn);
@@ -60,7 +60,7 @@
   font-size: var(--fs-ui);
 }
 
-.aurelius .pagination-button.is--active {
+:root .pagination-button.is--active {
   background-color: var(--gold);
   border-color: var(--gold);
   color: var(--on-gold);
@@ -71,13 +71,13 @@
    OSUI reads --progress-color and --trail-color per instance. The
    theme sets the Aurelius defaults; a colour set on the block in
    ODC Studio still wins because it is written inline.             */
-.aurelius :is(.osui-progress-bar, .osui-progress-circle) {
+:root :is(.osui-progress-bar, .osui-progress-circle) {
   --progress-color: var(--gold);
   --trail-color: light-dark(var(--neutral-3), var(--neutral-7));
 }
 
 
 /* ─── COUNTER ─────────────────────────────────────────────────────── */
-.aurelius .counter {
+:root .counter {
   font-family: var(--font-serif);
 }
