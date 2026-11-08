@@ -1,0 +1,161 @@
+/* ─── CONTENT PATTERNS ────────────────────────────────────────────────
+   OSUI patterns: Card, Card Sectioned, Card Item, Accordion,
+   Section Expandable, Section title, Alert, Tag, Badge, Tooltip.
+   ───────────────────────────────────────────────────────────────── */
+
+/* ─── CARD ────────────────────────────────────────────────────────────
+   The Aurelius card: card-grey fill, 16px radius, and a 1px gold-to-
+   violet gradient edge drawn as a second background on the border
+   box. Hovering turns the gradient once around the card.
+
+   @property makes --border-angle animatable inside conic-gradient(). */
+@property --border-angle {
+  inherits: false;
+  initial-value: 45deg;
+  syntax: '<angle>';
+}
+
+@keyframes aurelius-border-spin {
+  from { --border-angle: 45deg; }
+  to   { --border-angle: 405deg; }
+}
+
+.aurelius :is(.card, .card-sectioned) {
+  /* Light mode keeps the edge but softens it */
+  --card-edge-gold:   light-dark(oklch(from var(--brand-700) l c h / 0.16), oklch(from var(--gold) l c h / 0.30));
+  --card-edge-violet: light-dark(rgb(124 58 237 / 0.10), rgb(124 58 237 / 0.22));
+
+  background:
+    linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+    conic-gradient(from var(--border-angle),
+      var(--card-edge-gold)    0%,
+      var(--card-edge-gold)   40%,
+      var(--card-edge-violet) 52%,
+      var(--card-edge-violet) 62%,
+      var(--card-edge-gold)   75%,
+      var(--card-edge-gold)  100%
+    ) border-box;
+  border: 1px solid transparent;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-inner), var(--shadow-m);
+  color: var(--text-1);
+  transition: box-shadow 0.3s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .aurelius :is(.card, .card-sectioned):hover {
+    animation: aurelius-border-spin 2.5s linear infinite;
+  }
+}
+
+.aurelius .card-sectioned {
+  overflow: hidden;
+}
+
+/* Card Item: a compact clickable row-card */
+.aurelius .card-item {
+  background-color: var(--bg-card);
+  border: var(--border-size-s) solid var(--border-card);
+  border-radius: var(--radius-item);
+}
+
+/* Card Background keeps its image; only the radius changes */
+.aurelius .card-background {
+  border-radius: var(--radius-card);
+}
+
+
+/* ─── SECTION TITLE ───────────────────────────────────────────────── */
+.aurelius .section-title {
+  border-block-end-color: var(--divider);
+  font-family: var(--font-serif);
+  font-size: var(--fs-5xl);
+  font-weight: var(--fw-regular);
+  letter-spacing: var(--ls-snug);
+}
+
+
+/* ─── ACCORDION & SECTION EXPANDABLE ──────────────────────────────── */
+.aurelius :is(.osui-accordion-item, .section-expandable) {
+  background-color: var(--bg-card);
+  border-color: var(--border-card);
+}
+
+.aurelius .osui-accordion-item {
+  border-radius: var(--radius-item);
+}
+
+.aurelius .osui-accordion-item + .osui-accordion-item {
+  margin-block-start: var(--space-s);
+}
+
+.aurelius :is(.osui-accordion-item__title, .section-expandable-title) {
+  color: var(--text-1);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-medium);
+}
+
+.aurelius :is(.osui-accordion-item__icon, .section-expandable-icon) {
+  color: var(--gold);
+}
+
+.aurelius .osui-accordion-item--is-open::after {
+  border-color: var(--gold-glow);
+}
+
+.aurelius .section-expandable.is--open {
+  border-block-start-color: var(--gold);
+}
+
+
+/* ─── ALERT ───────────────────────────────────────────────────────────
+   OSUI alerts are solid status fills with white text. Aurelius uses a
+   tinted fill, primary text and a 3px accent bar, matching the
+   dashboard's feedback messages. Each variant sets one colour.     */
+.aurelius .alert {
+  --alert-colour: var(--color-info);
+
+  background-color: color-mix(in oklab, var(--alert-colour) 12%, var(--bg-card));
+  border: 1px solid color-mix(in oklab, var(--alert-colour) 30%, transparent);
+  border-inline-start: 3px solid var(--alert-colour);
+  border-radius: var(--radius-item);
+  color: var(--text-1);
+  font-size: var(--fs-ui);
+}
+
+.aurelius .alert-success { --alert-colour: var(--color-success); }
+.aurelius .alert-error   { --alert-colour: var(--color-error); }
+.aurelius .alert-warning { --alert-colour: var(--color-warning); color: var(--text-1); }
+.aurelius .alert-info    { --alert-colour: var(--color-info); }
+
+.aurelius .alert :is(.alert-icon, [class*="icon"]) {
+  color: var(--alert-colour);
+}
+
+
+/* ─── TAG & BADGE ─────────────────────────────────────────────────────
+   OSUI colours both with utility background classes
+   (.background-primary …), which the variables already theme. The
+   theme adds the Aurelius pill shape and type.                     */
+.aurelius :is(.tag, .badge) {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wide);
+}
+
+.aurelius :is(.tag, .badge) {
+  border-radius: var(--radius-btn);
+}
+
+
+/* ─── TOOLTIP ─────────────────────────────────────────────────────── */
+.aurelius .osui-tooltip {
+  --osui-tooltip-background-color: light-dark(var(--neutral-9), var(--neutral-7));
+}
+
+.aurelius .osui-tooltip .osui-balloon {
+  box-shadow: var(--shadow-l);
+  color: var(--neutral-0);
+  font-size: var(--fs-md);
+  padding: var(--space-s) var(--space-base);
+}

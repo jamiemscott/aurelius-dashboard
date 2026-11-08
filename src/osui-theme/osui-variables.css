@@ -1,0 +1,117 @@
+/* ─── AURELIUS OSUI THEME — OSUI VARIABLES ───────────────────────────
+   Sets OutSystems UI's own custom properties from Aurelius tokens.
+   This is where most of the theme happens: OSUI 2.19 paints almost
+   every widget, pattern and utility class (.background-neutral-0,
+   .text-primary …) through these variables, so restyling them
+   restyles OSUI without touching its classes.
+
+   Checked against OutSystems UI 2.19.2 (ODC), the version deployed
+   to nttdatauk-dev, November 2026. Only variables that OSUI declares
+   at :root are set here; spacing and layers keep OSUI's values.
+
+   NEUTRAL SCALE — HOW OSUI USES IT
+   ────────────────────────────────
+   OSUI reads the neutrals by role, not by brightness:
+     0      widget surface (card, input, table cell, menu) and the
+            text/tick colour on a primary fill
+     1–3    subtle fills, hover and selected rows, disabled fields
+     4      borders and dividers (card, table, list, accordion)
+     5–6    field borders, switch track, hover borders, disabled text
+     7–8    secondary text and icons
+     9–10   body text and headings
+   Light mode uses the Aurelius scale as is (same 0 = lightest
+   convention). Dark mode maps each role to the Aurelius dark
+   equivalent rather than a mirror flip, so surfaces sit on card
+   grey and borders stay quiet.
+   ───────────────────────────────────────────────────────────────── */
+
+.aurelius {
+
+  /* ─── BRAND ─────────────────────────────────────────────────── */
+  --color-primary:          var(--gold);
+  --color-primary-hover:    var(--brand-600);
+  --color-primary-selected: var(--gold-dim);
+  --color-primary-lightest: linear-gradient(var(--gold-dim), var(--gold-dim));
+  --color-secondary:        light-dark(var(--neutral-8), var(--gold-soft));
+
+  /* Focus ring: OSUI draws an outer and inner ring */
+  --color-focus-outer: var(--gold-soft);
+  --color-focus-inner: var(--color-neutral-10);
+
+
+  /* ─── STATUS ────────────────────────────────────────────────── */
+  --color-success:       var(--status-success);
+  --color-success-light: var(--status-success-alpha);
+  --color-error:         var(--status-error);
+  --color-error-light:   var(--status-error-alpha);
+  --color-warning:       var(--status-warning);
+  --color-warning-light: var(--status-warning-alpha);
+  --color-info:          var(--status-info);
+  --color-info-light:    var(--status-info-alpha);
+
+
+  /* ─── NEUTRALS (role-mapped, see header) ────────────────────── */
+  --color-neutral-0:  light-dark(var(--neutral-0),  var(--neutral-8));
+  --color-neutral-1:  light-dark(var(--neutral-1),  color-mix(in oklab, var(--neutral-8), var(--neutral-9)));
+  --color-neutral-2:  light-dark(var(--neutral-2),  color-mix(in oklab, var(--neutral-8) 94%, var(--neutral-0)));
+  --color-neutral-3:  light-dark(var(--neutral-3),  color-mix(in oklab, var(--neutral-8), var(--neutral-7)));
+  --color-neutral-4:  light-dark(var(--neutral-3),  color-mix(in oklab, var(--neutral-8) 88%, var(--neutral-0)));
+  --color-neutral-5:  light-dark(var(--neutral-4),  var(--neutral-7));
+  --color-neutral-6:  light-dark(var(--neutral-5),  var(--neutral-6));
+  --color-neutral-7:  light-dark(var(--neutral-6),  var(--neutral-5));
+  --color-neutral-8:  light-dark(var(--neutral-7),  var(--neutral-4));
+  --color-neutral-9:  light-dark(var(--neutral-9),  var(--neutral-1));
+  --color-neutral-10: light-dark(var(--neutral-10), var(--neutral-0));
+
+
+  /* ─── APP SURFACES ──────────────────────────────────────────── */
+  --color-background-body:  var(--bg);
+  --color-background-login: var(--bg-card);
+  --header-color:           var(--bg-dark);
+  --overlay-background:     light-dark(rgb(0 0 0 / 0.30), rgb(0 0 0 / 0.60));
+
+
+  /* ─── TYPE SIZE ─────────────────────────────────────────────────
+     OSUI body text is --font-size-s; Aurelius body is 14px, so the
+     scale shifts down one step from OSUI's 16px base.             */
+  --font-size-display: calc(var(--fs-base) * 2.5);   /* 35px */
+  --font-size-h1:      var(--fs-display-md);         /* 28px */
+  --font-size-h2:      var(--fs-5xl);                /* 22px */
+  --font-size-h3:      var(--fs-4xl);                /* 20px */
+  --font-size-h4:      var(--fs-3xl);                /* 18px */
+  --font-size-h5:      var(--fs-xl);                 /* 16px */
+  --font-size-h6:      var(--fs-lg);                 /* 15px */
+  --font-size-base:    var(--fs-xl);                 /* 16px — large inputs, lead copy */
+  --font-size-s:       var(--fs-base);               /* 14px — body */
+  --font-size-xs:      var(--fs-md);                 /* 12px */
+  --font-size-label:   var(--fs-sm);                 /* 11px */
+
+
+  /* ─── TYPE WEIGHT ───────────────────────────────────────────── */
+  --font-light:     300;
+  --font-regular:   var(--fw-regular);
+  --font-semi-bold: var(--fw-semibold);
+  --font-bold:      var(--fw-bold);
+
+
+  /* ─── SHAPE ─────────────────────────────────────────────────────
+     soft    → inputs, alerts, tables, popups (Aurelius item radius)
+     rounded → pills: tags, badges, switch track
+     Buttons and cards take their own Aurelius radius in widgets/. */
+  --border-radius-soft:    var(--radius-item);   /* 12px */
+  --border-radius-rounded: var(--radius-btn);    /* pill */
+  --border-radius-circle:  100%;
+
+
+  /* ─── ELEVATION ─────────────────────────────────────────────── */
+  --shadow-xs: 0 1px 3px var(--shadow-ink-xs);
+  --shadow-s:  0 2px 8px var(--shadow-ink-s);
+  --shadow-m:  0 4px 16px var(--shadow-ink-m);
+  --shadow-l:  0 8px 28px var(--shadow-ink-l);
+  --shadow-xl: 0 16px 40px var(--shadow-ink-xl);
+
+
+  /* ─── LAYOUT ────────────────────────────────────────────────── */
+  --header-size: 68px;   /* Aurelius topbar height */
+  --side-menu-size: 240px;   /* Aurelius sidebar width */
+}
