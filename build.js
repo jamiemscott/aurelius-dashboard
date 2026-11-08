@@ -74,6 +74,30 @@ const PARTIALS = [
 ].map(f => path.join(ROOT, f));
 
 const OUTPUT  = path.join(ROOT, 'src', 'styles', 'bundle.css');
+
+// OSUI theme — the stylesheet for the Aurelius theme in the ODC library
+// WealthManagement_Lib_Beta. It overrides OutSystems UI rather than
+// replacing it, so it carries no layout or page CSS from the dashboard.
+const OSUI_THEME_PARTIALS = [
+  'src/styles/theme/fonts.css',            // shared @font-face rules
+  'src/osui-theme/tokens.css',
+  'src/osui-theme/osui-variables.css',
+  'src/osui-theme/base.css',
+  'src/osui-theme/widgets/buttons.css',
+  'src/osui-theme/widgets/inputs.css',
+  'src/osui-theme/widgets/content.css',
+  'src/osui-theme/widgets/data.css',
+  'src/osui-theme/widgets/navigation.css',
+  'src/osui-theme/widgets/overlays.css',
+  'src/osui-theme/widgets/providers.css',
+].map(f => path.join(ROOT, f));
+
+const OSUI_THEME_OUTPUT = path.join(ROOT, 'src', 'osui-theme', 'aurelius-osui-theme.css');
+
+const BUILDS = [
+  { partials: PARTIALS,            output: OUTPUT },
+  { partials: OSUI_THEME_PARTIALS, output: OSUI_THEME_OUTPUT },
+];
 const MINIFY  = process.argv.includes('--minify');
 const WATCH   = process.argv.includes('--watch');
 
@@ -95,11 +119,11 @@ function minifyCSS(css) {
 
 // ── Bundler ──────────────────────────────────────────────────────────────────
 
-function bundle() {
+function bundle({ partials, output: OUTPUT }) {
   const start = Date.now();
 
   let missing = false;
-  const sections = PARTIALS.map(filePath => {
+  const sections = partials.map(filePath => {
     if (!fs.existsSync(filePath)) {
       console.error(`✗ Missing partial: ${path.relative(ROOT, filePath)}`);
       missing = true;
@@ -146,16 +170,16 @@ function bundle() {
 function watch() {
   console.log('Watching CSS partials for changes…\n');
 
-  const watchers = PARTIALS.map(filePath => {
+  const watchers = BUILDS.flatMap(build => build.partials.map(filePath => {
     const rel = path.relative(ROOT, filePath).replace(/\\/g, '/');
 
     return fs.watch(filePath, eventType => {
       if (eventType === 'change') {
         process.stdout.write(`  changed → ${rel}\n  `);
-        bundle();
+        bundle(build);
       }
     });
-  });
+  }));
 
   // Graceful shutdown
   ['SIGINT', 'SIGTERM'].forEach(sig => {
@@ -169,6 +193,6 @@ function watch() {
 
 // ── Entry ────────────────────────────────────────────────────────────────────
 
-bundle();
+BUILDS.forEach(bundle);
 
 if (WATCH) watch();

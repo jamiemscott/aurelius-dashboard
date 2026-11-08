@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aurelius OSUI Theme · Widget Preview</title>
+
+  <!--
+    PURPOSE
+    ───────
+    Renders OSUI widget markup with the real OutSystems UI stylesheet
+    and the Aurelius theme on top, so the theme can be checked before
+    it goes into WealthManagement_Lib_Beta.
+
+    The OSUI files are loaded from the deployed Live Style Guide on
+    nttdatauk-dev (OutSystems UI 2.19.2). Their URLs carry a content
+    hash, so they change when that app is republished — copy the new
+    URLs from the page's <head> if the widgets come up unstyled.
+
+    HOW TO USE
+    ──────────
+    1. node build.js
+    2. npx serve .   then open /test/osui-theme/
+    3. Use the Dark / Light / System buttons to switch colour scheme.
+
+    Markup follows what OSUI renders in ODC (data-* attributes and
+    class names), trimmed to the parts the styles depend on.
+  -->
+
+  <link rel="stylesheet" href="https://nttdatauk-dev.outsystems.app/WealthManagement_LiveStyleGuide/css/os-runtime-view-js__Tnqz87E5sK0HMTF0OzP6A.css?Tnqz87E5+sK0HMTF0OzP6A">
+  <link rel="stylesheet" href="https://nttdatauk-dev.outsystems.app/WealthManagement_LiveStyleGuide/css/_Basic__sOXzBX75ovPIx368jloYLw.css?sOXzBX75ovPIx368jloYLw">
+  <link rel="stylesheet" href="https://nttdatauk-dev.outsystems.app/WealthManagement_LiveStyleGuide/css/OutSystemsReactWidgets__bx2NbUzbsaSlPeDZyQglxw.css?bx2NbUzbsaSlPeDZyQglxw">
+  <link rel="stylesheet" href="https://nttdatauk-dev.outsystems.app/WealthManagement_LiveStyleGuide/css/font-awesome.min__8Y9g6zLAhrEK7JgSeFMg.css?8Y9g6zLAhr_EK7JgSeFM_g">
+  <link rel="stylesheet" href="https://nttdatauk-dev.outsystems.app/WealthManagement_LiveStyleGuide/css/OutSystemsUI.OutSystemsUI__XVuONDgC7eS8A0fpfBawg.css?XVuONDgC7eS_8A0fpfBawg">
+  <link rel="stylesheet" href="../../src/osui-theme/aurelius-osui-theme.css">
+
+  <style>
+    /* ── Harness only (th-*) — not part of the theme ───────────── */
+    html { overflow: auto; }   /* OSUI hides html overflow; the app scrolls inside .active-screen */
+    .th-page { display: grid; gap: 32px; margin: 0 auto; max-width: 1100px; padding: 32px 24px 96px; }
+    .th-section { display: grid; gap: 16px; }
+    .th-section > h2 { border-block-end: 1px solid var(--divider); padding-block-end: 8px; }
+    .th-row { align-items: center; display: flex; flex-wrap: wrap; gap: 12px; }
+    .th-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+    .th-field { display: grid; gap: 6px; }
+    .th-modes { display: flex; gap: 8px; margin-inline-start: auto; }
+    .th-static-popup { position: relative; max-width: 420px; }
+    .th-static-popup .popup-dialog { margin: 0; max-height: none; position: static; }
+    .th-static-feedback { display: grid; gap: 12px; max-width: 480px; }
+    .th-static-feedback .feedback-message { animation: none; inset: auto; margin: 0; min-width: 0; position: relative; transform: none; }
+  </style>
+</head>
+<body class="aurelius">
+
+  <!-- ─── LAYOUT TOP: header + menu ─────────────────────────────── -->
+  <div class="layout layout-top">
+    <div class="main">
+      <header class="header">
+        <div class="header-top ThemeGrid_Container">
+          <div class="header-content display-flex align-items-center" style="height:100%">
+            <div class="app-name">Aurelius Wealth</div>
+            <nav class="app-menu-links" role="menubar" style="display:flex;gap:24px;margin-inline-start:40px;height:100%">
+              <a class="active" href="#">Overview</a>
+              <a href="#">Investments</a>
+              <a href="#">Goals</a>
+              <a href="#">Documents</a>
+            </nav>
+            <div class="th-modes">
+              <button class="btn btn-small" type="button" data-mode="">Dark</button>
+              <button class="btn btn-small" type="button" data-mode="is-light">Light</button>
+              <button class="btn btn-small" type="button" data-mode="is-system">System</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="main-content ThemeGrid_Container">
+          <div class="th-page">
+
+            <!-- ─── TYPE ───────────────────────────────────────── -->
+            <section class="th-section">
+              <div class="breadcrumbs-content">
+                <div class="breadcrumbs-item"><a href="#">Home</a><span class="icon"><i class="fa fa-angle-right"></i></span></div>
+                <div class="breadcrumbs-item"><a href="#">Style guide</a><span class="icon"><i class="fa fa-angle-right"></i></span></div>
+                <div class="breadcrumbs-item">Widgets</div>
+              </div>
+              <h1>Portfolio overview</h1>
+              <h2>Section heading</h2>
+              <h3>Sub-section heading</h3>
+              <h4>Panel title</h4>
+              <p>Body copy sits at 14px in DM Sans. <a href="#">A text link</a> takes the AA-safe gold.</p>
+              <div class="section-title">Section title pattern</div>
+            </section>
+
+            <!-- ─── BUTTONS ────────────────────────────────────── -->
+            <section class="th-section">
+              <h2>Buttons</h2>
+              <div class="th-row">
+                <button class="btn btn-primary" type="button">Primary</button>
+                <button class="btn" type="button">Default</button>
+                <button class="btn btn-cancel" type="button">Cancel</button>
+                <button class="btn btn-success" type="button">Success</button>
+                <button class="btn btn-error" type="button">Error</button>
+                <button class="btn btn-primary" type="button" disabled>Disabled</button>
+              </div>
+              <div class="th-row">
+                <button class="btn btn-primary btn-small" type="button">Small</button>
+                <button class="btn btn-primary btn-large" type="button">Large</button>
+                <div data-button-group class="button-group" style="display:inline-flex">
+                  <div class="button-group-item button-group-selected-item">Monthly</div>
+                  <div class="button-group-item">Quarterly</div>
+                  <div class="button-group-item">Yearly</div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ─── INPUTS ─────────────────────────────────────── -->
+            <section class="th-section">
+              <h2>Inputs</h2>
+              <div class="th-grid">
+                <div class="th-field">
+                  <label for="in1">Full name</label>
+                  <input id="in1" class="form-control" data-input type="text" placeholder="Jordan Ellis">
+                </div>
+                <div class="th-field">
+                  <label for="in2">Invalid field</label>
+                  <input id="in2" class="form-control not-valid" data-input type="text" value="not-an-email">
+                  <span class="validation-message">Enter a valid email address</span>
+                </div>
+                <div class="th-field">
+                  <label for="in3">Disabled</label>
+                  <input id="in3" class="form-control" data-input type="text" value="Read only" disabled>
+                </div>
+                <div class="th-field">
+                  <label for="dd1">Account type</label>
+                  <div class="dropdown-container" data-dropdown>
+                    <select id="dd1" class="dropdown-display">
+                      <option>Stocks &amp; Shares ISA</option>
+                      <option>General Investment Account</option>
+                      <option>SIPP</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="th-field" style="grid-column:1/-1">
+                  <label for="ta1">Notes</label>
+                  <textarea id="ta1" class="form-control" data-textarea placeholder="Anything your adviser should know"></textarea>
+                </div>
+              </div>
+              <div class="th-row">
+                <input id="cb1" type="checkbox" data-checkbox checked><label for="cb1">Checked</label>
+                <input id="cb2" type="checkbox" data-checkbox><label for="cb2">Unchecked</label>
+                <span data-radio-group class="th-row">
+                  <span data-radio-button class="th-row"><input id="r1" class="radio-button" type="radio" name="r" checked><label for="r1">Radio on</label></span>
+                  <span data-radio-button class="th-row"><input id="r2" class="radio-button" type="radio" name="r"><label for="r2">Radio off</label></span>
+                </span>
+                <input id="sw1" type="checkbox" data-switch checked><label for="sw1">Switch on</label>
+                <input id="sw2" type="checkbox" data-switch><label for="sw2">Switch off</label>
+              </div>
+            </section>
+
+            <!-- ─── CARDS & CONTENT ────────────────────────────── -->
+            <section class="th-section">
+              <h2>Cards &amp; content</h2>
+              <div class="th-grid">
+                <div class="card">
+                  <h4>Portfolio value</h4>
+                  <p class="font-size-display">£482,190</p>
+                  <span class="tag background-success">+4.2%</span>
+                </div>
+                <div class="card">
+                  <h4>Card with list</h4>
+                  <div class="list">
+                    <div class="list-item">Global equity fund</div>
+                    <div class="list-item">UK gilts 2030</div>
+                    <div class="list-item">Cash reserve</div>
+                  </div>
+                </div>
+                <div class="card">
+                  <h4>Tags &amp; badges</h4>
+                  <div class="th-row">
+                    <span class="tag background-primary">Primary</span>
+                    <span class="tag background-neutral-3 text-neutral-9">Neutral</span>
+                    <span class="badge background-error" style="width:32px">3</span>
+                  </div>
+                </div>
+              </div>
+              <div class="alert alert-info"><span class="alert-icon fa fa-info-circle" style="margin-inline-end:8px"></span>Your annual review is due next month.</div>
+              <div class="alert alert-success">Your contribution of £2,000 has been received.</div>
+              <div class="alert alert-warning">Your ISA allowance resets on 6 April.</div>
+              <div class="alert alert-error">We could not verify your bank account.</div>
+
+              <div class="osui-accordion-item osui-accordion-item--is-open">
+                <div class="osui-accordion-item__title">
+                  <span class="osui-accordion-item__title__placeholder">What does the platform fee cover?</span>
+                  <span class="osui-accordion-item__icon fa fa-angle-up"></span>
+                </div>
+                <div class="osui-accordion-item__content osui-accordion-item__content--is-expanded" style="padding:0 24px 24px">
+                  Custody, dealing and reporting for every account you hold with us.
+                </div>
+              </div>
+              <div class="osui-accordion-item">
+                <div class="osui-accordion-item__title">
+                  <span class="osui-accordion-item__title__placeholder">Can I transfer an existing pension?</span>
+                  <span class="osui-accordion-item__icon fa fa-angle-down"></span>
+                </div>
+              </div>
+            </section>
+
+            <!-- ─── TABS ───────────────────────────────────────── -->
+            <section class="th-section">
+              <h2>Tabs</h2>
+              <div class="osui-tabs" style="display:block">
+                <div class="osui-tabs__header" style="display:flex;position:relative;border-block-end:1px solid var(--divider)">
+                  <button class="osui-tabs__header-item osui-tabs--is-active" type="button" style="padding:8px 16px">Holdings</button>
+                  <button class="osui-tabs__header-item" type="button" style="padding:8px 16px">Performance</button>
+                  <button class="osui-tabs__header-item" type="button" style="padding:8px 16px">Transactions</button>
+                  <span class="osui-tabs__header__indicator" style="bottom:-1px;height:2px;width:110px;left:0"></span>
+                </div>
+              </div>
+            </section>
+
+            <!-- ─── DATA ───────────────────────────────────────── -->
+            <section class="th-section">
+              <h2>Table</h2>
+              <table class="table" role="grid">
+                <thead><tr class="table-header"><th>Fund</th><th>Units</th><th>Value</th></tr></thead>
+                <tbody>
+                  <tr class="table-row"><td>Global Equity Index</td><td>1,204.55</td><td>£182,400</td></tr>
+                  <tr class="table-row"><td>Sterling Corporate Bond</td><td>860.10</td><td>£96,120</td></tr>
+                  <tr class="table-row"><td>UK Smaller Companies</td><td>412.00</td><td>£41,870</td></tr>
+                </tbody>
+              </table>
+              <div class="th-row">
+                <button class="pagination-button" type="button" style="width:32px;height:32px">1</button>
+                <button class="pagination-button is--active" type="button" style="width:32px;height:32px">2</button>
+                <button class="pagination-button" type="button" style="width:32px;height:32px">3</button>
+              </div>
+              <div class="osui-progress-bar" style="--thickness:8px;--shape:8px;--progress-value:64%">
+                <div class="osui-progress-bar__container"><div class="osui-progress-bar__value"></div></div>
+              </div>
+            </section>
+
+            <!-- ─── OVERLAYS ───────────────────────────────────── -->
+            <section class="th-section">
+              <h2>Popup &amp; messages</h2>
+              <div class="th-static-popup">
+                <div class="popup-dialog">
+                  <h4>Confirm withdrawal</h4>
+                  <p>£5,000 will be sold from your General Investment Account.</p>
+                  <div class="th-row" style="justify-content:flex-end;margin-top:16px">
+                    <button class="btn btn-cancel" type="button">Cancel</button>
+                    <button class="btn btn-primary" type="button">Confirm</button>
+                  </div>
+                </div>
+              </div>
+              <div class="th-static-feedback">
+                <div class="feedback-message feedback-message-success"><i class="fa fa-check-circle"></i><div class="feedback-message-text">Changes saved</div></div>
+                <div class="feedback-message feedback-message-error"><i class="fa fa-times-circle"></i><div class="feedback-message-text">Payment failed</div></div>
+                <div class="feedback-message feedback-message-warning"><i class="fa fa-exclamation-circle"></i><div class="feedback-message-text">Session ends soon</div></div>
+                <div class="feedback-message feedback-message-info"><i class="fa fa-info-circle"></i><div class="feedback-message-text">New document available</div></div>
+              </div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Harness only: swaps the colour-scheme state class on .aurelius
+    document.querySelectorAll('[data-mode]').forEach(button => {
+      button.addEventListener('click', () => {
+        document.body.classList.remove('is-light', 'is-system');
+        if (button.dataset.mode) document.body.classList.add(button.dataset.mode);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+/* ─── BUTTONS ─────────────────────────────────────────────────────────
+   OSUI widget: Button (.btn, .btn-primary, .btn-cancel, .btn-success,
+   .btn-error, .btn-small, .btn-large) and Button Group.
+
+   Aurelius look: pill shape, DM Sans semibold, a gold fill for the
+   primary action and a ghost gold outline for everything else. The
+   hover underline grows and drops, as on the dashboard.
+
+   OSUI's default .btn is an outlined primary-coloured button, so it
+   becomes the Aurelius secondary (ghost gold) with no extra class.
+   ───────────────────────────────────────────────────────────────── */
+
+.aurelius .btn {
+  background-color: var(--bg-card);
+  border: var(--border-size-s) solid light-dark(oklch(from var(--brand-700) l c h / 0.30), var(--gold-glow));
+  border-radius: var(--radius-btn);
+  color: var(--gold-text);
+  font-family: var(--font-sans);
+  font-size: var(--fs-ui);
+  font-weight: var(--fw-semibold);
+  gap: var(--space-s);
+  padding-inline: 20px;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 1px;
+  transition:
+    background-color 0.2s,
+    box-shadow 0.2s,
+    text-decoration-color 0.25s,
+    text-decoration-thickness 0.25s,
+    text-underline-offset 0.25s,
+    transform 0.15s;
+  white-space: nowrap;
+}
+
+.aurelius .btn:hover {
+  background-color: color-mix(in oklab, var(--bg-card), var(--gold) 8%);
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+/* OSUI darkens every button on press with a brightness filter;
+   Aurelius presses with a small scale instead. */
+.aurelius .btn:hover:active {
+  filter: none;
+  transform: scale(0.98);
+}
+
+
+/* ─── PRIMARY ───────────────────────────────────────────────────── */
+.aurelius .btn-primary {
+  background-color: var(--gold);
+  border-color: var(--gold);
+  color: var(--on-gold);
+}
+
+.aurelius .btn-primary:hover {
+  background-color: var(--gold);
+  box-shadow: var(--shadow-glow);
+  color: var(--on-gold);
+  transform: translateY(-1px);
+}
+
+
+/* ─── CANCEL — quiet neutral ghost ──────────────────────────────── */
+.aurelius .btn-cancel {
+  background-color: transparent;
+  border-color: var(--border-input);
+  color: var(--text-2);
+}
+
+.aurelius .btn-cancel:hover {
+  background-color: var(--bg-hover);
+  color: var(--text-1);
+}
+
+
+/* ─── SUCCESS / ERROR — status fills ────────────────────────────── */
+.aurelius :is(.btn-success, .btn-error) {
+  color: var(--neutral-0);
+}
+
+.aurelius .btn-success { background-color: var(--color-success); border-color: var(--color-success); }
+.aurelius .btn-error   { background-color: var(--color-error);   border-color: var(--color-error); }
+
+.aurelius :is(.btn-success, .btn-error):hover {
+  box-shadow: var(--shadow-s);
+}
+
+
+/* ─── DISABLED ──────────────────────────────────────────────────── */
+.aurelius .btn[disabled] {
+  background-color: var(--bg-input);
+  border-color: var(--divider);
+  box-shadow: none;
+  color: var(--text-3);
+}
+
+
+/* ─── SIZES ─────────────────────────────────────────────────────── */
+.aurelius .btn-small {
+  font-size: var(--fs-md);
+  padding-inline: 14px;
+}
+
+.aurelius .btn-large {
+  font-size: var(--fs-lg);
+  padding-inline: 28px;
+}
+
+
+/* ─── BUTTON GROUP ──────────────────────────────────────────────────
+   A segmented pill: the group carries the shape, items sit inside. */
+.aurelius .button-group-item {
+  background-color: var(--bg-card);
+  border-color: var(--border-input);
+  color: var(--text-2);
+  font-size: var(--fs-ui);
+  font-weight: var(--fw-medium);
+}
+
+.aurelius .button-group-item:first-child { border-start-start-radius: var(--radius-btn); border-end-start-radius: var(--radius-btn); }
+.aurelius .button-group-item:last-child  { border-start-end-radius: var(--radius-btn);   border-end-end-radius: var(--radius-btn); }
+
+.aurelius .button-group-selected-item {
+  background-color: var(--gold);
+  border-color: var(--gold);
+  color: var(--on-gold);
+}
+

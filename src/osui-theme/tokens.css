@@ -1,0 +1,179 @@
+/* ─── AURELIUS OSUI THEME — TOKENS ───────────────────────────────────
+   The Aurelius primitive and semantic tokens, scoped to .aurelius.
+
+   These are the theme's private vocabulary. Widgets never read them
+   directly where an OSUI variable exists: osui-variables.css feeds
+   them into OSUI's own --color-*, --font-*, --border-* and --shadow-*
+   variables, and OSUI's widgets do the rest.
+
+   Ported from src/styles/theme/{brand,colours,typography}.css. Values
+   are kept in step with the dashboard; change a seed here and every
+   derived step follows through oklch() relative colour.
+
+   COLOUR SCHEME
+   ─────────────
+   Dark is the Aurelius default. The OutSystems app chooses the mode
+   with a state class on the same element as .aurelius:
+     .aurelius             → dark  (default)
+     .aurelius.is-light    → light
+     .aurelius.is-system   → follow the device setting
+   light-dark() resolves from color-scheme, so no token is redeclared
+   per mode.
+   ───────────────────────────────────────────────────────────────── */
+
+.aurelius           { color-scheme: dark; }
+.aurelius.is-light  { color-scheme: light; }
+.aurelius.is-system { color-scheme: light dark; }
+
+
+/* ─── SEEDS ─────────────────────────────────────────────────────── */
+.aurelius {
+  --seed-primary:   #F5A623;   /* brand gold                   */
+  --seed-secondary: #FFB547;   /* soft gold                    */
+  --seed-neutral:   #6B6F76;   /* blue-grey base for neutrals  */
+}
+
+
+/* ─── BRAND SCALE ───────────────────────────────────────────────── */
+.aurelius {
+  --brand-50:  oklch(from var(--seed-primary) 0.97 calc(c * 0.08) h);
+  --brand-100: oklch(from var(--seed-primary) 0.94 calc(c * 0.15) h);
+  --brand-200: oklch(from var(--seed-primary) 0.89 calc(c * 0.35) h);
+  --brand-300: oklch(from var(--seed-primary) 0.84 calc(c * 0.60) h);
+  --brand-400: oklch(from var(--seed-primary) 0.83 calc(c * 0.85) h);
+  --brand-500: var(--seed-primary);
+  --brand-600: oklch(from var(--seed-primary) 0.68 calc(c * 1.02) h);
+  --brand-700: oklch(from var(--seed-primary) 0.48 calc(c * 0.90) h);   /* AA on white */
+  --brand-800: oklch(from var(--seed-primary) 0.36 calc(c * 0.80) h);
+  --brand-900: oklch(from var(--seed-primary) 0.25 calc(c * 0.65) h);
+
+  --brand-alpha-08: oklch(from var(--seed-primary) l c h / 0.08);
+  --brand-alpha-12: oklch(from var(--seed-primary) l c h / 0.12);
+  --brand-alpha-25: oklch(from var(--seed-primary) l c h / 0.25);
+  --brand-alpha-45: oklch(from var(--seed-primary) l c h / 0.45);
+}
+
+
+/* ─── NEUTRAL SCALE (0 = lightest, 10 = darkest) ────────────────── */
+.aurelius {
+  --neutral-0:  oklch(from var(--seed-neutral) 0.99 calc(c * 0.10) h);  /* ≈ #FFFFFF */
+  --neutral-1:  oklch(from var(--seed-neutral) 0.97 calc(c * 0.28) h);  /* ≈ #F4F5F7 */
+  --neutral-2:  oklch(from var(--seed-neutral) 0.95 calc(c * 0.36) h);  /* ≈ #F0F1F4 */
+  --neutral-3:  oklch(from var(--seed-neutral) 0.91 calc(c * 0.50) h);  /* ≈ #E4E6EA */
+  --neutral-4:  oklch(from var(--seed-neutral) 0.74 calc(c * 0.64) h);  /* ≈ #B0B3B8 */
+  --neutral-5:  oklch(from var(--seed-neutral) 0.63 calc(c * 0.90) h);  /* ≈ #8C9099 */
+  --neutral-6:  oklch(from var(--seed-neutral) 0.49 calc(c * 1.00) h);  /* ≈ #696E75 */
+  --neutral-7:  oklch(from var(--seed-neutral) 0.41 calc(c * 1.00) h);  /* ≈ #555A65 */
+  --neutral-8:  oklch(from var(--seed-neutral) 0.22 calc(c * 0.85) h);  /* ≈ #2A2E35 */
+  --neutral-9:  oklch(from var(--seed-neutral) 0.13 calc(c * 0.73) h);  /* ≈ #14171C */
+  --neutral-10: oklch(from var(--seed-neutral) 0.08 calc(c * 0.73) h);  /* ≈ #0B0D10 */
+}
+
+
+/* ─── STATUS ────────────────────────────────────────────────────── */
+.aurelius {
+  --status-success:       light-dark(#15803D, #22C55E);
+  --status-success-alpha: oklch(from #22C55E l c h / 0.12);
+  --status-error:         light-dark(#DC2626, #EF4444);
+  --status-error-alpha:   oklch(from #EF4444 l c h / 0.12);
+  --status-warning:       light-dark(#B45309, #F59E0B);
+  --status-warning-alpha: oklch(from #F59E0B l c h / 0.12);
+  --status-info:          light-dark(#2563EB, #3B82F6);
+  --status-info-alpha:    oklch(from #3B82F6 l c h / 0.12);
+}
+
+
+/* ─── SEMANTIC COLOUR ───────────────────────────────────────────── */
+.aurelius {
+  /* Brand */
+  --gold:      var(--brand-500);
+  --gold-soft: var(--seed-secondary);
+  --gold-dim:  var(--brand-alpha-12);
+  --gold-glow: var(--brand-alpha-25);
+  --gold-text: light-dark(var(--brand-700), var(--brand-500));   /* AA text on any surface */
+  --on-gold:   #0B0D10;                                          /* text on a gold fill, both modes */
+
+  /* Surfaces */
+  --bg:       light-dark(var(--neutral-1), var(--neutral-10));   /* page canvas       */
+  --bg-card:  light-dark(var(--neutral-0), var(--neutral-8));    /* cards, panels     */
+  --bg-hover: light-dark(var(--neutral-2), var(--neutral-7));    /* hover / selected  */
+  --bg-input: light-dark(var(--neutral-2), var(--neutral-9));    /* form fields       */
+  --bg-dark:  light-dark(var(--neutral-0), var(--neutral-9));    /* header, side menu */
+
+  /* Text */
+  --text-1: light-dark(var(--neutral-10), var(--neutral-0));
+  --text-2: light-dark(var(--neutral-7),  var(--neutral-4));
+  --text-3: light-dark(var(--neutral-6),  var(--neutral-5));
+
+  /* Borders */
+  --border:       light-dark(rgb(0 0 0 / 0.08), rgb(255 255 255 / 0.08));
+  --border-input: light-dark(rgb(0 0 0 / 0.25), var(--brand-alpha-45));   /* WCAG 1.4.11 */
+  --border-card:  light-dark(rgb(0 0 0 / 0.06), oklch(from var(--seed-primary) l c h / 0.14));
+  --divider:      light-dark(rgb(0 0 0 / 0.06), rgb(255 255 255 / 0.06));
+}
+
+
+/* ─── SHAPE & SPACE ─────────────────────────────────────────────── */
+.aurelius {
+  --pad:         24px;
+  --radius-btn:  999px;
+  --radius-card: 16px;
+  --radius-item: 12px;
+  --radius-chip: 6px;
+}
+
+
+/* ─── SHADOWS ───────────────────────────────────────────────────────
+   light-dark() accepts colours only, so each shadow keeps one
+   geometry and switches its colour. (The dashboard's colours.css
+   wraps whole shadow values in light-dark(), which the spec does not
+   allow — worth fixing there too.)                                 */
+.aurelius {
+  --shadow-ink-xs: light-dark(rgb(0 0 0 / 0.07), rgb(0 0 0 / 0.22));
+  --shadow-ink-s:  light-dark(rgb(0 0 0 / 0.08), rgb(0 0 0 / 0.26));
+  --shadow-ink-m:  light-dark(rgb(0 0 0 / 0.10), rgb(0 0 0 / 0.30));
+  --shadow-ink-l:  light-dark(rgb(0 0 0 / 0.12), rgb(0 0 0 / 0.36));
+  --shadow-ink-xl: light-dark(rgb(0 0 0 / 0.14), rgb(0 0 0 / 0.44));
+
+  --shadow-inner:  inset 0 1px 0 light-dark(rgb(255 255 255 / 0.80), rgb(255 255 255 / 0.06));
+  --shadow-glow:   0 4px 18px oklch(from var(--seed-primary) l c h / 0.50);
+}
+
+
+/* ─── TYPE ──────────────────────────────────────────────────────── */
+.aurelius {
+  --font-sans:  'DM Sans', system-ui, sans-serif;
+  --font-serif: 'DM Serif Display', Georgia, serif;
+
+  --fs-base: 14px;
+  --fs-2xs:  calc(var(--fs-base) - 5px);   /*  9px */
+  --fs-xs:   calc(var(--fs-base) - 4px);   /* 10px */
+  --fs-sm:   calc(var(--fs-base) - 3px);   /* 11px */
+  --fs-md:   calc(var(--fs-base) - 2px);   /* 12px */
+  --fs-ui:   calc(var(--fs-base) - 1px);   /* 13px */
+  --fs-lg:   calc(var(--fs-base) + 1px);   /* 15px */
+  --fs-xl:   calc(var(--fs-base) + 2px);   /* 16px */
+  --fs-2xl:  calc(var(--fs-base) + 3px);   /* 17px */
+  --fs-3xl:  calc(var(--fs-base) + 4px);   /* 18px */
+  --fs-4xl:  calc(var(--fs-base) + 6px);   /* 20px */
+  --fs-5xl:  calc(var(--fs-base) + 8px);   /* 22px */
+  --fs-6xl:  calc(var(--fs-base) + 10px);  /* 24px */
+  --fs-display-md: calc(var(--fs-base) + 14px);  /* 28px */
+
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  --lh-tight:   1.2;
+  --lh-snug:    1.35;
+  --lh-normal:  1.5;
+  --lh-relaxed: 1.65;
+
+  --ls-heading: -0.03em;
+  --ls-snug:    -0.02em;
+  --ls-wide:     0.04em;
+  --ls-widest:   0.11em;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
