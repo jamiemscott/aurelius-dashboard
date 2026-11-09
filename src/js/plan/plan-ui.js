@@ -991,7 +991,7 @@ function measureChatOffset() {
   chatWrap.style.setProperty('--plan-pad', `${Math.round(pad)}px`);
   chatWrap.style.setProperty('--plan-chat-offset', `${Math.max(0, Math.round(top - stick - pad))}px`);
 }
-new ResizeObserver(measureChatOffset).observe($('.plan-main .page-header'));
+new ResizeObserver(measureChatOffset).observe($('#plan-main .page-header'));
 addEventListener('resize', measureChatOffset);
 measureChatOffset();
 
