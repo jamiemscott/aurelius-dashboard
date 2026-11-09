@@ -591,40 +591,78 @@
 
 
 /* ─── DO / DON'T ──────────────────────────────────────────────────────────── */
+/* Built on the feedback message recipe (modules/feedback.css): a tinted status
+   surface, a border at 30% of the status colour and a 3px accent bar. Each card
+   is one surface, so a shorter card never shows a gap when the grid makes both
+   cards the same height.
+   Usage:
+     <div class="sg-do-dont">
+       <div class="sg-do">
+         <div class="sg-do-label">Do</div>
+         <div class="sg-do-body">…</div>
+       </div>
+       <div class="sg-dont">
+         <div class="sg-dont-label">Don't</div>
+         <div class="sg-dont-body">…</div>
+       </div>
+     </div>
+   .sg-neutral / -label / -body is the same card for a no-judgement comparison. */
 .sg-do-dont {
   display: grid;
   gap: 16px;
   grid-template-columns: 1fr 1fr;
 }
 
+.sg-do      { --sg-status: var(--green);  --sg-status-bg: var(--green-dim); }
+.sg-dont    { --sg-status: var(--red);    --sg-status-bg: var(--red-dim); }
+.sg-neutral { --sg-status: var(--text-3); --sg-status-bg: color-mix(in srgb, var(--text-3) 12%, transparent); } /* same 12% tint as the status -dim tokens */
+
 .sg-do,
-.sg-dont {
-  border-radius: var(--radius-card);
-  overflow: hidden;
+.sg-dont,
+.sg-neutral {
+  background: var(--sg-status-bg);
+  border: 1px solid color-mix(in srgb, var(--sg-status) 30%, transparent);
+  border-radius: var(--radius-item);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;           /* clips the accent bar to the corners */
+  position: relative;
 }
 
-.sg-do   { border: 1px solid var(--green); }
-.sg-dont { border: 1px solid var(--red);   }
+/* Accent bar, as on a feedback message */
+.sg-do::before,
+.sg-dont::before,
+.sg-neutral::before {
+  background: var(--sg-status);
+  content: '';
+  inset-block: 0;
+  inset-inline-start: 0;
+  position: absolute;
+  width: 3px;
+}
 
-.sg-do-header,
-.sg-dont-header {
+.sg-do-label,
+.sg-dont-label,
+.sg-neutral-label {
   align-items: center;
+  color: var(--sg-status);
   display: flex;
   font-size: var(--fs-xs);
   font-weight: var(--fw-bold);
   gap: 6px;
   letter-spacing: var(--ls-widest);
-  padding: 8px 14px;
+  padding: 12px 16px 0 19px;  /* 16px + the 3px bar */
   text-transform: uppercase;
 }
 
-.sg-do-header   { background: var(--green-dim); color: var(--green); }
-.sg-dont-header { background: var(--red-dim);   color: var(--red);   }
-
 .sg-do-body,
-.sg-dont-body {
-  background: var(--bg-card);
-  padding: 16px 14px;
+.sg-dont-body,
+.sg-neutral-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
+  padding: 10px 16px 16px 19px;
 }
 
 
@@ -841,28 +879,6 @@
 }
 
 .sg-layout-block--tall { min-height: 80px; }
-
-
-/* ─── DO/DON'T LABEL SHORTHAND ────────────────────────────────────────────── */
-.sg-do-label {
-  background: var(--green-dim);
-  color: var(--green);
-  font-size: var(--fs-xs);
-  font-weight: var(--fw-bold);
-  letter-spacing: var(--ls-widest);
-  padding: 6px 12px;
-  text-transform: uppercase;
-}
-
-.sg-dont-label {
-  background: var(--red-dim);
-  color: var(--red);
-  font-size: var(--fs-xs);
-  font-weight: var(--fw-bold);
-  letter-spacing: var(--ls-widest);
-  padding: 6px 12px;
-  text-transform: uppercase;
-}
 
 
 /* ─── ELEMENT CHIPS (onboarding palette) ─────────────────────────────────── */
@@ -1734,7 +1750,6 @@ select.sg-field-control { appearance: auto; cursor: pointer; }
 
 /* ─── TRANSITION DIAGRAMS ──────────────────────────────────────────────── */
 
-.sg-do-header--neutral { background: var(--bg-hover); color: var(--text-3); }
 
 .sg-vt-map {
   border: 1px solid var(--border);
