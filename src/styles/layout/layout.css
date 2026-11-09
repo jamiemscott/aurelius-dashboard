@@ -202,7 +202,13 @@ html:has(.theme-checkbox:checked) .main::before {
   padding-block-end: 20px;
   padding-block-start: var(--pad);
   padding-inline: var(--pad);
+  /* When the title and actions no longer fit side by side, the
+     actions drop below the title instead of widening the page. */
+  flex-wrap: wrap;
+  gap: 12px;
 }
+
+.page-header--standalone .header-actions { flex-wrap: wrap; }
 
 html:has(.theme-checkbox:checked) .page-header--standalone {
   background:

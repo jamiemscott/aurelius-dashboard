@@ -38,13 +38,6 @@
   max-inline-size: 1560px;
 }
 
-/* Header still bleeds edge to edge, but its content lines up with
-   the centred columns. % padding resolves against .main's content
-   box — the same box .plan-layout centres within.               */
-.plan-main .page-header--standalone {
-  padding-inline: max(var(--pad), calc((100% - 1560px) / 2 + var(--pad)));
-}
-
 /* Chat height fills the viewport — its message log is the one
    inner scroll area (the established chat pattern).
    --plan-chat-offset (set by a ResizeObserver in plan-ui.js) is
@@ -226,10 +219,6 @@ html:has(.theme-checkbox:checked) .plan-panel {
 
   .plan-panel-open { display: inline-flex; }
   .plan-panel-close { display: inline-flex; }
-
-  /* Two header buttons must wrap, not push the page wider */
-  .plan-main .page-header { flex-wrap: wrap; gap: 12px; }
-  .plan-main .header-actions { flex-wrap: wrap; gap: 8px; }
 
   .plan-panel:not(:popover-open) { display: none; }
 
@@ -1085,7 +1074,7 @@ html:has(.theme-checkbox:checked) .plan-panel {
 }
 
 /* Keep the rest of the page live during a row transition */
-:root:has(.plan-main) { view-transition-name: none; }
+:root:has(.plan-layout) { view-transition-name: none; }
 ::view-transition { pointer-events: none; }
 
 /* ── Reduced motion ─────────────────────────────────────── */
