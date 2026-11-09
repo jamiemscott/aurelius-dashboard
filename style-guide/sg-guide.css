@@ -1259,6 +1259,16 @@
   background-position: 0 0, 0 8px, 8px -8px, -8px 0;
   background-size: 16px 16px;
 }
+/* Two versions of one asset, side by side: black, then white */
+.sg-asset-pair {
+  border-block-end: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.sg-asset-pair > .sg-asset-preview { block-size: 180px; border-block-end: 0; padding: 12px; }
+.sg-asset-versions { display: grid; gap: 12px; margin-block-start: auto; }
+.sg-asset-version { display: grid; gap: 6px; }
+.sg-asset-version-label { color: var(--text-3); font-size: var(--fs-xs); font-weight: var(--fw-semibold); }
 .sg-asset-body { display: flex; flex: 1; flex-direction: column; gap: 8px; padding: 14px 16px 16px; }
 .sg-asset-name { color: var(--text-1); font-family: var(--font-sans); font-size: var(--fs-body); font-weight: var(--fw-semibold); margin: 0; }
 .sg-asset-desc { color: var(--text-2); font-size: var(--fs-sm); margin: 0; }
