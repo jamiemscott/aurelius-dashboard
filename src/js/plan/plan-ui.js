@@ -983,7 +983,7 @@ $('#plan-new')?.addEventListener('click', () => {
    the page scrolls before the chat sticks (i.e. the header above it). */
 const scroller = $('#plan-main');
 const chatWrap = $('.plan-chat');
-const chatRow = $('.plan-layout');   /* not sticky, so its position is the natural one */
+const chatRow = chatWrap.parentElement;   /* the column row: not sticky, so its position is the natural one */
 function measureChatOffset() {
   const top = chatRow.getBoundingClientRect().top - scroller.getBoundingClientRect().top + scroller.scrollTop;
   const stick = parseFloat(getComputedStyle(chatWrap).insetBlockStart) || 0;
