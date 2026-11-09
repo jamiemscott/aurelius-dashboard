@@ -6,7 +6,7 @@
    - Split layout: grid, both columns sticky inside .chat-main
    - Mobile drawer: the panel is a [popover]. On wide screens
      author CSS overrides the UA's [popover] display:none so it
-     sits inline; under 1080px it is hidden until opened.
+     sits inline; under 1200px it is hidden until opened.
    - Period pills: real radio inputs, styled — arrow keys free
    - Message entry, row add/remove (view transitions), details
      open/close: all declarative, all off for reduced motion
@@ -24,19 +24,14 @@
 }
 
 /* ── Layout ─────────────────────────────────────────────── */
-/* Chat 1/3, plan 2/3, centred. The plan never scrolls on its own:
-   it grows with its content and the page scrolls, while the chat
-   stays pinned beside it — one scroll context, no nested bars.   */
-.plan-layout {
-  align-items: start;
-  display: grid;
-  gap: 24px;
-  grid-template-columns: minmax(340px, 1fr) minmax(0, 2fr);
-  inline-size: 100%;
-  margin-block-end: var(--pad);
-  margin-inline: auto;
-  max-inline-size: 1560px;
-}
+/* The columns come from layout.css: .two-col .two-thirds-split
+   .two-thirds-split--reversed puts the chat in the first third and
+   the plan in the last two. The plan never scrolls on its own: it
+   grows with its content and the page scrolls, while the chat stays
+   pinned beside it — one scroll context, no nested bars. Both sit at
+   the top of the row, so the sticky chat has room to travel.      */
+.plan-chat,
+.plan-panel { align-self: start; }
 
 /* Chat height fills the viewport — its message log is the one
    inner scroll area (the established chat pattern).
@@ -214,9 +209,8 @@ html:has(.theme-checkbox:checked) .plan-panel {
 .plan-panel-close { margin-inline-start: auto; }
 
 /* ── Panel → drawer (narrow) ────────────────────────────── */
-@media (max-width: 1080px) {
-  .plan-layout { grid-template-columns: minmax(0, 1fr); }
-
+/* 1200px is where .two-col drops to one column */
+@media (max-width: 1200px) {
   .plan-panel-open { display: inline-flex; }
   .plan-panel-close { display: inline-flex; }
 
@@ -252,7 +246,7 @@ html:has(.theme-checkbox:checked) .plan-panel {
 }
 
 /* Sticky chat on short or narrow screens would trap scrolling */
-@media (max-width: 1080px), (max-height: 640px) {
+@media (max-width: 1200px), (max-height: 640px) {
   .plan-chat { animation: none; position: relative; inset-block-start: auto; }
 }
 
@@ -1074,7 +1068,7 @@ html:has(.theme-checkbox:checked) .plan-panel {
 }
 
 /* Keep the rest of the page live during a row transition */
-:root:has(.plan-layout) { view-transition-name: none; }
+:root:has(.plan-chat) { view-transition-name: none; }
 ::view-transition { pointer-events: none; }
 
 /* ── Reduced motion ─────────────────────────────────────── */

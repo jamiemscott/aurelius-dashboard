@@ -157,9 +157,19 @@ html:has(.theme-checkbox:checked) .main::before {
 .three-col     { display: grid; gap: 16px; grid-template-columns: 1fr 1fr 1fr; margin-block-end: 20px; }
 .two-col-equal { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; margin-block-end: 20px; }
 
+/* Two-thirds split: a .two-col whose columns are two thirds and one
+   third. The wider column comes first; --reversed puts the narrower
+   column first. Always used with .two-col, which gives the gap and
+   spacing.
+   Usage: <div class="two-col two-thirds-split">
+          <div class="two-col two-thirds-split two-thirds-split--reversed"> */
+.two-thirds-split           { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+.two-thirds-split--reversed { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
+
 /* ─── RESPONSIVE ─────────────────────────────────────── */
 @media (max-width: 1200px) {
-  .two-col   { grid-template-columns: 1fr; }
+  .two-col,
+  .two-thirds-split { grid-template-columns: 1fr; }
   .three-col { grid-template-columns: 1fr 1fr; }
 }
 

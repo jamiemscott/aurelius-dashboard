@@ -131,6 +131,49 @@
       </div>
     </section>
 
+    <!-- ── Two-Thirds Split ───────────────────────────────── -->
+    <section class="sg-section" id="two-thirds-split">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Two-Thirds Split — <code>.two-col .two-thirds-split</code></h2>
+        <p class="sg-section-desc">A <code>.two-col</code> that splits two thirds and one third, for when the narrow column should grow with the page instead of staying at 380px. Always add it to <code>.two-col</code>, which gives the gap, the bottom spacing and the single-column collapse at 1200px. The wider column comes first; add <code>.two-thirds-split--reversed</code> to put the narrower column first, as Plan My Future does with its chat beside the plan. Columns stretch to the row height like any <code>.two-col</code>; a sticky column sets <code>align-self: start</code> on its own component class.</p>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <div class="two-col two-thirds-split">
+          <div class="sg-layout-block sg-layout-block--tall">
+            <span class="sg-token-meta">.two-thirds-split — two thirds</span>
+          </div>
+          <div class="sg-layout-block sg-layout-block--tall">
+            <span class="sg-token-meta">.two-thirds-split — one third</span>
+          </div>
+        </div>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <div class="two-col two-thirds-split two-thirds-split--reversed">
+          <div class="sg-layout-block sg-layout-block--tall">
+            <span class="sg-token-meta">--reversed — one third</span>
+          </div>
+          <div class="sg-layout-block sg-layout-block--tall">
+            <span class="sg-token-meta">--reversed — two thirds</span>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;!-- Two thirds, then one third --&gt;
+&lt;div class="two-col two-thirds-split"&gt;
+  &lt;div class="card card-pad"&gt;&lt;!-- primary --&gt;&lt;/div&gt;
+  &lt;div class="card card-pad"&gt;&lt;!-- secondary --&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- One third, then two thirds --&gt;
+&lt;div class="two-col two-thirds-split two-thirds-split--reversed"&gt;
+  &lt;section class="chat-wrap plan-chat"&gt;…&lt;/section&gt;
+  &lt;aside class="plan-panel"&gt;…&lt;/aside&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+      <p class="sg-note">On OutSystems, add the classes to a Container's Style Classes property, with one Container inside it for each column.</p>
+    </section>
+
     <!-- ── Two Column Equal ───────────────────────────────── -->
     <section class="sg-section" id="two-col-equal">
       <div class="sg-section-header">
