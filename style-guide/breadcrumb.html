@@ -153,15 +153,15 @@
     <section class="sg-section" id="supporting-classes">
       <div class="sg-section-header">
         <h2 class="sg-section-title">Supporting Classes</h2>
-        <p class="sg-section-desc">Named parts of this component, each defined with it. On an OutSystems UI widget, add the class to the widget's <strong>Style Classes</strong> property, next to any classes it already has, and add the ARIA values in its <strong>Attributes</strong>.</p>
+        <p class="sg-section-desc">Named parts of this component, each defined with it. On an OutSystems UI widget, add the class to the widget's <strong>Style Classes</strong> property, next to any classes it already has. Build the structure from <strong>HTML Element</strong> widgets so each part is the real element: no ARIA roles are needed.</p>
       </div>
       <div class="sg-demo sg-demo--flush">
         <table class="sg-table sg-table--roomy">
           <thead><tr><th>Class</th><th>Role</th><th>Apply to</th></tr></thead>
           <tbody>
-            <tr><td class="sg-token">.breadcrumb</td><td>The navigation landmark that holds the trail</td><td>Container; Attributes <code>role="navigation"</code> and <code>aria-label="Breadcrumb"</code></td></tr>
-            <tr><td class="sg-token">.breadcrumb-list</td><td>The ordered list of levels</td><td>Container; Attributes <code>role="list"</code></td></tr>
-            <tr><td class="sg-token">.breadcrumb-item</td><td>One level, which draws the slash before it</td><td>Container; Attributes <code>role="listitem"</code></td></tr>
+            <tr><td class="sg-token">.breadcrumb</td><td>The navigation landmark that holds the trail</td><td>HTML Element, Tag <code>nav</code>; Attribute <code>aria-label="Breadcrumb"</code></td></tr>
+            <tr><td class="sg-token">.breadcrumb-list</td><td>The ordered list of levels</td><td>HTML Element, Tag <code>ol</code></td></tr>
+            <tr><td class="sg-token">.breadcrumb-item</td><td>One level, which draws the slash before it</td><td>HTML Element, Tag <code>li</code></td></tr>
             <tr><td class="sg-token">.breadcrumb-link</td><td>The link for a level. With <code>aria-current="page"</code> it is the current page</td><td>Link; On Click goes to that screen. On the last level, also add the Attribute <code>aria-current</code> = <code>"page"</code></td></tr>
           </tbody>
         </table>
@@ -172,18 +172,18 @@
     <section class="sg-section" id="outsystems">
       <div class="sg-section-header">
         <h2 class="sg-section-title">Building it in OutSystems</h2>
-        <p class="sg-section-desc">An ODC Container renders a <code>&lt;div&gt;</code>, so the roles go in its Attributes: <code>navigation</code> for the landmark, and <code>list</code> and <code>listitem</code> for the trail. Screen readers then announce the same landmark and list as the prototype's <code>&lt;nav&gt;</code> and <code>&lt;ol&gt;</code>. The classes style them the same way, because none of them depend on the element.</p>
+        <p class="sg-section-desc">Use <strong>HTML Element</strong> widgets, not Containers. A Container renders a <code>&lt;div&gt;</code>, which would need ARIA roles to act as a landmark and a list. An HTML Element renders the tag you set, so the <code>&lt;nav&gt;</code>, <code>&lt;ol&gt;</code> and <code>&lt;li&gt;</code> carry their own meaning, exactly as in the prototype. No ARIA is better than bad ARIA: the only attributes left are the two the pattern needs on native elements, the nav's label and <code>aria-current</code> on the current page.</p>
       </div>
       <div class="sg-demo sg-demo--col">
         <p class="sg-copy">Inside the screen's page header, above the title:</p>
         <ol class="sg-copy">
-          <li>Add a <strong>Container</strong>. Set Style Classes to <code>breadcrumb</code>. In Attributes, add <code>role</code> = <code>"navigation"</code> and <code>aria-label</code> = <code>"Breadcrumb"</code>.</li>
-          <li>Inside it, add a <strong>Container</strong> with Style Classes <code>breadcrumb-list</code> and the Attribute <code>role</code> = <code>"list"</code>.</li>
-          <li>For each level, add a <strong>Container</strong> with Style Classes <code>breadcrumb-item</code> and the Attribute <code>role</code> = <code>"listitem"</code>. Put a <strong>Link</strong> in it with Style Classes <code>breadcrumb-link</code> that goes to that level's screen. The first level is the client's name, and it goes to the home screen.</li>
+          <li>Add an <strong>HTML Element</strong> with Tag <code>nav</code> and Style Classes <code>breadcrumb</code>. In Attributes, add <code>aria-label</code> = <code>"Breadcrumb"</code>. It names the landmark, so screen readers can tell it from the main navigation.</li>
+          <li>Inside it, add an <strong>HTML Element</strong> with Tag <code>ol</code> and Style Classes <code>breadcrumb-list</code>.</li>
+          <li>For each level, add an <strong>HTML Element</strong> with Tag <code>li</code> and Style Classes <code>breadcrumb-item</code>. Put a <strong>Link</strong> in it with Style Classes <code>breadcrumb-link</code> that goes to that level's screen. The first level is the client's name, and it goes to the home screen.</li>
           <li>On the last level's Link, which goes to the current screen, add the Attribute <code>aria-current</code> = <code>"page"</code>.</li>
           <li>Don't add separators. <code>.breadcrumb-item</code> draws them.</li>
         </ol>
-        <p class="sg-copy">Put this in a block with the levels as inputs if more than one screen needs it. The OutSystems UI <strong>Breadcrumbs</strong> pattern is themed too (<code>.breadcrumbs-item</code> in <code>osui-theme/widgets/navigation.css</code>), but it has no landmark or list and uses an icon separator, so it won't match the prototype or the APG pattern. Build the Container version above instead.</p>
+        <p class="sg-copy">Put this in a block with the levels as inputs if more than one screen needs it, using a List widget inside the <code>ol</code> to repeat the <code>li</code>. Check that the List adds no wrapper of its own between the <code>ol</code> and the <code>li</code> elements, because a list may only contain list items. The OutSystems UI <strong>Breadcrumbs</strong> pattern is themed too (<code>.breadcrumbs-item</code> in <code>osui-theme/widgets/navigation.css</code>), but it has no landmark or list and uses an icon separator, so it won't match the prototype or the APG pattern. Build the HTML Element version above instead.</p>
       </div>
     </section>
 
