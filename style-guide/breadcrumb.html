@@ -22,39 +22,39 @@
     <div class="sg-page-header">
       <p class="sg-page-kicker">Style Guide</p>
       <h1 class="sg-page-title">Breadcrumb</h1>
-      <p class="sg-page-desc">A lightweight horizontal path indicator that tells users where they are in the page hierarchy. Defined in <code>modules/breadcrumb.css</code>. Typically sits above the page title in the <code>.page-header</code> region or at the top of a wizard/multi-step flow. Renders at 12px — smaller than body copy — so it adds context without competing with the page heading.</p>
+      <p class="sg-page-desc">A lightweight horizontal path indicator that tells users where they are in the page hierarchy. Built to the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/examples/breadcrumb/">WAI-ARIA APG breadcrumb pattern</a> and defined in <code>modules/breadcrumb.css</code>. Typically sits above the page title in the <code>.page-header</code> region or at the top of a wizard/multi-step flow. Renders at 12px — smaller than body copy — so it adds context without competing with the page heading.</p>
     </div>
 
     <!-- ── Anatomy ───────────────────────────────────────────── -->
     <section class="sg-section" id="anatomy">
       <div class="sg-section-header">
         <h2 class="sg-section-title">Anatomy</h2>
-        <p class="sg-section-desc">The breadcrumb is a <code>&lt;nav&gt;</code> landmark laid out as a flex row. It starts with the client's name, then each ancestor level, then the current page. An ancestor that has its own page is a real link (<code>.breadcrumb-link</code>). The last item (<code>.breadcrumb-current</code>) is never a link — it represents the current page.</p>
+        <p class="sg-section-desc">A <code>&lt;nav&gt;</code> landmark labelled "Breadcrumb" holds an ordered list (<code>.breadcrumb-list</code>), one <code>.breadcrumb-item</code> per level. The trail starts with the client's name, which links home, then each ancestor, then the current page. Every level is a link (<code>.breadcrumb-link</code>). The last one is the current page, marked with <code>aria-current="page"</code>, which also gives it its brighter colour. CSS draws the slashes on each item after the first, so there is no text for a screen reader to read.</p>
       </div>
       <div class="sg-demo sg-demo--col">
         <nav class="breadcrumb" aria-label="Breadcrumb">
-          <span>Sumant Kumar</span>
-          <span class="breadcrumb-sep" aria-hidden="true">/</span>
-          <a class="breadcrumb-link" href="/my-investments/">My Investments</a>
-          <span class="breadcrumb-sep" aria-hidden="true">/</span>
-          <span class="breadcrumb-current" aria-current="page">Add Investment</span>
+          <ol class="breadcrumb-list">
+            <li class="breadcrumb-item"><a class="breadcrumb-link" href="/">Sumant Kumar</a></li>
+            <li class="breadcrumb-item"><a class="breadcrumb-link" href="/my-investments/">My Investments</a></li>
+            <li class="breadcrumb-item"><a class="breadcrumb-link" href="/my-investments/add-investment/" aria-current="page">Add Investment</a></li>
+          </ol>
         </nav>
         <div class="sg-row sg-row--wrap">
           <div class="sg-row">
             <div class="sg-panel"></div>
-            <span class="sg-caption">nav.breadcrumb — flex row, text-3, 12px</span>
+            <span class="sg-caption">nav.breadcrumb — landmark, text-3, 12px</span>
           </div>
           <div class="sg-row">
             <div class="sg-panel"></div>
-            <span class="sg-caption">.breadcrumb-link — text-2, text-1 on hover</span>
+            <span class="sg-caption">ol.breadcrumb-list › li.breadcrumb-item — wrapping flex row</span>
           </div>
           <div class="sg-row">
             <div class="sg-flex-fill"></div>
-            <span class="sg-caption">.breadcrumb-sep — opacity: 0.4, aria-hidden</span>
+            <span class="sg-caption">.breadcrumb-item + .breadcrumb-item::before — skewed 1px border, opacity 0.4</span>
           </div>
           <div class="sg-row">
             <div class="sg-panel"></div>
-            <span class="sg-caption">.breadcrumb-current — text-2, aria-current="page", no link</span>
+            <span class="sg-caption">.breadcrumb-link — text-3, text-1 on hover; [aria-current="page"] text-2</span>
           </div>
         </div>
       </div>
@@ -70,11 +70,11 @@
         <div class="page-header">
           <div>
             <nav class="breadcrumb" aria-label="Breadcrumb">
-              <span>Sumant Kumar</span>
-              <span class="breadcrumb-sep" aria-hidden="true">/</span>
-              <a class="breadcrumb-link" href="/my-investments/">My Investments</a>
-              <span class="breadcrumb-sep" aria-hidden="true">/</span>
-              <span class="breadcrumb-current" aria-current="page">Add Investment</span>
+              <ol class="breadcrumb-list">
+                <li class="breadcrumb-item"><a class="breadcrumb-link" href="/">Sumant Kumar</a></li>
+                <li class="breadcrumb-item"><a class="breadcrumb-link" href="/my-investments/">My Investments</a></li>
+                <li class="breadcrumb-item"><a class="breadcrumb-link" href="/my-investments/add-investment/" aria-current="page">Add Investment</a></li>
+              </ol>
             </nav>
             <h1 class="page-title">Add Investment</h1>
             <p class="page-date">Select a fund and configure your contribution</p>
@@ -86,11 +86,11 @@
         <pre><code class="language-html">&lt;div class="page-header"&gt;
   &lt;div&gt;
     &lt;nav class="breadcrumb" aria-label="Breadcrumb"&gt;
-      &lt;span&gt;Sumant Kumar&lt;/span&gt;
-      &lt;span class="breadcrumb-sep" aria-hidden="true"&gt;/&lt;/span&gt;
-      &lt;a class="breadcrumb-link" href="/my-investments/"&gt;My Investments&lt;/a&gt;
-      &lt;span class="breadcrumb-sep" aria-hidden="true"&gt;/&lt;/span&gt;
-      &lt;span class="breadcrumb-current" aria-current="page"&gt;Add Investment&lt;/span&gt;
+      &lt;ol class="breadcrumb-list"&gt;
+        &lt;li class="breadcrumb-item"&gt;&lt;a class="breadcrumb-link" href="/"&gt;Sumant Kumar&lt;/a&gt;&lt;/li&gt;
+        &lt;li class="breadcrumb-item"&gt;&lt;a class="breadcrumb-link" href="/my-investments/"&gt;My Investments&lt;/a&gt;&lt;/li&gt;
+        &lt;li class="breadcrumb-item"&gt;&lt;a class="breadcrumb-link" href="/my-investments/add-investment/" aria-current="page"&gt;Add Investment&lt;/a&gt;&lt;/li&gt;
+      &lt;/ol&gt;
     &lt;/nav&gt;
     &lt;h1 class="page-title"&gt;Add Investment&lt;/h1&gt;
     &lt;p class="page-date"&gt;Select a fund and configure your contribution&lt;/p&gt;
@@ -117,17 +117,22 @@
             <tr>
               <td><code>--text-3</code></td>
               <td>Tertiary text</td>
-              <td>Default breadcrumb item colour</td>
+              <td>Links to earlier levels, and the separators</td>
             </tr>
             <tr>
               <td><code>--text-2</code></td>
               <td>Secondary text</td>
-              <td>Ancestor links (.breadcrumb-link) and the current page label (.breadcrumb-current)</td>
+              <td>The current page (<code>.breadcrumb-link[aria-current="page"]</code>)</td>
             </tr>
             <tr>
               <td><code>--text-1</code></td>
               <td>Primary text</td>
-              <td>Ancestor link on hover</td>
+              <td>Links on hover and keyboard focus</td>
+            </tr>
+            <tr>
+              <td><code>--gold-text</code></td>
+              <td>Gold, text weight</td>
+              <td>Focus ring on a link</td>
             </tr>
             <tr>
               <td><code>--fs-md</code></td>
@@ -137,7 +142,7 @@
             <tr>
               <td><code>opacity: 0.4</code></td>
               <td>—</td>
-              <td>Separator (.breadcrumb-sep) dimming</td>
+              <td>Separator dimming</td>
             </tr>
           </tbody>
         </table>
@@ -154,10 +159,10 @@
         <table class="sg-table sg-table--roomy">
           <thead><tr><th>Class</th><th>Role</th><th>Apply to</th></tr></thead>
           <tbody>
-            <tr><td class="sg-token">.breadcrumb</td><td>The navigation landmark that holds the path</td><td>Container; Attributes <code>role="navigation"</code> and <code>aria-label="Breadcrumb"</code></td></tr>
-            <tr><td class="sg-token">.breadcrumb-link</td><td>An ancestor level that has its own page</td><td>Link; On Click goes to that screen</td></tr>
-            <tr><td class="sg-token">.breadcrumb-sep</td><td>The decorative slash between levels</td><td>Container holding the text <code>/</code>; Attributes <code>aria-hidden="true"</code></td></tr>
-            <tr><td class="sg-token">.breadcrumb-current</td><td>The page the user is on</td><td>Container holding the page name; Attributes <code>aria-current="page"</code></td></tr>
+            <tr><td class="sg-token">.breadcrumb</td><td>The navigation landmark that holds the trail</td><td>Container; Attributes <code>role="navigation"</code> and <code>aria-label="Breadcrumb"</code></td></tr>
+            <tr><td class="sg-token">.breadcrumb-list</td><td>The ordered list of levels</td><td>Container; Attributes <code>role="list"</code></td></tr>
+            <tr><td class="sg-token">.breadcrumb-item</td><td>One level, which draws the slash before it</td><td>Container; Attributes <code>role="listitem"</code></td></tr>
+            <tr><td class="sg-token">.breadcrumb-link</td><td>The link for a level. With <code>aria-current="page"</code> it is the current page</td><td>Link; On Click goes to that screen. On the last level, also add the Attribute <code>aria-current</code> = <code>"page"</code></td></tr>
           </tbody>
         </table>
       </div>
@@ -167,18 +172,18 @@
     <section class="sg-section" id="outsystems">
       <div class="sg-section-header">
         <h2 class="sg-section-title">Building it in OutSystems</h2>
-        <p class="sg-section-desc">An ODC Container renders a <code>&lt;div&gt;</code>, so give it <code>role="navigation"</code> in its Attributes. Screen readers then announce the same landmark as the prototype's <code>&lt;nav&gt;</code>, and <code>.breadcrumb</code> styles it the same way because the class doesn't depend on the element.</p>
+        <p class="sg-section-desc">An ODC Container renders a <code>&lt;div&gt;</code>, so the roles go in its Attributes: <code>navigation</code> for the landmark, and <code>list</code> and <code>listitem</code> for the trail. Screen readers then announce the same landmark and list as the prototype's <code>&lt;nav&gt;</code> and <code>&lt;ol&gt;</code>. The classes style them the same way, because none of them depend on the element.</p>
       </div>
       <div class="sg-demo sg-demo--col">
         <p class="sg-copy">Inside the screen's page header, above the title:</p>
         <ol class="sg-copy">
           <li>Add a <strong>Container</strong>. Set Style Classes to <code>breadcrumb</code>. In Attributes, add <code>role</code> = <code>"navigation"</code> and <code>aria-label</code> = <code>"Breadcrumb"</code>.</li>
-          <li>Inside it, add an <strong>Expression</strong> bound to the client's name.</li>
-          <li>For each ancestor level, add a separator, then a <strong>Link</strong> with Style Classes <code>breadcrumb-link</code> that goes to that screen. Only link levels that have a screen of their own.</li>
-          <li>For each separator, add a <strong>Container</strong> with Style Classes <code>breadcrumb-sep</code>, the text <code>/</code>, and the Attribute <code>aria-hidden</code> = <code>"true"</code>.</li>
-          <li>End with a <strong>Container</strong> with Style Classes <code>breadcrumb-current</code>, the page name, and the Attribute <code>aria-current</code> = <code>"page"</code>. Don't make it a Link.</li>
+          <li>Inside it, add a <strong>Container</strong> with Style Classes <code>breadcrumb-list</code> and the Attribute <code>role</code> = <code>"list"</code>.</li>
+          <li>For each level, add a <strong>Container</strong> with Style Classes <code>breadcrumb-item</code> and the Attribute <code>role</code> = <code>"listitem"</code>. Put a <strong>Link</strong> in it with Style Classes <code>breadcrumb-link</code> that goes to that level's screen. The first level is the client's name, and it goes to the home screen.</li>
+          <li>On the last level's Link, which goes to the current screen, add the Attribute <code>aria-current</code> = <code>"page"</code>.</li>
+          <li>Don't add separators. <code>.breadcrumb-item</code> draws them.</li>
         </ol>
-        <p class="sg-copy">Put this in a block with the levels as inputs if more than one screen needs it. The OutSystems UI <strong>Breadcrumbs</strong> pattern is themed too (<code>.breadcrumbs-item</code> in <code>osui-theme/widgets/navigation.css</code>), but it has no landmark and uses an icon separator, so it won't match the prototype. If you use it, wrap it in a Container with the same <code>role</code> and <code>aria-label</code>.</p>
+        <p class="sg-copy">Put this in a block with the levels as inputs if more than one screen needs it. The OutSystems UI <strong>Breadcrumbs</strong> pattern is themed too (<code>.breadcrumbs-item</code> in <code>osui-theme/widgets/navigation.css</code>), but it has no landmark or list and uses an icon separator, so it won't match the prototype or the APG pattern. Build the Container version above instead.</p>
       </div>
     </section>
 
@@ -191,22 +196,23 @@
         <div class="sg-do">
           <div class="sg-do-label">Do</div>
           <div class="sg-do-body">
-            <p class="sg-note">Mark the current page with <code>aria-current="page"</code> and <code>.breadcrumb-current</code> — never make it a link. Link every ancestor that has its own page.</p>
+            <p class="sg-note">Use a labelled <code>&lt;nav&gt;</code> and an ordered list, make every level a link, and mark the last one with <code>aria-current="page"</code>. Let CSS draw the separators.</p>
             <nav class="breadcrumb" aria-label="Breadcrumb">
-              <a class="breadcrumb-link" href="#">Parent</a>
-              <span class="breadcrumb-sep" aria-hidden="true">/</span>
-              <span class="breadcrumb-current" aria-current="page">Current Page</span>
+              <ol class="breadcrumb-list">
+                <li class="breadcrumb-item"><a class="breadcrumb-link" href="/parent/">Parent</a></li>
+                <li class="breadcrumb-item"><a class="breadcrumb-link" href="/parent/current/" aria-current="page">Current Page</a></li>
+              </ol>
             </nav>
           </div>
         </div>
         <div class="sg-dont">
           <div class="sg-dont-label">Don't</div>
           <div class="sg-dont-body">
-            <p class="sg-note">Don't use a plain <code>&lt;div&gt;</code> with no landmark, or leave the separators for screen readers to read out as "slash".</p>
+            <p class="sg-note">Don't leave out the landmark or the list, and don't type the separators as text. Screen readers read each "/" aloud.</p>
             <div class="breadcrumb">
               <span>Parent</span>
-              <span class="breadcrumb-sep">/</span>
-              <span class="breadcrumb-current">Current Page</span>
+              <span>/</span>
+              <span>Current Page</span>
             </div>
           </div>
         </div>
@@ -219,7 +225,7 @@
         <h2 class="sg-section-title">Accessibility Notes</h2>
       </div>
       <div class="sg-demo sg-demo--col">
-        <p class="sg-copy">Use <code>&lt;nav class="breadcrumb" aria-label="Breadcrumb"&gt;</code> so screen readers list it as a navigation landmark called "Breadcrumb". There is one per page, so the label keeps it distinct from the main navigation. Mark separators with <code>aria-hidden="true"</code> — they are decorative. Mark the current item with <code>aria-current="page"</code>. WCAG 2.4.8 (Location) — Level AAA.</p>
+        <p class="sg-copy">This follows the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/examples/breadcrumb/">APG breadcrumb example</a>. <code>&lt;nav aria-label="Breadcrumb"&gt;</code> makes it a navigation landmark called "Breadcrumb", distinct from the main navigation. The <code>&lt;ol&gt;</code> tells screen reader users how many levels there are and where each one sits. Every level is a link, and <code>aria-current="page"</code> on the last one announces it as the current page. The separators are a CSS border with no text, so they are never announced. A forced-colours rule keeps them visible in Windows High Contrast. There is no keyboard interaction beyond tabbing through the links. WCAG 2.4.8 (Location) — Level AAA.</p>
       </div>
     </section>
 
