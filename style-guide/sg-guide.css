@@ -101,6 +101,11 @@
   border-radius: var(--radius-card);
   margin-bottom: 12px;
   padding: 32px 24px;
+  /* The containing block for anything a specimen positions absolutely,
+     such as visually hidden labels and inputs. Without it they resolve
+     against <body>, escape the scrolling .main and stretch the page,
+     which shows a second scrollbar. */
+  position: relative;
 }
 
 .sg-demo--tight  { padding: 16px 20px; }
