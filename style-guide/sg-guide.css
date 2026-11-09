@@ -1699,7 +1699,6 @@
 .sg-section .ob-cta__dismiss { font-size: var(--fs-xl); inset-block-start: var(--space-s); inset-inline-end: var(--space-s); line-height: var(--lh-none); }
 .sg-section .ob-cta__icon { font-size: var(--fs-5xl); }
 .sg-section .plan-flippable { width: 100%; }
-.sg-section .breadcrumb { list-style: none; padding: 0; }
 
 /* ─── GUIDE CHIPS AND DOTS ─────────────────────────────────────────────── */
 

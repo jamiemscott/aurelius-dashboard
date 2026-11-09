@@ -10,3 +10,11 @@
 
 .breadcrumb-sep     { opacity: 0.4; }
 .breadcrumb-current { color: var(--text-2); }
+
+/* Ancestor level that has its own page */
+.breadcrumb-link {
+  color: var(--text-2);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.breadcrumb-link:hover { color: var(--text-1); }

@@ -1,13 +1,5 @@
 /* ─── ADD INVESTMENT WIZARD ──────────────────────────────────── */
 
-/* ── Breadcrumb link ── */
-.breadcrumb-link {
-  color: var(--text-2);
-  text-decoration: none;
-  transition: color 0.15s ease;
-}
-.breadcrumb-link:hover { color: var(--text-1); }
-
 /* ── Wizard shell ── */
 .ai-wizard {
   margin-inline: auto;
