@@ -733,30 +733,24 @@
 
 
 <!-- ── ADVISER MESSAGE DRAWER (Popover API) ───────────────────── -->
-<div id="adviser-drawer" class="adv-drawer" popover>
-  <div class="adv-drawer-inner">
-    <div class="adv-drawer-hd">
-      <div class="adv-drawer-hd-left">
-        <div class="adv-drawer-avatar">JW</div>
-        <div>
-          <div class="adv-drawer-name">James Whitmore</div>
-          <div class="adv-drawer-role">Senior Wealth Manager</div>
-        </div>
+<div id="adviser-drawer" class="drawer" popover role="dialog" aria-labelledby="adviser-drawer-title">
+  <header class="drawer-header">
+    <div class="drawer-header-main">
+      <div class="drawer-media" aria-hidden="true">JW</div>
+      <div>
+        <h2 class="drawer-title" id="adviser-drawer-title">James Whitmore</h2>
+        <p class="drawer-subtitle">Senior Wealth Manager</p>
       </div>
-      <button class="adv-drawer-close"
-              popovertarget="adviser-drawer"
-              popovertargetaction="hide"
-              aria-label="Close drawer">&#x2715;</button>
     </div>
-    <div class="adv-drawer-secure">
-      <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-      </svg>
-      Secure message &middot; 256-bit TLS encrypted
+    <div class="drawer-actions">
+      <button class="drawer-close" popovertarget="adviser-drawer" popovertargetaction="hide" aria-label="Close">&#x2715;</button>
     </div>
-    <div class="adv-drawer-body" id="adv-form-body"></div>
-  </div>
+  </header>
+  <p class="drawer-notice">
+    <svg aria-hidden="true" focusable="false" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    Secure message &middot; 256-bit TLS encrypted
+  </p>
+  <div class="drawer-body" id="adv-form-body"></div>
 </div>
 
 <!-- ── USER MENU (Popover API) ─────────────────────────────────── -->
@@ -839,19 +833,22 @@
 </div>
 
 <!-- ── NOTIFICATIONS PANEL (Popover API) ─────────────────────── -->
-<div id="notif-panel" popover="auto" role="dialog" aria-label="Notifications">
-  <div class="np-hd">
-    <div class="np-hd-left">
-      <svg aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-      <span class="np-title">Notifications</span>
-      <span class="np-count" id="notif-count" aria-live="polite" aria-atomic="true">3 unread</span>
+<div id="notif-panel" class="drawer" popover role="dialog" aria-labelledby="notif-panel-title">
+  <header class="drawer-header">
+    <div class="drawer-header-main">
+      <div class="drawer-media" aria-hidden="true"><svg aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+      <div>
+        <h2 class="drawer-title" id="notif-panel-title">Notifications</h2>
+        <p class="drawer-subtitle" id="notif-count" aria-live="polite" aria-atomic="true">3 unread</p>
+      </div>
     </div>
-    <div class="np-hd-right">
-      <button class="np-mark-all-btn" id="notif-mark-all" aria-label="Mark all notifications as read">Mark all read</button>
-      <button class="np-close" popovertarget="notif-panel" popovertargetaction="hide" aria-label="Close notifications">&#x2715;</button>
+    <div class="drawer-actions">
+      <button class="drawer-action" id="notif-mark-all">Mark all read</button>
+      <button class="drawer-close" popovertarget="notif-panel" popovertargetaction="hide" aria-label="Close">&#x2715;</button>
     </div>
-  </div>
-  <div class="np-body">
+  </header>
+
+  <div class="drawer-body drawer-body--list">
     <ul class="np-list" role="list" id="notif-list">
       <li class="np-item" data-type="portfolio" data-unread>
         <button class="np-item-btn" aria-label="Mark as read: Portfolio milestone reached">
