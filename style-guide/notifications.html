@@ -155,33 +155,32 @@
     <section class="sg-section" id="panel-shell">
       <div class="sg-section-header">
         <h2 class="sg-section-title">Panel Shell</h2>
-        <p class="sg-section-desc">The outer panel uses <code>id="notif-panel"</code> (not a class) because its open/close animation and some state-based rules are scoped to this specific element. The header contains the title, unread count badge, a "mark all read" button, and a close button. The body uses a fade-to-transparent bottom mask to signal scrollable content.</p>
+        <p class="sg-section-desc">The panel is a <a href="drawers.html">drawer</a>, with the same header, body and close button as the adviser and add fund drawers. The bell is the media, the unread count is the subtitle, and "Mark all read" is a <code>.drawer-action</code>. The list sits in a <code>.drawer-body--list</code>, which fades at the bottom while there is more to scroll. The ids are for the script that counts unread items and marks them read.</p>
       </div>
       <div class="sg-code">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
-        <pre><code class="language-html">&lt;!-- Prototype: native Popover --&gt;
-&lt;div id="notif-panel" popover="manual" role="dialog" aria-modal="true" aria-label="Notifications"&gt;
-  &lt;div class="np-hd"&gt;
-    &lt;div class="np-hd-left"&gt;
-      &lt;!-- bell icon --&gt;
-      &lt;span class="np-title"&gt;Notifications&lt;/span&gt;
-      &lt;span class="np-count" aria-live="polite"&gt;3&lt;/span&gt;
+        <pre><code class="language-html">&lt;div id="notif-panel" class="drawer" popover role="dialog" aria-labelledby="notif-panel-title"&gt;
+  &lt;header class="drawer-header"&gt;
+    &lt;div class="drawer-header-main"&gt;
+      &lt;div class="drawer-media" aria-hidden="true"&gt;&lt;!-- bell icon --&gt;&lt;/div&gt;
+      &lt;div&gt;
+        &lt;h2 class="drawer-title" id="notif-panel-title"&gt;Notifications&lt;/h2&gt;
+        &lt;p class="drawer-subtitle" id="notif-count" aria-live="polite" aria-atomic="true"&gt;3 unread&lt;/p&gt;
+      &lt;/div&gt;
     &lt;/div&gt;
-    &lt;div class="np-hd-right"&gt;
-      &lt;button class="np-mark-all-btn"&gt;Mark all read&lt;/button&gt;
-      &lt;button class="np-close" popovertarget="notif-panel"
-        popovertargetaction="hide" aria-label="Close notifications"&gt;
-        &amp;times;
-      &lt;/button&gt;
+    &lt;div class="drawer-actions"&gt;
+      &lt;button class="drawer-action" id="notif-mark-all"&gt;Mark all read&lt;/button&gt;
+      &lt;button class="drawer-close" popovertarget="notif-panel"
+              popovertargetaction="hide" aria-label="Close"&gt;&amp;#x2715;&lt;/button&gt;
     &lt;/div&gt;
-  &lt;/div&gt;
-  &lt;div class="np-body"&gt;
-    &lt;ul class="np-list" role="list"&gt;
+  &lt;/header&gt;
+  &lt;div class="drawer-body drawer-body--list"&gt;
+    &lt;ul class="np-list" role="list" id="notif-list"&gt;
       &lt;!-- np-item elements --&gt;
     &lt;/ul&gt;
     &lt;div class="np-empty"&gt;
-      &lt;!-- bell icon with opacity: 0.35 --&gt;
-      All caught up — no new notifications
+      &lt;!-- bell icon --&gt;
+      &lt;span&gt;You&amp;#x2019;re all caught up&lt;/span&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
@@ -192,7 +191,7 @@
     <section class="sg-section" id="zero-state">
       <div class="sg-section-header">
         <h2 class="sg-section-title">Empty State</h2>
-        <p class="sg-section-desc">The <code>.np-empty</code> element is shown via CSS <code>:not(:has(.np-item))</code> — no JavaScript needed. It automatically appears when the list contains no items. This is a zero-JS empty state powered entirely by the CSS <code>:has()</code> selector.</p>
+        <p class="sg-section-desc">The <code>.np-empty</code> element is shown via CSS <code>.drawer-body:not(:has(.np-item))</code> — no JavaScript needed. It automatically appears when the list contains no items. This is a zero-JS empty state powered entirely by the CSS <code>:has()</code> selector.</p>
       </div>
     </section>
 
@@ -210,7 +209,7 @@
         <h2 class="sg-section-title">Accessibility Notes</h2>
       </div>
       <div class="sg-demo sg-demo--col">
-        <p class="sg-copy">The panel is a <code>role="dialog" aria-modal="true"</code> element. The unread count badge uses <code>aria-live="polite"</code> so screen readers announce changes. The "mark all read" button is hidden via CSS <code>display:none</code> when there are no unread items (using <code>:not(:has([data-unread]))</code>) — no JavaScript required. Dismiss buttons have descriptive <code>aria-label</code> attributes. Keyboard: <kbd>Escape</kbd> closes the panel.</p>
+        <p class="sg-copy">The panel is a <code>role="dialog"</code> named by its title, like every <a href="drawers.html">drawer</a>. It's a popover, so it isn't modal and has no <code>aria-modal</code>. The unread count is the subtitle, with <code>aria-live="polite"</code>, so screen readers announce changes. When nothing is unread, the count empties and hides, and CSS hides "Mark all read" with <code>:not(:has([data-unread]))</code>. Dismiss buttons have descriptive <code>aria-label</code> attributes. <kbd>Escape</kbd> closes the panel.</p>
       </div>
     </section>
 

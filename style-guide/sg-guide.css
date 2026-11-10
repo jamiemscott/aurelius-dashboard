@@ -1836,3 +1836,17 @@ select.sg-field-control { appearance: auto; cursor: pointer; }
 
 .sg-demo--stage .contact-form-wrap { min-block-size: 120px; position: relative; }
 .sg-demo--stage .contact-form-overlay { inset: 0; padding-block: 0; }
+
+/* ─── DRAWER DEMO ───────────────────────────────────────────
+   Shows a .drawer in the page flow: open, not fixed, a set height. */
+.sg-drawer-demo { inline-size: min(420px, 100%); margin-inline: auto; }
+.sg-drawer-demo .drawer {
+  block-size: 440px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: none;
+  inline-size: 100%;
+  position: relative;
+  transform: none;
+  z-index: auto;
+}
