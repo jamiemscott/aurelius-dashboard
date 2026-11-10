@@ -34,6 +34,20 @@
   margin-inline-start: 2px;
 }
 
+/* Fields side by side. They wrap onto their own lines when there
+   isn't room for two, so no breakpoint is needed. */
+.field-row {
+  display: grid;
+  gap: var(--space-m);
+  grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr));
+}
+
+/* A note inside the label, like "optional, for limit orders" */
+.field-optional {
+  color: var(--text-3);
+  font-weight: var(--fw-regular);
+}
+
 
 /* ─── BASE INPUT / SELECT / TEXTAREA ────────────────────────────────
    Two-layer approach — all wrapped in :where() so specificity is zero

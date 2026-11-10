@@ -51,8 +51,8 @@
               Secure message &middot; 256-bit TLS encrypted
             </p>
             <div class="drawer-body">
-              <div>
-                <label class="adv-drawer-label" for="demo-drawer-msg">Your message</label>
+              <div class="field">
+                <label class="field-label" for="demo-drawer-msg">Your message</label>
                 <textarea class="contact-textarea" id="demo-drawer-msg" rows="4" placeholder="Write a message to your adviser…"></textarea>
               </div>
             </div>
@@ -212,6 +212,9 @@
         <table class="sg-table sg-table--roomy">
           <thead><tr><th>Class</th><th>Role</th><th>Apply to</th></tr></thead>
           <tbody>
+            <tr><td class="sg-token">.field / .field-label</td><td>Each label and its control, from <a href="forms.html">Forms</a>. The label's <code>for</code> matches the control's id. For a group of buttons, the wrapper takes <code>role="group"</code> and <code>aria-labelledby</code>, and the label is a span</td><td>Container around a Label and its input</td></tr>
+            <tr><td class="sg-token">.field-required / .field-optional</td><td>A red asterisk, or a quieter note, inside a label. Mark the input <code>aria-required="true"</code> too</td><td>Text inside the Label</td></tr>
+            <tr><td class="sg-token">.drawer-success</td><td>The sent state: <code>.contact-sent-icon</code>, <code>.drawer-success-title</code>, <code>.contact-ref</code>, <code>.drawer-success-body</code> and a <code>.drawer-reset</code> button</td><td>Container replacing the form</td></tr>
             <tr><td class="sg-token">.drawer-fields</td><td>Vertical rhythm between drawer fields</td><td>Container or Form</td></tr>
             <tr><td class="sg-token">.drawer-tx-detail</td><td>Spacing above the transaction detail block</td><td>Container</td></tr>
             <tr><td class="sg-token">.drawer-submit / .drawer-reset</td><td>Full-width primary and reset actions</td><td>Button, alongside its button class</td></tr>

@@ -285,48 +285,6 @@
 
 /* ─── DRAWER CONTENT ──────────────────────────────────────── */
 
-.adv-drawer-label {
-  color: var(--text-3);
-  display: block;
-  font-size: var(--fs-md);
-  font-weight: var(--fw-medium);
-  margin-block-end: 7px;
-}
-
-.adv-drawer-sent {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  padding: 32px 0;
-  text-align: center;
-}
-
-.adv-drawer-sent-icon {
-  align-items: center;
-  background: var(--green-dim);
-  border-radius: 50%;
-  color: var(--green);
-  display: flex;
-  height: 56px;
-  justify-content: center;
-  width: 56px;
-}
-
-.adv-drawer-sent-title {
-  color: var(--text-1);
-  font-family: var(--font-serif);
-  font-size: var(--fs-drawer-title);   /* 20px */
-  letter-spacing: var(--ls-snug);      /* -0.02em = -0.4px at 20px */
-}
-
-.adv-drawer-sent-note {
-  color: var(--text-3);
-  font-size: var(--fs-md);
-  line-height: var(--lh-loose);
-  max-width: 280px;
-}
-
 /* Risk profile strip */
 .add-fund-risk-strip {
   align-items: center;

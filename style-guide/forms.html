@@ -741,6 +741,12 @@
         <table class="sg-table sg-table--roomy">
           <thead><tr><th>Class</th><th>Role</th><th>Apply to</th></tr></thead>
           <tbody>
+            <tr><td class="sg-token">.field</td><td>A label and its control, 6px apart, with any hint or error below</td><td>Container around a Label and its input</td></tr>
+            <tr><td class="sg-token">.field-label</td><td>The label. Its <code>for</code> matches the control's id. For a group of buttons, use a span with an id, and give the <code>.field</code> <code>role="group"</code> and <code>aria-labelledby</code></td><td>Label</td></tr>
+            <tr><td class="sg-token">.field-row</td><td>Two or more fields side by side, which wrap when there isn't room</td><td>Container around the fields</td></tr>
+            <tr><td class="sg-token">.field-required</td><td>Red asterisk in the label. Hide it from screen readers and mark the input <code>aria-required="true"</code></td><td>Text inside the Label; Attributes <code>aria-hidden="true"</code></td></tr>
+            <tr><td class="sg-token">.field-optional</td><td>A quieter note in the label, like "optional, for limit orders"</td><td>Text inside the Label</td></tr>
+            <tr><td class="sg-token">.field-hint / .field-error</td><td>Help text and an error message under the control</td><td>Text, linked from the input with <code>aria-describedby</code></td></tr>
             <tr><td class="sg-token">.form-success-link</td><td>Centred link in a success state</td><td>Link, alongside its button class</td></tr>
             <tr><td class="sg-token">.file-upload / .file-upload-input</td><td>Dashed drop zone with a visually hidden native input</td><td>Container / Upload widget</td></tr>
           </tbody>

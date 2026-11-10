@@ -784,6 +784,3 @@ html:has(.theme-checkbox:checked) .adv-msg--user .adv-bubble-inner {
   width: 16px;
 }
 
-.adv-send-another { margin-block-start: var(--space-s); }
-.adv-drawer-required { color: var(--red); }
-.adv-drawer-optional { color: var(--text-3); font-weight: var(--fw-regular); }
