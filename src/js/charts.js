@@ -1555,8 +1555,8 @@ function renderContactForm() {
       <div class="contact-sending-note">Please wait a moment</div>
     </div>` : ''}
     <div class="contact-form-fields">
-      <div>
-        <label class="adv-drawer-label">Enquiry Type</label>
+      <div class="field">
+        <label class="field-label" for="cf-type">Enquiry Type</label>
         <select class="det-select" id="cf-type" onchange="contactState.formData.type=this.value">
           <option value="" ${!fd.type?'selected':''} disabled>Select enquiry type…</option>
           <option value="investment" ${fd.type==='investment'?'selected':''}>Investment Query</option>
@@ -1567,25 +1567,25 @@ function renderContactForm() {
           <option value="general" ${fd.type==='general'?'selected':''}>General Enquiry</option>
         </select>
       </div>
-      <div>
-        <label class="adv-drawer-label">Subject</label>
+      <div class="field">
+        <label class="field-label" for="cf-subject">Subject</label>
         <input class="det-input" type="text" id="cf-subject" placeholder="Brief subject of your enquiry" value="${fd.subject}" oninput="contactState.formData.subject=this.value">
       </div>
-      <div>
-        <label class="adv-drawer-label">Message</label>
+      <div class="field">
+        <label class="field-label" for="cf-message">Message</label>
         <textarea class="contact-textarea" id="cf-message" placeholder="Please describe your enquiry in as much detail as you're comfortable sharing…" maxlength="1000" oninput="contactState.formData.message=this.value;document.getElementById('cf-charcount').textContent=this.value.length+'/1000'">${fd.message}</textarea>
         <div class="contact-char-count" id="cf-charcount">${fd.message.length}/1000</div>
       </div>
-      <div>
-        <label class="adv-drawer-label">Preferred Response Method</label>
+      <div class="field" role="group" aria-labelledby="cf-preferred-response-method-label">
+        <span class="field-label" id="cf-preferred-response-method-label">Preferred Response Method</span>
         <div class="contact-seg">
           <button class="contact-seg-btn ${fd.response==='email'?'is-active':''}" onclick="setContactResponse('email')">Email</button>
           <button class="contact-seg-btn ${fd.response==='phone'?'is-active':''}" onclick="setContactResponse('phone')">Phone</button>
           <button class="contact-seg-btn ${fd.response==='secure'?'is-active':''}" onclick="setContactResponse('secure')">Secure Message</button>
         </div>
       </div>
-      <div>
-        <label class="adv-drawer-label">Urgency</label>
+      <div class="field" role="group" aria-labelledby="cf-urgency-label">
+        <span class="field-label" id="cf-urgency-label">Urgency</span>
         <div class="contact-seg">
           <button class="contact-seg-btn ${fd.urgency==='routine'?'is-active':''}" onclick="setContactUrgency('routine')">Routine</button>
           <button class="contact-seg-btn ${fd.urgency==='soon'?'is-active':''}" onclick="setContactUrgency('soon')">Within 24 Hours</button>
@@ -1804,18 +1804,18 @@ function renderAdviserForm() {
   /* ── Sent confirmation ── */
   if (adviserMsgState.status === 'sent') {
     el.innerHTML = `
-      <div class="adv-drawer-sent">
-        <div class="adv-drawer-sent-icon">
-          <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+      <div class="drawer-success">
+        <div class="contact-sent-icon">
+          <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
             <polyline points="20 6 9 17 4 12"/>
           </svg>
         </div>
-        <div class="adv-drawer-sent-title">Message Sent</div>
-        <div class="adv-drawer-sent-note">
-          Your reference: <strong>${adviserMsgState.ref}</strong><br>
+        <div class="drawer-success-title">Message Sent</div>
+        <div class="contact-ref">${adviserMsgState.ref}</div>
+        <div class="drawer-success-body">
           James Whitmore will respond within 1 business day.
         </div>
-        <button class="btn-secondary adv-send-another" onclick="resetAdviserMsg()">
+        <button class="btn-secondary drawer-reset" onclick="resetAdviserMsg()">
           Send Another Message
         </button>
       </div>`;
@@ -1831,9 +1831,9 @@ function renderAdviserForm() {
 
   el.classList.add('contact-form-host');
   el.innerHTML = `
-    <div>
-      <label class="adv-drawer-label">Enquiry Type</label>
-      <select class="det-select">
+    <div class="field">
+      <label class="field-label" for="adv-enquiry-type">Enquiry Type</label>
+      <select id="adv-enquiry-type" class="det-select">
         <option>Investment Query</option>
         <option>Account Administration</option>
         <option>Tax &amp; Planning</option>
@@ -1842,22 +1842,22 @@ function renderAdviserForm() {
         <option>General Enquiry</option>
       </select>
     </div>
-    <div>
-      <label class="adv-drawer-label">Subject</label>
-      <input class="det-input"
+    <div class="field">
+      <label class="field-label" for="adv-subject">Subject</label>
+      <input id="adv-subject" class="det-input"
              placeholder="Brief subject of your message" />
     </div>
-    <div>
-      <label class="adv-drawer-label">Message</label>
-      <textarea class="contact-textarea" rows="6"
+    <div class="field">
+      <label class="field-label" for="adv-message">Message</label>
+      <textarea id="adv-message" class="contact-textarea" rows="6"
                 maxlength="1000"
                 placeholder="Type your message to James Whitmore…"
                 oninput="document.getElementById('adv-char').textContent=this.value.length+'/1000'">
       </textarea>
       <div class="contact-char-count" id="adv-char">0/1000</div>
     </div>
-    <div>
-      <label class="adv-drawer-label">Urgency</label>
+    <div class="field" role="group" aria-labelledby="adv-urgency-label">
+      <span class="field-label" id="adv-urgency-label">Urgency</span>
       <div class="contact-seg">
         ${urgencyOpts.map(o =>
           `<button class="contact-seg-btn${adviserMsgState.urgency === o.val ? ' is-active' : ''}"
@@ -1966,19 +1966,19 @@ function renderAddInvestmentForm() {
     <div class="add-inv-section">Security</div>
 
     <div class="drawer-fields">
-      <div>
-        <label class="adv-drawer-label">Fund / Security Name <span class="adv-drawer-required">*</span></label>
-        <input id="inv-name" class="det-input"
+      <div class="field">
+        <label class="field-label" for="inv-name">Fund / Security Name <span class="field-required" aria-hidden="true">*</span></label>
+        <input aria-required="true" id="inv-name" class="det-input"
                placeholder="e.g. Artisan Partners Global Value" />
       </div>
-      <div>
-        <label class="adv-drawer-label">ISIN</label>
+      <div class="field">
+        <label class="field-label" for="inv-isin">ISIN</label>
         <input id="inv-isin" class="det-input det-mono-input"
                placeholder="e.g. GB00B7FQLH15" maxlength="12" />
       </div>
-      <div class="add-inv-row-2">
-        <div>
-          <label class="adv-drawer-label">Asset Type</label>
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label" for="inv-type">Asset Type</label>
           <select id="inv-type" class="det-select">
             <option>GBP Mutual Fund</option>
             <option>ETF</option>
@@ -1989,8 +1989,8 @@ function renderAddInvestmentForm() {
             <option>Cash</option>
           </select>
         </div>
-        <div>
-          <label class="adv-drawer-label">Currency</label>
+        <div class="field">
+          <label class="field-label" for="inv-currency">Currency</label>
           <select id="inv-currency" class="det-select">
             <option>GBP</option>
             <option>USD</option>
@@ -2015,8 +2015,8 @@ function renderAddInvestmentForm() {
     <div class="add-inv-section">Trade Details</div>
 
     <div class="drawer-fields">
-      <div>
-        <label class="adv-drawer-label">Investment Method</label>
+      <div class="field" role="group" aria-labelledby="inv-investment-method-label">
+        <span class="field-label" id="inv-investment-method-label">Investment Method</span>
         <div class="contact-seg">
           ${methodOpts.map(o =>
             `<button class="contact-seg-btn${addInvestmentState.method === o.val ? ' is-active' : ''}"
@@ -2026,21 +2026,21 @@ function renderAddInvestmentForm() {
       </div>
 
       ${addInvestmentState.method === 'amount' ? `
-      <div>
-        <label class="adv-drawer-label">Investment Amount (£)</label>
+      <div class="field">
+        <label class="field-label" for="inv-amount">Investment Amount (£)</label>
         <input id="inv-amount" class="det-input" type="number" min="0" step="0.01"
                placeholder="e.g. 10000"
                oninput="updateInvSummary()" />
       </div>` : `
-      <div>
-        <label class="adv-drawer-label">Number of Units</label>
+      <div class="field">
+        <label class="field-label" for="inv-units">Number of Units</label>
         <input id="inv-units" class="det-input" type="number" min="0" step="0.0001"
                placeholder="e.g. 430.00"
                oninput="updateInvSummary()" />
       </div>`}
 
-      <div>
-        <label class="adv-drawer-label">Unit Price (pence)</label>
+      <div class="field">
+        <label class="field-label" for="inv-price">Unit Price (pence)</label>
         <input id="inv-price" class="det-input" type="number" min="0" step="0.01"
                placeholder="e.g. 23.29"
                oninput="updateInvSummary()" />
@@ -2048,14 +2048,14 @@ function renderAddInvestmentForm() {
 
       <div id="inv-summary-wrap"></div>
 
-      <div class="add-inv-row-2">
-        <div>
-          <label class="adv-drawer-label">Trade Date</label>
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label" for="inv-date">Trade Date</label>
           <input id="inv-date" class="det-input" type="date"
                  value="${today}" />
         </div>
-        <div>
-          <label class="adv-drawer-label">Dealing Instruction</label>
+        <div class="field">
+          <label class="field-label" for="inv-dealing">Dealing Instruction</label>
           <select id="inv-dealing" class="det-select">
             <option>Market Order</option>
             <option>Limit Order</option>
@@ -2244,30 +2244,30 @@ function renderAddFundForm() {
     <div class="add-inv-section">Fund Details</div>
 
     <div class="drawer-fields">
-      <div>
-        <label class="adv-drawer-label">Fund / Security Name <span class="adv-drawer-required">*</span></label>
-        <input id="fund-name" class="det-input"
+      <div class="field">
+        <label class="field-label" for="fund-name">Fund / Security Name <span class="field-required" aria-hidden="true">*</span></label>
+        <input aria-required="true" id="fund-name" class="det-input"
                placeholder="e.g. Artisan Partners Global Value" />
       </div>
-      <div class="add-inv-row-2">
-        <div>
-          <label class="adv-drawer-label">ISIN</label>
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label" for="fund-isin">ISIN</label>
           <input id="fund-isin" class="det-input det-mono-input"
                  placeholder="e.g. GB00B7FQLH15" maxlength="12" />
         </div>
-        <div>
-          <label class="adv-drawer-label">SEDOL</label>
+        <div class="field">
+          <label class="field-label" for="fund-sedol">SEDOL</label>
           <input id="fund-sedol" class="det-input det-mono-input"
                  placeholder="e.g. B7FQLH1" maxlength="7" />
         </div>
       </div>
-      <div>
-        <label class="adv-drawer-label">Fund House / Manager</label>
+      <div class="field">
+        <label class="field-label" for="fund-house">Fund House / Manager</label>
         <input id="fund-house" class="det-input"
                placeholder="e.g. Artisan Partners" />
       </div>
-      <div>
-        <label class="adv-drawer-label">Share Class</label>
+      <div class="field">
+        <label class="field-label" for="fund-shareclass">Share Class</label>
         <input id="fund-shareclass" class="det-input"
                placeholder="e.g. Z GBP Accumulation" />
       </div>
@@ -2277,9 +2277,9 @@ function renderAddFundForm() {
     <div class="add-inv-section">Classification</div>
 
     <div class="drawer-fields">
-      <div class="add-inv-row-2">
-        <div>
-          <label class="adv-drawer-label">Asset Class</label>
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label" for="fund-assetclass">Asset Class</label>
           <select id="fund-assetclass" class="det-select">
             <option>Equity</option>
             <option>Fixed Income</option>
@@ -2289,8 +2289,8 @@ function renderAddFundForm() {
             <option>Property</option>
           </select>
         </div>
-        <div>
-          <label class="adv-drawer-label">Currency</label>
+        <div class="field">
+          <label class="field-label" for="fund-currency">Currency</label>
           <select id="fund-currency" class="det-select">
             <option>GBP</option>
             <option>USD</option>
@@ -2300,8 +2300,8 @@ function renderAddFundForm() {
           </select>
         </div>
       </div>
-      <div>
-        <label class="adv-drawer-label">Geographic Focus</label>
+      <div class="field">
+        <label class="field-label" for="fund-geo">Geographic Focus</label>
         <select id="fund-geo" class="det-select">
           <option>Global</option>
           <option>UK</option>
@@ -2326,8 +2326,8 @@ function renderAddFundForm() {
     </div>
 
     ${addFundState.txType === 'switch' ? `
-    <div class="drawer-tx-detail">
-      <label class="adv-drawer-label">Switch From (Existing Holding)</label>
+    <div class="field drawer-tx-detail">
+      <label class="field-label" for="fund-switch-from">Switch From (Existing Holding)</label>
       <select id="fund-switch-from" class="det-select">
         ${holdingOptions}
       </select>
@@ -2335,19 +2335,19 @@ function renderAddFundForm() {
 
     ${addFundState.txType === 'transfer' ? `
     <div class="drawer-fields drawer-tx-detail">
-      <div>
-        <label class="adv-drawer-label">Transferring Provider</label>
+      <div class="field">
+        <label class="field-label" for="fund-transfer-provider">Transferring Provider</label>
         <input id="fund-transfer-provider" class="det-input"
                placeholder="e.g. Hargreaves Lansdown" />
       </div>
-      <div class="add-inv-row-2">
-        <div>
-          <label class="adv-drawer-label">Approx. Transfer Value (£)</label>
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label" for="fund-transfer-value">Approx. Transfer Value (£)</label>
           <input id="fund-transfer-value" class="det-input" type="number" min="0"
                  placeholder="e.g. 50,000" />
         </div>
-        <div>
-          <label class="adv-drawer-label">Transfer Type</label>
+        <div class="field">
+          <label class="field-label" for="fund-transfer-type">Transfer Type</label>
           <select id="fund-transfer-type" class="det-select">
             <option>In-Specie (as is)</option>
             <option>Cash Transfer</option>
@@ -2371,8 +2371,8 @@ function renderAddFundForm() {
     <div class="add-inv-section">Trade Execution</div>
 
     <div class="drawer-fields">
-      <div>
-        <label class="adv-drawer-label">Investment Method</label>
+      <div class="field" role="group" aria-labelledby="fund-investment-method-label">
+        <span class="field-label" id="fund-investment-method-label">Investment Method</span>
         <div class="contact-seg">
           ${methodOpts.map(o =>
             `<button class="contact-seg-btn${addFundState.method === o.val ? ' is-active' : ''}"
@@ -2382,21 +2382,21 @@ function renderAddFundForm() {
       </div>
 
       ${addFundState.method === 'amount' ? `
-      <div>
-        <label class="adv-drawer-label">Investment Amount (£)</label>
+      <div class="field">
+        <label class="field-label" for="fund-amount">Investment Amount (£)</label>
         <input id="fund-amount" class="det-input" type="number" min="0" step="0.01"
                placeholder="e.g. 25,000"
                oninput="updateFundSummary()" />
       </div>` : `
-      <div>
-        <label class="adv-drawer-label">Number of Units</label>
+      <div class="field">
+        <label class="field-label" for="fund-units">Number of Units</label>
         <input id="fund-units" class="det-input" type="number" min="0" step="0.0001"
                placeholder="e.g. 1,000.00"
                oninput="updateFundSummary()" />
       </div>`}
 
-      <div>
-        <label class="adv-drawer-label">Unit Price (pence) <span class="adv-drawer-optional">— optional, for limit orders</span></label>
+      <div class="field">
+        <label class="field-label" for="fund-price">Unit Price (pence) <span class="field-optional">— optional, for limit orders</span></label>
         <input id="fund-price" class="det-input" type="number" min="0" step="0.01"
                placeholder="e.g. 2,329.00"
                oninput="updateFundSummary()" />
@@ -2404,14 +2404,14 @@ function renderAddFundForm() {
 
       <div id="fund-summary-wrap"></div>
 
-      <div class="add-inv-row-2">
-        <div>
-          <label class="adv-drawer-label">Trade Date</label>
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label" for="fund-date">Trade Date</label>
           <input id="fund-date" class="det-input" type="date"
                  value="${today}" />
         </div>
-        <div>
-          <label class="adv-drawer-label">Settlement</label>
+        <div class="field">
+          <label class="field-label" for="fund-settlement">Settlement</label>
           <select id="fund-settlement" class="det-select">
             <option>Standard (T+2)</option>
             <option>Next Dealing Day</option>
@@ -2419,8 +2419,8 @@ function renderAddFundForm() {
           </select>
         </div>
       </div>
-      <div>
-        <label class="adv-drawer-label">Instruction Type</label>
+      <div class="field">
+        <label class="field-label" for="fund-instruction">Instruction Type</label>
         <select id="fund-instruction" class="det-select">
           <option>Best Execution</option>
           <option>Market Order</option>
@@ -2435,20 +2435,20 @@ function renderAddFundForm() {
     <div class="add-inv-section">Regular Savings</div>
 
     <div class="drawer-fields">
-      <div class="add-inv-row-2">
-        <div>
-          <label class="adv-drawer-label">Monthly Amount (£)</label>
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label" for="fund-regular-amount">Monthly Amount (£)</label>
           <input id="fund-regular-amount" class="det-input" type="number" min="0"
                  placeholder="e.g. 500" />
         </div>
-        <div>
-          <label class="adv-drawer-label">Start Date</label>
+        <div class="field">
+          <label class="field-label" for="fund-regular-start">Start Date</label>
           <input id="fund-regular-start" class="det-input" type="date"
                  value="${today}" />
         </div>
       </div>
-      <div>
-        <label class="adv-drawer-label">Payment Method</label>
+      <div class="field">
+        <label class="field-label" for="fund-payment">Payment Method</label>
         <select id="fund-payment" class="det-select">
           <option>Direct Debit</option>
           <option>Standing Order</option>

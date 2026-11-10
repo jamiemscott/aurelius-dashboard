@@ -117,10 +117,9 @@
   max-width: 280px;
 }
 
-.contact-char-count {
+.contact-char-count {             /* sits in a .field, whose gap spaces it */
   color: var(--text-3);
   font-size: var(--fs-sm);
-  margin-block-start: 4px;
   text-align: end;
 }
 
