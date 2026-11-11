@@ -5,6 +5,7 @@ Status: in progress · 11 November 2026 · follows PR #202 (adviser dashboard)
 **Progress**
 - Section 1 (CSS gaps) is done in PR #203. Every gap was a consolidation: no new tokens, since `--status-warning` already existed and only needed an AA-safe light-mode value. For KPI clipping, stacking the cards at ≤480px beat a container query, because the query also shrank short values like "12".
 - Section 2, pages 1–2 (Client Book and Client 360) are in PR #204, stacked on #203. Client 360 is one template that serves every client via a rewrite (`serve.json` and `netlify.toml`), not just Sumant. Holdings scale to each client's value.
+- Section 2, page 3 (Advice Requests) is in PR #205. No new components: `doc-entry` rows (now allowed to be `<button>`s), the shared wide drawer, and the chat thread and composer from `adviser.css`. Rows can be deep-linked as `/advice-requests/#<ref>`, which the dashboard uses.
 
 ## 1. CSS gaps from the dashboard
 

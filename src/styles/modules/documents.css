@@ -79,6 +79,22 @@
 }
 
 .doc-entry:last-child { border-block-end: none; }
+
+/* A row that opens something (an advice request in its drawer) is
+   a real <button>, so it is reachable and announced as one. These
+   lines strip the button defaults so it matches the <div> rows. */
+button.doc-entry {
+  background: none;
+  border: 0;
+  border-block-end: 1px solid var(--divider);
+  color: inherit;
+  font: inherit;
+  inline-size: 100%;
+  text-align: start;
+}
+
+button.doc-entry:last-child { border-block-end: none; }
+button.doc-entry:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
 .doc-entry:hover { background: var(--bg-hover); }
 .doc-entry.is-unread { background: var(--gold-dim); }
 .doc-entry.is-unread:hover { background: rgba(245,166,35,0.18); }
@@ -339,11 +355,22 @@
 
 .doc-search-input::placeholder { color: var(--text-2); }
 
-/* Narrow screens: the fixed-width search squeezed the tabs to a
-   sliver. Stack the bar so tabs and search each get a full row. */
+/* Narrow screens.
+   - The fixed-width search squeezed the tabs to a sliver: stack the
+     bar so tabs and search each get a full row.
+   - Rows squeezed the name to nothing: let a row wrap, so the name
+     and meta keep the first line and date, size, status and actions
+     drop to a second line, lined up under the name (dot 7px + icon
+     38px + two 12px gaps = 69px).                                   */
 @media (max-width: 600px) {
   .doc-filter-bar    { align-items: stretch; flex-direction: column; gap: 10px; }
   .doc-search-input  { width: 100%; }
+
+  .doc-entry         { flex-wrap: wrap; gap: 6px 12px; padding: 12px 14px; }
+  .doc-entry-body    { flex: 1 1 calc(100% - 69px); }
+  .doc-entry-meta    { flex-wrap: wrap; }
+  .doc-entry-date    { margin-inline-start: 69px; min-width: 0; text-align: start; }
+  .doc-entry-size    { min-width: 0; }
 }
 
 .doc-group { margin-block-end: 20px; }

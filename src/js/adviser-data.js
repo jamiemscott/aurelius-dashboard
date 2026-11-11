@@ -123,3 +123,67 @@ const adviserNotes = {
     { date: '2026-10-30', title: 'Royalties added',          sub: '£12,000 into GIA' },
   ],
 };
+
+
+/* ─── ADVICE REQUESTS ───────────────────────────────────────────
+   Inbound requests from clients. Status runs new → open (read)
+   → awaiting (adviser replied, ball in client's court) → closed.
+   "Needs reply" is new + open, which is what the dashboard and
+   nav badge count. Thread entries are from 'client' or 'adviser'. */
+
+const REQUEST_TYPES = {
+  tax:        { label: 'Tax & Planning', color: '#22C55E', bg: 'rgba(34,197,94,0.12)'  },
+  retirement: { label: 'Retirement',     color: '#8B5CF6', bg: 'rgba(139,92,246,0.12)' },
+  investment: { label: 'Investment',     color: '#F5A623', bg: 'rgba(245,166,35,0.12)' },
+  isa:        { label: 'ISA',            color: '#3B82F6', bg: 'rgba(59,130,246,0.12)' },
+  fees:       { label: 'Fees',           color: '#6B7280', bg: 'rgba(107,114,128,0.12)' },
+  complaint:  { label: 'Complaint',      color: '#EF4444', bg: 'rgba(239,68,68,0.12)'  },
+};
+
+const adviceRequests = [
+  { id: 'AR-2611-0412', client: 'hyacinth-bucket', type: 'tax', amount: 40000, status: 'new',
+    subject: 'Gifting to the grandchildren', received: '2026-11-11T09:12',
+    thread: [
+      { from: 'client', at: '2026-11-11T09:12', text: 'Good morning Mr Whitmore. Richard and I would like to give £40,000 to our grandchildren ahead of Christmas. I am told there is something called inheritance tax one must be careful of. Could you advise on the most elegant way to do it? It is pronounced “Bouquet”, by the way.' },
+    ] },
+  { id: 'AR-2611-0408', client: 'frasier-crane', type: 'retirement', amount: 250000, status: 'new',
+    subject: 'Drawing down from my SIPP', received: '2026-11-10T16:40',
+    thread: [
+      { from: 'client', at: '2026-11-10T16:40', text: 'James, I’m considering taking £250,000 from the SIPP, partly tax-free cash, to fund a rather wonderful apartment refurbishment. Before Niles hears of it, could we discuss the tax position and what it does to my long-term income?' },
+    ] },
+  { id: 'AR-2611-0397', client: 'derek-trotter', type: 'investment', amount: 15000, status: 'open',
+    subject: 'Lump sum to invest', received: '2026-11-09T11:05',
+    thread: [
+      { from: 'client', at: '2026-11-09T11:05', text: 'Alright James. Had a bit of a result this week, £15k cash to put to work. Something with a bit of growth in it. This time next year, eh?' },
+    ] },
+  { id: 'AR-2611-0381', client: 'jim-rockford', type: 'isa', amount: 20000, status: 'open',
+    subject: 'Use this year’s ISA allowance', received: '2026-11-06T14:22',
+    thread: [
+      { from: 'client', at: '2026-11-06T14:22', text: 'Can we get the full £20,000 into my ISA well before April this time? Last year I left it late and it cost me. Leave a message at the tone if I’m not around.' },
+    ] },
+  { id: 'AR-2611-0355', client: 'margo-leadbetter', type: 'investment', amount: null, status: 'awaiting',
+    subject: 'Moving to sustainable funds', received: '2026-11-04T10:30',
+    thread: [
+      { from: 'client', at: '2026-11-04T10:30', text: 'Jerry and I would like the portfolio to be rather more ethical. Nothing too sandal-wearing, mind. What are our options?' },
+      { from: 'adviser', at: '2026-11-04T15:10', text: 'Thanks Margo. I’ve put together three ESG model portfolios that keep your current risk level. I’ve sent them to your Documents. Could you let me know which you’d both like to go through?' },
+    ] },
+  { id: 'AR-2610-0322', client: 'columbo', type: 'fees', amount: null, status: 'awaiting',
+    subject: 'Just one more question about fees', received: '2026-10-29T17:55',
+    thread: [
+      { from: 'client', at: '2026-10-29T17:55', text: 'Sorry to bother you sir, I was just on my way out. One thing’s been nagging at me: the platform fee and the fund charges, are they the same thing? My wife asked and I couldn’t say.' },
+      { from: 'adviser', at: '2026-10-30T09:20', text: 'Not at all, Lieutenant. They’re separate: the platform fee is 0.25% a year for holding everything, and each fund has its own ongoing charge on top. I’ve attached your full cost breakdown. Does that answer it?' },
+    ] },
+  { id: 'AR-2610-0290', client: 'sumant-kumar', type: 'retirement', amount: null, status: 'closed',
+    subject: 'Retiring at 60, is it realistic?', received: '2026-10-20T08:45', outcome: 'Added to the September 2027 review agenda',
+    thread: [
+      { from: 'client', at: '2026-10-20T08:45', text: 'I tried Plan My Future and it says retiring at 60 is within reach. Is that realistic, and what would need to change?' },
+      { from: 'adviser', at: '2026-10-21T11:00', text: 'It’s realistic on your current contributions, Sumant, with some margin. I’ll model it properly with you at your review and we can stress-test it then.' },
+      { from: 'client', at: '2026-10-21T12:15', text: 'Perfect, thank you.' },
+    ] },
+  { id: 'AR-2609-0214', client: 'victor-meldrew', type: 'complaint', amount: null, status: 'closed',
+    subject: 'Statement arrived late', received: '2026-09-14T07:02', outcome: 'Resolved · apology sent, no further action',
+    thread: [
+      { from: 'client', at: '2026-09-14T07:02', text: 'I don’t believe it. My quarterly statement arrived nine days late, again. I want to know why.' },
+      { from: 'adviser', at: '2026-09-14T10:30', text: 'Victor, I’m sorry. A print run was delayed at our supplier. Your statements are now also in Documents the day they’re produced, so you won’t have to wait for the post.' },
+    ] },
+];
