@@ -148,10 +148,10 @@
         <div class="page-date" id="pipe-summary" aria-live="polite">Open prospects</div>
       </div>
       <div class="header-actions">
-        <a class="btn-primary" href="#"> <!-- placeholder -->
+        <button class="btn-primary" type="button" popovertarget="pros-drawer">
           <svg aria-hidden="true" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           Add Prospect
-        </a>
+        </button>
       </div>
     </div>
 
@@ -377,6 +377,53 @@
   <footer class="drawer-footer" id="pipe-drawer-footer" hidden></footer>
 </div>
 
+
+<!-- ── ADD PROSPECT DRAWER ── adviser.js validates and adds to adviserPipeline -->
+<div id="pros-drawer" class="drawer" popover role="dialog" aria-labelledby="pros-drawer-title">
+  <header class="drawer-header">
+    <div class="drawer-header-main">
+      <div>
+        <h2 class="drawer-title" id="pros-drawer-title">Add prospect</h2>
+        <p class="drawer-subtitle">New prospects start at Enquiry, with an intro call to book.</p>
+      </div>
+    </div>
+    <div class="drawer-actions">
+      <button class="drawer-close" popovertarget="pros-drawer" popovertargetaction="hide" aria-label="Close">&#x2715;</button>
+    </div>
+  </header>
+  <div class="drawer-body">
+    <div class="drawer-fields">
+      <div class="field">
+        <label class="field-label" for="pros-name">Name</label>
+        <input class="det-input" type="text" id="pros-name" maxlength="80" autocomplete="off">
+      </div>
+      <div class="field">
+        <label class="field-label" for="pros-value">Expected assets (£)</label>
+        <input class="det-input" type="number" id="pros-value" min="0" step="1000" inputmode="numeric" aria-describedby="pros-fee">
+        <div class="field-hint" id="pros-fee" aria-live="polite">Expected fee shows once you add assets.</div>
+      </div>
+      <div class="field">
+        <label class="field-label" for="pros-source">Source</label>
+        <select class="det-select" id="pros-source"></select>
+      </div>
+      <div class="field" id="pros-referrer-field" hidden>
+        <label class="field-label" for="pros-referrer">Referred by</label>
+        <select class="det-select" id="pros-referrer"></select>
+      </div>
+      <div class="field">
+        <label class="field-label" for="pros-next">Intro call by</label>
+        <input class="det-input" type="date" id="pros-next">
+      </div>
+      <div class="field">
+        <label class="field-label" for="pros-note">Notes <span class="field-optional">(optional)</span></label>
+        <textarea class="adv-textarea" id="pros-note" rows="3" maxlength="400"></textarea>
+      </div>
+    </div>
+  </div>
+  <footer class="drawer-footer">
+    <button class="btn-primary" type="button" id="pros-add" disabled>Add prospect</button>
+  </footer>
+</div>
 
 <!-- ── USER MENU (Popover API) ─────────────────────────────────── -->
 <div id="user-menu" class="user-menu" popover>
