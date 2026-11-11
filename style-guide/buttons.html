@@ -31,9 +31,11 @@
         <h2 class="sg-section-title">Primary Button</h2>
         <p class="sg-section-desc">The highest-emphasis action on a page. Use for the single most important CTA — e.g. "Save Changes", "Continue", "Add Funds". Never place more than one <code>.btn-primary</code> in the same visible context. The gold fill communicates the brand's primary action colour.</p>
         <p class="sg-section-desc"><strong>Hover:</strong> lifts 1px with a gold glow shadow, and an animated underline drops in (1px → 2px thick, 1px → 3px offset) matching the text colour. Respects <code>prefers-reduced-motion</code> — underline still appears but without the animated offset transition.</p>
+        <p class="sg-section-desc"><strong>Disabled:</strong> a <code>&lt;button disabled&gt;</code> fades to 45% with no glow or press. Use it while a form or checklist is incomplete, as in the adviser review drawer.</p>
       </div>
       <div class="sg-demo sg-demo--center">
         <button class="btn-primary">Save Changes</button>
+        <button class="btn-primary" disabled>Move to Meet</button>
       </div>
       <div class="sg-code">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>

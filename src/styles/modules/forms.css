@@ -226,6 +226,12 @@ select {
   color: var(--text-1);
 }
 
+/* Phones: only the current step keeps its label, so four or more
+   steps fit without scrolling sideways */
+@media (max-width: 480px) {
+  .steps:has(.is-active) .step:not(.is-active) .step-label { display: none; }
+}
+
 /* ─── PAYMENT METHOD CARDS ──────────────────────────────────────── */
 
 .method-cards {
