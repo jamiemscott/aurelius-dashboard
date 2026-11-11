@@ -1780,6 +1780,52 @@ function buildPipelinePage() {
     });
   }
 
+  /* Add prospect drawer */
+  var prosDrawer = document.getElementById('pros-drawer');
+  if (prosDrawer) {
+    var f = function (id) { return document.getElementById('pros-' + id); };
+    var REFERRED = ['Client referral', 'Existing client'];
+    f('source').innerHTML = PIPELINE_SOURCES.map(function (s) { return '<option>' + s + '</option>'; }).join('');
+    f('referrer').innerHTML = adviserClients.slice()
+      .sort(function (a, b) { return a.name.split(' ').pop().localeCompare(b.name.split(' ').pop()); })
+      .map(function (c) { return '<option value="' + c.slug + '">' + c.name + '</option>'; }).join('');
+    f('next').min = AS_AT;
+
+    var reset = function () {
+      f('name').value = ''; f('value').value = ''; f('note').value = '';
+      f('source').selectedIndex = 0; f('next').value = advAddDays(AS_AT, 3);
+      sync();
+    };
+    var sync = function () {
+      var v = Number(f('value').value);
+      f('referrer-field').hidden = REFERRED.indexOf(f('source').value) === -1;
+      f('fee').textContent = v > 0 ? 'Expected annual fee ' + advMoney(advAnnualFee(v), 0) + ' · ' + advFeeRate(v) : 'Expected fee shows once you add assets.';
+      f('add').disabled = !f('name').value.trim() || !(v > 0) || !f('next').value;
+    };
+    prosDrawer.addEventListener('input', sync);
+    prosDrawer.addEventListener('change', sync);
+    prosDrawer.addEventListener('toggle', function (e) { if (e.newState === 'open') { reset(); f('name').focus(); } });
+
+    f('add').addEventListener('click', function () {
+      sync();
+      if (f('add').disabled) return;
+      var max = adviserPipeline.reduce(function (m, p) { return Math.max(m, Number(p.id.slice(3))); }, 0);
+      var esc = function (t) { return t.trim().replace(/&/g, '&amp;').replace(/</g, '&lt;'); };
+      var p = { id: 'PR-' + (max + 1), name: esc(f('name').value), stage: 'enquiry', value: Math.round(Number(f('value').value)),
+        source: f('source').value, since: AS_AT, nextAt: f('next').value, note: esc(f('note').value) || 'No notes yet.' };
+      if (!f('referrer-field').hidden) p.referrer = f('referrer').value;
+      adviserPipeline.push(p);
+      prosDrawer.hidePopover();
+      if (pipeState.filter !== 'open') tabs.querySelector('[data-filter="open"]').click();
+      search.value = ''; pipeState.query = '';
+      render();
+      /* Open the new prospect, as confirmation and to carry on */
+      pipeState.openId = p.id;
+      renderPipeDrawer();
+      drawer.showPopover();
+    });
+  }
+
   render();
   var hashId = window.location.hash.slice(1);
   var target = adviserPipeline.find(function (x) { return x.id === hashId; });
