@@ -287,6 +287,8 @@ function buildClientProfile() {
   advSetText('client-meta', c.ref + ' · ' + c.tier + ' · ' + c.role + ' · Client since ' + since);
   var bookBtn = document.getElementById('client-book-review');
   if (bookBtn) bookBtn.href = '/adviser-dashboard/' + ADVISER.slug + '/reviews/#review-' + c.slug;
+  var msgLink = document.getElementById('client-message');
+  if (msgLink) msgLink.href = '/adviser-dashboard/' + ADVISER.slug + '/messages/#' + c.slug;
   var kycLink = document.getElementById('client-kyc-link');
   if (kycLink) kycLink.href = '/adviser-dashboard/' + ADVISER.slug + '/compliance/kyc/#' + c.slug;
 
@@ -500,6 +502,31 @@ function buildAdviceRequests() {
   }
 }
 
+/* A conversation as chat bubbles (adviser.css): the client on the
+   left, the adviser on the right, sender name on the first of a run */
+function advThreadHtml(thread, c) {
+  var prev = null;
+  return thread.map(function (m) {
+    var mine = m.from === 'adviser';
+    var first = m.from !== prev; prev = m.from;
+    var initials = mine ? advInitials(ADVISER.name) : advInitials(c.name);
+    /* The adviser speaks for the firm, so gets the Aurelius monogram
+       (--bot); the client gets grey initials (--user)              */
+    var avatar = '<div class="adv-avatar ' + (mine ? 'adv-avatar--bot' : 'adv-avatar--user') + '" aria-hidden="true">' + initials + '</div>';
+    var bubble = '<div class="adv-bubble">' +
+      (first ? '<p class="adv-sender">' + (mine ? 'You' : c.name) + '</p>' : '') +
+      '<div class="adv-bubble-inner"><p class="adv-text">' + m.text + '</p></div>' +
+      '<time class="adv-time" datetime="' + m.at + '">' + advWhen(m.at, true) + '</time></div>';
+    return '<div class="adv-msg ' + (mine ? 'adv-msg--user' : 'adv-msg--bot') + '">' + (mine ? bubble + avatar : avatar + bubble) + '</div>';
+  }).join('');
+}
+
+/* Prototype clock: the "as at" date at the current time of day */
+function advNow() {
+  var now = new Date();
+  return AS_AT + 'T' + String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+}
+
 function renderRequestDrawer() {
   var r = adviceRequests.find(function (x) { return x.id === requestState.openId; });
   if (!r) return;
@@ -520,18 +547,7 @@ function renderRequestDrawer() {
 
   var thread = document.getElementById('request-thread');
   if (thread) {
-    var prev = null;
-    thread.innerHTML = r.thread.map(function (m) {
-      var mine = m.from === 'adviser';
-      var first = m.from !== prev; prev = m.from;
-      var initials = mine ? advInitials(ADVISER.name) : advInitials(c.name);
-      var avatar = '<div class="adv-avatar ' + (mine ? 'adv-avatar--user' : 'adv-avatar--bot') + '" aria-hidden="true">' + initials + '</div>';
-      var bubble = '<div class="adv-bubble">' +
-        (first ? '<p class="adv-sender">' + (mine ? 'You' : c.name) + '</p>' : '') +
-        '<div class="adv-bubble-inner"><p class="adv-text">' + m.text + '</p></div>' +
-        '<time class="adv-time" datetime="' + m.at + '">' + advWhen(m.at, true) + '</time></div>';
-      return '<div class="adv-msg ' + (mine ? 'adv-msg--user' : 'adv-msg--bot') + '">' + (mine ? bubble + avatar : avatar + bubble) + '</div>';
-    }).join('');
+    thread.innerHTML = advThreadHtml(r.thread, c);
     thread.scrollTop = thread.scrollHeight;
   }
 
@@ -545,10 +561,7 @@ function sendRequestReply() {
   var input = document.getElementById('request-reply');
   var r = adviceRequests.find(function (x) { return x.id === requestState.openId; });
   if (!input || !r || !input.value.trim()) return;
-  /* Prototype clock: the "as at" date, at the current time of day */
-  var now = new Date();
-  var at = AS_AT + 'T' + String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
-  r.thread.push({ from: 'adviser', at: at, text: input.value.trim().replace(/</g, '&lt;') });
+  r.thread.push({ from: 'adviser', at: advNow(), text: input.value.trim().replace(/</g, '&lt;') });
   r.status = 'awaiting';
   input.value = '';
   document.getElementById('request-send').disabled = true;
@@ -1128,8 +1141,141 @@ function renderKycDrawer() {
 }
 
 
+/* ── Secure Messages ────────────────────────────────────────── */
+
+var msgState = { filter: 'reply', query: '', openSlug: null };
+
+function advLast(conv) { return conv.thread[conv.thread.length - 1]; }
+
+var msgFilters = {
+  reply:    function (v) { return v.thread.length && advLast(v).from === 'client'; },
+  awaiting: function (v) { return v.thread.length && advLast(v).from === 'adviser'; },
+  all:      function () { return true; },
+};
+
+function buildMessagesPage() {
+  var list = document.getElementById('msg-list');
+  if (!list) return;
+  var tabs   = document.getElementById('msg-tabs');
+  var search = document.getElementById('msg-search');
+  var pane   = document.getElementById('msg-pane');
+  var input  = document.getElementById('msg-reply');
+  var send   = document.getElementById('msg-send');
+
+  function conv(slug) { return adviserConversations.find(function (v) { return v.client === slug; }); }
+
+  function renderList() {
+    Object.keys(msgFilters).forEach(function (k) {
+      advSetText('msg-count-' + k, String(adviserConversations.filter(msgFilters[k]).length));
+    });
+    var unread = adviserConversations.filter(function (v) { return v.unread; }).length;
+    var reply = adviserConversations.filter(msgFilters.reply).length;
+    advSetText('msg-summary', unread + ' unread · ' + reply + ' need' + (reply === 1 ? 's' : '') + ' a reply');
+
+    var q = msgState.query.trim().toLowerCase();
+    var rows = adviserConversations.filter(msgFilters[msgState.filter]).filter(function (v) {
+      var c = advClient(v.client);
+      return !q || (c.name + ' ' + c.ref + ' ' + v.subject).toLowerCase().indexOf(q) !== -1;
+    }).sort(function (a, b) {
+      var x = a.thread.length ? advLast(a).at : AS_AT, y = b.thread.length ? advLast(b).at : AS_AT;
+      return y.localeCompare(x);
+    });
+
+    list.innerHTML = rows.length ? rows.map(function (v) {
+      var c = advClient(v.client);
+      var last = v.thread.length ? advLast(v) : null;
+      var preview = last ? (last.from === 'adviser' ? 'You: ' : '') + last.text : 'No messages yet';
+      return '<button class="doc-entry' + (v.unread ? ' is-unread' : '') + '" type="button" data-msg="' + v.client + '"' +
+        (v.client === msgState.openSlug ? ' aria-current="true"' : '') + '>' +
+        '<span class="doc-entry-dot' + (v.unread ? ' is-on' : '') + '"></span>' +
+        '<span class="doc-entry-body">' +
+          '<span class="doc-entry-name">' + c.name + '</span>' +
+          '<span class="doc-entry-meta"><span>' + v.subject + '</span></span>' +
+          '<span class="doc-entry-meta"><span>' + (preview.length > 70 ? preview.slice(0, 68).trimEnd() + '…' : preview) + '</span></span>' +
+        '</span>' +
+        '<span class="doc-entry-date">' + (last ? advWhen(last.at) : '') + '</span>' +
+      '</button>';
+    }).join('') : '<div class="empty-state">' +
+      '<svg aria-hidden="true" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>' +
+      '<div>No conversations</div><div class="empty-state-sub">Try another tab or search.</div></div>';
+  }
+
+  function renderPane() {
+    var v = conv(msgState.openSlug);
+    if (!v) return;
+    var c = advClient(v.client);
+    advSetText('msg-avatar', advInitials(c.name));
+    advSetText('msg-title', c.name);
+    advSetText('msg-sub', v.subject + ' · ' + c.ref + ' · ' + c.tier);
+    document.getElementById('msg-client-link').href = advClientUrl(c.slug);
+    var thread = document.getElementById('msg-thread');
+    thread.innerHTML = v.thread.length ? advThreadHtml(v.thread, c) :
+      '<div class="adv-divider" role="separator"><span class="adv-divider-label">New conversation with ' + c.name + '</span></div>';
+    thread.scrollTop = thread.scrollHeight;
+    input.placeholder = 'Write a secure reply to ' + c.name.split(' ')[0] + '…';
+  }
+
+  function open(slug, focusPane) {
+    var v = conv(slug);
+    if (!v) return;
+    msgState.openSlug = slug;
+    v.unread = false;
+    renderList();
+    renderPane();
+    /* Stacked below 1200px: bring the thread into view */
+    if (focusPane && window.matchMedia('(max-width: 1200px)').matches) pane.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function sendReply() {
+    var v = conv(msgState.openSlug);
+    if (!v || !input.value.trim()) return;
+    v.thread.push({ from: 'adviser', at: advNow(), text: input.value.trim().replace(/</g, '&lt;') });
+    input.value = '';
+    send.disabled = true;
+    renderList();
+    renderPane();
+  }
+
+  list.addEventListener('click', function (e) {
+    var row = e.target.closest('[data-msg]');
+    if (row) open(row.dataset.msg, true);
+  });
+  if (search) search.addEventListener('input', function () { msgState.query = search.value; renderList(); });
+  if (tabs) tabs.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-filter]');
+    if (!btn) return;
+    msgState.filter = btn.dataset.filter;
+    tabs.querySelectorAll('[data-filter]').forEach(function (b) {
+      var on = b === btn;
+      b.classList.toggle('is-active', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
+    renderList();
+  });
+  input.addEventListener('input', function () { send.disabled = !input.value.trim(); });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); sendReply(); }
+  });
+  send.addEventListener('click', sendReply);
+
+  /* Deep link /messages/#<client> (Client 360 "Message"): opens that
+     conversation, starting a new one if there isn't one yet       */
+  var hashSlug = window.location.hash.slice(1);
+  if (hashSlug && advClient(hashSlug)) {
+    if (!conv(hashSlug)) adviserConversations.push({ client: hashSlug, subject: 'New message', unread: false, thread: [] });
+    if (!msgFilters[msgState.filter](conv(hashSlug))) tabs.querySelector('[data-filter="all"]').click();
+    open(hashSlug, false);
+  } else {
+    renderList();
+    var first = list.querySelector('[data-msg]');
+    if (first) open(first.dataset.msg, false);
+  }
+}
+
+
 document.addEventListener('DOMContentLoaded', function () {
   buildAdviserDashboard();
+  buildMessagesPage();
   buildDashboardRequests();
   buildReviewsPage();
   buildKycPage();
