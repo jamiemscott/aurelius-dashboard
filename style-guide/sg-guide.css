@@ -1850,3 +1850,53 @@ select.sg-field-control { appearance: auto; cursor: pointer; }
   transform: none;
   z-index: auto;
 }
+
+
+/* ─── ICONS PAGE ──────────────────────────────────────────────────────────── */
+/* Reuses .sg-asset-card / -body / -links. The preview colour and background
+   follow the colour picker (--sg-icon-colour / --sg-icon-bg, set by
+   sg-guide.js), so they show the PNG you'll download, whatever the theme.  */
+.sg-icon-toolbar {
+  align-items: flex-end;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  margin-block-end: 12px;
+}
+.sg-icon-toolbar .doc-search-wrap { margin-inline-start: auto; }
+.sg-icon-field { display: grid; gap: 6px; }
+.sg-icon-field .doc-tabs { flex-wrap: wrap; }
+.sg-icon-swatch {
+  background: var(--sg-swatch);
+  block-size: 10px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--border-input);
+  display: inline-block;
+  flex: none;
+  inline-size: 10px;
+  margin-inline-end: 6px;
+}
+.sg-icon-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+}
+.sg-icon-preview {
+  background: var(--sg-icon-bg, #0b0d10);
+  block-size: 96px;
+  color: var(--sg-icon-colour, #f5a623);
+}
+.sg-icon-preview svg { block-size: 32px; inline-size: 32px; }
+button.sg-asset-link { background: none; cursor: pointer; font-family: var(--font-sans); }
+.sg-asset-link.is-copied { border-color: var(--green); color: var(--green); }
+.sg-icon-code summary {
+  color: var(--text-3);
+  cursor: pointer;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+}
+.sg-icon-code .sg-code { margin-block-start: 8px; }
+.sg-icon-code .sg-code pre { font-size: 11px; max-height: 220px; padding: 12px !important; }
+@media (max-width: 680px) {
+  .sg-icon-toolbar .doc-search-wrap { inline-size: 100%; margin-inline-start: 0; }
+}
