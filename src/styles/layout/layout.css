@@ -329,10 +329,9 @@ html:has(.theme-checkbox:checked) .chat-wrap {
   .brand-name { display: none; }
 }
 
-/* ── Topbar nav: progressive tab compression ──────────────
-   The topbar pill is primary navigation at every width.
-   Compress tabs progressively so they stay in the header
-   as long as possible before falling back to a scroll.      */
+/* ── Topbar nav: tab compression ─────────────────────────
+   Tabs tighten a little below 1100px. At 1024px and below
+   they move into the Menu dropdown (modules/navigation.css). */
 @media (max-width: 1100px) {
   .tab-btn { padding: 6px 10px; }
 }
@@ -341,11 +340,9 @@ html:has(.theme-checkbox:checked) .chat-wrap {
   /* Tighter tabs + column gap so brand and controls don't
      run flush against the nav pill on iPad.                 */
   [role="banner"] { column-gap: 12px; }
-  .tab-btn         { padding: 5px 9px; }
 }
 
 @media (max-width: 880px) {
-  .tab-btn   { font-size: var(--fs-md); padding: 5px 8px; }
   .brand-sub { display: none; } /* catches no-sidebar pages; sidebar already hides at 1280px */
 }
 
