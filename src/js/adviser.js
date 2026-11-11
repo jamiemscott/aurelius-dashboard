@@ -285,6 +285,8 @@ function buildClientProfile() {
   advSetText('client-name', c.name);
   advSetText('client-crumb', c.name);
   advSetText('client-meta', c.ref + ' · ' + c.tier + ' · ' + c.role + ' · Client since ' + since);
+  var bookBtn = document.getElementById('client-book-review');
+  if (bookBtn) bookBtn.href = '/adviser-dashboard/' + ADVISER.slug + '/reviews/#review-' + c.slug;
 
   advSetText('client-kpi-value', advMoney(c.value, 0));
   advSetText('client-kpi-gain', (c.gain >= 0 ? '+' : '') + advMoney(c.gain, 0) + ' (' + (c.gain >= 0 ? '+' : '') + c.gainPct.toFixed(1) + '%)');
@@ -591,9 +593,306 @@ function buildDashboardRequests() {
 }
 
 
+/* ── Reviews & Meetings ─────────────────────────────────────── */
+
+var DIARY_ICONS = {
+  review:  '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+  'Phone':      '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>',
+  'Video call': '<polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/>',
+  meeting:      '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+};
+
+var DIARY_KINDS = {
+  review:  { label: 'Review',        color: '#F5A623', bg: 'rgba(245,166,35,0.12)' },
+  meeting: { label: 'Meeting',       color: '#3B82F6', bg: 'rgba(59,130,246,0.12)' },
+};
+
+/* extra: clients not yet due whose review was asked for by deep link
+   (Client 360 "Book Review"), so it can be booked early            */
+var diaryState = { filter: 'upcoming', openId: null, extra: [] };
+
+/* One list of everything in the diary. Reviews are derived from
+   client data plus any booking; meetings come straight through.  */
+function advDiary() {
+  var items = [];
+  adviserClients.forEach(function (c) {
+    var b = reviewBookings[c.slug];
+    if (!advReviewDue(c) && !b && diaryState.extra.indexOf(c.slug) === -1) return;
+    items.push({
+      id: 'review-' + c.slug, kind: 'review', client: c.slug, title: 'Annual review',
+      due: c.nextReview, at: b ? b.at : null, where: b ? b.where : null,
+      booking: b || null, done: !!(b && b.stage >= REVIEW_STAGES.length),
+    });
+  });
+  adviserMeetings.forEach(function (m) {
+    items.push({ id: m.id, kind: 'meeting', client: m.client, title: m.title, at: m.at, where: m.where, agenda: m.agenda, meeting: m, done: !!m.held });
+  });
+  return items;
+}
+
+function advDiaryWhen(item) {
+  if (!item.at) return 'Due ' + advDate(item.due);
+  var t = new Date(item.at + ':00Z');
+  return t.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' }) + ', ' +
+    t.toLocaleTimeString('en-GB', { hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'UTC' }).replace(' ', ' ');
+}
+
+function advDiaryStatus(item) {
+  if (item.kind === 'meeting') return item.done ? { label: 'Held', tone: 'success' } : { label: 'Booked', tone: '' };
+  if (item.done) return { label: 'Complete', tone: 'success' };
+  if (!item.booking) return advDaysUntil(item.due) < 0 ? { label: 'Overdue · not booked', tone: 'error' } : { label: 'Not booked', tone: 'warning' };
+  var stage = REVIEW_STAGES[item.booking.stage];
+  return { label: stage.status, tone: item.booking.stage >= 2 ? 'warning' : '' };
+}
+
+/* Monday of the week an ISO date falls in, as ISO */
+function advWeekStart(iso) {
+  var d = new Date(iso.slice(0, 10) + 'T00:00:00Z');
+  var dow = (d.getUTCDay() + 6) % 7;
+  d.setUTCDate(d.getUTCDate() - dow);
+  return d.toISOString().slice(0, 10);
+}
+
+function advWeekLabel(weekIso) {
+  var thisWeek = advWeekStart(AS_AT);
+  var diff = Math.round((Date.parse(weekIso) - Date.parse(thisWeek)) / (7 * 864e5));
+  var start = new Date(weekIso + 'T00:00:00Z');
+  var end = new Date(start); end.setUTCDate(end.getUTCDate() + 6);
+  var fmt = function (d) { return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' }); };
+  var range = fmt(start) + ' – ' + fmt(end);
+  if (diff === 0)  return 'This week · ' + range;
+  if (diff === 1)  return 'Next week · ' + range;
+  if (diff === -1) return 'Last week · ' + range;
+  return 'Week of ' + fmt(start);
+}
+
+var diaryFilters = {
+  upcoming:  { test: function (i) { return !i.done; } },
+  reviews:   { test: function (i) { return i.kind === 'review' && !i.done; } },
+  completed: { test: function (i) { return i.done; } },
+};
+
+function buildReviewsPage() {
+  var list = document.getElementById('diary-list');
+  if (!list) return;
+  var tabs = document.getElementById('diary-tabs');
+
+  function row(item) {
+    var c = advClient(item.client);
+    var kind = DIARY_KINDS[item.kind];
+    var st = advDiaryStatus(item);
+    var icon = item.kind === 'review' ? DIARY_ICONS.review : (DIARY_ICONS[item.where] || DIARY_ICONS.meeting);
+    return '<button class="doc-entry" type="button" popovertarget="diary-drawer" data-item="' + item.id + '">' +
+      '<span class="doc-entry-icon" style="--doc-cat-color:' + kind.color + ';--doc-cat-bg:' + kind.bg + '" aria-hidden="true">' +
+        '<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">' + icon + '</svg></span>' +
+      '<span class="doc-entry-body">' +
+        '<span class="doc-entry-name">' + c.name + ' — ' + item.title + '</span>' +
+        '<span class="doc-entry-meta">' +
+          '<span class="doc-cat-chip" style="--doc-cat-color:' + kind.color + '">' + kind.label + '</span>' +
+          (item.where ? '<span class="doc-meta-dot">·</span><span>' + item.where + '</span>' : '') +
+          (item.kind === 'review' && item.at && !item.done ?'<span class="doc-meta-dot">·</span><span>Due ' + advDate(item.due) + '</span>' : '') +
+        '</span>' +
+      '</span>' +
+      '<span class="doc-entry-date">' + advDiaryWhen(item) + '</span>' +
+      advTag(st.label, st.tone) +
+    '</button>';
+  }
+
+  function group(label, items) {
+    return '<div class="doc-group"><div class="doc-group-hd"><span class="doc-group-label">' + label + '</span>' +
+      '<span class="doc-group-count">' + items.length + '</span></div>' +
+      '<div class="card">' + items.map(row).join('') + '</div></div>';
+  }
+
+  function render() {
+    var all = advDiary();
+    Object.keys(diaryFilters).forEach(function (k) {
+      advSetText('diary-count-' + k, String(all.filter(diaryFilters[k].test).length));
+    });
+    var unbooked = all.filter(function (i) { return i.kind === 'review' && !i.booking; });
+    var overdue = unbooked.filter(function (i) { return advDaysUntil(i.due) < 0; }).length;
+    var thisWeek = all.filter(function (i) { return i.at && !i.done && advWeekStart(i.at) === advWeekStart(AS_AT); }).length;
+    advSetText('diary-summary', thisWeek + ' this week · ' + unbooked.length + ' review' + (unbooked.length === 1 ? '' : 's') + ' to book' + (overdue ? ' (' + overdue + ' overdue)' : ''));
+
+    var items = all.filter(diaryFilters[diaryState.filter].test);
+    if (!items.length) {
+      list.innerHTML = '<div class="card empty-state">' +
+        '<svg aria-hidden="true" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">' + DIARY_ICONS.review + '</svg>' +
+        '<div>Nothing here</div><div class="empty-state-sub">Booked reviews and meetings will appear here.</div></div>';
+      return;
+    }
+
+    var html = '';
+    if (diaryState.filter === 'completed') {
+      items.sort(function (a, b) { return (b.at || b.due).localeCompare(a.at || a.due); });
+      html = group('Completed', items);
+    } else {
+      /* Unbooked reviews first: they need action before they can sit in a week */
+      var toBook = items.filter(function (i) { return !i.at; }).sort(function (a, b) { return a.due.localeCompare(b.due); });
+      if (toBook.length) html += group('To book', toBook);
+      var weeks = {};
+      items.filter(function (i) { return i.at; })
+        .sort(function (a, b) { return a.at.localeCompare(b.at); })
+        .forEach(function (i) { var w = advWeekStart(i.at); (weeks[w] = weeks[w] || []).push(i); });
+      Object.keys(weeks).sort().forEach(function (w) { html += group(advWeekLabel(w), weeks[w]); });
+    }
+    list.innerHTML = html;
+  }
+
+  if (tabs) tabs.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-filter]');
+    if (!btn) return;
+    diaryState.filter = btn.dataset.filter;
+    tabs.querySelectorAll('[data-filter]').forEach(function (b) {
+      var on = b === btn;
+      b.classList.toggle('is-active', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
+    render();
+  });
+
+  list.addEventListener('click', function (e) {
+    var row = e.target.closest('[data-item]');
+    if (!row) return;
+    diaryState.openId = row.dataset.item;
+    renderDiaryDrawer();
+  });
+
+  var drawer = document.getElementById('diary-drawer');
+  if (drawer) {
+    drawer.addEventListener('toggle', function (e) { if (e.newState === 'closed') render(); });
+    drawer.addEventListener('change', function (e) {
+      if (!e.target.matches('[data-check]')) return;
+      var item = advDiary().find(function (i) { return i.id === diaryState.openId; });
+      var b = item && item.booking;
+      if (!b) return;
+      var n = Number(e.target.dataset.check);
+      b.done = b.done.filter(function (x) { return x !== n; });
+      if (e.target.checked) b.done.push(n);
+      advSyncAdvance(b);
+    });
+    drawer.addEventListener('click', function (e) {
+      var act = e.target.closest('[data-action]');
+      if (!act) return;
+      var item = advDiary().find(function (i) { return i.id === diaryState.openId; });
+      if (!item) return;
+      if (act.dataset.action === 'book')    advBookReview(item);
+      if (act.dataset.action === 'advance') { item.booking.stage += 1; item.booking.done = []; }
+      if (act.dataset.action === 'held')    item.meeting.held = true;
+      renderDiaryDrawer();
+    });
+  }
+
+  /* Deep link: /reviews/#review-basil-fawlty or #MT-2611-031 */
+  var hashId = window.location.hash.slice(1);
+  var hashSlug = hashId.indexOf('review-') === 0 ? hashId.slice(7) : '';
+  if (hashSlug && advClient(hashSlug)) diaryState.extra.push(hashSlug);
+  render();
+  if (hashId && drawer && advDiary().some(function (i) { return i.id === hashId; })) {
+    var target = list.querySelector('[data-item="' + hashId + '"]');
+    if (!target && tabs) { tabs.querySelector('[data-filter="completed"]').click(); target = list.querySelector('[data-item="' + hashId + '"]'); }
+    if (target) { diaryState.openId = hashId; renderDiaryDrawer(); drawer.showPopover(); }
+  }
+}
+
+function advSyncAdvance(b) {
+  var btn = document.querySelector('#diary-drawer [data-action="advance"]');
+  if (btn) btn.disabled = b.done.length < REVIEW_STAGES[b.stage].checks.length;
+}
+
+function advBookReview(item) {
+  var date = document.getElementById('book-date').value;
+  var time = document.getElementById('book-time').value;
+  var where = document.getElementById('book-where').value;
+  if (!date) { document.getElementById('book-date').focus(); return; }
+  reviewBookings[item.client] = { at: date + 'T' + time, where: where, stage: 0, done: [] };
+}
+
+function renderDiaryDrawer() {
+  var item = advDiary().find(function (i) { return i.id === diaryState.openId; });
+  if (!item) return;
+  var c = advClient(item.client);
+  var st = advDiaryStatus(item);
+  var reviewRow = function (label, value) {
+    return '<div class="review-row"><span class="review-row-label">' + label + '</span><span class="review-row-value">' + value + '</span></div>';
+  };
+
+  advSetText('diary-drawer-media', advInitials(c.name));
+  advSetText('diary-drawer-title', item.title);
+  var sub = document.getElementById('diary-drawer-subtitle');
+  if (sub) sub.innerHTML = advTag(st.label, st.tone) + ' <a href="' + advClientUrl(c.slug) + '">' + c.name + '</a> · ' + c.ref + ' · ' + c.tier;
+
+  var body = document.getElementById('diary-drawer-body');
+  var foot = document.getElementById('diary-drawer-footer');
+  var html = '', footer = '';
+
+  if (item.kind === 'review') {
+    var b = item.booking;
+    var stage = b ? b.stage : -1;
+    /* Progress shows once booked and until complete: one step is always active */
+    if (b && !item.done) html += '<div class="steps" role="list" aria-label="Review progress">' + REVIEW_STAGES.map(function (s, n) {
+      var cls = n < stage ? ' is-complete' : n === stage ? ' is-active' : '';
+      var num = n < stage ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>' : (n + 1);
+      return (n ? '<div class="step-connector' + (n <= stage ? ' is-complete' : '') + '" aria-hidden="true"></div>' : '') +
+        '<div class="step' + cls + '" role="listitem"' + (n === stage ? ' aria-current="step"' : '') + '>' +
+        '<div class="step-num" aria-hidden="true">' + num + '</div><span class="step-label">' + s.label + '</span></div>';
+    }).join('') + '</div>';
+
+    html += '<div class="review-card">' +
+      reviewRow('Review due', advDate(item.due) + ' ' + advDueTag(item.due, 'Overdue')) +
+      reviewRow('Booked for', item.at ? advDiaryWhen(item) : 'Not booked') +
+      (item.where ? reviewRow('Location', item.where) : '') +
+      reviewRow('Last review', advDate(c.lastReview)) +
+      reviewRow('Portfolio', advMoney(c.value, 0)) +
+      '</div>';
+
+    if (!b) {
+      var suggested = advDaysUntil(item.due) < 0 ? '2026-11-18' : item.due;
+      html += '<h3 class="section-heading">Book the review</h3>' +
+        '<div class="drawer-fields">' +
+          '<div class="field-row">' +
+            '<div class="field"><label class="field-label" for="book-date">Date</label><input class="det-input" type="date" id="book-date" min="' + AS_AT + '" value="' + suggested + '"></div>' +
+            '<div class="field"><label class="field-label" for="book-time">Time</label><select class="det-select" id="book-time">' +
+              ['09:00', '10:00', '11:00', '12:00', '14:00', '15:00', '16:00'].map(function (t) { return '<option' + (t === '10:00' ? ' selected' : '') + '>' + t + '</option>'; }).join('') +
+            '</select></div>' +
+          '</div>' +
+          '<div class="field"><label class="field-label" for="book-where">Location</label><select class="det-select" id="book-where">' +
+            MEETING_PLACES.map(function (p) { return '<option>' + p + '</option>'; }).join('') + '</select></div>' +
+        '</div>';
+      footer = '<button class="btn-primary" type="button" data-action="book">Book review</button>';
+    } else if (!item.done) {
+      var s = REVIEW_STAGES[b.stage];
+      var next = REVIEW_STAGES[b.stage + 1];
+      html += '<h3 class="section-heading">' + s.label + ' checklist</h3><div>' + s.checks.map(function (label, n) {
+        return '<label class="form-checkbox-row"><input type="checkbox" data-check="' + n + '"' + (b.done.indexOf(n) !== -1 ? ' checked' : '') + '>' +
+          '<span class="form-checkbox-text">' + label + '</span></label>';
+      }).join('') + '</div>';
+      footer = '<button class="btn-primary" type="button" data-action="advance"' + (b.done.length < s.checks.length ? ' disabled' : '') + '>' +
+        (next ? 'Move to ' + next.label : 'Complete review') + '</button>';
+    } else {
+      html += '<div class="empty-state">' +
+        '<svg aria-hidden="true" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>' +
+        '<div>Review complete</div><div class="empty-state-sub">Next review due ' + advDate(c.nextReview) + '.</div></div>';
+    }
+  } else {
+    html += '<div class="review-card">' +
+      reviewRow('When', advDiaryWhen(item)) +
+      reviewRow('Where', item.where) +
+      reviewRow('Reference', item.id) +
+      '</div>' +
+      '<h3 class="section-heading">Agenda</h3><p class="det-section-sub">' + item.agenda + '</p>';
+    if (!item.done) footer = '<button class="btn-primary" type="button" data-action="held">Mark as held</button>';
+  }
+
+  if (body) body.innerHTML = html;
+  if (foot) { foot.innerHTML = footer; foot.hidden = !footer; }
+}
+
+
 document.addEventListener('DOMContentLoaded', function () {
   buildAdviserDashboard();
   buildDashboardRequests();
+  buildReviewsPage();
   buildClientBook();
   buildClientProfile();
   buildAdviceRequests();

@@ -187,3 +187,44 @@ const adviceRequests = [
       { from: 'adviser', at: '2026-09-14T10:30', text: 'Victor, I’m sorry. A print run was delayed at our supplier. Your statements are now also in Documents the day they’re produced, so you won’t have to wait for the post.' },
     ] },
 ];
+
+
+/* ─── REVIEWS & MEETINGS ────────────────────────────────────────
+   Reviews come from each client's nextReview (adviserClients), so
+   the dashboard, Client Book and this page always agree on what is
+   due. reviewBookings adds the diary side: when it is booked, where,
+   and how far through the review workflow it is. A due review with
+   no booking shows as "Not booked".
+
+   Workflow stages, each with a checklist that must be complete
+   before moving on:
+     0 Prepare · 1 Meet · 2 Report · 3 Sign-off · 4 Complete      */
+
+const REVIEW_STAGES = [
+  { label: 'Prepare',  status: 'Preparing',     checks: ['Fact-find updated', 'Valuation pack generated', 'Risk profile re-confirmed', 'Agenda sent to client'] },
+  { label: 'Meet',     status: 'Meeting',       checks: ['Objectives and circumstances reviewed', 'Attitude to risk confirmed with client', 'Meeting notes recorded'] },
+  { label: 'Report',   status: 'Report due',    checks: ['Suitability report drafted', 'Compliance check passed', 'Report sent to client'] },
+  { label: 'Sign-off', status: 'Awaiting sign-off', checks: ['Client acknowledged report', 'Next review date set'] },
+];
+
+const MEETING_PLACES = ['Office · Mayfair', 'Video call', 'Phone', 'Client’s home'];
+
+const reviewBookings = {
+  'basil-fawlty':    { at: '2026-11-19T10:00', where: 'Client’s premises · Torquay', stage: 0, done: [0, 1] },
+  'hyacinth-bucket': { at: '2026-11-27T14:30', where: 'Client’s home', stage: 0, done: [] },
+  'sumant-kumar':    { at: '2026-09-15T10:00', where: 'Office · Mayfair', stage: 4, done: [], completed: true },
+};
+
+/* Other diary items: calls and meetings that are not reviews */
+const adviserMeetings = [
+  { id: 'MT-2611-031', client: 'hyacinth-bucket', title: 'Gifting and IHT call',          at: '2026-11-12T10:00', where: 'Phone',
+    agenda: 'Talk through gifting £40,000: the seven-year rule, annual exemptions and gifts from surplus income.' },
+  { id: 'MT-2611-032', client: 'frasier-crane',   title: 'SIPP drawdown discussion',      at: '2026-11-12T15:30', where: 'Video call',
+    agenda: 'Tax-free cash vs. taxable income, the effect on long-term income, and the Money Purchase Annual Allowance.' },
+  { id: 'MT-2611-033', client: 'derek-trotter',   title: 'Investing new money',           at: '2026-11-13T12:00', where: 'Office · Mayfair',
+    agenda: 'Investing £15,000: objectives, time horizon and capacity for loss before any recommendation.' },
+  { id: 'MT-2611-038', client: 'jim-rockford',    title: 'ISA top-up',                    at: '2026-11-17T09:30', where: 'Phone',
+    agenda: 'Confirm the £20,000 subscription and fund choice for this tax year.' },
+  { id: 'MT-2611-024', client: 'margo-leadbetter', title: 'ESG portfolio options',        at: '2026-11-04T15:00', where: 'Video call', held: true,
+    agenda: 'Present three ESG model portfolios at the current risk level.' },
+];
