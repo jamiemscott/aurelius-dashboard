@@ -34,7 +34,7 @@
       <a class="tab-btn is-active" href="/adviser-dashboard/james-whitmore/" aria-current="page">Dashboard</a>
       <a class="tab-btn" href="/adviser-dashboard/james-whitmore/clients/">Client Book</a>
       <a class="tab-btn" href="#">Reviews</a>              <!-- placeholder -->
-      <a class="tab-btn" href="#">Advice Requests</a>      <!-- placeholder -->
+      <a class="tab-btn" href="/adviser-dashboard/james-whitmore/advice-requests/">Advice Requests</a>
       <a class="tab-btn" href="#">Compliance</a>           <!-- placeholder -->
     </nav>
 
@@ -79,7 +79,7 @@
         <span>Reviews &amp; Meetings</span>
         <span class="nav-badge">2</span>
       </a>
-      <a class="nav-item" href="#"> <!-- placeholder -->
+      <a class="nav-item" href="/adviser-dashboard/james-whitmore/advice-requests/">
         <svg class="nav-icon" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         <span>Advice Requests</span>
         <span class="nav-badge">4</span>
@@ -240,56 +240,11 @@
         <div class="chart-header">
           <div>
             <h2 class="chart-title">Advice Requests</h2>
-            <div class="chart-subtitle">4 awaiting your response</div>
+            <div class="chart-subtitle" id="adv-requests-sub">4 awaiting your response</div>
           </div>
-          <a class="btn-secondary btn-secondary--sm" href="#">View all</a> <!-- placeholder -->
+          <a class="btn-secondary btn-secondary--sm" href="/adviser-dashboard/james-whitmore/advice-requests/">View all</a>
         </div>
-        <div>
-          <div class="activity-item">
-            <div class="activity-icon is-div" aria-hidden="true"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-            <div class="activity-body">
-              <div class="activity-title"><a href="/adviser-dashboard/james-whitmore/clients/hyacinth-bucket/">Hyacinth Bucket</a></div>
-              <div class="activity-sub">Gifting to grandchildren · IHT planning</div>
-            </div>
-            <div class="activity-figures">
-              <div class="activity-amount">£40,000</div>
-              <div class="activity-time">Today, 9:12 am</div>
-            </div>
-          </div>
-          <div class="activity-item">
-            <div class="activity-icon is-div" aria-hidden="true"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-            <div class="activity-body">
-              <div class="activity-title"><a href="/adviser-dashboard/james-whitmore/clients/frasier-crane/">Frasier Crane</a></div>
-              <div class="activity-sub">Pension drawdown · SIPP review</div>
-            </div>
-            <div class="activity-figures">
-              <div class="activity-amount">£250,000</div>
-              <div class="activity-time">Yesterday</div>
-            </div>
-          </div>
-          <div class="activity-item">
-            <div class="activity-icon is-div" aria-hidden="true"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-            <div class="activity-body">
-              <div class="activity-title"><a href="/adviser-dashboard/james-whitmore/clients/derek-trotter/">Derek Trotter</a></div>
-              <div class="activity-sub">Lump-sum investment · New money</div>
-            </div>
-            <div class="activity-figures">
-              <div class="activity-amount">£15,000</div>
-              <div class="activity-time">9 Nov</div>
-            </div>
-          </div>
-          <div class="activity-item">
-            <div class="activity-icon is-div" aria-hidden="true"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-            <div class="activity-body">
-              <div class="activity-title"><a href="/adviser-dashboard/james-whitmore/clients/jim-rockford/">Jim Rockford</a></div>
-              <div class="activity-sub">ISA top-up · Use this year's allowance</div>
-            </div>
-            <div class="activity-figures">
-              <div class="activity-amount">£20,000</div>
-              <div class="activity-time">6 Nov</div>
-            </div>
-          </div>
-        </div>
+        <div id="adv-requests"></div>
       </div>
     </div>
 
