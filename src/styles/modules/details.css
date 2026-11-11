@@ -54,20 +54,9 @@
 .det-field-val { color: var(--text-1); flex: 1; font-size: var(--fs-ui); font-weight: var(--fw-medium); }
 .det-field-val.muted { color: var(--text-3); font-style: italic; font-weight: var(--fw-regular); }
 
-/* Verified badge (inline) */
-.det-verified-badge {
-  align-items: center;
-  background: var(--green-dim);
-  border-radius: 99px;
-  color: var(--green);
-  display: inline-flex;
-  font-size: var(--fs-badge);
-  font-weight: var(--fw-bold);
-  gap: 4px;
-  letter-spacing: 0.3px;
-  margin-inline-start: 8px;
-  padding: 2px 8px;
-}
+/* Verified badge: shared .status-tag--success (cards.css),
+   spaced off the value it qualifies */
+.det-field-val .status-tag { margin-inline-start: 8px; }
 
 /* Status dot */
 .det-status-dot {
@@ -272,19 +261,7 @@
 
 .det-revoke-btn:hover { background: var(--red-dim); color: var(--red); }
 
-/* Login status badge */
-.det-status-badge {
-  align-items: center;
-  border-radius: 99px;
-  display: inline-flex;
-  font-size: var(--fs-sm);
-  font-weight: var(--fw-semibold);
-  gap: 4px;
-  padding: 2px 8px;
-}
-
-.det-status-badge.is-success { background: var(--green-dim); color: var(--green); }
-.det-status-badge.is-failed  { background: var(--red-dim); color: var(--red); }
+/* Login status badge: shared .status-tag (cards.css) */
 
 /* Contact preference segmented control */
 .det-pref-group {

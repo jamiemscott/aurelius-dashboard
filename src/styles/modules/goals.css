@@ -367,19 +367,7 @@ html:has(.theme-checkbox:checked) .gl-hero-stats {
   justify-content: space-between;
 }
 
-/* Status badge */
-.gl-status {
-  border-radius: 99px;
-  font-size: var(--fs-badge);
-  font-weight: var(--fw-semibold);
-  letter-spacing: 0.3px;
-  padding: 4px 10px;
-}
-
-.gl-status--good     { background: var(--green-dim); color: var(--green); }
-.gl-status--warn     { background: rgba(251,191,36,0.12); color: #FBBF24; }
-.gl-status--bad      { background: var(--red-dim); color: var(--red); }
-.gl-status--complete { background: var(--gold-dim); color: var(--gold); }
+/* Status badge: shared .status-tag (cards.css) */
 
 /* Adjust button — uses shared .btn-secondary--sm */
 

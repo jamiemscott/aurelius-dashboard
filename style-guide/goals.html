@@ -59,7 +59,7 @@
               <span class="gl-card-date">Target: Dec 2026</span>
             </div>
             <div class="gl-card-actions">
-              <span class="gl-status gl-status--good">On track</span>
+              <span class="status-tag status-tag--success">On track</span>
               <button class="btn-secondary btn-secondary--sm">Adjust</button>
             </div>
           </div>
@@ -90,7 +90,7 @@
       &lt;span class="gl-card-date"&gt;Target: Dec 2026&lt;/span&gt;
     &lt;/div&gt;
     &lt;div class="gl-card-actions"&gt;
-      &lt;span class="gl-status gl-status--good"&gt;On track&lt;/span&gt;
+      &lt;span class="status-tag status-tag--success"&gt;On track&lt;/span&gt;
       &lt;button class="btn-secondary btn-secondary--sm"&gt;Adjust&lt;/button&gt;
     &lt;/div&gt;
   &lt;/div&gt;
@@ -102,20 +102,20 @@
     <section class="sg-section" id="status-badges">
       <div class="sg-section-header">
         <h2 class="sg-section-title">Status Badges</h2>
-        <p class="sg-section-desc">Four status modifier classes for the goal card badge. Always pair with <code>.gl-status</code> base class.</p>
+        <p class="sg-section-desc">Goal cards use the shared <code>.status-tag</code> (see Data Display). On track is <code>--success</code>, behind is <code>--warning</code>, at risk is <code>--error</code> and complete is <code>--gold</code>.</p>
       </div>
       <div class="sg-demo sg-demo--grid">
-        <span class="gl-status gl-status--good">On track</span>
-        <span class="gl-status gl-status--warn">Behind</span>
-        <span class="gl-status gl-status--bad">At risk</span>
-        <span class="gl-status gl-status--complete">Complete</span>
+        <span class="status-tag status-tag--success">On track</span>
+        <span class="status-tag status-tag--warning">Behind</span>
+        <span class="status-tag status-tag--error">At risk</span>
+        <span class="status-tag status-tag--gold">Complete</span>
       </div>
       <div class="sg-code">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
-        <pre><code class="language-html">&lt;span class="gl-status gl-status--good"&gt;On track&lt;/span&gt;
-&lt;span class="gl-status gl-status--warn"&gt;Behind&lt;/span&gt;
-&lt;span class="gl-status gl-status--bad"&gt;At risk&lt;/span&gt;
-&lt;span class="gl-status gl-status--complete"&gt;Complete&lt;/span&gt;</code></pre>
+        <pre><code class="language-html">&lt;span class="status-tag status-tag--success"&gt;On track&lt;/span&gt;
+&lt;span class="status-tag status-tag--warning"&gt;Behind&lt;/span&gt;
+&lt;span class="status-tag status-tag--error"&gt;At risk&lt;/span&gt;
+&lt;span class="status-tag status-tag--gold"&gt;Complete&lt;/span&gt;</code></pre>
       </div>
     </section>
 

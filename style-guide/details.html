@@ -29,7 +29,7 @@
     <section class="sg-section" id="field-rows">
       <div class="sg-section-header">
         <h2 class="sg-section-title">Field Rows (<code>.det-field-row</code>)</h2>
-        <p class="sg-section-desc">The primary display unit for account data. A flex row with a fixed-width label (<code>.det-field-label</code>, min-width 148px) and a value column (<code>.det-field-val</code>). Add <code>.det-verified-badge</code> inside the value to display a verified tick.</p>
+        <p class="sg-section-desc">The primary display unit for account data. A flex row with a fixed-width label (<code>.det-field-label</code>, min-width 148px) and a value column (<code>.det-field-val</code>). Add <code>.status-tag status-tag--success</code> inside the value to display a verified tick.</p>
       </div>
       <div class="sg-demo">
         <div class="det-section">
@@ -42,7 +42,7 @@
             <div class="det-field-label">Email</div>
             <div class="det-field-val">
               james.scott@example.com
-              <span class="det-verified-badge">Verified</span>
+              <span class="status-tag status-tag--success">Verified</span>
             </div>
           </div>
           <div class="det-field-row">
@@ -65,7 +65,7 @@
     &lt;div class="det-field-label"&gt;Email&lt;/div&gt;
     &lt;div class="det-field-val"&gt;
       james.scott@example.com
-      &lt;span class="det-verified-badge"&gt;Verified&lt;/span&gt;
+      &lt;span class="status-tag status-tag--success"&gt;Verified&lt;/span&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
@@ -134,13 +134,13 @@
     <section class="sg-section" id="sessions">
       <div class="sg-section-header">
         <h2 class="sg-section-title">Session Rows (<code>.det-session-row</code>)</h2>
-        <p class="sg-section-desc">Displays active login sessions with device info, location, last-seen time, and a revoke button. Combine with <code>.det-status-badge</code> for "Current session" / "Active" labelling.</p>
+        <p class="sg-section-desc">Displays active login sessions with device info, location, last-seen time, and a revoke button. Combine with the shared <code>.status-tag</code> for "Current session" / "Active" labelling.</p>
       </div>
       <div class="sg-demo">
         <div class="det-section sg-fit-form">
           <div class="det-session-row">
             <div>
-              <div class="sg-item-title">MacBook Pro — Chrome 120 <span class="det-status-badge">Current</span></div>
+              <div class="sg-item-title">MacBook Pro — Chrome 120 <span class="status-tag status-tag--gold">Current</span></div>
               <div class="sg-meta">London, UK · Active now</div>
             </div>
           </div>
@@ -158,7 +158,7 @@
         <pre><code class="language-html">&lt;div class="det-session-row"&gt;
   &lt;div&gt;
     &lt;div&gt;MacBook Pro — Chrome 120
-      &lt;span class="det-status-badge"&gt;Current&lt;/span&gt;
+      &lt;span class="status-tag status-tag--gold"&gt;Current&lt;/span&gt;
     &lt;/div&gt;
     &lt;div&gt;London, UK · Active now&lt;/div&gt;
   &lt;/div&gt;
