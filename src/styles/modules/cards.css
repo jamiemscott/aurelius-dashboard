@@ -208,6 +208,14 @@
   .kpi-group { grid-template-columns: 1fr 1fr; }
 }
 
+/* Phone: two cards side by side leave ~80px for the figure,
+   which clips anything longer than about six characters
+   (£842,340, £6,893,830). Stack them so every figure keeps
+   its full 26px size.                                       */
+@media (max-width: 480px) {
+  .kpi-group { grid-template-columns: 1fr; }
+}
+
 /* Vertical rhythm between stacked cards */
 .card-gap { margin-block-end: 20px; }
 
@@ -230,5 +238,37 @@
   padding: 2px var(--space-m);
 }
 
-.status-tag--up { background: var(--green-dim); color: var(--green); }
-.status-tag--down { background: var(--red-dim); color: var(--red); }
+/* Tones. --up / --down read as gain and loss in figures;
+   --success / --error read as an outcome (verified, failed).
+   They share colours on purpose. --warning is for things that
+   need attention soon; --gold highlights without alarm
+   (Platinum tier, goal complete).                          */
+.status-tag--up,
+.status-tag--success { background: var(--status-success-dim); color: var(--status-success); }
+.status-tag--down,
+.status-tag--error   { background: var(--status-error-dim);   color: var(--status-error); }
+.status-tag--warning { background: var(--status-warning-dim); color: var(--status-warning); }
+.status-tag--gold    { background: var(--gold-dim);           color: var(--gold-text); }
+
+/* An icon inside the tag (e.g. a verified tick) follows the text */
+.status-tag svg { flex-shrink: 0; }
+
+/* Empty state: shown in place of a list, table or panel that has
+   nothing in it. A muted icon, a message, and optionally a line
+   of copy in .empty-state-sub. Inside a table, put it in a single
+   cell that spans every column.                                  */
+.empty-state {
+  align-items: center;
+  color: var(--text-2);
+  display: flex;
+  flex-direction: column;
+  font-size: var(--fs-ui);
+  gap: var(--space-s);
+  justify-content: center;
+  padding: 56px 24px;
+  text-align: center;
+  white-space: normal;
+}
+
+.empty-state svg { color: var(--text-3); margin-block-end: var(--space-xs); opacity: 0.6; }
+.empty-state-sub { color: var(--text-3); font-size: var(--fs-md); }

@@ -606,8 +606,8 @@ function renderDocList() {
 
   if (filtered.length === 0) {
     html = `
-      <div class="doc-empty">
-        <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" class="doc-empty-icon"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      <div class="empty-state">
+        <svg aria-hidden="true" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
         <div>No documents found</div>
       </div>`;
   }
@@ -996,7 +996,7 @@ function renderContactTab() {
   var pEdit = detailsState.editing.has('phone');
   var aEdit = detailsState.editing.has('address');
 
-  var verifiedBadge = `<span class="det-verified-badge"><svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Verified</span>`;
+  var verifiedBadge = `<span class="status-tag status-tag--success"><svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Verified</span>`;
 
   var emailFields = eEdit ? `
     ${detRow('Primary Email', null, `<input class="det-input" type="email" data-field="emailPrimary" value="${d.emailPrimary}">`)}
@@ -1192,7 +1192,7 @@ function renderSecurityTab() {
                 <td class="det-history-meta">${l.date}</td>
                 <td>${l.device}</td>
                 <td class="det-history-meta">${l.location}</td>
-                <td><span class="det-status-badge is-${l.status}">${l.status === 'success' ? '✓ Success' : '✕ Failed'}</span></td>
+                <td><span class="status-tag status-tag--${l.status === 'success' ? 'success' : 'error'}">${l.status === 'success' ? '✓ Success' : '✕ Failed'}</span></td>
               </tr>`;
             }).join('')}
           </tbody>

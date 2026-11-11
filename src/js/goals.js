@@ -87,10 +87,10 @@ function glStatus(goal) {
   var monthsLeft   = glMonthsUntil(goal.targetDate);
   var monthsNeeded = glMonthsNeeded(goal.target, goal.saved, goal.monthlyContrib);
   var pct          = goal.saved / goal.target;
-  if (pct >= 1)                            return { label: 'Complete 🎉',      cls: 'gl-status--complete' };
-  if (monthsNeeded <= monthsLeft * 1.05)   return { label: 'On track',        cls: 'gl-status--good'     };
-  if (monthsNeeded <= monthsLeft * 1.3)    return { label: 'Worth a look',    cls: 'gl-status--warn'     };
-  return                                          { label: 'Needs attention', cls: 'gl-status--bad'      };
+  if (pct >= 1)                            return { label: 'Complete 🎉',      cls: 'status-tag--gold'     };
+  if (monthsNeeded <= monthsLeft * 1.05)   return { label: 'On track',        cls: 'status-tag--success'  };
+  if (monthsNeeded <= monthsLeft * 1.3)    return { label: 'Worth a look',    cls: 'status-tag--warning'  };
+  return                                          { label: 'Needs attention', cls: 'status-tag--error'    };
 }
 
 /* ── Slider fill sync ───────────────────────────────────────── */
@@ -192,7 +192,7 @@ function glRenderCard(goal) {
           '<span class="gl-card-date">', glFriendlyDate(goal.targetDate), '</span>',
         '</div>',
         '<div class="gl-card-actions">',
-          '<span class="gl-status ', status.cls, '">', status.label, '</span>',
+          '<span class="status-tag ', status.cls, '">', status.label, '</span>',
           '<button class="btn-secondary btn-secondary--sm"',
             ' data-action="adjust" data-id="', goal.id, '"',
             ' aria-label="Adjust ', goal.name, ' goal">',

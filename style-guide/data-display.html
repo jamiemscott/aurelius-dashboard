@@ -155,8 +155,8 @@
     <!-- ── Status Tags ────────────────────────────────────── -->
     <section class="sg-section" id="status-tags">
       <div class="sg-section-header">
-        <h2 class="sg-section-title">Status Tags — Gain &amp; Loss</h2>
-        <p class="sg-section-desc">Inline pill tags for gain/loss status in tables and detail views. Use <code>--green</code>/<code>--green-dim</code> for gains and <code>--red</code>/<code>--red-dim</code> for losses. Include a directional prefix (<code>+</code> or <code>−</code>) and a textual label — never use colour alone to communicate direction.</p>
+        <h2 class="sg-section-title">Status Tags</h2>
+        <p class="sg-section-desc">The one inline status pill for the whole site: tables, detail views, goal cards and adviser lists. Tones: <code>--up</code> / <code>--down</code> for gain and loss in figures; <code>--success</code> / <code>--error</code> for outcomes (verified, failed, expired); <code>--warning</code> for things that need attention soon; <code>--gold</code> to highlight without alarm (Platinum tier, goal complete). No modifier is neutral. Always include a text label, and a <code>+</code> / <code>−</code> prefix for figures — never use colour alone.</p>
       </div>
       <div class="sg-demo sg-demo--grid">
         <span class="status-tag status-tag--up">
@@ -170,6 +170,10 @@
         <span class="status-tag">
           Neutral
         </span>
+        <span class="status-tag status-tag--success">Verified</span>
+        <span class="status-tag status-tag--warning">In 8 days</span>
+        <span class="status-tag status-tag--error">Overdue</span>
+        <span class="status-tag status-tag--gold">Platinum</span>
       </div>
       <div class="sg-code">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
@@ -181,7 +185,39 @@
 &lt;!-- Loss tag --&gt;
 &lt;span class="status-tag status-tag--down"&gt;
   −1.4% Loss
-&lt;/span&gt;</code></pre>
+&lt;/span&gt;
+
+&lt;!-- Outcome and attention tones --&gt;
+&lt;span class="status-tag status-tag--success"&gt;Verified&lt;/span&gt;
+&lt;span class="status-tag status-tag--warning"&gt;In 8 days&lt;/span&gt;
+&lt;span class="status-tag status-tag--error"&gt;Overdue&lt;/span&gt;
+&lt;span class="status-tag status-tag--gold"&gt;Platinum&lt;/span&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Empty State ────────────────────────────────────── -->
+    <section class="sg-section" id="empty-state">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Empty State</h2>
+        <p class="sg-section-desc">Shown in place of a list, table or panel with nothing in it — documents with no matches, an empty notifications drawer, a KYC table with nothing expiring. A muted icon, a message, and an optional <code>.empty-state-sub</code> line. In a table, place it in one cell that spans every column. The notifications drawer adds <code>.np-empty</code>, which only hides it until the list is empty.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="card empty-state">
+          <svg aria-hidden="true" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <div>No KYC documents expiring</div>
+          <div class="empty-state-sub">Nothing is due in the next 60 days.</div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="empty-state"&gt;
+  &lt;svg aria-hidden="true" …&gt;…&lt;/svg&gt;
+  &lt;div&gt;No KYC documents expiring&lt;/div&gt;
+  &lt;div class="empty-state-sub"&gt;Nothing is due in the next 60 days.&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- In a table --&gt;
+&lt;tr&gt;&lt;td colspan="3"&gt;&lt;div class="empty-state"&gt;…&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;</code></pre>
       </div>
     </section>
 
@@ -322,8 +358,8 @@
           <thead><tr><th>Class</th><th>Role</th><th>Apply to</th></tr></thead>
           <tbody>
             <tr><td class="sg-token">.kpi-note</td><td>Supporting line beneath a KPI value</td><td>Expression</td></tr>
-            <tr><td class="sg-token">.status-tag / --up / --down</td><td>Status pill, with gain and loss variants</td><td>Expression or Tag</td></tr>
-            <tr><td class="sg-token">.doc-empty-icon</td><td>Spacing beneath the Documents empty state icon</td><td>Icon</td></tr>
+            <tr><td class="sg-token">.status-tag / --up / --down / --success / --error / --warning / --gold</td><td>Status pill: gain and loss, outcome, attention and highlight tones</td><td>Expression or Tag</td></tr>
+            <tr><td class="sg-token">.empty-state / .empty-state-sub</td><td>Shared empty state for lists, tables and panels</td><td>Container</td></tr>
             <tr><td class="sg-token">.filter-row--header</td><td>Filter row inside a page header, without its margin</td><td>Container, alongside <code>.filter-row</code></td></tr>
             <tr><td class="sg-token">.tk-delete-icon</td><td>Delete icon in the Tasks list</td><td>Icon</td></tr>
           </tbody>

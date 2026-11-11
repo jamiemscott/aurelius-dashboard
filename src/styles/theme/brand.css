@@ -96,7 +96,7 @@
   --status-error:         light-dark(#DC2626, #EF4444);   /* dark: vivid · light: AA-safe (#DC2626 4.7:1 on white) */
   --status-error-alpha:   oklch(from #EF4444 l c h / 0.12);
 
-  --status-warning:       #F59E0B;
+  --status-warning:       light-dark(#B45309, #F59E0B);   /* dark: vivid · light: AA-safe (#B45309 5.0:1 on white) */
   --status-warning-alpha: oklch(from #F59E0B l c h / 0.12);
 
   --status-info:          #3B82F6;

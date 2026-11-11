@@ -157,17 +157,9 @@
 .np-dismiss:hover { color: var(--text-1); }
 
 /* ── Empty state — zero JS via :has() ── */
-.np-empty {
-  align-items: center;
-  color: var(--text-3);
-  display: none;
-  flex-direction: column;
-  font-size: var(--fs-body);
-  gap: 14px;
-  padding: 56px 24px;
-  text-align: center;
-}
-.np-empty svg { opacity: 0.35; }
+/* Look comes from the shared .empty-state (cards.css);
+   this only hides it until the list is empty.          */
+.np-empty { display: none; }
 
 .drawer-body:not(:has(.np-item)) .np-empty { display: flex; }
 
