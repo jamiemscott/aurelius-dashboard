@@ -37,3 +37,18 @@
     accessibility  = 0.9
     best-practices = 0.9
     seo            = 0.9
+
+# ─── ADVISER CLIENT 360 ────────────────────────────────
+# One template serves every client. /clients/<slug>/ is
+# rewritten (200, URL unchanged) to the profile page, which
+# reads the slug from the path. Real files such as
+# /clients/ and /clients/profile/ are served as normal.
+[[redirects]]
+  from   = "/adviser-dashboard/james-whitmore/clients/:slug/"
+  to     = "/adviser-dashboard/james-whitmore/clients/profile/index.html"
+  status = 200
+
+[[redirects]]
+  from   = "/adviser-dashboard/james-whitmore/clients/:slug"
+  to     = "/adviser-dashboard/james-whitmore/clients/profile/index.html"
+  status = 200

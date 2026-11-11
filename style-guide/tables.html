@@ -234,6 +234,42 @@
       </div>
     </section>
 
+    <!-- ── Sortable Columns ───────────────────────────────── -->
+    <section class="sg-section" id="table-sort">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Sortable Columns</h2>
+        <p class="sg-section-desc">Put a <code>.th-sort</code> button inside the <code>&lt;th&gt;</code> so the column can be sorted from the keyboard. The sorted column carries <code>aria-sort="ascending"</code> or <code>"descending"</code> on the <code>&lt;th&gt;</code>. That attribute alone drives the gold text and the arrow direction, so JS only sets the attribute. Unsorted columns show a faint arrow on hover or focus. Used on the adviser Client Book.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="card card-pad">
+          <div class="table-wrap">
+            <table aria-label="Sortable table example">
+              <thead>
+                <tr>
+                  <th scope="col"><button class="th-sort" type="button">Client <svg class="th-sort-icon" aria-hidden="true" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg></button></th>
+                  <th scope="col" aria-sort="descending"><button class="th-sort" type="button">Total Value <svg class="th-sort-icon" aria-hidden="true" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg></button></th>
+                  <th scope="col"><button class="th-sort" type="button">KYC <svg class="th-sort-icon" aria-hidden="true" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg></button></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><div class="td-name">Frasier Crane</div><div class="td-type">AW-20177-UK</div></td><td>£1,842,315.20</td><td><span class="status-tag status-tag--success">Verified</span></td></tr>
+                <tr><td><div class="td-name">Jessica Fletcher</div><div class="td-type">AW-20402-UK</div></td><td>£734,120.00</td><td><span class="status-tag status-tag--error">Expired</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;th scope="col" aria-sort="descending"&gt;
+  &lt;button class="th-sort" type="button"&gt;
+    Total Value
+    &lt;svg class="th-sort-icon" aria-hidden="true" …&gt;&lt;polyline points="18 15 12 9 6 15"/&gt;&lt;/svg&gt;
+  &lt;/button&gt;
+&lt;/th&gt;</code></pre>
+      </div>
+    </section>
+
     <!-- ── Accessibility Notes ─────────────────────────────── -->
     <section class="sg-section" id="table-a11y">
       <div class="sg-section-header">

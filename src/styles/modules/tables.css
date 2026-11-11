@@ -42,6 +42,35 @@ tbody td:not(:first-child) { text-align: end; }
 .td-type      { color: var(--text-3); font-size: var(--fs-md); margin-block-start: 2px; }
 .td-secondary { color: var(--text-2); }
 
+/* Sortable column. The header holds a button so sorting works from
+   the keyboard; aria-sort on the <th> carries the state, and the
+   arrow and gold text follow it. Unsorted columns show a faint
+   arrow on hover only, so the header row stays quiet.            */
+.th-sort {
+  align-items: center;
+  background: none;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  gap: 4px;
+  letter-spacing: inherit;
+  padding: 0;
+  text-transform: inherit;
+}
+
+.th-sort:hover { color: var(--text-1); }
+.th-sort:focus-visible { border-radius: 2px; outline: 2px solid var(--gold); outline-offset: 3px; }
+
+.th-sort-icon { opacity: 0; transition: opacity 0.15s ease, transform 0.15s ease; }
+.th-sort:hover .th-sort-icon,
+.th-sort:focus-visible .th-sort-icon { opacity: 0.5; }
+
+th[aria-sort] .th-sort                  { color: var(--gold-text); }
+th[aria-sort] .th-sort-icon             { opacity: 1; }
+th[aria-sort="descending"] .th-sort-icon { transform: rotate(180deg); }
+
 .td-change.is-up   { color: var(--green); font-weight: var(--fw-medium); }
 .td-change.is-down { color: var(--red); font-weight: var(--fw-medium); }
 
