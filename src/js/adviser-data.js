@@ -296,3 +296,47 @@ const adviserConversations = [
     { from: 'adviser', at: '2026-11-05T11:02', text: 'Lovely. Let me know and I’ll prepare the switch.' },
   ] },
 ];
+
+/* ── Suitability reports ────────────────────────────────────────
+   Each piece of advice ends in a report: drafted by the adviser,
+   checked by compliance, sent to the client and e-signed.
+   source links back to the advice request or review it came from. */
+const REPORT_STAGES = [
+  { label: 'Draft',      status: 'Drafting' },
+  { label: 'Compliance', status: 'With compliance' },
+  { label: 'Sent',       status: 'Awaiting signature' },
+  { label: 'Signed',     status: 'Signed' },
+];
+
+const SUITABILITY_CHECKS = [
+  'Meets the client’s stated objectives',
+  'Matches attitude to risk and capacity for loss',
+  'Costs and charges disclosed',
+  'Alternatives considered and explained',
+];
+
+const COMPLIANCE_REVIEWER = 'Priya Shah';
+const SIGNATURE_CHASE = 10;   /* days awaiting signature before it reads as overdue */
+
+const suitabilityReports = [
+  { id: 'SR-2611-024', client: 'hyacinth-bucket', title: 'Gifting £40,000 to family', source: { kind: 'request', ref: 'AR-2611-0412' },
+    product: 'Withdrawal from General Investment Account', amount: 40000, risk: 'Cautious (3/7)', stage: 0, updated: '2026-11-11', done: [0],
+    recommendation: 'Gift £40,000 from the General Investment Account rather than the ISA, using this year’s and last year’s annual exemptions' },
+  { id: 'SR-2611-019', client: 'frasier-crane', title: 'SIPP drawdown of £60,000 a year', source: { kind: 'request', ref: 'AR-2611-0408' },
+    product: 'Flexi-access drawdown', amount: 60000, risk: 'Balanced (4/7)', stage: 0, updated: '2026-11-10', done: [], recommendation: '' },
+  { id: 'SR-2611-012', client: 'jim-rockford', title: 'ISA top-up of £20,000', source: { kind: 'request', ref: 'AR-2611-0381' },
+    product: 'Stocks & Shares ISA', amount: 20000, risk: 'Balanced (4/7)', stage: 1, updated: '2026-11-09', submitted: '2026-11-09', done: [0, 1, 2, 3],
+    recommendation: 'Subscribe the full £20,000 allowance into the existing ISA, invested in the Balanced model portfolio.' },
+  { id: 'SR-2610-044', client: 'margo-leadbetter', title: 'Switch to the ESG Balanced portfolio', source: { kind: 'request', ref: 'AR-2611-0355' },
+    product: 'Model portfolio switch', amount: 1210000, risk: 'Balanced (4/7)', stage: 2, updated: '2026-11-06', submitted: '2026-11-03', sent: '2026-11-06', done: [0, 1, 2, 3],
+    recommendation: 'Move the joint portfolio to the ESG Balanced model in one switch, keeping the current risk level.' },
+  { id: 'SR-2610-031', client: 'columbo', title: 'Move to the flat-fee platform', source: { kind: 'request', ref: 'AR-2610-0322' },
+    product: 'Platform change', amount: 0, risk: 'Cautious (3/7)', stage: 2, updated: '2026-10-28', submitted: '2026-10-23', sent: '2026-10-28', done: [0, 1, 2, 3],
+    recommendation: 'Stay on the current platform. The flat fee only saves money above £400,000, so it would cost more at this portfolio size.' },
+  { id: 'SR-2609-018', client: 'sumant-kumar', title: 'Annual review 2026', source: { kind: 'review', ref: 'sumant-kumar' },
+    product: 'Annual review', amount: 0, risk: 'Adventurous (5/7)', stage: 3, updated: '2026-09-22', submitted: '2026-09-16', sent: '2026-09-18', signed: '2026-09-22', done: [0, 1, 2, 3],
+    recommendation: 'No change to the strategy. Rebalance back to the target equity weight and use the remaining ISA allowance.' },
+  { id: 'SR-2609-009', client: 'victor-meldrew', title: 'Pension consolidation', source: { kind: 'request', ref: 'AR-2609-0214' },
+    product: 'Personal pension transfer', amount: 184000, risk: 'Cautious (3/7)', stage: 3, updated: '2026-09-14', submitted: '2026-09-07', sent: '2026-09-09', signed: '2026-09-14', done: [0, 1, 2, 3],
+    recommendation: 'Consolidate three old workplace pensions into the Aurelius SIPP. None carry guaranteed benefits or exit penalties.' },
+];
