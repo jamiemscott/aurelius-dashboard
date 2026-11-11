@@ -228,6 +228,44 @@
 
 
     <!-- ═══════════════════════════════════════════════════════════
+         THREAD HEADER
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="sg-section" id="thread-header">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Thread Header — <code>.adv-thread-header</code></h2>
+        <p class="sg-section-desc">The top bar of a conversation pane in a two-pane inbox (the adviser's Secure Messages). It shows who the conversation is with and a link to their record, and sits above <code>.adv-messages</code> inside <code>.chat-wrap</code>. In a narrow pane the action wraps below the name. The list beside it is <code>.doc-entry</code> rows, and the open row takes <code>aria-current="true"</code>.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="chat-wrap">
+          <header class="adv-thread-header">
+            <div class="adv-avatar adv-avatar--user" aria-hidden="true">FC</div>
+            <div class="adv-thread-main">
+              <h3 class="adv-thread-title">Frasier Crane</h3>
+              <p class="adv-thread-sub">Tomorrow’s call · AW-20177-UK · Platinum</p>
+            </div>
+            <a class="btn-secondary btn-secondary--sm" href="#thread-header">View client</a>
+          </header>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;section class="chat-wrap" aria-labelledby="thread-title"&gt;
+  &lt;header class="adv-thread-header"&gt;
+    &lt;div class="adv-avatar adv-avatar--user" aria-hidden="true"&gt;FC&lt;/div&gt;
+    &lt;div class="adv-thread-main"&gt;
+      &lt;h2 class="adv-thread-title" id="thread-title"&gt;Frasier Crane&lt;/h2&gt;
+      &lt;p class="adv-thread-sub"&gt;Tomorrow’s call · AW-20177-UK · Platinum&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;a class="btn-secondary btn-secondary--sm" href="…"&gt;View client&lt;/a&gt;
+  &lt;/header&gt;
+  &lt;div class="adv-messages" role="log" aria-live="polite"&gt;…&lt;/div&gt;
+  &lt;div class="adv-input-bar"&gt;…&lt;/div&gt;
+&lt;/section&gt;</code></pre>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
          AVATARS
          ═══════════════════════════════════════════════════════════ -->
     <section class="sg-section" id="avatars">

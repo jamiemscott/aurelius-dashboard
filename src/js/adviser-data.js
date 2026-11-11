@@ -255,3 +255,44 @@ const adviserAml = {
   'mike':             { risk: 'Low',    pep: false, sow: 'Salary',                                idVerified: '2018-03-02', poa: { doc: 'Utility bill',     date: '2025-07-15' }, screened: '2025-07-15', result: 'Clear' },
   'derek-trotter':    { risk: 'High',   pep: false, sow: 'Market trading (cash business)',        idVerified: '2016-12-20', poa: { doc: 'Utility bill',     date: '2026-01-04' }, screened: '2026-07-20', result: 'Clear' },
 };
+
+/* ── Secure messages ────────────────────────────────────────────
+   General conversations with clients, separate from advice
+   requests (which carry a type, amount and outcome). unread marks
+   client messages the adviser hasn't opened yet.                  */
+const adviserConversations = [
+  { client: 'frasier-crane', subject: 'Tomorrow’s call', unread: true, thread: [
+    { from: 'adviser', at: '2026-11-09T16:20', text: 'Just confirming our video call on Thursday at 3:30 pm to go through SIPP drawdown. I’ll send the link in the morning.' },
+    { from: 'client',  at: '2026-11-11T08:47', text: 'Could we push it to 4:00 pm? I have a recording that may overrun. Niles sends his regards, by the way.' },
+  ] },
+  { client: 'jessica-fletcher', subject: 'Passport renewal', unread: true, thread: [
+    { from: 'adviser', at: '2026-11-05T10:02', text: 'Your passport on file expired on 4 November. Could you upload a scan of the new one when it arrives? Until then I can’t place new trades on the account.' },
+    { from: 'client',  at: '2026-11-11T07:58', text: 'The renewal appointment is on the 20th. I’ll upload it the same day. Is there anything else you need from me in the meantime?' },
+  ] },
+  { client: 'victor-meldrew', subject: 'Quarterly statement', unread: true, thread: [
+    { from: 'client',  at: '2026-11-10T19:31', text: 'I don’t believe it. The new statement is four pages longer and I still can’t find what I paid in fees.' },
+  ] },
+  { client: 'diogo', subject: 'Proceeds from the Porto sale', unread: false, thread: [
+    { from: 'client',  at: '2026-11-08T12:15', text: 'The sale of the Porto flat completes next week. Roughly €640,000 will come across to the Aurelius account.' },
+    { from: 'adviser', at: '2026-11-08T14:40', text: 'Thank you for the notice. Before it arrives I’ll need the completion statement and the original purchase deed, so we can evidence the source of funds.' },
+    { from: 'client',  at: '2026-11-10T09:05', text: 'My lawyer in Porto will send both on Friday. Can they come straight to you?' },
+  ] },
+  { client: 'basil-fawlty', subject: 'Review at the hotel', unread: false, thread: [
+    { from: 'adviser', at: '2026-11-06T11:00', text: 'Looking forward to seeing you in Torquay on the 19th. I’ll bring the valuation pack and last year’s accounts summary.' },
+    { from: 'client',  at: '2026-11-06T13:22', text: 'Splendid. Please could we keep it brief and before lunch service. Sybil will be joining us.' },
+    { from: 'adviser', at: '2026-11-06T13:40', text: 'Of course. 10:00 am, and I’ll keep it to an hour.' },
+  ] },
+  { client: 'mike', subject: 'Booking your annual review', unread: false, thread: [
+    { from: 'adviser', at: '2026-10-21T09:30', text: 'Your annual review was due in July. Could we find an hour in the next few weeks? Phone or video is fine.' },
+    { from: 'adviser', at: '2026-11-04T09:15', text: 'Just following up on this. I have time next Wednesday morning if that suits.' },
+  ] },
+  { client: 'columbo', subject: 'Fees question', unread: false, thread: [
+    { from: 'client',  at: '2026-10-29T16:44', text: 'Just one more thing. The platform fee: is that charged on the cash as well?' },
+    { from: 'adviser', at: '2026-10-30T09:12', text: 'It is, at the same 0.25%. Your cash is about 4% of the portfolio, so it comes to around £30 a year.' },
+  ] },
+  { client: 'margo-leadbetter', subject: 'ESG options', unread: false, thread: [
+    { from: 'adviser', at: '2026-11-04T16:10', text: 'As promised, the three ESG portfolios we discussed are attached. All three keep your current risk level.' },
+    { from: 'client',  at: '2026-11-05T10:30', text: 'Thank you, James. Jerry and I will read them this weekend. The middle one looks most like us.' },
+    { from: 'adviser', at: '2026-11-05T11:02', text: 'Lovely. Let me know and I’ll prepare the switch.' },
+  ] },
+];

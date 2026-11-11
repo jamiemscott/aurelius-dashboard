@@ -98,6 +98,9 @@ button.doc-entry:focus-visible { outline: 2px solid var(--gold); outline-offset:
 .doc-entry:hover { background: var(--bg-hover); }
 .doc-entry.is-unread { background: var(--gold-dim); }
 .doc-entry.is-unread:hover { background: rgba(245,166,35,0.18); }
+/* Selected: the row whose content is open beside the list
+   (a two-pane inbox). aria-current carries the state.     */
+.doc-entry[aria-current="true"] { background: var(--bg-hover); box-shadow: inset 3px 0 0 var(--gold); }
 
 .doc-entry-dot {
   background: transparent;
