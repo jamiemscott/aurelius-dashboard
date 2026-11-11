@@ -104,6 +104,7 @@
       <div class="sg-section-header">
         <h2 class="sg-section-title">Tab Buttons — <code>.tab-btn</code></h2>
         <p class="sg-section-desc">Top-level navigation anchors rendered in the topbar. The active tab receives <code>.is-active</code>. Use <code>&lt;a&gt;</code> elements (not <code>&lt;button&gt;</code>) since they navigate to distinct pages. The active item should also receive <code>aria-current="page"</code>.</p>
+        <p class="sg-section-desc"><strong>At 1024px and below</strong> the pill is replaced by <code>.site-menu-btn</code>: the word “Menu” on the left and a burger on the right, which turns into a cross while open. The same <code>&lt;nav&gt;</code> is a <code>popover</code>, so it drops down beneath the button as a list (anchored to it where CSS anchor positioning is supported) and closes on Esc or a click outside. No JavaScript is needed. The current page takes a gold tint in the list. Without the <code>popover</code> attribute (for example in OutSystems until its header gets this markup) the nav stays an inline pill at every width.</p>
       </div>
       <div class="sg-demo">
         <nav aria-label="Tab button states" class="sg-row sg-row--wrap">
@@ -115,7 +116,13 @@
       </div>
       <div class="sg-code">
         <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
-        <pre><code class="language-html">&lt;nav class="topbar-nav" aria-label="Primary"&gt;
+        <pre><code class="language-html">&lt;button class="site-menu-btn" type="button" popovertarget="topbar-nav"&gt;
+  &lt;span class="site-menu-label"&gt;Menu&lt;/span&gt;
+  &lt;svg class="site-menu-icon" aria-hidden="true" …&gt;
+    &lt;line class="site-menu-bar" …/&gt; &lt;!-- ×3 --&gt;
+  &lt;/svg&gt;
+&lt;/button&gt;
+&lt;nav class="topbar-nav" id="topbar-nav" popover aria-label="Primary"&gt;
   &lt;a class="tab-btn" href="/overview"&gt;My Overview&lt;/a&gt;
   &lt;a class="tab-btn is-active" href="/valuation-history"
     aria-current="page"&gt;Valuation History&lt;/a&gt;
