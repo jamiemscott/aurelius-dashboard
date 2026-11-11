@@ -74,7 +74,7 @@ const adviserClients = [
     value: 286540.00,  cash: 18230.00, gain: -4210.80,  gainPct: -1.4,
     lastActivity: '2026-11-07', lastActivityNote: 'Withdrawal · £5,000',
     lastReview: '2025-11-19', nextReview: '2026-11-19',
-    kyc: { doc: 'Proof of address', expiry: '2026-12-02' },
+    kyc: { doc: 'Passport', expiry: '2026-12-02' },
     email: 'basil@fawltytowers.example', phone: '+44 7700 900 311', city: 'Torquay' },
 
   { slug: 'columbo',          name: 'Lt. Columbo',      ref: 'AW-20433-UK', tier: 'Silver',   role: 'Individual', since: '2021-03-08',
@@ -228,3 +228,30 @@ const adviserMeetings = [
   { id: 'MT-2611-024', client: 'margo-leadbetter', title: 'ESG portfolio options',        at: '2026-11-04T15:00', where: 'Video call', held: true,
     agenda: 'Present three ESG model portfolios at the current risk level.' },
 ];
+
+/* ── KYC & AML ──────────────────────────────────────────────────
+   Per-client anti-money-laundering profile. Screening (sanctions,
+   PEP and adverse media) repeats on a cycle set by the risk rating.
+   idVerified / poa.date are when each document was last checked.  */
+const AML_RISK = {
+  Low:    { months: 12, tone: '' },
+  Medium: { months: 6,  tone: 'warning' },
+  High:   { months: 3,  tone: 'error' },
+};
+
+const ID_DOCUMENTS = ['Passport', 'Driving licence', 'National ID card'];
+
+const adviserAml = {
+  'frasier-crane':    { risk: 'Medium', pep: false, sow: 'Broadcasting income and book royalties', idVerified: '2019-02-11', poa: { doc: 'Council tax bill', date: '2026-04-02' }, screened: '2026-06-18', result: 'Clear' },
+  'margo-leadbetter': { risk: 'Low',    pep: false, sow: 'Inheritance and spouse’s salary',       idVerified: '2021-04-20', poa: { doc: 'Utility bill',     date: '2026-01-15' }, screened: '2026-02-09', result: 'Clear' },
+  'sumant-kumar':     { risk: 'Low',    pep: false, sow: 'Salary and share options',              idVerified: '2021-11-30', poa: { doc: 'Bank statement',   date: '2026-09-15' }, screened: '2026-09-15', result: 'Clear' },
+  'jessica-fletcher': { risk: 'Low',    pep: false, sow: 'Book royalties',                        idVerified: '2016-11-04', poa: { doc: 'Utility bill',     date: '2025-12-01' }, screened: '2026-03-03', result: 'Clear' },
+  'hyacinth-bucket':  { risk: 'Medium', pep: false, sow: 'Pension lump sum and property sale',    idVerified: '2020-08-19', poa: { doc: 'Council tax bill', date: '2026-05-10' }, screened: '2026-07-01', result: 'Clear' },
+  'jim-rockford':     { risk: 'Medium', pep: false, sow: 'Self-employed investigator fees',       idVerified: '2018-10-07', poa: { doc: 'Bank statement',   date: '2026-03-28' }, screened: '2026-05-30', result: 'Clear' },
+  'victor-meldrew':   { risk: 'Low',    pep: false, sow: 'Occupational pension',                  idVerified: '2016-12-29', poa: { doc: 'Utility bill',     date: '2026-02-17' }, screened: '2026-02-17', result: 'Clear' },
+  'basil-fawlty':     { risk: 'High',   pep: false, sow: 'Hotel trading profits (cash business)', idVerified: '2020-12-02', poa: { doc: 'Business rates bill', date: '2025-12-02' }, screened: '2026-09-02', result: 'Clear' },
+  'columbo':          { risk: 'Low',    pep: false, sow: 'Police pension',                        idVerified: '2021-02-09', poa: { doc: 'Utility bill',     date: '2026-06-06' }, screened: '2026-06-06', result: 'Clear' },
+  'diogo':            { risk: 'High',   pep: true,  sow: 'Property portfolio, Lisbon and Porto',  idVerified: '2019-06-11', poa: { doc: 'Bank statement',   date: '2026-07-22' }, screened: '2026-08-24', result: 'Possible match cleared', pepNote: 'Former municipal councillor, Lisbon (2013–2017)' },
+  'mike':             { risk: 'Low',    pep: false, sow: 'Salary',                                idVerified: '2018-03-02', poa: { doc: 'Utility bill',     date: '2025-07-15' }, screened: '2025-07-15', result: 'Clear' },
+  'derek-trotter':    { risk: 'High',   pep: false, sow: 'Market trading (cash business)',        idVerified: '2016-12-20', poa: { doc: 'Utility bill',     date: '2026-01-04' }, screened: '2026-07-20', result: 'Clear' },
+};

@@ -287,6 +287,8 @@ function buildClientProfile() {
   advSetText('client-meta', c.ref + ' · ' + c.tier + ' · ' + c.role + ' · Client since ' + since);
   var bookBtn = document.getElementById('client-book-review');
   if (bookBtn) bookBtn.href = '/adviser-dashboard/' + ADVISER.slug + '/reviews/#review-' + c.slug;
+  var kycLink = document.getElementById('client-kyc-link');
+  if (kycLink) kycLink.href = '/adviser-dashboard/' + ADVISER.slug + '/compliance/kyc/#' + c.slug;
 
   advSetText('client-kpi-value', advMoney(c.value, 0));
   advSetText('client-kpi-gain', (c.gain >= 0 ? '+' : '') + advMoney(c.gain, 0) + ' (' + (c.gain >= 0 ? '+' : '') + c.gainPct.toFixed(1) + '%)');
@@ -889,10 +891,248 @@ function renderDiaryDrawer() {
 }
 
 
+/* ── KYC & AML ──────────────────────────────────────────────── */
+
+/* Next screening date: last screening plus the risk rating's cycle */
+function advScreenDue(slug) {
+  var a = adviserAml[slug];
+  var d = new Date(a.screened + 'T00:00:00Z');
+  d.setUTCMonth(d.getUTCMonth() + AML_RISK[a.risk].months);
+  return d.toISOString().slice(0, 10);
+}
+
+function advRiskTag(a) {
+  return advTag(a.risk, AML_RISK[a.risk].tone) + (a.pep ? ' ' + advTag('PEP', 'gold') : '');
+}
+
+function advKycAction(c) { return advKycDue(c) || advDaysUntil(advScreenDue(c.slug)) <= SOON; }
+
+/* Check history, newest first, derived from the profile dates, so
+   running a screening or verifying new ID updates it too           */
+function advKycHistory(c) {
+  var a = adviserAml[c.slug];
+  return ([
+    { date: a.screened,   text: 'Sanctions, PEP and adverse media screening', sub: a.result, tone: a.result === 'Clear' ? 'buy' : 'div' },
+    { date: a.poa.date,   text: 'Proof of address checked', sub: a.poa.doc, tone: 'div' },
+    { date: a.idVerified, text: 'Identity verified', sub: c.kyc.doc + ' · expires ' + advDate(c.kyc.expiry), tone: 'div' },
+  ]).sort(function (x, y) { return y.date.localeCompare(x.date); });
+}
+
+var kycState = { filter: 'action', query: '', sort: 'expiry', dir: 'ascending', openSlug: null };
+
+var kycFilters = {
+  action: advKycAction,
+  high:   function (c) { return adviserAml[c.slug].risk === 'High'; },
+  all:    function () { return true; },
+};
+
+var kycSortKeys = {
+  name:   function (c) { return c.name.split(' ').pop(); },
+  expiry: function (c) { return c.kyc.expiry; },
+  kyc:    function (c) { return advKyc(c).rank; },
+  risk:   function (c) { return ['High', 'Medium', 'Low'].indexOf(adviserAml[c.slug].risk); },
+  screen: function (c) { return advScreenDue(c.slug); },
+};
+
+function buildKycPage() {
+  var tbody = document.getElementById('kyc-body');
+  if (!tbody) return;
+  var table  = tbody.closest('table');
+  var search = document.getElementById('kyc-search');
+  var tabs   = document.getElementById('kyc-tabs');
+  var drawer = document.getElementById('kyc-drawer');
+
+  function render() {
+    var verified = adviserClients.filter(function (c) { return advKyc(c).rank === 2; }).length;
+    var expiring = adviserClients.filter(function (c) { return advKyc(c).rank === 1; }).length;
+    var expired  = adviserClients.filter(function (c) { return advKyc(c).rank === 0; }).length;
+    var high     = adviserClients.filter(kycFilters.high).length;
+    var peps     = adviserClients.filter(function (c) { return adviserAml[c.slug].pep; }).length;
+    var screens  = adviserClients.filter(function (c) { return advDaysUntil(advScreenDue(c.slug)) < 0; }).length;
+    advSetText('kyc-kpi-verified', verified + ' / ' + adviserClients.length);
+    advSetText('kyc-kpi-expiring', String(expiring));
+    advSetText('kyc-kpi-expired', String(expired));
+    advSetText('kyc-kpi-high', String(high));
+    advSetText('kyc-kpi-high-note', peps + ' PEP');
+    advSetText('kyc-kpi-screen', screens + ' screening' + (screens === 1 ? '' : 's') + ' overdue');
+    Object.keys(kycFilters).forEach(function (k) {
+      advSetText('kyc-count-' + k, String(adviserClients.filter(kycFilters[k]).length));
+    });
+
+    var q = kycState.query.trim().toLowerCase();
+    var rows = adviserClients.filter(kycFilters[kycState.filter])
+      .filter(function (c) { return !q || (c.name + ' ' + c.ref).toLowerCase().indexOf(q) !== -1; });
+    var key = kycSortKeys[kycState.sort];
+    var dir = kycState.dir === 'ascending' ? 1 : -1;
+    rows.sort(function (a, b) { var x = key(a), y = key(b); return (x > y ? 1 : x < y ? -1 : 0) * dir; });
+
+    advSetText('kyc-summary', expired + ' expired · ' + expiring + ' expiring in ' + KYC_WINDOW + ' days · ' + screens + ' screening' + (screens === 1 ? '' : 's') + ' overdue');
+
+    tbody.innerHTML = rows.length ? rows.map(function (c) {
+      var a = adviserAml[c.slug];
+      var k = advKyc(c);
+      var due = advScreenDue(c.slug);
+      var screenSoon = advDaysUntil(due) <= SOON;
+      return '<tr>' + advNameCell(c) +
+        '<td>' + c.kyc.doc + '<div class="td-type">Expires <time datetime="' + c.kyc.expiry + '">' + advDate(c.kyc.expiry) + '</time></div></td>' +
+        '<td>' + advTag(k.label, k.tone) + '</td>' +
+        '<td>' + advRiskTag(a) + '</td>' +
+        '<td><time datetime="' + due + '">' + advDate(due) + '</time>' +
+          (screenSoon ? '<div class="td-type">' + advDueTag(due, 'Overdue') + '</div>' : '<div class="td-type">Last ' + advDate(a.screened) + '</div>') + '</td>' +
+        '<td><button class="btn-secondary btn-secondary--sm" type="button" popovertarget="kyc-drawer" data-kyc="' + c.slug + '" aria-label="Open KYC for ' + c.name + '">Open</button></td>' +
+        '</tr>';
+    }).join('') : advEmptyRow(6, 'Nothing needs action', 'Every client’s ID and screening is in date.');
+
+    table.querySelectorAll('th[data-sort]').forEach(function (th) {
+      if (th.dataset.sort === kycState.sort) th.setAttribute('aria-sort', kycState.dir);
+      else th.removeAttribute('aria-sort');
+    });
+  }
+
+  if (search) search.addEventListener('input', function () { kycState.query = search.value; render(); });
+
+  if (tabs) tabs.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-filter]');
+    if (!btn) return;
+    kycState.filter = btn.dataset.filter;
+    tabs.querySelectorAll('[data-filter]').forEach(function (b) {
+      var on = b === btn;
+      b.classList.toggle('is-active', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
+    render();
+  });
+
+  table.querySelectorAll('th[data-sort] .th-sort').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var key = btn.closest('th').dataset.sort;
+      if (kycState.sort === key) kycState.dir = kycState.dir === 'ascending' ? 'descending' : 'ascending';
+      else { kycState.sort = key; kycState.dir = 'ascending'; }
+      render();
+    });
+  });
+
+  tbody.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-kyc]');
+    if (!btn) return;
+    kycState.openSlug = btn.dataset.kyc;
+    renderKycDrawer();
+  });
+
+  if (drawer) {
+    drawer.addEventListener('toggle', function (e) { if (e.newState === 'closed') render(); });
+    drawer.addEventListener('input', advSyncVerify);
+    drawer.addEventListener('change', advSyncVerify);
+    drawer.addEventListener('click', function (e) {
+      var act = e.target.closest('[data-action]');
+      if (!act) return;
+      var c = advClient(kycState.openSlug);
+      var a = adviserAml[c.slug];
+      if (act.dataset.action === 'screen') {
+        /* The history row for screening is derived from these two */
+        a.screened = AS_AT; a.result = 'Clear';
+      }
+      if (act.dataset.action === 'verify') {
+        c.kyc = { doc: document.getElementById('kyc-doc').value, expiry: document.getElementById('kyc-expiry').value };
+        a.idVerified = AS_AT;
+      }
+      renderKycDrawer();
+    });
+  }
+
+  render();
+
+  /* Deep link: /compliance/kyc/#jessica-fletcher */
+  var hashSlug = window.location.hash.slice(1);
+  if (hashSlug && drawer && advClient(hashSlug)) {
+    kycState.openSlug = hashSlug;
+    renderKycDrawer();
+    drawer.showPopover();
+  }
+}
+
+/* Verify stays disabled until a file is chosen and the new expiry is in the future */
+function advSyncVerify() {
+  var btn = document.querySelector('#kyc-drawer [data-action="verify"]');
+  var file = document.getElementById('kyc-file');
+  var exp = document.getElementById('kyc-expiry');
+  if (!btn || !file || !exp) return;
+  var name = document.getElementById('kyc-file-name');
+  if (name) name.textContent = file.files[0] ? file.files[0].name : 'Choose file or drag & drop';
+  btn.disabled = !(file.files.length && exp.value > AS_AT);
+}
+
+function renderKycDrawer() {
+  var c = advClient(kycState.openSlug);
+  if (!c) return;
+  var a = adviserAml[c.slug];
+  var k = advKyc(c);
+  var due = advScreenDue(c.slug);
+  var row = function (label, value) {
+    return '<div class="review-row"><span class="review-row-label">' + label + '</span><span class="review-row-value">' + value + '</span></div>';
+  };
+
+  advSetText('kyc-drawer-media', advInitials(c.name));
+  advSetText('kyc-drawer-title', c.name);
+  var sub = document.getElementById('kyc-drawer-subtitle');
+  if (sub) sub.innerHTML = advTag(k.label, k.tone) + ' <a href="' + advClientUrl(c.slug) + '">' + c.ref + '</a> · ' + c.tier + ' · ' + c.role;
+
+  var html = '';
+  if (!advKycAction(c)) {
+    html += '<div class="det-kyc-status"><div class="det-kyc-icon" aria-hidden="true">' +
+      '<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>' +
+      '<div><div class="det-kyc-label">Identity verified</div><div class="det-kyc-sub">Next screening ' + advDate(due) + '</div></div></div>';
+  }
+
+  html += '<div class="review-card">' +
+    row('ID document', c.kyc.doc) +
+    row('Document expiry', advDate(c.kyc.expiry) + (advKycDue(c) ? ' ' + advDueTag(c.kyc.expiry, 'Expired') : '')) +
+    row('Proof of address', a.poa.doc + ' · ' + advDate(a.poa.date)) +
+    row('AML risk', advRiskTag(a)) +
+    (a.pep ? row('PEP', a.pepNote) : '') +
+    row('Source of wealth', a.sow) +
+    row('Last screening', advDate(a.screened) + ' · ' + a.result) +
+    row('Next screening', advDate(due) + (advDaysUntil(due) <= SOON ? ' ' + advDueTag(due, 'Overdue') : '')) +
+    '</div>';
+
+  var footer = '<button class="btn-secondary" type="button" data-action="screen">Run screening</button>';
+
+  if (advKycDue(c)) {
+    var min = new Date(Date.parse(AS_AT) + 864e5).toISOString().slice(0, 10);
+    html += '<h3 class="section-heading">Upload new ID</h3>' +
+      '<div class="drawer-fields">' +
+        '<div class="field-row">' +
+          '<div class="field"><label class="field-label" for="kyc-doc">Document type</label><select class="det-select" id="kyc-doc">' +
+            ID_DOCUMENTS.map(function (d) { return '<option' + (d === c.kyc.doc ? ' selected' : '') + '>' + d + '</option>'; }).join('') + '</select></div>' +
+          '<div class="field"><label class="field-label" for="kyc-expiry">New expiry date</label><input class="det-input" type="date" id="kyc-expiry" min="' + min + '"></div>' +
+        '</div>' +
+        '<div class="field"><span class="field-label" id="kyc-file-label">Scan or photo</span>' +
+          '<label for="kyc-file" class="file-upload">' +
+            '<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>' +
+            '<span id="kyc-file-name">Choose file or drag &amp; drop</span></label>' +
+          '<input id="kyc-file" type="file" accept=".pdf,.jpg,.jpeg,.png" class="file-upload-input" aria-labelledby="kyc-file-label">' +
+        '</div>' +
+      '</div>';
+    footer += '<button class="btn-primary" type="button" data-action="verify" disabled>Verify document</button>';
+  }
+
+  html += '<h3 class="section-heading">Check history</h3><div>' + advKycHistory(c).map(function (h) {
+    return '<div class="activity-item">' +
+      '<div class="activity-icon is-' + h.tone + '" aria-hidden="true"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>' +
+      '<div class="activity-body"><div class="activity-title">' + h.text + '</div><div class="activity-sub">' + h.sub + '</div></div>' +
+      '<div class="activity-figures"><div class="activity-time">' + advDate(h.date) + '</div></div></div>';
+  }).join('') + '</div>';
+
+  document.getElementById('kyc-drawer-body').innerHTML = html;
+  document.getElementById('kyc-drawer-footer').innerHTML = footer;
+}
+
+
 document.addEventListener('DOMContentLoaded', function () {
   buildAdviserDashboard();
   buildDashboardRequests();
   buildReviewsPage();
+  buildKycPage();
   buildClientBook();
   buildClientProfile();
   buildAdviceRequests();
