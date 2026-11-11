@@ -287,6 +287,8 @@ function buildClientProfile() {
   advSetText('client-meta', c.ref + ' · ' + c.tier + ' · ' + c.role + ' · Client since ' + since);
   var bookBtn = document.getElementById('client-book-review');
   if (bookBtn) bookBtn.href = '/adviser-dashboard/' + ADVISER.slug + '/reviews/#review-' + c.slug;
+  var docsLink = document.getElementById('client-documents');
+  if (docsLink) docsLink.href = '/adviser-dashboard/' + ADVISER.slug + '/documents/?client=' + c.slug;
   var msgLink = document.getElementById('client-message');
   if (msgLink) msgLink.href = '/adviser-dashboard/' + ADVISER.slug + '/messages/#' + c.slug;
   var kycLink = document.getElementById('client-kyc-link');
@@ -1997,10 +1999,130 @@ function buildFeesPage() {
 }
 
 
+/* ── Documents ──────────────────────────────────────────────── */
+
+var advDocState = { filter: 'all', query: '' };
+var advDocFilters = {
+  all: function () { return true; },
+  in:  function (d) { return d.dir === 'in'; },
+  out: function (d) { return d.dir === 'out'; },
+};
+
+var ADV_DOC_ICON_DOWNLOAD = '<svg aria-hidden="true" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>';
+var ADV_DOC_ICON_FILE = '<svg aria-hidden="true" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>';
+
+function advDocRow(d) {
+  var cat = DOC_CATS[d.category];
+  var c = advClient(d.client);
+  var action = d.new
+    ? '<button class="doc-entry-dl" type="button" data-file="' + d.id + '" title="Mark as filed" aria-label="Mark ' + d.name + ' as filed">' + ADV_DOC_ICON_FILE + '</button>'
+    : '<button class="doc-entry-dl" type="button" title="Download" aria-label="Download ' + d.name + '">' + ADV_DOC_ICON_DOWNLOAD + '</button>'; /* placeholder */
+  return '<div class="doc-entry' + (d.new ? ' is-unread' : '') + '" id="' + d.id + '">' +
+    '<div class="doc-entry-dot' + (d.new ? ' is-on' : '') + '"></div>' +
+    '<div class="doc-entry-icon" style="--doc-cat-color:' + cat.color + ';--doc-cat-bg:' + cat.bg + '">' + DOC_ICONS[d.category] + '</div>' +
+    '<div class="doc-entry-body">' +
+      '<div class="doc-entry-name">' + d.name + (d.new ? ' <span class="doc-new-tag">NEW</span>' : '') + '</div>' +
+      '<div class="doc-entry-meta">' +
+        '<span class="doc-cat-chip" style="--doc-cat-color:' + cat.color + '">' + cat.label + '</span>' +
+        '<span class="doc-meta-dot">·</span>' +
+        '<a class="doc-account-chip" href="' + advClientUrl(c.slug) + '">' + c.name + '</a>' +
+        '<span class="doc-meta-dot">·</span>' +
+        '<span>' + (d.dir === 'in' ? 'From client' : 'Sent') + '</span>' +
+      '</div>' +
+    '</div>' +
+    '<div class="doc-entry-date"><time datetime="' + d.date + '">' + advDate(d.date) + '</time></div>' +
+    '<div class="doc-entry-size">' + d.size + '</div>' +
+    action + '</div>';
+}
+
+function buildAdviserDocuments() {
+  var list = document.getElementById('adv-doc-list');
+  if (!list) return;
+  var tabs = document.getElementById('adv-doc-tabs');
+  var search = document.getElementById('adv-doc-search');
+
+  /* ?client=<slug> opens the library filtered to that client */
+  var only = new URLSearchParams(location.search).get('client');
+  var onlyClient = only && advClient(only);
+  if (onlyClient && search) { search.value = onlyClient.name; advDocState.query = onlyClient.name; }
+
+  function render() {
+    var docs = adviserDocuments;
+    var month = AS_AT.slice(0, 7);
+    var thisMonth = function (d) { return d.date.slice(0, 7) === month; };
+    var toFile = docs.filter(function (d) { return d.new; });
+    advSetText('adv-doc-kpi-new', String(toFile.length));
+    advSetText('adv-doc-kpi-in', String(docs.filter(function (d) { return d.dir === 'in' && thisMonth(d); }).length));
+    advSetText('adv-doc-kpi-out', String(docs.filter(function (d) { return d.dir === 'out' && thisMonth(d); }).length));
+    advSetText('adv-doc-kpi-total', String(docs.length));
+    advSetText('adv-doc-kpi-clients', new Set(docs.map(function (d) { return d.client; })).size + ' clients');
+    advSetText('adv-doc-summary', toFile.length ? toFile.length + ' to file · ' + docs.length + ' documents' : 'All filed · ' + docs.length + ' documents');
+    Object.keys(advDocFilters).forEach(function (k) { advSetText('adv-doc-count-' + k, String(docs.filter(advDocFilters[k]).length)); });
+
+    var q = advDocState.query.trim().toLowerCase();
+    var rows = docs.filter(advDocFilters[advDocState.filter]).filter(function (d) {
+      return !q || (d.name + ' ' + advClient(d.client).name + ' ' + DOC_CATS[d.category].label + ' ' + d.id).toLowerCase().indexOf(q) !== -1;
+    }).sort(function (a, b) { return b.date.localeCompare(a.date); });
+
+    if (!rows.length) {
+      list.innerHTML = '<div class="card empty-state"><div>No documents match</div>' +
+        '<div class="empty-state-sub">Try a different name or client, or another tab.</div></div>';
+      return;
+    }
+
+    var html = '';
+    var fresh = rows.filter(function (d) { return d.new; });
+    if (fresh.length) {
+      html += '<div class="doc-group"><div class="doc-group-hd">' +
+        '<span class="doc-group-label new-label">To file</span><span class="doc-group-badge">' + fresh.length + '</span>' +
+        '<button class="doc-mark-all" type="button" data-file="all">Mark all as filed</button></div>' +
+        '<div class="card">' + fresh.map(advDocRow).join('') + '</div></div>';
+    }
+    var groups = {};
+    rows.filter(function (d) { return !d.new; }).forEach(function (d) {
+      var key = d.date.slice(0, 7);
+      (groups[key] = groups[key] || []).push(d);
+    });
+    Object.keys(groups).sort().reverse().forEach(function (key) {
+      var g = groups[key];
+      var label = new Date(key + '-01T00:00:00Z').toLocaleDateString('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+      html += '<div class="doc-group"><div class="doc-group-hd">' +
+        '<span class="doc-group-label">' + label + '</span>' +
+        '<span class="doc-group-count">' + g.length + ' document' + (g.length === 1 ? '' : 's') + '</span></div>' +
+        '<div class="card">' + g.map(advDocRow).join('') + '</div></div>';
+    });
+    list.innerHTML = html;
+  }
+
+  list.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-file]');
+    if (!btn) return;
+    adviserDocuments.forEach(function (d) { if (btn.dataset.file === 'all' || btn.dataset.file === d.id) d.new = false; });
+    render();
+  });
+
+  if (search) search.addEventListener('input', function () { advDocState.query = search.value; render(); });
+  if (tabs) tabs.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-filter]');
+    if (!btn) return;
+    advDocState.filter = btn.dataset.filter;
+    tabs.querySelectorAll('[data-filter]').forEach(function (b) {
+      var on = b === btn;
+      b.classList.toggle('is-active', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
+    render();
+  });
+
+  render();
+}
+
+
 document.addEventListener('DOMContentLoaded', function () {
   buildAdviserDashboard();
   buildPipelinePage();
   buildFeesPage();
+  buildAdviserDocuments();
   buildTasksPage();
   buildSuitabilityPage();
   buildMessagesPage();

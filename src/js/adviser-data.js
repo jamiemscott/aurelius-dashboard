@@ -395,3 +395,26 @@ const FEE_BANDS = [
    of today's. The first is November 2025, the last October 2026. */
 const AUM_HISTORY_START = '2025-11';
 const AUM_HISTORY = [0.874, 0.889, 0.902, 0.884, 0.909, 0.921, 0.934, 0.951, 0.946, 0.963, 0.978, 0.991];
+
+/* ─── DOCUMENTS ───────────────────────────────────────────────
+   Files exchanged with clients. dir 'in' came from the client and
+   'out' was sent to them; incoming files stay 'new' until the
+   adviser files them. Categories are the client site's DOC_CATS. */
+const adviserDocuments = [
+  { id: 'DOC-3418', client: 'hyacinth-bucket',  dir: 'in',  category: 'form',           name: 'Gift letter to Daisy and Rose',           date: '2026-11-11', size: '0.4 MB', new: true },
+  { id: 'DOC-3417', client: 'jessica-fletcher', dir: 'in',  category: 'form',           name: 'Passport (renewed)',                      date: '2026-11-10', size: '1.8 MB', new: true },
+  { id: 'DOC-3415', client: 'jim-rockford',     dir: 'in',  category: 'tax',            name: 'P60 2025/26',                             date: '2026-11-07', size: '0.2 MB', new: true },
+  { id: 'DOC-3412', client: 'basil-fawlty',     dir: 'in',  category: 'statement',      name: 'Fawlty Towers Ltd accounts 2025',         date: '2026-11-05', size: '2.6 MB' },
+  { id: 'DOC-3409', client: 'sumant-kumar',     dir: 'out', category: 'report',         name: 'Suitability report — ISA top-up',         date: '2026-11-04', size: '0.9 MB' },
+  { id: 'DOC-3406', client: 'frasier-crane',    dir: 'out', category: 'statement',      name: 'Quarterly valuation Q3 2026',             date: '2026-11-02', size: '1.1 MB' },
+  { id: 'DOC-3405', client: 'margo-leadbetter', dir: 'out', category: 'statement',      name: 'Quarterly valuation Q3 2026',             date: '2026-11-02', size: '1.0 MB' },
+  { id: 'DOC-3401', client: 'victor-meldrew',   dir: 'out', category: 'correspondence', name: 'Complaint outcome letter',                date: '2026-10-28', size: '0.3 MB' },
+  { id: 'DOC-3398', client: 'columbo',          dir: 'in',  category: 'correspondence', name: 'Signed letter of authority',              date: '2026-10-24', size: '0.5 MB' },
+  { id: 'DOC-3392', client: 'derek-trotter',    dir: 'out', category: 'form',           name: 'Risk questionnaire',                      date: '2026-10-19', size: '0.3 MB' },
+  { id: 'DOC-3388', client: 'margo-leadbetter', dir: 'in',  category: 'form',           name: 'Expression of wish form',                 date: '2026-10-15', size: '0.4 MB' },
+  { id: 'DOC-3381', client: 'frasier-crane',    dir: 'out', category: 'tax',            name: 'Capital gains tax pack 2025/26',          date: '2026-10-09', size: '0.7 MB' },
+  { id: 'DOC-3377', client: 'diogo',            dir: 'out', category: 'report',         name: 'Annual review report 2026',               date: '2026-10-06', size: '1.4 MB' },
+  { id: 'DOC-3369', client: 'jessica-fletcher', dir: 'in',  category: 'tax',            name: 'Royalty statement — Cabot Cove Press',    date: '2026-09-29', size: '0.6 MB' },
+  { id: 'DOC-3362', client: 'mike',             dir: 'out', category: 'correspondence', name: 'Welcome letter and terms of business',    date: '2026-09-22', size: '0.8 MB' },
+  { id: 'DOC-3355', client: 'hyacinth-bucket',  dir: 'out', category: 'report',         name: 'Inheritance tax planning report',         date: '2026-09-16', size: '1.2 MB' },
+];
