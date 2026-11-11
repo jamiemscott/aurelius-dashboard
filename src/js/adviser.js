@@ -325,7 +325,8 @@ function buildClientProfile() {
     row('ID document', c.kyc.doc) +
     row('Document expiry', advDate(c.kyc.expiry)) +
     row('Last review', advDate(c.lastReview)) +
-    row('Next review', advDate(c.nextReview) + ' ' + advDueTag(c.nextReview, 'Overdue'));
+    row('Next review', advDate(c.nextReview) + ' ' + advDueTag(c.nextReview, 'Overdue')) +
+    advLatestReportRow(c, row);
 
   var notes = document.getElementById('client-notes');
   if (notes) {
@@ -1273,8 +1274,225 @@ function buildMessagesPage() {
 }
 
 
+/* ── Suitability Reports ────────────────────────────────────── */
+
+var reportState = { filter: 'progress', query: '', openId: null };
+
+var reportFilters = {
+  progress: function (r) { return r.stage < 3; },
+  signed:   function (r) { return r.stage === 3; },
+  all:      function () { return true; },
+};
+
+function advReportStatus(r) {
+  if (r.stage === 3) return { label: 'Signed', tone: 'success' };
+  if (r.stage === 2) {
+    var waiting = -advDaysUntil(r.sent);
+    return waiting > SIGNATURE_CHASE ? { label: 'Unsigned · ' + waiting + ' days', tone: 'error' } : { label: 'Awaiting signature', tone: 'warning' };
+  }
+  return { label: REPORT_STAGES[r.stage].status, tone: '' };
+}
+
+function advReportSource(r) {
+  var base = '/adviser-dashboard/' + ADVISER.slug;
+  return r.source.kind === 'request'
+    ? '<a href="' + base + '/advice-requests/#' + r.source.ref + '">Advice request ' + r.source.ref + '</a>'
+    : '<a href="' + base + '/reviews/#review-' + r.source.ref + '">Annual review</a>';
+}
+
+/* Client 360: the client's most recent report, linked */
+function advLatestReportRow(c, row) {
+  var mine = suitabilityReports.filter(function (r) { return r.client === c.slug; })
+    .sort(function (a, b) { return b.updated.localeCompare(a.updated); });
+  if (!mine.length) return row('Suitability report', 'None on file');
+  var r = mine[0], st = advReportStatus(r);
+  return row('Suitability report', '<a href="/adviser-dashboard/' + ADVISER.slug + '/compliance/suitability/#' + r.id + '">' + r.title + '</a> ' + advTag(st.label, st.tone));
+}
+
+function buildSuitabilityPage() {
+  var list = document.getElementById('report-list');
+  if (!list) return;
+  var tabs   = document.getElementById('report-tabs');
+  var search = document.getElementById('report-search');
+  var drawer = document.getElementById('report-drawer');
+  var ICON = '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>';
+
+  function row(r) {
+    var c = advClient(r.client);
+    var st = advReportStatus(r);
+    var when = r.stage === 3 ? 'Signed ' + advDate(r.signed) : r.stage === 2 ? 'Sent ' + advDate(r.sent) : 'Updated ' + advDate(r.updated);
+    return '<button class="doc-entry" type="button" popovertarget="report-drawer" data-report="' + r.id + '">' +
+      '<span class="doc-entry-icon" style="--doc-cat-color:#F5A623;--doc-cat-bg:rgba(245,166,35,0.12)" aria-hidden="true">' +
+        '<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">' + ICON + '</svg></span>' +
+      '<span class="doc-entry-body">' +
+        '<span class="doc-entry-name">' + c.name + ' — ' + r.title + '</span>' +
+        '<span class="doc-entry-meta"><span>' + r.id + '</span><span class="doc-meta-dot">·</span><span>' + (r.source.kind === 'request' ? 'Advice request' : 'Annual review') + '</span></span>' +
+      '</span>' +
+      '<span class="doc-entry-date">' + when + '</span>' +
+      advTag(st.label, st.tone) +
+    '</button>';
+  }
+
+  function render() {
+    Object.keys(reportFilters).forEach(function (k) {
+      advSetText('report-count-' + k, String(suitabilityReports.filter(reportFilters[k]).length));
+    });
+    var by = function (n) { return suitabilityReports.filter(function (r) { return r.stage === n; }).length; };
+    advSetText('report-summary', by(0) + ' drafting · ' + by(1) + ' with compliance · ' + by(2) + ' awaiting signature');
+
+    var q = reportState.query.trim().toLowerCase();
+    var rows = suitabilityReports.filter(reportFilters[reportState.filter]).filter(function (r) {
+      return !q || (advClient(r.client).name + ' ' + r.title + ' ' + r.id).toLowerCase().indexOf(q) !== -1;
+    });
+    if (!rows.length) {
+      list.innerHTML = '<div class="card empty-state"><svg aria-hidden="true" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">' + ICON + '</svg>' +
+        '<div>No reports</div><div class="empty-state-sub">Try another tab or search.</div></div>';
+      return;
+    }
+    /* One group per stage, in workflow order */
+    list.innerHTML = REPORT_STAGES.map(function (s, n) {
+      var items = rows.filter(function (r) { return r.stage === n; })
+        .sort(function (a, b) { return b.updated.localeCompare(a.updated); });
+      if (!items.length) return '';
+      return '<div class="doc-group"><div class="doc-group-hd"><span class="doc-group-label">' + s.status + '</span>' +
+        '<span class="doc-group-count">' + items.length + '</span></div><div class="card">' + items.map(row).join('') + '</div></div>';
+    }).join('');
+  }
+
+  if (search) search.addEventListener('input', function () { reportState.query = search.value; render(); });
+  if (tabs) tabs.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-filter]');
+    if (!btn) return;
+    reportState.filter = btn.dataset.filter;
+    tabs.querySelectorAll('[data-filter]').forEach(function (b) {
+      var on = b === btn;
+      b.classList.toggle('is-active', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
+    render();
+  });
+  list.addEventListener('click', function (e) {
+    var r = e.target.closest('[data-report]');
+    if (!r) return;
+    reportState.openId = r.dataset.report;
+    renderReportDrawer();
+  });
+
+  if (drawer) {
+    drawer.addEventListener('toggle', function (e) { if (e.newState === 'closed') render(); });
+    drawer.addEventListener('input', advSyncReport);
+    drawer.addEventListener('change', advSyncReport);
+    drawer.addEventListener('click', function (e) {
+      var act = e.target.closest('[data-action]');
+      if (!act) return;
+      var r = suitabilityReports.find(function (x) { return x.id === reportState.openId; });
+      if (!r) return;
+      if (act.dataset.action === 'submit')  { r.stage = 1; r.submitted = AS_AT; }
+      if (act.dataset.action === 'approve') { r.stage = 2; r.sent = AS_AT; }
+      if (act.dataset.action === 'remind')  { r.reminded = AS_AT; }
+      if (act.dataset.action === 'signed')  { r.stage = 3; r.signed = AS_AT; }
+      r.updated = AS_AT;
+      renderReportDrawer();
+    });
+  }
+
+  render();
+  var hashId = window.location.hash.slice(1);
+  var target = suitabilityReports.find(function (x) { return x.id === hashId; });
+  if (target && drawer) {
+    if (!reportFilters[reportState.filter](target)) tabs.querySelector('[data-filter="all"]').click();
+    reportState.openId = hashId;
+    renderReportDrawer();
+    drawer.showPopover();
+  }
+}
+
+/* While drafting: keep the recommendation and ticks on the report, and
+   allow "Send to compliance" once there is a recommendation and every
+   suitability point is ticked                                        */
+function advSyncReport(e) {
+  var r = suitabilityReports.find(function (x) { return x.id === reportState.openId; });
+  if (!r || r.stage !== 0) return;
+  if (e && e.target.matches('[data-check]')) {
+    var n = Number(e.target.dataset.check);
+    r.done = r.done.filter(function (x) { return x !== n; });
+    if (e.target.checked) r.done.push(n);
+  }
+  var text = document.getElementById('report-recommendation');
+  if (text) r.recommendation = text.value;
+  var btn = document.querySelector('#report-drawer [data-action="submit"]');
+  if (btn) btn.disabled = !(r.recommendation.trim().length >= 20 && r.done.length === SUITABILITY_CHECKS.length);
+}
+
+function renderReportDrawer() {
+  var r = suitabilityReports.find(function (x) { return x.id === reportState.openId; });
+  if (!r) return;
+  var c = advClient(r.client);
+  var st = advReportStatus(r);
+  var row = function (label, value) {
+    return '<div class="review-row"><span class="review-row-label">' + label + '</span><span class="review-row-value">' + value + '</span></div>';
+  };
+
+  advSetText('report-drawer-media', advInitials(c.name));
+  advSetText('report-drawer-title', r.title);
+  var sub = document.getElementById('report-drawer-subtitle');
+  if (sub) sub.innerHTML = advTag(st.label, st.tone) + ' <a href="' + advClientUrl(c.slug) + '">' + c.name + '</a> · ' + r.id;
+
+  var html = '';
+  if (r.stage < 3) {
+    html += '<div class="steps" role="list" aria-label="Report progress">' + REPORT_STAGES.map(function (s, n) {
+      var cls = n < r.stage ? ' is-complete' : n === r.stage ? ' is-active' : '';
+      var num = n < r.stage ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>' : (n + 1);
+      return (n ? '<div class="step-connector' + (n <= r.stage ? ' is-complete' : '') + '" aria-hidden="true"></div>' : '') +
+        '<div class="step' + cls + '" role="listitem"' + (n === r.stage ? ' aria-current="step"' : '') + '>' +
+        '<div class="step-num" aria-hidden="true">' + num + '</div><span class="step-label">' + s.label + '</span></div>';
+    }).join('') + '</div>';
+  } else {
+    html += '<div class="form-success" role="status">' +
+      '<div class="form-success-icon" aria-hidden="true"><svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>' +
+      '<h3 class="form-success-title">Signed by ' + c.name.split(' ')[0] + '</h3>' +
+      '<p class="form-success-sub">E-signed on ' + advDate(r.signed) + '. The signed copy is filed in the client’s documents.</p>' +
+      '<div class="form-ref-badge"><span class="form-ref-label">Reference</span><span class="form-ref-value">' + r.id + '</span></div></div>';
+  }
+
+  html += '<div class="review-card">' +
+    row('Advice', r.product + (r.amount ? ' · ' + advMoney(r.amount, 0) : '')) +
+    row('Risk profile', r.risk) +
+    row('From', advReportSource(r)) +
+    (r.submitted ? row('Compliance', (r.stage === 1 ? 'With ' : 'Approved by ') + COMPLIANCE_REVIEWER + ' · ' + advDate(r.submitted)) : '') +
+    (r.sent ? row('Sent to client', advDate(r.sent) + (r.stage === 2 ? ' ' + advTag(st.label, st.tone) : '')) : '') +
+    (r.reminded ? row('Reminder', 'Sent ' + advDate(r.reminded)) : '') +
+    '</div>';
+
+  var footer = '';
+  if (r.stage === 0) {
+    html += '<h3 class="section-heading">Recommendation</h3>' +
+      '<div class="field"><label class="field-label" for="report-recommendation">What you recommend, and why</label>' +
+      '<textarea id="report-recommendation" rows="4" maxlength="1200">' + r.recommendation + '</textarea></div>' +
+      '<h3 class="section-heading">Why it is suitable</h3><div>' + SUITABILITY_CHECKS.map(function (label, n) {
+        return '<label class="form-checkbox-row"><input type="checkbox" data-check="' + n + '"' + (r.done.indexOf(n) !== -1 ? ' checked' : '') + '>' +
+          '<span class="form-checkbox-text">' + label + '</span></label>';
+      }).join('') + '</div>';
+    footer = '<button class="btn-primary" type="button" data-action="submit" disabled>Send to compliance</button>';
+  } else {
+    html += '<h3 class="section-heading">Recommendation</h3><p class="det-section-sub">' + r.recommendation + '</p>';
+    /* Prototype stand-ins for what compliance and the client do */
+    if (r.stage === 1) footer = '<button class="btn-primary" type="button" data-action="approve">Approved · send to client</button>';
+    if (r.stage === 2) footer = (r.reminded === AS_AT ? '' : '<button class="btn-secondary" type="button" data-action="remind">Send reminder</button>') +
+      '<button class="btn-primary" type="button" data-action="signed">Mark as signed</button>';
+  }
+
+  document.getElementById('report-drawer-body').innerHTML = html;
+  var foot = document.getElementById('report-drawer-footer');
+  foot.innerHTML = footer;
+  foot.hidden = !footer;
+  advSyncReport();
+}
+
+
 document.addEventListener('DOMContentLoaded', function () {
   buildAdviserDashboard();
+  buildSuitabilityPage();
   buildMessagesPage();
   buildDashboardRequests();
   buildReviewsPage();
