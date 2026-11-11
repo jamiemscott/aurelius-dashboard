@@ -339,6 +339,13 @@
 
 .doc-search-input::placeholder { color: var(--text-2); }
 
+/* Narrow screens: the fixed-width search squeezed the tabs to a
+   sliver. Stack the bar so tabs and search each get a full row. */
+@media (max-width: 600px) {
+  .doc-filter-bar    { align-items: stretch; flex-direction: column; gap: 10px; }
+  .doc-search-input  { width: 100%; }
+}
+
 .doc-group { margin-block-end: 20px; }
 
 .doc-group-hd {

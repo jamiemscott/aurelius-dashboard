@@ -1,4 +1,8 @@
 {
   "cleanUrls": true,
-  "directoryListing": false
+  "directoryListing": false,
+  "rewrites": [
+    { "source": "/adviser-dashboard/james-whitmore/clients/:slug", "destination": "/adviser-dashboard/james-whitmore/clients/profile/index.html" },
+    { "source": "/adviser-dashboard/james-whitmore/clients/:slug/", "destination": "/adviser-dashboard/james-whitmore/clients/profile/index.html" }
+  ]
 }

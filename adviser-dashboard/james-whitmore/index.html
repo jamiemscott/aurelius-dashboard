@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Aurelius Wealth Management adviser dashboard — client book, upcoming reviews, KYC expiries and advice requests.">
 <title>Aurelius Wealth — Adviser Dashboard</title>
-<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../src/styles/bundle.css">
+<link rel="stylesheet" href="/src/styles/bundle.css">
 </head>
 <body>
 
@@ -32,7 +32,7 @@
 
     <nav class="topbar-nav" aria-label="Primary">
       <a class="tab-btn is-active" href="/adviser-dashboard/james-whitmore/" aria-current="page">Dashboard</a>
-      <a class="tab-btn" href="#">Client Book</a>          <!-- placeholder -->
+      <a class="tab-btn" href="/adviser-dashboard/james-whitmore/clients/">Client Book</a>
       <a class="tab-btn" href="#">Reviews</a>              <!-- placeholder -->
       <a class="tab-btn" href="#">Advice Requests</a>      <!-- placeholder -->
       <a class="tab-btn" href="#">Compliance</a>           <!-- placeholder -->
@@ -70,7 +70,7 @@
         <svg class="nav-icon" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
         <span>Dashboard</span>
       </a>
-      <a class="nav-item" href="#"> <!-- placeholder -->
+      <a class="nav-item" href="/adviser-dashboard/james-whitmore/clients/">
         <svg class="nav-icon" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         <span>Client Book</span>
       </a>
@@ -164,25 +164,25 @@
       <div class="kpi-group">
         <div class="card kpi-card featured">
           <div class="kpi-label">Assets Under Advice</div>
-          <div class="kpi-value">£6,893,830</div>
+          <div class="kpi-value" id="adv-kpi-aum">£6,893,830</div>
           <div class="kpi-change kpi-change--muted">across all clients</div>
         </div>
         <div class="card kpi-card">
           <div class="kpi-label">Clients</div>
-          <div class="kpi-value">12</div>
+          <div class="kpi-value" id="adv-kpi-clients">12</div>
           <div class="kpi-change kpi-change--muted">on your book</div>
         </div>
       </div>
       <div class="kpi-group">
         <div class="card kpi-card">
           <div class="kpi-label">Reviews Due</div>
-          <div class="kpi-value">5</div>
-          <div class="kpi-change down">2 overdue <span class="kpi-change-period">next 30 days</span></div>
+          <div class="kpi-value" id="adv-kpi-reviews">5</div>
+          <div class="kpi-change down"><span id="adv-kpi-reviews-note">2 overdue</span> <span class="kpi-change-period">next 30 days</span></div>
         </div>
         <div class="card kpi-card">
           <div class="kpi-label">KYC Expiring</div>
-          <div class="kpi-value">4</div>
-          <div class="kpi-change down">1 expired <span class="kpi-change-period">next 60 days</span></div>
+          <div class="kpi-value" id="adv-kpi-kyc">4</div>
+          <div class="kpi-change down"><span id="adv-kpi-kyc-note">1 expired</span> <span class="kpi-change-period">next 60 days</span></div>
         </div>
       </div>
     </div>
@@ -194,7 +194,7 @@
           <h2 class="chart-title">Upcoming Reviews</h2>
           <div class="chart-subtitle">Due in the next 30 days, including overdue</div>
         </div>
-        <a class="btn-secondary btn-secondary--sm" href="#">View all reviews</a> <!-- placeholder -->
+        <a class="btn-secondary btn-secondary--sm" href="/adviser-dashboard/james-whitmore/clients/">View client book</a>
       </div>
       <div class="table-wrap">
         <table aria-label="Upcoming reviews">
@@ -207,43 +207,7 @@
               <th scope="col">Total Value</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td><div class="td-name">Mike</div><div class="td-type">AW-20240-UK</div></td>
-              <td class="td-secondary">Bronze</td>
-              <td><time datetime="2026-07-15">15 Jul 2026</time></td>
-              <td><span class="status-tag status-tag--error">Overdue</span></td>
-              <td>£104,458.68</td>
-            </tr>
-            <tr>
-              <td><div class="td-name">Diogo</div><div class="td-type">AW-20051-UK</div></td>
-              <td><span class="status-tag status-tag--gold">Platinum</span></td>
-              <td><time datetime="2026-07-22">22 Jul 2026</time></td>
-              <td><span class="status-tag status-tag--error">Overdue</span></td>
-              <td>£129,198.76</td>
-            </tr>
-            <tr>
-              <td><div class="td-name">Basil Fawlty</div><div class="td-type">AW-20311-UK</div></td>
-              <td class="td-secondary">Silver</td>
-              <td><time datetime="2026-11-19">19 Nov 2026</time></td>
-              <td><span class="status-tag status-tag--warning">In 8 days</span></td>
-              <td>£286,540.00</td>
-            </tr>
-            <tr>
-              <td><div class="td-name">Hyacinth Bucket</div><div class="td-type">AW-20298-UK</div></td>
-              <td class="td-secondary">Gold</td>
-              <td><time datetime="2026-11-27">27 Nov 2026</time></td>
-              <td><span class="status-tag">In 16 days</span></td>
-              <td>£612,880.50</td>
-            </tr>
-            <tr>
-              <td><div class="td-name">Frasier Crane</div><div class="td-type">AW-20177-UK</div></td>
-              <td><span class="status-tag status-tag--gold">Platinum</span></td>
-              <td><time datetime="2026-12-08">8 Dec 2026</time></td>
-              <td><span class="status-tag">In 27 days</span></td>
-              <td>£1,842,315.20</td>
-            </tr>
-          </tbody>
+          <tbody id="adv-reviews-body"></tbody>
         </table>
       </div>
     </div>
@@ -267,28 +231,7 @@
                 <th scope="col">Due</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td><div class="td-name">Jessica Fletcher</div><div class="td-type">AW-20402-UK · Passport</div></td>
-                <td><time datetime="2026-11-04">4 Nov 2026</time></td>
-                <td><span class="status-tag status-tag--error">Expired</span></td>
-              </tr>
-              <tr>
-                <td><div class="td-name">Basil Fawlty</div><div class="td-type">AW-20311-UK · Proof of address</div></td>
-                <td><time datetime="2026-12-02">2 Dec 2026</time></td>
-                <td><span class="status-tag">In 21 days</span></td>
-              </tr>
-              <tr>
-                <td><div class="td-name">Derek Trotter</div><div class="td-type">AW-20415-UK · Driving licence</div></td>
-                <td><time datetime="2026-12-20">20 Dec 2026</time></td>
-                <td><span class="status-tag">In 39 days</span></td>
-              </tr>
-              <tr>
-                <td><div class="td-name">Victor Meldrew</div><div class="td-type">AW-20366-UK · Passport</div></td>
-                <td><time datetime="2026-12-29">29 Dec 2026</time></td>
-                <td><span class="status-tag">In 48 days</span></td>
-              </tr>
-            </tbody>
+            <tbody id="adv-kyc-body"></tbody>
           </table>
         </div>
       </div>
@@ -305,7 +248,7 @@
           <div class="activity-item">
             <div class="activity-icon is-div" aria-hidden="true"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
             <div class="activity-body">
-              <div class="activity-title">Hyacinth Bucket</div>
+              <div class="activity-title"><a href="/adviser-dashboard/james-whitmore/clients/hyacinth-bucket/">Hyacinth Bucket</a></div>
               <div class="activity-sub">Gifting to grandchildren · IHT planning</div>
             </div>
             <div class="activity-figures">
@@ -316,7 +259,7 @@
           <div class="activity-item">
             <div class="activity-icon is-div" aria-hidden="true"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
             <div class="activity-body">
-              <div class="activity-title">Frasier Crane</div>
+              <div class="activity-title"><a href="/adviser-dashboard/james-whitmore/clients/frasier-crane/">Frasier Crane</a></div>
               <div class="activity-sub">Pension drawdown · SIPP review</div>
             </div>
             <div class="activity-figures">
@@ -327,7 +270,7 @@
           <div class="activity-item">
             <div class="activity-icon is-div" aria-hidden="true"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
             <div class="activity-body">
-              <div class="activity-title">Derek Trotter</div>
+              <div class="activity-title"><a href="/adviser-dashboard/james-whitmore/clients/derek-trotter/">Derek Trotter</a></div>
               <div class="activity-sub">Lump-sum investment · New money</div>
             </div>
             <div class="activity-figures">
@@ -338,7 +281,7 @@
           <div class="activity-item">
             <div class="activity-icon is-div" aria-hidden="true"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
             <div class="activity-body">
-              <div class="activity-title">Jim Rockford</div>
+              <div class="activity-title"><a href="/adviser-dashboard/james-whitmore/clients/jim-rockford/">Jim Rockford</a></div>
               <div class="activity-sub">ISA top-up · Use this year's allowance</div>
             </div>
             <div class="activity-figures">
@@ -445,7 +388,7 @@
                aria-label="OutSystems (opens in new tab)">
               <span class="footer-sponsor-logo-wrap">
                 <span class="footer-sponsor-crop--os">
-                  <img src="../../src/images/os_logo_lockup_nttdata_color_main_hires.png"
+                  <img src="/src/images/os_logo_lockup_nttdata_color_main_hires.png"
                        class="footer-sponsor-img--lockup"
                        alt="" aria-hidden="true">
                 </span>
@@ -460,7 +403,7 @@
                aria-label="NTT Data (opens in new tab)">
               <span class="footer-sponsor-logo-wrap">
                 <span class="footer-sponsor-crop--ntt">
-                  <img src="../../src/images/os_logo_lockup_nttdata_color_main_hires.png"
+                  <img src="/src/images/os_logo_lockup_nttdata_color_main_hires.png"
                        class="footer-sponsor-img--lockup"
                        alt="" aria-hidden="true">
                 </span>
@@ -473,7 +416,7 @@
             <a href="#" class="footer-sponsor-link"
                aria-label="U Impact">
               <span class="footer-sponsor-logo-wrap">
-                <img src="../../src/images/u-impact.png"
+                <img src="/src/images/u-impact.png"
                      class="footer-sponsor-img--uimpact"
                      alt="" aria-hidden="true">
               </span>
@@ -501,11 +444,13 @@
 </div>
 
 <!-- ── JAVASCRIPT ─────────────────────────────────────────────── -->
-<script src="../../src/js/data.js"></script>
-<script src="../../src/js/charts.js"></script>
-<script src="../../src/js/navigation.js"></script>
-<script src="../../src/js/chatbot.js"></script>
-<script src="../../src/js/main.js"></script>
+<script src="/src/js/data.js"></script>
+<script src="/src/js/adviser-data.js"></script>
+<script src="/src/js/adviser.js"></script>
+<script src="/src/js/charts.js"></script>
+<script src="/src/js/navigation.js"></script>
+<script src="/src/js/chatbot.js"></script>
+<script src="/src/js/main.js"></script>
 
 <!-- ── USER MENU (Popover API) ─────────────────────────────────── -->
 <div id="user-menu" class="user-menu" popover>
