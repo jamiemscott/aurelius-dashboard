@@ -372,6 +372,7 @@ button.doc-entry:focus-visible { outline: 2px solid var(--gold); outline-offset:
   .doc-entry         { flex-wrap: wrap; gap: 6px 12px; padding: 12px 14px; }
   .doc-entry-body    { flex: 1 1 calc(100% - 69px); }
   .doc-entry-meta    { flex-wrap: wrap; }
+  .doc-entry-name    { white-space: normal; }   /* ellipsis can't clip a flex box, so let long names wrap */
   .doc-entry-date    { margin-inline-start: 69px; min-width: 0; text-align: start; }
   .doc-entry-size    { min-width: 0; }
 }
