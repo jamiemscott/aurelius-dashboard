@@ -173,6 +173,11 @@ html:has(.theme-checkbox:checked) .main::before {
   .three-col { grid-template-columns: 1fr 1fr; }
 }
 
+/* Side-by-side halves stack once each would be narrower than a card */
+@media (max-width: 900px) {
+  .two-col-equal { grid-template-columns: 1fr; }
+}
+
 /* ─── CENTRED MAIN — NO SIDEBAR ─────────────────────── */
 /* Add .main--centred alongside .main on full-width (no-sidebar)
    pages where content should sit in a constrained, readable column.

@@ -1708,7 +1708,7 @@ function buildPipelinePage() {
     var overdue = open.filter(function (p) { return advDaysUntil(p.nextAt) < 0; }).length;
     advSetText('pipe-kpi-value', advMoney(value, 0));
     advSetText('pipe-kpi-value-note', open.length + ' prospects');
-    advSetText('pipe-kpi-fees', advMoney(value * ADVICE_FEE_RATE, 0));
+    advSetText('pipe-kpi-fees', advMoney(open.reduce(function (s, p) { return s + advAnnualFee(p.value); }, 0), 0));
     advSetText('pipe-kpi-won', advMoney(won.reduce(function (s, p) { return s + p.value; }, 0), 0));
     advSetText('pipe-kpi-won-note', won.length + ' won · ' + lost.length + ' lost');
     advSetText('pipe-kpi-overdue', String(overdue));
@@ -1823,7 +1823,7 @@ function renderPipeDrawer() {
 
   html += '<div class="review-card">' +
     row('Expected assets', advMoney(p.value, 0)) +
-    row('Expected annual fee', advMoney(p.value * ADVICE_FEE_RATE, 0) + ' · ' + (ADVICE_FEE_RATE * 100).toFixed(2) + '%') +
+    row('Expected annual fee', advMoney(advAnnualFee(p.value), 0) + ' · ' + advFeeRate(p.value)) +
     row('Source', p.source + (ref ? ' · <a href="' + advClientUrl(ref.slug) + '">' + ref.name + '</a>' : '')) +
     row('In pipeline since', advDate(p.since)) +
     (open ? row('Next action', PIPELINE_STAGES[i].next + ' ' + advDueTag(p.nextAt, 'Overdue')) : '') +
@@ -1847,9 +1847,160 @@ function renderPipeDrawer() {
 }
 
 
+/* ── Fees & Revenue ─────────────────────────────────────────── */
+
+/* Annual ongoing fee on a value, banded by FEE_BANDS */
+function advAnnualFee(value) {
+  var fee = 0, floor = 0;
+  FEE_BANDS.forEach(function (b) {
+    if (value > floor) fee += (Math.min(value, b.upTo) - floor) * b.rate;
+    floor = b.upTo;
+  });
+  return fee;
+}
+
+/* Effective rate on a value, e.g. "0.82%" */
+function advFeeRate(value) {
+  return value ? (advAnnualFee(value) / value * 100).toFixed(2) + '%' : '—';
+}
+
+/* Month i of AUM_HISTORY, as { iso: '2026-10', label: 'October 2026', short: 'Oct' } */
+function advHistoryMonth(i) {
+  var parts = AUM_HISTORY_START.split('-');
+  var d = new Date(Date.UTC(+parts[0], +parts[1] - 1 + i, 1));
+  return {
+    iso:   d.toISOString().slice(0, 7),
+    label: d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' }),
+    short: d.toLocaleDateString('en-GB', { month: 'short', timeZone: 'UTC' }),
+  };
+}
+
+/* A client's fee for month i, charged on that month-end's value */
+function advMonthFee(c, i) { return advAnnualFee(c.value * AUM_HISTORY[i]) / 12; }
+
+/* Fees collected so far in AS_AT's calendar year */
+function advFeesThisYear(c) {
+  var year = AS_AT.slice(0, 4), total = 0;
+  AUM_HISTORY.forEach(function (f, i) { if (advHistoryMonth(i).iso.slice(0, 4) === year) total += advMonthFee(c, i); });
+  return total;
+}
+
+var feeState = { sort: 'fee', dir: 'descending' };
+var feeSortKeys = {
+  name:  function (c) { return c.name.split(' ').pop(); },
+  tier:  function (c) { return ['Platinum', 'Gold', 'Silver', 'Bronze'].indexOf(c.tier); },
+  value: function (c) { return c.value; },
+  rate:  function (c) { return advAnnualFee(c.value) / c.value; },
+  fee:   function (c) { return advAnnualFee(c.value); },
+  ytd:   function (c) { return advFeesThisYear(c); },
+};
+
+function buildFeesPage() {
+  var tbody = document.getElementById('fees-body');
+  if (!tbody) return;
+  var table = tbody.closest('table');
+
+  var sum = function (fn) { return adviserClients.reduce(function (s, c) { return s + fn(c); }, 0); };
+  var last = AUM_HISTORY.length - 1;
+  var aum = sum(function (c) { return c.value; });
+  var runRate = sum(function (c) { return advAnnualFee(c.value); });
+  var runRateThen = sum(function (c) { return advAnnualFee(c.value * AUM_HISTORY[0]); });
+  var monthFees = AUM_HISTORY.map(function (f, i) { return sum(function (c) { return advMonthFee(c, i); }); });
+  var ytd = sum(advFeesThisYear);
+  var change = function (now, then) { var v = (now / then - 1) * 100; return (v >= 0 ? '+' : '') + v.toFixed(1) + '%'; };
+
+  /* KPIs */
+  advSetText('fees-kpi-run', advMoney(runRate, 0));
+  advSetText('fees-kpi-run-note', change(runRate, runRateThen));
+  advSetText('fees-kpi-month-label', 'Fees in ' + advHistoryMonth(last).label.split(' ')[0]);
+  advSetText('fees-kpi-month', advMoney(monthFees[last], 0));
+  advSetText('fees-kpi-ytd-note', advMoney(ytd, 0) + ' so far this year');
+  advSetText('fees-kpi-aum', advMoney(aum, 0));
+  advSetText('fees-kpi-aum-note', change(aum, aum * AUM_HISTORY[0]));
+  advSetText('fees-kpi-rate', (runRate / aum * 100).toFixed(2) + '%');
+  advSetText('fees-summary', advMoney(runRate, 0) + ' a year in ongoing fees · ' + adviserClients.length + ' clients');
+
+  /* Fees by client */
+  function render() {
+    var key = feeSortKeys[feeState.sort];
+    var dir = feeState.dir === 'ascending' ? 1 : -1;
+    var rows = adviserClients.slice().sort(function (a, b) {
+      var x = key(a), y = key(b);
+      return (x > y ? 1 : x < y ? -1 : 0) * dir;
+    });
+    tbody.innerHTML = rows.map(function (c) {
+      var fee = advAnnualFee(c.value);
+      return '<tr>' + advNameCell(c) +
+        '<td>' + advTier(c.tier) + '</td>' +
+        '<td>' + advMoney(c.value, 0) + '</td>' +
+        '<td class="td-secondary">' + advFeeRate(c.value) + '</td>' +
+        '<td><strong>' + advMoney(fee, 0) + '</strong><div class="td-type">' + (fee / runRate * 100).toFixed(1) + '% of fees</div></td>' +
+        '<td>' + advMoney(advFeesThisYear(c), 0) + '</td></tr>';
+    }).join('');
+    table.querySelectorAll('th[data-sort]').forEach(function (th) {
+      if (th.dataset.sort === feeState.sort) th.setAttribute('aria-sort', feeState.dir);
+      else th.removeAttribute('aria-sort');
+    });
+  }
+
+  table.querySelectorAll('th[data-sort] .th-sort').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var key = btn.closest('th').dataset.sort;
+      if (feeState.sort === key) feeState.dir = feeState.dir === 'ascending' ? 'descending' : 'ascending';
+      else { feeState.sort = key; feeState.dir = ['name', 'tier'].indexOf(key) !== -1 ? 'ascending' : 'descending'; }
+      render();
+    });
+  });
+  advRowLinks(tbody);
+  render();
+
+  /* Charts: Highcharts 13 in styled mode, with plan-chart.css mapping our tokens */
+  var H = window.Highcharts;
+  if (!H) return;
+  var months = AUM_HISTORY.map(function (f, i) { return advHistoryMonth(i); });
+  var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var short = function (n) { return n >= 1e6 ? '£' + (n / 1e6).toFixed(1) + 'm' : '£' + Math.round(n / 1e3) + 'k'; };
+  H.setOptions({ lang: { thousandsSep: ',' }, credits: { enabled: false } });
+
+  function chart(id, opts) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    H.chart(el, {
+      chart: { styledMode: true, type: opts.type, animation: !still, spacing: [8, 4, 8, 0] },
+      title: { text: undefined },
+      legend: { enabled: false },
+      accessibility: { description: opts.description, point: { valueDescriptionFormat: '{xDescription}: {point.y:,.0f} pounds.' } },
+      xAxis: { categories: months.map(function (m) { return m.short; }) },
+      yAxis: { title: { text: undefined }, labels: { formatter: function () { return short(this.value); } }, tickPixelInterval: 56, min: opts.min },
+      tooltip: {
+        useHTML: true,
+        formatter: function () {
+          return '<span class="plan-tt-date">' + months[this.point.index].label + '</span>' +
+            '<span class="plan-tt-row"><span class="plan-tt-key highcharts-color-0">' + this.series.name + '</span> ' + advMoney(this.y, 0) + '</span>';
+        },
+      },
+      plotOptions: { series: { animation: !still, marker: { enabled: false, symbol: 'circle' } } },
+      series: [{ name: opts.name, className: opts.className, colorIndex: 0, data: opts.data }],
+    });
+  }
+
+  chart('fees-aum-chart', {
+    type: 'line', name: 'Assets under advice', className: 'plan-series-plan',
+    description: 'Assets under advice at each month-end over the last 12 months.',
+    data: AUM_HISTORY.map(function (f) { return Math.round(aum * f); }),
+  });
+  chart('fees-income-chart', {
+    type: 'column', name: 'Fees collected', min: 0,
+    description: 'Ongoing advice fees collected each month over the last 12 months.',
+    data: monthFees.map(Math.round),
+  });
+}
+
+
 document.addEventListener('DOMContentLoaded', function () {
   buildAdviserDashboard();
   buildPipelinePage();
+  buildFeesPage();
   buildTasksPage();
   buildSuitabilityPage();
   buildMessagesPage();

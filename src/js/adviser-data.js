@@ -379,5 +379,19 @@ const adviserPipeline = [
   { id: 'PR-097', name: 'Albert Trotter', stage: 'lost', value: 60000,    source: 'Existing client',     referrer: 'derek-trotter', since: '2026-07-02', lost: '2026-09-01', note: 'Decided to keep it in premium bonds.' },
 ];
 
-/* Ongoing advice charge used for expected fees */
-const ADVICE_FEE_RATE = 0.0075;
+/* ─── FEES & REVENUE ──────────────────────────────────────────
+   Ongoing advice is charged on a tiered scale, monthly in
+   arrears on the month-end value. Each band's rate applies only
+   to the slice of assets within it, so the effective rate falls
+   as a portfolio grows. Pipeline uses the same scale for its
+   expected fees.                                               */
+const FEE_BANDS = [
+  { upTo: 500000,   rate: 0.0100 },
+  { upTo: 1000000,  rate: 0.0075 },
+  { upTo: Infinity, rate: 0.0050 },
+];
+
+/* The book's month-end value over the last 12 months, as a share
+   of today's. The first is November 2025, the last October 2026. */
+const AUM_HISTORY_START = '2025-11';
+const AUM_HISTORY = [0.874, 0.889, 0.902, 0.884, 0.909, 0.921, 0.934, 0.951, 0.946, 0.963, 0.978, 0.991];
