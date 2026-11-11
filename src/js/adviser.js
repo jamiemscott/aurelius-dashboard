@@ -1534,6 +1534,10 @@ function advTasks() {
     if (r.stage === 0) add({ id: 'draft-' + r.id, title: 'Finish suitability report draft', client: r.client, due: advAddDays(r.updated, 5), source: 'Suitability', href: base + '/compliance/suitability/#' + r.id });
     if (r.stage === 2 && -advDaysUntil(r.sent) > SIGNATURE_CHASE - 3) add({ id: 'sign-' + r.id, title: 'Chase signature on suitability report', client: r.client, due: advAddDays(r.sent, SIGNATURE_CHASE), source: 'Suitability', href: base + '/compliance/suitability/#' + r.id });
   });
+  adviserPipeline.forEach(function (p) {
+    var s = PIPELINE_STAGES[advStageIndex(p.stage)];
+    if (s && s.next) add({ id: 'pipe-' + p.id + '-' + p.stage + '-' + p.nextAt, title: s.next + ' with ' + p.name, client: null, due: p.nextAt, source: 'Pipeline', href: base + '/pipeline/#' + p.id });
+  });
   adviserTasks.forEach(function (p) {
     add({ id: p.id, title: p.title, client: p.client, due: p.due, source: 'Personal', personal: p, done: p.done });
   });
@@ -1656,8 +1660,196 @@ function buildTasksPage() {
 }
 
 
+/* ── Pipeline ───────────────────────────────────────────────── */
+
+var pipeState = { filter: 'open', query: '', openId: null };
+
+var pipeFilters = {
+  open: function (p) { return p.stage !== 'won' && p.stage !== 'lost'; },
+  won:  function (p) { return p.stage === 'won'; },
+  lost: function (p) { return p.stage === 'lost'; },
+};
+
+function advStageIndex(key) { return PIPELINE_STAGES.findIndex(function (s) { return s.key === key; }); }
+
+function advMoneyShort(n) {
+  return n >= 1e6 ? '£' + (n / 1e6).toFixed(n >= 1e7 ? 0 : 1) + 'm' : n >= 1e3 ? '£' + Math.round(n / 1e3) + 'k' : advMoney(n, 0);
+}
+
+function buildPipelinePage() {
+  var list = document.getElementById('pipe-list');
+  if (!list) return;
+  var tabs   = document.getElementById('pipe-tabs');
+  var search = document.getElementById('pipe-search');
+  var drawer = document.getElementById('pipe-drawer');
+  var ICON = '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>';
+
+  function row(p) {
+    var s = PIPELINE_STAGES[advStageIndex(p.stage)];
+    var meta = p.stage === 'won' ? 'Won ' + advDate(p.won) : p.stage === 'lost' ? 'Lost ' + advDate(p.lost) : 'Next: ' + s.next + ' · ' + advDate(p.nextAt);
+    return '<button class="doc-entry" type="button" popovertarget="pipe-drawer" data-prospect="' + p.id + '">' +
+      '<span class="doc-entry-icon" style="--doc-cat-color:#3B82F6;--doc-cat-bg:rgba(59,130,246,0.12)" aria-hidden="true">' +
+        '<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">' + ICON + '</svg></span>' +
+      '<span class="doc-entry-body">' +
+        '<span class="doc-entry-name">' + p.name + '</span>' +
+        '<span class="doc-entry-meta"><span>' + p.source + '</span><span class="doc-meta-dot">·</span><span>' + meta + '</span></span>' +
+      '</span>' +
+      '<span class="doc-entry-date">' + advMoney(p.value, 0) + '</span>' +
+      (pipeFilters.open(p) ? (advDaysUntil(p.nextAt) <= SOON ? advDueTag(p.nextAt, 'Overdue') : '') :
+        advTag(p.stage === 'won' ? 'Won' : 'Lost', p.stage === 'won' ? 'success' : '')) +
+    '</button>';
+  }
+
+  function render() {
+    var open = adviserPipeline.filter(pipeFilters.open);
+    var won = adviserPipeline.filter(pipeFilters.won);
+    var lost = adviserPipeline.filter(pipeFilters.lost);
+    var value = open.reduce(function (s, p) { return s + p.value; }, 0);
+    var overdue = open.filter(function (p) { return advDaysUntil(p.nextAt) < 0; }).length;
+    advSetText('pipe-kpi-value', advMoney(value, 0));
+    advSetText('pipe-kpi-value-note', open.length + ' prospects');
+    advSetText('pipe-kpi-fees', advMoney(value * ADVICE_FEE_RATE, 0));
+    advSetText('pipe-kpi-won', advMoney(won.reduce(function (s, p) { return s + p.value; }, 0), 0));
+    advSetText('pipe-kpi-won-note', won.length + ' won · ' + lost.length + ' lost');
+    advSetText('pipe-kpi-overdue', String(overdue));
+    Object.keys(pipeFilters).forEach(function (k) { advSetText('pipe-count-' + k, String(adviserPipeline.filter(pipeFilters[k]).length)); });
+    advSetText('pipe-summary', open.length + ' open prospects · ' + advMoneyShort(value) + ' potential assets · ' + overdue + ' next action' + (overdue === 1 ? '' : 's') + ' overdue');
+
+    var q = pipeState.query.trim().toLowerCase();
+    var rows = adviserPipeline.filter(pipeFilters[pipeState.filter]).filter(function (p) {
+      return !q || (p.name + ' ' + p.source + ' ' + p.id).toLowerCase().indexOf(q) !== -1;
+    });
+    if (!rows.length) {
+      list.innerHTML = '<div class="card empty-state"><svg aria-hidden="true" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">' + ICON + '</svg>' +
+        '<div>No prospects</div><div class="empty-state-sub">Try another tab or search.</div></div>';
+      return;
+    }
+    var groups = pipeState.filter === 'open' ? PIPELINE_STAGES.slice(0, 4) : [{ key: pipeState.filter, label: pipeState.filter === 'won' ? 'Won' : 'Lost' }];
+    list.innerHTML = groups.map(function (g) {
+      var items = rows.filter(function (p) { return p.stage === g.key; })
+        .sort(function (a, b) { return (a.nextAt || '').localeCompare(b.nextAt || ''); });
+      if (!items.length) return '';
+      var total = items.reduce(function (s, p) { return s + p.value; }, 0);
+      return '<div class="doc-group"><div class="doc-group-hd"><span class="doc-group-label">' + g.label + ' · ' + advMoneyShort(total) + '</span>' +
+        '<span class="doc-group-count">' + items.length + '</span></div><div class="card">' + items.map(row).join('') + '</div></div>';
+    }).join('');
+  }
+
+  if (search) search.addEventListener('input', function () { pipeState.query = search.value; render(); });
+  if (tabs) tabs.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-filter]');
+    if (!btn) return;
+    pipeState.filter = btn.dataset.filter;
+    tabs.querySelectorAll('[data-filter]').forEach(function (b) {
+      var on = b === btn;
+      b.classList.toggle('is-active', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
+    render();
+  });
+  list.addEventListener('click', function (e) {
+    var r = e.target.closest('[data-prospect]');
+    if (!r) return;
+    pipeState.openId = r.dataset.prospect;
+    renderPipeDrawer();
+  });
+
+  if (drawer) {
+    drawer.addEventListener('toggle', function (e) { if (e.newState === 'closed') render(); });
+    drawer.addEventListener('change', function (e) {
+      if (e.target.id !== 'pipe-next-at' || !e.target.value) return;
+      var p = adviserPipeline.find(function (x) { return x.id === pipeState.openId; });
+      p.nextAt = e.target.value;
+      renderPipeDrawer();
+    });
+    drawer.addEventListener('click', function (e) {
+      var act = e.target.closest('[data-action]');
+      if (!act) return;
+      var p = adviserPipeline.find(function (x) { return x.id === pipeState.openId; });
+      if (!p) return;
+      var i = advStageIndex(p.stage);
+      if (act.dataset.action === 'advance') {
+        p.stage = PIPELINE_STAGES[i + 1].key;
+        if (p.stage === 'won') p.won = AS_AT;
+        else p.nextAt = advAddDays(AS_AT, 7);
+      }
+      if (act.dataset.action === 'lost') { p.lostFrom = p.stage; p.stage = 'lost'; p.lost = AS_AT; }
+      renderPipeDrawer();
+    });
+  }
+
+  render();
+  var hashId = window.location.hash.slice(1);
+  var target = adviserPipeline.find(function (x) { return x.id === hashId; });
+  if (target && drawer) {
+    if (!pipeFilters[pipeState.filter](target)) tabs.querySelector('[data-filter="' + (target.stage === 'won' ? 'won' : 'lost') + '"]').click();
+    pipeState.openId = hashId;
+    renderPipeDrawer();
+    drawer.showPopover();
+  }
+}
+
+function renderPipeDrawer() {
+  var p = adviserPipeline.find(function (x) { return x.id === pipeState.openId; });
+  if (!p) return;
+  var i = advStageIndex(p.stage);
+  var open = i > -1 && i < 4;
+  var row = function (label, value) {
+    return '<div class="review-row"><span class="review-row-label">' + label + '</span><span class="review-row-value">' + value + '</span></div>';
+  };
+  var ref = p.referrer ? advClient(p.referrer) : null;
+
+  advSetText('pipe-drawer-media', advInitials(p.name));
+  advSetText('pipe-drawer-title', p.name);
+  var sub = document.getElementById('pipe-drawer-subtitle');
+  if (sub) sub.innerHTML = (open ? advTag(PIPELINE_STAGES[i].label, '') : advTag(p.stage === 'won' ? 'Won' : 'Lost', p.stage === 'won' ? 'success' : '')) + ' ' + p.id + ' · ' + p.source;
+
+  var html = '';
+  if (open) {
+    html += '<div class="steps" role="list" aria-label="Pipeline stage">' + PIPELINE_STAGES.slice(0, 4).map(function (s, n) {
+      var cls = n < i ? ' is-complete' : n === i ? ' is-active' : '';
+      var num = n < i ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>' : (n + 1);
+      return (n ? '<div class="step-connector' + (n <= i ? ' is-complete' : '') + '" aria-hidden="true"></div>' : '') +
+        '<div class="step' + cls + '" role="listitem"' + (n === i ? ' aria-current="step"' : '') + '>' +
+        '<div class="step-num" aria-hidden="true">' + num + '</div><span class="step-label">' + s.label + '</span></div>';
+    }).join('') + '</div>';
+  } else if (p.stage === 'won') {
+    html += '<div class="form-success" role="status">' +
+      '<div class="form-success-icon" aria-hidden="true"><svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>' +
+      '<h3 class="form-success-title">Welcome aboard</h3>' +
+      '<p class="form-success-sub">' + p.name + ' became a client on ' + advDate(p.won) + '.</p>' +
+      '<div class="form-ref-badge"><span class="form-ref-label">Reference</span><span class="form-ref-value">' + p.id + '</span></div></div>';
+  }
+
+  html += '<div class="review-card">' +
+    row('Expected assets', advMoney(p.value, 0)) +
+    row('Expected annual fee', advMoney(p.value * ADVICE_FEE_RATE, 0) + ' · ' + (ADVICE_FEE_RATE * 100).toFixed(2) + '%') +
+    row('Source', p.source + (ref ? ' · <a href="' + advClientUrl(ref.slug) + '">' + ref.name + '</a>' : '')) +
+    row('In pipeline since', advDate(p.since)) +
+    (open ? row('Next action', PIPELINE_STAGES[i].next + ' ' + advDueTag(p.nextAt, 'Overdue')) : '') +
+    (p.stage === 'lost' ? row('Lost', advDate(p.lost)) : '') +
+    '</div>' +
+    '<h3 class="section-heading">Notes</h3><p class="det-section-sub">' + p.note + '</p>';
+
+  var footer = '';
+  if (open) {
+    html += '<h3 class="section-heading">Next action</h3><div class="field">' +
+      '<label class="field-label" for="pipe-next-at">' + PIPELINE_STAGES[i].next + ' by</label>' +
+      '<input class="det-input" type="date" id="pipe-next-at" value="' + p.nextAt + '"></div>';
+    footer = '<button class="btn-secondary" type="button" data-action="lost">Mark as lost</button>' +
+      '<button class="btn-primary" type="button" data-action="advance">' + (i === 3 ? 'Mark as won' : 'Move to ' + PIPELINE_STAGES[i + 1].label) + '</button>';
+  }
+
+  document.getElementById('pipe-drawer-body').innerHTML = html;
+  var foot = document.getElementById('pipe-drawer-footer');
+  foot.innerHTML = footer;
+  foot.hidden = !footer;
+}
+
+
 document.addEventListener('DOMContentLoaded', function () {
   buildAdviserDashboard();
+  buildPipelinePage();
   buildTasksPage();
   buildSuitabilityPage();
   buildMessagesPage();

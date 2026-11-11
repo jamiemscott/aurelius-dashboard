@@ -352,3 +352,32 @@ const adviserTasks = [
   { id: 'T-104', title: 'Book the train to Torquay for the review', due: '2026-11-13', client: 'basil-fawlty' },
   { id: 'T-098', title: 'Renew professional indemnity cover', due: '2026-11-02', client: null, done: '2026-11-02' },
 ];
+
+/* ── Pipeline ───────────────────────────────────────────────────
+   Prospects on their way to becoming clients. value is the money
+   expected to come under advice; fee is the expected annual fee
+   (ongoing advice charge). Stages run in this order.              */
+const PIPELINE_STAGES = [
+  { key: 'enquiry',  label: 'Enquiry',   next: 'Book intro call' },
+  { key: 'factfind', label: 'Fact-find', next: 'Complete fact-find' },
+  { key: 'proposal', label: 'Proposal',  next: 'Present proposal' },
+  { key: 'onboard',  label: 'Onboarding', next: 'Finish onboarding' },
+  { key: 'won',      label: 'Won',       next: '' },
+];
+
+const PIPELINE_SOURCES = ['Client referral', 'Website', 'Accountant referral', 'Event', 'Existing client'];
+
+const adviserPipeline = [
+  { id: 'PR-118', name: 'Rose Nylund',        stage: 'enquiry',  value: 220000,  source: 'Client referral',     referrer: 'jessica-fletcher', since: '2026-11-10', nextAt: '2026-11-14', note: 'Widowed last year; wants income from a lump sum.' },
+  { id: 'PR-117', name: 'Thomas Magnum',      stage: 'enquiry',  value: 450000,  source: 'Website',             since: '2026-11-07', nextAt: '2026-11-12', note: 'Moving to the UK from Hawaii; overseas pension to review.' },
+  { id: 'PR-115', name: 'Edina Monsoon',      stage: 'factfind', value: 680000,  source: 'Event',               since: '2026-10-21', nextAt: '2026-11-18', note: 'PR agency founder. Business sale expected next year.' },
+  { id: 'PR-112', name: 'Arthur Daley',       stage: 'factfind', value: 95000,   source: 'Accountant referral', since: '2026-10-14', nextAt: '2026-11-06', note: 'Fact-find half done; still waiting on pension statements.' },
+  { id: 'PR-109', name: 'Jessica Rabbit',     stage: 'proposal', value: 1150000, source: 'Client referral',     referrer: 'frasier-crane', since: '2026-09-30', nextAt: '2026-11-20', note: 'Wants an ESG-led portfolio and income from 2028.' },
+  { id: 'PR-106', name: 'Captain Mainwaring', stage: 'proposal', value: 310000,  source: 'Existing client',     referrer: 'basil-fawlty', since: '2026-09-18', nextAt: '2026-11-10', note: 'Cautious. Bank manager by trade; will read every page.' },
+  { id: 'PR-103', name: 'Hercule Poirot',     stage: 'onboard',  value: 2400000, source: 'Accountant referral', since: '2026-08-26', nextAt: '2026-11-13', note: 'Proposal accepted. Transfers from two platforms in progress.' },
+  { id: 'PR-099', name: 'Miss Marple',        stage: 'won',      value: 380000,  source: 'Client referral',     referrer: 'jessica-fletcher', since: '2026-07-14', won: '2026-10-02', note: 'Now a client.' },
+  { id: 'PR-097', name: 'Albert Trotter', stage: 'lost', value: 60000,    source: 'Existing client',     referrer: 'derek-trotter', since: '2026-07-02', lost: '2026-09-01', note: 'Decided to keep it in premium bonds.' },
+];
+
+/* Ongoing advice charge used for expected fees */
+const ADVICE_FEE_RATE = 0.0075;
