@@ -340,3 +340,15 @@ const suitabilityReports = [
     product: 'Personal pension transfer', amount: 184000, risk: 'Cautious (3/7)', stage: 3, updated: '2026-09-14', submitted: '2026-09-07', sent: '2026-09-09', signed: '2026-09-14', done: [0, 1, 2, 3],
     recommendation: 'Consolidate three old workplace pensions into the Aurelius SIPP. None carry guaranteed benefits or exit penalties.' },
 ];
+
+/* ── Tasks ──────────────────────────────────────────────────────
+   Most of the adviser's tasks are derived live from the other
+   pages (adviser.js advTasks): reviews, KYC, requests, messages and
+   reports. These are the personal ones the adviser added.         */
+const adviserTasks = [
+  { id: 'T-101', title: 'Log Q4 CPD hours', due: '2026-11-30', client: null },
+  { id: 'T-102', title: 'Send the gift letter template', due: '2026-11-12', client: 'hyacinth-bucket' },
+  { id: 'T-103', title: 'Ask for last year’s trading accounts', due: '2026-11-09', client: 'derek-trotter' },
+  { id: 'T-104', title: 'Book the train to Torquay for the review', due: '2026-11-13', client: 'basil-fawlty' },
+  { id: 'T-098', title: 'Renew professional indemnity cover', due: '2026-11-02', client: null, done: '2026-11-02' },
+];

@@ -1490,8 +1490,175 @@ function renderReportDrawer() {
 }
 
 
+/* ── Tasks ──────────────────────────────────────────────────── */
+
+function advAddDays(iso, n) {
+  var d = new Date(iso.slice(0, 10) + 'T00:00:00Z');
+  d.setUTCDate(d.getUTCDate() + n);
+  return d.toISOString().slice(0, 10);
+}
+
+/* Derived tasks ticked off this session (the underlying records don't change) */
+var tasksDone = {};
+
+/* Every open task: derived live from the other pages, plus personal ones.
+   Each has a stable id, a due date, a source and a link to act on it.   */
+function advTasks() {
+  var base = '/adviser-dashboard/' + ADVISER.slug;
+  var t = [];
+  var add = function (o) { o.done = tasksDone[o.id] || o.done || null; t.push(o); };
+
+  advDiary().forEach(function (i) {
+    if (i.kind !== 'review' || i.done) return;
+    if (!i.booking) {
+      add({ id: 'book-' + i.client, title: 'Book annual review', client: i.client, due: i.due, source: 'Reviews', href: base + '/reviews/#' + i.id });
+    } else {
+      var s = REVIEW_STAGES[i.booking.stage];
+      add({ id: 'stage-' + i.client + '-' + i.booking.stage, title: s.label + ' checklist (' + i.booking.done.length + ' of ' + s.checks.length + ')',
+        client: i.client, due: i.at.slice(0, 10), source: 'Reviews', href: base + '/reviews/#' + i.id });
+    }
+  });
+  adviserClients.forEach(function (c) {
+    if (advKycDue(c)) add({ id: 'kyc-' + c.slug + '-' + c.kyc.expiry, title: 'Chase new ' + c.kyc.doc.toLowerCase(), client: c.slug, due: c.kyc.expiry, source: 'KYC & AML', href: base + '/compliance/kyc/#' + c.slug });
+    var sd = advScreenDue(c.slug);
+    if (advDaysUntil(sd) <= SOON) add({ id: 'screen-' + c.slug + '-' + sd, title: 'Run AML screening', client: c.slug, due: sd, source: 'KYC & AML', href: base + '/compliance/kyc/#' + c.slug });
+  });
+  adviceRequests.forEach(function (r) {
+    if (r.status === 'new' || r.status === 'open') add({ id: 'req-' + r.id, title: 'Reply to advice request', client: r.client, due: advAddDays(r.received, 2), source: 'Advice Requests', href: base + '/advice-requests/#' + r.id });
+  });
+  adviserConversations.forEach(function (v) {
+    var last = v.thread[v.thread.length - 1];
+    if (last && last.from === 'client') add({ id: 'msg-' + v.client + '-' + last.at, title: 'Reply to message: ' + v.subject, client: v.client, due: advAddDays(last.at, 1), source: 'Secure Messages', href: base + '/messages/#' + v.client });
+  });
+  suitabilityReports.forEach(function (r) {
+    if (r.stage === 0) add({ id: 'draft-' + r.id, title: 'Finish suitability report draft', client: r.client, due: advAddDays(r.updated, 5), source: 'Suitability', href: base + '/compliance/suitability/#' + r.id });
+    if (r.stage === 2 && -advDaysUntil(r.sent) > SIGNATURE_CHASE - 3) add({ id: 'sign-' + r.id, title: 'Chase signature on suitability report', client: r.client, due: advAddDays(r.sent, SIGNATURE_CHASE), source: 'Suitability', href: base + '/compliance/suitability/#' + r.id });
+  });
+  adviserTasks.forEach(function (p) {
+    add({ id: p.id, title: p.title, client: p.client, due: p.due, source: 'Personal', personal: p, done: p.done });
+  });
+  return t;
+}
+
+function advTaskDue(due) {
+  var d = advDaysUntil(due);
+  if (d < 0)  return { group: 'Overdue', tag: advTag(-d === 1 ? '1 day late' : -d + ' days late', 'error') };
+  if (d === 0) return { group: 'Today', tag: advTag('Today', 'warning') };
+  if (d <= 7) return { group: 'Next 7 days', tag: '' };
+  return { group: 'Later', tag: '' };
+}
+
+var taskState = { filter: 'open', query: '' };
+
+function buildTasksPage() {
+  var list = document.getElementById('task-list');
+  if (!list) return;
+  var tabs   = document.getElementById('task-tabs');
+  var search = document.getElementById('task-search');
+
+  function row(task) {
+    var c = task.client ? advClient(task.client) : null;
+    var due = advTaskDue(task.due);
+    var id = 'task-' + task.id;
+    return '<div class="doc-entry">' +
+      '<span class="doc-entry-icon"><input class="det-check" type="checkbox" id="' + id + '" data-task="' + task.id + '"' + (task.done ? ' checked' : '') + '></span>' +
+      '<span class="doc-entry-body">' +
+        '<label class="doc-entry-name" for="' + id + '">' + (c ? c.name + ' — ' : '') + task.title + '</label>' +
+        '<span class="doc-entry-meta">' +
+          (task.href ? '<a href="' + task.href + '">' + task.source + '</a>' : '<span>' + task.source + '</span>') +
+          (task.done ? '<span class="doc-meta-dot">·</span><span>Done ' + advDate(task.done) + '</span>' : '') +
+        '</span>' +
+      '</span>' +
+      '<span class="doc-entry-date">' + advDate(task.due) + '</span>' +
+      (task.done ? advTag('Done', 'success') : due.tag) +
+    '</div>';
+  }
+
+  function group(label, items) {
+    return '<div class="doc-group"><div class="doc-group-hd"><span class="doc-group-label">' + label + '</span>' +
+      '<span class="doc-group-count">' + items.length + '</span></div><div class="card">' + items.map(row).join('') + '</div></div>';
+  }
+
+  function render() {
+    var all = advTasks();
+    var open = all.filter(function (x) { return !x.done; });
+    var overdue = open.filter(function (x) { return advDaysUntil(x.due) < 0; }).length;
+    var today = open.filter(function (x) { return advDaysUntil(x.due) === 0; }).length;
+    advSetText('task-count-open', String(open.length));
+    advSetText('task-count-done', String(all.length - open.length));
+    advSetText('task-summary', open.length + ' open · ' + overdue + ' overdue · ' + today + ' due today');
+
+    var q = taskState.query.trim().toLowerCase();
+    var rows = all.filter(function (x) { return taskState.filter === 'done' ? x.done : !x.done; }).filter(function (x) {
+      var c = x.client ? advClient(x.client).name : '';
+      return !q || (c + ' ' + x.title + ' ' + x.source).toLowerCase().indexOf(q) !== -1;
+    }).sort(function (a, b) { return a.due.localeCompare(b.due); });
+
+    if (!rows.length) {
+      list.innerHTML = '<div class="card empty-state"><svg aria-hidden="true" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>' +
+        '<div>' + (taskState.filter === 'done' ? 'Nothing completed yet' : 'All clear') + '</div><div class="empty-state-sub">' +
+        (taskState.filter === 'done' ? 'Ticked tasks will appear here.' : 'No open tasks match.') + '</div></div>';
+      return;
+    }
+    if (taskState.filter === 'done') { list.innerHTML = group('Completed', rows.reverse()); return; }
+    list.innerHTML = ['Overdue', 'Today', 'Next 7 days', 'Later'].map(function (g) {
+      var items = rows.filter(function (x) { return advTaskDue(x.due).group === g; });
+      return items.length ? group(g, items) : '';
+    }).join('');
+  }
+
+  list.addEventListener('change', function (e) {
+    var box = e.target.closest('[data-task]');
+    if (!box) return;
+    var task = advTasks().find(function (x) { return x.id === box.dataset.task; });
+    if (!task) return;
+    var when = box.checked ? AS_AT : null;
+    if (task.personal) task.personal.done = when;
+    else tasksDone[task.id] = when;
+    render();
+  });
+  if (search) search.addEventListener('input', function () { taskState.query = search.value; render(); });
+  if (tabs) tabs.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-filter]');
+    if (!btn) return;
+    taskState.filter = btn.dataset.filter;
+    tabs.querySelectorAll('[data-filter]').forEach(function (b) {
+      var on = b === btn;
+      b.classList.toggle('is-active', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
+    render();
+  });
+
+  /* Add task drawer */
+  var drawer = document.getElementById('task-drawer');
+  var clientSel = document.getElementById('task-client');
+  if (clientSel) clientSel.innerHTML = '<option value="">No client</option>' + adviserClients.slice()
+    .sort(function (a, b) { return a.name.split(' ').pop().localeCompare(b.name.split(' ').pop()); })
+    .map(function (c) { return '<option value="' + c.slug + '">' + c.name + '</option>'; }).join('');
+  var title = document.getElementById('task-title');
+  var dueIn = document.getElementById('task-due');
+  var addBtn = document.getElementById('task-add');
+  if (dueIn) { dueIn.min = AS_AT; dueIn.value = advAddDays(AS_AT, 1); }
+  if (title && addBtn) {
+    title.addEventListener('input', function () { addBtn.disabled = !title.value.trim(); });
+    addBtn.addEventListener('click', function () {
+      if (!title.value.trim() || !dueIn.value) return;
+      adviserTasks.push({ id: 'T-' + (105 + adviserTasks.length), title: title.value.trim().replace(/</g, '&lt;'), due: dueIn.value, client: clientSel.value || null });
+      title.value = ''; addBtn.disabled = true;
+      drawer.hidePopover();
+      if (taskState.filter !== 'open') tabs.querySelector('[data-filter="open"]').click();
+      else render();
+    });
+  }
+
+  render();
+}
+
+
 document.addEventListener('DOMContentLoaded', function () {
   buildAdviserDashboard();
+  buildTasksPage();
   buildSuitabilityPage();
   buildMessagesPage();
   buildDashboardRequests();
