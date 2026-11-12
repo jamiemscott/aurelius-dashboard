@@ -8,6 +8,7 @@
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../src/styles/bundle.css">
+<script src="/src/js/settings.js"></script>
 </head>
 <body>
 <div class="shell">
@@ -196,8 +197,9 @@
 </div>
 
 <!-- ── SITE SETTINGS DRAWER (Popover API) ─────────────────────────
-     How the site looks and behaves on this device. UI only for now:
-     the controls aren't wired up yet. -->
+     How the site looks and behaves on this device. src/js/settings.js
+     saves and applies the controls with data-setting; the ones tagged
+     Preview aren't wired up yet. -->
 <div id="site-settings" class="drawer site-settings" popover role="dialog" aria-labelledby="site-settings-title">
   <header class="drawer-header">
     <div class="drawer-header-main">
@@ -213,24 +215,24 @@
   </header>
   <p class="drawer-notice">
     <svg aria-hidden="true" focusable="false" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-    Preview only &middot; these settings don&#x2019;t change anything yet
+    Settings marked Preview don&#x2019;t change anything yet
   </p>
   <div class="drawer-body">
 
     <section class="site-settings-group" aria-labelledby="ss-display">
       <h3 class="section-heading" id="ss-display">Display</h3>
       <fieldset class="site-settings-field">
-        <legend class="field-label">Theme</legend>
+        <legend class="field-label">Theme <span class="status-tag">Preview</span></legend>
         <div class="site-settings-choice"><label class="site-settings-choice-option"><input type="radio" name="ss-theme" value="light"><svg aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg><span>Light</span></label><label class="site-settings-choice-option"><input type="radio" name="ss-theme" value="dark"><svg aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><span>Dark</span></label><label class="site-settings-choice-option"><input type="radio" name="ss-theme" value="system" checked><svg aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg><span>System</span></label></div>
         <p class="field-hint">System follows your device&#x2019;s light or dark setting.</p>
       </fieldset>
       <fieldset class="site-settings-field">
-        <legend class="field-label">Text size</legend>
+        <legend class="field-label">Text size <span class="status-tag">Preview</span></legend>
         <div class="site-settings-choice"><label class="site-settings-choice-option"><input type="radio" name="ss-text" value="standard" checked><span class="site-settings-aa" style="--site-settings-aa:1" aria-hidden="true">Aa</span><span>Standard</span></label><label class="site-settings-choice-option"><input type="radio" name="ss-text" value="large"><span class="site-settings-aa" style="--site-settings-aa:1.2" aria-hidden="true">Aa</span><span>Large</span></label><label class="site-settings-choice-option"><input type="radio" name="ss-text" value="larger"><span class="site-settings-aa" style="--site-settings-aa:1.4" aria-hidden="true">Aa</span><span>Larger</span></label></div>
         <p class="field-hint">Makes all text on the site larger, including figures and charts.</p>
       </fieldset>
       <fieldset class="site-settings-field">
-        <legend class="field-label">Density</legend>
+        <legend class="field-label">Density <span class="status-tag">Preview</span></legend>
         <div class="site-settings-choice"><label class="site-settings-choice-option"><input type="radio" name="ss-density" value="comfortable" checked><svg aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg><span>Comfortable</span></label><label class="site-settings-choice-option"><input type="radio" name="ss-density" value="compact"><svg aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="5" x2="20" y2="5"/><line x1="4" y1="9.5" x2="20" y2="9.5"/><line x1="4" y1="14" x2="20" y2="14"/><line x1="4" y1="18.5" x2="20" y2="18.5"/></svg><span>Compact</span></label></div>
         <p class="field-hint">Compact fits more rows into tables and lists.</p>
       </fieldset>
@@ -241,7 +243,7 @@
       <div class="site-settings-toggles">
         <div class="det-toggle-row">
           <div>
-            <div class="det-toggle-label" id="ss-motion-label">Reduce motion</div>
+            <div class="det-toggle-label" id="ss-motion-label">Reduce motion <span class="status-tag">Preview</span></div>
             <div class="det-toggle-sub" id="ss-motion-sub">Turns off animated card borders, page transitions and the moving background.</div>
           </div>
           <label class="switch" for="ss-motion">
@@ -255,13 +257,13 @@
             <div class="det-toggle-sub" id="ss-pattern-sub">A plain background behind every page.</div>
           </div>
           <label class="switch" for="ss-pattern">
-            <input type="checkbox" role="switch" id="ss-pattern" aria-labelledby="ss-pattern-label" aria-describedby="ss-pattern-sub">
+            <input type="checkbox" role="switch" id="ss-pattern" aria-labelledby="ss-pattern-label" aria-describedby="ss-pattern-sub" data-setting="pattern" data-checked="off" data-unchecked="on">
             <span class="switch-track" aria-hidden="true"></span>
           </label>
         </div>
         <div class="det-toggle-row">
           <div>
-            <div class="det-toggle-label" id="ss-contrast-label">Higher contrast</div>
+            <div class="det-toggle-label" id="ss-contrast-label">Higher contrast <span class="status-tag">Preview</span></div>
             <div class="det-toggle-sub" id="ss-contrast-sub">Stronger borders and darker secondary text.</div>
           </div>
           <label class="switch" for="ss-contrast">
@@ -277,7 +279,7 @@
       <div class="site-settings-toggles">
         <div class="det-toggle-row">
           <div>
-            <div class="det-toggle-label" id="ss-balances-label">Hide balances</div>
+            <div class="det-toggle-label" id="ss-balances-label">Hide balances <span class="status-tag">Preview</span></div>
             <div class="det-toggle-sub" id="ss-balances-sub">Blurs money figures until you tap them. Handy in public or when sharing your screen.</div>
           </div>
           <label class="switch" for="ss-balances">
@@ -287,7 +289,7 @@
         </div>
         <div class="det-toggle-row">
           <div>
-            <div class="det-toggle-label">Cookie settings</div>
+            <div class="det-toggle-label">Cookie settings <span class="status-tag">Preview</span></div>
             <div class="det-toggle-sub">Choose which optional cookies we can use.</div>
           </div>
           <a class="site-settings-link" href="#" aria-label="Manage cookie settings">Manage <svg aria-hidden="true" focusable="false" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></a>
@@ -298,7 +300,7 @@
     <section class="site-settings-group" aria-labelledby="ss-personal">
       <h3 class="section-heading" id="ss-personal">Personalise</h3>
       <div class="field">
-        <label class="field-label" for="ss-period">Default chart period</label>
+        <label class="field-label" for="ss-period">Default chart period <span class="status-tag">Preview</span></label>
         <select class="det-select" id="ss-period">
           <option>1 month</option><option>3 months</option><option selected>1 year</option><option>5 years</option><option>Since you joined</option>
         </select>
@@ -311,7 +313,7 @@
             <div class="det-toggle-sub" id="ss-ava-sub">The gold button in the bottom corner of every page.</div>
           </div>
           <label class="switch" for="ss-ava">
-            <input type="checkbox" role="switch" id="ss-ava" aria-labelledby="ss-ava-label" aria-describedby="ss-ava-sub" checked>
+            <input type="checkbox" role="switch" id="ss-ava" aria-labelledby="ss-ava-label" aria-describedby="ss-ava-sub" data-setting="ava" data-checked="on" data-unchecked="off" checked>
             <span class="switch-track" aria-hidden="true"></span>
           </label>
         </div>
@@ -320,7 +322,7 @@
 
   </div>
   <footer class="drawer-footer">
-    <button class="btn-secondary" type="button">Reset to defaults</button>
+    <button class="btn-secondary" type="button" data-settings-reset>Reset to defaults</button>
     <button class="btn-primary" type="button" popovertarget="site-settings" popovertargetaction="hide">Done</button>
   </footer>
 </div>

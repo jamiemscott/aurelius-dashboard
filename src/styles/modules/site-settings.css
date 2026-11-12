@@ -137,3 +137,15 @@
 @media (prefers-reduced-motion: reduce) {
   .site-settings-choice-option { transition: none; }
 }
+
+/* ─── APPLIED SETTINGS ─────────────────────────────────────────
+   src/js/settings.js mirrors each saved setting onto <html> as
+   data-site-<name>. Every rule here is keyed to one of those
+   attributes, so pages that never set them (OutSystems, until it
+   opts in) are unaffected by this shared bundle.css.           */
+
+/* Show the Ava chat button: off */
+html[data-site-ava="off"] .chat-bubble-btn { display: none; }
+
+/* Hide background pattern: on. .main keeps its solid --bg.     */
+html[data-site-pattern="off"] .main::before { display: none; }
