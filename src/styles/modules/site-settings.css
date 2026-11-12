@@ -77,10 +77,8 @@
 
 .site-settings-choice-option:has(input:checked) {
   background: var(--bg-card);
-  /* --shadow-s wraps whole shadows in light-dark(), which only takes
-     colours, so it computes to none; spell the shadow out instead. */
   box-shadow:
-    0 2px 8px light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.3)),
+    var(--shadow-s),
     inset 0 0 0 1px oklch(from var(--gold) l c h / 0.45);
   color: var(--text-1);
 }
