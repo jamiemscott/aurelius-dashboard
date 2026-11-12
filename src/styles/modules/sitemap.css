@@ -1,7 +1,9 @@
 /* ─── SITE MAP ──────────────────────────────────────────────────
    /sitemap/. A <nav> of area cards, each with an illustrated
    header (decorative, aria-hidden), a heading and a list of
-   links. Unbuilt footer pages sit in a "Coming soon" card.
+   links. The footer pages that aren't built yet get three
+   cards of their own (Services, Support, Legal), tagged Coming soon
+   and listed without links.
 
    Reuses .card / .card-pad, .page-header, .breadcrumb and
    .status-tag. Everything here is new to this page.            */
@@ -13,8 +15,6 @@
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
   margin-block-end: var(--space-xl);
 }
-
-.site-map-area--soon { grid-column: 1 / -1; }
 
 /* Illustrated header: a soft gold wash with the area's icon in a
    disc, and the same icon drawn large and faint as a backdrop.
@@ -140,30 +140,18 @@
 }
 
 /* ── Coming soon ──────────────────────────────────────────── */
-.site-map-soon {
-  display: grid;
-  gap: var(--space-base) var(--pad);
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
-}
-
-.site-map-soon-title {
-  color: var(--text-3);
-  font-size: var(--fs-xs);
-  font-weight: var(--fw-semibold);
-  letter-spacing: var(--ls-widest);
-  margin: 0 0 var(--space-s);
-  text-transform: uppercase;
-}
-
 .site-map-soon-list {
   color: var(--text-2);
   display: grid;
-  font-size: var(--fs-md);
-  gap: 6px;
+  font-size: var(--fs-ui);
+  gap: 2px;
   list-style: none;
   margin: 0;
   padding: 0;
 }
+
+/* Same rhythm as a link row, without the link */
+.site-map-soon-list li { padding: 8px 12px; }
 
 @media (prefers-reduced-motion: reduce) {
   .site-map-link,
