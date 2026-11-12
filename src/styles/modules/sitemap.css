@@ -1,96 +1,10 @@
 /* ─── SITE MAP ──────────────────────────────────────────────────
-   /sitemap/. An illustrated route across the top (decorative,
-   aria-hidden) with numbered landmarks that match the numbered
-   areas below. The areas are the real site map: a <nav> of
-   sections, each with a heading and a list of links.
+   /sitemap/. A <nav> of area cards, each with an illustrated
+   header (decorative, aria-hidden), a heading and a list of
+   links. Unbuilt footer pages sit in a "Coming soon" card.
 
    Reuses .card / .card-pad, .page-header, .breadcrumb and
    .status-tag. Everything here is new to this page.            */
-
-/* ── Illustration ─────────────────────────────────────────── */
-.site-map-hero {
-  margin-block-end: var(--space-base);
-  padding: var(--space-base) var(--space-base) var(--pad);
-}
-
-.site-map-art {
-  aspect-ratio: 960 / 320;
-  block-size: auto;
-  display: block;
-  inline-size: 100%;
-}
-
-/* On phones the map keeps a readable size and pans sideways
-   inside the card rather than shrinking to fit.               */
-@media (max-width: 680px) {
-  .site-map-art-wrap {
-    margin-inline: calc(var(--space-base) * -1);
-    overflow-x: auto;
-    padding-inline: var(--space-base);
-    scrollbar-width: none;
-  }
-  .site-map-art-wrap::-webkit-scrollbar { display: none; }
-  .site-map-art { min-inline-size: 640px; }
-}
-
-.site-map-hill--far { fill: oklch(from var(--gold) l c h / 0.07); }
-.site-map-hill--near { fill: rgba(124, 58, 237, 0.08); }
-.site-map-tree       { fill: oklch(from var(--gold) l c h / 0.16); }
-.site-map-star       { fill: var(--text-3); opacity: 0.6; }
-
-.site-map-compass circle { fill: none; stroke: var(--divider); stroke-width: 1.5; }
-.site-map-compass path   { fill: var(--text-3); opacity: 0.5; }
-.site-map-compass .site-map-compass-needle { fill: var(--gold); opacity: 1; }
-.site-map-compass text {
-  fill: var(--text-3);
-  font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: var(--fw-semibold);
-  text-anchor: middle;
-}
-
-.site-map-route {
-  fill: none;
-  stroke: var(--gold);
-  stroke-dasharray: 2 10;
-  stroke-linecap: round;
-  stroke-width: 3;
-}
-.site-map-route--soon { opacity: 0.35; }
-
-.site-map-pin { color: var(--gold-text); }
-.site-map-pin-glow  { fill: var(--gold-dim); }
-.site-map-pin-ring  { fill: var(--card-fill); stroke: var(--gold); stroke-width: 1.5; }
-.site-map-pin-badge { fill: var(--gold); }
-.site-map-pin-num {
-  fill: #0B0D10;
-  font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: var(--fw-bold);
-  text-anchor: middle;
-}
-.site-map-pin-label {
-  fill: var(--text-1);
-  font-family: var(--font-serif);
-  font-size: 17px;
-  text-anchor: middle;
-}
-
-.site-map-pin--soon { color: var(--text-3); }
-.site-map-pin--soon .site-map-pin-ring { stroke: var(--text-3); stroke-dasharray: 3 4; }
-.site-map-pin--soon .site-map-pin-label {
-  fill: var(--text-3);
-  font-family: var(--font-sans);
-  font-size: 12px;
-}
-
-.site-map-hero-note {
-  color: var(--text-2);
-  font-size: var(--fs-md);
-  margin: var(--space-s) auto 0;
-  max-inline-size: 60ch;
-  text-align: center;
-}
 
 /* ── Areas ────────────────────────────────────────────────── */
 .site-map-areas {
@@ -102,63 +16,70 @@
 
 .site-map-area--soon { grid-column: 1 / -1; }
 
-.site-map-area-head {
-  align-items: flex-start;
+/* Illustrated header: a soft gold wash with the area's icon in a
+   disc, and the same icon drawn large and faint as a backdrop.
+   Decorative (aria-hidden); the h2 below names the area.      */
+.site-map-area-art {
+  align-items: flex-end;
+  background:
+    radial-gradient(120% 160% at 100% 0%, oklch(from var(--gold) l c h / 0.16), transparent 62%),
+    radial-gradient(80% 120% at 0% 100%, rgba(124, 58, 237, 0.08), transparent 70%);
+  block-size: 108px;
+  border-block-end: 1px solid var(--divider);
   display: flex;
-  gap: var(--space-m);
-  margin-block-end: var(--space-m);
+  overflow: hidden;
+  padding: 0 var(--pad) var(--space-base);
+  position: relative;
 }
 
-/* Matches the numbered landmark in the illustration */
+/* Concentric rings behind the backdrop icon */
+.site-map-area-art::before,
+.site-map-area-art::after {
+  border: 1px solid oklch(from var(--gold) l c h / 0.14);
+  border-radius: 50%;
+  content: "";
+  inset-block-start: -70px;
+  inset-inline-end: -50px;
+  position: absolute;
+}
+.site-map-area-art::before { block-size: 200px; inline-size: 200px; }
+.site-map-area-art::after  { block-size: 280px; inline-size: 280px; inset-block-start: -110px; inset-inline-end: -90px; }
+
+.site-map-area-art-bg {
+  color: var(--gold);
+  display: flex;
+  inset-block-start: -10px;
+  inset-inline-end: 18px;
+  opacity: 0.16;
+  position: absolute;
+  transform: rotate(-10deg);
+}
+
 .site-map-marker {
   align-items: center;
   aspect-ratio: 1;
-  background: var(--gold-dim);
+  background: var(--card-fill);
+  border: 1px solid oklch(from var(--gold) l c h / 0.45);
   border-radius: 50%;
+  box-shadow: 0 0 0 6px var(--gold-dim);
   color: var(--gold-text);
   display: flex;
-  flex: none;
-  inline-size: 44px;
+  inline-size: 52px;
   justify-content: center;
   position: relative;
 }
-.site-map-marker svg { block-size: 20px; inline-size: 20px; }
 
-.site-map-marker-num {
-  align-items: center;
-  background: var(--gold);
-  border-radius: 50%;
-  block-size: 18px;
-  color: #0B0D10;
-  display: flex;
-  font-size: var(--fs-xs);
-  font-weight: var(--fw-bold);
-  inline-size: 18px;
-  inset-block-start: -4px;
-  inset-inline-end: -4px;
-  justify-content: center;
-  position: absolute;
-}
-
-.site-map-marker--soon { background: var(--bg-input); color: var(--text-3); }
-.site-map-marker--soon .site-map-marker-num { background: var(--text-3); color: var(--card-fill); }
-
-.site-map-area-title {
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  font-family: var(--font-serif);
-  font-size: var(--fs-section-title);
-  font-weight: 400;
-  gap: var(--space-s);
-  margin: 0;
-}
-
-.site-map-area-desc {
+.site-map-area-art--soon { background: var(--bg-input); }
+.site-map-area-art--soon::before,
+.site-map-area-art--soon::after { border-color: var(--divider); }
+.site-map-area-art--soon .site-map-area-art-bg { color: var(--text-3); }
+.site-map-area-art--soon .site-map-marker {
+  border-color: var(--border-input);
+  box-shadow: none;
   color: var(--text-3);
-  font-size: var(--fs-md);
-  margin: 2px 0 0;
 }
+
+.site-map-area-body { display: grid; gap: var(--space-xs); }
 
 /* ── Links ────────────────────────────────────────────────── */
 .site-map-links {
