@@ -66,6 +66,7 @@ const PARTIALS = [
   'src/styles/modules/splash.css',
   'src/styles/modules/plan.css',
   'src/styles/modules/plan-chart.css',
+  'src/styles/modules/sitemap.css',
   // State — is-* classes
   'src/styles/state/state.css',
   // Pages — page-specific overrides
