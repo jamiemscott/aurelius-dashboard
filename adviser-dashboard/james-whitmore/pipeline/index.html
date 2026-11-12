@@ -87,6 +87,11 @@
         <span>Advice Requests</span>
         <span class="nav-badge">4</span>
       </a>
+      <a class="nav-item" href="/adviser-dashboard/james-whitmore/dealing/">
+        <svg class="nav-icon" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        <span>Dealing</span>
+        <span class="nav-badge" data-dealing-count>4</span>
+      </a>
       <a class="nav-item" href="/adviser-dashboard/james-whitmore/tasks/">
         <svg class="nav-icon" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
         <span>Tasks</span>
@@ -448,7 +453,7 @@
     <button class="um-item">
       <svg aria-hidden="true" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
       Notifications
-      <span class="um-badge">3</span>
+      <span class="um-badge">4</span>
     </button>
   </div>
 
@@ -486,7 +491,7 @@
       <div class="drawer-media" aria-hidden="true"><svg aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
       <div>
         <h2 class="drawer-title" id="notif-panel-title">Notifications</h2>
-        <p class="drawer-subtitle" id="notif-count" aria-live="polite" aria-atomic="true">3 unread</p>
+        <p class="drawer-subtitle" id="notif-count" aria-live="polite" aria-atomic="true">4 unread</p>
       </div>
     </div>
     <div class="drawer-actions">
@@ -497,6 +502,19 @@
 
   <div class="drawer-body drawer-body--list">
     <ul class="np-list" role="list" id="notif-list">
+
+      <li class="np-item" data-type="adviser" data-unread>
+        <button class="np-item-btn" aria-label="Mark as read: New dealing instruction from Jim Rockford">
+          <span class="np-icon" aria-hidden="true"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></span>
+          <span class="np-content">
+            <span class="np-item-title">New dealing instruction</span>
+            <span class="np-item-body">Jim Rockford wants to buy £20,000 of Vanguard FTSE All-World ETF in his ISA. It needs your approval.</span>
+            <time class="np-item-time" datetime="2026-11-11T10:41">Today, 10:41 am</time>
+          </span>
+          <span class="np-unread-dot" aria-hidden="true"></span>
+        </button>
+        <button class="np-dismiss" aria-label="Dismiss notification">&#x2715;</button>
+      </li>
 
       <li class="np-item" data-type="adviser" data-unread>
         <button class="np-item-btn" aria-label="Mark as read: New advice request from Hyacinth Bucket">
