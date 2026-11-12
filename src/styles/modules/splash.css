@@ -209,11 +209,6 @@
   text-wrap: balance;
 }
 
-.splash-hero-heading em {
-  color: var(--gold);
-  font-style: italic;
-}
-
 .splash-hero-desc {
   color: var(--text-2);
   font-family: var(--font-sans);
@@ -324,7 +319,7 @@
   .splash-chart-legend { grid-template-columns: 1fr 1fr; }
 }
 
-.splash-chart-legend-item dt {
+.splash-chart-legend-term {
   align-items: center;
   color: var(--text-1);
   display: flex;
@@ -334,7 +329,7 @@
   gap: 8px;
 }
 
-.splash-chart-legend-item dd {
+.splash-chart-legend-desc {
   color: var(--text-3);
   font-size: var(--fs-md);
   margin-block-start: 4px;

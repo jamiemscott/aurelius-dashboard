@@ -480,6 +480,7 @@ select {
 .summary-row-value {
   color: var(--text-1);
   font-size: var(--fs-md);
+  font-variant-numeric: tabular-nums;
   font-weight: var(--fw-semibold);
   margin: 0;
   text-align: end;

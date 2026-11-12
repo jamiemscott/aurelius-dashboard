@@ -1168,11 +1168,6 @@
   margin-bottom: 14px;
 }
 
-.ob-reg-heading em {
-  color: var(--gold-text);
-  font-style: italic;
-}
-
 .ob-reg-desc {
   color: var(--text-2);
   font-size: var(--fs-body);
@@ -1181,7 +1176,8 @@
   max-width: 340px;
 }
 
-.ob-reg-desc em {
+/* The bold, upright key word in the sign-up description */
+.ob-reg-desc-highlight {
   color: var(--text-1);
   font-style: normal;
   font-weight: var(--fw-semibold);
@@ -1382,11 +1378,6 @@
   font-weight: var(--fw-regular);
   line-height: 1.05;
   margin-bottom: 4px;
-}
-
-.ob-landing-heading em {
-  color: var(--text-2);
-  font-style: italic;
 }
 
 .ob-landing-rule {

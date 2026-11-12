@@ -49,21 +49,34 @@
 .chart-subtitle { color: var(--text-3); font-size: var(--fs-md); margin-block-start: 2px; }
 
 .range-pills { display: flex; gap: 4px; }
+/* A button with .is-active or aria-pressed, or a span after a radio
+   (Plan My Future), so OutSystems and the prototype share one pill. */
 .range-pill {
+  align-items: center;
   background: transparent;
   border: none;
   border-radius: 99px;
   color: var(--text-3);
   cursor: pointer;
+  display: inline-flex;
   font-family: var(--font-sans);
   font-size: var(--fs-sm);             /* 11px */
   font-weight: var(--fw-semibold);
+  min-block-size: 24px;                /* WCAG 2.2 target size */
   padding: 4px 10px;
   transition: all 0.2s;
 }
 
 .range-pill:hover     { background: var(--bg-hover); color: var(--text-1); }
-.range-pill.is-active { background: light-dark(rgba(160,86,7,0.08), var(--gold-dim)); color: var(--gold-text); }
+.range-pill.is-active,
+.range-pill[aria-pressed="true"],
+:checked + .range-pill { background: light-dark(rgba(160,86,7,0.08), var(--gold-dim)); color: var(--gold-text); }
+
+@media (forced-colors: active) {
+  .range-pill.is-active,
+  .range-pill[aria-pressed="true"],
+  :checked + .range-pill { background: Highlight; color: HighlightText; forced-color-adjust: none; }
+}
 
 /* OutSystems InlineSVG strips class and id from the SVG element, so
    .chart-svg and #perf-chart selectors never match on OS. Target by
@@ -122,6 +135,6 @@
 }
 
 .legend-label { color: var(--text-2); flex: 1; font-size: var(--fs-caption); }
-.legend-pct   { color: var(--text-1); font-size: var(--fs-caption); font-weight: var(--fw-semibold); }
+.legend-pct   { color: var(--text-1); font-size: var(--fs-caption); font-variant-numeric: tabular-nums; font-weight: var(--fw-semibold); }
 
 .chart-header--flush { margin-block-end: 0; }

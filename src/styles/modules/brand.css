@@ -98,3 +98,15 @@
 .site-footer .brand {
   margin-block-end: 14px;
 }
+
+
+/* ─── HEADING ACCENT ─────────────────────────────────────
+   The gold italic word in a display heading ("something real",
+   "waits"). A class, so OutSystems can use it on a span.
+   --muted is the grey version ("Know your element").          */
+.heading-accent {
+  color: var(--gold-text);             /* gold on dark, AA amber on light */
+  font-style: italic;
+}
+
+.heading-accent--muted { color: var(--text-2); }

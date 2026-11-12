@@ -370,6 +370,7 @@ function renderChanges() {
   const list = changes(state.plan);
   els.changes.replaceChildren(...list.map(line => {
     const li = document.createElement('li');
+    li.className = 'plan-change';
     li.dataset.status = line.status;
     li.textContent = changeText(line);
     return li;
@@ -377,7 +378,8 @@ function renderChanges() {
   els.changeCount.forEach(el => { el.textContent = list.length; el.dataset.count = list.length; });
 }
 
-/* ISA and pension allowances for this tax year, as native <meter>s */
+/* ISA and pension allowances for this tax year, as shared progress
+   bars with the meter role, so screen readers still get the value */
 function renderAllowances() {
   const use = taxYearUse(state.plan);
   const item = (id, title, u) => {
@@ -385,13 +387,15 @@ function renderAllowances() {
     const over = u.left < 0;
     const planned = (u.reserved ? ` · ${money(u.reserved)} with James` : '') + (u.planned ? ` · ${money(u.planned)} in this plan` : '');
     return `
-      <div class="plan-allow-item${over ? ' is-over' : ''}">
+      <div class="plan-allow-item${over ? ' is-over' : ''}${total >= u.limit * 0.95 ? ' is-full' : ''}">
         <div class="plan-allow-head">
           <span class="plan-allow-name" id="plan-allow-${id}">${title}</span>
           <span class="plan-allow-left">${over ? `${money(-u.left)} over` : `${money(u.left)} left`}</span>
         </div>
-        <meter class="plan-meter" aria-labelledby="plan-allow-${id}" aria-describedby="plan-allow-${id}-note"
-          min="0" max="${u.limit}" low="${u.limit * 0.75}" high="${u.limit * 0.95}" optimum="0" value="${Math.min(total, u.limit)}"></meter>
+        <div class="progress-bar-track" role="meter" aria-labelledby="plan-allow-${id}" aria-describedby="plan-allow-${id}-note"
+          aria-valuemin="0" aria-valuemax="${u.limit}" aria-valuenow="${Math.min(total, u.limit)}" aria-valuetext="${money(total)} of ${money(u.limit)}">
+          <div class="progress-bar-fill" style="--progress-pct: ${Math.min(100, (total / u.limit) * 100).toFixed(1)}%"></div>
+        </div>
         <p class="plan-allow-note" id="plan-allow-${id}-note">${money(u.used)} used${planned} · of ${money(u.limit)}</p>
       </div>`;
   };
@@ -401,7 +405,8 @@ function renderAllowances() {
 function renderAllocation(alloc) {
   els.allocLegend.replaceChildren(...alloc.map(a => {
     const li = document.createElement('li');
-    li.innerHTML = `<span class="plan-line-swatch plan-slot-${a.slot}" aria-hidden="true"></span><span class="plan-legend-name">${a.name}</span><span class="plan-legend-pct">${(a.pct * 100).toFixed(1)}%</span>`;
+    li.className = 'legend-item';
+    li.innerHTML = `<span class="plan-line-swatch plan-slot-${a.slot}" aria-hidden="true"></span><span class="legend-label">${a.name}</span><span class="legend-pct">${(a.pct * 100).toFixed(1)}%</span>`;
     return li;
   }));
   els.allocTable.replaceChildren(...alloc.map(a => {
@@ -480,9 +485,9 @@ function etfCard(id) {
         <polyline points="${pts}" vector-effect="non-scaling-stroke"/>
       </svg>
       <dl class="plan-etf-stats">
-        <div><dt>Past 5 years${e.currency === 'USD' ? ' (in $)' : ''}</dt><dd>${pct(e.fiveYear, 0)}</dd></div>
-        <div><dt>Typical yearly swing</dt><dd>${(e.volatility * 100).toFixed(0)}%</dd></div>
-        <div><dt>Yearly charge</dt><dd>${e.kind === 'share' ? 'None' : `${e.ocf.toFixed(2)}%`}</dd></div>
+        <div><dt class="plan-stat-label">Past 5 years${e.currency === 'USD' ? ' (in $)' : ''}</dt><dd class="plan-stat-value">${pct(e.fiveYear, 0)}</dd></div>
+        <div><dt class="plan-stat-label">Typical yearly swing</dt><dd class="plan-stat-value">${(e.volatility * 100).toFixed(0)}%</dd></div>
+        <div><dt class="plan-stat-label">Yearly charge</dt><dd class="plan-stat-value">${e.kind === 'share' ? 'None' : `${e.ocf.toFixed(2)}%`}</dd></div>
       </dl>
       ${cta}
     </div>`;
@@ -498,9 +503,9 @@ function optionCards({ label, items }) {
     const inPlan = o.etf && findLine(state.plan, o.etf);
     const stats = e ? `
       <dl class="plan-option-stats">
-        <div><dt>Past 5 years${e.currency === 'USD' ? ' (in $)' : ''}</dt><dd>${pct(e.fiveYear, 0)}</dd></div>
-        <div><dt>Yearly swing</dt><dd>${(e.volatility * 100).toFixed(0)}%</dd></div>
-        <div><dt>Charge</dt><dd>${e.kind === 'share' ? 'None' : `${e.ocf.toFixed(2)}%`}</dd></div>
+        <div><dt class="plan-stat-label">Past 5 years${e.currency === 'USD' ? ' (in $)' : ''}</dt><dd class="plan-stat-value">${pct(e.fiveYear, 0)}</dd></div>
+        <div><dt class="plan-stat-label">Yearly swing</dt><dd class="plan-stat-value">${(e.volatility * 100).toFixed(0)}%</dd></div>
+        <div><dt class="plan-stat-label">Charge</dt><dd class="plan-stat-value">${e.kind === 'share' ? 'None' : `${e.ocf.toFixed(2)}%`}</dd></div>
       </dl>` : '';
     const action = inPlan
       ? `<span class="plan-badge plan-badge--added">In your plan</span>`
@@ -565,9 +570,9 @@ function stressCard(r) {
         <span class="plan-stress-bar plan-stress-bar--after" style="--w: ${share(r.after)}"><span>After a 25% fall</span></span>
       </div>
       <dl class="plan-etf-stats">
-        <div><dt>Today</dt><dd>${moneyShort(r.before)}</dd></div>
-        <div><dt>After the fall</dt><dd>${moneyShort(r.after)}</dd></div>
-        <div><dt>Back to today</dt><dd>${r.recovery}</dd></div>
+        <div><dt class="plan-stat-label">Today</dt><dd class="plan-stat-value">${moneyShort(r.before)}</dd></div>
+        <div><dt class="plan-stat-label">After the fall</dt><dd class="plan-stat-value">${moneyShort(r.after)}</dd></div>
+        <div><dt class="plan-stat-label">Back to today</dt><dd class="plan-stat-value">${r.recovery}</dd></div>
       </dl>
     </div>`;
 }
@@ -578,7 +583,7 @@ function checkCard() {
   const n = ++checkSeq;
   const q = (c, i) => `
     <fieldset class="plan-check-q">
-      <legend>${i + 1}. ${c.q}</legend>
+      <legend class="plan-check-q-title">${i + 1}. ${c.q}</legend>
       <label><input type="radio" name="plan-check-${n}-${c.id}" value="yes"> Yes</label>
       <label><input type="radio" name="plan-check-${n}-${c.id}" value="no"> No</label>
     </fieldset>`;
@@ -648,10 +653,10 @@ function reviewCard() {
       <p class="plan-review-title" id="plan-review-title-${n}">Your orders</p>
       ${concernsNote()}
       <ol class="plan-orders">${list.map(o => orderRow(o)).join('')}</ol>
-      <dl class="plan-review-facts">${facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>
+      <dl class="summary-list plan-review-facts">${facts.map(([k, v]) => `<div class="summary-row"><dt class="summary-row-label">${k}</dt><dd class="summary-row-value">${v}</dd></div>`).join('')}</dl>
       <p class="plan-review-docs">Before placing: the <a href="/documents/">Key Information Documents</a> for each fund${list.some(o => o.type === 'sell') ? ' and <a href="/capital-gains-tax/">your capital gains tax position</a>' : ''}.</p>
       <fieldset class="plan-review-checks">
-        <legend>To place these orders, confirm:</legend>
+        <legend class="plan-review-checks-title">To place these orders, confirm:</legend>
         <label><input type="checkbox" name="plan-kid-${n}"> I’ve read the Key Information Documents</label>
         <label><input type="checkbox" name="plan-risk-${n}"> I understand the value can fall and I may get back less than I put in</label>
       </fieldset>
