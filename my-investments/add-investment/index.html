@@ -568,36 +568,36 @@
               <div class="ai-os-fund" id="ai-os-fund-name">&mdash;</div>
               <div class="ai-os-sub" id="ai-os-sub">&mdash;</div>
               <div class="ai-os-divider"></div>
-              <dl class="ai-os-rows">
-                <div class="ai-os-row">
-                  <dt>Investment amount</dt>
-                  <dd id="ai-os-amount">&mdash;</dd>
+              <dl class="summary-list">
+                <div class="summary-row">
+                  <dt class="summary-row-label">Investment amount</dt>
+                  <dd class="summary-row-value" id="ai-os-amount">&mdash;</dd>
                 </div>
-                <div class="ai-os-row">
-                  <dt>Est. unit price</dt>
-                  <dd id="ai-os-price">&mdash;</dd>
+                <div class="summary-row">
+                  <dt class="summary-row-label">Est. unit price</dt>
+                  <dd class="summary-row-value" id="ai-os-price">&mdash;</dd>
                 </div>
-                <div class="ai-os-row">
-                  <dt>Est. units</dt>
-                  <dd id="ai-os-units">&mdash;</dd>
-                </div>
-              </dl>
-              <div class="ai-os-divider"></div>
-              <dl class="ai-os-rows">
-                <div class="ai-os-row">
-                  <dt>Platform fee (0.25%)</dt>
-                  <dd id="ai-os-platform-fee">&mdash;</dd>
-                </div>
-                <div class="ai-os-row">
-                  <dt>Dealing charge</dt>
-                  <dd id="ai-os-dealing-charge">&pound;0.00</dd>
+                <div class="summary-row">
+                  <dt class="summary-row-label">Est. units</dt>
+                  <dd class="summary-row-value" id="ai-os-units">&mdash;</dd>
                 </div>
               </dl>
               <div class="ai-os-divider"></div>
-              <dl class="ai-os-rows">
-                <div class="ai-os-row ai-os-total">
-                  <dt>Estimated total</dt>
-                  <dd id="ai-os-total">&mdash;</dd>
+              <dl class="summary-list">
+                <div class="summary-row">
+                  <dt class="summary-row-label">Platform fee (0.25%)</dt>
+                  <dd class="summary-row-value" id="ai-os-platform-fee">&mdash;</dd>
+                </div>
+                <div class="summary-row">
+                  <dt class="summary-row-label">Dealing charge</dt>
+                  <dd class="summary-row-value" id="ai-os-dealing-charge">&pound;0.00</dd>
+                </div>
+              </dl>
+              <div class="ai-os-divider"></div>
+              <dl class="summary-list">
+                <div class="summary-row summary-row--total">
+                  <dt class="summary-row-label">Estimated total</dt>
+                  <dd class="summary-row-value" id="ai-os-total">&mdash;</dd>
                 </div>
               </dl>
             </div>
@@ -624,7 +624,7 @@
           <!-- Left — instruction details -->
           <div class="ai-form-col">
             <h2 class="ai-review-heading">Review your instruction</h2>
-            <dl class="ai-review-table" id="ai-review-table">
+            <dl class="review-card" id="ai-review-table">
               <!-- populated by JS -->
             </dl>
 
@@ -646,16 +646,16 @@
           <div class="ai-reg-panel">
             <div class="ai-reg-section">
               <div class="ai-reg-title">Charges</div>
-              <dl class="ai-reg-rows" id="ai-reg-charges">
+              <dl class="summary-list" id="ai-reg-charges">
                 <!-- populated by JS -->
               </dl>
             </div>
             <div class="ai-reg-section">
               <div class="ai-reg-title">Key risks</div>
-              <ul class="ai-reg-risks">
-                <li>The value of investments can fall as well as rise. You may get back less than you invest.</li>
-                <li>Past performance is not a reliable indicator of future results.</li>
-                <li>Currency movements may affect the value of overseas investments.</li>
+              <ul class="point-list">
+                <li class="point-list-item">The value of investments can fall as well as rise. You may get back less than you invest.</li>
+                <li class="point-list-item">Past performance is not a reliable indicator of future results.</li>
+                <li class="point-list-item">Currency movements may affect the value of overseas investments.</li>
               </ul>
             </div>
             <p class="ai-reg-footnote">This instruction will be passed to your adviser James Whitmore for execution. Aurelius does not execute trades directly.</p>
@@ -694,7 +694,7 @@
             <span class="ai-confirm-ref-num" id="ai-confirm-ref">&mdash;</span>
           </div>
 
-          <dl class="ai-confirm-summary" id="ai-confirm-summary">
+          <dl class="review-card ai-confirm-summary" id="ai-confirm-summary">
             <!-- populated by JS -->
           </dl>
 

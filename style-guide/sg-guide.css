@@ -1702,7 +1702,6 @@
 .sg-section .ais-mode-toggle { width: fit-content; }
 .sg-section .ais-prompt-input { flex: 1; resize: none; }
 .sg-section .ais-result-card { padding: var(--space-base); }
-.sg-section .ai-review-row { font-size: var(--fs-ui); }
 .sg-section .ai-ack-row { color: var(--text-2); font-size: var(--fs-sm); }
 .sg-section .chart-container { align-items: center; display: flex; justify-content: center; min-height: 80px; }
 .sg-section .contact-form-wrap--stage { align-items: center; display: flex; justify-content: center; min-height: 120px; position: relative; }

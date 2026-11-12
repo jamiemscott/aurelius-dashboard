@@ -176,25 +176,17 @@
     <section class="sg-section" id="order-summary">
       <div class="sg-section-header">
         <h2 class="sg-section-title">Order Summary (<code>.ai-order-summary</code>)</h2>
-        <p class="sg-section-desc">A sticky right-column panel that appears during the Amount and Review steps. Uses <code>position: sticky; top: calc(var(--topbar-h) + 24px)</code> so it scrolls with the page but locks to the viewport top. Contains a <code>.ai-review-table</code> for the key/value breakdown and an acknowledgement checkbox row (<code>.ai-ack-row</code>).</p>
+        <p class="sg-section-desc">A sticky right-column panel that appears during the Amount and Review steps. Uses <code>position: sticky; top: calc(var(--topbar-h) + 24px)</code> so it scrolls with the page but locks to the viewport top. Uses the shared <code>.summary-list</code> (see Forms) for the key/value breakdown and an acknowledgement checkbox row (<code>.ai-ack-row</code>).</p>
       </div>
       <div class="sg-demo sg-fit-sidebar">
         <div class="ai-order-summary">
           <div class="sg-item-title">Order Summary</div>
-          <div class="ai-review-table">
-            <div class="ai-review-row">
-              <span class="sg-muted">Fund</span><span class="sg-item-value">CSPX</span>
-            </div>
-            <div class="ai-review-row">
-              <span class="sg-muted">Amount</span><span class="sg-item-value">£2,500.00</span>
-            </div>
-            <div class="ai-review-row">
-              <span class="sg-muted">Account</span><span class="sg-item-value">Stocks &amp; Shares ISA</span>
-            </div>
-            <div class="ai-review-row">
-              <span class="sg-item-title">Total</span><span class="sg-item-title">£2,500.00</span>
-            </div>
-          </div>
+          <dl class="summary-list">
+            <div class="summary-row"><dt class="summary-row-label">Fund</dt><dd class="summary-row-value">CSPX</dd></div>
+            <div class="summary-row"><dt class="summary-row-label">Amount</dt><dd class="summary-row-value">£2,500.00</dd></div>
+            <div class="summary-row"><dt class="summary-row-label">Account</dt><dd class="summary-row-value">Stocks &amp; Shares ISA</dd></div>
+            <div class="summary-row summary-row--total"><dt class="summary-row-label">Total</dt><dd class="summary-row-value">£2,500.00</dd></div>
+          </dl>
           <div class="ai-ack-row">
             <input type="checkbox" id="sg-ack" class="sg-check">
             <label for="sg-ack">I confirm I have read the Key Investor Information Document (KIID)</label>

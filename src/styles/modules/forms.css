@@ -408,17 +408,25 @@ select {
   border-block-end: 1px solid var(--divider);
   display: flex;
   font-size: var(--fs-ui);
+  gap: 16px;
   justify-content: space-between;
   padding: 12px 20px;
 }
 
 .review-row:last-child { border-block-end: none; }
 
-.review-row-label { color: var(--text-3); }
+/* A long value (a fund name, say) wraps on the right and never
+   squeezes or touches the label */
+.review-row-label {
+  color: var(--text-3);
+  flex-shrink: 0;
+}
 
 .review-row-value {
   color: var(--text-1);
   font-weight: var(--fw-medium);
+  margin: 0;
+  text-align: end;
 }
 
 .review-row-value.is-gold { color: var(--gold-text); }
@@ -440,6 +448,69 @@ select {
   font-family: var(--font-serif);
   font-size: var(--fs-data-lg);
   letter-spacing: var(--ls-snug);
+}
+
+/* ─── SUMMARY LIST ──────────────────────────────────────────────
+   The compact sibling of .review-row: label/value lines with no
+   borders or padding, for side panels such as an order summary or
+   a charges breakdown. Classes rather than dt/dd, so OutSystems
+   can use them on div/span too.                                   */
+
+.summary-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+
+.summary-row {
+  align-items: baseline;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.summary-row-label {
+  color: var(--text-3);
+  font-size: var(--fs-md);
+  font-weight: var(--fw-normal);
+}
+
+.summary-row-value {
+  color: var(--text-1);
+  font-size: var(--fs-md);
+  font-weight: var(--fw-semibold);
+  margin: 0;
+  text-align: end;
+}
+
+.summary-row--total .summary-row-label,
+.summary-row--total .summary-row-value {
+  color: var(--text-1);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-bold);
+}
+
+/* ─── POINT LIST ────────────────────────────────────────────────
+   Muted bullet points, such as key risks. Each item draws its own
+   bullet, so it works on an li or, in OutSystems, a p in a div.   */
+
+.point-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0 0 0 16px;
+}
+
+.point-list-item {
+  color: var(--text-3);
+  display: list-item;
+  font-size: var(--fs-md);
+  line-height: var(--lh-body);
+  list-style: disc;
+  margin: 0;
 }
 
 /* ─── FORM CHECKBOX ROW ─────────────────────────────────────────── */
