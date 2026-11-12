@@ -154,7 +154,15 @@
 
 /* ─── 4. QUESTION BODY ───────────────────────────────────────────────────────── */
 
+/* The scrollbar stays hidden, so a soft gold shade at the bottom
+   edge shows there's more below. The cover layer scrolls with the
+   content and hides the shade once you reach the end, so it only
+   appears while the question overflows.                          */
 .ob-qb {
+  --ob-qb-bg: light-dark(var(--neutral-0), #08090d);   /* matches .ob-app */
+  background:
+    linear-gradient(transparent, var(--ob-qb-bg) 70%) center bottom / 100% 40px no-repeat local,
+    radial-gradient(farthest-side at 50% 100%, oklch(from var(--gold) l c h / 0.28), transparent) center bottom / 100% 16px no-repeat scroll;
   flex: 1;
   overflow-y: auto;
   padding: 26px 22px 24px;
@@ -335,12 +343,14 @@
 
 /* ─── 9. DIAL ────────────────────────────────────────────────────────────────── */
 
+/* Shrinks on short screens; the SVG scales from its 252 viewBox and
+   dial.js maps the pointer relative to the rendered size.          */
 .ob-dial-wrap {
-  height: 252px;
+  aspect-ratio: 1;
+  inline-size: clamp(180px, 32dvh, 252px);
   margin: 0 auto 10px;
   position: relative;
   touch-action: none;
-  width: 252px;
 }
 
 .ob-dial-svg {
@@ -1525,6 +1535,40 @@
 
   .ob-heading {
     font-size: 32px;
+  }
+}
+
+/* Short screens 640px+ wide, up to 860px tall: landscape tablets
+   (an iPad at 1180×820 leaves about 710px under Safari's bars) and
+   small laptops. Give the card back the page padding and tighten
+   the spacing, so most questions fit without scrolling.          */
+@media (min-width: 640px) and (max-height: 860px) {
+  .ob-page body {
+    padding-block: 16px;
+  }
+
+  .ob-app {
+    height: clamp(520px, calc(100dvh - 32px), 860px);
+  }
+
+  .ob-qb {
+    padding-block: 18px 14px;
+  }
+
+  .ob-foot {
+    padding-block-end: 18px;
+  }
+}
+
+/* Wide and short: landscape tablets. A wider card wraps text onto
+   fewer lines, and the knowledge cards sit four across, two rows.  */
+@media (min-width: 1024px) and (max-height: 860px) {
+  .ob-app {
+    max-width: 680px;
+  }
+
+  .ob-kg {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
