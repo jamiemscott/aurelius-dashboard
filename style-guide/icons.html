@@ -1,0 +1,1647 @@
+<!DOCTYPE html>
+<html lang="en" data-sg-page="icons">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Icons — Aurelius Style Guide</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/bundle.css">
+<link rel="stylesheet" href="sg-guide.css">
+</head>
+<body>
+<div class="shell">
+  <div id="sg-topbar-mount"></div>
+  <div id="sg-sidebar-mount"></div>
+
+  <main class="main" role="main">
+
+    <div class="sg-page-header">
+      <p class="sg-page-kicker">Style Guide</p>
+      <h1 class="sg-page-title">Icons</h1>
+      <p class="sg-page-desc">Every interface icon used across the customer site and the adviser dashboard: 77 icons on a 24 × 24 grid, drawn as strokes in <code>currentColor</code> so they take the colour of the text around them. Copy the SVG to use one inline, or download it as an SVG or a PNG in any of the brand colours. App and product icons are on <a href="resources.html#icons">Resources</a>.</p>
+    </div>
+
+    <section class="sg-section" id="download">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Colour, size and download</h2>
+        <p class="sg-section-desc">Pick a colour and size: the previews and every PNG link below follow it, and the zip holds the whole set. SVGs are always <code>currentColor</code>. Stroke widths are as used on the site (1.7 in navigation, 2 to 2.5 in buttons); change <code>stroke-width</code> to adjust.</p>
+      </div>
+      <div class="sg-icon-toolbar" id="sg-icon-toolbar">
+        <div class="sg-icon-field">
+          <span class="sg-label" id="sg-icon-colour-label">Colour</span>
+          <div class="doc-tabs" id="sg-icon-colours" role="group" aria-labelledby="sg-icon-colour-label">
+          <button class="doc-tab is-active" type="button" data-colour="gold" data-hex="#F5A623" data-note="Brand amber; icons on dark" aria-pressed="true"><span class="sg-icon-swatch" style="--sg-swatch:#F5A623"></span>Gold</button>
+          <button class="doc-tab" type="button" data-colour="gold-aa" data-hex="#8C4C00" data-note="Amber that passes AA on light" aria-pressed="false"><span class="sg-icon-swatch" style="--sg-swatch:#8C4C00"></span>Gold AA</button>
+          <button class="doc-tab" type="button" data-colour="ink" data-hex="#010203" data-note="Primary text, light theme" aria-pressed="false"><span class="sg-icon-swatch" style="--sg-swatch:#010203"></span>Ink</button>
+          <button class="doc-tab" type="button" data-colour="ivory" data-hex="#FBFCFD" data-note="Primary text, dark theme" aria-pressed="false"><span class="sg-icon-swatch" style="--sg-swatch:#FBFCFD"></span>Ivory</button>
+          <button class="doc-tab" type="button" data-colour="grey" data-hex="#868990" data-note="Muted text, either theme" aria-pressed="false"><span class="sg-icon-swatch" style="--sg-swatch:#868990"></span>Grey</button>
+          </div>
+        </div>
+        <div class="sg-icon-field">
+          <span class="sg-label" id="sg-icon-size-label">PNG size</span>
+          <div class="doc-tabs" id="sg-icon-sizes" role="group" aria-labelledby="sg-icon-size-label">
+          <button class="doc-tab" type="button" data-size="24" aria-pressed="false">24px</button>
+          <button class="doc-tab is-active" type="button" data-size="48" aria-pressed="true">48px</button>
+          </div>
+        </div>
+        <div class="doc-search-wrap">
+          <svg class="doc-search-icon" aria-hidden="true" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input class="doc-search-input" id="sg-icon-search" type="search" placeholder="Search icons…" aria-label="Search icons">
+        </div>
+      </div>
+      <p class="sg-asset-desc" id="sg-icon-note" aria-live="polite">Gold <code>#F5A623</code> · Brand amber; icons on dark</p>
+      <div class="sg-asset-links">
+        <a class="sg-asset-link" id="sg-icon-zip" href="../src/images/icons/zip/aurelius-icons-gold-48.zip" download>All PNGs · Gold · 48px (zip)</a>
+        <a class="sg-asset-link" href="../src/images/icons/zip/aurelius-icons-svg.zip" download>All SVGs (zip)</a>
+      </div>
+      <div class="sg-demo sg-demo--tight">
+        <table class="sg-table">
+          <thead><tr><th>Colour</th><th>Value</th><th>Use</th><th>Folder</th></tr></thead>
+          <tbody>
+            <tr><td><span class="sg-icon-swatch" style="--sg-swatch:#F5A623"></span> Gold</td><td><code>#F5A623</code></td><td>Brand amber; icons on dark</td><td><code>png/gold/</code></td></tr>
+            <tr><td><span class="sg-icon-swatch" style="--sg-swatch:#8C4C00"></span> Gold AA</td><td><code>#8C4C00</code></td><td>Amber that passes AA on light</td><td><code>png/gold-aa/</code></td></tr>
+            <tr><td><span class="sg-icon-swatch" style="--sg-swatch:#010203"></span> Ink</td><td><code>#010203</code></td><td>Primary text, light theme</td><td><code>png/ink/</code></td></tr>
+            <tr><td><span class="sg-icon-swatch" style="--sg-swatch:#FBFCFD"></span> Ivory</td><td><code>#FBFCFD</code></td><td>Primary text, dark theme</td><td><code>png/ivory/</code></td></tr>
+            <tr><td><span class="sg-icon-swatch" style="--sg-swatch:#868990"></span> Grey</td><td><code>#868990</code></td><td>Muted text, either theme</td><td><code>png/grey/</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="sg-asset-desc">Files live in <code>src/images/icons/</code>: <code>svg/&lt;name&gt;.svg</code>, <code>png/&lt;colour&gt;/&lt;size&gt;/&lt;name&gt;.png</code> and <code>zip/</code>.</p>
+    </section>
+
+    <section class="sg-section" id="navigation-data">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Navigation &amp; data</h2>
+      </div>
+      <div class="sg-icon-grid">
+        <article class="sg-asset-card" data-icon="dashboard dashboard and overview pages">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>dashboard</code></h3>
+            <p class="sg-asset-desc">Dashboard and overview pages · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;rect x=&quot;3&quot; y=&quot;3&quot; width=&quot;7&quot; height=&quot;7&quot; rx=&quot;1&quot;/&gt;&lt;rect x=&quot;14&quot; y=&quot;3&quot; width=&quot;7&quot; height=&quot;7&quot; rx=&quot;1&quot;/&gt;&lt;rect x=&quot;3&quot; y=&quot;14&quot; width=&quot;7&quot; height=&quot;7&quot; rx=&quot;1&quot;/&gt;&lt;rect x=&quot;14&quot; y=&quot;14&quot; width=&quot;7&quot; height=&quot;7&quot; rx=&quot;1&quot;/&gt;&lt;/svg&gt;" aria-label="Copy dashboard SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/dashboard.svg" download aria-label="Download dashboard SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/dashboard.png" data-png="dashboard" download aria-label="Download dashboard PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;rect x=&quot;3&quot; y=&quot;3&quot; width=&quot;7&quot; height=&quot;7&quot; rx=&quot;1&quot;/&gt;
+  &lt;rect x=&quot;14&quot; y=&quot;3&quot; width=&quot;7&quot; height=&quot;7&quot; rx=&quot;1&quot;/&gt;
+  &lt;rect x=&quot;3&quot; y=&quot;14&quot; width=&quot;7&quot; height=&quot;7&quot; rx=&quot;1&quot;/&gt;
+  &lt;rect x=&quot;14&quot; y=&quot;14&quot; width=&quot;7&quot; height=&quot;7&quot; rx=&quot;1&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="overview my overview">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>overview</code></h3>
+            <p class="sg-asset-desc">My Overview · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;9&quot;/&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot; fill=&quot;currentColor&quot;/&gt;&lt;/svg&gt;" aria-label="Copy overview SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/overview.svg" download aria-label="Download overview SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/overview.png" data-png="overview" download aria-label="Download overview PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;9&quot;/&gt;
+  &lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot; fill=&quot;currentColor&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="layout layout and panels">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>layout</code></h3>
+            <p class="sg-asset-desc">Layout and panels · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;rect x=&quot;3&quot; y=&quot;3&quot; width=&quot;18&quot; height=&quot;18&quot; rx=&quot;2&quot;/&gt;&lt;path d=&quot;M3 9h18M9 21V9&quot;/&gt;&lt;/svg&gt;" aria-label="Copy layout SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/layout.svg" download aria-label="Download layout SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/layout.png" data-png="layout" download aria-label="Download layout PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;rect x=&quot;3&quot; y=&quot;3&quot; width=&quot;18&quot; height=&quot;18&quot; rx=&quot;2&quot;/&gt;
+  &lt;path d=&quot;M3 9h18M9 21V9&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="table tables">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>table</code></h3>
+            <p class="sg-asset-desc">Tables · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;rect x=&quot;3&quot; y=&quot;3&quot; width=&quot;18&quot; height=&quot;18&quot; rx=&quot;2&quot;/&gt;&lt;line x1=&quot;3&quot; y1=&quot;9&quot; x2=&quot;21&quot; y2=&quot;9&quot;/&gt;&lt;line x1=&quot;3&quot; y1=&quot;15&quot; x2=&quot;21&quot; y2=&quot;15&quot;/&gt;&lt;line x1=&quot;9&quot; y1=&quot;3&quot; x2=&quot;9&quot; y2=&quot;21&quot;/&gt;&lt;/svg&gt;" aria-label="Copy table SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/table.svg" download aria-label="Download table SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/table.png" data-png="table" download aria-label="Download table PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;rect x=&quot;3&quot; y=&quot;3&quot; width=&quot;18&quot; height=&quot;18&quot; rx=&quot;2&quot;/&gt;
+  &lt;line x1=&quot;3&quot; y1=&quot;9&quot; x2=&quot;21&quot; y2=&quot;9&quot;/&gt;
+  &lt;line x1=&quot;3&quot; y1=&quot;15&quot; x2=&quot;21&quot; y2=&quot;15&quot;/&gt;
+  &lt;line x1=&quot;9&quot; y1=&quot;3&quot; x2=&quot;9&quot; y2=&quot;21&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="menu top-nav menu button">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>menu</code></h3>
+            <p class="sg-asset-desc">Top-nav Menu button · stroke 2</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;line x1=&quot;4&quot; y1=&quot;6&quot; x2=&quot;20&quot; y2=&quot;6&quot;/&gt;&lt;line x1=&quot;4&quot; y1=&quot;12&quot; x2=&quot;20&quot; y2=&quot;12&quot;/&gt;&lt;line x1=&quot;4&quot; y1=&quot;18&quot; x2=&quot;20&quot; y2=&quot;18&quot;/&gt;&lt;/svg&gt;" aria-label="Copy menu SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/menu.svg" download aria-label="Download menu SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/menu.png" data-png="menu" download aria-label="Download menu PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+  &lt;line x1=&quot;4&quot; y1=&quot;6&quot; x2=&quot;20&quot; y2=&quot;6&quot;/&gt;
+  &lt;line x1=&quot;4&quot; y1=&quot;12&quot; x2=&quot;20&quot; y2=&quot;12&quot;/&gt;
+  &lt;line x1=&quot;4&quot; y1=&quot;18&quot; x2=&quot;20&quot; y2=&quot;18&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="settings settings">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 6h2M10 6h10M4 12h10M18 12h2M4 18h4M12 18h8"/><circle cx="8" cy="6" r="2"/><circle cx="16" cy="12" r="2"/><circle cx="10" cy="18" r="2"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>settings</code></h3>
+            <p class="sg-asset-desc">Settings · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;path d=&quot;M4 6h2M10 6h10M4 12h10M18 12h2M4 18h4M12 18h8&quot;/&gt;&lt;circle cx=&quot;8&quot; cy=&quot;6&quot; r=&quot;2&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;12&quot; r=&quot;2&quot;/&gt;&lt;circle cx=&quot;10&quot; cy=&quot;18&quot; r=&quot;2&quot;/&gt;&lt;/svg&gt;" aria-label="Copy settings SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/settings.svg" download aria-label="Download settings SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/settings.png" data-png="settings" download aria-label="Download settings PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;path d=&quot;M4 6h2M10 6h10M4 12h10M18 12h2M4 18h4M12 18h8&quot;/&gt;
+  &lt;circle cx=&quot;8&quot; cy=&quot;6&quot; r=&quot;2&quot;/&gt;
+  &lt;circle cx=&quot;16&quot; cy=&quot;12&quot; r=&quot;2&quot;/&gt;
+  &lt;circle cx=&quot;10&quot; cy=&quot;18&quot; r=&quot;2&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="pie-chart asset allocation">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>pie-chart</code></h3>
+            <p class="sg-asset-desc">Asset allocation · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;path d=&quot;M21.21 15.89A10 10 0 1 1 8 2.83&quot;/&gt;&lt;path d=&quot;M22 12A10 10 0 0 0 12 2v10z&quot;/&gt;&lt;/svg&gt;" aria-label="Copy pie-chart SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/pie-chart.svg" download aria-label="Download pie-chart SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/pie-chart.png" data-png="pie-chart" download aria-label="Download pie-chart PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;path d=&quot;M21.21 15.89A10 10 0 1 1 8 2.83&quot;/&gt;
+  &lt;path d=&quot;M22 12A10 10 0 0 0 12 2v10z&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="bar-chart reports and charts">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>bar-chart</code></h3>
+            <p class="sg-asset-desc">Reports and charts · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;line x1=&quot;18&quot; y1=&quot;20&quot; x2=&quot;18&quot; y2=&quot;10&quot;/&gt;&lt;line x1=&quot;12&quot; y1=&quot;20&quot; x2=&quot;12&quot; y2=&quot;4&quot;/&gt;&lt;line x1=&quot;6&quot; y1=&quot;20&quot; x2=&quot;6&quot; y2=&quot;14&quot;/&gt;&lt;/svg&gt;" aria-label="Copy bar-chart SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/bar-chart.svg" download aria-label="Download bar-chart SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/bar-chart.png" data-png="bar-chart" download aria-label="Download bar-chart PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;line x1=&quot;18&quot; y1=&quot;20&quot; x2=&quot;18&quot; y2=&quot;10&quot;/&gt;
+  &lt;line x1=&quot;12&quot; y1=&quot;20&quot; x2=&quot;12&quot; y2=&quot;4&quot;/&gt;
+  &lt;line x1=&quot;6&quot; y1=&quot;20&quot; x2=&quot;6&quot; y2=&quot;14&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="activity pipeline and activity">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>activity</code></h3>
+            <p class="sg-asset-desc">Pipeline and activity · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;polyline points=&quot;22 12 18 12 15 21 9 3 6 12 2 12&quot;/&gt;&lt;/svg&gt;" aria-label="Copy activity SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/activity.svg" download aria-label="Download activity SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/activity.png" data-png="activity" download aria-label="Download activity PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;polyline points=&quot;22 12 18 12 15 21 9 3 6 12 2 12&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="trending-up plan my future and growth">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>trending-up</code></h3>
+            <p class="sg-asset-desc">Plan My Future and growth · stroke 2</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;polyline points=&quot;3 17 9 11 13 15 21 7&quot;/&gt;&lt;polyline points=&quot;15 7 21 7 21 13&quot;/&gt;&lt;/svg&gt;" aria-label="Copy trending-up SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/trending-up.svg" download aria-label="Download trending-up SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/trending-up.png" data-png="trending-up" download aria-label="Download trending-up PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+  &lt;polyline points=&quot;3 17 9 11 13 15 21 7&quot;/&gt;
+  &lt;polyline points=&quot;15 7 21 7 21 13&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="goal my goals">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>goal</code></h3>
+            <p class="sg-asset-desc">My Goals · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot;/&gt;&lt;path d=&quot;M12 8v4l3 3&quot;/&gt;&lt;/svg&gt;" aria-label="Copy goal SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/goal.svg" download aria-label="Download goal SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/goal.png" data-png="goal" download aria-label="Download goal PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot;/&gt;
+  &lt;path d=&quot;M12 8v4l3 3&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="sg-section" id="arrows-chevrons">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Arrows &amp; chevrons</h2>
+      </div>
+      <div class="sg-icon-grid">
+        <article class="sg-asset-card" data-icon="chevron-down accordions and selects">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>chevron-down</code></h3>
+            <p class="sg-asset-desc">Accordions and selects · stroke 2.5</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.5&quot;&gt;&lt;polyline points=&quot;6 9 12 15 18 9&quot;/&gt;&lt;/svg&gt;" aria-label="Copy chevron-down SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/chevron-down.svg" download aria-label="Download chevron-down SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/chevron-down.png" data-png="chevron-down" download aria-label="Download chevron-down PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.5&quot;&gt;
+  &lt;polyline points=&quot;6 9 12 15 18 9&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="chevron-up sort and rises">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="18 15 12 9 6 15"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>chevron-up</code></h3>
+            <p class="sg-asset-desc">Sort and rises · stroke 3</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;3&quot;&gt;&lt;polyline points=&quot;18 15 12 9 6 15&quot;/&gt;&lt;/svg&gt;" aria-label="Copy chevron-up SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/chevron-up.svg" download aria-label="Download chevron-up SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/chevron-up.png" data-png="chevron-up" download aria-label="Download chevron-up PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;3&quot;&gt;
+  &lt;polyline points=&quot;18 15 12 9 6 15&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="chevron-right next and links">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>chevron-right</code></h3>
+            <p class="sg-asset-desc">Next and links · stroke 2.5</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.5&quot;&gt;&lt;polyline points=&quot;9 18 15 12 9 6&quot;/&gt;&lt;/svg&gt;" aria-label="Copy chevron-right SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/chevron-right.svg" download aria-label="Download chevron-right SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/chevron-right.png" data-png="chevron-right" download aria-label="Download chevron-right PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.5&quot;&gt;
+  &lt;polyline points=&quot;9 18 15 12 9 6&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="chevron-left back">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>chevron-left</code></h3>
+            <p class="sg-asset-desc">Back · stroke 2</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;polyline points=&quot;15 18 9 12 15 6&quot;/&gt;&lt;/svg&gt;" aria-label="Copy chevron-left SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/chevron-left.svg" download aria-label="Download chevron-left SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/chevron-left.png" data-png="chevron-left" download aria-label="Download chevron-left PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+  &lt;polyline points=&quot;15 18 9 12 15 6&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="arrow-right continue">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>arrow-right</code></h3>
+            <p class="sg-asset-desc">Continue · stroke 2.2</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.2&quot;&gt;&lt;line x1=&quot;5&quot; y1=&quot;12&quot; x2=&quot;19&quot; y2=&quot;12&quot;/&gt;&lt;polyline points=&quot;12 5 19 12 12 19&quot;/&gt;&lt;/svg&gt;" aria-label="Copy arrow-right SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/arrow-right.svg" download aria-label="Download arrow-right SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/arrow-right.png" data-png="arrow-right" download aria-label="Download arrow-right PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.2&quot;&gt;
+  &lt;line x1=&quot;5&quot; y1=&quot;12&quot; x2=&quot;19&quot; y2=&quot;12&quot;/&gt;
+  &lt;polyline points=&quot;12 5 19 12 12 19&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="arrow-left back and amend">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>arrow-left</code></h3>
+            <p class="sg-asset-desc">Back and amend · stroke 2.2</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.2&quot;&gt;&lt;line x1=&quot;19&quot; y1=&quot;12&quot; x2=&quot;5&quot; y2=&quot;12&quot;/&gt;&lt;polyline points=&quot;12 19 5 12 12 5&quot;/&gt;&lt;/svg&gt;" aria-label="Copy arrow-left SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/arrow-left.svg" download aria-label="Download arrow-left SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/arrow-left.png" data-png="arrow-left" download aria-label="Download arrow-left PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.2&quot;&gt;
+  &lt;line x1=&quot;19&quot; y1=&quot;12&quot; x2=&quot;5&quot; y2=&quot;12&quot;/&gt;
+  &lt;polyline points=&quot;12 19 5 12 12 5&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="arrow-down scroll down">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>arrow-down</code></h3>
+            <p class="sg-asset-desc">Scroll down · stroke 2</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;line x1=&quot;12&quot; y1=&quot;5&quot; x2=&quot;12&quot; y2=&quot;19&quot;/&gt;&lt;polyline points=&quot;19 12 12 19 5 12&quot;/&gt;&lt;/svg&gt;" aria-label="Copy arrow-down SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/arrow-down.svg" download aria-label="Download arrow-down SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/arrow-down.png" data-png="arrow-down" download aria-label="Download arrow-down PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+  &lt;line x1=&quot;12&quot; y1=&quot;5&quot; x2=&quot;12&quot; y2=&quot;19&quot;/&gt;
+  &lt;polyline points=&quot;19 12 12 19 5 12&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="arrow-up scroll up">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>arrow-up</code></h3>
+            <p class="sg-asset-desc">Scroll up · stroke 2</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;line x1=&quot;12&quot; y1=&quot;19&quot; x2=&quot;12&quot; y2=&quot;5&quot;/&gt;&lt;polyline points=&quot;5 12 12 5 19 12&quot;/&gt;&lt;/svg&gt;" aria-label="Copy arrow-up SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/arrow-up.svg" download aria-label="Download arrow-up SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/arrow-up.png" data-png="arrow-up" download aria-label="Download arrow-up PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+  &lt;line x1=&quot;12&quot; y1=&quot;19&quot; x2=&quot;12&quot; y2=&quot;5&quot;/&gt;
+  &lt;polyline points=&quot;5 12 12 5 19 12&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="deposit add funds">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2v14"/><path d="M5 10l7 7 7-7"/><path d="M3 22h18"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>deposit</code></h3>
+            <p class="sg-asset-desc">Add Funds · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;path d=&quot;M12 2v14&quot;/&gt;&lt;path d=&quot;M5 10l7 7 7-7&quot;/&gt;&lt;path d=&quot;M3 22h18&quot;/&gt;&lt;/svg&gt;" aria-label="Copy deposit SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/deposit.svg" download aria-label="Download deposit SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/deposit.png" data-png="deposit" download aria-label="Download deposit PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;path d=&quot;M12 2v14&quot;/&gt;
+  &lt;path d=&quot;M5 10l7 7 7-7&quot;/&gt;
+  &lt;path d=&quot;M3 22h18&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="download download and export">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>download</code></h3>
+            <p class="sg-asset-desc">Download and export · stroke 2</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;path d=&quot;M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4&quot;/&gt;&lt;polyline points=&quot;7 10 12 15 17 10&quot;/&gt;&lt;line x1=&quot;12&quot; y1=&quot;15&quot; x2=&quot;12&quot; y2=&quot;3&quot;/&gt;&lt;/svg&gt;" aria-label="Copy download SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/download.svg" download aria-label="Download download SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/download.png" data-png="download" download aria-label="Download download PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+  &lt;path d=&quot;M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4&quot;/&gt;
+  &lt;polyline points=&quot;7 10 12 15 17 10&quot;/&gt;
+  &lt;line x1=&quot;12&quot; y1=&quot;15&quot; x2=&quot;12&quot; y2=&quot;3&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="upload upload and send document">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>upload</code></h3>
+            <p class="sg-asset-desc">Upload and send document · stroke 2</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;path d=&quot;M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4&quot;/&gt;&lt;polyline points=&quot;17 8 12 3 7 8&quot;/&gt;&lt;line x1=&quot;12&quot; y1=&quot;3&quot; x2=&quot;12&quot; y2=&quot;15&quot;/&gt;&lt;/svg&gt;" aria-label="Copy upload SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/upload.svg" download aria-label="Download upload SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/upload.png" data-png="upload" download aria-label="Download upload PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+  &lt;path d=&quot;M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4&quot;/&gt;
+  &lt;polyline points=&quot;17 8 12 3 7 8&quot;/&gt;
+  &lt;line x1=&quot;12&quot; y1=&quot;3&quot; x2=&quot;12&quot; y2=&quot;15&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="external-link opens elsewhere">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>external-link</code></h3>
+            <p class="sg-asset-desc">Opens elsewhere · stroke 2</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;path d=&quot;M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6&quot;/&gt;&lt;polyline points=&quot;15 3 21 3 21 9&quot;/&gt;&lt;line x1=&quot;10&quot; y1=&quot;14&quot; x2=&quot;21&quot; y2=&quot;3&quot;/&gt;&lt;/svg&gt;" aria-label="Copy external-link SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/external-link.svg" download aria-label="Download external-link SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/external-link.png" data-png="external-link" download aria-label="Download external-link PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+  &lt;path d=&quot;M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6&quot;/&gt;
+  &lt;polyline points=&quot;15 3 21 3 21 9&quot;/&gt;
+  &lt;line x1=&quot;10&quot; y1=&quot;14&quot; x2=&quot;21&quot; y2=&quot;3&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="sg-section" id="actions">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Actions</h2>
+      </div>
+      <div class="sg-icon-grid">
+        <article class="sg-asset-card" data-icon="plus add buttons">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>plus</code></h3>
+            <p class="sg-asset-desc">Add buttons · stroke 2.5</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.5&quot;&gt;&lt;line x1=&quot;12&quot; y1=&quot;5&quot; x2=&quot;12&quot; y2=&quot;19&quot;/&gt;&lt;line x1=&quot;5&quot; y1=&quot;12&quot; x2=&quot;19&quot; y2=&quot;12&quot;/&gt;&lt;/svg&gt;" aria-label="Copy plus SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/plus.svg" download aria-label="Download plus SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/plus.png" data-png="plus" download aria-label="Download plus PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.5&quot;&gt;
+  &lt;line x1=&quot;12&quot; y1=&quot;5&quot; x2=&quot;12&quot; y2=&quot;19&quot;/&gt;
+  &lt;line x1=&quot;5&quot; y1=&quot;12&quot; x2=&quot;19&quot; y2=&quot;12&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="plus-circle add investment">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>plus-circle</code></h3>
+            <p class="sg-asset-desc">Add Investment · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot;/&gt;&lt;line x1=&quot;12&quot; y1=&quot;8&quot; x2=&quot;12&quot; y2=&quot;16&quot;/&gt;&lt;line x1=&quot;8&quot; y1=&quot;12&quot; x2=&quot;16&quot; y2=&quot;12&quot;/&gt;&lt;/svg&gt;" aria-label="Copy plus-circle SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/plus-circle.svg" download aria-label="Download plus-circle SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/plus-circle.png" data-png="plus-circle" download aria-label="Download plus-circle PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot;/&gt;
+  &lt;line x1=&quot;12&quot; y1=&quot;8&quot; x2=&quot;12&quot; y2=&quot;16&quot;/&gt;
+  &lt;line x1=&quot;8&quot; y1=&quot;12&quot; x2=&quot;16&quot; y2=&quot;12&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="close close and dismiss">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>close</code></h3>
+            <p class="sg-asset-desc">Close and dismiss · stroke 2.5</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.5&quot;&gt;&lt;line x1=&quot;18&quot; y1=&quot;6&quot; x2=&quot;6&quot; y2=&quot;18&quot;/&gt;&lt;line x1=&quot;6&quot; y1=&quot;6&quot; x2=&quot;18&quot; y2=&quot;18&quot;/&gt;&lt;/svg&gt;" aria-label="Copy close SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/close.svg" download aria-label="Download close SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/close.png" data-png="close" download aria-label="Download close PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.5&quot;&gt;
+  &lt;line x1=&quot;18&quot; y1=&quot;6&quot; x2=&quot;6&quot; y2=&quot;18&quot;/&gt;
+  &lt;line x1=&quot;6&quot; y1=&quot;6&quot; x2=&quot;18&quot; y2=&quot;18&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="x-circle cancel and error">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>x-circle</code></h3>
+            <p class="sg-asset-desc">Cancel and error · stroke 2</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot;/&gt;&lt;line x1=&quot;15&quot; y1=&quot;9&quot; x2=&quot;9&quot; y2=&quot;15&quot;/&gt;&lt;line x1=&quot;9&quot; y1=&quot;9&quot; x2=&quot;15&quot; y2=&quot;15&quot;/&gt;&lt;/svg&gt;" aria-label="Copy x-circle SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/x-circle.svg" download aria-label="Download x-circle SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/x-circle.png" data-png="x-circle" download aria-label="Download x-circle PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+  &lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot;/&gt;
+  &lt;line x1=&quot;15&quot; y1=&quot;9&quot; x2=&quot;9&quot; y2=&quot;15&quot;/&gt;
+  &lt;line x1=&quot;9&quot; y1=&quot;9&quot; x2=&quot;15&quot; y2=&quot;15&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="check done and confirm">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>check</code></h3>
+            <p class="sg-asset-desc">Done and confirm · stroke 2.5</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.5&quot;&gt;&lt;polyline points=&quot;20 6 9 17 4 12&quot;/&gt;&lt;/svg&gt;" aria-label="Copy check SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/check.svg" download aria-label="Download check SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/check.png" data-png="check" download aria-label="Download check PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.5&quot;&gt;
+  &lt;polyline points=&quot;20 6 9 17 4 12&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="search search fields">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>search</code></h3>
+            <p class="sg-asset-desc">Search fields · stroke 2</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;circle cx=&quot;11&quot; cy=&quot;11&quot; r=&quot;8&quot;/&gt;&lt;line x1=&quot;21&quot; y1=&quot;21&quot; x2=&quot;16.65&quot; y2=&quot;16.65&quot;/&gt;&lt;/svg&gt;" aria-label="Copy search SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/search.svg" download aria-label="Download search SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/search.png" data-png="search" download aria-label="Download search PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+  &lt;circle cx=&quot;11&quot; cy=&quot;11&quot; r=&quot;8&quot;/&gt;
+  &lt;line x1=&quot;21&quot; y1=&quot;21&quot; x2=&quot;16.65&quot; y2=&quot;16.65&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="search-alert no results">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="11"/><line x1="11" y1="14" x2="11.01" y2="14"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>search-alert</code></h3>
+            <p class="sg-asset-desc">No results · stroke 1.4</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.4&quot;&gt;&lt;circle cx=&quot;11&quot; cy=&quot;11&quot; r=&quot;8&quot;/&gt;&lt;line x1=&quot;21&quot; y1=&quot;21&quot; x2=&quot;16.65&quot; y2=&quot;16.65&quot;/&gt;&lt;line x1=&quot;11&quot; y1=&quot;8&quot; x2=&quot;11&quot; y2=&quot;11&quot;/&gt;&lt;line x1=&quot;11&quot; y1=&quot;14&quot; x2=&quot;11.01&quot; y2=&quot;14&quot;/&gt;&lt;/svg&gt;" aria-label="Copy search-alert SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/search-alert.svg" download aria-label="Download search-alert SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/search-alert.png" data-png="search-alert" download aria-label="Download search-alert PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.4&quot;&gt;
+  &lt;circle cx=&quot;11&quot; cy=&quot;11&quot; r=&quot;8&quot;/&gt;
+  &lt;line x1=&quot;21&quot; y1=&quot;21&quot; x2=&quot;16.65&quot; y2=&quot;16.65&quot;/&gt;
+  &lt;line x1=&quot;11&quot; y1=&quot;8&quot; x2=&quot;11&quot; y2=&quot;11&quot;/&gt;
+  &lt;line x1=&quot;11&quot; y1=&quot;14&quot; x2=&quot;11.01&quot; y2=&quot;14&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="filter filter">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>filter</code></h3>
+            <p class="sg-asset-desc">Filter · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;polygon points=&quot;22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3&quot;/&gt;&lt;/svg&gt;" aria-label="Copy filter SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/filter.svg" download aria-label="Download filter SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/filter.png" data-png="filter" download aria-label="Download filter PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;polygon points=&quot;22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="more-vertical more options">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="5" r="1" fill="currentColor"/><circle cx="12" cy="12" r="1" fill="currentColor"/><circle cx="12" cy="19" r="1" fill="currentColor"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>more-vertical</code></h3>
+            <p class="sg-asset-desc">More options · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;5&quot; r=&quot;1&quot; fill=&quot;currentColor&quot;/&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;1&quot; fill=&quot;currentColor&quot;/&gt;&lt;circle cx=&quot;12&quot; cy=&quot;19&quot; r=&quot;1&quot; fill=&quot;currentColor&quot;/&gt;&lt;/svg&gt;" aria-label="Copy more-vertical SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/more-vertical.svg" download aria-label="Download more-vertical SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/more-vertical.png" data-png="more-vertical" download aria-label="Download more-vertical PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;circle cx=&quot;12&quot; cy=&quot;5&quot; r=&quot;1&quot; fill=&quot;currentColor&quot;/&gt;
+  &lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;1&quot; fill=&quot;currentColor&quot;/&gt;
+  &lt;circle cx=&quot;12&quot; cy=&quot;19&quot; r=&quot;1&quot; fill=&quot;currentColor&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="copy copy to clipboard">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>copy</code></h3>
+            <p class="sg-asset-desc">Copy to clipboard · stroke 2</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;rect x=&quot;9&quot; y=&quot;9&quot; width=&quot;13&quot; height=&quot;13&quot; rx=&quot;2&quot;/&gt;&lt;path d=&quot;M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1&quot;/&gt;&lt;/svg&gt;" aria-label="Copy copy SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/copy.svg" download aria-label="Download copy SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/copy.png" data-png="copy" download aria-label="Download copy PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+  &lt;rect x=&quot;9&quot; y=&quot;9&quot; width=&quot;13&quot; height=&quot;13&quot; rx=&quot;2&quot;/&gt;
+  &lt;path d=&quot;M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="edit edit">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>edit</code></h3>
+            <p class="sg-asset-desc">Edit · stroke 2</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;path d=&quot;M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7&quot;/&gt;&lt;path d=&quot;M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z&quot;/&gt;&lt;/svg&gt;" aria-label="Copy edit SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/edit.svg" download aria-label="Download edit SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/edit.png" data-png="edit" download aria-label="Download edit PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+  &lt;path d=&quot;M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7&quot;/&gt;
+  &lt;path d=&quot;M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="trash delete">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>trash</code></h3>
+            <p class="sg-asset-desc">Delete · stroke 2</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;polyline points=&quot;3 6 5 6 21 6&quot;/&gt;&lt;path d=&quot;M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6&quot;/&gt;&lt;path d=&quot;M10 11v6&quot;/&gt;&lt;path d=&quot;M14 11v6&quot;/&gt;&lt;path d=&quot;M9 6V4h6v2&quot;/&gt;&lt;/svg&gt;" aria-label="Copy trash SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/trash.svg" download aria-label="Download trash SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/trash.png" data-png="trash" download aria-label="Download trash PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+  &lt;polyline points=&quot;3 6 5 6 21 6&quot;/&gt;
+  &lt;path d=&quot;M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6&quot;/&gt;
+  &lt;path d=&quot;M10 11v6&quot;/&gt;
+  &lt;path d=&quot;M14 11v6&quot;/&gt;
+  &lt;path d=&quot;M9 6V4h6v2&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="list view report">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 12h18M3 17h12"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>list</code></h3>
+            <p class="sg-asset-desc">View report · stroke 2</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;path d=&quot;M3 7h18M3 12h18M3 17h12&quot;/&gt;&lt;/svg&gt;" aria-label="Copy list SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/list.svg" download aria-label="Download list SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/list.png" data-png="list" download aria-label="Download list PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+  &lt;path d=&quot;M3 7h18M3 12h18M3 17h12&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="eye show">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>eye</code></h3>
+            <p class="sg-asset-desc">Show · stroke 1.8</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot;&gt;&lt;path d=&quot;M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z&quot;/&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;/&gt;&lt;/svg&gt;" aria-label="Copy eye SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/eye.svg" download aria-label="Download eye SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/eye.png" data-png="eye" download aria-label="Download eye PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot;&gt;
+  &lt;path d=&quot;M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z&quot;/&gt;
+  &lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="sign-out sign out">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>sign-out</code></h3>
+            <p class="sg-asset-desc">Sign out · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;path d=&quot;M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4&quot;/&gt;&lt;polyline points=&quot;16 17 21 12 16 7&quot;/&gt;&lt;line x1=&quot;21&quot; y1=&quot;12&quot; x2=&quot;9&quot; y2=&quot;12&quot;/&gt;&lt;/svg&gt;" aria-label="Copy sign-out SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/sign-out.svg" download aria-label="Download sign-out SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/sign-out.png" data-png="sign-out" download aria-label="Download sign-out PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;path d=&quot;M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4&quot;/&gt;
+  &lt;polyline points=&quot;16 17 21 12 16 7&quot;/&gt;
+  &lt;line x1=&quot;21&quot; y1=&quot;12&quot; x2=&quot;9&quot; y2=&quot;12&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="sg-section" id="status-alerts">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Status &amp; alerts</h2>
+      </div>
+      <div class="sg-icon-grid">
+        <article class="sg-asset-card" data-icon="bell notifications">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>bell</code></h3>
+            <p class="sg-asset-desc">Notifications · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;path d=&quot;M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9&quot;/&gt;&lt;path d=&quot;M13.73 21a2 2 0 0 1-3.46 0&quot;/&gt;&lt;/svg&gt;" aria-label="Copy bell SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/bell.svg" download aria-label="Download bell SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/bell.png" data-png="bell" download aria-label="Download bell PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;path d=&quot;M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9&quot;/&gt;
+  &lt;path d=&quot;M13.73 21a2 2 0 0 1-3.46 0&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="warning warnings and overdue">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>warning</code></h3>
+            <p class="sg-asset-desc">Warnings and overdue · stroke 2</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;path d=&quot;M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z&quot;/&gt;&lt;line x1=&quot;12&quot; y1=&quot;9&quot; x2=&quot;12&quot; y2=&quot;13&quot;/&gt;&lt;line x1=&quot;12&quot; y1=&quot;17&quot; x2=&quot;12.01&quot; y2=&quot;17&quot;/&gt;&lt;/svg&gt;" aria-label="Copy warning SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/warning.svg" download aria-label="Download warning SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/warning.png" data-png="warning" download aria-label="Download warning PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+  &lt;path d=&quot;M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z&quot;/&gt;
+  &lt;line x1=&quot;12&quot; y1=&quot;9&quot; x2=&quot;12&quot; y2=&quot;13&quot;/&gt;
+  &lt;line x1=&quot;12&quot; y1=&quot;17&quot; x2=&quot;12.01&quot; y2=&quot;17&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="info important information">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>info</code></h3>
+            <p class="sg-asset-desc">Important information · stroke 2</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot;/&gt;&lt;line x1=&quot;12&quot; y1=&quot;8&quot; x2=&quot;12&quot; y2=&quot;12&quot;/&gt;&lt;line x1=&quot;12&quot; y1=&quot;16&quot; x2=&quot;12.01&quot; y2=&quot;16&quot;/&gt;&lt;/svg&gt;" aria-label="Copy info SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/info.svg" download aria-label="Download info SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/info.png" data-png="info" download aria-label="Download info PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+  &lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot;/&gt;
+  &lt;line x1=&quot;12&quot; y1=&quot;8&quot; x2=&quot;12&quot; y2=&quot;12&quot;/&gt;
+  &lt;line x1=&quot;12&quot; y1=&quot;16&quot; x2=&quot;12.01&quot; y2=&quot;16&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="help help &amp; support">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>help</code></h3>
+            <p class="sg-asset-desc">Help &amp; Support · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot;/&gt;&lt;path d=&quot;M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3&quot;/&gt;&lt;line x1=&quot;12&quot; y1=&quot;17&quot; x2=&quot;12.01&quot; y2=&quot;17&quot;/&gt;&lt;/svg&gt;" aria-label="Copy help SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/help.svg" download aria-label="Download help SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/help.png" data-png="help" download aria-label="Download help PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot;/&gt;
+  &lt;path d=&quot;M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3&quot;/&gt;
+  &lt;line x1=&quot;12&quot; y1=&quot;17&quot; x2=&quot;12.01&quot; y2=&quot;17&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="check-circle complete">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>check-circle</code></h3>
+            <p class="sg-asset-desc">Complete · stroke 1.8</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot;&gt;&lt;path d=&quot;M22 11.08V12a10 10 0 1 1-5.93-9.14&quot;/&gt;&lt;polyline points=&quot;22 4 12 14.01 9 11.01&quot;/&gt;&lt;/svg&gt;" aria-label="Copy check-circle SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/check-circle.svg" download aria-label="Download check-circle SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/check-circle.png" data-png="check-circle" download aria-label="Download check-circle PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot;&gt;
+  &lt;path d=&quot;M22 11.08V12a10 10 0 1 1-5.93-9.14&quot;/&gt;
+  &lt;polyline points=&quot;22 4 12 14.01 9 11.01&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="shield fca regulated, kyc &amp; aml">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>shield</code></h3>
+            <p class="sg-asset-desc">FCA regulated, KYC &amp; AML · stroke 2.5</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.5&quot;&gt;&lt;path d=&quot;M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z&quot;/&gt;&lt;/svg&gt;" aria-label="Copy shield SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/shield.svg" download aria-label="Download shield SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/shield.png" data-png="shield" download aria-label="Download shield PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.5&quot;&gt;
+  &lt;path d=&quot;M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="shield-check authorised">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>shield-check</code></h3>
+            <p class="sg-asset-desc">Authorised · stroke 2</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; d=&quot;M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z&quot;/&gt;&lt;/svg&gt;" aria-label="Copy shield-check SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/shield-check.svg" download aria-label="Download shield-check SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/shield-check.png" data-png="shield-check" download aria-label="Download shield-check PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+  &lt;path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; d=&quot;M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="lock security and encryption">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>lock</code></h3>
+            <p class="sg-asset-desc">Security and encryption · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;rect x=&quot;3&quot; y=&quot;11&quot; width=&quot;18&quot; height=&quot;11&quot; rx=&quot;2&quot;/&gt;&lt;path d=&quot;M7 11V7a5 5 0 0 1 10 0v4&quot;/&gt;&lt;/svg&gt;" aria-label="Copy lock SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/lock.svg" download aria-label="Download lock SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/lock.png" data-png="lock" download aria-label="Download lock PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;rect x=&quot;3&quot; y=&quot;11&quot; width=&quot;18&quot; height=&quot;11&quot; rx=&quot;2&quot;/&gt;
+  &lt;path d=&quot;M7 11V7a5 5 0 0 1 10 0v4&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="clock pending and time">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>clock</code></h3>
+            <p class="sg-asset-desc">Pending and time · stroke 2</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot;/&gt;&lt;polyline points=&quot;12 6 12 12 16 14&quot;/&gt;&lt;/svg&gt;" aria-label="Copy clock SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/clock.svg" download aria-label="Download clock SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/clock.png" data-png="clock" download aria-label="Download clock PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+  &lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot;/&gt;
+  &lt;polyline points=&quot;12 6 12 12 16 14&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="star smart search and favourites">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>star</code></h3>
+            <p class="sg-asset-desc">Smart search and favourites · stroke 2</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;polygon points=&quot;12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2&quot;/&gt;&lt;/svg&gt;" aria-label="Copy star SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/star.svg" download aria-label="Download star SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/star.png" data-png="star" download aria-label="Download star PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+  &lt;polygon points=&quot;12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="star-filled best match">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>star-filled</code></h3>
+            <p class="sg-asset-desc">Best match · filled</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;&lt;polygon points=&quot;12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2&quot;/&gt;&lt;/svg&gt;" aria-label="Copy star-filled SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/star-filled.svg" download aria-label="Download star-filled SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/star-filled.png" data-png="star-filled" download aria-label="Download star-filled PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+  &lt;polygon points=&quot;12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="heart values and wellbeing">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>heart</code></h3>
+            <p class="sg-asset-desc">Values and wellbeing · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;path d=&quot;M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z&quot;/&gt;&lt;/svg&gt;" aria-label="Copy heart SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/heart.svg" download aria-label="Download heart SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/heart.png" data-png="heart" download aria-label="Download heart PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;path d=&quot;M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="ai ask aurelius ai">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/><line x1="12" y1="3" x2="12" y2="7"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="3" y1="12" x2="7" y2="12"/><line x1="17" y1="12" x2="21" y2="12"/><line x1="5.64" y1="5.64" x2="8.46" y2="8.46"/><line x1="15.54" y1="15.54" x2="18.36" y2="18.36"/><line x1="18.36" y1="5.64" x2="15.54" y2="8.46"/><line x1="8.46" y1="15.54" x2="5.64" y2="18.36"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>ai</code></h3>
+            <p class="sg-asset-desc">Ask Aurelius AI · stroke 1.8</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;2&quot; fill=&quot;currentColor&quot; stroke=&quot;none&quot;/&gt;&lt;line x1=&quot;12&quot; y1=&quot;3&quot; x2=&quot;12&quot; y2=&quot;7&quot;/&gt;&lt;line x1=&quot;12&quot; y1=&quot;17&quot; x2=&quot;12&quot; y2=&quot;21&quot;/&gt;&lt;line x1=&quot;3&quot; y1=&quot;12&quot; x2=&quot;7&quot; y2=&quot;12&quot;/&gt;&lt;line x1=&quot;17&quot; y1=&quot;12&quot; x2=&quot;21&quot; y2=&quot;12&quot;/&gt;&lt;line x1=&quot;5.64&quot; y1=&quot;5.64&quot; x2=&quot;8.46&quot; y2=&quot;8.46&quot;/&gt;&lt;line x1=&quot;15.54&quot; y1=&quot;15.54&quot; x2=&quot;18.36&quot; y2=&quot;18.36&quot;/&gt;&lt;line x1=&quot;18.36&quot; y1=&quot;5.64&quot; x2=&quot;15.54&quot; y2=&quot;8.46&quot;/&gt;&lt;line x1=&quot;8.46&quot; y1=&quot;15.54&quot; x2=&quot;5.64&quot; y2=&quot;18.36&quot;/&gt;&lt;/svg&gt;" aria-label="Copy ai SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/ai.svg" download aria-label="Download ai SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/ai.png" data-png="ai" download aria-label="Download ai PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot;&gt;
+  &lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;2&quot; fill=&quot;currentColor&quot; stroke=&quot;none&quot;/&gt;
+  &lt;line x1=&quot;12&quot; y1=&quot;3&quot; x2=&quot;12&quot; y2=&quot;7&quot;/&gt;
+  &lt;line x1=&quot;12&quot; y1=&quot;17&quot; x2=&quot;12&quot; y2=&quot;21&quot;/&gt;
+  &lt;line x1=&quot;3&quot; y1=&quot;12&quot; x2=&quot;7&quot; y2=&quot;12&quot;/&gt;
+  &lt;line x1=&quot;17&quot; y1=&quot;12&quot; x2=&quot;21&quot; y2=&quot;12&quot;/&gt;
+  &lt;line x1=&quot;5.64&quot; y1=&quot;5.64&quot; x2=&quot;8.46&quot; y2=&quot;8.46&quot;/&gt;
+  &lt;line x1=&quot;15.54&quot; y1=&quot;15.54&quot; x2=&quot;18.36&quot; y2=&quot;18.36&quot;/&gt;
+  &lt;line x1=&quot;18.36&quot; y1=&quot;5.64&quot; x2=&quot;15.54&quot; y2=&quot;8.46&quot;/&gt;
+  &lt;line x1=&quot;8.46&quot; y1=&quot;15.54&quot; x2=&quot;5.64&quot; y2=&quot;18.36&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="sun light mode">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>sun</code></h3>
+            <p class="sg-asset-desc">Light mode · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;5&quot;/&gt;&lt;line x1=&quot;12&quot; y1=&quot;1&quot; x2=&quot;12&quot; y2=&quot;3&quot;/&gt;&lt;line x1=&quot;12&quot; y1=&quot;21&quot; x2=&quot;12&quot; y2=&quot;23&quot;/&gt;&lt;line x1=&quot;4.22&quot; y1=&quot;4.22&quot; x2=&quot;5.64&quot; y2=&quot;5.64&quot;/&gt;&lt;line x1=&quot;18.36&quot; y1=&quot;18.36&quot; x2=&quot;19.78&quot; y2=&quot;19.78&quot;/&gt;&lt;line x1=&quot;1&quot; y1=&quot;12&quot; x2=&quot;3&quot; y2=&quot;12&quot;/&gt;&lt;line x1=&quot;21&quot; y1=&quot;12&quot; x2=&quot;23&quot; y2=&quot;12&quot;/&gt;&lt;line x1=&quot;4.22&quot; y1=&quot;19.78&quot; x2=&quot;5.64&quot; y2=&quot;18.36&quot;/&gt;&lt;line x1=&quot;18.36&quot; y1=&quot;5.64&quot; x2=&quot;19.78&quot; y2=&quot;4.22&quot;/&gt;&lt;/svg&gt;" aria-label="Copy sun SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/sun.svg" download aria-label="Download sun SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/sun.png" data-png="sun" download aria-label="Download sun PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;5&quot;/&gt;
+  &lt;line x1=&quot;12&quot; y1=&quot;1&quot; x2=&quot;12&quot; y2=&quot;3&quot;/&gt;
+  &lt;line x1=&quot;12&quot; y1=&quot;21&quot; x2=&quot;12&quot; y2=&quot;23&quot;/&gt;
+  &lt;line x1=&quot;4.22&quot; y1=&quot;4.22&quot; x2=&quot;5.64&quot; y2=&quot;5.64&quot;/&gt;
+  &lt;line x1=&quot;18.36&quot; y1=&quot;18.36&quot; x2=&quot;19.78&quot; y2=&quot;19.78&quot;/&gt;
+  &lt;line x1=&quot;1&quot; y1=&quot;12&quot; x2=&quot;3&quot; y2=&quot;12&quot;/&gt;
+  &lt;line x1=&quot;21&quot; y1=&quot;12&quot; x2=&quot;23&quot; y2=&quot;12&quot;/&gt;
+  &lt;line x1=&quot;4.22&quot; y1=&quot;19.78&quot; x2=&quot;5.64&quot; y2=&quot;18.36&quot;/&gt;
+  &lt;line x1=&quot;18.36&quot; y1=&quot;5.64&quot; x2=&quot;19.78&quot; y2=&quot;4.22&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="brightness appearance">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>brightness</code></h3>
+            <p class="sg-asset-desc">Appearance · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;/&gt;&lt;path d=&quot;M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12&quot;/&gt;&lt;/svg&gt;" aria-label="Copy brightness SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/brightness.svg" download aria-label="Download brightness SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/brightness.png" data-png="brightness" download aria-label="Download brightness PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;/&gt;
+  &lt;path d=&quot;M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="sg-section" id="communication">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Communication</h2>
+      </div>
+      <div class="sg-icon-grid">
+        <article class="sg-asset-card" data-icon="message messages and advice requests">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>message</code></h3>
+            <p class="sg-asset-desc">Messages and advice requests · stroke 2</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;path d=&quot;M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z&quot;/&gt;&lt;/svg&gt;" aria-label="Copy message SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/message.svg" download aria-label="Download message SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/message.png" data-png="message" download aria-label="Download message PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+  &lt;path d=&quot;M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="mail secure messages and email">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>mail</code></h3>
+            <p class="sg-asset-desc">Secure Messages and email · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;path d=&quot;M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z&quot;/&gt;&lt;polyline points=&quot;22,6 12,13 2,6&quot;/&gt;&lt;/svg&gt;" aria-label="Copy mail SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/mail.svg" download aria-label="Download mail SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/mail.png" data-png="mail" download aria-label="Download mail PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;path d=&quot;M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z&quot;/&gt;
+  &lt;polyline points=&quot;22,6 12,13 2,6&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="send send message">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>send</code></h3>
+            <p class="sg-asset-desc">Send message · stroke 2.2</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.2&quot;&gt;&lt;line x1=&quot;22&quot; y1=&quot;2&quot; x2=&quot;11&quot; y2=&quot;13&quot;/&gt;&lt;polygon points=&quot;22 2 15 22 11 13 2 9 22 2&quot;/&gt;&lt;/svg&gt;" aria-label="Copy send SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/send.svg" download aria-label="Download send SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/send.png" data-png="send" download aria-label="Download send PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.2&quot;&gt;
+  &lt;line x1=&quot;22&quot; y1=&quot;2&quot; x2=&quot;11&quot; y2=&quot;13&quot;/&gt;
+  &lt;polygon points=&quot;22 2 15 22 11 13 2 9 22 2&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="chat live chat">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3c-4.97 0-9 3.578-9 8 0 2.04.78 3.91 2.07 5.34L3 21l4.84-1.29A9.33 9.33 0 0 0 12 21c4.97 0 9-3.578 9-8s-4.03-8-9-8Z"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>chat</code></h3>
+            <p class="sg-asset-desc">Live chat · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; d=&quot;M12 3c-4.97 0-9 3.578-9 8 0 2.04.78 3.91 2.07 5.34L3 21l4.84-1.29A9.33 9.33 0 0 0 12 21c4.97 0 9-3.578 9-8s-4.03-8-9-8Z&quot;/&gt;&lt;/svg&gt;" aria-label="Copy chat SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/chat.svg" download aria-label="Download chat SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/chat.png" data-png="chat" download aria-label="Download chat PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; d=&quot;M12 3c-4.97 0-9 3.578-9 8 0 2.04.78 3.91 2.07 5.34L3 21l4.84-1.29A9.33 9.33 0 0 0 12 21c4.97 0 9-3.578 9-8s-4.03-8-9-8Z&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="chat-typing chat in progress">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>chat-typing</code></h3>
+            <p class="sg-asset-desc">Chat in progress · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; d=&quot;M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z&quot;/&gt;&lt;/svg&gt;" aria-label="Copy chat-typing SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/chat-typing.svg" download aria-label="Download chat-typing SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/chat-typing.png" data-png="chat-typing" download aria-label="Download chat-typing PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; d=&quot;M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="phone phone">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>phone</code></h3>
+            <p class="sg-asset-desc">Phone · stroke 1.8</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot;&gt;&lt;path d=&quot;M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z&quot;/&gt;&lt;/svg&gt;" aria-label="Copy phone SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/phone.svg" download aria-label="Download phone SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/phone.png" data-png="phone" download aria-label="Download phone PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot;&gt;
+  &lt;path d=&quot;M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="sg-section" id="people-account">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">People &amp; account</h2>
+      </div>
+      <div class="sg-icon-grid">
+        <article class="sg-asset-card" data-icon="users client book">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>users</code></h3>
+            <p class="sg-asset-desc">Client Book · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;path d=&quot;M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2&quot;/&gt;&lt;circle cx=&quot;9&quot; cy=&quot;7&quot; r=&quot;4&quot;/&gt;&lt;path d=&quot;M23 21v-2a4 4 0 0 0-3-3.87&quot;/&gt;&lt;path d=&quot;M16 3.13a4 4 0 0 1 0 7.75&quot;/&gt;&lt;/svg&gt;" aria-label="Copy users SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/users.svg" download aria-label="Download users SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/users.png" data-png="users" download aria-label="Download users PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;path d=&quot;M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2&quot;/&gt;
+  &lt;circle cx=&quot;9&quot; cy=&quot;7&quot; r=&quot;4&quot;/&gt;
+  &lt;path d=&quot;M23 21v-2a4 4 0 0 0-3-3.87&quot;/&gt;
+  &lt;path d=&quot;M16 3.13a4 4 0 0 1 0 7.75&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="user my details">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>user</code></h3>
+            <p class="sg-asset-desc">My Details · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;path d=&quot;M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2&quot;/&gt;&lt;circle cx=&quot;12&quot; cy=&quot;7&quot; r=&quot;4&quot;/&gt;&lt;/svg&gt;" aria-label="Copy user SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/user.svg" download aria-label="Download user SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/user.png" data-png="user" download aria-label="Download user PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;path d=&quot;M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2&quot;/&gt;
+  &lt;circle cx=&quot;12&quot; cy=&quot;7&quot; r=&quot;4&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="account my profile">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>account</code></h3>
+            <p class="sg-asset-desc">My Profile · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; d=&quot;M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z&quot;/&gt;&lt;/svg&gt;" aria-label="Copy account SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/account.svg" download aria-label="Download account SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/account.png" data-png="account" download aria-label="Download account PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; d=&quot;M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="profile profile prompts">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>profile</code></h3>
+            <p class="sg-asset-desc">Profile prompts · stroke 2</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;8&quot; r=&quot;4&quot;/&gt;&lt;path d=&quot;M4 20c0-4 3.6-7 8-7s8 3 8 7&quot;/&gt;&lt;/svg&gt;" aria-label="Copy profile SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/profile.svg" download aria-label="Download profile SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/profile.png" data-png="profile" download aria-label="Download profile PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+  &lt;circle cx=&quot;12&quot; cy=&quot;8&quot; r=&quot;4&quot;/&gt;
+  &lt;path d=&quot;M4 20c0-4 3.6-7 8-7s8 3 8 7&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="sg-section" id="money-documents">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Money &amp; documents</h2>
+      </div>
+      <div class="sg-icon-grid">
+        <article class="sg-asset-card" data-icon="currency fees &amp; revenue, my investments">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>currency</code></h3>
+            <p class="sg-asset-desc">Fees &amp; Revenue, My Investments · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;line x1=&quot;12&quot; y1=&quot;1&quot; x2=&quot;12&quot; y2=&quot;23&quot;/&gt;&lt;path d=&quot;M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6&quot;/&gt;&lt;/svg&gt;" aria-label="Copy currency SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/currency.svg" download aria-label="Download currency SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/currency.png" data-png="currency" download aria-label="Download currency PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;line x1=&quot;12&quot; y1=&quot;1&quot; x2=&quot;12&quot; y2=&quot;23&quot;/&gt;
+  &lt;path d=&quot;M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="file documents">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>file</code></h3>
+            <p class="sg-asset-desc">Documents · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;path d=&quot;M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z&quot;/&gt;&lt;polyline points=&quot;14 2 14 8 20 8&quot;/&gt;&lt;/svg&gt;" aria-label="Copy file SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/file.svg" download aria-label="Download file SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/file.png" data-png="file" download aria-label="Download file PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;path d=&quot;M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z&quot;/&gt;
+  &lt;polyline points=&quot;14 2 14 8 20 8&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="document reports and statements">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>document</code></h3>
+            <p class="sg-asset-desc">Reports and statements · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;path d=&quot;M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z&quot;/&gt;&lt;polyline points=&quot;14 2 14 8 20 8&quot;/&gt;&lt;line x1=&quot;16&quot; y1=&quot;13&quot; x2=&quot;8&quot; y2=&quot;13&quot;/&gt;&lt;line x1=&quot;16&quot; y1=&quot;17&quot; x2=&quot;8&quot; y2=&quot;17&quot;/&gt;&lt;/svg&gt;" aria-label="Copy document SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/document.svg" download aria-label="Download document SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/document.png" data-png="document" download aria-label="Download document PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;path d=&quot;M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z&quot;/&gt;
+  &lt;polyline points=&quot;14 2 14 8 20 8&quot;/&gt;
+  &lt;line x1=&quot;16&quot; y1=&quot;13&quot; x2=&quot;8&quot; y2=&quot;13&quot;/&gt;
+  &lt;line x1=&quot;16&quot; y1=&quot;17&quot; x2=&quot;8&quot; y2=&quot;17&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="tax tax documents">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/><line x1="9" y1="15" x2="13" y2="15"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>tax</code></h3>
+            <p class="sg-asset-desc">Tax documents · stroke 1.8</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot;&gt;&lt;rect x=&quot;5&quot; y=&quot;2&quot; width=&quot;14&quot; height=&quot;20&quot; rx=&quot;2&quot;/&gt;&lt;line x1=&quot;9&quot; y1=&quot;7&quot; x2=&quot;15&quot; y2=&quot;7&quot;/&gt;&lt;line x1=&quot;9&quot; y1=&quot;11&quot; x2=&quot;15&quot; y2=&quot;11&quot;/&gt;&lt;line x1=&quot;9&quot; y1=&quot;15&quot; x2=&quot;13&quot; y2=&quot;15&quot;/&gt;&lt;/svg&gt;" aria-label="Copy tax SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/tax.svg" download aria-label="Download tax SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/tax.png" data-png="tax" download aria-label="Download tax PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot;&gt;
+  &lt;rect x=&quot;5&quot; y=&quot;2&quot; width=&quot;14&quot; height=&quot;20&quot; rx=&quot;2&quot;/&gt;
+  &lt;line x1=&quot;9&quot; y1=&quot;7&quot; x2=&quot;15&quot; y2=&quot;7&quot;/&gt;
+  &lt;line x1=&quot;9&quot; y1=&quot;11&quot; x2=&quot;15&quot; y2=&quot;11&quot;/&gt;
+  &lt;line x1=&quot;9&quot; y1=&quot;15&quot; x2=&quot;13&quot; y2=&quot;15&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="clipboard forms">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>clipboard</code></h3>
+            <p class="sg-asset-desc">Forms · stroke 1.8</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot;&gt;&lt;path d=&quot;M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2&quot;/&gt;&lt;rect x=&quot;9&quot; y=&quot;3&quot; width=&quot;6&quot; height=&quot;4&quot; rx=&quot;1&quot;/&gt;&lt;line x1=&quot;9&quot; y1=&quot;12&quot; x2=&quot;15&quot; y2=&quot;12&quot;/&gt;&lt;line x1=&quot;9&quot; y1=&quot;16&quot; x2=&quot;13&quot; y2=&quot;16&quot;/&gt;&lt;/svg&gt;" aria-label="Copy clipboard SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/clipboard.svg" download aria-label="Download clipboard SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/clipboard.png" data-png="clipboard" download aria-label="Download clipboard PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot;&gt;
+  &lt;path d=&quot;M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2&quot;/&gt;
+  &lt;rect x=&quot;9&quot; y=&quot;3&quot; width=&quot;6&quot; height=&quot;4&quot; rx=&quot;1&quot;/&gt;
+  &lt;line x1=&quot;9&quot; y1=&quot;12&quot; x2=&quot;15&quot; y2=&quot;12&quot;/&gt;
+  &lt;line x1=&quot;9&quot; y1=&quot;16&quot; x2=&quot;13&quot; y2=&quot;16&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="calendar reviews &amp; meetings">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>calendar</code></h3>
+            <p class="sg-asset-desc">Reviews &amp; Meetings · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;rect x=&quot;3&quot; y=&quot;4&quot; width=&quot;18&quot; height=&quot;18&quot; rx=&quot;2&quot;/&gt;&lt;line x1=&quot;16&quot; y1=&quot;2&quot; x2=&quot;16&quot; y2=&quot;6&quot;/&gt;&lt;line x1=&quot;8&quot; y1=&quot;2&quot; x2=&quot;8&quot; y2=&quot;6&quot;/&gt;&lt;line x1=&quot;3&quot; y1=&quot;10&quot; x2=&quot;21&quot; y2=&quot;10&quot;/&gt;&lt;/svg&gt;" aria-label="Copy calendar SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/calendar.svg" download aria-label="Download calendar SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/calendar.png" data-png="calendar" download aria-label="Download calendar PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;rect x=&quot;3&quot; y=&quot;4&quot; width=&quot;18&quot; height=&quot;18&quot; rx=&quot;2&quot;/&gt;
+  &lt;line x1=&quot;16&quot; y1=&quot;2&quot; x2=&quot;16&quot; y2=&quot;6&quot;/&gt;
+  &lt;line x1=&quot;8&quot; y1=&quot;2&quot; x2=&quot;8&quot; y2=&quot;6&quot;/&gt;
+  &lt;line x1=&quot;3&quot; y1=&quot;10&quot; x2=&quot;21&quot; y2=&quot;10&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="tasks tasks">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>tasks</code></h3>
+            <p class="sg-asset-desc">Tasks · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;polyline points=&quot;9 11 12 14 22 4&quot;/&gt;&lt;path d=&quot;M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11&quot;/&gt;&lt;/svg&gt;" aria-label="Copy tasks SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/tasks.svg" download aria-label="Download tasks SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/tasks.png" data-png="tasks" download aria-label="Download tasks PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;polyline points=&quot;9 11 12 14 22 4&quot;/&gt;
+  &lt;path d=&quot;M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="bank bank accounts">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="15" rx="1"/><path d="M16 22V12H8v10"/><path d="M2 7l10-5 10 5"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>bank</code></h3>
+            <p class="sg-asset-desc">Bank accounts · stroke 2</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;rect x=&quot;2&quot; y=&quot;7&quot; width=&quot;20&quot; height=&quot;15&quot; rx=&quot;1&quot;/&gt;&lt;path d=&quot;M16 22V12H8v10&quot;/&gt;&lt;path d=&quot;M2 7l10-5 10 5&quot;/&gt;&lt;/svg&gt;" aria-label="Copy bank SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/bank.svg" download aria-label="Download bank SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/bank.png" data-png="bank" download aria-label="Download bank PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+  &lt;rect x=&quot;2&quot; y=&quot;7&quot; width=&quot;20&quot; height=&quot;15&quot; rx=&quot;1&quot;/&gt;
+  &lt;path d=&quot;M16 22V12H8v10&quot;/&gt;
+  &lt;path d=&quot;M2 7l10-5 10 5&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="home addresses">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>home</code></h3>
+            <p class="sg-asset-desc">Addresses · stroke 2</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;path d=&quot;M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z&quot;/&gt;&lt;polyline points=&quot;9 22 9 12 15 12 15 22&quot;/&gt;&lt;/svg&gt;" aria-label="Copy home SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/home.svg" download aria-label="Download home SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/home.png" data-png="home" download aria-label="Download home PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+  &lt;path d=&quot;M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z&quot;/&gt;
+  &lt;polyline points=&quot;9 22 9 12 15 12 15 22&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="credit-card cards and payment">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>credit-card</code></h3>
+            <p class="sg-asset-desc">Cards and payment · stroke 1.8</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot;&gt;&lt;rect x=&quot;1&quot; y=&quot;4&quot; width=&quot;22&quot; height=&quot;16&quot; rx=&quot;2&quot;/&gt;&lt;line x1=&quot;1&quot; y1=&quot;10&quot; x2=&quot;23&quot; y2=&quot;10&quot;/&gt;&lt;/svg&gt;" aria-label="Copy credit-card SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/credit-card.svg" download aria-label="Download credit-card SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/credit-card.png" data-png="credit-card" download aria-label="Download credit-card PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot;&gt;
+  &lt;rect x=&quot;1&quot; y=&quot;4&quot; width=&quot;22&quot; height=&quot;16&quot; rx=&quot;2&quot;/&gt;
+  &lt;line x1=&quot;1&quot; y1=&quot;10&quot; x2=&quot;23&quot; y2=&quot;10&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="briefcase accounts and pensions">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="8" width="20" height="12" rx="2"/><path d="M6 8V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>briefcase</code></h3>
+            <p class="sg-asset-desc">Accounts and pensions · stroke 2</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;rect x=&quot;2&quot; y=&quot;8&quot; width=&quot;20&quot; height=&quot;12&quot; rx=&quot;2&quot;/&gt;&lt;path d=&quot;M6 8V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2&quot;/&gt;&lt;/svg&gt;" aria-label="Copy briefcase SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/briefcase.svg" download aria-label="Download briefcase SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/briefcase.png" data-png="briefcase" download aria-label="Download briefcase PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+  &lt;rect x=&quot;2&quot; y=&quot;8&quot; width=&quot;20&quot; height=&quot;12&quot; rx=&quot;2&quot;/&gt;
+  &lt;path d=&quot;M6 8V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="sg-section" id="devices">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Devices</h2>
+      </div>
+      <div class="sg-icon-grid">
+        <article class="sg-asset-card" data-icon="laptop signed-in devices">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M1 20h22"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>laptop</code></h3>
+            <p class="sg-asset-desc">Signed-in devices · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;rect x=&quot;2&quot; y=&quot;3&quot; width=&quot;20&quot; height=&quot;14&quot; rx=&quot;2&quot;/&gt;&lt;path d=&quot;M1 20h22&quot;/&gt;&lt;/svg&gt;" aria-label="Copy laptop SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/laptop.svg" download aria-label="Download laptop SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/laptop.png" data-png="laptop" download aria-label="Download laptop PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;rect x=&quot;2&quot; y=&quot;3&quot; width=&quot;20&quot; height=&quot;14&quot; rx=&quot;2&quot;/&gt;
+  &lt;path d=&quot;M1 20h22&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="monitor signed-in devices">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>monitor</code></h3>
+            <p class="sg-asset-desc">Signed-in devices · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;rect x=&quot;2&quot; y=&quot;3&quot; width=&quot;20&quot; height=&quot;14&quot; rx=&quot;2&quot;/&gt;&lt;path d=&quot;M8 21h8m-4-4v4&quot;/&gt;&lt;/svg&gt;" aria-label="Copy monitor SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/monitor.svg" download aria-label="Download monitor SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/monitor.png" data-png="monitor" download aria-label="Download monitor PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;rect x=&quot;2&quot; y=&quot;3&quot; width=&quot;20&quot; height=&quot;14&quot; rx=&quot;2&quot;/&gt;
+  &lt;path d=&quot;M8 21h8m-4-4v4&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+        <article class="sg-asset-card" data-icon="smartphone signed-in devices">
+          <div class="sg-asset-preview sg-icon-preview"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="18" r="1" fill="currentColor"/></svg></div>
+          <div class="sg-asset-body">
+            <h3 class="sg-asset-name"><code>smartphone</code></h3>
+            <p class="sg-asset-desc">Signed-in devices · stroke 1.7</p>
+            <div class="sg-asset-links">
+              <button class="sg-asset-link" type="button" data-copy="&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;&lt;rect x=&quot;5&quot; y=&quot;2&quot; width=&quot;14&quot; height=&quot;20&quot; rx=&quot;2&quot;/&gt;&lt;circle cx=&quot;12&quot; cy=&quot;18&quot; r=&quot;1&quot; fill=&quot;currentColor&quot;/&gt;&lt;/svg&gt;" aria-label="Copy smartphone SVG code">Copy SVG</button>
+              <a class="sg-asset-link" href="../src/images/icons/svg/smartphone.svg" download aria-label="Download smartphone SVG">SVG</a>
+              <a class="sg-asset-link" href="../src/images/icons/png/gold/48/smartphone.png" data-png="smartphone" download aria-label="Download smartphone PNG">PNG</a>
+            </div>
+            <details class="sg-icon-code">
+              <summary>View code</summary>
+              <div class="sg-code"><pre><code class="language-markup">&lt;svg aria-hidden=&quot;true&quot; width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot;&gt;
+  &lt;rect x=&quot;5&quot; y=&quot;2&quot; width=&quot;14&quot; height=&quot;20&quot; rx=&quot;2&quot;/&gt;
+  &lt;circle cx=&quot;12&quot; cy=&quot;18&quot; r=&quot;1&quot; fill=&quot;currentColor&quot;/&gt;
+&lt;/svg&gt;</code></pre></div>
+            </details>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="card empty-state" id="sg-icon-empty" hidden>
+      <div>No icons match</div>
+      <div class="empty-state-sub">Try another name, such as “arrow” or “document”.</div>
+    </div>
+
+  </main>
+</div>
+
+<script src="sg-shell.js"></script>
+<script src="sg-guide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+</body>
+</html>
