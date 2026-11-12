@@ -151,7 +151,17 @@
 }
 
 /* Same rhythm as a link row, without the link */
-.site-map-soon-list li { padding: 8px 12px; }
+.site-map-soon-list li {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-s);
+  padding: 8px 12px;
+}
+
+/* The site map's own entry, in the Site information card */
+.site-map-link[aria-current="page"] { background: var(--gold-dim); }
+.site-map-link[aria-current="page"] .site-map-link-desc { color: var(--gold-text); }
 
 @media (prefers-reduced-motion: reduce) {
   .site-map-link,
