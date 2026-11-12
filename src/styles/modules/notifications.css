@@ -4,7 +4,7 @@
    only what's particular to notifications. */
 
 /* Nothing unread: hide "Mark all read" */
-#notif-panel:not(:has([data-unread])) #notif-mark-all { display: none; }
+.drawer:not(:has([data-unread])) .np-mark-all { display: none; }
 
 /* ── List ── */
 .np-list {
@@ -164,7 +164,7 @@
 .drawer-body:not(:has(.np-item)) .np-empty { display: flex; }
 
 /* ── Trigger button: hide gold dot when all read ── */
-#notif-btn.has-no-unread .notif-dot { display: none; }
+.icon-btn.has-no-unread .notif-dot { display: none; }
 
 /* Positions .notif-dot against the control it belongs to */
 .notif-host { display: inline-flex; position: relative; }

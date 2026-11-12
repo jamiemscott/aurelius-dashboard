@@ -385,7 +385,8 @@
 }
 
 /* ── Investor profile type card ───────────────────────── */
-#details-profile-card {
+/* A class, not the #id: OutSystems generates its own widget ids */
+.details-profile-slot {
   display: flex;
   flex-shrink: 0;
   width: 360px;

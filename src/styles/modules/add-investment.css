@@ -260,6 +260,12 @@
   font-size: var(--fs-md);
   font-weight: var(--fw-semibold);
 }
+/* Return figures: a rise or a fall, as .kpi-change and .td-change */
+.ai-metric-value.is-up   { color: var(--green); }
+.ai-metric-value.is-down { color: var(--red); }
+
+/* Deprecated: OutSystems still uses .green here. Remove once it
+   switches to .is-up (issue #235). */
 .ai-metric-value.green { color: var(--green); }
 
 /* Risk bar */

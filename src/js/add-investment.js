@@ -663,6 +663,11 @@ function riskSegsHtml(risk) {
 }
 
 /* Render a single smart result card */
+/* A return figure rises or falls: .is-up or .is-down */
+function trend(value) {
+  return String(value).trim().startsWith('-') ? 'is-down' : 'is-up';
+}
+
 function renderSmartCard(inv) {
   const trustHtml = inv.trustSignals.map(s =>
     `<span class="ais-trust-signal">${trustIcon(s.icon)}${s.text}</span>`
@@ -701,7 +706,7 @@ function renderSmartCard(inv) {
         <div class="ais-result-metrics">
           <div class="ai-fund-metric">
             <span class="ai-metric-label">1yr</span>
-            <span class="ai-metric-value green">${inv['1yr']}</span>
+            <span class="ai-metric-value ${trend(inv['1yr'])}">${inv['1yr']}</span>
           </div>
           <div class="ai-fund-metric">
             <span class="ai-metric-label">OCF</span>
@@ -718,10 +723,10 @@ function renderSmartCard(inv) {
 
       <div class="ais-result-stats">
         <div class="ais-result-stats-returns">
-          <div class="ais-result-stats-return"><span class="ai-metric-label">YTD</span><span class="ai-metric-value green">${inv.ytd}</span></div>
-          <div class="ais-result-stats-return"><span class="ai-metric-label">1yr</span><span class="ai-metric-value green">${inv['1yr']}</span></div>
-          <div class="ais-result-stats-return"><span class="ai-metric-label">3yr</span><span class="ai-metric-value green">${inv['3yr']}</span></div>
-          <div class="ais-result-stats-return"><span class="ai-metric-label">5yr</span><span class="ai-metric-value green">${inv['5yr']}</span></div>
+          <div class="ais-result-stats-return"><span class="ai-metric-label">YTD</span><span class="ai-metric-value ${trend(inv.ytd)}">${inv.ytd}</span></div>
+          <div class="ais-result-stats-return"><span class="ai-metric-label">1yr</span><span class="ai-metric-value ${trend(inv['1yr'])}">${inv['1yr']}</span></div>
+          <div class="ais-result-stats-return"><span class="ai-metric-label">3yr</span><span class="ai-metric-value ${trend(inv['3yr'])}">${inv['3yr']}</span></div>
+          <div class="ais-result-stats-return"><span class="ai-metric-label">5yr</span><span class="ai-metric-value ${trend(inv['5yr'])}">${inv['5yr']}</span></div>
         </div>
         <div class="ais-result-stats-meta">
           ${inv.ocf !== '—' ? `<span>OCF: ${inv.ocf}</span>` : ''}
