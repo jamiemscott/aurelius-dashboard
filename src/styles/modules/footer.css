@@ -235,11 +235,15 @@
 
 /* ─── FOOTER ACCORDION (details/summary) ─────────────────
    Desktop: details always open, summary acts as plain heading.
-   Tablet/mobile: native collapse/expand with chevron indicator. */
+   Tablet/mobile: native collapse/expand with chevron indicator.
 
-/* Desktop — force content always visible */
+   The markup must be <details class="footer-acc" open>. Browsers
+   now hide a closed <details> with content-visibility: hidden
+   !important, which no CSS can undo, so the open attribute is
+   what shows the links on desktop. src/js/footer.js closes them
+   at 1024px and below.                                          */
 .footer-acc > .footer-links {
-  display: flex; /* overrides UA display:none when details is closed */
+  display: flex;
 }
 
 /* Summary looks like a plain heading on desktop — not interactive */
