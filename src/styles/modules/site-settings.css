@@ -1,0 +1,139 @@
+/* ─── SITE SETTINGS DRAWER ──────────────────────────────────────
+   Opened by the topbar Settings button (popovertarget=
+   "site-settings"). How the site looks and behaves on this device.
+
+   Reuses .drawer and its parts, .section-heading, .field /
+   .field-label / .field-hint, .det-select, .det-toggle-row and
+   .switch, and .btn-primary / .btn-secondary. New here: groups,
+   the segmented choice, the Aa size samples and the Manage link. */
+
+.site-settings-group {
+  display: grid;
+  gap: var(--space-base);
+}
+
+.site-settings-group + .site-settings-group {
+  border-block-start: 1px solid var(--divider);
+  padding-block-start: 18px;
+}
+
+.site-settings-group .section-heading { margin: 0; }
+
+/* A fieldset that looks like a .field */
+.site-settings-field {
+  border: 0;
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  min-inline-size: 0;
+  padding: 0;
+}
+.site-settings-field .field-hint { margin: 0; }
+
+/* ── Segmented choice ────────────────────────────────────────
+   Real radio buttons, so arrow keys move between options and
+   screen readers announce "1 of 3". The checked option takes the
+   raised card look of an active .tab-btn.                     */
+.site-settings-choice {
+  background: var(--bg-hover);   /* --bg-input matches the drawer in dark */
+  border-radius: var(--radius-item);
+  display: grid;
+  gap: 4px;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  padding: 4px;
+}
+
+.site-settings-choice-option {
+  align-items: center;
+  border-radius: 9px;
+  color: var(--text-2);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  font-size: var(--fs-md);
+  font-weight: var(--fw-medium);
+  gap: 6px;
+  justify-content: center;
+  min-block-size: 64px;
+  padding: 10px 6px;
+  position: relative;
+  text-align: center;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Visually hidden, still focusable and announced */
+.site-settings-choice-option input {
+  block-size: 1px;
+  clip-path: inset(50%);
+  inline-size: 1px;
+  margin: 0;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+
+.site-settings-choice-option:hover { color: var(--text-1); }
+
+.site-settings-choice-option:has(input:checked) {
+  background: var(--bg-card);
+  /* --shadow-s wraps whole shadows in light-dark(), which only takes
+     colours, so it computes to none; spell the shadow out instead. */
+  box-shadow:
+    0 2px 8px light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.3)),
+    inset 0 0 0 1px oklch(from var(--gold) l c h / 0.45);
+  color: var(--text-1);
+}
+
+.site-settings-choice-option:has(input:checked) svg,
+.site-settings-choice-option:has(input:checked) .site-settings-aa { color: var(--gold-text); }
+
+.site-settings-choice-option:has(input:focus-visible) {
+  outline: 2px solid var(--gold-text);
+  outline-offset: 2px;
+}
+
+/* "Aa" sample at each text size */
+.site-settings-aa {
+  color: var(--text-3);
+  font-family: var(--font-serif);
+  font-size: calc(15px * var(--site-settings-aa, 1));
+  line-height: 1;
+  min-block-size: 22px;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* Toggle rows sit flush; .det-toggle-row brings the dividers */
+.site-settings-toggles { display: grid; }
+.site-settings-toggles .det-toggle-row:first-child { padding-block-start: 0; }
+
+/* "Manage ›" — a text link in a toggle row's switch slot */
+.site-settings-link {
+  align-items: center;
+  border-radius: var(--radius-btn);
+  color: var(--gold-text);
+  display: inline-flex;
+  flex: none;
+  font-size: var(--fs-ui);
+  font-weight: var(--fw-semibold);
+  gap: 4px;
+  padding: 4px 6px;
+  text-decoration: none;
+}
+.site-settings-link:hover { text-decoration: underline; }
+.site-settings-link:focus-visible {
+  outline: 2px solid var(--gold-text);
+  outline-offset: 2px;
+}
+
+/* Reset sits left, Done right */
+.site-settings .drawer-footer {
+  display: flex;
+  gap: var(--space-s);
+  justify-content: space-between;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-settings-choice-option { transition: none; }
+}
