@@ -146,15 +146,15 @@
         <section class="plan-section plan-section--wide" aria-labelledby="plan-proj-title">
           <div class="plan-section-head">
             <h3 class="plan-section-title" id="plan-proj-title">Projected value</h3>
-            <fieldset class="plan-range">
+            <fieldset class="range-pills plan-range">
               <legend class="plan-sr-only">Projection period</legend>
-              <label><input type="radio" name="plan-period" value="1M"><span>1M</span></label>
-              <label><input type="radio" name="plan-period" value="3M"><span>3M</span></label>
-              <label><input type="radio" name="plan-period" value="6M"><span>6M</span></label>
-              <label><input type="radio" name="plan-period" value="1Y"><span>1Y</span></label>
-              <label><input type="radio" name="plan-period" value="3Y"><span>3Y</span></label>
-              <label><input type="radio" name="plan-period" value="5Y" checked><span>5Y</span></label>
-              <label><input type="radio" name="plan-period" value="All"><span>All<span class="plan-sr-only"> (25 years, left to grow)</span></span></label>
+              <label><input type="radio" name="plan-period" value="1M"><span class="range-pill">1M</span></label>
+              <label><input type="radio" name="plan-period" value="3M"><span class="range-pill">3M</span></label>
+              <label><input type="radio" name="plan-period" value="6M"><span class="range-pill">6M</span></label>
+              <label><input type="radio" name="plan-period" value="1Y"><span class="range-pill">1Y</span></label>
+              <label><input type="radio" name="plan-period" value="3Y"><span class="range-pill">3Y</span></label>
+              <label><input type="radio" name="plan-period" value="5Y" checked><span class="range-pill">5Y</span></label>
+              <label><input type="radio" name="plan-period" value="All"><span class="range-pill">All<span class="plan-sr-only"> (25 years, left to grow)</span></span></label>
             </fieldset>
           </div>
 
@@ -191,10 +191,10 @@
               <span class="plan-goal-status" data-goal-status></span>
               <span class="plan-goal-detail" data-goal-detail></span>
             </p>
-            <fieldset class="plan-range plan-view">
+            <fieldset class="range-pills plan-range plan-view">
               <legend class="plan-sr-only">Show the projection as</legend>
-              <label><input type="radio" name="plan-view" value="chart" checked><span>Chart</span></label>
-              <label><input type="radio" name="plan-view" value="table"><span>Table</span></label>
+              <label><input type="radio" name="plan-view" value="chart" checked><span class="range-pill">Chart</span></label>
+              <label><input type="radio" name="plan-view" value="table"><span class="range-pill">Table</span></label>
             </fieldset>
           </div>
 
@@ -220,10 +220,10 @@
         <section class="plan-section plan-section--alloc plan-flippable" aria-labelledby="plan-alloc-title">
           <div class="plan-section-head">
             <h3 class="plan-section-title" id="plan-alloc-title">How it’s split</h3>
-            <fieldset class="plan-range plan-view">
+            <fieldset class="range-pills plan-range plan-view">
               <legend class="plan-sr-only">Show the allocation as</legend>
-              <label><input type="radio" name="plan-alloc-view" value="chart" checked><span>Chart</span></label>
-              <label><input type="radio" name="plan-alloc-view" value="table"><span>Table</span></label>
+              <label><input type="radio" name="plan-alloc-view" value="chart" checked><span class="range-pill">Chart</span></label>
+              <label><input type="radio" name="plan-alloc-view" value="table"><span class="range-pill">Table</span></label>
             </fieldset>
           </div>
 
@@ -232,7 +232,7 @@
               <div class="card plan-flip-face plan-flip-face--front">
                 <div class="plan-alloc">
                   <div class="plan-chart plan-chart--donut" id="plan-alloc-chart"></div>
-                  <ul class="plan-legend" id="plan-alloc-legend" aria-label="Allocation by asset class"></ul>
+                  <ul class="legend plan-legend" id="plan-alloc-legend" aria-label="Allocation by asset class"></ul>
                 </div>
               </div>
               <div class="card plan-flip-face plan-flip-face--back">

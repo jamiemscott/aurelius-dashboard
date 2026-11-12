@@ -81,11 +81,6 @@
   max-width: 440px;
 }
 
-.utility-brand-headline em {
-  color: var(--gold);
-  font-style: italic;
-}
-
 .utility-brand-rule {
   background: linear-gradient(to right, rgba(245,166,35,0.7), transparent);
   height: 1px;
@@ -106,7 +101,7 @@
   padding: 0;
 }
 
-.utility-brand-quote cite {
+.utility-brand-cite {
   color: rgba(255,255,255,0.22);
   display: block;
   font-size: 10px;

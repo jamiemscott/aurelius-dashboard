@@ -59,11 +59,6 @@ html:has(.theme-checkbox:checked) .gl-hero {
   margin: 0 0 20px;
 }
 
-.gl-hero-heading em {
-  color: var(--gold);
-  font-style: italic;
-}
-
 .gl-hero-sub {
   color: var(--text-3);
   font-size: var(--fs-lg);
