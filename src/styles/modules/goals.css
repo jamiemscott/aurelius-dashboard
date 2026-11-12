@@ -172,8 +172,8 @@ html:has(.theme-checkbox:checked) .gl-hero-stats {
 }
 
 /* Entry card stretches to fill its grid cell */
-#ava-entry-container,
-#ava-entry-container .ava-entry-card {
+.ava-entry-slot,
+.ava-entry-slot .ava-entry-card {
   flex: 1;
   height: 100%;
 }
