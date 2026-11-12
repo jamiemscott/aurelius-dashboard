@@ -277,7 +277,7 @@ function populateStep3() {
   const reviewTable = document.getElementById('ai-review-table');
   if (reviewTable) {
     reviewTable.innerHTML = reviewRows.map(([label, val]) =>
-      `<div class="ai-review-row"><dt>${label}</dt><dd>${val}</dd></div>`
+      `<div class="review-row"><dt class="review-row-label">${label}</dt><dd class="review-row-value">${val}</dd></div>`
     ).join('');
   }
 
@@ -292,7 +292,7 @@ function populateStep3() {
   if (regCharges) {
     regCharges.innerHTML = chargeRows.map(([label, val], i) => {
       const isTotal = i === chargeRows.length - 1;
-      return `<div class="ai-reg-row${isTotal ? ' is-total' : ''}"><dt>${label}</dt><dd>${val}</dd></div>`;
+      return `<div class="summary-row${isTotal ? ' summary-row--total' : ''}"><dt class="summary-row-label">${label}</dt><dd class="summary-row-value">${val}</dd></div>`;
     }).join('');
   }
 
@@ -339,7 +339,7 @@ function populateStep4() {
   const summaryEl = document.getElementById('ai-confirm-summary');
   if (summaryEl) {
     summaryEl.innerHTML = summaryRows.map(([label, val]) =>
-      `<div class="ai-review-row"><dt>${label}</dt><dd>${val}</dd></div>`
+      `<div class="review-row"><dt class="review-row-label">${label}</dt><dd class="review-row-value">${val}</dd></div>`
     ).join('');
   }
 

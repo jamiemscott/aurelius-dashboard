@@ -700,6 +700,69 @@
       </div>
     </section>
 
+    <!-- ── Summary List ───────────────────────────────────── -->
+    <section class="sg-section" id="summary-list">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Summary List — <code>.summary-list</code></h2>
+        <p class="sg-section-desc">The compact sibling of <code>.review-row</code>: label/value lines with no borders, for side panels such as the Add Investment order summary and charges. The last line can take <code>.summary-row--total</code>. Classes rather than <code>dt</code>/<code>dd</code>, so OutSystems can use them on <code>div</code> and <code>span</code>.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="sg-fit-card">
+          <dl class="summary-list">
+            <div class="summary-row"><dt class="summary-row-label">OCF (annual)</dt><dd class="summary-row-value">0.07%</dd></div>
+            <div class="summary-row"><dt class="summary-row-label">Platform fee (0.25%)</dt><dd class="summary-row-value">£6.25</dd></div>
+            <div class="summary-row"><dt class="summary-row-label">Dealing charge</dt><dd class="summary-row-value">£0.00</dd></div>
+            <div class="summary-row summary-row--total"><dt class="summary-row-label">Est. total</dt><dd class="summary-row-value">£2,506.25</dd></div>
+          </dl>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;dl class="summary-list"&gt;
+  &lt;div class="summary-row"&gt;
+    &lt;dt class="summary-row-label"&gt;Dealing charge&lt;/dt&gt;
+    &lt;dd class="summary-row-value"&gt;£0.00&lt;/dd&gt;
+  &lt;/div&gt;
+  &lt;div class="summary-row summary-row--total"&gt;
+    &lt;dt class="summary-row-label"&gt;Est. total&lt;/dt&gt;
+    &lt;dd class="summary-row-value"&gt;£2,506.25&lt;/dd&gt;
+  &lt;/div&gt;
+&lt;/dl&gt;
+
+&lt;!-- OutSystems --&gt;
+&lt;div class="summary-list"&gt;
+  &lt;div class="summary-row"&gt;&lt;span class="summary-row-label"&gt;…&lt;/span&gt;&lt;span class="summary-row-value"&gt;…&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Point List ─────────────────────────────────────── -->
+    <section class="sg-section" id="point-list">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Point List — <code>.point-list</code></h2>
+        <p class="sg-section-desc">Muted bullet points, such as key risks. Each <code>.point-list-item</code> draws its own bullet, so it works on an <code>li</code> or, in OutSystems, a <code>p</code> inside a <code>div</code>.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="sg-fit-card">
+          <ul class="point-list">
+            <li class="point-list-item">The value of investments can fall as well as rise.</li>
+            <li class="point-list-item">Past performance is not a reliable indicator of future results.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;ul class="point-list"&gt;
+  &lt;li class="point-list-item"&gt;The value of investments can fall as well as rise.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- OutSystems --&gt;
+&lt;div class="point-list"&gt;
+  &lt;p class="point-list-item"&gt;…&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
     <!-- ── Success State ──────────────────────────────────── -->
     <section class="sg-section" id="form-success">
       <div class="sg-section-header">
