@@ -141,13 +141,25 @@ html:has(.theme-checkbox:checked) {
    xl      0 16px 40px rgba(0,0,0,0.14)    0 16px 40px rgba(0,0,0,0.44)  modals, overlays
    inner   inset top highlight                                             sunken surfaces
                                                                                           */
+/* light-dark() accepts colours only. Wrapping a whole shadow in it
+   (as these tokens used to) is invalid, so every box-shadow that
+   used one, including .card's, computed to none. Each shadow now
+   keeps one geometry and only its colour switches, the same
+   approach as src/osui-theme/tokens.css. m uses the dark blur
+   (18px), as dark is the default theme.                          */
 :root {
+  --shadow-ink-xs: light-dark(rgba(0, 0, 0, 0.07), rgba(0, 0, 0, 0.22));
+  --shadow-ink-s:  light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.26));
+  --shadow-ink-m:  light-dark(rgba(0, 0, 0, 0.10), rgba(0, 0, 0, 0.30));
+  --shadow-ink-l:  light-dark(rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.36));
+  --shadow-ink-xl: light-dark(rgba(0, 0, 0, 0.14), rgba(0, 0, 0, 0.44));
+
   --shadow-none:  none;
-  --shadow-xs:    light-dark(0 1px  3px rgba(0, 0, 0, 0.07), 0 1px  3px rgba(0, 0, 0, 0.22));
-  --shadow-s:     light-dark(0 2px  8px rgba(0, 0, 0, 0.08), 0 2px  8px rgba(0, 0, 0, 0.26));
-  --shadow-m:     light-dark(0 4px 16px rgba(0, 0, 0, 0.10), 0 4px 18px rgba(0, 0, 0, 0.30));
-  --shadow-l:     light-dark(0 8px 28px rgba(0, 0, 0, 0.12), 0 8px 28px rgba(0, 0, 0, 0.36));
-  --shadow-xl:    light-dark(0 16px 40px rgba(0, 0, 0, 0.14), 0 16px 40px rgba(0, 0, 0, 0.44));
+  --shadow-xs:    0 1px  3px var(--shadow-ink-xs);
+  --shadow-s:     0 2px  8px var(--shadow-ink-s);
+  --shadow-m:     0 4px 18px var(--shadow-ink-m);
+  --shadow-l:     0 8px 28px var(--shadow-ink-l);
+  --shadow-xl:    0 16px 40px var(--shadow-ink-xl);
   --shadow-inner: inset 0 1px 0 light-dark(rgba(255, 255, 255, 0.80), rgba(255, 255, 255, 0.08));
 
   /* Semantic alias — backwards compat for existing module CSS */
