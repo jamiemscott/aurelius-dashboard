@@ -43,9 +43,9 @@
    only the colours and the hover glow differ.                  */
 .btn-inverse,
 .btn-inverse:hover {
-  /* White with the faintest violet wash towards the far corner */
-  background: linear-gradient(135deg, #FFFFFF 40%, #F1EAFF 100%);
-  color: #4C1D95;                 /* 10:1 on white, 9:1 on the tint */
+  /* White with a soft violet wash towards the far corner */
+  background: linear-gradient(135deg, #FFFFFF 25%, #E4D6FF 100%);
+  color: #4C1D95;                 /* 10:1 on white, 8:1 on the tint */
 }
 .btn-inverse:hover { box-shadow: 0 4px 18px rgba(255, 255, 255, 0.45); }
 .btn-inverse:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 3px; }
@@ -194,6 +194,7 @@ a.btn-secondary { text-decoration: underline; text-decoration-color: transparent
 .promo-banner {
   align-items: flex-start;        /* stacked: headline, text, button */
   flex-direction: column;
+  gap: 24px;                      /* headline + text, then the button */
   isolation: isolate;
   justify-content: center;
   overflow: hidden;
@@ -259,7 +260,7 @@ a.btn-secondary { text-decoration: underline; text-decoration-color: transparent
   margin: 4px 0 0;
 }
 
-.promo-banner__text { margin-block-start: 8px; max-inline-size: 36ch; }
+.promo-banner__text { margin-block-start: 14px; max-inline-size: 36ch; }
 
 .ai-banner__cta {
   background: rgba(255, 255, 255, 0.15);
