@@ -58,6 +58,12 @@
 
 .filter-select:focus { border-color: var(--gold); }
 
+/* ODC wraps a select in .dropdown-container and adds its own arrow
+   with ::after (an OSUI icon-font glyph). .filter-select draws its
+   own chevron, so hide OSUI's to avoid a double arrow. Only selects
+   with .filter-select are affected; other OSUI dropdowns keep theirs. */
+.dropdown-container:has(> .filter-select)::after { content: none; }
+
 /* ─── GOLD RULE ──────────────────────────────────────── */
 .gold-rule {
   background: linear-gradient(90deg, var(--gold), transparent);
