@@ -278,6 +278,7 @@
   border-block-start: 1px solid var(--border);
   display: flex;
   flex-shrink: 0;
+  flex-wrap: wrap;   /* two long buttons stack on a phone instead of spilling over */
   gap: 8px;
   justify-content: flex-end;
   padding: 14px 22px;

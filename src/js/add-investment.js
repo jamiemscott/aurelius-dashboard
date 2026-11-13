@@ -114,7 +114,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const tradeDateEl = document.getElementById('ai-trade-date');
   if (tradeDateEl) tradeDateEl.value = nextBusinessDay();
   aiState.tradeDate = nextBusinessDay();
+
+  applyPrefill();
 });
+
+/* "Change and resubmit" on a rejected order (My Investments) links
+   here as ?isin=…&wrapper=isa&amount=8240. Pick that fund, fill in
+   the account and amount, and open step 2 so the client can adjust
+   them. Without ?isin the wizard starts as normal.               */
+function applyPrefill() {
+  const params = new URLSearchParams(window.location.search);
+  const isin = params.get('isin');
+  if (!isin) return;
+  const card = document.querySelector('.ai-fund-card[data-isin="' + CSS.escape(isin) + '"]');
+  if (!card) return;
+  selectFund(card);
+  const wrapper = params.get('wrapper');
+  if (WRAPPER_CAPTIONS[wrapper] && wrapper !== 'jisa') setWrapper(wrapper);
+  const amount = parseFloat(params.get('amount'));
+  const amountEl = document.getElementById('ai-amount');
+  if (amount > 0 && amountEl) { setMethod('amount'); amountEl.value = amount; }
+  goToStep(2);
+}
 
 function filterFunds() {
   const query = (document.getElementById('ai-search')?.value || '').toLowerCase();
