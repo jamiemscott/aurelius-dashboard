@@ -213,13 +213,6 @@
                   <img src="../src/images/ntt-data-logo.png" class="footer-sponsor-img" width="220" height="45" alt="" aria-hidden="true">
                 </span>
               </a>
-              <span class="footer-sponsor-sep" aria-hidden="true"></span>
-              <a href="#" class="footer-sponsor-link" aria-label="U Impact">
-                <span class="footer-sponsor-logo-wrap">
-                  <img src="../src/images/u-impact.png"
-                       class="footer-sponsor-img" alt="" aria-hidden="true">
-                </span>
-              </a>
             </div>
           </div>
         </div>
@@ -247,7 +240,7 @@
     <section class="sg-section" id="footer-sponsors">
       <div class="sg-section-header">
         <h2 class="sg-section-title">Sponsor Logo Strip — <code>.footer-sponsors</code></h2>
-        <p class="sg-section-desc">Three partner logos displayed in a row with thin pipe separators: <strong>OutSystems</strong>, <strong>NTT Data</strong>, and <strong>U Impact</strong>. Each logo is its own PNG with a transparent background, shown 28px tall by <code>.footer-sponsor-img</code>: <code>outsystems-logo.png</code> (233×45), <code>ntt-data-logo.png</code> (220×45) and <code>u-impact.png</code>. Each logo is wrapped in a <code>.footer-sponsor-logo-wrap</code> pill that uses <code>light-dark()</code> to stay invisible in light mode and show a white-tinted background in dark mode, preventing the PNG white backgrounds from clashing with the dark footer.</p>
+        <p class="sg-section-desc">Two partner logos displayed in a row with a thin pipe separator: <strong>OutSystems</strong> and <strong>NTT Data</strong>. Each logo is its own PNG with a transparent background, shown 28px tall by <code>.footer-sponsor-img</code>: <code>outsystems-logo.png</code> (233×45) and <code>ntt-data-logo.png</code> (220×45). Each logo is wrapped in a <code>.footer-sponsor-logo-wrap</code> pill that uses <code>light-dark()</code> to stay invisible in light mode and show a white-tinted background in dark mode, preventing the PNG white backgrounds from clashing with the dark footer.</p>
       </div>
 
       <!-- Live demo -->
@@ -269,13 +262,6 @@
                    class="footer-sponsor-link" aria-label="NTT Data (opens in new tab)">
                   <span class="footer-sponsor-logo-wrap">
                     <img src="../src/images/ntt-data-logo.png" class="footer-sponsor-img" width="220" height="45" alt="" aria-hidden="true">
-                  </span>
-                </a>
-                <span class="footer-sponsor-sep" aria-hidden="true"></span>
-                <a href="#" class="footer-sponsor-link" aria-label="U Impact">
-                  <span class="footer-sponsor-logo-wrap">
-                    <img src="../src/images/u-impact.png"
-                         class="footer-sponsor-img" alt="" aria-hidden="true">
                   </span>
                 </a>
               </div>
@@ -314,16 +300,6 @@
       &lt;/span&gt;
     &lt;/a&gt;
 
-    &lt;span class="footer-sponsor-sep" aria-hidden="true"&gt;&lt;/span&gt;
-
-    &lt;!-- U Impact --&gt;
-    &lt;a href="#" class="footer-sponsor-link" aria-label="U Impact"&gt;
-      &lt;span class="footer-sponsor-logo-wrap"&gt;
-        &lt;img src="src/images/u-impact.png"
-             class="footer-sponsor-img"
-             alt="" aria-hidden="true"&gt;
-      &lt;/span&gt;
-    &lt;/a&gt;
 
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
@@ -370,9 +346,9 @@
       <div class="sg-demo">
         <ul class="sg-copy">
           <li><strong>Placement.</strong> The footer lives inside <code>.main</code>, after all page content. It should be the last child of the scrolling region. Never place it inside <code>.shell</code> directly.</li>
-          <li><strong>Sponsor logo links.</strong> The <code>href</code> values on OutSystems and NTT Data use real URLs. The U Impact link is currently a placeholder (<code>#</code>) — replace with the live URL when available.</li>
+          <li><strong>Sponsor logo links.</strong> Both logos link to the partner's real site and open in a new tab.</li>
           <li><strong>Adding a sponsor logo.</strong> Add a new <code>.footer-sponsor-link</code> + <code>.footer-sponsor-logo-wrap</code> block and a <code>.footer-sponsor-sep</code> divider. If the logo PNG has a white background, the wrap's <code>light-dark()</code> pill will handle dark-mode presentation automatically. If the PNG has a transparent background, set <code>background: transparent</code> on that specific wrap.</li>
-          <li><strong>Old lockup classes.</strong> <code>.footer-sponsor-crop--os</code>, <code>.footer-sponsor-crop--ntt</code> and <code>.footer-sponsor-img--lockup</code> cropped both logos from one combined PNG. They are deprecated and stay in <code>footer.css</code> only until ODC's footer uses the two <code>.footer-sponsor-img</code> files. <code>.footer-sponsor-img--uimpact</code> is likewise an old name for <code>.footer-sponsor-img</code>.</li>
+          <li><strong>Old lockup classes.</strong> <code>.footer-sponsor-crop--os</code>, <code>.footer-sponsor-crop--ntt</code> and <code>.footer-sponsor-img--lockup</code> cropped both logos from one combined PNG. They are deprecated and stay in <code>footer.css</code> only until ODC's footer uses the two <code>.footer-sponsor-img</code> files. <code>.footer-sponsor-img--uimpact</code> is likewise an old name for <code>.footer-sponsor-img</code>; the U Impact logo has been removed from the footer.</li>
           <li><strong>CSS file.</strong> All footer styles live exclusively in <code>modules/footer.css</code> and are included in <code>bundle.css</code>. Never add footer-specific overrides to page-level stylesheets.</li>
         </ul>
       </div>
