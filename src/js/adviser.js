@@ -330,6 +330,8 @@ function buildClientProfile() {
     row('Next review', advDate(c.nextReview) + ' ' + advDueTag(c.nextReview, 'Overdue')) +
     advLatestReportRow(c, row);
 
+  buildClientDealing(c);
+
   var notes = document.getElementById('client-notes');
   if (notes) {
     var list = adviserNotes[c.slug] || [];
@@ -608,6 +610,316 @@ function buildDashboardRequests() {
       '<div class="activity-figures">' + (r.amount ? '<div class="activity-amount">' + advMoney(r.amount, 0) + '</div>' : '') +
       '<div class="activity-time">' + advWhen(r.received) + '</div></div></div>';
   }).join('') : '<div class="empty-state"><div>No requests need a reply</div><div class="empty-state-sub">You’re all caught up.</div></div>';
+}
+
+
+/* ── Dealing Instructions ───────────────────────────────────── */
+/* Orders clients place through Add Investment wait here until the
+   adviser approves or rejects them. One drawer (#dealing-drawer)
+   serves the Dealing page and Client 360; the dashboard card links
+   to the Dealing page with the reference as the hash.             */
+
+var DEALING_STATUS = {
+  awaiting: { label: 'Awaiting approval', tone: 'warning' },
+  approved: { label: 'Approved',          tone: 'success' },
+  rejected: { label: 'Rejected',          tone: 'error'   },
+};
+
+var DEALING_TYPES = {
+  Share: { color: '#3B82F6', bg: 'rgba(59,130,246,0.12)' },
+  ETF:   { color: '#8B5CF6', bg: 'rgba(139,92,246,0.12)' },
+  Fund:  { color: '#F5A623', bg: 'rgba(245,166,35,0.12)' },
+};
+
+var DEALING_ICON = '<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>';
+
+var dealingFilters = {
+  awaiting: { label: 'Awaiting approval', test: function (d) { return d.status === 'awaiting'; } },
+  approved: { label: 'Approved',          test: function (d) { return d.status === 'approved'; } },
+  rejected: { label: 'Rejected',          test: function (d) { return d.status === 'rejected'; } },
+  all:      { label: 'All instructions',  test: function () { return true; } },
+};
+
+/* mode: null, or 'reject' while the adviser picks a reason.
+   decided: true straight after a decision, to show the confirmation. */
+var dealingState = { filter: 'awaiting', query: '', openId: null, mode: null, decided: false, note: '' };
+
+function advDeal(id) { return dealingInstructions.find(function (d) { return d.id === id; }); }
+
+/* What the order is worth: the amount, or units at the latest price */
+function advDealValue(d) { return d.method === 'amount' ? d.amount : d.units * d.price; }
+
+function advDealSize(d) {
+  return d.method === 'amount' ? advMoney(d.amount, 0) : d.units.toLocaleString('en-GB') + ' units · ≈ ' + advMoney(advDealValue(d), 0);
+}
+
+function advDealOrder(d) { return d.order === 'limit' ? 'Limit at ' + advMoney(d.limitPrice, 2) : 'Market'; }
+
+/* Sidebar badges and any count marked data-dealing-count */
+function advSyncDealingCounts() {
+  var n = dealingInstructions.filter(dealingFilters.awaiting.test).length;
+  document.querySelectorAll('[data-dealing-count]').forEach(function (el) {
+    el.textContent = String(n);
+    el.hidden = !n;
+  });
+  return n;
+}
+
+/* A row that opens the drawer: the Dealing page and Client 360 */
+function advDealEntry(d, withClient) {
+  var c = advClient(d.client);
+  var type = DEALING_TYPES[d.fund.type];
+  var st = DEALING_STATUS[d.status];
+  var waiting = d.status === 'awaiting';
+  return '<button class="doc-entry' + (waiting ? ' is-unread' : '') + '" type="button" popovertarget="dealing-drawer" data-dealing="' + d.id + '">' +
+    '<span class="doc-entry-dot' + (waiting ? ' is-on' : '') + '"></span>' +
+    '<span class="doc-entry-icon" style="--doc-cat-color:' + type.color + ';--doc-cat-bg:' + type.bg + '" aria-hidden="true">' +
+      '<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">' + DEALING_ICON + '</svg></span>' +
+    '<span class="doc-entry-body">' +
+      '<span class="doc-entry-name">' + (withClient ? c.name + ' — ' : '') + d.fund.name + '</span>' +
+      '<span class="doc-entry-meta">' +
+        '<span class="doc-cat-chip" style="--doc-cat-color:' + type.color + '">' + d.fund.type + '</span>' +
+        '<span class="doc-meta-dot">·</span><span class="doc-account-chip">' + advDealSize(d) + '</span>' +
+        '<span class="doc-meta-dot">·</span><span>' + advDealOrder(d) + '</span>' +
+        '<span class="doc-meta-dot">·</span><span>' + d.id + '</span>' +
+      '</span>' +
+    '</span>' +
+    '<span class="doc-entry-date">' + advWhen(d.submitted) + '</span>' +
+    advTag(st.label, st.tone) +
+  '</button>';
+}
+
+/* Wire #dealing-drawer once. onChange runs after a decision and when
+   the drawer closes, so the page behind can redraw its list.        */
+function advInitDealingDrawer(onChange) {
+  var drawer = document.getElementById('dealing-drawer');
+  if (!drawer) return null;
+
+  /* Fill the drawer before the popover opens (the click runs ahead
+     of popovertarget's default action).                           */
+  document.addEventListener('click', function (e) {
+    var row = e.target.closest('[data-dealing]');
+    if (!row) return;
+    advOpenDeal(row.dataset.dealing);
+  });
+
+  drawer.addEventListener('input', function (e) {
+    if (e.target.id === 'dealing-note') dealingState.note = e.target.value;
+    advSyncDealingConfirm();
+  });
+  drawer.addEventListener('change', advSyncDealingConfirm);
+
+  drawer.addEventListener('click', function (e) {
+    var act = e.target.closest('[data-action]');
+    if (!act) return;
+    var d = advDeal(dealingState.openId);
+    var a = act.dataset.action;
+    if (a === 'reject') dealingState.mode = 'reject';
+    if (a === 'back')   dealingState.mode = null;
+    if (a === 'approve' || a === 'confirm-reject') {
+      d.status = a === 'approve' ? 'approved' : 'rejected';
+      d.decision = { at: advNow(), note: dealingState.note.trim() };
+      if (a === 'confirm-reject') d.decision.reason = document.getElementById('dealing-reason').value;
+      dealingState.mode = null;
+      dealingState.decided = true;
+      advSyncDealingCounts();
+      if (onChange) onChange();
+    }
+    renderDealingDrawer();
+    if (a === 'reject') document.getElementById('dealing-reason').focus();
+  });
+
+  drawer.addEventListener('toggle', function (e) {
+    if (e.newState === 'closed' && onChange) onChange();
+  });
+  return drawer;
+}
+
+function advOpenDeal(id) {
+  dealingState.openId = id;
+  dealingState.mode = null;
+  dealingState.decided = false;
+  dealingState.note = '';
+  renderDealingDrawer();
+}
+
+/* Confirm rejection stays disabled until a reason is chosen */
+function advSyncDealingConfirm() {
+  var btn = document.querySelector('#dealing-drawer [data-action="confirm-reject"]');
+  var reason = document.getElementById('dealing-reason');
+  if (btn && reason) btn.disabled = !reason.value;
+}
+
+function renderDealingDrawer() {
+  var d = advDeal(dealingState.openId);
+  if (!d) return;
+  var c = advClient(d.client);
+  var st = DEALING_STATUS[d.status];
+  var row = function (label, value) {
+    return '<div class="review-row"><span class="review-row-label">' + label + '</span><span class="review-row-value">' + value + '</span></div>';
+  };
+
+  advSetText('dealing-drawer-media', advInitials(c.name));
+  advSetText('dealing-drawer-title', c.name);
+  var sub = document.getElementById('dealing-drawer-subtitle');
+  if (sub) sub.innerHTML = advTag(st.label, st.tone) + ' <a href="' + advClientUrl(c.slug) + '">' + c.ref + '</a> · ' + d.id;
+
+  var html = '';
+  if (dealingState.decided) {
+    var approved = d.status === 'approved';
+    html += '<div class="form-success" role="status">' +
+      '<div class="form-success-icon" aria-hidden="true"><svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>' +
+      '<h3 class="form-success-title">' + (approved ? 'Approved and sent to market' : 'Instruction rejected') + '</h3>' +
+      '<p class="form-success-sub">' + (approved
+        ? 'The order will be placed on ' + advDate(d.tradeDate) + '. ' + c.name.split(' ')[0] + ' has been told it’s on its way.'
+        : c.name.split(' ')[0] + ' has been told why, and can change the order and send it again.') + '</p>' +
+      '<div class="form-ref-badge"><span class="form-ref-label">Reference</span><span class="form-ref-value">' + d.id + '</span></div></div>';
+  }
+
+  var cashShort = d.status === 'awaiting' ? advDealValue(d) - c.cash : 0;
+  html += '<div class="review-card">' +
+    row('Investment', d.fund.name + ' · ' + d.fund.ticker) +
+    row('ISIN', d.fund.isin) +
+    row('Account', d.wrapper) +
+    row(d.method === 'amount' ? 'Amount' : 'Units', advDealSize(d)) +
+    row('Latest price', advMoney(d.price, 2) + ' · ' + advWhen(d.priceAt, true)) +
+    row('Order type', advDealOrder(d)) +
+    row('Trade date', advDate(d.tradeDate)) +
+    (d.status === 'awaiting' ? row('Cash available', advMoney(c.cash, 0) + (cashShort > 0 ? ' ' + advTag('Short by ' + advMoney(cashShort, 0), 'error') : '')) : '') +
+    row('Found through', d.source.via === 'smart' ? 'Smart Search · ' + d.source.reason : 'Browse') +
+    (d.notes ? row('Client’s note', d.notes) : '') +
+    row('Submitted', advWhen(d.submitted)) +
+    '</div>';
+
+  var footer = '';
+  if (d.status === 'awaiting') {
+    html += '<h3 class="section-heading">Your decision</h3><div class="drawer-fields">';
+    if (dealingState.mode === 'reject') {
+      html += '<div class="field"><label class="field-label" for="dealing-reason">Reason</label>' +
+        '<select class="det-select" id="dealing-reason" required><option value="">Choose a reason</option>' +
+        Object.keys(DEALING_REJECT_REASONS).map(function (k) { return '<option value="' + k + '">' + DEALING_REJECT_REASONS[k] + '</option>'; }).join('') +
+        '</select></div>';
+    }
+    html += '<div class="field"><label class="field-label" for="dealing-note">' +
+      (dealingState.mode === 'reject' ? 'Message to ' + c.name.split(' ')[0] : 'Note for the file (optional)') + '</label>' +
+      '<textarea id="dealing-note" rows="3" maxlength="600">' + dealingState.note.replace(/</g, '&lt;') + '</textarea></div></div>';
+    footer = dealingState.mode === 'reject'
+      ? '<button class="btn-secondary" type="button" data-action="back">Back</button>' +
+        '<button class="btn-primary" type="button" data-action="confirm-reject" disabled>Confirm rejection</button>'
+      : '<button class="btn-secondary btn-danger" type="button" data-action="reject">Reject</button>' +
+        '<button class="btn-primary" type="button" data-action="approve">Approve</button>';
+  } else {
+    var dec = d.decision;
+    html += '<h3 class="section-heading">Decision</h3><div class="review-card">' +
+      row(st.label, advWhen(dec.at) + ' · ' + ADVISER.name) +
+      (dec.reason ? row('Reason', DEALING_REJECT_REASONS[dec.reason]) : '') +
+      (dec.note ? row(d.status === 'rejected' ? 'Message' : 'Note', dec.note) : '') +
+      '</div>';
+    footer = '<a class="btn-secondary" href="/adviser-dashboard/' + ADVISER.slug + '/messages/#' + c.slug + '">Message ' + c.name.split(' ')[0] + '</a>' +
+      '<button class="btn-primary" type="button" popovertarget="dealing-drawer" popovertargetaction="hide">Done</button>';
+  }
+
+  document.getElementById('dealing-drawer-body').innerHTML = html;
+  document.getElementById('dealing-drawer-footer').innerHTML = footer;
+}
+
+function buildDealingPage() {
+  var list = document.getElementById('dealing-list');
+  if (!list) return;
+  var tabs   = document.getElementById('dealing-tabs');
+  var search = document.getElementById('dealing-search');
+
+  function renderList() {
+    Object.keys(dealingFilters).forEach(function (k) {
+      advSetText('dealing-count-' + k, String(dealingInstructions.filter(dealingFilters[k].test).length));
+    });
+    var waiting = advSyncDealingCounts();
+    var value = dealingInstructions.filter(dealingFilters.awaiting.test).reduce(function (s, d) { return s + advDealValue(d); }, 0);
+    advSetText('dealing-summary', waiting + ' awaiting approval' + (waiting ? ' · ' + advMoney(value, 0) + ' in total' : ''));
+
+    var q = dealingState.query.trim().toLowerCase();
+    var rows = dealingInstructions
+      .filter(dealingFilters[dealingState.filter].test)
+      .filter(function (d) {
+        if (!q) return true;
+        var c = advClient(d.client);
+        return (c.name + ' ' + d.fund.name + ' ' + d.fund.ticker + ' ' + d.fund.isin + ' ' + d.id + ' ' + d.wrapper).toLowerCase().indexOf(q) !== -1;
+      })
+      .sort(function (a, b) { return b.submitted.localeCompare(a.submitted); });
+
+    var heading = '<div class="doc-group-hd"><span class="doc-group-label">' + dealingFilters[dealingState.filter].label + '</span>' +
+      '<span class="doc-group-count">' + rows.length + ' instruction' + (rows.length === 1 ? '' : 's') + '</span></div>';
+
+    if (!rows.length) {
+      list.innerHTML = '<div class="doc-group">' + heading + '<div class="card empty-state">' +
+        '<svg aria-hidden="true" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">' + DEALING_ICON + '</svg>' +
+        '<div>' + (q ? 'No instructions match' : 'Nothing here') + '</div>' +
+        '<div class="empty-state-sub">' + (q ? 'Try a client, investment, ISIN or reference.' : 'You’re all caught up.') + '</div></div></div>';
+      return;
+    }
+    list.innerHTML = '<div class="doc-group">' + heading + '<div class="card">' +
+      rows.map(function (d) { return advDealEntry(d, true); }).join('') + '</div></div>';
+  }
+
+  if (tabs) tabs.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-filter]');
+    if (!btn) return;
+    dealingState.filter = btn.dataset.filter;
+    tabs.querySelectorAll('[data-filter]').forEach(function (b) {
+      var on = b === btn;
+      b.classList.toggle('is-active', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
+    renderList();
+  });
+
+  if (search) search.addEventListener('input', function () { dealingState.query = search.value; renderList(); });
+
+  var drawer = advInitDealingDrawer(renderList);
+  renderList();
+
+  /* Deep link: /dealing/#REF-20261111-0417 opens that instruction */
+  var d = advDeal(window.location.hash.slice(1));
+  if (d && drawer) {
+    if (!dealingFilters[dealingState.filter].test(d)) tabs && tabs.querySelector('[data-filter="all"]').click();
+    advOpenDeal(d.id);
+    drawer.showPopover();
+  }
+}
+
+function buildDashboardDealing() {
+  var el = document.getElementById('adv-dealing');
+  if (!el) return;
+  var rows = dealingInstructions.filter(dealingFilters.awaiting.test)
+    .sort(function (a, b) { return b.submitted.localeCompare(a.submitted); });
+  advSetText('adv-dealing-sub', rows.length + ' awaiting your approval');
+  el.innerHTML = rows.length ? rows.map(function (d) {
+    var c = advClient(d.client);
+    return '<div class="activity-item">' +
+      '<div class="activity-icon is-div" aria-hidden="true"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">' + DEALING_ICON + '</svg></div>' +
+      '<div class="activity-body"><div class="activity-title"><a href="/adviser-dashboard/' + ADVISER.slug + '/dealing/#' + d.id + '">' + c.name + '</a></div>' +
+      '<div class="activity-sub">' + d.fund.name + ' · ' + d.wrapper + (d.order === 'limit' ? ' ' + advTag('Limit', 'gold') : '') + '</div></div>' +
+      '<div class="activity-figures"><div class="activity-amount">' + advMoney(advDealValue(d), 0) + '</div>' +
+      '<div class="activity-time">' + advWhen(d.submitted) + '</div></div></div>';
+  }).join('') : '<div class="empty-state"><div>No instructions to approve</div><div class="empty-state-sub">You’re all caught up.</div></div>';
+}
+
+/* Client 360: this client's instructions, opening the same drawer */
+function buildClientDealing(c) {
+  var el = document.getElementById('client-dealing');
+  if (!el) return;
+  function render() {
+    var rows = dealingInstructions.filter(function (d) { return d.client === c.slug; })
+      .sort(function (a, b) { return b.submitted.localeCompare(a.submitted); });
+    var waiting = rows.filter(dealingFilters.awaiting.test).length;
+    advSetText('client-dealing-sub', rows.length ? waiting + ' awaiting approval · ' + rows.length + ' in total' : 'Orders placed through Add Investment');
+    el.innerHTML = rows.length ? rows.map(function (d) { return advDealEntry(d, false); }).join('') :
+      '<div class="empty-state">' +
+      '<svg aria-hidden="true" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">' + DEALING_ICON + '</svg>' +
+      '<div>No dealing instructions</div><div class="empty-state-sub">Orders ' + c.name.split(' ')[0] + ' places will appear here for approval.</div></div>';
+  }
+  advInitDealingDrawer(render);
+  render();
 }
 
 
@@ -2173,6 +2485,9 @@ document.addEventListener('DOMContentLoaded', function () {
   buildSuitabilityPage();
   buildMessagesPage();
   buildDashboardRequests();
+  buildDashboardDealing();
+  buildDealingPage();
+  advSyncDealingCounts();
   buildReviewsPage();
   buildKycPage();
   buildClientBook();
