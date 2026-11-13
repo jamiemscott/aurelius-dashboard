@@ -623,6 +623,7 @@ var DEALING_STATUS = {
   awaiting: { label: 'Awaiting approval', tone: 'warning' },
   approved: { label: 'Approved',          tone: 'success' },
   rejected: { label: 'Rejected',          tone: 'error'   },
+  cancelled: { label: 'Cancelled by client', tone: '' },
 };
 
 var DEALING_TYPES = {
@@ -813,8 +814,13 @@ function renderDealingDrawer() {
     html += '<h3 class="section-heading">Decision</h3><div class="review-card">' +
       row(st.label, advWhen(dec.at) + ' · ' + ADVISER.name) +
       (dec.reason ? row('Reason', DEALING_REJECT_REASONS[dec.reason]) : '') +
-      (dec.note ? row(d.status === 'rejected' ? 'Message' : 'Note', dec.note) : '') +
-      '</div>';
+      '</div>' +
+      /* A message reads as a message (activity-item, as in Adviser Notes) */
+      (dec.note ? '<div class="activity-item">' +
+        '<div class="activity-icon is-div" aria-hidden="true"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>' +
+        '<div class="activity-body"><div class="activity-title">' + (d.status === 'rejected' ? 'Your message to ' + c.name.split(' ')[0] : 'Your note') + '</div>' +
+        '<div class="activity-sub">' + dec.note.replace(/</g, '&lt;') + '</div></div>' +
+        '<div class="activity-figures"><div class="activity-time">' + advWhen(dec.at) + '</div></div></div>' : '');
     footer = '<a class="btn-secondary" href="/adviser-dashboard/' + ADVISER.slug + '/messages/#' + c.slug + '">Message ' + c.name.split(' ')[0] + '</a>' +
       '<button class="btn-primary" type="button" popovertarget="dealing-drawer" popovertargetaction="hide">Done</button>';
   }
