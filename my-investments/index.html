@@ -142,8 +142,10 @@
       <div class="card stat-chip"><div class="stat-chip-label">Cash (GBP)</div><div class="stat-chip-value">£31,800</div></div>
     </div>
 
-    <!-- Your orders: dealing instructions waiting for, or decided by,
-         the adviser. orders.js renders the rows from dealing-data.js. -->
+    <!-- Your orders (2/3) beside a promotion (1/3). The orders are
+         dealing instructions waiting for, or decided by, the adviser;
+         orders.js renders the rows from dealing-data.js.            -->
+    <div class="two-col two-thirds-split">
     <div class="card card-pad">
       <div class="chart-header">
         <div>
@@ -153,6 +155,19 @@
         <a class="btn-secondary btn-secondary--sm" href="/my-investments/add-investment/">Add Investment</a>
       </div>
       <div id="orders-list"></div>
+    </div>
+
+    <!-- Promotion: the shared .promo-banner (same look as the AI banner) -->
+    <div class="promo-banner" role="complementary" aria-label="Saving for the future">
+      <div class="promo-banner__icon" aria-hidden="true">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+      </div>
+      <div class="promo-banner__body">
+        <h2 class="promo-banner__heading">Use your &#xA3;8,240 ISA allowance</h2>
+        <p class="promo-banner__text">Saving for the future? Your allowance resets on 6 April. Plan how much to put away, and where, with Aurelius.</p>
+      </div>
+      <a class="promo-banner__cta" href="/chat/plan-my-future/">Plan my future</a>
+    </div>
     </div>
 
     <div class="card">
