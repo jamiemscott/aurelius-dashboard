@@ -256,7 +256,7 @@
     <section class="sg-section" id="ai-banner">
       <div class="sg-section-header">
         <h2 class="sg-section-title">AI Promotional Banner — <code>.ai-banner</code></h2>
-        <p class="sg-section-desc">A full-width gradient card promoting the Aurelius AI agent. Sits between the page header and the KPI strip on My Overview. Shares the same blue→violet gradient as <code>.btn-ai</code>. Dismissable for the session via JS — on dismiss the banner hides and the <code>.btn-ai</code> in <code>.header-actions</code> is revealed. The description text (<code>.ai-banner__text</code>) collapses below 900px to keep the banner compact on smaller viewports. The same component serves any other call to action as <code>.promo-banner</code> (with <code>__body</code>, <code>__heading</code> and <code>__text</code>), such as &#x201C;Use your ISA allowance&#x201D; beside Your Orders on My Investments. A promo stacks a serif headline, the text and a <code>.btn-inverse</code> button, with the Aurelius monogram as a faint watermark.</p>
+        <p class="sg-section-desc">A full-width gradient card promoting the Aurelius AI agent. Sits between the page header and the KPI strip on My Overview. Shares the same blue→violet gradient as <code>.btn-ai</code>. Dismissable for the session via JS — on dismiss the banner hides and the <code>.btn-ai</code> in <code>.header-actions</code> is revealed. The description text (<code>.ai-banner__text</code>) collapses below 900px to keep the banner compact on smaller viewports. The same gradient serves any other call to action as <a href="#promo-banner"><code>.promo-banner</code></a>.</p>
         <p class="sg-section-desc"><strong>Button visibility rule:</strong> when the banner is shown the header <code>.btn-ai</code> must be hidden (the <code>hidden</code> attribute), since both serve the same purpose. They are mutually exclusive — never display both simultaneously.</p>
       </div>
       <div class="sg-demo">
@@ -333,6 +333,47 @@
   });
 }());
 &lt;/script&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ── Promo Banner ──────────────────────────────────── -->
+    <section class="sg-section" id="promo-banner">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Promo Banner — <code>.promo-banner</code></h2>
+        <p class="sg-section-desc">A call to action in the <code>.ai-banner</code> gradient, for anywhere other than the AI banner on My Overview, such as &#x201C;Use your ISA allowance&#x201D; in the 1/3 column beside Your Orders on My Investments. It stacks a 28px serif headline, a short line of text and one <code>.btn-inverse</code> button, with 24px between the text and the button. The Aurelius monogram bleeds off the bottom-right corner as a faint watermark (hidden in forced-colours mode). It has no icon and can't be dismissed.</p>
+      </div>
+      <div class="sg-demo">
+        <div class="sg-cols-3">
+          <div class="promo-banner" role="complementary" aria-label="Saving for the future">
+            <div class="promo-banner__body">
+              <h2 class="promo-banner__heading">Use your &#xA3;8,240 ISA allowance</h2>
+              <p class="promo-banner__text">Saving for the future? Your allowance resets on 6 April. Plan how much to put away, and where, with Aurelius.</p>
+            </div>
+            <a class="btn-inverse" href="#">Plan my future</a>
+          </div>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="promo-banner" role="complementary" aria-label="Saving for the future"&gt;
+  &lt;div class="promo-banner__body"&gt;
+    &lt;h2 class="promo-banner__heading"&gt;Use your &amp;#xA3;8,240 ISA allowance&lt;/h2&gt;
+    &lt;p class="promo-banner__text"&gt;Saving for the future? Your allowance resets on 6 April. …&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;a class="btn-inverse" href="/chat/plan-my-future/"&gt;Plan my future&lt;/a&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+      <div class="sg-demo sg-demo--flush">
+        <table class="sg-table sg-table--roomy">
+          <thead><tr><th>Class</th><th>Role</th><th>Apply to</th></tr></thead>
+          <tbody>
+            <tr><td class="sg-token">.promo-banner</td><td>The gradient card: a column, 24px padding, with the monogram watermark</td><td>Container; Attributes <code>role="complementary"</code> and an <code>aria-label</code></td></tr>
+            <tr><td class="sg-token">.promo-banner__body</td><td>Groups the headline and the text</td><td>Container</td></tr>
+            <tr><td class="sg-token">.promo-banner__heading</td><td>The offer, in DM Serif Display at 28px</td><td>HTML Element with Tag <code>h2</code></td></tr>
+            <tr><td class="sg-token">.promo-banner__text</td><td>One or two sentences, up to 36 characters wide</td><td>HTML Element with Tag <code>p</code></td></tr>
+            <tr><td class="sg-token">.btn-inverse</td><td>The one action. See <a href="#btn-inverse">Inverse Button</a></td><td>Link or Button</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
 

@@ -209,6 +209,30 @@
       </div>
     </section>
 
+    <!-- ── Filter Select ──────────────────────────────────── -->
+    <section class="sg-section" id="filter-select">
+      <div class="sg-section-header">
+        <h2 class="sg-section-title">Filter Select — <code>.filter-select</code></h2>
+        <p class="sg-section-desc">A compact select for filtering a page or a card, such as the account filter on My Investments, Asset Allocation and Valuation History, or the tax year on Capital Gains Tax. It has no visible label, so give it an <code>aria-label</code>. It draws its own chevron, so the native arrow is turned off. Several sit side by side in a <code>.filter-row</code>. Selects are full width by default, so put the row in a flex header (like <code>.header-actions</code>), where each select shrinks to fit its options.</p>
+        <p class="sg-section-desc"><strong>On OutSystems:</strong> the Dropdown widget wraps the select in a <code>.dropdown-container</code>, which adds its own arrow with <code>::after</code>. The bundle hides that arrow whenever the container holds a <code>.filter-select</code>, so add <code>filter-select</code> to the Dropdown's Style Classes and only one chevron shows.</p>
+      </div>
+      <div class="sg-demo sg-demo--row">
+        <div class="filter-row">
+          <select class="filter-select" aria-label="Account filter"><option>All accounts</option><option>Advised SIPP</option><option>ISA</option></select>
+          <select class="filter-select" aria-label="Date range"><option>Last 3 months</option><option>1 year</option><option>All time</option></select>
+        </div>
+      </div>
+      <div class="sg-code">
+        <button class="sg-copy-btn" aria-label="Copy code"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+        <pre><code class="language-html">&lt;div class="filter-row"&gt;
+  &lt;select class="filter-select" aria-label="Account filter"&gt;
+    &lt;option&gt;All accounts&lt;/option&gt;
+    &lt;option&gt;Advised SIPP&lt;/option&gt;
+  &lt;/select&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
     <!-- ── Checkboxes ─────────────────────────────────────── -->
     <section class="sg-section" id="checkboxes">
       <div class="sg-section-header">
