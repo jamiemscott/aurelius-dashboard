@@ -166,6 +166,33 @@ a.btn-secondary { text-decoration: underline; text-decoration-color: transparent
 
 .ai-banner { margin-block-end: 20px; }
 
+/* A promo carries the Aurelius monogram as a faint watermark,
+   bleeding off the bottom-right corner. It's a white mask over the
+   brand SVG, so it follows the banner's text colour, and sits
+   behind the content (isolation keeps it above the gradient). */
+.promo-banner {
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.promo-banner::after {
+  aspect-ratio: 944 / 792;          /* the monogram's viewBox */
+  background: currentColor;
+  block-size: 150%;
+  content: '';
+  inset-block-end: -28%;
+  inset-inline-end: -12%;
+  mask: url('../images/brand/aurelius-monogram.svg') center / contain no-repeat;
+  opacity: 0.12;
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+}
+
+@media (forced-colors: active) {
+  .promo-banner::after { display: none; }
+}
+
 .ai-banner__icon,
 .promo-banner__icon {
   align-items: center;
