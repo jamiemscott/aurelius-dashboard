@@ -1410,8 +1410,10 @@
   grid-template-columns: repeat(5, 1fr);
 }
 
+/* Solid card colour so the label stays readable over the wave */
 .ob-el-chip {
   align-items: center;
+  background: light-dark(var(--neutral-0), #08090d);
   border: 1px solid var(--border-input);
   border-radius: 3px;
   display: flex;
