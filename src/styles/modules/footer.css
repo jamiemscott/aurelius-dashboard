@@ -132,9 +132,8 @@
 
 /* ─── SPONSOR LOGOS ──────────────────────────────────── */
 /* Partner/sponsor strip that sits alongside the regulatory
-   text block in .footer-regulatory. Three logos are displayed
-   in a row with pipe separators: OutSystems | NTT Data | U Impact.
-   The OS/NTT lockup image is split in two via CSS overflow crop. */
+   text block in .footer-regulatory. Two logos are displayed
+   in a row with a pipe separator: OutSystems | NTT Data. */
 
 .footer-sponsors {
   flex-shrink: 0;
@@ -188,8 +187,8 @@
 }
 
 /* ── Partner logo image ── one file per partner, shown 28px tall.
-   .footer-sponsor-img--uimpact is the old name for the U Impact logo,
-   kept as an alias until ODC's footer switches to .footer-sponsor-img. */
+   .footer-sponsor-img--uimpact was the U Impact logo's class (logo now
+   removed); kept as an alias until ODC's footer no longer uses it. */
 .footer-sponsor-img,
 .footer-sponsor-img--uimpact {
   display: block;
