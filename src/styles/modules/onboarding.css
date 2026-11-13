@@ -49,7 +49,15 @@
   width: 100%;
 }
 
+/* The brand wave sits behind every screen. A veil in the card colour
+   fades it to about 28% strength, matching the wave behind .main,
+   without a pseudo-element or positioning, so each screen carries it
+   on its own Container in ODC.                                      */
 .ob-screen {
+  --ob-wave-veil: color-mix(in srgb, light-dark(var(--neutral-0), #08090d) 72%, transparent);
+  background:
+    linear-gradient(var(--ob-wave-veil), var(--ob-wave-veil)),
+    url('../images/wave.svg') center / cover no-repeat;
   display: none;
   flex-direction: column;
   height: 100dvh;
@@ -889,7 +897,7 @@
 /* ─── 15. COMPLETE SCREEN ────────────────────────────────────────────────────── */
 
 .ob-screen--complete {
-  background: light-dark(var(--neutral-0), #08090d);
+  background-color: light-dark(var(--neutral-0), #08090d);
   justify-content: flex-start;
 }
 
