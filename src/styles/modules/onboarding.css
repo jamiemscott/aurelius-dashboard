@@ -367,6 +367,14 @@
   width: 100%;
 }
 
+/* Track ring: the first circle in the dial. Its stroke attribute is
+   3% white, which vanishes on the light card and over the wave, so
+   CSS (which beats SVG presentation attributes) sets a visible band.
+   Structural selector so ODC's SVG needs no class.                  */
+.ob-dial-svg > circle:first-child {
+  stroke: light-dark(var(--neutral-2), rgb(255 255 255 / 0.08));
+}
+
 .ob-dial-inner {
   align-items: center;
   bottom: 0;
